@@ -230,7 +230,7 @@
          <optional>true</optional>
       </dependency>
       <dependency>
-         <groupId>jakarta.platform</groupId><artifactId>jakarta.jakartaee-api</artifactId><version>8.0.0</version>
+         <groupId>jakarta.platform</groupId><artifactId>jakarta.jakartaee-api</artifactId><version>9.1.0</version>
          <optional>true</optional>
          <exclusions>
             <exclusion><groupId>com.sun.mail</groupId><artifactId>jakarta.mail</artifactId></exclusion>
