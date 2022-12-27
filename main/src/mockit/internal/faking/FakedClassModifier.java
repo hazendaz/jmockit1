@@ -4,361 +4,383 @@
  */
 package mockit.internal.faking;
 
-import javax.annotation.*;
-import static java.lang.reflect.Modifier.*;
+import static java.lang.reflect.Modifier.isAbstract;
+import static java.lang.reflect.Modifier.isNative;
+import static java.lang.reflect.Modifier.isPublic;
+import static java.lang.reflect.Modifier.isStatic;
+import static mockit.asm.jvmConstants.Opcodes.ACONST_NULL;
+import static mockit.asm.jvmConstants.Opcodes.ALOAD;
+import static mockit.asm.jvmConstants.Opcodes.CHECKCAST;
+import static mockit.asm.jvmConstants.Opcodes.DUP;
+import static mockit.asm.jvmConstants.Opcodes.DUP_X1;
+import static mockit.asm.jvmConstants.Opcodes.IFEQ;
+import static mockit.asm.jvmConstants.Opcodes.IFNE;
+import static mockit.asm.jvmConstants.Opcodes.IF_ACMPEQ;
+import static mockit.asm.jvmConstants.Opcodes.ILOAD;
+import static mockit.asm.jvmConstants.Opcodes.INSTANCEOF;
+import static mockit.asm.jvmConstants.Opcodes.INVOKESTATIC;
+import static mockit.asm.jvmConstants.Opcodes.INVOKEVIRTUAL;
+import static mockit.asm.jvmConstants.Opcodes.IRETURN;
+import static mockit.asm.jvmConstants.Opcodes.RETURN;
+import static mockit.asm.jvmConstants.Opcodes.SIPUSH;
 
-import mockit.*;
-import mockit.asm.classes.*;
-import mockit.asm.controlFlow.*;
-import mockit.asm.jvmConstants.*;
-import mockit.asm.methods.*;
-import mockit.asm.types.*;
-import mockit.internal.*;
-import mockit.internal.faking.FakeMethods.*;
-import mockit.internal.state.*;
-import mockit.internal.util.*;
-import static mockit.asm.jvmConstants.Opcodes.*;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import mockit.MockUp;
+import mockit.asm.classes.ClassReader;
+import mockit.asm.controlFlow.Label;
+import mockit.asm.jvmConstants.Access;
+import mockit.asm.methods.MethodVisitor;
+import mockit.asm.types.JavaType;
+import mockit.asm.types.ReferenceType;
+import mockit.internal.BaseClassModifier;
+import mockit.internal.faking.FakeMethods.FakeMethod;
+import mockit.internal.state.TestRun;
+import mockit.internal.util.ClassLoad;
 
 /**
  * Responsible for generating all necessary bytecode in the redefined (real) class.
  * Such code will redirect calls made on "real" methods to equivalent calls on the corresponding "fake" methods.
  * The original code won't be executed by the running JVM until the class redefinition is undone.
- * <p>
+ * <p/>
  * Methods in the real class with no corresponding fake methods are unaffected.
- * <p>
+ * <p/>
  * Any fields (static or not) in the real class remain untouched.
  */
 final class FakedClassModifier extends BaseClassModifier
 {
-   private static final int ABSTRACT_OR_SYNTHETIC = Access.ABSTRACT + Access.SYNTHETIC;
+    private static final int ABSTRACT_OR_SYNTHETIC = Access.ABSTRACT + Access.SYNTHETIC;
 
-   @Nonnull private final FakeMethods fakeMethods;
-   private final boolean useClassLoadingBridgeForUpdatingFakeState;
-   @Nonnull private final Class<?> fakedClass;
-   private FakeMethod fakeMethod;
-   private boolean isConstructor;
+    @Nonnull private final FakeMethods fakeMethods;
+    private final boolean useClassLoadingBridgeForUpdatingFakeState;
+    @Nonnull private final Class<?> fakedClass;
+    private FakeMethod fakeMethod;
+    private boolean isConstructor;
 
-   /**
-    * Initializes the modifier for a given real/fake class pair.
-    * <p>
-    * The fake instance provided will receive calls for any instance methods defined in the fake class.
-    * Therefore, it needs to be later recovered by the modified bytecode inside the real method.
-    * To enable this, the fake instance is added to a global data structure made available through the {@link TestRun#getFake(String)}
-    * method.
-    *
-    * @param cr the class file reader for the real class
-    * @param realClass the class to be faked, or a base type of an implementation class to be faked
-    * @param fake an instance of the fake class
-    * @param fakeMethods contains the set of fake methods collected from the fake class; each fake method is identified by a pair composed
-    * of "name" and "desc", where "name" is the method name, and "desc" is the JVM internal description of the parameters; once the real
-    * class modification is complete this set will be empty, unless no corresponding real method was found for any of its method identifiers
-    */
-   FakedClassModifier(@Nonnull ClassReader cr, @Nonnull Class<?> realClass, @Nonnull MockUp<?> fake, @Nonnull FakeMethods fakeMethods) {
-      super(cr);
-      fakedClass = realClass;
-      this.fakeMethods = fakeMethods;
+    /**
+     * Initializes the modifier for a given real/fake class pair.
+     * <p/>
+     * The fake instance provided will receive calls for any instance methods defined in the fake class.
+     * Therefore, it needs to be later recovered by the modified bytecode inside the real method.
+     * To enable this, the fake instance is added to a global data structure made available through the {@link TestRun#getFake(String)}
+     * method.
+     *
+     * @param cr the class file reader for the real class
+     * @param realClass the class to be faked, or a base type of an implementation class to be faked
+     * @param fake an instance of the fake class
+     * @param fakeMethods contains the set of fake methods collected from the fake class; each fake method is identified by a pair composed
+     * of "name" and "desc", where "name" is the method name, and "desc" is the JVM internal description of the parameters; once the real
+     * class modification is complete this set will be empty, unless no corresponding real method was found for any of its method identifiers
+     */
+    FakedClassModifier(@Nonnull ClassReader cr, @Nonnull Class<?> realClass, @Nonnull MockUp<?> fake, @Nonnull FakeMethods fakeMethods) {
+        super(cr);
+        fakedClass = realClass;
+        this.fakeMethods = fakeMethods;
 
-      ClassLoader classLoaderOfRealClass = realClass.getClassLoader();
-      useClassLoadingBridgeForUpdatingFakeState = ClassLoad.isClassLoaderWithNoDirectAccess(classLoaderOfRealClass);
-      inferUseOfClassLoadingBridge(classLoaderOfRealClass, fake);
-   }
+        ClassLoader classLoaderOfRealClass = realClass.getClassLoader();
+        useClassLoadingBridgeForUpdatingFakeState = ClassLoad.isClassLoaderWithNoDirectAccess(classLoaderOfRealClass);
+        inferUseOfClassLoadingBridge(classLoaderOfRealClass, fake);
+    }
 
-   private void inferUseOfClassLoadingBridge(@Nullable ClassLoader classLoaderOfRealClass, @Nonnull Object fake) {
-      setUseClassLoadingBridge(classLoaderOfRealClass);
+    private void inferUseOfClassLoadingBridge(@Nullable ClassLoader classLoaderOfRealClass, @Nonnull Object fake) {
+        setUseClassLoadingBridge(classLoaderOfRealClass);
 
-      if (!useClassLoadingBridge && !isPublic(fake.getClass().getModifiers())) {
-         useClassLoadingBridge = true;
-      }
-   }
+        if (!useClassLoadingBridge && !isPublic(fake.getClass().getModifiers())) {
+            useClassLoadingBridge = true;
+        }
+    }
 
-   @Override
-   public MethodVisitor visitMethod(
-      int access, @Nonnull String name, @Nonnull String desc, @Nullable String signature, @Nullable String[] exceptions
-   ) {
-      if ((access & ABSTRACT_OR_SYNTHETIC) != 0) {
-         if (isAbstract(access)) {
-            // Marks a matching fake method (if any) as having the corresponding faked method.
-            fakeMethods.findMethod(access, name, desc, signature);
-         }
+    @Override
+    public MethodVisitor visitMethod(
+                                     int access, @Nonnull String name, @Nonnull String desc, @Nullable String signature, @Nullable String[] exceptions
+            ) {
+        if ((access & ABSTRACT_OR_SYNTHETIC) != 0) {
+            if (isAbstract(access)) {
+                // Marks a matching fake method (if any) as having the corresponding faked method.
+                fakeMethods.findMethod(access, name, desc, signature);
+            }
 
-         return cw.visitMethod(access, name, desc, signature, exceptions);
-      }
+            return cw.visitMethod(access, name, desc, signature, exceptions);
+        }
 
-      isConstructor = "<init>".equals(name);
+        isConstructor = "<init>".equals(name);
 
-      if (isConstructor && isFakedSuperclass() || !hasFake(access, name, desc, signature)) {
-         return cw.visitMethod(access, name, desc, signature, exceptions);
-      }
+        if (isConstructor && isFakedSuperclass() || !hasFake(access, name, desc, signature)) {
+            return cw.visitMethod(access, name, desc, signature, exceptions);
+        }
 
-      if (isPrivate(access)) {
-         String kindOfMember = isConstructor ? "constructor " : "method ";
-         String privateMemberDesc = fakedClass.getSimpleName() + '#' + name + desc;
-         throw new IllegalArgumentException("Unsupported fake for private " + kindOfMember + privateMemberDesc + " found");
-      }
+        /*
+        if (isPrivate(access)) {
+            String kindOfMember = isConstructor ? "constructor " : "method ";
+            String privateMemberDesc = fakedClass.getSimpleName() + '#' + name + desc;
+            throw new IllegalArgumentException("Unsupported fake for private " + kindOfMember + privateMemberDesc + " found");
+        }
+        */
+        startModifiedMethodVersion(access, name, desc, signature, exceptions);
 
-      startModifiedMethodVersion(access, name, desc, signature, exceptions);
+        if (isNative(methodAccess)) {
+            generateCodeForInterceptedNativeMethod();
+            return methodAnnotationsVisitor;
+        }
 
-      if (isNative(methodAccess)) {
-         generateCodeForInterceptedNativeMethod();
-         return methodAnnotationsVisitor;
-      }
+        return copyOriginalImplementationWithInjectedInterceptionCode();
+    }
 
-      return copyOriginalImplementationWithInjectedInterceptionCode();
-   }
+    private boolean hasFake(int access, @Nonnull String name, @Nonnull String desc, @Nullable String signature) {
+        String fakeName = getCorrespondingFakeName(name);
+        fakeMethod = fakeMethods.findMethod(access, fakeName, desc, signature);
+        return fakeMethod != null;
+    }
 
-   private boolean hasFake(int access, @Nonnull String name, @Nonnull String desc, @Nullable String signature) {
-      String fakeName = getCorrespondingFakeName(name);
-      fakeMethod = fakeMethods.findMethod(access, fakeName, desc, signature);
-      return fakeMethod != null;
-   }
+    @Nonnull
+    private static String getCorrespondingFakeName(@Nonnull String name) {
+        if ("<init>".equals(name)) {
+            return "$init";
+        }
 
-   @Nonnull
-   private static String getCorrespondingFakeName(@Nonnull String name) {
-      if ("<init>".equals(name)) {
-         return "$init";
-      }
+        if ("<clinit>".equals(name)) {
+            return "$clinit";
+        }
 
-      if ("<clinit>".equals(name)) {
-         return "$clinit";
-      }
+        return name;
+    }
 
-      return name;
-   }
+    private boolean isFakedSuperclass() { return fakedClass != fakeMethods.getRealClass(); }
 
-   private boolean isFakedSuperclass() { return fakedClass != fakeMethods.getRealClass(); }
+    private void generateCodeForInterceptedNativeMethod() {
+        generateCallToUpdateFakeState();
+        generateCallToFakeMethod();
+        generateMethodReturn();
+        mw.visitMaxStack(1); // dummy value, real one is calculated by ASM
+    }
 
-   private void generateCodeForInterceptedNativeMethod() {
-      generateCallToUpdateFakeState();
-      generateCallToFakeMethod();
-      generateMethodReturn();
-      mw.visitMaxStack(1); // dummy value, real one is calculated by ASM
-   }
+    @Override
+    protected void generateInterceptionCode() {
+        Label startOfRealImplementation = null;
 
-   @Override
-   protected void generateInterceptionCode() {
-      Label startOfRealImplementation = null;
+        if (!isStatic(methodAccess) && !isConstructor && isFakedSuperclass()) {
+            Class<?> targetClass = fakeMethods.getRealClass();
 
-      if (!isStatic(methodAccess) && !isConstructor && isFakedSuperclass()) {
-         Class<?> targetClass = fakeMethods.getRealClass();
+            if (fakedClass.getClassLoader() == targetClass.getClassLoader()) {
+                startOfRealImplementation = new Label();
+                mw.visitVarInsn(ALOAD, 0);
+                mw.visitTypeInsn(INSTANCEOF, JavaType.getInternalName(targetClass));
+                mw.visitJumpInsn(IFEQ, startOfRealImplementation);
+            }
+        }
 
-         if (fakedClass.getClassLoader() == targetClass.getClassLoader()) {
+        generateCallToUpdateFakeState();
+
+        if (isConstructor) {
+            generateConditionalCallForFakedConstructor();
+        }
+        else {
+            generateConditionalCallForFakedMethod(startOfRealImplementation);
+        }
+    }
+
+    private void generateCallToUpdateFakeState() {
+        if (useClassLoadingBridgeForUpdatingFakeState) {
+            generateCallToControlMethodThroughClassLoadingBridge();
+            mw.visitTypeInsn(CHECKCAST, "java/lang/Boolean");
+            mw.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Boolean", "booleanValue", "()Z", false);
+        }
+        else {
+            mw.visitLdcInsn(fakeMethods.getFakeClassInternalName());
+            mw.visitIntInsn(SIPUSH, fakeMethod.getIndexForFakeState());
+            mw.visitMethodInsn(INVOKESTATIC, "mockit/internal/state/TestRun", "updateFakeState", "(Ljava/lang/String;I)Z", false);
+        }
+    }
+
+    private void generateCallToControlMethodThroughClassLoadingBridge() {
+        generateCodeToObtainInstanceOfClassLoadingBridge(FakeBridge.MB);
+
+        // First and second "invoke" arguments:
+        generateCodeToPassThisOrNullIfStaticMethod();
+        mw.visitInsn(ACONST_NULL);
+
+        // Create array for call arguments (third "invoke" argument):
+        generateCodeToCreateArrayOfObject(2);
+
+        int i = 0;
+        generateCodeToFillArrayElement(i++, fakeMethods.getFakeClassInternalName());
+        generateCodeToFillArrayElement(i, fakeMethod.getIndexForFakeState());
+
+        generateCallToInvocationHandler();
+    }
+
+    private void generateConditionalCallForFakedMethod(@Nullable Label startOfRealImplementation) {
+        if (startOfRealImplementation == null) {
+            //noinspection AssignmentToMethodParameter
             startOfRealImplementation = new Label();
-            mw.visitVarInsn(ALOAD, 0);
-            mw.visitTypeInsn(INSTANCEOF, JavaType.getInternalName(targetClass));
-            mw.visitJumpInsn(IFEQ, startOfRealImplementation);
-         }
-      }
+        }
 
-      generateCallToUpdateFakeState();
+        mw.visitJumpInsn(IFEQ, startOfRealImplementation);
+        generateCallToFakeMethod();
+        generateMethodReturn();
+        mw.visitLabel(startOfRealImplementation);
+    }
 
-      if (isConstructor) {
-         generateConditionalCallForFakedConstructor();
-      }
-      else {
-         generateConditionalCallForFakedMethod(startOfRealImplementation);
-      }
-   }
+    private void generateConditionalCallForFakedConstructor() {
+        generateCallToFakeMethod();
 
-   private void generateCallToUpdateFakeState() {
-      if (useClassLoadingBridgeForUpdatingFakeState) {
-         generateCallToControlMethodThroughClassLoadingBridge();
-         mw.visitTypeInsn(CHECKCAST, "java/lang/Boolean");
-         mw.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Boolean", "booleanValue", "()Z", false);
-      }
-      else {
-         mw.visitLdcInsn(fakeMethods.getFakeClassInternalName());
-         mw.visitIntInsn(SIPUSH, fakeMethod.getIndexForFakeState());
-         mw.visitMethodInsn(INVOKESTATIC, "mockit/internal/state/TestRun", "updateFakeState", "(Ljava/lang/String;I)Z", false);
-      }
-   }
+        int jumpInsnOpcode;
 
-   private void generateCallToControlMethodThroughClassLoadingBridge() {
-      generateCodeToObtainInstanceOfClassLoadingBridge(FakeBridge.MB);
+        if (shouldUseClassLoadingBridge()) {
+            mw.visitLdcInsn(VOID_TYPE);
+            jumpInsnOpcode = IF_ACMPEQ;
+        }
+        else {
+            jumpInsnOpcode = fakeMethod.hasInvocationParameter() ? IFNE : IFEQ;
+        }
 
-      // First and second "invoke" arguments:
-      generateCodeToPassThisOrNullIfStaticMethod();
-      mw.visitInsn(ACONST_NULL);
+        Label startOfRealImplementation = new Label();
+        mw.visitJumpInsn(jumpInsnOpcode, startOfRealImplementation);
+        mw.visitInsn(RETURN);
+        mw.visitLabel(startOfRealImplementation);
+    }
 
-      // Create array for call arguments (third "invoke" argument):
-      generateCodeToCreateArrayOfObject(2);
+    private void generateCallToFakeMethod() {
+        if (shouldUseClassLoadingBridge()) {
+            generateCallToFakeMethodThroughClassLoadingBridge();
+        }
+        else {
+            generateDirectCallToFakeMethod();
+        }
+    }
 
-      int i = 0;
-      generateCodeToFillArrayElement(i++, fakeMethods.getFakeClassInternalName());
-      generateCodeToFillArrayElement(i, fakeMethod.getIndexForFakeState());
+    private boolean shouldUseClassLoadingBridge() { return useClassLoadingBridge || !fakeMethod.isPublic(); }
 
-      generateCallToInvocationHandler();
-   }
+    private void generateCallToFakeMethodThroughClassLoadingBridge() {
+        generateCodeToObtainInstanceOfClassLoadingBridge(FakeMethodBridge.MB);
 
-   private void generateConditionalCallForFakedMethod(@Nullable Label startOfRealImplementation) {
-      if (startOfRealImplementation == null) {
-         //noinspection AssignmentToMethodParameter
-         startOfRealImplementation = new Label();
-      }
+        // First and second "invoke" arguments:
+        boolean isStatic = generateCodeToPassThisOrNullIfStaticMethod();
+        mw.visitInsn(ACONST_NULL);
 
-      mw.visitJumpInsn(IFEQ, startOfRealImplementation);
-      generateCallToFakeMethod();
-      generateMethodReturn();
-      mw.visitLabel(startOfRealImplementation);
-   }
+        // Create array for call arguments (third "invoke" argument):
+        JavaType[] argTypes = JavaType.getArgumentTypes(methodDesc);
+        generateCodeToCreateArrayOfObject(6 + argTypes.length);
 
-   private void generateConditionalCallForFakedConstructor() {
-      generateCallToFakeMethod();
+        int i = 0;
+        generateCodeToFillArrayElement(i++, fakeMethods.getFakeClassInternalName());
+        generateCodeToFillArrayElement(i++, classDesc);
+        generateCodeToFillArrayElement(i++, methodAccess);
 
-      int jumpInsnOpcode;
+        if (fakeMethod.hasInvocationParameterOnly()) {
+            generateCodeToFillArrayElement(i++, methodName);
+            generateCodeToFillArrayElement(i++, methodDesc);
+        }
+        else {
+            generateCodeToFillArrayElement(i++, fakeMethod.name);
+            generateCodeToFillArrayElement(i++, fakeMethod.desc);
+        }
 
-      if (shouldUseClassLoadingBridge()) {
-         mw.visitLdcInsn(VOID_TYPE);
-         jumpInsnOpcode = IF_ACMPEQ;
-      }
-      else {
-         jumpInsnOpcode = fakeMethod.hasInvocationParameter() ? IFNE : IFEQ;
-      }
+        generateCodeToFillArrayElement(i++, fakeMethod.getIndexForFakeState());
 
-      Label startOfRealImplementation = new Label();
-      mw.visitJumpInsn(jumpInsnOpcode, startOfRealImplementation);
-      mw.visitInsn(RETURN);
-      mw.visitLabel(startOfRealImplementation);
-   }
+        generateCodeToFillArrayWithParameterValues(argTypes, i, isStatic ? 0 : 1);
+        generateCallToInvocationHandler();
+    }
 
-   private void generateCallToFakeMethod() {
-      if (shouldUseClassLoadingBridge()) {
-         generateCallToFakeMethodThroughClassLoadingBridge();
-      }
-      else {
-         generateDirectCallToFakeMethod();
-      }
-   }
+    private void generateDirectCallToFakeMethod() {
+        String fakeClassDesc = fakeMethods.getFakeClassInternalName();
+        int invokeOpcode;
 
-   private boolean shouldUseClassLoadingBridge() { return useClassLoadingBridge || !fakeMethod.isPublic(); }
+        if (fakeMethod.isStatic()) {
+            invokeOpcode = INVOKESTATIC;
+        }
+        else {
+            generateCodeToObtainFakeInstance(fakeClassDesc);
+            invokeOpcode = INVOKEVIRTUAL;
+        }
 
-   private void generateCallToFakeMethodThroughClassLoadingBridge() {
-      generateCodeToObtainInstanceOfClassLoadingBridge(FakeMethodBridge.MB);
+        boolean canProceedIntoConstructor = generateArgumentsForFakeMethodInvocation();
+        mw.visitMethodInsn(invokeOpcode, fakeClassDesc, fakeMethod.name, fakeMethod.desc, false);
 
-      // First and second "invoke" arguments:
-      boolean isStatic = generateCodeToPassThisOrNullIfStaticMethod();
-      mw.visitInsn(ACONST_NULL);
+        if (canProceedIntoConstructor) {
+            mw.visitMethodInsn(INVOKEVIRTUAL, "mockit/internal/faking/FakeInvocation", "shouldProceedIntoConstructor", "()Z", false);
+        }
+    }
 
-      // Create array for call arguments (third "invoke" argument):
-      JavaType[] argTypes = JavaType.getArgumentTypes(methodDesc);
-      generateCodeToCreateArrayOfObject(6 + argTypes.length);
+    private void generateCodeToObtainFakeInstance(@Nonnull String fakeClassDesc) {
+        mw.visitLdcInsn(fakeClassDesc);
+        mw.visitMethodInsn(INVOKESTATIC, "mockit/internal/state/TestRun", "getFake", "(Ljava/lang/String;)Ljava/lang/Object;", false);
+        mw.visitTypeInsn(CHECKCAST, fakeClassDesc);
+    }
 
-      int i = 0;
-      generateCodeToFillArrayElement(i++, fakeMethods.getFakeClassInternalName());
-      generateCodeToFillArrayElement(i++, classDesc);
-      generateCodeToFillArrayElement(i++, methodAccess);
+    private boolean generateArgumentsForFakeMethodInvocation() {
+        String fakedDesc = fakeMethod.hasInvocationParameterOnly() ? methodDesc : fakeMethod.fakeDescWithoutInvocationParameter;
+        JavaType[] argTypes = JavaType.getArgumentTypes(fakedDesc);
+        int varIndex = isStatic(methodAccess) ? 0 : 1;
+        boolean canProceedIntoConstructor = false;
 
-      if (fakeMethod.hasInvocationParameterOnly()) {
-         generateCodeToFillArrayElement(i++, methodName);
-         generateCodeToFillArrayElement(i++, methodDesc);
-      }
-      else {
-         generateCodeToFillArrayElement(i++, fakeMethod.name);
-         generateCodeToFillArrayElement(i++, fakeMethod.desc);
-      }
+        if (fakeMethod.hasInvocationParameter()) {
+            generateCallToCreateNewFakeInvocation(argTypes, varIndex);
 
-      generateCodeToFillArrayElement(i++, fakeMethod.getIndexForFakeState());
+            // When invoking a constructor, the invocation object will need to be consulted for proceeding:
+            if (isConstructor) {
+                mw.visitInsn(fakeMethod.isStatic() ? DUP : DUP_X1);
+                canProceedIntoConstructor = true;
+            }
+        }
 
-      generateCodeToFillArrayWithParameterValues(argTypes, i, isStatic ? 0 : 1);
-      generateCallToInvocationHandler();
-   }
+        if (!fakeMethod.hasInvocationParameterOnly()) {
+            passArgumentsForFakeMethodCall(argTypes, varIndex);
+        }
 
-   private void generateDirectCallToFakeMethod() {
-      String fakeClassDesc = fakeMethods.getFakeClassInternalName();
-      int invokeOpcode;
+        return canProceedIntoConstructor;
+    }
 
-      if (fakeMethod.isStatic()) {
-         invokeOpcode = INVOKESTATIC;
-      }
-      else {
-         generateCodeToObtainFakeInstance(fakeClassDesc);
-         invokeOpcode = INVOKEVIRTUAL;
-      }
+    private void generateCallToCreateNewFakeInvocation(@Nonnull JavaType[] argTypes, @Nonnegative int initialParameterIndex) {
+        generateCodeToPassThisOrNullIfStaticMethod();
 
-      boolean canProceedIntoConstructor = generateArgumentsForFakeMethodInvocation();
-      mw.visitMethodInsn(invokeOpcode, fakeClassDesc, fakeMethod.name, fakeMethod.desc, false);
+        int argCount = argTypes.length;
 
-      if (canProceedIntoConstructor) {
-         mw.visitMethodInsn(INVOKEVIRTUAL, "mockit/internal/faking/FakeInvocation", "shouldProceedIntoConstructor", "()Z", false);
-      }
-   }
+        if (argCount == 0) {
+            mw.visitInsn(ACONST_NULL);
+        }
+        else {
+            generateCodeToCreateArrayOfObject(argCount);
+            generateCodeToFillArrayWithParameterValues(argTypes, 0, initialParameterIndex);
+        }
 
-   private void generateCodeToObtainFakeInstance(@Nonnull String fakeClassDesc) {
-      mw.visitLdcInsn(fakeClassDesc);
-      mw.visitMethodInsn(INVOKESTATIC, "mockit/internal/state/TestRun", "getFake", "(Ljava/lang/String;)Ljava/lang/Object;", false);
-      mw.visitTypeInsn(CHECKCAST, fakeClassDesc);
-   }
+        mw.visitLdcInsn(fakeMethods.getFakeClassInternalName());
+        mw.visitIntInsn(SIPUSH, fakeMethod.getIndexForFakeState());
+        mw.visitLdcInsn(classDesc);
+        mw.visitLdcInsn(methodName);
+        mw.visitLdcInsn(methodDesc);
 
-   private boolean generateArgumentsForFakeMethodInvocation() {
-      String fakedDesc = fakeMethod.hasInvocationParameterOnly() ? methodDesc : fakeMethod.fakeDescWithoutInvocationParameter;
-      JavaType[] argTypes = JavaType.getArgumentTypes(fakedDesc);
-      int varIndex = isStatic(methodAccess) ? 0 : 1;
-      boolean canProceedIntoConstructor = false;
+        mw.visitMethodInsn(
+                INVOKESTATIC, "mockit/internal/faking/FakeInvocation", "create",
+                "(Ljava/lang/Object;[Ljava/lang/Object;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)" +
+                        "Lmockit/internal/faking/FakeInvocation;", false);
+    }
 
-      if (fakeMethod.hasInvocationParameter()) {
-         generateCallToCreateNewFakeInvocation(argTypes, varIndex);
+    private void passArgumentsForFakeMethodCall(@Nonnull JavaType[] argTypes, @Nonnegative int varIndex) {
+        boolean forGenericMethod = fakeMethod.isForGenericMethod();
 
-         // When invoking a constructor, the invocation object will need to be consulted for proceeding:
-         if (isConstructor) {
-            mw.visitInsn(fakeMethod.isStatic() ? DUP : DUP_X1);
-            canProceedIntoConstructor = true;
-         }
-      }
+        for (JavaType argType : argTypes) {
+            int opcode = argType.getOpcode(ILOAD);
+            mw.visitVarInsn(opcode, varIndex);
 
-      if (!fakeMethod.hasInvocationParameterOnly()) {
-         passArgumentsForFakeMethodCall(argTypes, varIndex);
-      }
+            if (forGenericMethod && argType instanceof ReferenceType) {
+                String typeDesc = ((ReferenceType) argType).getInternalName();
+                mw.visitTypeInsn(CHECKCAST, typeDesc);
+            }
 
-      return canProceedIntoConstructor;
-   }
+            varIndex += argType.getSize();
+        }
+    }
 
-   private void generateCallToCreateNewFakeInvocation(@Nonnull JavaType[] argTypes, @Nonnegative int initialParameterIndex) {
-      generateCodeToPassThisOrNullIfStaticMethod();
-
-      int argCount = argTypes.length;
-
-      if (argCount == 0) {
-         mw.visitInsn(ACONST_NULL);
-      }
-      else {
-         generateCodeToCreateArrayOfObject(argCount);
-         generateCodeToFillArrayWithParameterValues(argTypes, 0, initialParameterIndex);
-      }
-
-      mw.visitLdcInsn(fakeMethods.getFakeClassInternalName());
-      mw.visitIntInsn(SIPUSH, fakeMethod.getIndexForFakeState());
-      mw.visitLdcInsn(classDesc);
-      mw.visitLdcInsn(methodName);
-      mw.visitLdcInsn(methodDesc);
-
-      mw.visitMethodInsn(
-         INVOKESTATIC, "mockit/internal/faking/FakeInvocation", "create",
-         "(Ljava/lang/Object;[Ljava/lang/Object;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)" +
-         "Lmockit/internal/faking/FakeInvocation;", false);
-   }
-
-   private void passArgumentsForFakeMethodCall(@Nonnull JavaType[] argTypes, @Nonnegative int varIndex) {
-      boolean forGenericMethod = fakeMethod.isForGenericMethod();
-
-      for (JavaType argType : argTypes) {
-         int opcode = argType.getOpcode(ILOAD);
-         mw.visitVarInsn(opcode, varIndex);
-
-         if (forGenericMethod && argType instanceof ReferenceType) {
-            String typeDesc = ((ReferenceType) argType).getInternalName();
-            mw.visitTypeInsn(CHECKCAST, typeDesc);
-         }
-
-         varIndex += argType.getSize();
-      }
-   }
-
-   private void generateMethodReturn() {
-      if (shouldUseClassLoadingBridge() || fakeMethod.isAdvice) {
-         generateReturnWithObjectAtTopOfTheStack(methodDesc);
-      }
-      else {
-         JavaType returnType = JavaType.getReturnType(methodDesc);
-         mw.visitInsn(returnType.getOpcode(IRETURN));
-      }
-   }
+    private void generateMethodReturn() {
+        if (shouldUseClassLoadingBridge() || fakeMethod.isAdvice) {
+            generateReturnWithObjectAtTopOfTheStack(methodDesc);
+        }
+        else {
+            JavaType returnType = JavaType.getReturnType(methodDesc);
+            mw.visitInsn(returnType.getOpcode(IRETURN));
+        }
+    }
 }
