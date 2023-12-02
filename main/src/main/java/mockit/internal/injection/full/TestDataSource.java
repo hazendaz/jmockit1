@@ -119,11 +119,19 @@ final class TestDataSource {
             // noinspection unchecked
             dsClass = (Class<? extends CommonDataSource>) Class.forName(className);
             // noinspection ClassNewInstance
-            ds = dsClass.newInstance();
+            ds = dsClass.getDeclaredConstructor().newInstance();
         } catch (ClassNotFoundException | IllegalAccessException e) {
             throw new RuntimeException(e);
         } catch (InstantiationException e) {
             throw new RuntimeException(e.getCause());
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        } catch (SecurityException e) {
+            throw new RuntimeException(e);
         }
     }
 

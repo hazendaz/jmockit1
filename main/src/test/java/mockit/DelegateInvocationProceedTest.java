@@ -151,7 +151,7 @@ public final class DelegateInvocationProceedTest {
         new Expectations() {
             {
                 mocked.methodToBeMocked();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     boolean delegate(Invocation inv) {
                         return inv.proceed();
@@ -174,7 +174,7 @@ public final class DelegateInvocationProceedTest {
         new Expectations() {
             {
                 mocked.methodToBeMocked();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     boolean delegate(Invocation inv) {
                         return inv.proceed();
@@ -199,7 +199,7 @@ public final class DelegateInvocationProceedTest {
         new Expectations(mocked) {
             {
                 mocked.methodToBeMocked(anyInt);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     int delegate(Invocation inv, int i) {
                         Integer j = inv.proceed();
@@ -209,7 +209,7 @@ public final class DelegateInvocationProceedTest {
 
                 mocked.methodToBeMocked(anyInt, (Object[]) any);
                 maxTimes = 1;
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     Integer delegate(Invocation inv, int i, Object... args) {
                         args[2] = "mock";
@@ -234,7 +234,7 @@ public final class DelegateInvocationProceedTest {
         new Expectations(mocked) {
             {
                 mocked.anotherMethodToBeMocked(anyString, anyBoolean, null);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     String delegate(Invocation inv, String s, boolean b, List<Number> ints) {
                         if (!b) {
@@ -272,7 +272,7 @@ public final class DelegateInvocationProceedTest {
         new Expectations(mocked) {
             {
                 mocked.methodToBeMocked(anyInt);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     Integer delegate1(Invocation invocation, int i) {
                         return invocation.proceed(i + 2);
@@ -280,7 +280,7 @@ public final class DelegateInvocationProceedTest {
                 };
 
                 mocked.methodToBeMocked(anyInt, (Object[]) any);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     Integer delegate2(Invocation inv, int i, Object... args) {
                         Object[] newArgs = { 2, "3" };
@@ -305,7 +305,7 @@ public final class DelegateInvocationProceedTest {
         new Expectations() {
             {
                 new ClassToBeMocked();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     void init(Invocation inv) {
                         assertNotNull(inv.getInvokedInstance());
@@ -330,7 +330,7 @@ public final class DelegateInvocationProceedTest {
         new Expectations() {
             {
                 new ClassToBeMocked(anyString);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     void init(Invocation inv, String name) {
                         assertNotNull(inv.getInvokedInstance());
@@ -358,7 +358,7 @@ public final class DelegateInvocationProceedTest {
         new Expectations() {
             {
                 ProcessBuilder pb = new ProcessBuilder((String[]) any);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     void init(Invocation inv) {
                         inv.proceed();
@@ -366,7 +366,7 @@ public final class DelegateInvocationProceedTest {
                 };
 
                 pb.command();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     List<String> delegate(Invocation inv) {
                         return inv.proceed();
@@ -392,7 +392,7 @@ public final class DelegateInvocationProceedTest {
         new Expectations(obj) {
             {
                 obj.baseMethod(anyInt);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     int baseMethod(Invocation inv, int i) {
                         return inv.proceed(i + 1);
@@ -419,7 +419,7 @@ public final class DelegateInvocationProceedTest {
         new Expectations() {
             {
                 mocked.methodToBeMocked(1);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     int delegate(Invocation inv) {
                         return inv.proceed();
@@ -448,7 +448,7 @@ public final class DelegateInvocationProceedTest {
         new Expectations() {
             {
                 mockedBase.methodToBeMocked(1);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     // Will not execute when calling on subclass instance.
                     @Mock
                     int delegate(Invocation inv) {
@@ -458,7 +458,7 @@ public final class DelegateInvocationProceedTest {
                 };
 
                 mocked.methodToBeMocked(1);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     int delegate(Invocation inv) {
                         return inv.proceed();
@@ -488,7 +488,7 @@ public final class DelegateInvocationProceedTest {
         new Expectations() {
             {
                 c1.submit((Runnable) any);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     void delegate(Invocation inv) {
                         inv.proceed();

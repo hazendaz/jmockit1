@@ -268,6 +268,6 @@ public final class ClassInitializationTest {
      */
     @Test // failed on JDK 9+ only
     public void mockAbstractClassImplementingInterfaceWithStaticInitializer(@Mocked AbstractImpl mock2) {
-        assertEquals("test", mock2.CONSTANT);
+        assertEquals("test", InterfaceWithStaticInitializer.CONSTANT);
     }
 }

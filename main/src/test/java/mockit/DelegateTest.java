@@ -190,14 +190,14 @@ public final class DelegateTest {
         new Expectations() {
             {
                 collaborator.getValue();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     int getValue() {
                         return 2;
                     }
                 };
 
                 collaborator.doSomething(bExpected, iExpected, sExpected);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     String doSomething(boolean b, int[] i, String s) {
                         assertEquals(bExpected, b);
                         assertArrayEquals(iExpected, i);
@@ -223,12 +223,12 @@ public final class DelegateTest {
         new Expectations() {
             {
                 mock.getValue();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     int getValue() {
                         return 1;
                     }
                 };
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     int getValue() {
                         return 2;
                     }
@@ -255,12 +255,12 @@ public final class DelegateTest {
         new Expectations() {
             {
                 collaborator.doSomething(true, array, "");
-                returns(new Delegate() {
+                returns(new Delegate<Object>() {
                     String execute(boolean b, int[] i, String s) {
                         assertEquals(1, i[0]);
                         return "a";
                     }
-                }, new Delegate() {
+                }, new Delegate<Object>() {
                     String execute(boolean b, int[] i, String s) {
                         assertEquals(2, i[0]);
                         return "b";
@@ -286,7 +286,7 @@ public final class DelegateTest {
         new Expectations() {
             {
                 collaborator.getValue();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     int i = 1;
 
                     int getValue() {
@@ -353,7 +353,7 @@ public final class DelegateTest {
         new Expectations() {
             {
                 new Collaborator(anyInt);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     void init(int i) {
                         if (i < 0)
                             throw new IllegalArgumentException();
@@ -388,7 +388,7 @@ public final class DelegateTest {
         new Expectations() {
             {
                 new Collaborator();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     private void delegate() {
                     }
 
@@ -410,7 +410,7 @@ public final class DelegateTest {
         new Expectations() {
             {
                 Collaborator.staticMethod();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     boolean staticMethod() {
                         return false;
                     }
@@ -478,7 +478,7 @@ public final class DelegateTest {
         new Expectations() {
             {
                 mock.nativeMethod(anyBoolean);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     Long nativeMethod(boolean b) {
                         assertTrue(b);
                         return 0L;
@@ -501,7 +501,7 @@ public final class DelegateTest {
         new Expectations() {
             {
                 mock.finalMethod();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     char finalMethod() {
                         return 'M';
                     }
@@ -523,7 +523,7 @@ public final class DelegateTest {
         new Expectations() {
             {
                 collaborator.addElements(this.<List<String>>withNotNull());
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     void delegate(Collection<String> elements) {
                         elements.add("test");
                     }
@@ -548,7 +548,7 @@ public final class DelegateTest {
         new Expectations() {
             {
                 collaborator.doSomething(true, null, null);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     String delegate(boolean b, int[] i, String s) {
                         // noinspection ImplicitArrayToString
                         return b + " " + i + " " + s;
@@ -572,7 +572,7 @@ public final class DelegateTest {
         new Expectations() {
             {
                 collaborator.doSomething(true, null, "str");
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     private String someOther() {
                         return "";
                     }
@@ -597,7 +597,7 @@ public final class DelegateTest {
         new Expectations() {
             {
                 collaborator.doSomething(true, null, "str");
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     void onReplay(boolean b, int[] i, String s) {
                         assertTrue(b);
                         assertNull(i);
@@ -621,7 +621,7 @@ public final class DelegateTest {
         new Expectations() {
             {
                 collaborator.doSomething(anyBoolean, null, null);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     String onReplay() {
                         return "action";
                     }
@@ -646,7 +646,7 @@ public final class DelegateTest {
         new Expectations() {
             {
                 collaborator.doSomething(anyBoolean, null, null);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     void doSomething(Invocation inv) {
                         assertEquals(1, inv.getInvocationCount());
                     }
@@ -671,7 +671,7 @@ public final class DelegateTest {
         new Expectations() {
             {
                 collaborator.doSomething(true, null, "str");
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     void delegate(boolean b, String s) {
                     }
                 };
@@ -697,7 +697,7 @@ public final class DelegateTest {
         new Expectations() {
             {
                 collaborator.doSomething(true, null, "str");
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     String someOther() {
                         return "";
                     }
@@ -729,7 +729,7 @@ public final class DelegateTest {
             {
                 mock.getValue();
                 times = 1;
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     int executeInAnotherThread() throws Exception {
                         t.start();
                         t.join();
@@ -753,7 +753,7 @@ public final class DelegateTest {
         new Expectations() {
             {
                 mock.getValue();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     int count;
 
                     // Would result in a StackOverflowError without a termination condition.
@@ -778,7 +778,7 @@ public final class DelegateTest {
         new Expectations() {
             {
                 mock.getValue();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     int delegate() {
                         return mock.finalMethod();
                     }
@@ -802,7 +802,7 @@ public final class DelegateTest {
         new Expectations(collaborator) {
             {
                 collaborator.getValue();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     int delegate() {
                         return collaborator.finalMethod();
                     }
@@ -827,7 +827,7 @@ public final class DelegateTest {
         new Expectations() {
             {
                 mock.getValue();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     int delegate() {
                         return mock.finalMethod();
                     }
@@ -855,7 +855,7 @@ public final class DelegateTest {
                 result = 123;
 
                 mock.getValue();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     int delegate() {
                         return mock.getFoo().doSomething();
                     }
@@ -881,7 +881,7 @@ public final class DelegateTest {
         new Expectations() {
             {
                 collaborator.getFoo();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     void delegate() {
                         action.run();
                     }
@@ -909,7 +909,7 @@ public final class DelegateTest {
         new Expectations() {
             {
                 mock.getValue();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     byte delegate() {
                         return (byte) 123;
                     }
@@ -933,7 +933,7 @@ public final class DelegateTest {
         new Expectations() {
             {
                 mock.getValue();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     String delegate() {
                         return "abc";
                     }
@@ -959,7 +959,7 @@ public final class DelegateTest {
         new Expectations() {
             {
                 mock.getValue();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     void delegate() {
                     }
                 };
@@ -984,7 +984,7 @@ public final class DelegateTest {
         new Expectations() {
             {
                 mock.getArray();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     byte[] delegate() {
                         return bytes;
                     }
@@ -1008,7 +1008,7 @@ public final class DelegateTest {
         new Expectations() {
             {
                 mock.getFoo();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     Object delegate() {
                         return expected;
                     }

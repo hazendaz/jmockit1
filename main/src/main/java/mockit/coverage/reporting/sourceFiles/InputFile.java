@@ -7,7 +7,6 @@ package mockit.coverage.reporting.sourceFiles;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -27,7 +26,7 @@ public final class InputFile {
 
     @Nullable
     public static InputFile createIfFileExists(@Nonnull List<File> sourceDirs, @Nonnull String filePath)
-            throws FileNotFoundException, IOException {
+            throws IOException {
         File sourceFile = findSourceFile(sourceDirs, filePath);
         return sourceFile == null ? null : new InputFile(filePath, sourceFile);
     }
@@ -101,7 +100,7 @@ public final class InputFile {
         }
     }
 
-    private InputFile(@Nonnull String filePath, @Nonnull File sourceFile) throws FileNotFoundException, IOException {
+    private InputFile(@Nonnull String filePath, @Nonnull File sourceFile) throws IOException {
         this.filePath = filePath;
         this.sourceFile = sourceFile;
         input = new BufferedReader(new FileReader(sourceFile, StandardCharsets.UTF_8));

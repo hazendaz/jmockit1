@@ -285,9 +285,9 @@ public final class RecordAndReplayExecution {
         ReplayPhase replay = replayPhase;
 
         if (replay == null) {
-            RecordPhase record = recordPhase;
-            assert record != null;
-            return record;
+            RecordPhase recordPhaseLocal = recordPhase;
+            assert recordPhaseLocal != null;
+            return recordPhaseLocal;
         }
 
         BaseVerificationPhase verification = verificationPhase;

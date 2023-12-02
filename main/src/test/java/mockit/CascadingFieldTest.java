@@ -454,7 +454,7 @@ public final class CascadingFieldTest {
         new Expectations() {
             {
                 foo.getIntValue();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     int delegate() {
                         return foo.getBar().doSomething();
