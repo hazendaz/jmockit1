@@ -4,9 +4,11 @@
  */
 package mockit;
 
-import javax.annotation.*;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-import mockit.internal.reflection.*;
+import mockit.internal.reflection.FieldReflection;
+import mockit.internal.reflection.MethodReflection;
 import mockit.internal.util.ClassLoad;
 
 /**
