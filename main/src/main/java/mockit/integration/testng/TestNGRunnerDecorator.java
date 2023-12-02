@@ -144,7 +144,7 @@ public final class TestNGRunnerDecorator extends TestRunnerDecorator
 
         TestRun.enterNoMockingZone();
         shouldPrepareForNextTest = true;
-        savePoint.set(null);
+        savePoint.remove();
 
         Throwable thrownByTest = testResult.getThrowable();
 
