@@ -14,6 +14,7 @@ import javax.annotation.Nonnull;
 
 import mockit.Invocation;
 import mockit.internal.util.AutoBoxing;
+import mockit.internal.util.GeneratedClasses;
 
 public final class ParameterReflection {
     @Nonnull
@@ -37,6 +38,41 @@ public final class ParameterReflection {
 
         paramTypesDesc.append(')');
         return paramTypesDesc.toString();
+    }
+
+    @Nonnull
+    public static Class<?>[] getArgumentTypesFromArgumentValues(@Nonnull Object... args) {
+        if (args.length == 0) {
+            return NO_PARAMETERS;
+        }
+
+        Class<?>[] argTypes = new Class<?>[args.length];
+
+        for (int i = 0; i < args.length; i++) {
+            argTypes[i] = getArgumentTypeFromArgumentValue(i, args);
+        }
+
+        return argTypes;
+    }
+
+    @Nonnull
+    private static Class<?> getArgumentTypeFromArgumentValue(int i, @Nonnull Object[] args) {
+        Object arg = args[i];
+
+        if (arg == null) {
+            throw new IllegalArgumentException("Invalid null value passed as argument " + i);
+        }
+
+        Class<?> argType;
+
+        if (arg instanceof Class<?>) {
+            argType = (Class<?>) arg;
+            args[i] = null;
+        } else {
+            argType = GeneratedClasses.getMockedClass(arg);
+        }
+
+        return argType;
     }
 
     @Nonnull
@@ -85,7 +121,7 @@ public final class ParameterReflection {
         return true;
     }
 
-    private static boolean isSameTypeIgnoringAutoBoxing(@Nonnull Class<?> firstType, @Nonnull Class<?> secondType) {
+    static boolean isSameTypeIgnoringAutoBoxing(@Nonnull Class<?> firstType, @Nonnull Class<?> secondType) {
         return firstType == secondType || firstType.isPrimitive() && isWrapperOfPrimitiveType(firstType, secondType)
                 || secondType.isPrimitive() && isWrapperOfPrimitiveType(secondType, firstType);
     }

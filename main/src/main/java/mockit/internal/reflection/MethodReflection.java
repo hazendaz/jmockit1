@@ -7,11 +7,7 @@ package mockit.internal.reflection;
 import static java.lang.reflect.Modifier.isPrivate;
 import static java.lang.reflect.Modifier.isStatic;
 
-import static mockit.internal.reflection.ParameterReflection.acceptsArgumentTypes;
-import static mockit.internal.reflection.ParameterReflection.getParameterTypesDescription;
-import static mockit.internal.reflection.ParameterReflection.hasMoreSpecificTypes;
-import static mockit.internal.reflection.ParameterReflection.indexOfFirstRealParameter;
-import static mockit.internal.reflection.ParameterReflection.matchesParameterTypes;
+import static mockit.internal.reflection.ParameterReflection.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -32,11 +28,11 @@ public final class MethodReflection {
     }
 
     @Nullable
-    public static <T> T invokeWithCheckedThrows(@Nonnull Class<?> theClass, @Nullable Object targetInstance,
-            @Nonnull String methodName, @Nonnull Class<?>[] paramTypes, @Nonnull Object... methodArgs)
-            throws Throwable {
+    public static <T> T invoke(@Nonnull Class<?> theClass, @Nullable Object targetInstance, @Nonnull String methodName,
+            @Nonnull Class<?>[] paramTypes, @Nonnull Object... methodArgs) {
         Method method = findSpecifiedMethod(theClass, methodName, paramTypes);
-        return invokeWithCheckedThrows(targetInstance, method, methodArgs);
+        T result = invoke(targetInstance, method, methodArgs);
+        return result;
     }
 
     @Nonnull
@@ -89,7 +85,17 @@ public final class MethodReflection {
             return null;
         }
 
-        return invoke(targetInstance, publicMethod, methodArgs);
+        T result = invoke(targetInstance, publicMethod, methodArgs);
+        return result;
+    }
+
+    @Nullable
+    public static <T> T invokeWithCheckedThrows(@Nonnull Class<?> theClass, @Nullable Object targetInstance,
+            @Nonnull String methodName, @Nonnull Class<?>[] paramTypes, @Nonnull Object... methodArgs)
+            throws Throwable {
+        Method method = findSpecifiedMethod(theClass, methodName, paramTypes);
+        T result = invokeWithCheckedThrows(targetInstance, method, methodArgs);
+        return result;
     }
 
     @Nullable
@@ -109,12 +115,12 @@ public final class MethodReflection {
 
             if (cause instanceof Error) {
                 throw (Error) cause;
-            }
-            if (cause instanceof RuntimeException) {
+            } else if (cause instanceof RuntimeException) {
                 throw (RuntimeException) cause;
+            } else {
+                ThrowOfCheckedException.doThrow((Exception) cause);
+                return null;
             }
-            ThrowOfCheckedException.doThrow((Exception) cause);
-            return null;
         }
     }
 
@@ -132,6 +138,36 @@ public final class MethodReflection {
         } catch (InvocationTargetException e) {
             throw e.getCause();
         }
+    }
+
+    @Nullable
+    public static <T> T invoke(@Nonnull Class<?> theClass, @Nullable Object targetInstance, @Nonnull String methodName,
+            @Nonnull Object... methodArgs) {
+        boolean staticMethod = targetInstance == null;
+        Class<?>[] argTypes = getArgumentTypesFromArgumentValues(methodArgs);
+        Method method = staticMethod ? findCompatibleStaticMethod(theClass, methodName, argTypes)
+                : findCompatibleMethod(theClass, methodName, argTypes);
+
+        if (staticMethod && !isStatic(method.getModifiers())) {
+            throw new IllegalArgumentException(
+                    "Attempted to invoke non-static method without an instance to invoke it on");
+        }
+
+        T result = invoke(targetInstance, method, methodArgs);
+        return result;
+    }
+
+    @Nonnull
+    private static Method findCompatibleStaticMethod(@Nonnull Class<?> theClass, @Nonnull String methodName,
+            @Nonnull Class<?>[] argTypes) {
+        Method methodFound = findCompatibleMethodInClass(theClass, methodName, argTypes);
+
+        if (methodFound != null) {
+            return methodFound;
+        }
+
+        String argTypesDesc = getParameterTypesDescription(argTypes);
+        throw new IllegalArgumentException("No compatible static method found: " + methodName + argTypesDesc);
     }
 
     @Nonnull
