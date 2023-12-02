@@ -367,7 +367,7 @@ public final class ExpectationsTest {
             {
                 Dependency.staticMethod(any, null);
                 minTimes = 1;
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     int staticMethod(Object o, Exception e) {
                         return 1;
                     }

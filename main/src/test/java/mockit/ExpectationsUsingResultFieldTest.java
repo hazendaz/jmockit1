@@ -954,7 +954,7 @@ public final class ExpectationsUsingResultFieldTest {
         new Expectations() {
             {
                 mock.getBooleanArray();
-                result = new HashSet();
+                result = new HashSet<Object>();
                 mock.getStringArray();
                 result = Collections.emptyList();
                 mock.getIntArray();
@@ -992,7 +992,7 @@ public final class ExpectationsUsingResultFieldTest {
                 mock.getListItems();
                 result = Collections.emptySet();
                 mock.getSetItems();
-                result = new ArrayList();
+                result = new ArrayList<Object>();
             }
         };
 

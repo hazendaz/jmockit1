@@ -621,6 +621,7 @@ public final class CascadingParametersTest {
         InetAddress adr1 = sk.getInetAddress();
         InetAddress adr2 = sk.getLocalAddress();
         assertNotSame(adr1, adr2);
+        sk.close();
 
         new Verifications() {
             {

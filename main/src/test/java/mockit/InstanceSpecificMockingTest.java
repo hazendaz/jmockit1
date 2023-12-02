@@ -392,6 +392,7 @@ public final class InstanceSpecificMockingTest {
         InputStream concatenatedInput = new ConcatenatingInputStream(input1, input2);
         byte[] buf = new byte[3];
         concatenatedInput.read(buf);
+        concatenatedInput.close();
 
         byte[] expectedBytes = { 1, 2, 3 };
         assertArrayEquals(expectedBytes, buf);

@@ -106,7 +106,7 @@ public final class DelegateInvocationTest {
         new Expectations() {
             {
                 Collaborator.staticMethod();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     boolean staticMethod(Invocation context) {
                         assertNull(context.getInvokedInstance());
@@ -178,7 +178,7 @@ public final class DelegateInvocationTest {
         new Expectations() {
             {
                 mock.doSomething(true, null, null);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     void doSomething(Invocation invocation, Boolean b, int[] i, String s) {
                         Collaborator instance = invocation.getInvokedInstance();
@@ -211,7 +211,7 @@ public final class DelegateInvocationTest {
         new Expectations() {
             {
                 mock.getValue();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     int getValue(Invocation context) {
                         return context.getInvocationCount();
@@ -240,7 +240,7 @@ public final class DelegateInvocationTest {
         new Expectations() {
             {
                 Collaborator.staticMethod(1);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @SuppressWarnings("unused")
                     private void otherMethod(int i) {
                         fail();
@@ -268,7 +268,7 @@ public final class DelegateInvocationTest {
         new Expectations() {
             {
                 mock.publicMethod(true);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     long nonMatchingDelegate() {
                         return 123L;
@@ -291,7 +291,7 @@ public final class DelegateInvocationTest {
         new Expectations() {
             {
                 mock.publicMethod(anyBoolean);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     long differentName(Invocation invocation, boolean b) {
                         assertEquals(1, invocation.getInvocationCount());
@@ -317,18 +317,18 @@ public final class DelegateInvocationTest {
         new Expectations() {
             {
                 mock.getValue();
-                returns(new Delegate() {
+                returns(new Delegate<Object>() {
                     @Mock
                     int delegate(Invocation invocation) {
                         assertSame(mock, invocation.getInvokedInstance());
                         return invocation.getInvocationCount();
                     }
-                }, new Delegate() {
+                }, new Delegate<Object>() {
                     @Mock
                     int delegate(Invocation invocation) {
                         return invocation.getInvocationCount();
                     }
-                }, new Delegate() {
+                }, new Delegate<Object>() {
                     @Mock
                     int delegate(Invocation invocation) {
                         assertEquals(3, invocation.getInvocationCount());
@@ -363,7 +363,7 @@ public final class DelegateInvocationTest {
         new Expectations() {
             {
                 mock.call();
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     String delegate(Invocation inv) {
                         return inv.getInvokedMember().getDeclaringClass().getName();
@@ -391,7 +391,7 @@ public final class DelegateInvocationTest {
             {
                 rt.exec(anyString, null);
                 maxTimes = 1;
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     void exec(Invocation inv, String command, String[] envp) {
                         assertSame(rt, inv.getInvokedInstance());

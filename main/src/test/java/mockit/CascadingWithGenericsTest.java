@@ -744,7 +744,7 @@ public final class CascadingWithGenericsTest {
      */
     @Test
     public void cascadeFromMethodReturningInnerInstanceOfGenericClass(@Mocked final Client mock) {
-        final Outer<?>.Inner innerInstance = new Outer().new Inner();
+        final Outer<?>.Inner innerInstance = new Outer<Object>().new Inner();
 
         new Expectations() {
             {
