@@ -102,7 +102,6 @@ public final class DefaultValues {
         }
     }
 
-    @SuppressWarnings("Since15")
     private static void addJava8TypeMapEntries() {
         TYPE_DESC_TO_VALUE_MAP.put("Ljava/util/Optional;", Optional.empty());
         TYPE_DESC_TO_VALUE_MAP.put("Ljava/util/OptionalInt;", OptionalInt.empty());
@@ -309,5 +308,11 @@ public final class DefaultValues {
         }
 
         return null;
+    }
+
+    @Nullable
+    public static Object computeForReturnType(@Nonnull String methodNameAndDesc) {
+        String typeDesc = getReturnTypeDesc(methodNameAndDesc);
+        return computeForType(typeDesc);
     }
 }

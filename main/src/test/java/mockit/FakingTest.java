@@ -129,8 +129,8 @@ public final class FakingTest {
     @Test
     public void attemptToFakeGivenClassButPassNull() {
         thrown.expect(NullPointerException.class);
-
-        new MockUp<Panel>(null) {
+        Class<?> clazz = null;
+        new MockUp<Panel>(clazz) {
         };
     }
 
@@ -182,8 +182,10 @@ public final class FakingTest {
      */
     @Test
     public <M extends Panel & Runnable> void attemptToFakeClassAndInterfaceAtOnce() {
-        thrown.expect(UnsupportedOperationException.class);
-        thrown.expectMessage("Unable to capture");
+        // thrown.expect(UnsupportedOperationException.class);
+        // thrown.expectMessage("Unable to capture");
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("java.awt.Panel is not an interface");
 
         new MockUp<M>() {
             @Mock

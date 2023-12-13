@@ -222,7 +222,11 @@ public final class MockedType extends InjectionProvider {
     }
 
     boolean withInstancesToCapture() {
-        return capturing != null;
+        return getMaxInstancesToCapture() > 0;
+    }
+
+    public int getMaxInstancesToCapture() {
+        return capturing == null ? 0 : capturing.maxInstances();
     }
 
     @Nullable

@@ -104,12 +104,12 @@ public final class FieldTypeRedefinitions extends TypeRedefinitions {
     }
 
     private void registerCaptureOfNewInstances(@Nonnull MockedType mockedType) {
-        if (mockedType.withInstancesToCapture()) {
+        if (mockedType.getMaxInstancesToCapture() > 0) {
             if (captureOfNewInstances == null) {
-                captureOfNewInstances = new CaptureOfNewInstances();
+                captureOfNewInstances = new CaptureOfNewInstancesForFields();
             }
 
-            captureOfNewInstances.registerCaptureOfNewInstances(mockedType);
+            captureOfNewInstances.registerCaptureOfNewInstances(mockedType, null);
         }
     }
 
@@ -130,7 +130,7 @@ public final class FieldTypeRedefinitions extends TypeRedefinitions {
     }
 
     @Nonnull
-    private static Object assignNewInstanceToMockField(@Nonnull Object target, @Nonnull MockedType mockedType,
+    private Object assignNewInstanceToMockField(@Nonnull Object target, @Nonnull MockedType mockedType,
             @Nonnull InstanceFactory instanceFactory) {
         Field mockField = mockedType.field;
         assert mockField != null;
@@ -146,6 +146,12 @@ public final class FieldTypeRedefinitions extends TypeRedefinitions {
             }
 
             FieldReflection.setFieldValue(mockField, target, mock);
+
+            if (mockedType.getMaxInstancesToCapture() > 0) {
+                assert captureOfNewInstances != null;
+                CaptureOfNewInstancesForFields capture = (CaptureOfNewInstancesForFields) captureOfNewInstances;
+                capture.resetCaptureCount(mockField);
+            }
         }
 
         return mock;
@@ -167,7 +173,12 @@ public final class FieldTypeRedefinitions extends TypeRedefinitions {
      * appears in the code under test.
      */
     public boolean captureNewInstanceForApplicableMockField(@Nonnull Object mock) {
-        return captureOfNewInstances != null && captureOfNewInstances.captureNewInstance(mock);
+        if (captureOfNewInstances == null) {
+            return false;
+        }
+
+        Object fieldOwner = TestRun.getCurrentTestInstance();
+        return captureOfNewInstances.captureNewInstance(fieldOwner, mock);
     }
 
     @Override

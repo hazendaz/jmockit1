@@ -6,7 +6,6 @@ package mockit.internal.faking;
 
 import static java.lang.reflect.Modifier.isAbstract;
 import static java.lang.reflect.Modifier.isNative;
-import static java.lang.reflect.Modifier.isPrivate;
 import static java.lang.reflect.Modifier.isPublic;
 import static java.lang.reflect.Modifier.isStatic;
 
@@ -67,7 +66,7 @@ final class FakedClassModifier extends BaseClassModifier {
      * <p>
      * The fake instance provided will receive calls for any instance methods defined in the fake class. Therefore, it
      * needs to be later recovered by the modified bytecode inside the real method. To enable this, the fake instance is
-     * added to a global data structure made available through the {@link TestRun#getFake(String)} method.
+     * added to a global data structure made available through the {@link TestRun#getFake(String, Object)} method.
      *
      * @param cr
      *            the class file reader for the real class
@@ -116,13 +115,6 @@ final class FakedClassModifier extends BaseClassModifier {
 
         if (isConstructor && isFakedSuperclass() || !hasFake(access, name, desc, signature)) {
             return cw.visitMethod(access, name, desc, signature, exceptions);
-        }
-
-        if (isPrivate(access)) {
-            String kindOfMember = isConstructor ? "constructor " : "method ";
-            String privateMemberDesc = fakedClass.getSimpleName() + '#' + name + desc;
-            throw new IllegalArgumentException(
-                    "Unsupported fake for private " + kindOfMember + privateMemberDesc + " found");
         }
 
         startModifiedMethodVersion(access, name, desc, signature, exceptions);
@@ -196,9 +188,10 @@ final class FakedClassModifier extends BaseClassModifier {
             mw.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Boolean", "booleanValue", "()Z", false);
         } else {
             mw.visitLdcInsn(fakeMethods.getFakeClassInternalName());
+            generateCodeToPassThisOrNullIfStaticMethod();
             mw.visitIntInsn(SIPUSH, fakeMethod.getIndexForFakeState());
             mw.visitMethodInsn(INVOKESTATIC, "mockit/internal/state/TestRun", "updateFakeState",
-                    "(Ljava/lang/String;I)Z", false);
+                    "(Ljava/lang/String;Ljava/lang/Object;I)Z", false);
         }
     }
 
@@ -321,8 +314,9 @@ final class FakedClassModifier extends BaseClassModifier {
 
     private void generateCodeToObtainFakeInstance(@Nonnull String fakeClassDesc) {
         mw.visitLdcInsn(fakeClassDesc);
+        generateCodeToPassThisOrNullIfStaticMethod();
         mw.visitMethodInsn(INVOKESTATIC, "mockit/internal/state/TestRun", "getFake",
-                "(Ljava/lang/String;)Ljava/lang/Object;", false);
+                "(Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object;", false);
         mw.visitTypeInsn(CHECKCAST, fakeClassDesc);
     }
 

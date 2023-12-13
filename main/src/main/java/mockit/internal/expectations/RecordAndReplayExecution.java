@@ -225,7 +225,7 @@ public final class RecordAndReplayExecution {
             if (paramTypeRedefinitions != null) {
                 CaptureOfNewInstances paramTypeCaptures = paramTypeRedefinitions.getCaptureOfNewInstances();
 
-                if (paramTypeCaptures != null && paramTypeCaptures.captureNewInstance(mock)) {
+                if (paramTypeCaptures != null && paramTypeCaptures.captureNewInstance(null, mock)) {
                     return true;
                 }
             }

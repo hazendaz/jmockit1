@@ -34,7 +34,7 @@ import mockit.internal.classGeneration.MockedTypeInfo;
 import mockit.internal.reflection.GenericTypeReflection;
 import mockit.internal.reflection.GenericTypeReflection.GenericSignature;
 
-final class InterfaceImplementationGenerator extends BaseClassModifier {
+public final class InterfaceImplementationGenerator extends BaseClassModifier {
     private static final int CLASS_ACCESS = PUBLIC + FINAL;
     private static final EnumSet<Attribute> SIGNATURE = EnumSet.of(Attribute.Signature);
 
@@ -49,7 +49,7 @@ final class InterfaceImplementationGenerator extends BaseClassModifier {
     @Nullable
     private String[] initialSuperInterfaces;
 
-    InterfaceImplementationGenerator(@Nonnull ClassReader cr, @Nonnull Type mockedType,
+    public InterfaceImplementationGenerator(@Nonnull ClassReader cr, @Nonnull Type mockedType,
             @Nonnull String implementationClassName) {
         super(cr);
         mockedTypeInfo = new MockedTypeInfo(mockedType);

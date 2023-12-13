@@ -4,6 +4,8 @@
  */
 package mockit.internal.faking;
 
+import static mockit.internal.util.Utilities.getClassType;
+
 import java.lang.reflect.Type;
 
 import javax.annotation.Nonnull;
@@ -18,7 +20,8 @@ public final class CaptureOfFakedImplementations extends CaptureOfImplementation
     private final FakeClassSetup fakeClassSetup;
 
     public CaptureOfFakedImplementations(@Nonnull MockUp<?> fake, @Nonnull Type baseType) {
-        fakeClassSetup = new FakeClassSetup(baseType, fake);
+        Class<?> baseClassType = getClassType(baseType);
+        fakeClassSetup = new FakeClassSetup(baseClassType, baseType, fake, null);
     }
 
     @Nonnull
@@ -33,13 +36,23 @@ public final class CaptureOfFakedImplementations extends CaptureOfImplementation
         fakeClassSetup.applyClassModifications(realClass, modifiedClass);
     }
 
-    public void apply() {
-        Class<?> baseType = fakeClassSetup.realClass;
+    @Nullable
+    public <T> Class<T> apply() {
+        @SuppressWarnings("unchecked")
+        Class<T> baseType = (Class<T>) fakeClassSetup.realClass;
+        Class<T> baseClassType = baseType;
+        Class<T> fakedClass = null;
 
-        if (baseType != Object.class) {
-            redefineClass(baseType, baseType, null);
+        if (baseType.isInterface()) {
+            fakedClass = new FakedImplementationClass<T>(fakeClassSetup.fake).createImplementation(baseType);
+            baseClassType = fakedClass;
+        }
+
+        if (baseClassType != Object.class) {
+            redefineClass(baseClassType, baseType, null);
         }
 
         makeSureAllSubtypesAreModified(baseType, false, null);
+        return fakedClass;
     }
 }

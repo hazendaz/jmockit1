@@ -5,6 +5,7 @@
 package mockit.internal.reflection;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
@@ -28,6 +29,19 @@ import mockit.internal.util.ObjectMethods;
  */
 public final class MockInvocationHandler implements InvocationHandler {
     public static final InvocationHandler INSTANCE = new MockInvocationHandler();
+    private static final Class<?>[] CONSTRUCTOR_PARAMETERS_FOR_PROXY_CLASS = { InvocationHandler.class };
+
+    @Nonnull
+    public static Object newMockedInstance(@Nonnull Class<?> proxyClass) {
+        Constructor<?> publicConstructor;
+        try {
+            publicConstructor = proxyClass.getConstructor(CONSTRUCTOR_PARAMETERS_FOR_PROXY_CLASS);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
+
+        return ConstructorReflection.invokeAccessible(publicConstructor, INSTANCE);
+    }
 
     @Nullable
     @Override

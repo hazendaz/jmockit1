@@ -15,6 +15,8 @@ import java.lang.reflect.InvocationTargetException;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.objenesis.instantiator.sun.SunReflectionFactoryInstantiator;
+
 public final class ConstructorReflection {
     private ConstructorReflection() {
     }
@@ -40,6 +42,9 @@ public final class ConstructorReflection {
 
     @Nonnull
     public static <T> T invokeAccessible(@Nonnull Constructor<T> constructor, @Nonnull Object... initArgs) {
+        if (!constructor.isAccessible()) {
+            constructor.setAccessible(true);
+        }
         try {
             return constructor.newInstance(initArgs);
         } catch (InstantiationException | IllegalAccessException e) {
@@ -100,5 +105,23 @@ public final class ConstructorReflection {
         }
 
         return invokeAccessible(publicConstructor, initArgs);
+    }
+
+    @Nonnull
+    public static <T> T newInstanceUsingPublicDefaultConstructor(@Nonnull Class<T> aClass) {
+        Constructor<T> publicConstructor;
+        try {
+            publicConstructor = aClass.getConstructor();
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
+
+        return invokeAccessible(publicConstructor);
+    }
+
+    @Nonnull
+    public static <T> T newUninitializedInstance(@Nonnull Class<T> aClass) {
+        SunReflectionFactoryInstantiator<T> ref = new SunReflectionFactoryInstantiator<>(aClass);
+        return ref.newInstance();
     }
 }

@@ -40,4 +40,37 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Target(METHOD)
 public @interface Mock {
+
+    /**
+     * Number of expected invocations of the mock method. If 0 (zero), no invocations will be expected. A negative value
+     * (the default) means there is no expectation on the number of invocations; that is, the mock can be called any
+     * number of times or not at all during any test which uses it.
+     * <p>
+     * A non-negative value is equivalent to setting {@link #minInvocations minInvocations} and {@link #maxInvocations
+     * maxInvocations} to that same value.
+     *
+     * @return Number of expected invocations of the mock method
+     */
+    int invocations() default -1;
+
+    /**
+     * Minimum number of expected invocations of the mock method, starting from 0 (zero, which is the default).
+     *
+     * @return Minimum number of expected invocations of the mock method
+     *
+     * @see #invocations
+     * @see #maxInvocations
+     */
+    int minInvocations() default 0;
+
+    /**
+     * Maximum number of expected invocations of the mock method, if positive. If zero the mock is not expected to be
+     * called at all. A negative value (the default) means there is no expectation on the maximum number of invocations.
+     *
+     * @return Maximum number of expected invocations of the mock method
+     *
+     * @see #invocations
+     * @see #minInvocations
+     */
+    int maxInvocations() default -1;
 }

@@ -12,6 +12,8 @@ import static mockit.internal.util.GeneratedClasses.isGeneratedImplementationCla
 import static mockit.internal.util.Utilities.getClassType;
 
 import java.lang.instrument.ClassDefinition;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -70,6 +72,17 @@ public final class MockFixture {
     private final Map<Class<?>, byte[]> redefinedClasses;
 
     /**
+     * Subset of all currently redefined classes which contain one or more native methods.
+     * <p/>
+     * This is needed because in order to restore such methods it is necessary (for some classes) to re-register them
+     * with the JVM.
+     *
+     * @see #reregisterNativeMethodsForRestoredClass(Class)
+     */
+    @Nonnull
+    private final Set<String> redefinedClassesWithNativeMethods;
+
+    /**
      * Maps redefined real classes to the internal name of the corresponding fake classes, when it's the case.
      * <p>
      * This allows any global state associated to a fake class to be discarded when the corresponding real class is
@@ -118,6 +131,7 @@ public final class MockFixture {
     MockFixture() {
         transformedClasses = new HashMap<>(2);
         redefinedClasses = new ConcurrentHashMap<>(8);
+        redefinedClassesWithNativeMethods = new HashSet<>();
         realClassesToFakeClasses = new IdentityHashMap<>(8);
         mockedClasses = new ArrayList<>();
         mockedTypesAndInstances = new IdentityHashMap<>();
@@ -280,13 +294,12 @@ public final class MockFixture {
 
     @Nonnull
     Set<ClassIdentification> getTransformedClasses() {
-        return transformedClasses.isEmpty() ? Collections.<ClassIdentification>emptySet()
-                : new HashSet<>(transformedClasses.keySet());
+        return transformedClasses.isEmpty() ? Collections.emptySet() : new HashSet<>(transformedClasses.keySet());
     }
 
     @Nonnull
     Map<Class<?>, byte[]> getRedefinedClasses() {
-        return redefinedClasses.isEmpty() ? Collections.<Class<?>, byte[]>emptyMap() : new HashMap<>(redefinedClasses);
+        return redefinedClasses.isEmpty() ? Collections.emptyMap() : new HashMap<>(redefinedClasses);
     }
 
     private void restoreAndRemoveTransformedClasses(@Nonnull Set<ClassIdentification> classesToRestore) {
@@ -325,6 +338,9 @@ public final class MockFixture {
         if (!isGeneratedImplementationClass(redefinedClass)) {
             byte[] previousDefinition = ClassFile.getClassFile(redefinedClass);
             Startup.redefineMethods(redefinedClass, previousDefinition);
+        }
+        if (redefinedClassesWithNativeMethods.contains(redefinedClass.getName())) {
+            reregisterNativeMethodsForRestoredClass(redefinedClass);
         }
 
         removeMockedClass(redefinedClass);
@@ -370,7 +386,7 @@ public final class MockFixture {
 
     @Nonnull
     public List<Class<?>> getMockedClasses() {
-        return mockedClasses.isEmpty() ? Collections.<Class<?>>emptyList() : new ArrayList<>(mockedClasses);
+        return mockedClasses.isEmpty() ? Collections.emptyList() : new ArrayList<>(mockedClasses);
     }
 
     // Methods dealing with capture transformers ///////////////////////////////////////////////////////////////////////
@@ -427,5 +443,35 @@ public final class MockFixture {
         }
 
         return false;
+    }
+
+    private static void reregisterNativeMethodsForRestoredClass(@Nonnull Class<?> realClass) {
+        Method registerNatives = null;
+
+        try {
+            registerNatives = realClass.getDeclaredMethod("registerNatives");
+        } catch (NoSuchMethodException ignore) {
+            try {
+                registerNatives = realClass.getDeclaredMethod("initIDs");
+            } catch (NoSuchMethodException ignored) {
+            } // OK
+        }
+
+        if (registerNatives != null) {
+            try {
+                registerNatives.setAccessible(true);
+                registerNatives.invoke(null);
+            } catch (IllegalAccessException ignore) {
+            } // won't happen
+            catch (InvocationTargetException ignore) {
+            } // shouldn't happen either
+        }
+
+        // OK, although another solution will be required for this particular class if it requires
+        // natives to be explicitly registered again (not all do, such as java.lang.Float).
+    }
+
+    public void addRedefinedClassWithNativeMethods(@Nonnull String redefinedClassInternalName) {
+        redefinedClassesWithNativeMethods.add(redefinedClassInternalName.replace('/', '.'));
     }
 }

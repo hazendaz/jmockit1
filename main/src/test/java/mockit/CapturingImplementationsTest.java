@@ -9,7 +9,6 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -618,8 +617,6 @@ public final class CapturingImplementationsTest {
      * implements this interface, and the object created with that class is registered with a component using the
      * component's <code>addMyActionListener<code> method. When the myAction event occurs, that object's appropriate
      * method is invoked.
-     *
-     * @see MyActionEvent
      */
     static final class MyActionListener implements ActionListener {
         @Override

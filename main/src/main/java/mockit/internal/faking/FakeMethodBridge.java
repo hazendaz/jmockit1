@@ -14,6 +14,7 @@ import mockit.internal.ClassLoadingBridge;
 import mockit.internal.reflection.MethodReflection;
 import mockit.internal.reflection.ParameterReflection;
 import mockit.internal.state.TestRun;
+import mockit.internal.util.DefaultValues;
 import mockit.internal.util.TypeDescriptor;
 
 public final class FakeMethodBridge extends ClassLoadingBridge {
@@ -31,10 +32,10 @@ public final class FakeMethodBridge extends ClassLoadingBridge {
         String fakedClassDesc = (String) args[1];
         String fakeDesc = (String) args[4];
 
-        Object fake = TestRun.getFake(fakeClassDesc);
+        Object fake = TestRun.getFake(fakeClassDesc, fakedInstance);
 
-        if (notToBeMocked(fakedInstance, fakedClassDesc)) {
-            return Void.class;
+        if (fake == null || notToBeMocked(fakedInstance, fakedClassDesc)) {
+            return DefaultValues.computeForReturnType(fakedClassDesc);
         }
 
         String fakeName = (String) args[3];

@@ -75,7 +75,6 @@ import java.lang.annotation.Target;
  * created during the test run, for the name of the annotated field/parameter. This is useful for the creation of
  * scenario-oriented tests, where each test in a test class exercises a step in the scenario, with all of them accessing
  * the same state in one (or more) global tested objects.
- * <p>
  *
  * @see <a href="http://jmockit.github.io/tutorial/Mocking.html#tested" target="tutorial">Tutorial</a>
  */

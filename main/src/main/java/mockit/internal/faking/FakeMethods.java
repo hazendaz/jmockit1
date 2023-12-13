@@ -8,6 +8,8 @@ import static java.lang.reflect.Modifier.isNative;
 
 import static mockit.internal.util.ObjectMethods.isMethodFromObject;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import mockit.internal.ClassLoadingBridge;
 import mockit.internal.reflection.GenericTypeReflection;
 import mockit.internal.reflection.GenericTypeReflection.GenericSignature;
 import mockit.internal.state.TestRun;
+import mockit.internal.util.TypeDescriptor;
 import mockit.internal.util.Utilities;
 
 /**
@@ -148,10 +151,10 @@ final class FakeMethods {
         }
     }
 
-    FakeMethods(@Nonnull Class<?> realClass, @Nonnull Type targetType) {
+    FakeMethods(@Nonnull Class<?> realClass, @Nullable Type targetType) {
         this.realClass = realClass;
 
-        if (realClass == targetType) {
+        if (targetType == null || realClass == targetType) {
             targetTypeIsAClass = true;
         } else {
             Class<?> targetClass = Utilities.getClassType(targetType);
@@ -223,6 +226,12 @@ final class FakeMethods {
 
         for (FakeMethod fakeMethod : methods) {
             if (fakeMethod.isMatch(access, name, desc, signature)) {
+                // Mocking native methods with IntrinsicCandidate annotations will cause the VM to terminate illegally.
+                if (isNative(access) && hasIntrinsicCandidateAnnotation(getRealClass(), name, desc)) {
+                    throw new UnsupportedOperationException(
+                            "Native methods annotated with IntrinsicCandidate cannot be mocked: "
+                                    + getRealClass().getSimpleName() + "#" + name);
+                }
                 return fakeMethod;
             }
 
@@ -241,6 +250,28 @@ final class FakeMethods {
         }
 
         return null;
+    }
+
+    private boolean hasIntrinsicCandidateAnnotation(Class<?> clazz, String methodName, String methodDescriptor) {
+        Class<?>[] parameterTypes = TypeDescriptor.getParameterTypes(methodDescriptor);
+
+        try {
+            // All access modifiers
+            Method method = clazz.getDeclaredMethod(methodName, parameterTypes);
+            Annotation[] annotations = method.getAnnotations();
+
+            for (Annotation annotation : annotations) {
+                String annotationName = annotation.annotationType().getSimpleName();
+                // JDK11: jdk.internal.HotSpotIntrinsicCandidate
+                // JDK17, 21: jdk.internal.vm.annotation.IntrinsicCandidate
+                if (annotationName.contains("IntrinsicCandidate")) {
+                    return true;
+                }
+            }
+        } catch (NoSuchMethodException e) {
+            return false;
+        }
+        return false;
     }
 
     private static boolean isConstructorOrClassInitialization(@Nonnull String memberName) {

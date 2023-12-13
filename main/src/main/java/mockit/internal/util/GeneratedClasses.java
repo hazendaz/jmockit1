@@ -37,10 +37,10 @@ public final class GeneratedClasses {
     }
 
     public static boolean isGeneratedImplementationClass(@Nonnull Class<?> mockedType) {
-        return isGeneratedImplementationClass(mockedType.getName());
+        return isGeneratedImplementationClassName(mockedType.getName());
     }
 
-    private static boolean isGeneratedImplementationClass(@Nonnull String className) {
+    public static boolean isGeneratedImplementationClassName(@Nonnull String className) {
         return className.contains(IMPLCLASS_PREFIX);
     }
 
@@ -60,7 +60,7 @@ public final class GeneratedClasses {
     }
 
     public static boolean isGeneratedClass(@Nonnull String className) {
-        return isGeneratedSubclass(className) || isGeneratedImplementationClass(className);
+        return isGeneratedSubclass(className) || isGeneratedImplementationClassName(className);
     }
 
     @Nonnull

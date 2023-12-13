@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import mockit.internal.state.ParameterNames;
 
@@ -30,6 +31,13 @@ public final class MethodFormatter {
     private int typeDescPos;
     private char typeCode;
     private int arrayDimensions;
+
+    public MethodFormatter(@Nullable String classDesc) {
+        out = new StringBuilder();
+        parameterTypes = new ArrayList<>(5);
+        this.classDesc = classDesc;
+        methodDesc = "";
+    }
 
     public MethodFormatter(@Nonnull String classDesc, @Nonnull String methodNameAndDesc) {
         this(classDesc, methodNameAndDesc, true);

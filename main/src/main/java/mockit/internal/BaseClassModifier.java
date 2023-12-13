@@ -4,6 +4,7 @@
  */
 package mockit.internal;
 
+import static java.lang.reflect.Modifier.isNative;
 import static java.lang.reflect.Modifier.isStatic;
 
 import static mockit.asm.jvmConstants.Opcodes.AASTORE;
@@ -44,6 +45,7 @@ import mockit.asm.types.ObjectType;
 import mockit.asm.types.PrimitiveType;
 import mockit.asm.types.ReferenceType;
 import mockit.internal.expectations.ExecutionMode;
+import mockit.internal.state.TestRun;
 import mockit.internal.util.ClassLoad;
 import mockit.internal.util.TypeConversionBytecode;
 
@@ -103,6 +105,10 @@ public class BaseClassModifier extends WrappingClassVisitor {
         methodAccess = access;
         methodName = name;
         methodDesc = desc;
+
+        if (isNative(access)) {
+            TestRun.mockFixture().addRedefinedClassWithNativeMethods(classDesc);
+        }
     }
 
     public final boolean wasModified() {

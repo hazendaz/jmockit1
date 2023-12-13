@@ -83,12 +83,12 @@ public final class ParameterTypeRedefinitions extends TypeRedefinitions {
         return instanceFactory;
     }
 
-    private void registerCaptureOfNewInstances(@Nonnull MockedType mockedType) {
+    private void registerCaptureOfNewInstances(@Nonnull MockedType mockedType, @Nonnull Object originalInstance) {
         if (captureOfNewInstances == null) {
             captureOfNewInstances = new CaptureOfNewInstances();
         }
 
-        captureOfNewInstances.registerCaptureOfNewInstances(mockedType);
+        captureOfNewInstances.registerCaptureOfNewInstances(mockedType, originalInstance);
         captureOfNewInstances.makeSureAllSubtypesAreModified(mockedType);
     }
 
@@ -118,7 +118,7 @@ public final class ParameterTypeRedefinitions extends TypeRedefinitions {
         registerMock(mockedType, mock);
 
         if (mockedType.withInstancesToCapture()) {
-            registerCaptureOfNewInstances(mockedType);
+            registerCaptureOfNewInstances(mockedType, mock);
         }
 
         return mock;

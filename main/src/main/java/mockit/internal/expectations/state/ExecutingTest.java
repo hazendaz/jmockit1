@@ -8,7 +8,9 @@ import static mockit.internal.util.Utilities.containsReference;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -38,18 +40,16 @@ public final class ExecutingTest {
     @Nonnull
     private final List<Object> injectableMocks;
     @Nonnull
+    private final Map<Object, Object> originalToCapturedInstance;
+    @Nonnull
     private final CascadingTypes cascadingTypes;
 
     public ExecutingTest() {
-        shouldIgnoreMockingCallbacks = new ThreadLocal<>() {
-            @Override
-            protected Boolean initialValue() {
-                return false;
-            }
-        };
+        shouldIgnoreMockingCallbacks = ThreadLocal.withInitial(() -> false);
         proceedingInvocation = new ThreadLocal<>();
         regularMocks = new ArrayList<>();
         injectableMocks = new ArrayList<>();
+        originalToCapturedInstance = new IdentityHashMap<>(4);
         cascadingTypes = new CascadingTypes();
     }
 
@@ -207,5 +207,15 @@ public final class ExecutingTest {
         }
 
         cascadingTypes.clearNonSharedCascadingTypes();
+    }
+
+    public void addCapturedInstanceForInjectableMock(@Nullable Object originalInstance,
+            @Nonnull Object capturedInstance) {
+        injectableMocks.add(capturedInstance);
+        addCapturedInstance(originalInstance, capturedInstance);
+    }
+
+    public void addCapturedInstance(@Nullable Object originalInstance, @Nonnull Object capturedInstance) {
+        originalToCapturedInstance.put(capturedInstance, originalInstance);
     }
 }

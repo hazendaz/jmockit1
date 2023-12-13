@@ -45,6 +45,17 @@ final class FakeState {
         }
     }
 
+    FakeState(@Nonnull FakeState fakeState) {
+        fakeMethod = fakeState.fakeMethod;
+        actualFakeMethod = fakeState.actualFakeMethod;
+        realMethodOrConstructor = fakeState.realMethodOrConstructor;
+        invocationCountLock = new Object();
+
+        if (fakeState.proceedingInvocation != null) {
+            makeReentrant();
+        }
+    }
+
     @Nonnull
     Class<?> getRealClass() {
         return fakeMethod.getRealClass();

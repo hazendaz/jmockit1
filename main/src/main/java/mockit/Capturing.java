@@ -25,4 +25,5 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Target({ FIELD, PARAMETER })
 public @interface Capturing {
+    int maxInstances() default Integer.MAX_VALUE;
 }

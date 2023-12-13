@@ -34,7 +34,8 @@ public final class FakeInvocation extends BaseInvocation {
     public static FakeInvocation create(@Nullable Object invokedInstance, @Nullable Object[] invokedArguments,
             @Nonnull String fakeClassDesc, @Nonnegative int fakeStateIndex, @Nonnull String fakedClassDesc,
             @Nonnull String fakedMethodName, @Nonnull String fakedMethodDesc) {
-        Object fake = TestRun.getFake(fakeClassDesc);
+        Object fake = TestRun.getFake(fakeClassDesc, invokedInstance);
+        assert fake != null;
         FakeState fakeState = TestRun.getFakeStates().getFakeState(fake, fakeStateIndex);
         Object[] args = invokedArguments == null ? NO_ARGS : invokedArguments;
         return new FakeInvocation(invokedInstance, args, fakeState, fakedClassDesc, fakedMethodName, fakedMethodDesc);

@@ -7,6 +7,7 @@ package mockit.internal.classGeneration;
 import java.lang.reflect.Type;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import mockit.asm.classes.ClassReader;
 import mockit.asm.classes.ClassVisitor;
@@ -23,6 +24,8 @@ public abstract class ImplementationClass<T> {
     protected final Class<?> sourceClass;
     @Nonnull
     protected String generatedClassName;
+    @Nullable
+    private byte[] generatedBytecode;
 
     protected ImplementationClass(@Nonnull Type mockedType) {
         this(Utilities.getClassType(mockedType));
@@ -56,7 +59,8 @@ public abstract class ImplementationClass<T> {
         final byte[] modifiedClassfile = modifier.toByteArray();
 
         try {
-            return (Class<T>) new ClassLoader(parentLoader) {
+            @SuppressWarnings("unchecked")
+            Class<T> generatedClass = (Class<T>) new ClassLoader(parentLoader) {
                 @Override
                 protected Class<?> findClass(String name) throws ClassNotFoundException {
                     if (!name.equals(generatedClassName)) {
@@ -66,8 +70,16 @@ public abstract class ImplementationClass<T> {
                     return defineClass(name, modifiedClassfile, 0, modifiedClassfile.length);
                 }
             }.findClass(generatedClassName);
+            generatedBytecode = modifiedClassfile;
+
+            return generatedClass;
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("Unable to define class: " + generatedClassName, e);
         }
+    }
+
+    @Nullable
+    public final byte[] getGeneratedBytecode() {
+        return generatedBytecode;
     }
 }

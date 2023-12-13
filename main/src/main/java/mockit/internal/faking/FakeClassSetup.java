@@ -4,8 +4,6 @@
  */
 package mockit.internal.faking;
 
-import static mockit.internal.util.Utilities.getClassType;
-
 import java.lang.instrument.ClassDefinition;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
@@ -29,18 +27,26 @@ public final class FakeClassSetup {
     @Nonnull
     private final FakeMethods fakeMethods;
     @Nonnull
-    private final MockUp<?> fake;
+    final MockUp<?> fake;
     private final boolean forStartupFake;
 
-    FakeClassSetup(@Nonnull Type fakedType, @Nonnull MockUp<?> fake) {
-        this(getClassType(fakedType), fake, fakedType);
+    public FakeClassSetup(@Nonnull Class<?> realClass, @Nonnull Class<?> classToFake, @Nullable Type fakedType,
+            @Nonnull MockUp<?> fake) {
+        this(realClass, classToFake, fakedType, fake, null);
     }
 
-    public FakeClassSetup(@Nonnull Class<?> classToFake, @Nonnull MockUp<?> fake, @Nonnull Type fakedType) {
-        realClass = classToFake;
+    FakeClassSetup(@Nonnull Class<?> realClass, @Nullable Type fakedType, @Nonnull MockUp<?> fake,
+            @Nullable byte[] realClassCode) {
+        this(realClass, realClass, fakedType, fake, realClassCode);
+    }
+
+    FakeClassSetup(@Nonnull Class<?> realClass, @Nonnull Class<?> classToFake, @Nullable Type fakedType,
+            @Nonnull MockUp<?> fake, @Nullable byte[] realClassCode) {
+        this.realClass = classToFake;
         this.fake = fake;
         forStartupFake = Startup.initializing;
-        fakeMethods = new FakeMethods(classToFake, fakedType);
+        rcReader = realClassCode == null ? null : new ClassReader(realClassCode);
+        fakeMethods = new FakeMethods(realClass, fakedType);
         collectFakeMethods();
         registerFakeClassAndItsStates();
     }
@@ -62,6 +68,14 @@ public final class FakeClassSetup {
         }
     }
 
+    void redefineMethodsInGeneratedClass() {
+        byte[] modifiedClassFile = modifyRealClass(realClass);
+
+        if (modifiedClassFile != null) {
+            applyClassModifications(realClass, modifiedClassFile);
+        }
+    }
+
     public void redefineMethods() {
         @Nullable
         Class<?> classToModify = realClass;
@@ -77,6 +91,7 @@ public final class FakeClassSetup {
             classToModify = superClass == Object.class || superClass == Proxy.class ? null : superClass;
             rcReader = null;
         }
+
     }
 
     @Nullable
