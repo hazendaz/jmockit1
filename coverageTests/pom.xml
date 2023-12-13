@@ -27,7 +27,7 @@
         <module.name>com.github.hazendaz.jmockit.coverage.tests</module.name>
 
         <!-- Surefire Argline -->
-        <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/1.50.0/jmockit-1.50.0.jar=coverage</argLine>
+        <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/1.51.0/jmockit-1.51.0.jar=coverage</argLine>
     </properties>
 
     <dependencies>
@@ -59,7 +59,7 @@
                 <jdk>[17,)</jdk>
             </activation>
             <properties>
-                <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/1.50.0/jmockit-1.50.0.jar=coverage --add-opens java.base/java.lang=ALL-UNNAMED</argLine>
+                <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/1.51.0/jmockit-1.51.0.jar=coverage --add-opens java.base/java.lang=ALL-UNNAMED</argLine>
             </properties>
             <build>
                 <plugins>
