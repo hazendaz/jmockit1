@@ -88,7 +88,6 @@
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <version>2.7.2</version>
-            <classifier>jdk8</classifier>
             <scope>runtime</scope>
         </dependency>
     </dependencies>
@@ -120,7 +119,7 @@
                             <rules>
                                 <requireFilesDontExist>
                                     <files>
-                                        <file>target/coverage.check.failed</file>
+                                        <file>${project.build.directory}/coverage.check.failed</file>
                                     </files>
                                 </requireFilesDontExist>
                             </rules>
