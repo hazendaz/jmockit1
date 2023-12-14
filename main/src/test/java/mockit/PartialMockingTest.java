@@ -6,11 +6,11 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import jakarta.xml.bind.annotation.XmlElement;
+
 import java.lang.reflect.Constructor;
 import java.util.Date;
 import java.util.List;
-
-import javax.xml.bind.annotation.XmlElement;
 
 import mockit.internal.expectations.invocation.MissingInvocation;
 import mockit.internal.expectations.invocation.UnexpectedInvocation;
