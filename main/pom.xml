@@ -207,7 +207,7 @@
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
             <version>2.2</version>
-            <optional>true</optional>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -215,19 +215,24 @@
             <artifactId>testng</artifactId>
             <version>7.8.0</version>
             <optional>true</optional>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.beust</groupId>
+                    <artifactId>jcommander</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
             <version>3.7.1</version>
-            <scope>runtime</scope>
-            <optional>true</optional>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jcommander</groupId>
             <artifactId>jcommander</artifactId>
             <version>1.83</version>
-            <optional>true</optional>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -244,15 +249,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- TODO: Using this only to avoid jsr305 conflicts -->
-        <dependency>
-            <groupId>jakarta.platform</groupId>
-            <artifactId>jakarta.jakartaee-api</artifactId>
-            <version>8.0.0</version>
-            <optional>true</optional>
-        </dependency>
-
-        <!-- Will add back later once figured out jsr305 issue
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
@@ -277,7 +273,6 @@
             <version>4.0.4</version>
             <optional>true</optional>
         </dependency>
-        -->
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
