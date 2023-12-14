@@ -1,22 +1,25 @@
 package integrationTests.otherControlStructures;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-public final class SynchronizedBlocksTest {
+class SynchronizedBlocksTest {
     private final SynchronizedBlocks tested = new SynchronizedBlocks();
 
     @Test
-    public void doInSynchronizedBlock() {
+    void doInSynchronizedBlock() {
         tested.doInSynchronizedBlock();
     }
 
     @Test
-    public void doInSynchronizedBlockWithTrue() {
+    void doInSynchronizedBlockWithTrue() {
         tested.doInSynchronizedBlockWithParameter(true);
     }
 
-    @Test(expected = RuntimeException.class)
-    public void doInSynchronizedBlockWithFalse() {
-        tested.doInSynchronizedBlockWithParameter(false);
+    @Test
+    void doInSynchronizedBlockWithFalse() {
+        Assertions.assertThrows(RuntimeException.class, () -> {
+            tested.doInSynchronizedBlockWithParameter(false);
+        });
     }
 }

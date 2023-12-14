@@ -1,19 +1,19 @@
 package integrationTests.otherControlStructures;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import integrationTests.CoverageTest;
 
-public final class TryCatchFinallyStatementsTest extends CoverageTest {
+class TryCatchFinallyStatementsTest extends CoverageTest {
     TryCatchFinallyStatements tested;
 
     @Test
-    public void tryCatch() {
+    void tryCatch() {
         tested.tryCatch();
     }
 
     @Test
-    public void tryCatchWhichThrowsAndCatchesException() {
+    void tryCatchWhichThrowsAndCatchesException() {
         tested.tryCatchWhichThrowsAndCatchesException();
     }
 }

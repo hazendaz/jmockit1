@@ -1,20 +1,20 @@
 package integrationTests;
 
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import org.junit.runners.MethodSorters;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public final class UnreachableStatementsTest extends CoverageTest {
+@TestMethodOrder(MethodOrderer.MethodName.class)
+class UnreachableStatementsTest extends CoverageTest {
     UnreachableStatements tested;
 
     @Test
-    public void staticClassInitializerShouldHaveNoBranches() {
+    void staticClassInitializerShouldHaveNoBranches() {
         assertLine(3, 0, 0, 0); // one execution for each test (the constructor), plus one for the static initializer
     }
 
     @Test
-    public void nonBranchingMethodWithUnreachableLines() {
+    void nonBranchingMethodWithUnreachableLines() {
         try {
             tested.nonBranchingMethodWithUnreachableLines();
         } catch (AssertionError ignore) {
@@ -28,7 +28,7 @@ public final class UnreachableStatementsTest extends CoverageTest {
     }
 
     @Test
-    public void branchingMethodWithUnreachableLines_avoidAssertion() {
+    void branchingMethodWithUnreachableLines_avoidAssertion() {
         tested.branchingMethodWithUnreachableLines(0);
 
         assertLines(24, 30, 3);
@@ -40,7 +40,7 @@ public final class UnreachableStatementsTest extends CoverageTest {
     }
 
     @Test
-    public void branchingMethodWithUnreachableLines_hitAndFailAssertion() {
+    void branchingMethodWithUnreachableLines_hitAndFailAssertion() {
         try {
             tested.branchingMethodWithUnreachableLines(1);
         } catch (AssertionError ignore) {

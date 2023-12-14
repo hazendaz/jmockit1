@@ -1,14 +1,14 @@
 package integrationTests;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public final class ClassWithNestedClassesTest extends CoverageTest {
+class ClassWithNestedClassesTest extends CoverageTest {
     final ClassWithNestedClasses tested = null;
 
     @Test
-    public void exerciseNestedClasses() {
+    void exerciseNestedClasses() {
         ClassWithNestedClasses.doSomething();
         ClassWithNestedClasses.methodContainingAnonymousClass(1);
 

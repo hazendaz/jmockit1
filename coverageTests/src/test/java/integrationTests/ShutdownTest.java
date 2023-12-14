@@ -1,10 +1,10 @@
 package integrationTests;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public final class ShutdownTest {
+class ShutdownTest {
     @Test
-    public void addShutdownHookToExerciseSUTAfterTestRunHasFinished() {
+    void addShutdownHookToExerciseSUTAfterTestRunHasFinished() {
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {

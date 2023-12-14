@@ -1,18 +1,18 @@
 package integrationTests;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import org.junit.runners.MethodSorters;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public final class BooleanExpressionsTest extends CoverageTest {
+@TestMethodOrder(MethodOrderer.MethodName.class)
+class BooleanExpressionsTest extends CoverageTest {
     BooleanExpressions tested;
 
     @Test
-    public void evalBuggyCombination() {
+    void evalBuggyCombination() {
         // Only this combination will fail if the third condition in eval1 is changed to "z < 0",
         // which demonstrates that a more sophisticated metric than branch coverage is needed.
         assertTrue(tested.eval1(true, false, 1));
@@ -21,7 +21,7 @@ public final class BooleanExpressionsTest extends CoverageTest {
     }
 
     @Test // includes executions from the previous test
-    public void evalOnlySomeCombinations() {
+    void evalOnlySomeCombinations() {
         assertTrue(tested.eval1(true, true, 0));
         assertFalse(tested.eval1(true, false, 0));
 
@@ -29,7 +29,7 @@ public final class BooleanExpressionsTest extends CoverageTest {
     }
 
     @Test
-    public void evalAllCombinations() {
+    void evalAllCombinations() {
         assertTrue(tested.eval2(true, true, 0));
         assertTrue(tested.eval2(true, false, 1));
         assertFalse(tested.eval2(true, false, 0));
@@ -39,7 +39,7 @@ public final class BooleanExpressionsTest extends CoverageTest {
     }
 
     @Test
-    public void evalAllPaths() {
+    void evalAllPaths() {
         assertFalse(tested.eval3(false, true, false));
         assertTrue(tested.eval3(true, true, false));
         assertTrue(tested.eval3(true, false, true));
@@ -49,7 +49,7 @@ public final class BooleanExpressionsTest extends CoverageTest {
     }
 
     @Test
-    public void evalOnlyFirstAndSecondBranches() {
+    void evalOnlyFirstAndSecondBranches() {
         assertFalse(tested.eval4(false, true, false));
         assertFalse(tested.eval4(false, false, false));
         assertFalse(tested.eval4(false, true, true));
@@ -61,7 +61,7 @@ public final class BooleanExpressionsTest extends CoverageTest {
     }
 
     @Test
-    public void eval5() {
+    void eval5() {
         assertFalse(tested.eval5(false, true, true));
         assertTrue(tested.eval5(false, false, false));
 
@@ -69,14 +69,14 @@ public final class BooleanExpressionsTest extends CoverageTest {
     }
 
     @Test
-    public void methodWithComplexExpressionWhichCallsAnotherInSameClass() {
+    void methodWithComplexExpressionWhichCallsAnotherInSameClass() {
         BooleanExpressions.isSameTypeIgnoringAutoBoxing(int.class, Integer.class);
 
         // TODO: assertions
     }
 
     @Test
-    public void trivialMethodWhichReturnsBooleanInput() {
+    void trivialMethodWhichReturnsBooleanInput() {
         assertTrue(tested.simplyReturnsInput(true));
         assertFalse(tested.simplyReturnsInput(false));
 
@@ -84,20 +84,20 @@ public final class BooleanExpressionsTest extends CoverageTest {
     }
 
     @Test
-    public void methodWhichReturnsNegatedBoolean() {
+    void methodWhichReturnsNegatedBoolean() {
         assertTrue(tested.returnsNegatedInput(false));
 
         // assertLine(58, 1, 1, 1);
     }
 
     @Test
-    public void methodWithIfElseAndTrivialTernaryOperator() {
+    void methodWithIfElseAndTrivialTernaryOperator() {
         assertTrue(tested.returnsTrivialResultFromInputAfterIfElse(false, 1));
         assertFalse(tested.returnsTrivialResultFromInputAfterIfElse(true, 0));
     }
 
     @Test
-    public void methodWithTrivialTernaryOperatorAndTrivialIfElse() {
+    void methodWithTrivialTernaryOperatorAndTrivialIfElse() {
         assertTrue(tested.returnsResultPreviouslyComputedFromInput(false, 1));
         assertFalse(tested.returnsResultPreviouslyComputedFromInput(false, 0));
         assertTrue(tested.returnsResultPreviouslyComputedFromInput(true, 1));

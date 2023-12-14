@@ -1,14 +1,14 @@
 package integrationTests;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public final class AnEnumTest extends CoverageTest {
+class AnEnumTest extends CoverageTest {
     AnEnum tested;
 
     @Test
-    public void useAnEnum() {
+    void useAnEnum() {
         tested = AnEnum.OneValue;
 
         assertEquals(100, fileData.lineCoverageInfo.getCoveragePercentage());

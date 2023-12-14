@@ -1,12 +1,12 @@
 package integrationTests;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public final class MultiThreadedCodeTest extends CoverageTest {
+class MultiThreadedCodeTest extends CoverageTest {
     MultiThreadedCode tested;
 
     @Test
-    public void nonBlockingOperation() throws Exception {
+    void nonBlockingOperation() throws Exception {
         Thread worker = MultiThreadedCode.nonBlockingOperation();
         worker.join();
 

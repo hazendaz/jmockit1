@@ -1,15 +1,15 @@
 package integrationTests;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public final class AnInterfaceTest extends CoverageTest {
+class AnInterfaceTest extends CoverageTest {
     AnInterface tested;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         tested = new AnInterface() {
             @Override
             public void doSomething(String s, boolean b) {
@@ -23,7 +23,7 @@ public final class AnInterfaceTest extends CoverageTest {
     }
 
     @Test
-    public void useAnInterface() {
+    void useAnInterface() {
         tested.doSomething("test", true);
 
         assertEquals(0, fileData.lineCoverageInfo.getExecutableLineCount());

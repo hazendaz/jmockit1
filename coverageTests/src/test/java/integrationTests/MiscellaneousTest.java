@@ -2,9 +2,9 @@ package integrationTests;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.beans.ConstructorProperties;
 import java.lang.annotation.Retention;
@@ -14,11 +14,11 @@ import mockit.Injectable;
 import mockit.Mocked;
 import mockit.Tested;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public final class MiscellaneousTest {
+class MiscellaneousTest {
     @Test
-    public void methodWithIINCWideInstruction() {
+    void methodWithIINCWideInstruction() {
         int i = 0;
         i += 1000; // compiled to opcode iinc_w
         assert i == 1000;
@@ -34,19 +34,19 @@ public final class MiscellaneousTest {
     }
 
     @Test
-    public void havingAnnotationWithClassValue(@Injectable AnnotatedClass dummy) {
+    void havingAnnotationWithClassValue(@Injectable AnnotatedClass dummy) {
         assertNotNull(dummy);
     }
 
     @Test
-    public void verifyAnnotationsArePreserved() throws Exception {
+    void verifyAnnotationsArePreserved() throws Exception {
         Constructor<ClassWithAnnotations> constructor = ClassWithAnnotations.class.getDeclaredConstructor();
 
         assertTrue(constructor.isAnnotationPresent(ConstructorProperties.class));
     }
 
     @Test
-    public void mockingAnAnnotation(@Tested @Mocked AnAnnotation mockedAnnotation) {
+    void mockingAnAnnotation(@Tested @Mocked AnAnnotation mockedAnnotation) {
         assertNull(mockedAnnotation.value());
     }
 }
