@@ -1,14 +1,14 @@
 # Jmockit 1 #
 
 [![Java CI](https://github.com/hazendaz/jmockit1/workflows/Java%20CI/badge.svg)](https://github.com/hazendaz/jmockit1/actions?query=workflow%3A%22Java+CI%22)
-[![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.hazendaz.jmockit1/jmockit1/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.hazendaz.jmockit1/jmockit1)
+[![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.hazendaz.jmockit/jmockit/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.hazendaz.jmockit/jmockit)
 [![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ![hazendaz](src/site/resources/images/hazendaz-banner.jpg)
 
-Codebase for JMockit 1.x releases - [Documentation](http://jmockit.github.io) - [Historical Release notes](http://jmockit.github.io/changes.html)
+Codebase for JMockit 1.x releases - [Documentation](https://jmockit.github.io) - [Historical Release notes](https://jmockit.github.io/changes.html)
 
-Newer release notes are now stored in github releases
+All releases under 'hazendaz' since 1.49 are located in github releases
 
 How to build the project:
 * use JDK 11 or newer
