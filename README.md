@@ -1,8 +1,18 @@
-Codebase for JMockit 1.x releases - [Documentation](http://jmockit.github.io) - [Release notes](http://jmockit.github.io/changes.html)
+# Jmockit 1 #
+
+[![Java CI](https://github.com/hazendaz/jmockit1/workflows/Java%20CI/badge.svg)](https://github.com/hazendaz/jmockit1/actions?query=workflow%3A%22Java+CI%22)
+[![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.hazendaz.jmockit1/jmockit1/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.hazendaz.jmockit1/jmockit1)
+[![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
+![hazendaz](src/site/resources/images/hazendaz-banner.jpg)
+
+Codebase for JMockit 1.x releases - [Documentation](http://jmockit.github.io) - [Historical Release notes](http://jmockit.github.io/changes.html)
+
+Newer release notes are now stored in github releases
 
 How to build the project:
 * use JDK 11 or newer
-* use Maven 3.6.3 or newer; the following are the top-level modules:
+* use Maven 3.9.6 or newer; the following are the top-level modules:
     1. main/pom.xml: builds jmockit-1.n.jar, running JUnit 4/5 and TestNG test suites
     2. coverageTests/pom.xml: runs JUnit 5 tests for the coverage tool
     3. samples/pom.xml: various sample test suites (tutorial, LoginService, java8testing) using JUnit 5 or TestNG 7
@@ -23,8 +33,7 @@ This fork is the new home for jmockit continuation.  All pull requests are welco
 Considerations
 
   - Testing confirmed to work through jdk 21
-  - Github Actions fail with testng and applet testing
-  - New launcher pom in root to build entire project (extra modules rely on released copy of fork currently)
+  - New launcher pom in root to build entire project and entire project with demos are distributed to maven central now.
 
 Releasing
 
