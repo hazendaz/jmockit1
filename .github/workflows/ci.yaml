@@ -1,13 +1,13 @@
 name: Java CI
 
-on: [push, pull_request]
+on: [workflow_dispatch, push, pull_request]
 
 jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
         java: [11, 17, 21]
         distribution: ['zulu']
       fail-fast: false
@@ -16,14 +16,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Set up JDK
+      - name: Set up JDK ${{ matrix.java }} ${{ matrix.distribution }}
         uses: actions/setup-java@v4
         with:
           java-version: ${{ matrix.java }}
           distribution: ${{ matrix.distribution }}
       - name: Run tests using install (Linux)
-        run: xvfb-run -a ./mvnw install -B
+        run: xvfb-run -a ./mvnw install -B -V --no-transfer-progress -D"license.skip=true"
         if: ${{ matrix.os == 'ubuntu-latest' }}
       - name: Run tests using install (Windows/Mac)
-        run: ./mvnw install -B
+        run: ./mvnw install -B -V --no-transfer-progress -D"license.skip=true"
         if: ${{ matrix.os != 'ubuntu-latest' }}
