@@ -1,11 +1,11 @@
 Codebase for JMockit 1.x releases - [Documentation](http://jmockit.github.io) - [Release notes](http://jmockit.github.io/changes.html)
 
 How to build the project:
-* use JDK 1.8 or newer
-* use Maven 3.6.0 or newer; the following are the top-level modules:
-    1. main/pom.xml: builds jmockit-1.n.jar, running JUnit 4 and TestNG test suites
-    2. coverageTests/pom.xml: runs JUnit 4 tests for the coverage tool
-    3. samples/pom.xml: various sample test suites (tutorial, LoginService, java8testing) using JUnit 4, 5, or TestNG 6
+* use JDK 11 or newer
+* use Maven 3.6.3 or newer; the following are the top-level modules:
+    1. main/pom.xml: builds jmockit-1.n.jar, running JUnit 4/5 and TestNG test suites
+    2. coverageTests/pom.xml: runs JUnit 5 tests for the coverage tool
+    3. samples/pom.xml: various sample test suites (tutorial, LoginService, java8testing) using JUnit 5 or TestNG 7
     4. samples/petclinic/pom.xml: integration testing example using Java EE 8
 
 This fork contains pull requests from main repo as well as updated libraries within build.
@@ -22,10 +22,10 @@ This fork is the new home for jmockit continuation.  All pull requests are welco
 
 Considerations
 
-  - Testing confirmed to work through jdk 17
+  - Testing confirmed to work through jdk 21
   - Github Actions fail with testng and applet testing
   - New launcher pom in root to build entire project (extra modules rely on released copy of fork currently)
 
 Releasing
 
-  - Use jdk 8 as javadocs fail on anything newer, various attempts to update were preformed but javadocs is not giving any specific reason.
+  - Maven 'site' release currently does not handle well on multi module builds and therefore is not being released the the current time.  This is being worked on.  In meantime use the original site which is still available.
