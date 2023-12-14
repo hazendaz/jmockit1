@@ -10,7 +10,7 @@ import java.lang.reflect.Constructor;
 import java.util.Date;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElement;
 
 import mockit.internal.expectations.invocation.MissingInvocation;
 import mockit.internal.expectations.invocation.UnexpectedInvocation;
