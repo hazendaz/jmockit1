@@ -40,12 +40,6 @@
             <artifactId>commons-email</artifactId>
             <version>1.5</version>
             <scope>compile</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.sun.mail</groupId>
-                    <artifactId>javax.mail</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <!-- Testing code -->
