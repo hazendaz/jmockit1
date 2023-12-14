@@ -34,6 +34,8 @@
     <properties>
         <!-- Automatic Module Name -->
         <module.name>com.github.hazendaz.jmockit.samples</module.name>
+
+        <spotbugs.version>4.8.3</spotbugs.version>
     </properties>
 
     <dependencyManagement>
