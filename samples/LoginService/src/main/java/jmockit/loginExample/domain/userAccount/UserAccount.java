@@ -1,6 +1,6 @@
 package jmockit.loginExample.domain.userAccount;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 public final class UserAccount {
     private final String id;

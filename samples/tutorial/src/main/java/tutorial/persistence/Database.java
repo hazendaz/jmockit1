@@ -1,13 +1,13 @@
 package tutorial.persistence;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.PersistenceException;
+import jakarta.persistence.Query;
+
 import java.sql.SQLException;
 import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceException;
-import javax.persistence.Query;
 
 /**
  * This class is a <em>static facade</em> for persistence operations. All methods are <code>static</code>, so it can be
@@ -15,12 +15,12 @@ import javax.persistence.Query;
  * <p>
  * All of the persistence operations made available through this facade access a thread-bound <em>persistence
  * context</em>. In this particular implementation, the standard <strong>JPA</strong> API is used, where
- * <code>javax.persistence.EntityManager</code> represents a work unit. Typically, each work unit instance exists only
+ * <code>jakarta.persistence.EntityManager</code> represents a work unit. Typically, each work unit instance exists only
  * long enough to perform a single database transaction. Transaction demarcation is not a responsibility of this class,
  * however, which simply keeps the association between the current thread and a dedicated work unit object (an
  * <code>EntityManager</code> instance). (In a web app, the persistence context can be tied to the HTTP request/response
  * cycle, which normally runs entirely in a single thread for each request/response pair; a central action-dispatch
- * servlet can commit or rollback the current transaction, while a custom <code>javax.servlet.Filter</code> can close
+ * servlet can commit or rollback the current transaction, while a custom <code>jakarta.servlet.Filter</code> can close
  * the thread-bound <code>EntityManager</code>.)
  * <p>
  * Compared to direct use of an ORM API such as JPA, or to the use of <em>Data Access Objects</em> (the "DAO" pattern),
