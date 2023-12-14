@@ -1,13 +1,13 @@
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public final class ClassInDefaultPackageTest {
+class ClassInDefaultPackageTest {
     @Test
-    public void firstTest() {
+    void firstTest() {
         new ClassInDefaultPackage().doSomething(ClassInDefaultPackage.NestedEnum.First);
     }
 
     @Test
-    public void secondTest() {
+    void secondTest() {
         new ClassInDefaultPackage().doSomething(ClassInDefaultPackage.NestedEnum.Second);
     }
 }

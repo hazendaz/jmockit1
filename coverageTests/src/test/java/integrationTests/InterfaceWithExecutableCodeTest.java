@@ -1,14 +1,14 @@
 package integrationTests;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public final class InterfaceWithExecutableCodeTest extends CoverageTest {
+class InterfaceWithExecutableCodeTest extends CoverageTest {
     InterfaceWithExecutableCode tested;
 
     @Test
-    public void exerciseExecutableLineInInterface() {
+    void exerciseExecutableLineInInterface() {
         assertTrue(InterfaceWithExecutableCode.N > 0);
 
         assertLines(11, 11, 1);

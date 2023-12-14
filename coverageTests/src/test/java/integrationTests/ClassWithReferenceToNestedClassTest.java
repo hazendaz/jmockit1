@@ -1,14 +1,14 @@
 package integrationTests;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public final class ClassWithReferenceToNestedClassTest extends CoverageTest {
+class ClassWithReferenceToNestedClassTest extends CoverageTest {
     final ClassWithReferenceToNestedClass tested = null;
 
     @Test
-    public void exerciseOnePathOfTwo() {
+    void exerciseOnePathOfTwo() {
         ClassWithReferenceToNestedClass.doSomething();
 
         assertEquals(4, fileData.lineCoverageInfo.getExecutableLineCount());

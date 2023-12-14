@@ -1,10 +1,10 @@
 package integrationTests;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public final class ClassWithNestedEnumTest {
+class ClassWithNestedEnumTest {
     @Test
-    public void useNestedEnumFromNestedClass() {
+    void useNestedEnumFromNestedClass() {
         ClassWithNestedEnum.NestedClass.useEnumFromOuterClass();
     }
 }

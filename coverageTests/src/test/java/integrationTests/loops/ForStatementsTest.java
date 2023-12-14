@@ -2,21 +2,21 @@ package integrationTests.loops;
 
 import static java.util.Arrays.asList;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import integrationTests.CoverageTest;
 
-public final class ForStatementsTest extends CoverageTest {
+class ForStatementsTest extends CoverageTest {
     ForStatements tested;
 
     @Test
-    public void forInSeparateLines() {
+    void forInSeparateLines() {
         tested.forInSeparateLines();
         tested.forInSeparateLines();
 
@@ -27,7 +27,7 @@ public final class ForStatementsTest extends CoverageTest {
     }
 
     @Test
-    public void forInSingleLine() {
+    void forInSingleLine() {
         tested.forInSingleLine(1);
         tested.forInSingleLine(2);
 
@@ -37,7 +37,7 @@ public final class ForStatementsTest extends CoverageTest {
     }
 
     @Test
-    public void forEachArrayElement() {
+    void forEachArrayElement() {
         int sum = tested.forEachArrayElement(1, 2, 3);
         assertEquals(6, sum);
 
@@ -49,7 +49,7 @@ public final class ForStatementsTest extends CoverageTest {
     }
 
     @Test
-    public void forEachCollectionElement() {
+    void forEachCollectionElement() {
         String result = tested.forEachCollectionElement(asList("a", "b", "c"));
         assertEquals("abc", result);
 
@@ -61,7 +61,7 @@ public final class ForStatementsTest extends CoverageTest {
     }
 
     @Test
-    public void forUsingIterator() {
+    void forUsingIterator() {
         List<? extends Number> numbers = new ArrayList<Number>(asList(1, 0L, 2.0));
         tested.forUsingIterator(numbers);
 
@@ -73,9 +73,9 @@ public final class ForStatementsTest extends CoverageTest {
         assertLine(48, 1, 1, 1);
     }
 
+    @Disabled("for issue #254")
     @Test
-    @Ignore("for issue #254")
-    public void forWithNestedIfWhichReturns() {
+    void forWithNestedIfWhichReturns() {
         tested.forWithNestedIfWhichReturns(2, 1, 2, 3);
     }
 }
