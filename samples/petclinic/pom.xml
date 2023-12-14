@@ -61,6 +61,7 @@
             <version>2.0.1</version>
             <scope>compile</scope>
         </dependency>
+        <!-- Java EE APIs -->
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
@@ -77,6 +78,7 @@
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>9.0.1.Final</version>
+            <scope>compile</scope>
         </dependency>
         <!-- Test dependencies -->
         <dependency>
