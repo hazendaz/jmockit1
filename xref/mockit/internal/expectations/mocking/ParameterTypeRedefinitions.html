@@ -91,12 +91,12 @@
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>          <strong class="jxr_keyword">return</strong> instanceFactory;
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>      }
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>  
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> registerCaptureOfNewInstances(@Nonnull <a name="MockedType" href="../../../../mockit/internal/expectations/mocking/MockedType.html#MockedType">MockedType</a> mockedType) {
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> registerCaptureOfNewInstances(@Nonnull <a name="MockedType" href="../../../../mockit/internal/expectations/mocking/MockedType.html#MockedType">MockedType</a> mockedType, @Nonnull Object originalInstance) {
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>          <strong class="jxr_keyword">if</strong> (captureOfNewInstances == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>              captureOfNewInstances = <strong class="jxr_keyword">new</strong> <a name="CaptureOfNewInstances" href="../../../../mockit/internal/expectations/mocking/CaptureOfNewInstances.html#CaptureOfNewInstances">CaptureOfNewInstances</a>();
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>          }
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>          captureOfNewInstances.registerCaptureOfNewInstances(mockedType);
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>          captureOfNewInstances.registerCaptureOfNewInstances(mockedType, originalInstance);
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>          captureOfNewInstances.makeSureAllSubtypesAreModified(mockedType);
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>      }
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>  
@@ -126,7 +126,7 @@
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>         registerMock(mockedType, mock);
 <a class="jxr_linenumber" name="L119" href="#L119">119</a> 
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>         <strong class="jxr_keyword">if</strong> (mockedType.withInstancesToCapture()) {
-<a class="jxr_linenumber" name="L121" href="#L121">121</a>             registerCaptureOfNewInstances(mockedType);
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>             registerCaptureOfNewInstances(mockedType, mock);
 <a class="jxr_linenumber" name="L122" href="#L122">122</a>         }
 <a class="jxr_linenumber" name="L123" href="#L123">123</a> 
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>         <strong class="jxr_keyword">return</strong> mock;

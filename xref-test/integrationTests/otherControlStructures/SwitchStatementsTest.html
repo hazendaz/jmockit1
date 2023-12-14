@@ -8,15 +8,15 @@
 <div id="overview"><a href="../../../testapidocs/integrationTests/otherControlStructures/SwitchStatementsTest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> integrationTests.otherControlStructures;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> integrationTests.CoverageTest;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="SwitchStatementsTest" href="../../integrationTests/otherControlStructures/SwitchStatementsTest.html#SwitchStatementsTest">SwitchStatementsTest</a> <strong class="jxr_keyword">extends</strong> <a name="CoverageTest" href="../../integrationTests/CoverageTest.html#CoverageTest">CoverageTest</a> {
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">class</strong> <a name="SwitchStatementsTest" href="../../integrationTests/otherControlStructures/SwitchStatementsTest.html#SwitchStatementsTest">SwitchStatementsTest</a> <strong class="jxr_keyword">extends</strong> <a name="CoverageTest" href="../../integrationTests/CoverageTest.html#CoverageTest">CoverageTest</a> {
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>       <strong class="jxr_keyword">final</strong> SwitchStatements tested = <strong class="jxr_keyword">new</strong> SwitchStatements();
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>      @Test
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> switchStatementWithSparseCasesAndDefault() {
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>      <strong class="jxr_keyword">void</strong> switchStatementWithSparseCasesAndDefault() {
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>          tested.switchStatementWithSparseCasesAndDefault('A');
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>          tested.switchStatementWithSparseCasesAndDefault('\0');
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  
@@ -30,14 +30,14 @@
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>      }
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>      @Test
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> switchStatementWithSparseCasesAndDefaultOnDefaultCase() {
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">void</strong> switchStatementWithSparseCasesAndDefaultOnDefaultCase() {
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>          tested.anotherSwitchStatementWithSparseCasesAndDefault('x');
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>          <em class="jxr_comment">// TODO: assertions</em>
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>      }
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>      @Test
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> switchStatementWithCompactCasesAndDefault() {
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">void</strong> switchStatementWithCompactCasesAndDefault() {
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>          tested.switchStatementWithCompactCasesAndDefault(2);
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>          tested.switchStatementWithCompactCasesAndDefault(4);
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  
@@ -45,7 +45,7 @@
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>      }
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>      @Test
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> switchStatementWithCompactCasesAndDefaultOnDefaultCase() {
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>      <strong class="jxr_keyword">void</strong> switchStatementWithCompactCasesAndDefaultOnDefaultCase() {
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>          tested.anotherSwitchStatementWithCompactCasesAndDefault(1);
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>          tested.anotherSwitchStatementWithCompactCasesAndDefault(5);
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  
@@ -57,7 +57,7 @@
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>      }
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>      @Test
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> switchStatementWithSparseCasesAndNoDefault() {
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>      <strong class="jxr_keyword">void</strong> switchStatementWithSparseCasesAndNoDefault() {
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>          tested.switchStatementWithSparseCasesAndNoDefault('f');
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>          tested.switchStatementWithSparseCasesAndNoDefault('b');
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  
@@ -71,7 +71,7 @@
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>      }
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      @Test
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> switchStatementWithCompactCasesAndNoDefault() {
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">void</strong> switchStatementWithCompactCasesAndNoDefault() {
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          tested.switchStatementWithCompactCasesAndNoDefault(0);
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>          tested.switchStatementWithCompactCasesAndNoDefault(4);
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>          tested.switchStatementWithCompactCasesAndNoDefault(5);
@@ -86,7 +86,7 @@
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>      }
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>  
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>      @Test
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> switchStatementWithExitInAllCases() {
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>      <strong class="jxr_keyword">void</strong> switchStatementWithExitInAllCases() {
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>          tested.switchStatementWithExitInAllCases(1);
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>          tested.switchStatementWithExitInAllCases(2);
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>  
@@ -98,7 +98,7 @@
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>      }
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>  
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>      @Test
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> switchOnString() {
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>      <strong class="jxr_keyword">void</strong> switchOnString() {
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>          tested.switchOnString(<span class="jxr_string">"A"</span>, <strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>          tested.switchOnString(<span class="jxr_string">"M"</span>, false);
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>  

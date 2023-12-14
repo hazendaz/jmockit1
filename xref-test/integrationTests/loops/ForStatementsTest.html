@@ -10,21 +10,21 @@
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> java.util.Arrays.asList;
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertEquals;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertEquals;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.util.ArrayList;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.util.List;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> org.junit.Ignore;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Disabled;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> integrationTests.CoverageTest;
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="ForStatementsTest" href="../../integrationTests/loops/ForStatementsTest.html#ForStatementsTest">ForStatementsTest</a> <strong class="jxr_keyword">extends</strong> <a name="CoverageTest" href="../../integrationTests/CoverageTest.html#CoverageTest">CoverageTest</a> {
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">class</strong> <a name="ForStatementsTest" href="../../integrationTests/loops/ForStatementsTest.html#ForStatementsTest">ForStatementsTest</a> <strong class="jxr_keyword">extends</strong> <a name="CoverageTest" href="../../integrationTests/CoverageTest.html#CoverageTest">CoverageTest</a> {
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>      ForStatements tested;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>      @Test
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> forInSeparateLines() {
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>      <strong class="jxr_keyword">void</strong> forInSeparateLines() {
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>          tested.forInSeparateLines();
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>          tested.forInSeparateLines();
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  
@@ -35,7 +35,7 @@
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>      }
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>      @Test
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> forInSingleLine() {
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">void</strong> forInSingleLine() {
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>          tested.forInSingleLine(1);
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>          tested.forInSingleLine(2);
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  
@@ -45,7 +45,7 @@
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>      }
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>      @Test
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> forEachArrayElement() {
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>      <strong class="jxr_keyword">void</strong> forEachArrayElement() {
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>          <strong class="jxr_keyword">int</strong> sum = tested.forEachArrayElement(1, 2, 3);
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>          assertEquals(6, sum);
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  
@@ -57,7 +57,7 @@
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>      }
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>      @Test
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> forEachCollectionElement() {
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>      <strong class="jxr_keyword">void</strong> forEachCollectionElement() {
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>          String result = tested.forEachCollectionElement(asList(<span class="jxr_string">"a"</span>, <span class="jxr_string">"b"</span>, <span class="jxr_string">"c"</span>));
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>          assertEquals(<span class="jxr_string">"abc"</span>, result);
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  
@@ -69,7 +69,7 @@
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>      }
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>      @Test
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> forUsingIterator() {
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>      <strong class="jxr_keyword">void</strong> forUsingIterator() {
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          List&lt;? <strong class="jxr_keyword">extends</strong> Number&gt; numbers = <strong class="jxr_keyword">new</strong> ArrayList&lt;Number&gt;(asList(1, 0L, 2.0));
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>          tested.forUsingIterator(numbers);
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  
@@ -81,9 +81,9 @@
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>          assertLine(48, 1, 1, 1);
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>      }
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>  
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>      @Test
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>      @Ignore(<span class="jxr_string">"for issue #254"</span>)
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> forWithNestedIfWhichReturns() {
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>      @Disabled(<span class="jxr_string">"for issue #254"</span>)
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>      @Test
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>      <strong class="jxr_keyword">void</strong> forWithNestedIfWhichReturns() {
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>          tested.forWithNestedIfWhichReturns(2, 1, 2, 3);
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>      }
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>  }

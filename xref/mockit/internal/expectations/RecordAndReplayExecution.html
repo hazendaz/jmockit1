@@ -233,7 +233,7 @@
 <a class="jxr_linenumber" name="L225" href="#L225">225</a>             <strong class="jxr_keyword">if</strong> (paramTypeRedefinitions != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L226" href="#L226">226</a>                 <a name="CaptureOfNewInstances" href="../../../mockit/internal/expectations/mocking/CaptureOfNewInstances.html#CaptureOfNewInstances">CaptureOfNewInstances</a> paramTypeCaptures = paramTypeRedefinitions.getCaptureOfNewInstances();
 <a class="jxr_linenumber" name="L227" href="#L227">227</a> 
-<a class="jxr_linenumber" name="L228" href="#L228">228</a>                 <strong class="jxr_keyword">if</strong> (paramTypeCaptures != <strong class="jxr_keyword">null</strong> &amp;&amp; paramTypeCaptures.captureNewInstance(mock)) {
+<a class="jxr_linenumber" name="L228" href="#L228">228</a>                 <strong class="jxr_keyword">if</strong> (paramTypeCaptures != <strong class="jxr_keyword">null</strong> &amp;&amp; paramTypeCaptures.captureNewInstance(<strong class="jxr_keyword">null</strong>, mock)) {
 <a class="jxr_linenumber" name="L229" href="#L229">229</a>                     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
 <a class="jxr_linenumber" name="L230" href="#L230">230</a>                 }
 <a class="jxr_linenumber" name="L231" href="#L231">231</a>             }
@@ -293,9 +293,9 @@
 <a class="jxr_linenumber" name="L285" href="#L285">285</a>         <a name="ReplayPhase" href="../../../mockit/internal/expectations/ReplayPhase.html#ReplayPhase">ReplayPhase</a> replay = replayPhase;
 <a class="jxr_linenumber" name="L286" href="#L286">286</a> 
 <a class="jxr_linenumber" name="L287" href="#L287">287</a>         <strong class="jxr_keyword">if</strong> (replay == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L288" href="#L288">288</a>             <a name="RecordPhase" href="../../../mockit/internal/expectations/RecordPhase.html#RecordPhase">RecordPhase</a> record = recordPhase;
-<a class="jxr_linenumber" name="L289" href="#L289">289</a>             assert record != <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L290" href="#L290">290</a>             <strong class="jxr_keyword">return</strong> record;
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>             <a name="RecordPhase" href="../../../mockit/internal/expectations/RecordPhase.html#RecordPhase">RecordPhase</a> recordPhaseLocal = recordPhase;
+<a class="jxr_linenumber" name="L289" href="#L289">289</a>             assert recordPhaseLocal != <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>             <strong class="jxr_keyword">return</strong> recordPhaseLocal;
 <a class="jxr_linenumber" name="L291" href="#L291">291</a>         }
 <a class="jxr_linenumber" name="L292" href="#L292">292</a> 
 <a class="jxr_linenumber" name="L293" href="#L293">293</a>         <a name="BaseVerificationPhase" href="../../../mockit/internal/expectations/BaseVerificationPhase.html#BaseVerificationPhase">BaseVerificationPhase</a> verification = verificationPhase;

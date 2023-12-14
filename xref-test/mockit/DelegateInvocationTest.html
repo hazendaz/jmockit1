@@ -114,7 +114,7 @@
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>             {
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>                 Collaborator.staticMethod();
-<a class="jxr_linenumber" name="L109" href="#L109">109</a>                 result = <strong class="jxr_keyword">new</strong> Delegate() {
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>                 result = <strong class="jxr_keyword">new</strong> Delegate&lt;Object&gt;() {
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>                     @Mock
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>                     <strong class="jxr_keyword">boolean</strong> staticMethod(Invocation context) {
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>                         assertNull(context.getInvokedInstance());
@@ -186,7 +186,7 @@
 <a class="jxr_linenumber" name="L178" href="#L178">178</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L179" href="#L179">179</a>             {
 <a class="jxr_linenumber" name="L180" href="#L180">180</a>                 mock.doSomething(<strong class="jxr_keyword">true</strong>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L181" href="#L181">181</a>                 result = <strong class="jxr_keyword">new</strong> Delegate() {
+<a class="jxr_linenumber" name="L181" href="#L181">181</a>                 result = <strong class="jxr_keyword">new</strong> Delegate&lt;Object&gt;() {
 <a class="jxr_linenumber" name="L182" href="#L182">182</a>                     @Mock
 <a class="jxr_linenumber" name="L183" href="#L183">183</a>                     <strong class="jxr_keyword">void</strong> doSomething(Invocation invocation, Boolean b, <strong class="jxr_keyword">int</strong>[] i, String s) {
 <a class="jxr_linenumber" name="L184" href="#L184">184</a>                         Collaborator instance = invocation.getInvokedInstance();
@@ -219,7 +219,7 @@
 <a class="jxr_linenumber" name="L211" href="#L211">211</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L212" href="#L212">212</a>             {
 <a class="jxr_linenumber" name="L213" href="#L213">213</a>                 mock.getValue();
-<a class="jxr_linenumber" name="L214" href="#L214">214</a>                 result = <strong class="jxr_keyword">new</strong> Delegate() {
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>                 result = <strong class="jxr_keyword">new</strong> Delegate&lt;Object&gt;() {
 <a class="jxr_linenumber" name="L215" href="#L215">215</a>                     @Mock
 <a class="jxr_linenumber" name="L216" href="#L216">216</a>                     <strong class="jxr_keyword">int</strong> getValue(Invocation context) {
 <a class="jxr_linenumber" name="L217" href="#L217">217</a>                         <strong class="jxr_keyword">return</strong> context.getInvocationCount();
@@ -248,7 +248,7 @@
 <a class="jxr_linenumber" name="L240" href="#L240">240</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L241" href="#L241">241</a>             {
 <a class="jxr_linenumber" name="L242" href="#L242">242</a>                 Collaborator.staticMethod(1);
-<a class="jxr_linenumber" name="L243" href="#L243">243</a>                 result = <strong class="jxr_keyword">new</strong> Delegate() {
+<a class="jxr_linenumber" name="L243" href="#L243">243</a>                 result = <strong class="jxr_keyword">new</strong> Delegate&lt;Object&gt;() {
 <a class="jxr_linenumber" name="L244" href="#L244">244</a>                     @SuppressWarnings(<span class="jxr_string">"unused"</span>)
 <a class="jxr_linenumber" name="L245" href="#L245">245</a>                     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> otherMethod(<strong class="jxr_keyword">int</strong> i) {
 <a class="jxr_linenumber" name="L246" href="#L246">246</a>                         fail();
@@ -276,7 +276,7 @@
 <a class="jxr_linenumber" name="L268" href="#L268">268</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L269" href="#L269">269</a>             {
 <a class="jxr_linenumber" name="L270" href="#L270">270</a>                 mock.publicMethod(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L271" href="#L271">271</a>                 result = <strong class="jxr_keyword">new</strong> Delegate() {
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>                 result = <strong class="jxr_keyword">new</strong> Delegate&lt;Object&gt;() {
 <a class="jxr_linenumber" name="L272" href="#L272">272</a>                     @Mock
 <a class="jxr_linenumber" name="L273" href="#L273">273</a>                     <strong class="jxr_keyword">long</strong> nonMatchingDelegate() {
 <a class="jxr_linenumber" name="L274" href="#L274">274</a>                         <strong class="jxr_keyword">return</strong> 123L;
@@ -299,7 +299,7 @@
 <a class="jxr_linenumber" name="L291" href="#L291">291</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L292" href="#L292">292</a>             {
 <a class="jxr_linenumber" name="L293" href="#L293">293</a>                 mock.publicMethod(anyBoolean);
-<a class="jxr_linenumber" name="L294" href="#L294">294</a>                 result = <strong class="jxr_keyword">new</strong> Delegate() {
+<a class="jxr_linenumber" name="L294" href="#L294">294</a>                 result = <strong class="jxr_keyword">new</strong> Delegate&lt;Object&gt;() {
 <a class="jxr_linenumber" name="L295" href="#L295">295</a>                     @Mock
 <a class="jxr_linenumber" name="L296" href="#L296">296</a>                     <strong class="jxr_keyword">long</strong> differentName(Invocation invocation, <strong class="jxr_keyword">boolean</strong> b) {
 <a class="jxr_linenumber" name="L297" href="#L297">297</a>                         assertEquals(1, invocation.getInvocationCount());
@@ -325,18 +325,18 @@
 <a class="jxr_linenumber" name="L317" href="#L317">317</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L318" href="#L318">318</a>             {
 <a class="jxr_linenumber" name="L319" href="#L319">319</a>                 mock.getValue();
-<a class="jxr_linenumber" name="L320" href="#L320">320</a>                 returns(<strong class="jxr_keyword">new</strong> Delegate() {
+<a class="jxr_linenumber" name="L320" href="#L320">320</a>                 returns(<strong class="jxr_keyword">new</strong> Delegate&lt;Object&gt;() {
 <a class="jxr_linenumber" name="L321" href="#L321">321</a>                     @Mock
 <a class="jxr_linenumber" name="L322" href="#L322">322</a>                     <strong class="jxr_keyword">int</strong> delegate(Invocation invocation) {
 <a class="jxr_linenumber" name="L323" href="#L323">323</a>                         assertSame(mock, invocation.getInvokedInstance());
 <a class="jxr_linenumber" name="L324" href="#L324">324</a>                         <strong class="jxr_keyword">return</strong> invocation.getInvocationCount();
 <a class="jxr_linenumber" name="L325" href="#L325">325</a>                     }
-<a class="jxr_linenumber" name="L326" href="#L326">326</a>                 }, <strong class="jxr_keyword">new</strong> Delegate() {
+<a class="jxr_linenumber" name="L326" href="#L326">326</a>                 }, <strong class="jxr_keyword">new</strong> Delegate&lt;Object&gt;() {
 <a class="jxr_linenumber" name="L327" href="#L327">327</a>                     @Mock
 <a class="jxr_linenumber" name="L328" href="#L328">328</a>                     <strong class="jxr_keyword">int</strong> delegate(Invocation invocation) {
 <a class="jxr_linenumber" name="L329" href="#L329">329</a>                         <strong class="jxr_keyword">return</strong> invocation.getInvocationCount();
 <a class="jxr_linenumber" name="L330" href="#L330">330</a>                     }
-<a class="jxr_linenumber" name="L331" href="#L331">331</a>                 }, <strong class="jxr_keyword">new</strong> Delegate() {
+<a class="jxr_linenumber" name="L331" href="#L331">331</a>                 }, <strong class="jxr_keyword">new</strong> Delegate&lt;Object&gt;() {
 <a class="jxr_linenumber" name="L332" href="#L332">332</a>                     @Mock
 <a class="jxr_linenumber" name="L333" href="#L333">333</a>                     <strong class="jxr_keyword">int</strong> delegate(Invocation invocation) {
 <a class="jxr_linenumber" name="L334" href="#L334">334</a>                         assertEquals(3, invocation.getInvocationCount());
@@ -371,7 +371,7 @@
 <a class="jxr_linenumber" name="L363" href="#L363">363</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L364" href="#L364">364</a>             {
 <a class="jxr_linenumber" name="L365" href="#L365">365</a>                 mock.call();
-<a class="jxr_linenumber" name="L366" href="#L366">366</a>                 result = <strong class="jxr_keyword">new</strong> Delegate() {
+<a class="jxr_linenumber" name="L366" href="#L366">366</a>                 result = <strong class="jxr_keyword">new</strong> Delegate&lt;Object&gt;() {
 <a class="jxr_linenumber" name="L367" href="#L367">367</a>                     @Mock
 <a class="jxr_linenumber" name="L368" href="#L368">368</a>                     String delegate(Invocation inv) {
 <a class="jxr_linenumber" name="L369" href="#L369">369</a>                         <strong class="jxr_keyword">return</strong> inv.getInvokedMember().getDeclaringClass().getName();
@@ -399,7 +399,7 @@
 <a class="jxr_linenumber" name="L391" href="#L391">391</a>             {
 <a class="jxr_linenumber" name="L392" href="#L392">392</a>                 rt.exec(anyString, <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L393" href="#L393">393</a>                 maxTimes = 1;
-<a class="jxr_linenumber" name="L394" href="#L394">394</a>                 result = <strong class="jxr_keyword">new</strong> Delegate() {
+<a class="jxr_linenumber" name="L394" href="#L394">394</a>                 result = <strong class="jxr_keyword">new</strong> Delegate&lt;Object&gt;() {
 <a class="jxr_linenumber" name="L395" href="#L395">395</a>                     @Mock
 <a class="jxr_linenumber" name="L396" href="#L396">396</a>                     <strong class="jxr_keyword">void</strong> exec(Invocation inv, String command, String[] envp) {
 <a class="jxr_linenumber" name="L397" href="#L397">397</a>                         assertSame(rt, inv.getInvokedInstance());
