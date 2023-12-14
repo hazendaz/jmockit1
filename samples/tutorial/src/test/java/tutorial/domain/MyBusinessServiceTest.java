@@ -1,6 +1,7 @@
 package tutorial.domain;
 
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static tutorial.persistence.Database.persist;
 
 import mockit.Expectations;
@@ -10,18 +11,12 @@ import mockit.Verifications;
 
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class MyBusinessServiceTest.
  */
 public final class MyBusinessServiceTest {
-
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
 
     /** The data. */
     @Tested
@@ -48,7 +43,8 @@ public final class MyBusinessServiceTest {
 
         businessService.doBusinessOperationXyz();
 
-        assertNotEquals(0, data.getId()); // implies "data" was persisted
+        // implies "data" was persisted
+        assertNotEquals(0, data.getId());
         new Verifications() {
             {
                 anyEmail.send();
@@ -73,8 +69,9 @@ public final class MyBusinessServiceTest {
                 result = new EmailException();
             }
         };
-        thrown.expect(EmailException.class);
 
-        businessService.doBusinessOperationXyz();
+        assertThrows(EmailException.class, () -> {
+            businessService.doBusinessOperationXyz();
+        });
     }
 }
