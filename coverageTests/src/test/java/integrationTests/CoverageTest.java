@@ -64,7 +64,7 @@ public class CoverageTest {
 
             if (testedField.get(this) == null) {
                 // noinspection ClassNewInstance
-                Object newTestedInstance = testedClass.newInstance();
+                Object newTestedInstance = testedClass.getDeclaredConstructor().newInstance();
 
                 testedField.set(this, newTestedInstance);
             }
