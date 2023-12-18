@@ -26,11 +26,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.ejb.EJB;
 import javax.enterprise.inject.Instance;
 import javax.enterprise.util.TypeLiteral;
-import javax.inject.Inject;
-import javax.inject.Provider;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 import javax.servlet.Servlet;
@@ -54,18 +51,29 @@ public final class InjectionPoint {
     public static final Class<?> CONVERSATION_CLASS;
 
     static {
-        INJECT_CLASS = searchTypeInClasspath("javax.inject.Inject");
-        INSTANCE_CLASS = searchTypeInClasspath("javax.enterprise.inject.Instance");
-        EJB_CLASS = searchTypeInClasspath("javax.ejb.EJB");
-        SERVLET_CLASS = searchTypeInClasspath("javax.servlet.Servlet");
-        CONVERSATION_CLASS = searchTypeInClasspath("javax.enterprise.context.Conversation");
+        INJECT_CLASS = searchTypeInClasspath("javax.inject.Inject") != null
+                ? searchTypeInClasspath("javax.inject.Inject") : searchTypeInClasspath("jakarta.inject.Inject");
+        INSTANCE_CLASS = searchTypeInClasspath("javax.enterprise.inject.Instance") != null
+                ? searchTypeInClasspath("javax.enterprise.inject.Instance")
+                : searchTypeInClasspath("jakarta.enterprise.inject.Instance");
+        EJB_CLASS = searchTypeInClasspath("javax.ejb.EJB") != null ? searchTypeInClasspath("javax.ejb.EJB")
+                : searchTypeInClasspath("jakarta.ejb.EJB");
+        SERVLET_CLASS = searchTypeInClasspath("javax.servlet.Servlet") != null
+                ? searchTypeInClasspath("javax.servlet.Servlet") : searchTypeInClasspath("jakarta.servlet.Servlet");
+        CONVERSATION_CLASS = searchTypeInClasspath("javax.enterprise.context.Conversation") != null
+                ? searchTypeInClasspath("javax.enterprise.context.Conversation")
+                : searchTypeInClasspath("jakarta.enterprise.context.Conversation");
 
-        Class<? extends Annotation> entity = searchTypeInClasspath("javax.persistence.Entity");
+        Class<? extends Annotation> entity = searchTypeInClasspath("javax.persistence.Entity") != null
+                ? searchTypeInClasspath("javax.persistence.Entity")
+                : searchTypeInClasspath("jakarta.persistence.Entity");
 
         if (entity == null) {
             PERSISTENCE_UNIT_CLASS = null;
         } else {
-            PERSISTENCE_UNIT_CLASS = searchTypeInClasspath("javax.persistence.PersistenceUnit");
+            PERSISTENCE_UNIT_CLASS = searchTypeInClasspath("javax.persistence.PersistenceUnit") != null
+                    ? searchTypeInClasspath("javax.persistence.PersistenceUnit")
+                    : searchTypeInClasspath("jakarta.persistence.PersistenceUnit");
         }
     }
 
@@ -154,10 +162,23 @@ public final class InjectionPoint {
 
     @NonNull
     public static Object wrapInProviderIfNeeded(@NonNull Type type, @NonNull final Object value) {
-        if (INJECT_CLASS != null && type instanceof ParameterizedType && !(value instanceof Provider)) {
+        Class<?> namespace = null;
+        try {
+            namespace = Class.forName("javax.inject.Provider");
+        } catch (ClassNotFoundException e) {
+            try {
+                namespace = Class.forName("jakarta.inject.Provider");
+            } catch (ClassNotFoundException e1) {
+                // do nothing
+            }
+        }
+
+        // TODO Extract to 2 classes, then depending which one use the right one based on lines above.
+        if (INJECT_CLASS != null && type instanceof ParameterizedType && namespace != null
+                && !namespace.isInstance(value)) {
             Type parameterizedType = ((ParameterizedType) type).getRawType();
 
-            if (parameterizedType == Provider.class) {
+            if (parameterizedType == namespace) {
                 return (Provider<Object>) () -> value;
             }
 
@@ -171,6 +192,7 @@ public final class InjectionPoint {
         return value;
     }
 
+    // TODO Extract to 2 classes, then depending which one use the right one based on lines above.
     private static final class Listed implements Instance<Object> {
         @NonNull
         private final List<Object> instances;
@@ -227,7 +249,18 @@ public final class InjectionPoint {
             return KindOfInjectionPoint.NotAnnotated;
         }
 
-        if (INJECT_CLASS != null && isAnnotated(annotations, Inject.class)) {
+        Class<?> namespace = null;
+        try {
+            namespace = Class.forName("javax.inject.Inject");
+        } catch (ClassNotFoundException e) {
+            try {
+                namespace = Class.forName("jakarta.inject.Inject");
+            } catch (ClassNotFoundException e1) {
+                // do nothing
+            }
+        }
+
+        if (INJECT_CLASS != null && namespace != null && isAnnotated(annotations, namespace)) {
             return KindOfInjectionPoint.Required;
         }
 
@@ -278,7 +311,19 @@ public final class InjectionPoint {
     }
 
     private static boolean isRequired(@NonNull Annotation[] annotations) {
-        return isAnnotated(annotations, Resource.class) || EJB_CLASS != null && isAnnotated(annotations, EJB.class)
+        Class<?> namespace = null;
+        try {
+            namespace = Class.forName("javax.ejb.EJB");
+        } catch (ClassNotFoundException e) {
+            try {
+                namespace = Class.forName("jakarta.ejb.EJB");
+            } catch (ClassNotFoundException e1) {
+                // do nothing
+            }
+        }
+
+        return isAnnotated(annotations, Resource.class)
+                || EJB_CLASS != null && namespace != null && isAnnotated(annotations, namespace)
                 || PERSISTENCE_UNIT_CLASS != null && (isAnnotated(annotations, PersistenceContext.class)
                         || isAnnotated(annotations, PersistenceUnit.class));
     }
@@ -315,7 +360,8 @@ public final class InjectionPoint {
                 return name;
             }
 
-            if ("javax.inject.Named".equals(annotationName) || annotationName.endsWith(".Qualifier")) {
+            if ("javax.inject.Named".equals(annotationName) || "jakarta.inject.Named".equals(annotationName)
+                    || annotationName.endsWith(".Qualifier")) {
                 return readAnnotationAttribute(annotation, "value");
             }
         }

@@ -5,13 +5,14 @@ import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import jakarta.inject.Inject;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
 
 import org.junit.jupiter.api.Test;
 
