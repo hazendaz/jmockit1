@@ -7,10 +7,11 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import jakarta.faces.application.FacesMessage;
+
 import java.lang.reflect.Method;
 
 import javax.accessibility.AccessibleState;
-import javax.faces.application.FacesMessage;
 
 import mockit.MoreFakingTest.ClassWithNested.Nested;
 
