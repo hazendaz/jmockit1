@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.inject.Provider;
-
 import mockit.internal.injection.InjectionPoint.KindOfInjectionPoint;
 import mockit.internal.reflection.GenericTypeReflection;
 
@@ -119,9 +117,20 @@ public final class InjectionProviders {
             ParameterizedType parameterizedType = (ParameterizedType) typeOfInjectionPoint;
             Class<?> classOfInjectionPoint = (Class<?>) parameterizedType.getRawType();
 
+            Class<?> namespace = null;
+            try {
+                namespace = Class.forName("javax.inject.Provider");
+            } catch (ClassNotFoundException e) {
+                try {
+                    namespace = Class.forName("jakarta.inject.Provider");
+                } catch (ClassNotFoundException e1) {
+                    // do nothing
+                }
+            }
+
             if (kindOfInjectionPoint == KindOfInjectionPoint.Required
                     && Iterable.class.isAssignableFrom(classOfInjectionPoint)
-                    || INJECT_CLASS != null && Provider.class.isAssignableFrom(classOfInjectionPoint)) {
+                    || INJECT_CLASS != null && namespace != null && namespace.isAssignableFrom(classOfInjectionPoint)) {
                 Type providedType = parameterizedType.getActualTypeArguments()[0];
 
                 if (providedType.equals(injectableType)) {

@@ -24,8 +24,6 @@ import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 import javax.enterprise.context.Conversation;
-import javax.inject.Provider;
-import javax.inject.Singleton;
 import javax.sql.CommonDataSource;
 
 import mockit.asm.jvmConstants.Access;
@@ -197,10 +195,12 @@ public final class FullInjection {
 
         if (CommonDataSource.class.isAssignableFrom(typeToInject)) {
             dependency = createAndRegisterDataSource(testedClass, injectionPoint, injectionProvider);
-        } else if (INJECT_CLASS != null && typeToInject == Provider.class) {
+        } else if (INJECT_CLASS != null && (typeToInject.getName().equals("javax.inject.Provider")
+                || typeToInject.getName().equals("jakarta.inject.Provider"))) {
             assert injectionProvider != null;
             dependency = createProviderInstance(injectionProvider);
-        } else if (CONVERSATION_CLASS != null && typeToInject == Conversation.class) {
+        } else if (CONVERSATION_CLASS != null && (typeToInject.getName().equals("javax.enterprise.context.Conversation")
+                || typeToInject.getName().equals("jakarta.enterprise.context.Conversation"))) {
             dependency = createAndRegisterConversationInstance();
         } else if (servletDependencies != null && ServletDependencies.isApplicable(typeToInject)) {
             dependency = servletDependencies.createAndRegisterDependency(typeToInject);
@@ -233,7 +233,19 @@ public final class FullInjection {
         ParameterizedType genericType = (ParameterizedType) injectionProvider.getDeclaredType();
         final Class<?> providedClass = (Class<?>) genericType.getActualTypeArguments()[0];
 
-        if (providedClass.isAnnotationPresent(Singleton.class)) {
+        Class<?> namespace = null;
+        try {
+            namespace = Class.forName("javax.inject.Singleton");
+        } catch (ClassNotFoundException e) {
+            try {
+                namespace = Class.forName("jakarta.inject.Singleton");
+            } catch (ClassNotFoundException e1) {
+                // do nothing
+            }
+        }
+
+        // TODO Extract to 2 classes, then depending which one use the right one based on lines above.
+        if (providedClass.isAnnotationPresent((Class<? extends Annotation>) namespace)) {
             return new Provider<Object>() {
                 private Object dependency;
 
