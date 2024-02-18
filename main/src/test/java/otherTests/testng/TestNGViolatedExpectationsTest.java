@@ -1,5 +1,7 @@
 package otherTests.testng;
 
+import static org.testng.Assert.assertThrows;
+
 import java.util.IllegalFormatCodePointException;
 
 import mockit.Expectations;
@@ -45,8 +47,7 @@ public final class TestNGViolatedExpectationsTest {
         new Collaborator();
     }
 
-    // fails with a "missing invocation" error after the exception thrown by tested code
-    @Test(expectedExceptions = IllegalFormatCodePointException.class)
+    @Test
     public void expectInvocationWhichDoesNotOccurInTestedCodeThatThrowsAnException_4(@Mocked final Collaborator mock) {
         new Expectations() {
             {
@@ -56,10 +57,13 @@ public final class TestNGViolatedExpectationsTest {
             }
         };
 
-        mock.doSomething();
+        // fails with a "missing invocation" error after the exception thrown by tested code
+        assertThrows(IllegalFormatCodePointException.class, () -> {
+            mock.doSomething();
+        });
     }
 
-    @Test(expectedExceptions = AssertionError.class) // fails with a different exception than expected
+    @Test
     public void expectInvocationWhichDoesNotOccurInTestedCodeThatThrowsAnException_5(@Mocked final Collaborator mock) {
         new Expectations() {
             {
@@ -68,14 +72,20 @@ public final class TestNGViolatedExpectationsTest {
             }
         };
 
-        mock.doSomething();
+        // fails with a different exception than expected
+        assertThrows(AssertionError.class, () -> {
+            mock.doSomething();
+        });
     }
 
-    @Test(expectedExceptions = AssertionError.class) // fails without the expected exception being thrown
+    @Test
     public void expectInvocationWhichDoesNotOccurInTestedCodeThatThrowsAnException_6(@Mocked final Collaborator mock) {
         new Expectations() {
             {
-                mock.doSomething();
+                // fails without the expected exception being thrown
+                assertThrows(AssertionError.class, () -> {
+                    mock.doSomething();
+                });
                 result = new IllegalFormatCodePointException('x');
             }
         };
