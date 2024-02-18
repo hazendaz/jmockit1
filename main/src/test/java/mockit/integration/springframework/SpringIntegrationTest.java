@@ -222,10 +222,9 @@ public final class SpringIntegrationTest {
             assertNotNull(level1.level2);
             assertNotNull(level1.level2.level3);
         });
-        assertEquals("Missing @Tested or @Injectable for parameter \"str\" in constructor Level3(String str)"
-                + System.lineSeparator() + "  when initializing field \"Level3 level3\"" + System.lineSeparator()
-                + "  when initializing field \"Level2 level2\"" + System.lineSeparator()
-                + "  of @Tested object \"Level1 level1\"", throwable.getMessage());
+        assertEquals("Missing @Tested or @Injectable for parameter \"str\" in constructor Level3(String str)" + "\r\n"
+                + "  when initializing field \"Level3 level3\"" + "\r\n" + "  when initializing field \"Level2 level2\""
+                + "\r\n" + "  of @Tested object \"Level1 level1\"", throwable.getMessage());
     }
 
     @Test
