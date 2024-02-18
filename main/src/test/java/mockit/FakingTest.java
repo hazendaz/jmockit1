@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.awt.Panel;
@@ -17,29 +18,23 @@ import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicColorChooserUI;
 
 import org.junit.AfterClass;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 /**
  * The Class FakingTest.
  */
 public final class FakingTest {
 
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
-
     /**
      * Attempt to apply fake without the target type.
      */
     @Test
     public void attemptToApplyFakeWithoutTheTargetType() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("No target type");
-
-        new MockUp() {
-        };
+        Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
+            new MockUp() {
+            };
+        });
+        assertEquals("No target type", throwable.getMessage());
     }
 
     // Fakes for classes
@@ -128,10 +123,11 @@ public final class FakingTest {
      */
     @Test
     public void attemptToFakeGivenClassButPassNull() {
-        thrown.expect(NullPointerException.class);
         Class<?> clazz = null;
-        new MockUp<Panel>(clazz) {
-        };
+        assertThrows(NullPointerException.class, () -> {
+            new MockUp<Panel>(clazz) {
+            };
+        });
     }
 
     /**
@@ -182,21 +178,19 @@ public final class FakingTest {
      */
     @Test
     public <M extends Panel & Runnable> void attemptToFakeClassAndInterfaceAtOnce() {
-        // thrown.expect(UnsupportedOperationException.class);
-        // thrown.expectMessage("Unable to capture");
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("java.awt.Panel is not an interface");
+        Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
+            new MockUp<M>() {
+                @Mock
+                String getName() {
+                    return "";
+                }
 
-        new MockUp<M>() {
-            @Mock
-            String getName() {
-                return "";
-            }
-
-            @Mock
-            void run() {
-            }
-        };
+                @Mock
+                void run() {
+                }
+            };
+        });
+        assertEquals("java.awt.Panel is not an interface", throwable.getMessage());
     }
 
     /**
