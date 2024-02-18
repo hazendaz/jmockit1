@@ -3,6 +3,7 @@ package mockit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -11,18 +12,12 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 /**
  * The Class FakeInvocationProceedTest.
  */
 public final class FakeInvocationProceedTest {
-
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
 
     /**
      * The Class BaseClassToBeFaked.
@@ -240,8 +235,9 @@ public final class FakeInvocationProceedTest {
         } catch (FileNotFoundException ignored) {
         }
 
-        thrown.expect(InterruptedException.class);
-        ClassToBeFaked.staticMethodToBeFaked();
+        assertThrows(InterruptedException.class, () -> {
+            ClassToBeFaked.staticMethodToBeFaked();
+        });
     }
 
     /**
@@ -282,11 +278,10 @@ public final class FakeInvocationProceedTest {
             }
         };
 
-        thrown.expect(UnsupportedOperationException.class);
-        thrown.expectMessage("Cannot proceed");
-        thrown.expectMessage("native method");
-
-        ClassToBeFaked.nativeMethod();
+        Throwable throwable = assertThrows(UnsupportedOperationException.class, () -> {
+            ClassToBeFaked.nativeMethod();
+        });
+        assertEquals("Cannot proceed into real implementation of native method", throwable.getMessage());
     }
 
     /**
