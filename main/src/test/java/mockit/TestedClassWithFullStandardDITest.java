@@ -1,13 +1,13 @@
 package mockit;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.runners.MethodSorters.NAME_ASCENDING;
 
 import java.io.File;
@@ -102,7 +102,7 @@ public final class TestedClassWithFullStandardDITest {
          */
         @PreDestroy
         void destroy() {
-            assertTrue("TestedClass not initialized", initialized);
+            assertTrue(initialized, "TestedClass not initialized");
             destroyed = true;
         }
     }

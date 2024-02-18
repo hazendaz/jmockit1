@@ -1,6 +1,6 @@
 package mockit;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import mockit.internal.expectations.invocation.MissingInvocation;
 import mockit.internal.expectations.invocation.UnexpectedInvocation;
@@ -324,7 +324,7 @@ public final class VerificationsTest {
                 String value;
                 mock.setSomethingElse(value = withCapture());
                 // noinspection ConstantConditions
-                assertEquals("not empty", 0, value.length());
+                assertEquals(0, value.length(), "not empty");
             }
         };
     }

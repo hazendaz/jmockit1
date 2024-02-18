@@ -1,7 +1,7 @@
 package mockit.integration.junit4;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.Test;
 
@@ -20,11 +20,11 @@ public final class UseDependencyTest {
 
     @Test
     public void useFieldSetThroughDirectInstanceInitializationRatherThanBeforeMethod() {
-        assertTrue("Dependency still mocked", instanceField);
+        assertTrue(instanceField, "Dependency still mocked");
     }
 
     @Test
     public void useFieldSetThroughDirectClassInitializationRatherThanBeforeClassMethod() {
-        assertTrue("Dependency still mocked", STATIC_FIELD);
+        assertTrue(STATIC_FIELD, "Dependency still mocked");
     }
 }
