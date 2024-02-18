@@ -1,6 +1,7 @@
 package jmockit.loginExample.domain.userLogin;
 
 import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertThrows;
 import static org.testng.Assert.assertTrue;
 
 import mockit.Mock;
@@ -102,40 +103,37 @@ public final class LoginServiceIntegrationTest {
 
     /**
      * Disallow concurrent logins.
-     *
-     * @throws Exception
-     *             the exception
      */
-    @Test(expectedExceptions = AccountLoginLimitReachedException.class)
-    public void disallowConcurrentLogins() throws Exception {
+    @Test
+    public void disallowConcurrentLogins() {
         account.setLoggedIn(true);
 
-        service.login(userId, userPassword);
+        assertThrows(AccountLoginLimitReachedException.class, () -> {
+            service.login(userId, userPassword);
+        });
     }
 
     /**
      * Throw exception if account not found.
-     *
-     * @throws Exception
-     *             the exception
      */
-    @Test(expectedExceptions = UserAccountNotFoundException.class)
-    public void throwExceptionIfAccountNotFound() throws Exception {
+    @Test
+    public void throwExceptionIfAccountNotFound() {
         account = null;
 
-        service.login("roger", "password");
+        assertThrows(UserAccountNotFoundException.class, () -> {
+            service.login("roger", "password");
+        });
     }
 
     /**
      * Disallow logging into revoked account.
-     *
-     * @throws Exception
-     *             the exception
      */
-    @Test(expectedExceptions = UserAccountRevokedException.class)
-    public void disallowLoggingIntoRevokedAccount() throws Exception {
+    @Test
+    public void disallowLoggingIntoRevokedAccount() {
         account.setRevoked(true);
 
-        service.login(userId, userPassword);
+        assertThrows(UserAccountRevokedException.class, () -> {
+            service.login(userId, userPassword);
+        });
     }
 }

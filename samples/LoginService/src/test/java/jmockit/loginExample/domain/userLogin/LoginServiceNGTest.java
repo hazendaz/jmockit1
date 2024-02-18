@@ -1,5 +1,7 @@
 package jmockit.loginExample.domain.userLogin;
 
+import static org.testng.Assert.assertThrows;
+
 import mockit.Expectations;
 import mockit.Mocked;
 import mockit.Tested;
@@ -131,12 +133,9 @@ public final class LoginServiceNGTest {
 
     /**
      * Disallow concurrent logins.
-     *
-     * @throws Exception
-     *             the exception
      */
-    @Test(expectedExceptions = AccountLoginLimitReachedException.class)
-    public void disallowConcurrentLogins() throws Exception {
+    @Test
+    public void disallowConcurrentLogins() {
         willMatchPassword(true);
 
         new Expectations() {
@@ -146,17 +145,16 @@ public final class LoginServiceNGTest {
             }
         };
 
-        service.login("john", "password");
+        assertThrows(AccountLoginLimitReachedException.class, () -> {
+            service.login("john", "password");
+        });
     }
 
     /**
      * Throw exception if account not found.
-     *
-     * @throws Exception
-     *             the exception
      */
-    @Test(expectedExceptions = UserAccountNotFoundException.class)
-    public void throwExceptionIfAccountNotFound() throws Exception {
+    @Test
+    public void throwExceptionIfAccountNotFound() {
         new Expectations() {
             {
                 UserAccount.find("roger");
@@ -164,17 +162,16 @@ public final class LoginServiceNGTest {
             }
         };
 
-        service.login("roger", "password");
+        assertThrows(UserAccountNotFoundException.class, () -> {
+            service.login("roger", "password");
+        });
     }
 
     /**
      * Disallow logging into revoked account.
-     *
-     * @throws Exception
-     *             the exception
      */
-    @Test(expectedExceptions = UserAccountRevokedException.class)
-    public void disallowLoggingIntoRevokedAccount() throws Exception {
+    @Test
+    public void disallowLoggingIntoRevokedAccount() {
         willMatchPassword(true);
 
         new Expectations() {
@@ -184,7 +181,9 @@ public final class LoginServiceNGTest {
             }
         };
 
-        service.login("john", "password");
+        assertThrows(UserAccountRevokedException.class, () -> {
+            service.login("john", "password");
+        });
     }
 
     /**
