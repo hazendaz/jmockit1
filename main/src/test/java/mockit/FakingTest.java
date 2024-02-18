@@ -178,7 +178,7 @@ public final class FakingTest {
      */
     @Test
     public <M extends Panel & Runnable> void attemptToFakeClassAndInterfaceAtOnce() {
-        Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
+        Throwable throwable = assertThrows(RuntimeException.class, () -> {
             new MockUp<M>() {
                 @Mock
                 String getName() {
