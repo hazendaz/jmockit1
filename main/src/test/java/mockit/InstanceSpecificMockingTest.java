@@ -235,6 +235,8 @@ public final class InstanceSpecificMockingTest {
      * @param buf
      *            the buf
      */
+    // TODO JWL 2/18/2024 Test not allowed on jdk21
+    @Ignore
     @Test
     public void mockByteBufferAsInjectable(@Injectable final ByteBuffer buf) {
         ByteBuffer realBuf = ByteBuffer.allocateDirect(10);
@@ -312,6 +314,8 @@ public final class InstanceSpecificMockingTest {
      * @param cascadingMock
      *            the cascading mock
      */
+    // TODO JWL 2/18/2024 Test not allowed on jdk21
+    @Ignore
     @Test
     public void mockByteBufferAsCascadedMock(@Mocked BufferFactory cascadingMock) {
         ByteBuffer realBuf1 = ByteBuffer.allocateDirect(10);
