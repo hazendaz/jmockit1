@@ -13,34 +13,16 @@
     <name>LoginService Sample</name>
 
     <scm>
-        <url>https://github.com/hazendaz/jmockit1</url>
         <connection>scm:git:https://github.com/hazendaz/jmockit1</connection>
         <developerConnection>scm:git:ssh://git@github.com/hazendaz/jmockit1.git</developerConnection>
         <tag>HEAD</tag>
+        <url>https://github.com/hazendaz/jmockit1</url>
     </scm>
 
     <properties>
         <!-- Automatic Module Name -->
         <module.name>com.github.hazendaz.jmockit.loginservice</module.name>
     </properties>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>**/LoginServiceJUnitTest.class</exclude>
-                    </excludes>
-                    <systemPropertyVariables>
-                        <coverage-output>html</coverage-output>
-                        <coverage-maxCallPoints>20</coverage-maxCallPoints>
-                    </systemPropertyVariables>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
     <dependencies>
         <dependency>
@@ -86,4 +68,22 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/LoginServiceJUnitTest.class</exclude>
+                    </excludes>
+                    <systemPropertyVariables>
+                        <coverage-output>html</coverage-output>
+                        <coverage-maxCallPoints>20</coverage-maxCallPoints>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

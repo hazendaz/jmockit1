@@ -14,6 +14,9 @@
     <version>1.52.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <name>The JMockit Testing Toolkit Samples</name>
+    <description>Sample test suites for the toolkit</description>
+
     <modules>
         <module>tutorial</module>
         <module>LoginService</module>
@@ -21,14 +24,11 @@
         <module>petclinic</module>
     </modules>
 
-    <name>The JMockit Testing Toolkit Samples</name>
-    <description>Sample test suites for the toolkit</description>
-
     <scm>
-        <url>https://github.com/hazendaz/jmockit1</url>
         <connection>scm:git:https://github.com/hazendaz/jmockit1</connection>
         <developerConnection>scm:git:ssh://git@github.com/hazendaz/jmockit1.git</developerConnection>
         <tag>HEAD</tag>
+        <url>https://github.com/hazendaz/jmockit1</url>
     </scm>
 
     <properties>
@@ -48,8 +48,8 @@
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
                 <version>5.10.2</version>
-                <scope>import</scope>
                 <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.testng</groupId>
