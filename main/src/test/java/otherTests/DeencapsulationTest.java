@@ -1,22 +1,23 @@
 package otherTests;
 
-import static org.hamcrest.CoreMatchers.isA;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 import mockit.Deencapsulation;
 
 import org.gaul.modernizer_maven_annotations.SuppressModernizer;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public final class DeencapsulationTest {
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
 
     static final class Subclass extends BaseClass {
         final int INITIAL_VALUE = new Random().nextInt();
@@ -96,10 +97,11 @@ public final class DeencapsulationTest {
 
     @Test
     public void attemptToGetInstanceFieldByNameWithWrongName() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("No instance field of name \"noField\" found");
-
-        Deencapsulation.getField(anInstance, "noField");
+        Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
+            Deencapsulation.getField(anInstance, "noField");
+        });
+        assertEquals("No instance field of name \"noField\" found in class otherTests.BaseClass",
+                throwable.getMessage());
     }
 
     @Test
@@ -134,20 +136,21 @@ public final class DeencapsulationTest {
 
     @Test
     public void attemptToGetInstanceFieldByTypeWithWrongType() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Instance field of type byte or Byte not found");
-
-        Deencapsulation.getField(anInstance, Byte.class);
+        Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
+            Deencapsulation.getField(anInstance, Byte.class);
+        });
+        assertEquals("Instance field of type byte or Byte not found in class otherTests.BaseClass",
+                throwable.getMessage());
     }
 
     @Test
     public void attemptToGetInstanceFieldByTypeForClassWithMultipleFieldsOfThatType() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("More than one instance field");
-        thrown.expectMessage("of type int ");
-        thrown.expectMessage("INITIAL_VALUE, initialValue");
-
-        Deencapsulation.getField(anInstance, int.class);
+        Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
+            Deencapsulation.getField(anInstance, int.class);
+        });
+        assertEquals("More than one instance field from which a value of type int "
+                + "can be read exists in class otherTests.DeencapsulationTest$Subclass: "
+                + "INITIAL_VALUE, initialValue", throwable.getMessage());
     }
 
     @Test
@@ -183,10 +186,10 @@ public final class DeencapsulationTest {
 
     @Test
     public void attemptToGetStaticFieldByNameFromWrongClass() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("No static field of name \"buffer\" found in class otherTests.BaseClass");
-
-        Deencapsulation.getField(BaseClass.class, "buffer");
+        Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
+            Deencapsulation.getField(BaseClass.class, "buffer");
+        });
+        assertEquals("No static field of name \"buffer\" found in class otherTests.BaseClass", throwable.getMessage());
     }
 
     @Test
@@ -209,10 +212,11 @@ public final class DeencapsulationTest {
 
     @Test
     public void attemptToSetInstanceFieldByNameWithWrongName() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("No instance field of name \"noField\" found");
-
-        Deencapsulation.setField(anInstance, "noField", 901);
+        Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
+            Deencapsulation.setField(anInstance, "noField", 901);
+        });
+        assertEquals("No instance field of name \"noField\" found in class otherTests.BaseClass",
+                throwable.getMessage());
     }
 
     @Test
@@ -226,18 +230,23 @@ public final class DeencapsulationTest {
 
     @Test
     public void attemptToSetInstanceFieldByTypeWithWrongType() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Instance field of type byte or Byte not found");
-
-        Deencapsulation.setField(anInstance, (byte) 123);
+        Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
+            Deencapsulation.setField(anInstance, (byte) 123);
+        });
+        assertEquals("Instance field of type byte or Byte not found in class otherTests.BaseClass",
+                throwable.getMessage());
     }
 
     @Test
     public void attemptToSetInstanceFieldByTypeForClassWithMultipleFieldsOfThatType() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("More than one instance field ");
-
-        Deencapsulation.setField(anInstance, 901);
+        Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
+            Deencapsulation.setField(anInstance, 901);
+        });
+        assertEquals(
+                "More than one instance field to which a value of type int "
+                        + "or Integer can be assigned exists in class "
+                        + "otherTests.DeencapsulationTest$Subclass: INITIAL_VALUE, initialValue",
+                throwable.getMessage());
     }
 
     @Test
@@ -251,10 +260,10 @@ public final class DeencapsulationTest {
 
     @Test
     public void attemptToSetStaticFieldByNameWithWrongName() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("No static field of name \"noField\" found ");
-
-        Deencapsulation.setField(Subclass.class, "noField", null);
+        Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
+            Deencapsulation.setField(Subclass.class, "noField", null);
+        });
+        assertEquals("No static field of name \"noField\" found in class otherTests.BaseClass", throwable.getMessage());
     }
 
     @Test
@@ -268,27 +277,30 @@ public final class DeencapsulationTest {
 
     @Test
     public void attemptToSetFieldByTypeWithoutAValue() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Missing field value");
-
-        Deencapsulation.setField(Subclass.class, null);
+        Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
+            Deencapsulation.setField(Subclass.class, null);
+        });
+        assertEquals("Missing field value when setting field by type", throwable.getMessage());
     }
 
     @Test
     @SuppressModernizer
     public void attemptToSetStaticFieldByTypeWithWrongType() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Static field of type StringBuffer not found");
-
-        Deencapsulation.setField(Subclass.class, new StringBuffer());
+        Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
+            Deencapsulation.setField(Subclass.class, new StringBuffer());
+        });
+        assertEquals("Static field of type StringBuffer " + "not found in class otherTests.BaseClass",
+                throwable.getMessage());
     }
 
     @Test
     public void attemptToSetStaticFieldByTypeForClassWithMultipleFieldsOfThatType() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("More than one static field ");
-
-        Deencapsulation.setField(Subclass.class, 'A');
+        Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
+            Deencapsulation.setField(Subclass.class, 'A');
+        });
+        assertEquals("More than one static field to which a value of type char or "
+                + "Character can be assigned exists in class "
+                + "otherTests.DeencapsulationTest$Subclass: static1, static2", throwable.getMessage());
     }
 
     @Test
@@ -305,8 +317,12 @@ public final class DeencapsulationTest {
 
     @Test
     public void attemptToSetAStaticFinalField() {
-        thrown.expectCause(isA(IllegalAccessException.class));
-
-        Deencapsulation.setField(Subclass.class, "constantField", 54);
+        Throwable throwable = assertThrows(RuntimeException.class, () -> {
+            Deencapsulation.setField(Subclass.class, "constantField", 54);
+        });
+        assertEquals(
+                "java.lang.IllegalAccessException: Can not set static final java.lang.Integer "
+                        + "field otherTests.DeencapsulationTest$Subclass.constantField to java.lang.Integer",
+                throwable.getMessage());
     }
 }
