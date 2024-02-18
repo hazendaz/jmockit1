@@ -18,12 +18,12 @@
     <name>jmockit-parent</name>
     <description>Parent POM for JMOCKIT</description>
 
-   <licenses>
-      <license>
-         <name>The MIT License</name>
-         <url>http://www.opensource.org/licenses/mit-license.php</url>
-      </license>
-   </licenses>
+    <licenses>
+        <license>
+            <name>The MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
 
     <modules>
         <module>coverageTests</module>
@@ -32,10 +32,10 @@
     </modules>
 
     <scm>
-        <url>https://github.com/hazendaz/jmockit1</url>
         <connection>scm:git:https://github.com/hazendaz/jmockit1</connection>
         <developerConnection>scm:git:ssh://git@github.com/hazendaz/jmockit1.git</developerConnection>
         <tag>HEAD</tag>
+        <url>https://github.com/hazendaz/jmockit1</url>
     </scm>
 
     <distributionManagement>
