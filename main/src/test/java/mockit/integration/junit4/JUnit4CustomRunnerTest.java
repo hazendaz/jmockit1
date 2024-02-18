@@ -1,8 +1,8 @@
 package mockit.integration.junit4;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
@@ -39,7 +39,7 @@ public final class JUnit4CustomRunnerTest {
 
     @Before
     public void setUp() {
-        assertTrue("Unexpected test count: " + testCount, testCount == 1 || testCount == 2);
+        assertTrue(testCount == 1 || testCount == 2, "Unexpected test count: " + testCount);
     }
 
     @Test

@@ -1,8 +1,8 @@
 package mockit.integration.springframework;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import mockit.Injectable;
 import mockit.Tested;
@@ -233,7 +233,7 @@ public final class SpringIntegrationTest {
             beanFactory.getBean(Level1.class);
         } catch (IllegalStateException e) {
             for (StackTraceElement ste : e.getStackTrace()) {
-                assertFalse(ste.toString(), ste.getClassName().startsWith("mockit.internal."));
+                assertFalse(ste.getClassName().startsWith("mockit.internal."), ste.toString());
             }
         }
     }

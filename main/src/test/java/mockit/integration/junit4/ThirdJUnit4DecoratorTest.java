@@ -1,6 +1,6 @@
 package mockit.integration.junit4;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import mockit.Mock;
 import mockit.MockUp;

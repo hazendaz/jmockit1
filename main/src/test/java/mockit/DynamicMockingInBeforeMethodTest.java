@@ -1,6 +1,6 @@
 package mockit;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;

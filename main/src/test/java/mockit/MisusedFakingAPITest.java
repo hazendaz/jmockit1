@@ -1,6 +1,6 @@
 package mockit;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.applet.Applet;
 import java.awt.Component;
