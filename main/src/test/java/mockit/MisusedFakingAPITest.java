@@ -5,18 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.applet.Applet;
 import java.awt.Component;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 /**
  * The Class MisusedFakingAPITest.
  */
 public final class MisusedFakingAPITest {
-
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
 
     /**
      * Fake same method twice with reentrant fakes from two different fake classes.

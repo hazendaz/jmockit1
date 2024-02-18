@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.faces.application.FacesMessage;
@@ -15,19 +16,13 @@ import javax.accessibility.AccessibleState;
 
 import mockit.MoreFakingTest.ClassWithNested.Nested;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 /**
  * The Class MoreFakingTest.
  */
 @SuppressWarnings("JUnitTestMethodWithNoAssertions")
 public final class MoreFakingTest {
-
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
 
     /** The code under test. */
     final CodeUnderTest codeUnderTest = new CodeUnderTest();
@@ -202,11 +197,11 @@ public final class MoreFakingTest {
      */
     @Test
     public void applyReentrantFake() {
-        thrown.expect(RuntimeException.class);
-
         new FakeCollaboratorWithReentrantFakeMethod();
 
-        codeUnderTest.doSomething();
+        assertThrows(RuntimeException.class, () -> {
+            codeUnderTest.doSomething();
+        });
     }
 
     /**
