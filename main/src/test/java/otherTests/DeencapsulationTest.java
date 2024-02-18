@@ -14,7 +14,6 @@ import java.util.Set;
 
 import mockit.Deencapsulation;
 
-import org.gaul.modernizer_maven_annotations.SuppressModernizer;
 import org.junit.Test;
 
 public final class DeencapsulationTest {
@@ -284,13 +283,11 @@ public final class DeencapsulationTest {
     }
 
     @Test
-    @SuppressModernizer
     public void attemptToSetStaticFieldByTypeWithWrongType() {
         Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
-            Deencapsulation.setField(Subclass.class, new StringBuffer());
+            Deencapsulation.setField(Subclass.class, new String());
         });
-        assertEquals("Static field of type StringBuffer " + "not found in class otherTests.BaseClass",
-                throwable.getMessage());
+        assertEquals("Static field of type String not found in class otherTests.BaseClass", throwable.getMessage());
     }
 
     @Test
