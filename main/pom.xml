@@ -14,13 +14,13 @@
     <version>1.52.1-SNAPSHOT</version>
 
     <name>jmockit</name>
-    <description>
-      JMockit is a Java toolkit for automated developer testing.
+    <description>JMockit is a Java toolkit for automated developer testing.
       It contains APIs for the creation of the objects to be tested, for mocking dependencies, and for faking external
       APIs; JUnit (4 and 5) and TestNG test runners are supported.
-      It also contains an advanced code coverage tool.
-    </description>
+      It also contains an advanced code coverage tool.</description>
     <url>http://jmockit.github.io</url>
+
+    <inceptionYear>2006</inceptionYear>
 
     <licenses>
         <license>
@@ -35,13 +35,11 @@
         </developer>
     </developers>
 
-    <inceptionYear>2006</inceptionYear>
-
     <scm>
-        <url>https://github.com/hazendaz/jmockit1</url>
         <connection>scm:git:https://github.com/hazendaz/jmockit1</connection>
         <developerConnection>scm:git:ssh://git@github.com/hazendaz/jmockit1.git</developerConnection>
         <tag>HEAD</tag>
+        <url>https://github.com/hazendaz/jmockit1</url>
     </scm>
 
     <issueManagement>
@@ -53,130 +51,6 @@
         <!-- Automatic Module Name -->
         <module.name>com.github.hazendaz.jmockit</module.name>
     </properties>
-
-    <build>
-        <resources>
-            <resource>
-                <directory>${project.basedir}/src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-            <resource>
-                <directory>..</directory>
-                <includes>
-                    <include>LICENSE.txt</include>
-                    <include>NOTICE.txt</include>
-                </includes>
-            </resource>
-        </resources>
-
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                    <configuration>
-                        <rules>
-                            <restrictImports>
-                                <includeTestCode>true</includeTestCode>
-                                <groups>
-                                    <group>
-                                        <reason>Don't allow obsolete logging</reason>
-                                        <bannedImports>
-                                            <bannedImport>org.apache.commons.logging.**</bannedImport>
-                                            <bannedImport>org.apache.log4j.**</bannedImport>
-                                        </bannedImports>
-                                    </group>
-                                </groups>
-                            </restrictImports>
-                        </rules>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <Main-Class>mockit.coverage.CodeCoverage</Main-Class>
-                            <Premain-Class>mockit.internal.startup.Startup</Premain-Class>
-                            <Can-Redefine-Classes>true</Can-Redefine-Classes>
-                            <Can-Retransform-Classes>true</Can-Retransform-Classes>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>**/*.css</exclude>
-                        <exclude>**/*.js</exclude>
-                        <exclude>**/*.png</exclude>
-                        <exclude>META-INF/services/*</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <windowtitle>JMockit Toolkit API</windowtitle>
-                    <doctitle>JMockit Toolkit API Documentation</doctitle>
-                    <sourceFileExcludes>mockit/asm/**,mockit/coverage/**,mockit/integration/**,mockit/internal/**</sourceFileExcludes>
-                    <links>
-                        <link>https://docs.oracle.com/javase/11/docs/api/</link>
-                    </links>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <runOrder>alphabetical</runOrder>
-                    <properties>
-                        <property>
-                            <name>junit</name>
-                            <value>false</value>
-                        </property>
-                    </properties>
-                    <excludes>
-                        <exclude>**/TestNGViolatedExpectationsTest.class</exclude>
-                    </excludes>
-                    <threadCount>1</threadCount>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.maven.surefire</groupId>
-                        <artifactId>surefire-junit-platform</artifactId>
-                        <version>3.2.5</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.maven.surefire</groupId>
-                        <artifactId>surefire-testng</artifactId>
-                        <version>3.2.5</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>com.github.hazendaz.jmockit</groupId>
-                        <artifactId>jmockit</artifactId>
-                        <version>1.52.0</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-        </plugins>
-    </build>
 
     <dependencies>
         <dependency>
@@ -301,6 +175,130 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>${project.basedir}/src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>..</directory>
+                <includes>
+                    <include>LICENSE.txt</include>
+                    <include>NOTICE.txt</include>
+                </includes>
+            </resource>
+        </resources>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <configuration>
+                        <rules>
+                            <restrictImports>
+                                <includeTestCode>true</includeTestCode>
+                                <groups>
+                                    <group>
+                                        <reason>Don't allow obsolete logging</reason>
+                                        <bannedImports>
+                                            <bannedImport>org.apache.commons.logging.**</bannedImport>
+                                            <bannedImport>org.apache.log4j.**</bannedImport>
+                                        </bannedImports>
+                                    </group>
+                                </groups>
+                            </restrictImports>
+                        </rules>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Main-Class>mockit.coverage.CodeCoverage</Main-Class>
+                            <Premain-Class>mockit.internal.startup.Startup</Premain-Class>
+                            <Can-Redefine-Classes>true</Can-Redefine-Classes>
+                            <Can-Retransform-Classes>true</Can-Retransform-Classes>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/*.css</exclude>
+                        <exclude>**/*.js</exclude>
+                        <exclude>**/*.png</exclude>
+                        <exclude>META-INF/services/*</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <windowtitle>JMockit Toolkit API</windowtitle>
+                    <doctitle>JMockit Toolkit API Documentation</doctitle>
+                    <sourceFileExcludes>mockit/asm/**,mockit/coverage/**,mockit/integration/**,mockit/internal/**</sourceFileExcludes>
+                    <links>
+                        <link>https://docs.oracle.com/javase/11/docs/api/</link>
+                    </links>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <runOrder>alphabetical</runOrder>
+                    <properties>
+                        <property>
+                            <name>junit</name>
+                            <value>false</value>
+                        </property>
+                    </properties>
+                    <excludes>
+                        <exclude>**/TestNGViolatedExpectationsTest.class</exclude>
+                    </excludes>
+                    <threadCount>1</threadCount>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-junit-platform</artifactId>
+                        <version>3.2.5</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-testng</artifactId>
+                        <version>3.2.5</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.github.hazendaz.jmockit</groupId>
+                        <artifactId>jmockit</artifactId>
+                        <version>1.52.0</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
     <profiles>
         <profile>
             <id>jdk17on</id>
@@ -309,11 +307,11 @@
             </activation>
             <build>
                 <plugins>
-                     <plugin>
+                    <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <configuration>
-                           <additionalOptions combine.children="append">
+                            <additionalOptions combine.children="append">
                                 <option>--add-modules</option>
                                 <option>java.sql</option>
                             </additionalOptions>
