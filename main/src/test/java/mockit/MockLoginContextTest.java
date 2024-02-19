@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collections;
@@ -21,13 +22,9 @@ import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
 import javax.security.auth.spi.LoginModule;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public final class MockLoginContextTest {
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void mockJREMethodAndConstructorUsingAnnotatedMockClass() throws Exception {
@@ -55,8 +52,6 @@ public final class MockLoginContextTest {
 
     @Test
     public void mockJREMethodAndConstructorWithMockUpClass() throws Exception {
-        thrown.expect(LoginException.class);
-
         new MockUp<LoginContext>() {
             @Mock
             void $init(String name) {
@@ -69,7 +64,9 @@ public final class MockLoginContextTest {
             }
         };
 
-        new LoginContext("test").login();
+        assertThrows(LoginException.class, () -> {
+            new LoginContext("test").login();
+        });
     }
 
     @Test

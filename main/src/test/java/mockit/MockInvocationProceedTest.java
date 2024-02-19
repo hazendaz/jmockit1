@@ -7,6 +7,7 @@ package mockit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -16,13 +17,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public final class MockInvocationProceedTest {
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
 
     public static class BaseClassToBeMocked {
         protected String name;
@@ -152,8 +149,9 @@ public final class MockInvocationProceedTest {
         } catch (FileNotFoundException ignored) {
         }
 
-        thrown.expect(InterruptedException.class);
-        ClassToBeMocked.staticMethodToBeMocked();
+        assertThrows(InterruptedException.class, () -> {
+            ClassToBeMocked.staticMethodToBeMocked();
+        });
     }
 
     @Test
@@ -166,11 +164,10 @@ public final class MockInvocationProceedTest {
             }
         };
 
-        thrown.expect(UnsupportedOperationException.class);
-        thrown.expectMessage("Cannot proceed");
-        thrown.expectMessage("native method");
-
-        ClassToBeMocked.nativeMethod();
+        Throwable throwable = assertThrows(UnsupportedOperationException.class, () -> {
+            ClassToBeMocked.nativeMethod();
+        });
+        assertEquals("Cannot proceed into real implementation of native method", throwable.getMessage());
     }
 
     @Test

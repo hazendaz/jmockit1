@@ -1,16 +1,16 @@
 package mockit.integration.springframework;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import mockit.Injectable;
 import mockit.Tested;
 
 import org.junit.BeforeClass;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanNotOfRequiredTypeException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -22,9 +22,6 @@ public final class SpringIntegrationTest {
     public static void applySpringIntegration() {
         new FakeBeanFactory();
     }
-
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
 
     public static class ExampleSUT {
         @Autowired
@@ -156,22 +153,28 @@ public final class SpringIntegrationTest {
     }
 
     void assertNoSuchBeanDefinitionForUnknownBeanName(BeanFactory beanFactory) {
-        thrown.expect(NoSuchBeanDefinitionException.class);
-        thrown.expectMessage("undefined");
-        beanFactory.getBean("undefined");
+        Throwable throwable = assertThrows(NoSuchBeanDefinitionException.class, () -> {
+            beanFactory.getBean("undefined");
+        });
+        assertEquals("No bean named 'undefined' available", throwable.getMessage());
     }
 
     void assertNoSuchBeanDefinitionForUnknownBeanNameAndType(BeanFactory beanFactory) {
-        thrown.expect(NoSuchBeanDefinitionException.class);
-        thrown.expectMessage("undefined");
-        thrown.expectMessage("Process");
-        beanFactory.getBean("undefined", Process.class);
+        Throwable throwable = assertThrows(NoSuchBeanDefinitionException.class, () -> {
+            beanFactory.getBean("undefined", Process.class);
+        });
+        assertEquals("No qualifying bean of type 'java.lang.Process' available: with bean name \"undefined\"",
+                throwable.getMessage());
     }
 
     void assertBeanNotOfRequiredTypeForWrongBeanType(BeanFactory beanFactory) {
-        thrown.expect(BeanNotOfRequiredTypeException.class);
-        thrown.expectMessage("Collaborator");
-        beanFactory.getBean("dependency", Collaborator.class);
+        Throwable throwable = assertThrows(BeanNotOfRequiredTypeException.class, () -> {
+            beanFactory.getBean("dependency", Collaborator.class);
+        });
+        assertEquals("Bean named 'dependency' is expected to be of type "
+                + "'mockit.integration.springframework.SpringIntegrationTest$Collaborator' "
+                + "but was actually of type 'mockit.integration.springframework.SpringIntegrationTest$DependencyImpl'",
+                throwable.getMessage());
     }
 
     @Test
@@ -211,18 +214,17 @@ public final class SpringIntegrationTest {
 
     @Test
     public void lookupBeanWithDependencyOnAnotherWhichAlsoDependsOnAnotherWhichHasAOneArgumentConstructor() {
-        thrown.expect(IllegalStateException.class);
-        thrown.expectMessage("for parameter \"str\" in constructor Level3(String str)");
-        thrown.expectMessage("when initializing field \"Level3 level3\"");
-        thrown.expectMessage("when initializing field \"Level2 level2\"");
-        thrown.expectMessage("of @Tested object \"Level1 level1\"");
+        Throwable throwable = assertThrows(IllegalStateException.class, () -> {
+            BeanFactory beanFactory = new TestWebApplicationContext();
+            Level1 level1 = beanFactory.getBean(Level1.class);
 
-        BeanFactory beanFactory = new TestWebApplicationContext();
-        Level1 level1 = beanFactory.getBean(Level1.class);
-
-        assertNotNull(level1);
-        assertNotNull(level1.level2);
-        assertNotNull(level1.level2.level3);
+            assertNotNull(level1);
+            assertNotNull(level1.level2);
+            assertNotNull(level1.level2.level3);
+        });
+        assertEquals("Missing @Tested or @Injectable for parameter \"str\" in constructor Level3(String str)" + "\r\n"
+                + "  when initializing field \"Level3 level3\"" + "\r\n" + "  when initializing field \"Level2 level2\""
+                + "\r\n" + "  of @Tested object \"Level1 level1\"", throwable.getMessage());
     }
 
     @Test

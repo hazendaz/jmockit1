@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collections;
@@ -17,18 +18,12 @@ import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
 import javax.security.auth.spi.LoginModule;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 /**
  * The Class FakeLoginContextTest.
  */
 public final class FakeLoginContextTest {
-
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
 
     /**
      * Fake JRE method and constructor using fake class.
@@ -88,8 +83,6 @@ public final class FakeLoginContextTest {
      */
     @Test
     public void fakeJREMethodAndConstructorWithFakeClass() throws Exception {
-        thrown.expect(LoginException.class);
-
         new MockUp<LoginContext>() {
             @Mock
             void $init(String name) {
@@ -102,7 +95,9 @@ public final class FakeLoginContextTest {
             }
         };
 
-        new LoginContext("test").login();
+        assertThrows(LoginException.class, () -> {
+            new LoginContext("test").login();
+        });
     }
 
     /**
