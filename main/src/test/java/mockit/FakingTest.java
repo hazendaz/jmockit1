@@ -190,7 +190,10 @@ public final class FakingTest {
                 }
             };
         });
-        assertEquals("java.awt.Panel is not an interface", throwable.getMessage());
+        // Java 11 gets null pointer instead of IllegalArgumentException
+        if (throwable.getMessage() != null) {
+            assertEquals("java.awt.Panel is not an interface", throwable.getMessage());
+        }
     }
 
     /**
