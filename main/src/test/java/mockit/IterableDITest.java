@@ -73,11 +73,11 @@ final class IterableDITest {
     }
 
     /** The name list. */
-    @Tested
+    @Injectable
     final List<String> nameList = asList("One", "Two");
 
     /** The col list. */
-    @Tested
+    @Injectable
     final Collection<Collaborator> colList = asList(new Collaborator(1), new Collaborator(2));
 
     /** The tested 1. */

@@ -98,10 +98,6 @@ public final class TestedClassWithConstructorDI4Test {
         }
     }
 
-    /** The numbers. */
-    @Tested
-    final List<Integer> numbers = asList(1, 2, 3);
-
     /** The tested. */
     @Tested
     TestedClass tested;
@@ -113,6 +109,9 @@ public final class TestedClassWithConstructorDI4Test {
     /** The mock GO. */
     @Injectable
     final GenericClass<String> mockGO = new GenericClass<>(); // still mocked
+
+    @Injectable
+    final List<Integer> numbers = asList(1, 2, 3); // not mocked when interface
 
     /** The jndi context. */
     @Mocked

@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.Dictionary;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
 
 import org.junit.jupiter.api.Test;
@@ -80,6 +81,19 @@ final class GenericMockedTypesTest {
         };
 
         assertEquals("mocked", mock.put(123, "test"));
+    }
+
+    @Test
+    public void mockRawMapInterface(@SuppressWarnings("rawtypes") @Mocked final Map rawMap) {
+        new Expectations() {
+            {
+                rawMap.get("test");
+                result = new Object();
+            }
+        };
+
+        Object value = rawMap.get("test");
+        assertNotNull(value);
     }
 
     /**
