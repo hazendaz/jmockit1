@@ -1,15 +1,16 @@
 package mockit;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import jakarta.inject.Inject;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class StandardDI2Test.
  */
-public final class StandardDI2Test {
+final class StandardDI2Test {
 
     /**
      * The Class TestedClass.
@@ -41,8 +42,10 @@ public final class StandardDI2Test {
     /**
      * Attempt to create tested object through annotated constructor with missing injectables.
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToCreateTestedObjectThroughAnnotatedConstructorWithMissingInjectables() {
-        fail();
+    @Test
+    void attemptToCreateTestedObjectThroughAnnotatedConstructorWithMissingInjectables() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail();
+        });
     }
 }

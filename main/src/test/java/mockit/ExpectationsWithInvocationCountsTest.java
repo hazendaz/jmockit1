@@ -1,5 +1,6 @@
 package mockit;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Date;
@@ -7,12 +8,12 @@ import java.util.Date;
 import mockit.internal.expectations.invocation.MissingInvocation;
 import mockit.internal.expectations.invocation.UnexpectedInvocation;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class ExpectationsWithInvocationCountsTest.
  */
-public final class ExpectationsWithInvocationCountsTest {
+final class ExpectationsWithInvocationCountsTest {
 
     /** The code under test. */
     private final CodeUnderTest codeUnderTest = new CodeUnderTest();
@@ -88,7 +89,7 @@ public final class ExpectationsWithInvocationCountsTest {
      *            the mock
      */
     @Test
-    public void expectOnce(@Mocked final Collaborator mock) {
+    void expectOnce(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.provideSomeService();
@@ -104,19 +105,21 @@ public final class ExpectationsWithInvocationCountsTest {
      * @param mock
      *            the mock
      */
-    @Test(expected = UnexpectedInvocation.class)
-    public void expectOnceButReplayTwice(@Mocked final Collaborator mock) {
-        new Expectations() {
-            {
-                mock.provideSomeService();
-                times = 1;
-            }
-        };
+    @Test
+    void expectOnceButReplayTwice(@Mocked final Collaborator mock) {
+        assertThrows(UnexpectedInvocation.class, () -> {
+            new Expectations() {
+                {
+                    mock.provideSomeService();
+                    times = 1;
+                }
+            };
 
-        codeUnderTest.doSomething();
-        codeUnderTest.doSomething();
+            codeUnderTest.doSomething();
+            codeUnderTest.doSomething();
 
-        fail("Should not get here");
+            fail("Should not get here");
+        });
     }
 
     /**
@@ -125,24 +128,26 @@ public final class ExpectationsWithInvocationCountsTest {
      * @param mock
      *            the mock
      */
-    @Test(expected = UnexpectedInvocation.class)
-    public void expectOnceButReplayMoreTimes(@Mocked final Collaborator mock) {
-        new Expectations() {
-            {
-                mock.provideSomeService();
-                times = 1;
-            }
-        };
+    @Test
+    void expectOnceButReplayMoreTimes(@Mocked final Collaborator mock) {
+        assertThrows(UnexpectedInvocation.class, () -> {
+            new Expectations() {
+                {
+                    mock.provideSomeService();
+                    times = 1;
+                }
+            };
 
-        codeUnderTest.doSomething();
-
-        try {
             codeUnderTest.doSomething();
-        } finally {
-            codeUnderTest.doSomethingElse();
-        }
 
-        fail("Should not get here");
+            try {
+                codeUnderTest.doSomething();
+            } finally {
+                codeUnderTest.doSomethingElse();
+            }
+
+            fail("Should not get here");
+        });
     }
 
     /**
@@ -152,7 +157,7 @@ public final class ExpectationsWithInvocationCountsTest {
      *            the mock
      */
     @Test
-    public void catchUnexpectedInvocationAndContinue(@Mocked final Collaborator mock) {
+    void catchUnexpectedInvocationAndContinue(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.provideSomeService();
@@ -175,7 +180,7 @@ public final class ExpectationsWithInvocationCountsTest {
      *            the mock
      */
     @Test
-    public void expectTwiceByUsingInvocationCount(@Mocked final Collaborator mock) {
+    void expectTwiceByUsingInvocationCount(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.provideSomeService();
@@ -195,18 +200,20 @@ public final class ExpectationsWithInvocationCountsTest {
      * @param mock
      *            the mock
      */
-    @Test(expected = MissingInvocation.class)
-    public void expectTwiceByUsingInvocationCountButReplayOnlyOnce(@Mocked final Collaborator mock) {
-        new Expectations() {
-            {
-                mock.provideSomeService();
-                times = 2;
-                mock.simpleOperation(1, "b", null);
-            }
-        };
+    @Test
+    void expectTwiceByUsingInvocationCountButReplayOnlyOnce(@Mocked final Collaborator mock) {
+        assertThrows(MissingInvocation.class, () -> {
+            new Expectations() {
+                {
+                    mock.provideSomeService();
+                    times = 2;
+                    mock.simpleOperation(1, "b", null);
+                }
+            };
 
-        codeUnderTest.doSomething();
-        codeUnderTest.doSomethingElse();
+            codeUnderTest.doSomething();
+            codeUnderTest.doSomethingElse();
+        });
     }
 
     /**
@@ -215,18 +222,20 @@ public final class ExpectationsWithInvocationCountsTest {
      * @param mock
      *            the mock
      */
-    @Test(expected = UnexpectedInvocation.class)
-    public void expectExactlyTwiceButReplayMoreTimes(@Mocked final Collaborator mock) {
-        new Expectations() {
-            {
-                mock.provideSomeService();
-                times = 2;
-            }
-        };
+    @Test
+    void expectExactlyTwiceButReplayMoreTimes(@Mocked final Collaborator mock) {
+        assertThrows(UnexpectedInvocation.class, () -> {
+            new Expectations() {
+                {
+                    mock.provideSomeService();
+                    times = 2;
+                }
+            };
 
-        codeUnderTest.doSomething();
-        codeUnderTest.doSomething();
-        codeUnderTest.doSomething();
+            codeUnderTest.doSomething();
+            codeUnderTest.doSomething();
+            codeUnderTest.doSomething();
+        });
     }
 
     /**
@@ -236,7 +245,7 @@ public final class ExpectationsWithInvocationCountsTest {
      *            the mock
      */
     @Test
-    public void expectAtLeastOnceAndReplayTwice(@Mocked final Collaborator mock) {
+    void expectAtLeastOnceAndReplayTwice(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.provideSomeService();
@@ -256,16 +265,18 @@ public final class ExpectationsWithInvocationCountsTest {
      * @param mock
      *            the mock
      */
-    @Test(expected = MissingInvocation.class)
-    public void expectAtLeastTwiceButReplayOnceWithSingleExpectation(@Mocked final Collaborator mock) {
-        new Expectations() {
-            {
-                mock.provideSomeService();
-                minTimes = 2;
-            }
-        };
+    @Test
+    void expectAtLeastTwiceButReplayOnceWithSingleExpectation(@Mocked final Collaborator mock) {
+        assertThrows(MissingInvocation.class, () -> {
+            new Expectations() {
+                {
+                    mock.provideSomeService();
+                    minTimes = 2;
+                }
+            };
 
-        codeUnderTest.doSomething();
+            codeUnderTest.doSomething();
+        });
     }
 
     /**
@@ -274,18 +285,20 @@ public final class ExpectationsWithInvocationCountsTest {
      * @param mock
      *            the mock
      */
-    @Test(expected = MissingInvocation.class)
-    public void expectAtLeastTwiceButReplayOnceWithTwoConsecutiveExpectations(@Mocked final Collaborator mock) {
-        new Expectations() {
-            {
-                mock.provideSomeService();
-                minTimes = 2;
-                mock.simpleOperation(1, "b", null);
-            }
-        };
+    @Test
+    void expectAtLeastTwiceButReplayOnceWithTwoConsecutiveExpectations(@Mocked final Collaborator mock) {
+        assertThrows(MissingInvocation.class, () -> {
+            new Expectations() {
+                {
+                    mock.provideSomeService();
+                    minTimes = 2;
+                    mock.simpleOperation(1, "b", null);
+                }
+            };
 
-        codeUnderTest.doSomething();
-        codeUnderTest.doSomethingElse();
+            codeUnderTest.doSomething();
+            codeUnderTest.doSomethingElse();
+        });
     }
 
     /**
@@ -295,7 +308,7 @@ public final class ExpectationsWithInvocationCountsTest {
      *            the mock
      */
     @Test
-    public void repeatsAtLeastOverwritingUpperLimit(@Mocked final Collaborator mock) {
+    void repeatsAtLeastOverwritingUpperLimit(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.provideSomeService();
@@ -316,7 +329,7 @@ public final class ExpectationsWithInvocationCountsTest {
      *            the mock
      */
     @Test
-    public void expectAtMostTwiceAndReplayOnce(@Mocked final Collaborator mock) {
+    void expectAtMostTwiceAndReplayOnce(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.provideSomeService();
@@ -335,19 +348,21 @@ public final class ExpectationsWithInvocationCountsTest {
      * @param mock
      *            the mock
      */
-    @Test(expected = UnexpectedInvocation.class)
-    public void expectAtMostOnceButReplayTwice(@Mocked final Collaborator mock) {
-        new Expectations() {
-            {
-                mock.provideSomeService();
-                maxTimes = 1;
-                mock.simpleOperation(1, "b", null);
-            }
-        };
+    @Test
+    void expectAtMostOnceButReplayTwice(@Mocked final Collaborator mock) {
+        assertThrows(UnexpectedInvocation.class, () -> {
+            new Expectations() {
+                {
+                    mock.provideSomeService();
+                    maxTimes = 1;
+                    mock.simpleOperation(1, "b", null);
+                }
+            };
 
-        codeUnderTest.doSomething();
-        codeUnderTest.doSomething();
-        codeUnderTest.doSomethingElse();
+            codeUnderTest.doSomething();
+            codeUnderTest.doSomething();
+            codeUnderTest.doSomethingElse();
+        });
     }
 
     /**
@@ -356,17 +371,19 @@ public final class ExpectationsWithInvocationCountsTest {
      * @param mock
      *            the mock
      */
-    @Test(expected = MissingInvocation.class)
-    public void repeatsAtMostDoesNotOverwriteLowerLimit(@Mocked final Collaborator mock) {
-        new Expectations() {
-            {
-                mock.provideSomeService();
-                minTimes = 2;
-                maxTimes = 3;
-            }
-        };
+    @Test
+    void repeatsAtMostDoesNotOverwriteLowerLimit(@Mocked final Collaborator mock) {
+        assertThrows(MissingInvocation.class, () -> {
+            new Expectations() {
+                {
+                    mock.provideSomeService();
+                    minTimes = 2;
+                    maxTimes = 3;
+                }
+            };
 
-        codeUnderTest.doSomething();
+            codeUnderTest.doSomething();
+        });
     }
 
     /**
@@ -376,7 +393,7 @@ public final class ExpectationsWithInvocationCountsTest {
      *            the mock
      */
     @Test
-    public void expectSameMethodOnceOrTwiceThenOnceButReplayEachExpectationOnlyOnce(@Mocked final Collaborator mock) {
+    void expectSameMethodOnceOrTwiceThenOnceButReplayEachExpectationOnlyOnce(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.simpleOperation(1, "", null);
@@ -397,7 +414,7 @@ public final class ExpectationsWithInvocationCountsTest {
      *            the mock
      */
     @Test
-    public void expectTwoOrThreeTimes(@Mocked final Collaborator mock) {
+    void expectTwoOrThreeTimes(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.provideSomeService();
@@ -419,7 +436,7 @@ public final class ExpectationsWithInvocationCountsTest {
      *            the mock
      */
     @Test
-    public void expectZeroOrMoreTimesAndReplayTwice(@Mocked final Collaborator mock) {
+    void expectZeroOrMoreTimesAndReplayTwice(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.provideSomeService();
@@ -440,14 +457,18 @@ public final class ExpectationsWithInvocationCountsTest {
      * @param a
      *            the a
      */
-    @Test(expected = MissingInvocation.class)
-    public void expectAtLeastOneInvocationMatchingStrictExpectationButInvokeNone(@Mocked final Collaborator a) {
-        new Expectations() {
-            {
-                a.provideSomeService();
-                maxTimes = -1;
-            }
-        };
+    @Test
+    void expectAtLeastOneInvocationMatchingStrictExpectationButInvokeNone(@Mocked final Collaborator a) {
+        assertThrows(MissingInvocation.class, () -> {
+            new Expectations() {
+                {
+                    a.provideSomeService();
+                    maxTimes = -1;
+                }
+            };
+
+            // Do nothing at replay time.
+        });
 
         // Do nothing at replay time.
     }
@@ -458,17 +479,19 @@ public final class ExpectationsWithInvocationCountsTest {
      * @param mock
      *            the mock
      */
-    @Test(expected = MissingInvocation.class)
-    public void expectOneOrMoreInvocationsFollowedByAnotherWhichWontOccur_maxTimes(@Mocked final Collaborator mock) {
-        new Expectations() {
-            {
-                mock.provideSomeService();
-                maxTimes = -1;
-                mock.simpleOperation(1, null, null);
-            }
-        };
+    @Test
+    void expectOneOrMoreInvocationsFollowedByAnotherWhichWontOccur_maxTimes(@Mocked final Collaborator mock) {
+        assertThrows(MissingInvocation.class, () -> {
+            new Expectations() {
+                {
+                    mock.provideSomeService();
+                    maxTimes = -1;
+                    mock.simpleOperation(1, null, null);
+                }
+            };
 
-        codeUnderTest.doSomething();
+            codeUnderTest.doSomething();
+        });
     }
 
     /**
@@ -477,16 +500,18 @@ public final class ExpectationsWithInvocationCountsTest {
      * @param mock
      *            the mock
      */
-    @Test(expected = MissingInvocation.class)
-    public void expectOneOrMoreInvocationsFollowedByAnotherWhichWontOccur_minTimes(@Mocked final Collaborator mock) {
-        new Expectations() {
-            {
-                mock.simpleOperation(1, anyString, null);
-                minTimes = 1;
-                mock.provideSomeService();
-            }
-        };
+    @Test
+    void expectOneOrMoreInvocationsFollowedByAnotherWhichWontOccur_minTimes(@Mocked final Collaborator mock) {
+        assertThrows(MissingInvocation.class, () -> {
+            new Expectations() {
+                {
+                    mock.simpleOperation(1, anyString, null);
+                    minTimes = 1;
+                    mock.provideSomeService();
+                }
+            };
 
-        codeUnderTest.doSomethingElse();
+            codeUnderTest.doSomethingElse();
+        });
     }
 }

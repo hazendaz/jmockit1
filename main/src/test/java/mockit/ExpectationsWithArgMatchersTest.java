@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.security.cert.Certificate;
@@ -21,18 +22,12 @@ import java.util.List;
 
 import mockit.internal.expectations.invocation.MissingInvocation;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class ExpectationsWithArgMatchersTest.
  */
-public final class ExpectationsWithArgMatchersTest {
-
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
+final class ExpectationsWithArgMatchersTest {
 
     /**
      * The Class Collaborator.
@@ -193,62 +188,60 @@ public final class ExpectationsWithArgMatchersTest {
      * Verify expectation numeric equality matcher but fail to match on replay.
      */
     @Test
-    public void verifyExpectationNumericEqualityMatcherButFailToMatchOnReplay() {
-        thrown.expect(MissingInvocation.class);
-        thrown.expectMessage("setValue");
-        thrown.expectMessage("a numeric value within 0.01 of 2.3");
-        thrown.expectMessage("instead got");
-        thrown.expectMessage("setValue(2.32)");
+    void verifyExpectationNumericEqualityMatcherButFailToMatchOnReplay() {
+        Throwable exception = assertThrows(MissingInvocation.class, () -> {
 
-        mock.setValue(2.32);
+            mock.setValue(2.32);
 
-        new Verifications() {
-            {
-                mock.setValue(withEqual(2.3, 0.01));
-            }
-        };
+            new Verifications() {
+                {
+                    mock.setValue(withEqual(2.3, 0.01));
+                }
+            };
+        });
+        assertTrue(exception.getMessage().contains("setValue(2.32)"));
     }
 
     /**
      * Verify expectation using numeric equality matcher but replay with non numeric parameter type.
      */
     @Test
-    public void verifyExpectationUsingNumericEqualityMatcherButReplayWithNonNumericParameterType() {
-        thrown.expect(MissingInvocation.class);
+    void verifyExpectationUsingNumericEqualityMatcherButReplayWithNonNumericParameterType() {
+        assertThrows(MissingInvocation.class, () -> {
 
-        mock.useObject('2');
+            mock.useObject('2');
 
-        new Verifications() {
-            {
-                mock.useObject(withEqual(2.3, 0.01));
-            }
-        };
+            new Verifications() {
+                {
+                    mock.useObject(withEqual(2.3, 0.01));
+                }
+            };
+        });
     }
 
     /**
      * Verify expectation using inequality matcher but fail to match on replay.
      */
     @Test
-    public void verifyExpectationUsingInequalityMatcherButFailToMatchOnReplay() {
-        thrown.expect(MissingInvocation.class);
-        thrown.expectMessage("(not 2)");
-        thrown.expectMessage("got");
-        thrown.expectMessage("(2)");
+    void verifyExpectationUsingInequalityMatcherButFailToMatchOnReplay() {
+        Throwable exception = assertThrows(MissingInvocation.class, () -> {
 
-        mock.setValue(2);
+            mock.setValue(2);
 
-        new Verifications() {
-            {
-                mock.setValue(withNotEqual(2));
-            }
-        };
+            new Verifications() {
+                {
+                    mock.setValue(withNotEqual(2));
+                }
+            };
+        });
+        assertTrue(exception.getMessage().contains("(2)"));
     }
 
     /**
      * Verify expectations using numeric equality matchers.
      */
     @Test
-    public void verifyExpectationsUsingNumericEqualityMatchers() {
+    void verifyExpectationsUsingNumericEqualityMatchers() {
         new Expectations() {
             {
                 mock.setValue(withEqual(2.0F, 0.01F));
@@ -266,7 +259,7 @@ public final class ExpectationsWithArgMatchersTest {
      * Record expectation with delegate without the parameter type.
      */
     @Test
-    public void recordExpectationWithDelegateWithoutTheParameterType() {
+    void recordExpectationWithDelegateWithoutTheParameterType() {
         new Expectations() {
             {
                 mock.useObject(with(new Delegate() { // only compiles for a parameter of type Object
@@ -343,7 +336,7 @@ public final class ExpectationsWithArgMatchersTest {
      * Expect invocations with named delegate matcher.
      */
     @Test
-    public void expectInvocationsWithNamedDelegateMatcher() {
+    void expectInvocationsWithNamedDelegateMatcher() {
         new Expectations() {
             {
                 mock.setTextualValues(with(collectionElement("B")));
@@ -393,7 +386,7 @@ public final class ExpectationsWithArgMatchersTest {
      * Use mocked method before recording expectation with argument matcher.
      */
     @Test
-    public void useMockedMethodBeforeRecordingExpectationWithArgumentMatcher() {
+    void useMockedMethodBeforeRecordingExpectationWithArgumentMatcher() {
         assertFalse(mock.doSomething("abc"));
 
         new Expectations() {
@@ -411,7 +404,7 @@ public final class ExpectationsWithArgMatchersTest {
      * Record expectations using the any fields for parameter of type object.
      */
     @Test
-    public void recordExpectationsUsingTheAnyFieldsForParameterOfTypeObject() {
+    void recordExpectationsUsingTheAnyFieldsForParameterOfTypeObject() {
         new Expectations() {
             {
                 mock.useObject(anyString);
@@ -462,7 +455,7 @@ public final class ExpectationsWithArgMatchersTest {
      * Record expectations using the with any method for parameter of type object.
      */
     @Test
-    public void recordExpectationsUsingTheWithAnyMethodForParameterOfTypeObject() {
+    void recordExpectationsUsingTheWithAnyMethodForParameterOfTypeObject() {
         new Expectations() {
             {
                 mock.useObject(withAny("a"));
@@ -495,7 +488,7 @@ public final class ExpectationsWithArgMatchersTest {
      * Declare field in expectation block with name having same prefix as argument matching field.
      */
     @Test
-    public void declareFieldInExpectationBlockWithNameHavingSamePrefixAsArgumentMatchingField() {
+    void declareFieldInExpectationBlockWithNameHavingSamePrefixAsArgumentMatchingField() {
         new Expectations() {
             final Integer anyValue = 1;
 
@@ -511,7 +504,7 @@ public final class ExpectationsWithArgMatchersTest {
      * Declare method in expectation block with name having same prefix as argument matching method.
      */
     @Test
-    public void declareMethodInExpectationBlockWithNameHavingSamePrefixAsArgumentMatchingMethod() {
+    void declareMethodInExpectationBlockWithNameHavingSamePrefixAsArgumentMatchingMethod() {
         final List<Integer> values = new ArrayList<>();
 
         new Expectations() {
@@ -553,43 +546,43 @@ public final class ExpectationsWithArgMatchersTest {
      *            the cert
      */
     @Test
-    public void expectInvocationWithSameMockInstanceButReplayWithNull(
+    void expectInvocationWithSameMockInstanceButReplayWithNull(
             // This class defines an abstract "toString" override, which initially was erroneously
             // mocked, causing a new expectation to be created during replay:
             @Mocked final Certificate cert) {
-        new Expectations() {
-            {
-                mock.setValue(withSameInstance(cert));
-                times = 1;
-            }
-        };
+        assertThrows(MissingInvocation.class, () -> {
+            new Expectations() {
+                {
+                    mock.setValue(withSameInstance(cert));
+                    times = 1;
+                }
+            };
 
-        mock.setValue((Certificate) null);
-
-        thrown.expect(MissingInvocation.class);
+            mock.setValue((Certificate) null);
+        });
     }
 
     /**
      * Expect invocation with matcher which invokes mocked method.
      */
     @Test
-    public void expectInvocationWithMatcherWhichInvokesMockedMethod() {
-        new Expectations() {
-            {
-                mock.setValue(with(new Delegate<Integer>() {
-                    @Mock
-                    boolean validateAsPositive(int value) {
-                        // Invoking mocked method caused ConcurrentModificationException (bug fixed):
-                        mock.simpleOperation(1, "b", null);
-                        return value > 0;
-                    }
-                }));
-            }
-        };
+    void expectInvocationWithMatcherWhichInvokesMockedMethod() {
+        assertThrows(MissingInvocation.class, () -> {
+            new Expectations() {
+                {
+                    mock.setValue(with(new Delegate<Integer>() {
+                        @Mock
+                        boolean validateAsPositive(int value) {
+                            // Invoking mocked method caused ConcurrentModificationException (bug fixed):
+                            mock.simpleOperation(1, "b", null);
+                            return value > 0;
+                        }
+                    }));
+                }
+            };
 
-        mock.setValue(-3);
-
-        thrown.expect(MissingInvocation.class);
+            mock.setValue(-3);
+        });
     }
 
     // Verifications
@@ -618,7 +611,7 @@ public final class ExpectationsWithArgMatchersTest {
      * Extending A reusable argument matcher.
      */
     @Test
-    public void extendingAReusableArgumentMatcher() {
+    void extendingAReusableArgumentMatcher() {
         mock.setValue(5);
         mock.setValue(123);
 

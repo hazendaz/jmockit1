@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -28,12 +29,12 @@ import java.util.jar.Manifest;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class JREMockingTest.
  */
-public final class JREMockingTest {
+final class JREMockingTest {
     // Mocking java.io.File
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -44,7 +45,7 @@ public final class JREMockingTest {
      *            the file
      */
     @Test
-    public void mockingOfFile(@Mocked final File file) {
+    void mockingOfFile(@Mocked final File file) {
         new Expectations() {
             {
                 file.exists();
@@ -63,7 +64,7 @@ public final class JREMockingTest {
      *            the any file
      */
     @Test
-    public void mockingFileAndRecordingExpectationToMatchOnSpecificConstructorCall(@Mocked File anyFile) {
+    void mockingFileAndRecordingExpectationToMatchOnSpecificConstructorCall(@Mocked File anyFile) {
         new Expectations() {
             {
                 Path.of("a.txt").toFile().exists();
@@ -86,7 +87,7 @@ public final class JREMockingTest {
      * Faking of calendar.
      */
     @Test
-    public void fakingOfCalendar() {
+    void fakingOfCalendar() {
         final Calendar calCST = new GregorianCalendar(2010, Calendar.MAY, 15);
         final TimeZone tzCST = TimeZone.getTimeZone("CST");
         new MockUp<Calendar>() {
@@ -118,7 +119,7 @@ public final class JREMockingTest {
      *             the exception
      */
     @Test
-    public void regularMockingOfAnnotatedJREMethod(@Mocked Date d) throws Exception {
+    void regularMockingOfAnnotatedJREMethod(@Mocked Date d) throws Exception {
         assertTrue(d.getClass().getDeclaredMethod("parse", String.class).isAnnotationPresent(Deprecated.class));
     }
 
@@ -130,7 +131,7 @@ public final class JREMockingTest {
      */
     @Test
     @SuppressWarnings("deprecation")
-    public void dynamicMockingOfAnnotatedJREMethod() throws Exception {
+    void dynamicMockingOfAnnotatedJREMethod() throws Exception {
         final Date d = new Date();
 
         new Expectations(d) {
@@ -162,7 +163,7 @@ public final class JREMockingTest {
      *             the exception
      */
     @Test
-    public void dynamicMockingOfFileOutputStreamThroughMockField() throws Exception {
+    void dynamicMockingOfFileOutputStreamThroughMockField() throws Exception {
         new Expectations() {
             {
                 // noinspection ConstantConditions
@@ -189,9 +190,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@Mocked FileInputStream unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@Mocked FileInputStream unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     /**
@@ -200,9 +203,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@Mocked FileOutputStream unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@Mocked FileOutputStream unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     /**
@@ -211,9 +216,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@Mocked Writer unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@Mocked Writer unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     /**
@@ -222,9 +229,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@Mocked FileWriter unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@Mocked FileWriter unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     /**
@@ -233,9 +242,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@Mocked PrintWriter unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@Mocked PrintWriter unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     /**
@@ -244,9 +255,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@Mocked DataInputStream unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@Mocked DataInputStream unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     /**
@@ -255,9 +268,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@Mocked StringBuffer unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@Mocked StringBuffer unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     /**
@@ -266,9 +281,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@Mocked StringBuilder unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@Mocked StringBuilder unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     /**
@@ -277,9 +294,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@Mocked Exception unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@Mocked ArrayList<?> unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     /**
@@ -288,9 +307,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@Mocked Throwable unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@Mocked Throwable unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     /**
@@ -299,9 +320,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@Mocked Thread unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@Mocked Thread unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     /**
@@ -310,9 +333,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@Mocked ThreadLocal<?> unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@Mocked ThreadLocal<?> unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     /**
@@ -321,9 +346,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@Mocked ClassLoader unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@Mocked ClassLoader unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     /**
@@ -332,9 +359,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@Mocked Class<?> unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@Mocked Class<?> unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     /**
@@ -343,9 +372,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@Mocked Math unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@Mocked Math unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     /**
@@ -354,9 +385,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@Mocked StrictMath unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@Mocked StrictMath unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     /**
@@ -365,9 +398,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@Mocked Object unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@Mocked Object unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     /**
@@ -376,9 +411,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@Mocked Enum<?> unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@Mocked Enum<?> unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     /**
@@ -387,9 +424,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@Mocked System unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@Mocked System unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     /**
@@ -398,9 +437,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@Mocked JarFile unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@Mocked JarFile unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     /**
@@ -409,9 +450,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@Mocked JarEntry unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@Mocked JarEntry unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     /**
@@ -420,9 +463,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@Mocked Manifest unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@Mocked Manifest unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     /**
@@ -431,9 +476,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@Mocked Attributes unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@Mocked Attributes unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     /**
@@ -442,9 +489,11 @@ public final class JREMockingTest {
      * @param unmockable
      *            the unmockable
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToMockUnmockableJREClass(@SuppressWarnings("Since15") @Mocked Duration unmockable) {
-        fail("Should never get here");
+    @Test
+    void attemptToMockUnmockableJREClass(@SuppressWarnings("Since15") @Mocked Duration unmockable) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Should never get here");
+        });
     }
 
     // Mocking java.time
@@ -470,7 +519,7 @@ public final class JREMockingTest {
      *            the mock
      */
     @Test
-    public void mockMethodWhichReturnsADuration(@Mocked DurationProvider mock) {
+    void mockMethodWhichReturnsADuration(@Mocked DurationProvider mock) {
         Object d = mock.getDuration();
 
         assertNull(d);
@@ -486,7 +535,7 @@ public final class JREMockingTest {
      *            the mock
      */
     @Test
-    public void mockLogManager(@Mocked LogManager mock) {
+    void mockLogManager(@Mocked LogManager mock) {
         LogManager logManager = LogManager.getLogManager();
         // noinspection MisorderedAssertEqualsArguments
         assertSame(mock, logManager);
@@ -499,7 +548,7 @@ public final class JREMockingTest {
      *            the mock
      */
     @Test
-    public void mockLogger(@Mocked Logger mock) {
+    void mockLogger(@Mocked Logger mock) {
         // TODO: this call causes Surefire to fail: assertNotNull(LogManager.getLogManager());
         // noinspection MisorderedAssertEqualsArguments
         assertSame(mock, Logger.getLogger("test"));

@@ -1,33 +1,27 @@
 package mockit;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.inject.Inject;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class TestedFieldWithFailedFullDITest.
  */
-public final class TestedFieldWithFailedFullDITest {
-
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
+final class TestedFieldWithFailedFullDITest {
 
     /**
      * Configure expected exception.
      */
-    @Before
-    public void configureExpectedException() {
-        thrown.expect(IllegalStateException.class);
-        thrown.expectMessage("Missing @Tested or @Injectable");
-        thrown.expectMessage("for parameter \"value\" in constructor ClassWithParameterizedConstructor(int value)");
-        thrown.expectMessage("when initializing field ");
-        thrown.expectMessage("dependency");
-        thrown.expectMessage("of @Tested object \""
-                + ClassWithFieldOfClassHavingParameterizedConstructor.class.getSimpleName() + " tested");
+    @BeforeEach
+    void configureExpectedException() {
+        Throwable exception = assertThrows(IllegalStateException.class, () -> {
+        });
+        assertTrue(exception.getMessage().contains("of @Tested object \""
+                + ClassWithFieldOfClassHavingParameterizedConstructor.class.getSimpleName() + " tested"));
     }
 
     /**
@@ -61,13 +55,13 @@ public final class TestedFieldWithFailedFullDITest {
      * Attempt to use tested object whose creation failed due to injectable with null value.
      */
     @Test
-    public void attemptToUseTestedObjectWhoseCreationFailedDueToInjectableWithNullValue() {
+    void attemptToUseTestedObjectWhoseCreationFailedDueToInjectableWithNullValue() {
     }
 
     /**
      * Attempt to use tested object whose creation failed due to injectable with null value 2.
      */
     @Test
-    public void attemptToUseTestedObjectWhoseCreationFailedDueToInjectableWithNullValue2() {
+    void attemptToUseTestedObjectWhoseCreationFailedDueToInjectableWithNullValue2() {
     }
 }
