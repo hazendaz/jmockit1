@@ -66,8 +66,7 @@ public @interface Mocked {
      * static initialization of a class <em>once</em>, so stubbing out the initialization code can have unexpected
      * consequences. Stubbing out the static initialization of a class is an unsafe operation, which can cause other
      * tests, executed later in the same test run, to unexpectedly fail; instead of resorting to stubbing out a class's
-     * static initializer, the root cause for wanting to stub it out should be eliminated. This attribute will be
-     * removed in a future version.
+     * static initializer, the root cause for wanting to stub it out should be eliminated. Caveat Emptor.
      */
     boolean stubOutClassInitialization() default false;
 }
