@@ -23,14 +23,14 @@ import javax.sql.PooledConnection;
 import javax.sql.XAConnection;
 import javax.sql.XADataSource;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * The Class TestedClassWithFullAnnotatedDITest.
  */
 @SuppressWarnings("ParameterHidesMemberVariable")
-public final class TestedClassWithFullAnnotatedDITest {
+final class TestedClassWithFullAnnotatedDITest {
 
     /**
      * The Class DummyDataSource.
@@ -314,7 +314,7 @@ public final class TestedClassWithFullAnnotatedDITest {
      * Inject initialized dependencies for interfaces having tested objects of implementation class types.
      */
     @Test
-    public void injectInitializedDependenciesForInterfacesHavingTestedObjectsOfImplementationClassTypes() {
+    void injectInitializedDependenciesForInterfacesHavingTestedObjectsOfImplementationClassTypes() {
         assertSame(action, tested.action);
         assertNotNull(tested.dependency1);
         assertSame(tested.dependency1, tested.dependency2);
@@ -326,7 +326,7 @@ public final class TestedClassWithFullAnnotatedDITest {
      * Inject logger fields with logger created with tested class name.
      */
     @Test
-    public void injectLoggerFieldsWithLoggerCreatedWithTestedClassName() {
+    void injectLoggerFieldsWithLoggerCreatedWithTestedClassName() {
         assertEquals(TestedClass.class.getName(), tested.log1.getName());
         assertSame(tested.log2, tested.log1);
     }
@@ -335,7 +335,7 @@ public final class TestedClassWithFullAnnotatedDITest {
      * Inject non annotated field from matching tested field.
      */
     @Test
-    public void injectNonAnnotatedFieldFromMatchingTestedField() {
+    void injectNonAnnotatedFieldFromMatchingTestedField() {
         assertSame(collaborator, tested.collaborator);
     }
 
@@ -347,7 +347,7 @@ public final class TestedClassWithFullAnnotatedDITest {
      * Manage conversation context.
      */
     @Test
-    public void manageConversationContext() {
+    void manageConversationContext() {
         assertNotNull(conversation);
         assertSame(tested.conversation, conversation);
         assertTrue(conversation.isTransient());
@@ -375,7 +375,7 @@ public final class TestedClassWithFullAnnotatedDITest {
      * Inject data source configured from single data source definition.
      */
     @Test
-    public void injectDataSourceConfiguredFromSingleDataSourceDefinition() {
+    void injectDataSourceConfiguredFromSingleDataSourceDefinition() {
         assertTrue(tested.ds instanceof DummyDataSource);
 
         DummyDataSource ds = (DummyDataSource) tested.ds;
@@ -392,7 +392,7 @@ public final class TestedClassWithFullAnnotatedDITest {
      * Inject multiple data sources configured from different data source definitions.
      */
     @Test
-    public void injectMultipleDataSourcesConfiguredFromDifferentDataSourceDefinitions() {
+    void injectMultipleDataSourcesConfiguredFromDifferentDataSourceDefinitions() {
         assertTrue(tested2.ds1 instanceof DummyDataSource);
         assertTrue(tested2.ds2 instanceof PooledDataSource);
         assertTrue(tested2.ds3 instanceof DistributedDataSource);

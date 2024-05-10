@@ -2,12 +2,12 @@ package mockit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class TestedClassWithFieldDIByTypeAndNameTest.
  */
-public final class TestedClassWithFieldDIByTypeAndNameTest {
+final class TestedClassWithFieldDIByTypeAndNameTest {
 
     /**
      * The Class TestedClass.
@@ -54,8 +54,7 @@ public final class TestedClassWithFieldDIByTypeAndNameTest {
      *            the another value
      */
     @Test
-    public void injectByFieldTypeAndNameWithTestedClassHavingMultipleFieldsOfSameType(
-            @Injectable("12") int anotherValue) {
+    void injectByFieldTypeAndNameWithTestedClassHavingMultipleFieldsOfSameType(@Injectable("12") int anotherValue) {
         assertEquals(0, tested.getSomeValue_base());
         assertEquals(0, tested.someValue);
         assertEquals(12, tested.anotherValue);
@@ -69,8 +68,7 @@ public final class TestedClassWithFieldDIByTypeAndNameTest {
      *            the val
      */
     @Test
-    public void injectByFieldTypeAndNameWithTestedClassHavingFieldsOfSameTypeButDifferentNames(
-            @Injectable("45") int val) {
+    void injectByFieldTypeAndNameWithTestedClassHavingFieldsOfSameTypeButDifferentNames(@Injectable("45") int val) {
         assertEquals(0, tested.getSomeValue_base());
         assertEquals(0, tested.someValue);
         assertEquals(0, tested.anotherValue);
@@ -88,7 +86,7 @@ public final class TestedClassWithFieldDIByTypeAndNameTest {
      *            the unused
      */
     @Test
-    public void injectByFieldTypeAndNameIntoFieldsAtDifferentLevelsOfClassHierarchy(@Injectable("1") int someValue,
+    void injectByFieldTypeAndNameIntoFieldsAtDifferentLevelsOfClassHierarchy(@Injectable("1") int someValue,
             @Injectable("2") int yetAnotherValue, @Injectable("3") int unused) {
         assertEquals(0, tested.getSomeValue_base());
         assertEquals(1, tested.someValue);

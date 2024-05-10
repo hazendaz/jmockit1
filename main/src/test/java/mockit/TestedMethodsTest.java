@@ -7,12 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.Serializable;
 import java.util.Set;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class TestedMethodsTest.
  */
-public final class TestedMethodsTest {
+final class TestedMethodsTest {
 
     /**
      * The Interface Dependency.
@@ -118,7 +118,7 @@ public final class TestedMethodsTest {
      * Inject interface implementations from classes returned from tested methods.
      */
     @Test
-    public void injectInterfaceImplementationsFromClassesReturnedFromTestedMethods() {
+    void injectInterfaceImplementationsFromClassesReturnedFromTestedMethods() {
         assertTrue(tested.dependency instanceof DependencyImpl);
         assertTrue(tested.dao instanceof DAOImpl);
         assertNull(tested.anotherDependency);
@@ -206,8 +206,7 @@ public final class TestedMethodsTest {
      *            the service 2
      */
     @Test
-    public void createComplexObjectsWithGenericDependencies(
-            @Tested(fullyInitialized = true) ConcreteService2 service2) {
+    void createComplexObjectsWithGenericDependencies(@Tested(fullyInitialized = true) ConcreteService2 service2) {
         assertTrue(service2.dao instanceof DAO2);
         Service1 service1 = service2.service1;
         assertTrue(service1 instanceof ConcreteService1);

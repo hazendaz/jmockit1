@@ -8,14 +8,14 @@ import java.util.Observable;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class TestedClassWithConstructorDI1Test.
  */
-public final class TestedClassWithConstructorDI1Test {
+final class TestedClassWithConstructorDI1Test {
 
     /**
      * The Class BaseTestedClass.
@@ -171,7 +171,7 @@ public final class TestedClassWithConstructorDI1Test {
      * Exercise tested object with single dependency injected through constructor.
      */
     @Test
-    public void exerciseTestedObjectWithSingleDependencyInjectedThroughConstructor() {
+    void exerciseTestedObjectWithSingleDependencyInjectedThroughConstructor() {
         assertTestedObjectWasInitialized();
 
         new Expectations() {
@@ -191,7 +191,7 @@ public final class TestedClassWithConstructorDI1Test {
      *            the mock 2
      */
     @Test
-    public void exerciseTestedObjectWithTwoDependenciesInjectedThroughConstructor(@Injectable final Runnable mock2) {
+    void exerciseTestedObjectWithTwoDependenciesInjectedThroughConstructor(@Injectable final Runnable mock2) {
         assertTestedObjectWasInitialized();
 
         new Expectations() {
@@ -217,8 +217,7 @@ public final class TestedClassWithConstructorDI1Test {
      *            the obs
      */
     @Test
-    public void exerciseTestedObjectWithTwoOtherDependenciesInjectedThroughConstructor(
-            @Injectable final Observable obs) {
+    void exerciseTestedObjectWithTwoOtherDependenciesInjectedThroughConstructor(@Injectable final Observable obs) {
         assertTestedObjectWasInitialized();
 
         new Expectations() {
@@ -246,7 +245,7 @@ public final class TestedClassWithConstructorDI1Test {
      *            the mock 3
      */
     @Test
-    public void exerciseTestedObjectWithAllDependenciesInjectedThroughConstructor(@Injectable final Runnable mock2,
+    void exerciseTestedObjectWithAllDependenciesInjectedThroughConstructor(@Injectable final Runnable mock2,
             @Injectable final Observable mock3) {
         assertTestedObjectWasInitialized();
 
@@ -270,8 +269,8 @@ public final class TestedClassWithConstructorDI1Test {
     /**
      * Reset counter.
      */
-    @Before
-    public void resetCounter() {
+    @BeforeEach
+    void resetCounter() {
         BaseTestedClass.baseCounter = 0;
         TestedClass.counter = 0;
     }
@@ -287,8 +286,8 @@ public final class TestedClassWithConstructorDI1Test {
     /**
      * Verify tested object after every test.
      */
-    @After
-    public void verifyTestedObjectAfterEveryTest() {
+    @AfterEach
+    void verifyTestedObjectAfterEveryTest() {
         assertEquals(2, BaseTestedClass.baseCounter);
         assertEquals(2, TestedClass.counter);
     }

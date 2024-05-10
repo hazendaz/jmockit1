@@ -4,12 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class TestedClassWithFullConstructorAndFieldDITest.
  */
-public final class TestedClassWithFullConstructorAndFieldDITest {
+final class TestedClassWithFullConstructorAndFieldDITest {
 
     /**
      * The Class TestedClass.
@@ -66,7 +66,7 @@ public final class TestedClassWithFullConstructorAndFieldDITest {
      * injection.
      */
     @Test
-    public void verifyEachTargetFieldGetsInjectedWithFirstUnusedInjectableWhetherThroughFieldOrConstructorInjection() {
+    void verifyEachTargetFieldGetsInjectedWithFirstUnusedInjectableWhetherThroughFieldOrConstructorInjection() {
         assertEquals("text", tested.value);
         assertEquals("text", tested.dependency1.value);
         assertEquals("text", tested.dependency2.value);
@@ -107,7 +107,7 @@ public final class TestedClassWithFullConstructorAndFieldDITest {
      * Verify initialization of class with multiple constructors.
      */
     @Test
-    public void verifyInitializationOfClassWithMultipleConstructors() {
+    void verifyInitializationOfClassWithMultipleConstructors() {
         assertEquals(1, tested2.value);
     }
 
@@ -127,7 +127,7 @@ public final class TestedClassWithFullConstructorAndFieldDITest {
      * Verify initialization of class with field of another class having multiple constructors.
      */
     @Test
-    public void verifyInitializationOfClassWithFieldOfAnotherClassHavingMultipleConstructors() {
+    void verifyInitializationOfClassWithFieldOfAnotherClassHavingMultipleConstructors() {
         assertNotNull(tested3.dependency);
         assertEquals(1, tested3.dependency.value);
     }
@@ -177,7 +177,7 @@ public final class TestedClassWithFullConstructorAndFieldDITest {
      * Verify initialization of class with multiple constructors having tested field for parameter.
      */
     @Test
-    public void verifyInitializationOfClassWithMultipleConstructorsHavingTestedFieldForParameter() {
+    void verifyInitializationOfClassWithMultipleConstructorsHavingTestedFieldForParameter() {
         assertSame(dep, tested4.dep);
     }
 
@@ -216,7 +216,7 @@ public final class TestedClassWithFullConstructorAndFieldDITest {
      * Initialize class with constructor injected dependency having another dependency injected into field.
      */
     @Test
-    public void initializeClassWithConstructorInjectedDependencyHavingAnotherDependencyInjectedIntoField() {
+    void initializeClassWithConstructorInjectedDependencyHavingAnotherDependencyInjectedIntoField() {
         assertNotNull(tested5.dependency);
         assertNotNull(tested5.dependency.dep);
     }

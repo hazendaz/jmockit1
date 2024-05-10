@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 class BaseTest {
     static class Dependency {
@@ -53,7 +53,7 @@ class BaseTest {
 /**
  * The Class TestedClassWithConstructorAndFieldDITest.
  */
-public final class TestedClassWithConstructorAndFieldDITest extends BaseTest {
+final class TestedClassWithConstructorAndFieldDITest extends BaseTest {
 
     /**
      * The Class AnotherTestedClass.
@@ -114,7 +114,7 @@ public final class TestedClassWithConstructorAndFieldDITest extends BaseTest {
      * Exercise tested subclass object with fields injected by type and name.
      */
     @Test
-    public void exerciseTestedSubclassObjectWithFieldsInjectedByTypeAndName() {
+    void exerciseTestedSubclassObjectWithFieldsInjectedByTypeAndName() {
         verifyTestedObjectFromBaseTestClass(-1);
 
         assertEquals(-2, tested2.i);
@@ -142,7 +142,7 @@ public final class TestedClassWithConstructorAndFieldDITest extends BaseTest {
      *            the dependency 3
      */
     @Test
-    public void exerciseTestedSubclassObjectWithFieldsInjectedFromMockFieldsAndMockParameter(
+    void exerciseTestedSubclassObjectWithFieldsInjectedFromMockFieldsAndMockParameter(
             @Injectable Dependency dependency3) {
         verifyTestedObjectFromBaseTestClass(-1);
 
@@ -163,7 +163,7 @@ public final class TestedClassWithConstructorAndFieldDITest extends BaseTest {
      *            the dependency 1
      */
     @Test
-    public void exerciseTestedSubclassObjectUsingConstructorAndFieldInjection(@Injectable("45") int value,
+    void exerciseTestedSubclassObjectUsingConstructorAndFieldInjection(@Injectable("45") int value,
             @Injectable Dependency dependency1) {
         verifyTestedObjectFromBaseTestClass(45);
 
@@ -194,7 +194,7 @@ public final class TestedClassWithConstructorAndFieldDITest extends BaseTest {
      *            the tested 4
      */
     @Test
-    public void createTestedParameterInjectingFromTestedFieldInBaseTestClass(
+    void createTestedParameterInjectingFromTestedFieldInBaseTestClass(
             @Tested ClassWithFieldHavingTestedFieldInBaseTestClass tested4) {
         assertNotNull(collaborator);
         assertSame(collaborator, tested3.collaborator);

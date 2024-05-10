@@ -11,17 +11,17 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class TestedClassWithConstructorDI2Test.
  */
 // TODO JWL 2/18/2024 Test not allowed on jdk21
-@Ignore
-public final class TestedClassWithConstructorDI2Test {
+@Disabled
+final class TestedClassWithConstructorDI2Test {
 
     /**
      * The Class TestedClass.
@@ -166,8 +166,8 @@ public final class TestedClassWithConstructorDI2Test {
     /**
      * Reset counter.
      */
-    @Before
-    public void resetCounter() {
+    @BeforeEach
+    void resetCounter() {
         TestedClass.counter = 0;
         new Expectations() {
             {
@@ -184,8 +184,7 @@ public final class TestedClassWithConstructorDI2Test {
      *            the dependency 3
      */
     @Test
-    public void exerciseTestedObjectWithDependenciesOfSameTypeInjectedThroughConstructor(
-            @Injectable Dependency dependency3) {
+    void exerciseTestedObjectWithDependenciesOfSameTypeInjectedThroughConstructor(@Injectable Dependency dependency3) {
         assertTestedObjectWasInitialized();
         assertSame(dependency3, tested.dependency3);
 
@@ -210,7 +209,7 @@ public final class TestedClassWithConstructorDI2Test {
      *            the mock 4
      */
     @Test
-    public void exerciseTestedObjectWithExtraInjectableParameter(@Injectable Dependency dependency3,
+    void exerciseTestedObjectWithExtraInjectableParameter(@Injectable Dependency dependency3,
             @Injectable Dependency mock4) {
         assertTestedObjectWasInitialized();
         assertSame(dependency1, tested.dependency1);
@@ -229,8 +228,8 @@ public final class TestedClassWithConstructorDI2Test {
     /**
      * Verify tested object after every test.
      */
-    @After
-    public void verifyTestedObjectAfterEveryTest() {
+    @AfterEach
+    void verifyTestedObjectAfterEveryTest() {
         assertEquals(2, TestedClass.counter);
     }
 }

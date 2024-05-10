@@ -62,6 +62,6 @@ public final class TestNGDecoratorTest extends BaseTestNGDecoratorTest {
     @Test(dataProvider = "data")
     public void checkNoMockingOfParametersWhenUsingDataProvider(Temp t) {
         // noinspection MisorderedAssertEqualsArgumentsTestNG
-        assertSame(temp, t);
+        assertSame(t, temp);
     }
 }

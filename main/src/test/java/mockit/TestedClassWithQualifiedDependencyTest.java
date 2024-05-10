@@ -11,15 +11,15 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.sql.DataSource;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  * The Class TestedClassWithQualifiedDependencyTest.
  */
-public final class TestedClassWithQualifiedDependencyTest {
+final class TestedClassWithQualifiedDependencyTest {
 
     /**
      * The Class TestedClass.
@@ -88,8 +88,8 @@ public final class TestedClassWithQualifiedDependencyTest {
     /**
      * Creates the qualified dependency.
      */
-    @Before
-    public void createQualifiedDependency() {
+    @BeforeEach
+    void createQualifiedDependency() {
         foo = "foo";
     }
 
@@ -120,8 +120,7 @@ public final class TestedClassWithQualifiedDependencyTest {
      *            the action 2
      */
     @Test
-    public void useTestedObjectWithDifferentDependenciesEachHavingAQualifiedSubDependency(
-            @Injectable Runnable action2) {
+    void useTestedObjectWithDifferentDependenciesEachHavingAQualifiedSubDependency(@Injectable Runnable action2) {
         assertSame(action2, dependency2.action);
         assertSame(dependency2, tested.dep2);
         assertSame(action1, tested.dep1.action);
@@ -162,7 +161,7 @@ public final class TestedClassWithQualifiedDependencyTest {
      * Use tested object of subtype for qualified abstract dependency type in another tested object.
      */
     @Test
-    public void useTestedObjectOfSubtypeForQualifiedAbstractDependencyTypeInAnotherTestedObject() {
+    void useTestedObjectOfSubtypeForQualifiedAbstractDependencyTypeInAnotherTestedObject() {
         assertSame(dep1, tested2.dependency);
     }
 
@@ -177,7 +176,7 @@ public final class TestedClassWithQualifiedDependencyTest {
      *            the some textual value
      */
     @Test
-    public void verifyDependenciesHavingCompositeNames(@Injectable("text value") String someTextualValue) {
+    void verifyDependenciesHavingCompositeNames(@Injectable("text value") String someTextualValue) {
         assertSame(mainDb, tested.ds);
         assertEquals(someTextualValue, tested.text);
         assertEquals(aBC12, tested.numericValue);

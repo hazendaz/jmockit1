@@ -3,12 +3,12 @@ package mockit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class TestedClassWithNoPublicConstructorTest.
  */
-public final class TestedClassWithNoPublicConstructorTest {
+final class TestedClassWithNoPublicConstructorTest {
 
     /**
      * The Class TestedClassWithPackagePrivateConstructor.
@@ -109,7 +109,7 @@ public final class TestedClassWithNoPublicConstructorTest {
      * Verify instantiation of tested objects through injected constructors.
      */
     @Test
-    public void verifyInstantiationOfTestedObjectsThroughInjectedConstructors() {
+    void verifyInstantiationOfTestedObjectsThroughInjectedConstructors() {
         assertNotNull(tested1);
         assertNotNull(tested2);
     }

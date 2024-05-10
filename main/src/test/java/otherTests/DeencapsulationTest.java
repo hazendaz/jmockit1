@@ -14,9 +14,9 @@ import java.util.Set;
 
 import mockit.Deencapsulation;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public final class DeencapsulationTest {
+final class DeencapsulationTest {
 
     static final class Subclass extends BaseClass {
         final int INITIAL_VALUE = new Random().nextInt();
@@ -80,7 +80,7 @@ public final class DeencapsulationTest {
     final Subclass anInstance = new Subclass();
 
     @Test
-    public void getInstanceFieldByName() {
+    void getInstanceFieldByName() {
         anInstance.setIntField(3);
         anInstance.setStringField("test");
         anInstance.setListField(Collections.<String>emptyList());
@@ -104,7 +104,7 @@ public final class DeencapsulationTest {
     }
 
     @Test
-    public void getInheritedInstanceFieldByName() {
+    void getInheritedInstanceFieldByName() {
         anInstance.baseInt = 3;
         anInstance.baseString = "test";
         anInstance.baseSet = Collections.emptySet();
@@ -120,7 +120,7 @@ public final class DeencapsulationTest {
 
     @Test
     @SuppressWarnings("unchecked")
-    public void getInstanceFieldByType() {
+    void getInstanceFieldByType() {
         anInstance.setStringField("by type");
         anInstance.setListField(new ArrayList<String>());
 
@@ -154,7 +154,7 @@ public final class DeencapsulationTest {
 
     @Test
     @SuppressWarnings("unchecked")
-    public void getInheritedInstanceFieldByType() {
+    void getInheritedInstanceFieldByType() {
         Set<Boolean> fieldValueOnInstance = new HashSet<>();
         anInstance.baseSet = fieldValueOnInstance;
 
@@ -166,7 +166,7 @@ public final class DeencapsulationTest {
     }
 
     @Test
-    public void getInstanceFieldOnBaseClassByType() {
+    void getInstanceFieldOnBaseClassByType() {
         anInstance.setLongField(15);
 
         long longValue = Deencapsulation.getField(anInstance, long.class);
@@ -175,7 +175,7 @@ public final class DeencapsulationTest {
     }
 
     @Test
-    public void getStaticFieldByName() {
+    void getStaticFieldByName() {
         Subclass.setBuffer(new StringBuilder());
 
         StringBuilder b = Deencapsulation.getField(Subclass.class, "buffer");
@@ -192,7 +192,7 @@ public final class DeencapsulationTest {
     }
 
     @Test
-    public void getStaticFieldByType() {
+    void getStaticFieldByType() {
         Subclass.setBuffer(new StringBuilder());
 
         StringBuilder b = Deencapsulation.getField(Subclass.class, StringBuilder.class);
@@ -201,7 +201,7 @@ public final class DeencapsulationTest {
     }
 
     @Test
-    public void setInstanceFieldByName() {
+    void setInstanceFieldByName() {
         anInstance.setIntField2(1);
 
         Deencapsulation.setField(anInstance, "intField2", 901);
@@ -219,7 +219,7 @@ public final class DeencapsulationTest {
     }
 
     @Test
-    public void setInstanceFieldByType() {
+    void setInstanceFieldByType() {
         anInstance.setStringField("");
 
         Deencapsulation.setField(anInstance, "Test");
@@ -249,7 +249,7 @@ public final class DeencapsulationTest {
     }
 
     @Test
-    public void setStaticFieldByName() {
+    void setStaticFieldByName() {
         Subclass.setBuffer(null);
 
         Deencapsulation.setField(Subclass.class, "buffer", new StringBuilder());
@@ -266,7 +266,7 @@ public final class DeencapsulationTest {
     }
 
     @Test
-    public void setStaticFieldByType() {
+    void setStaticFieldByType() {
         Subclass.setBuffer(null);
 
         Deencapsulation.setField(Subclass.class, new StringBuilder());
@@ -301,7 +301,7 @@ public final class DeencapsulationTest {
     }
 
     @Test
-    public void setFinalInstanceFields() {
+    void setFinalInstanceFields() {
         Subclass obj = new Subclass();
 
         Deencapsulation.setField(obj, "INITIAL_VALUE", 123);

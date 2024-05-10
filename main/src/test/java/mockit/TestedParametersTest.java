@@ -13,12 +13,12 @@ import java.lang.annotation.Target;
 
 import javax.inject.Inject;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class TestedParametersTest.
  */
-public final class TestedParametersTest {
+final class TestedParametersTest {
 
     /**
      * The Class TestedClass.
@@ -75,7 +75,7 @@ public final class TestedParametersTest {
      *            the dep
      */
     @Test
-    public void createTestedObjectForTestMethodParameter(@Tested Dependency dep) {
+    void createTestedObjectForTestMethodParameter(@Tested Dependency dep) {
         assertNotNull(dep);
     }
 
@@ -94,7 +94,7 @@ public final class TestedParametersTest {
      *            the dep
      */
     @Test
-    public void injectTestedObjectFromTestMethodParameterIntoFullyInitializedTestedObject(@Tested Dependency dep) {
+    void injectTestedObjectFromTestMethodParameterIntoFullyInitializedTestedObject(@Tested Dependency dep) {
         assertEquals(-1, tested2.i);
         assertNull(tested2.collaborator);
         assertSame(dep, tested2.dependency);
@@ -109,7 +109,7 @@ public final class TestedParametersTest {
      *            the collaborator
      */
     @Test
-    public void injectTestedParametersIntoTestedFieldsUsingConstructor(@Tested("123") int i,
+    void injectTestedParametersIntoTestedFieldsUsingConstructor(@Tested("123") int i,
             @Tested Collaborator collaborator) {
         assertEquals(123, i);
         assertNotNull(collaborator);
@@ -148,7 +148,7 @@ public final class TestedParametersTest {
      *            the tested
      */
     @Test
-    public void injectTestedParametersIntoTestedFieldsOfSupertypes(@Tested("test") String s, @Tested("123") Integer n,
+    void injectTestedParametersIntoTestedFieldsOfSupertypes(@Tested("test") String s, @Tested("123") Integer n,
             @Tested("5.2") Float cmp, @Tested(fullyInitialized = true) TestedClass2 tested) {
         assertEquals("test", tested.text);
         assertEquals(123, tested.n.intValue());
@@ -176,7 +176,7 @@ public final class TestedParametersTest {
      *            the tested
      */
     @Test
-    public void injectTestedParametersWithValuesIntoFieldsOfRegularTestedObject(@Tested("test") String s,
+    void injectTestedParametersWithValuesIntoFieldsOfRegularTestedObject(@Tested("test") String s,
             @Tested("123") Integer n, @Tested TestedClass3 tested) {
         assertEquals("test", tested.text);
         assertEquals(123, tested.number);
@@ -218,8 +218,8 @@ public final class TestedParametersTest {
      *            the tested
      */
     @Test
-    public void injectTestedParameterWithValueIntoRegularTestedObjectThroughConstructorParameter(
-            @Tested("test") String text, @Tested("1.23") Double number, @Tested TestedClass4 tested) {
+    void injectTestedParameterWithValueIntoRegularTestedObjectThroughConstructorParameter(@Tested("test") String text,
+            @Tested("1.23") Double number, @Tested TestedClass4 tested) {
         assertEquals("test", tested.text);
         assertEquals(1.23, tested.number);
     }
@@ -250,7 +250,7 @@ public final class TestedParametersTest {
      *            the tested
      */
     @Test
-    public void injectInjectableFieldIntoTestedParameter(@Tested TestedClassWithDIAnnotatedField tested) {
+    void injectInjectableFieldIntoTestedParameter(@Tested TestedClassWithDIAnnotatedField tested) {
         assertSame(anotherDep, tested.dep);
     }
 
@@ -270,7 +270,7 @@ public final class TestedParametersTest {
      *            the col
      */
     @Test
-    public void injectParameterUsingTestedAsMetaAnnotation(@InjectedDependency Collaborator col) {
+    void injectParameterUsingTestedAsMetaAnnotation(@InjectedDependency Collaborator col) {
         assertNotNull(col);
     }
 }

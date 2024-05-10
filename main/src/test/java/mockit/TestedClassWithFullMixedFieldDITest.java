@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import javax.inject.Inject;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class TestedClassWithFullMixedFieldDITest.
  */
-public final class TestedClassWithFullMixedFieldDITest {
+final class TestedClassWithFullMixedFieldDITest {
 
     /**
      * The Class TestedClass.
@@ -46,7 +46,7 @@ public final class TestedClassWithFullMixedFieldDITest {
      *            the tested
      */
     @Test
-    public void verifyThatFieldsFromJRETypesAreNotInitialized(@Tested(fullyInitialized = true) TestedClass tested) {
+    void verifyThatFieldsFromJRETypesAreNotInitialized(@Tested(fullyInitialized = true) TestedClass tested) {
         assertNull(tested.text);
         assertNull(tested.dependency.value);
     }
@@ -71,7 +71,7 @@ public final class TestedClassWithFullMixedFieldDITest {
      *            the tested
      */
     @Test
-    public void verifyThatFieldsOfUserTypesAreInitializedEvenOnlySomeAreAnnotated(
+    void verifyThatFieldsOfUserTypesAreInitializedEvenOnlySomeAreAnnotated(
             @Tested(fullyInitialized = true) TestedClass2 tested) {
         assertNotNull(tested.dependency1);
         assertNotNull(tested.dependency2);

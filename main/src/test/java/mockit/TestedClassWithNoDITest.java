@@ -6,13 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class TestedClassWithNoDITest.
  */
-public final class TestedClassWithNoDITest {
+final class TestedClassWithNoDITest {
 
     /**
      * The Class TestedClass.
@@ -76,8 +76,8 @@ public final class TestedClassWithNoDITest {
     /**
      * Sets the up.
      */
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         assertNotNull(mock);
         assertNull(tested);
         tested = new TestedClass();
@@ -93,7 +93,7 @@ public final class TestedClassWithNoDITest {
      * Verify tested fields.
      */
     @Test
-    public void verifyTestedFields() {
+    void verifyTestedFields() {
         assertNull(tested5);
         assertNotNull(tested4);
         assertNotNull(tested3);
@@ -106,7 +106,7 @@ public final class TestedClassWithNoDITest {
      * Exercise automatically instantiated tested object.
      */
     @Test
-    public void exerciseAutomaticallyInstantiatedTestedObject() {
+    void exerciseAutomaticallyInstantiatedTestedObject() {
         new Expectations() {
             {
                 mock.doSomething();
@@ -121,7 +121,7 @@ public final class TestedClassWithNoDITest {
      * Exercise manually instantiated tested object.
      */
     @Test
-    public void exerciseManuallyInstantiatedTestedObject() {
+    void exerciseManuallyInstantiatedTestedObject() {
         new Expectations() {
             {
                 mock.doSomething();
@@ -139,7 +139,7 @@ public final class TestedClassWithNoDITest {
      * Exercise another manually instantiated tested object.
      */
     @Test
-    public void exerciseAnotherManuallyInstantiatedTestedObject() {
+    void exerciseAnotherManuallyInstantiatedTestedObject() {
         assertFalse(tested3.doSomeOperation());
 
         new Verifications() {

@@ -11,13 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class TestedClassWithConstructorAndFieldDI2Test.
  */
-public final class TestedClassWithConstructorAndFieldDI2Test {
+final class TestedClassWithConstructorAndFieldDI2Test {
 
     /**
      * The Class TestedClass.
@@ -115,8 +115,8 @@ public final class TestedClassWithConstructorAndFieldDI2Test {
     /**
      * Sets the up.
      */
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         Runnable action1 = new Runnable() {
             @Override
             public void run() {
@@ -129,7 +129,7 @@ public final class TestedClassWithConstructorAndFieldDI2Test {
      * Verify tested objects injected from fields in the test class.
      */
     @Test
-    public void verifyTestedObjectsInjectedFromFieldsInTheTestClass() {
+    void verifyTestedObjectsInjectedFromFieldsInTheTestClass() {
         assertFieldsSetByTheConstructor();
         assertFieldsSetThroughFieldInjectionFromInjectableFields();
 
@@ -175,7 +175,7 @@ public final class TestedClassWithConstructorAndFieldDI2Test {
      *            the text 2
      */
     @Test
-    public void verifyTestedObjectsInjectedFromInjectableFieldsAndParameters(@Injectable("Test") String text2) {
+    void verifyTestedObjectsInjectedFromInjectableFieldsAndParameters(@Injectable("Test") String text2) {
         assertFieldsSetByTheConstructor();
 
         // Fields set from injectable parameters:
@@ -198,7 +198,7 @@ public final class TestedClassWithConstructorAndFieldDI2Test {
      *            the flag
      */
     @Test
-    public void verifyTestedObjectsInjectedFromParametersByName(@Injectable("two") String text2,
+    void verifyTestedObjectsInjectedFromParametersByName(@Injectable("two") String text2,
             @Injectable("three") String text3, @Injectable("true") boolean flag) {
         assertFieldsSetByTheConstructor();
 

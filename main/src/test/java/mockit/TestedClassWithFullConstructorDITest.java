@@ -9,13 +9,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  * The Class TestedClassWithFullConstructorDITest.
  */
-public final class TestedClassWithFullConstructorDITest {
+final class TestedClassWithFullConstructorDITest {
 
     /**
      * The Interface Dependency.
@@ -84,7 +84,7 @@ public final class TestedClassWithFullConstructorDITest {
      * Verify instantiation of tested objects through public constructor.
      */
     @Test
-    public void verifyInstantiationOfTestedObjectsThroughPublicConstructor() {
+    void verifyInstantiationOfTestedObjectsThroughPublicConstructor() {
         assertTrue(tested1.dependency instanceof DependencyImpl);
         assertNotNull(tested1.collaborator1);
         assertSame(tested1.collaborator1, tested1.collaborator2);
@@ -155,7 +155,7 @@ public final class TestedClassWithFullConstructorDITest {
      * Verify instantiation of tested object through annotated constructor.
      */
     @Test
-    public void verifyInstantiationOfTestedObjectThroughAnnotatedConstructor() {
+    void verifyInstantiationOfTestedObjectThroughAnnotatedConstructor() {
         assertNotNull(tested2);
         assertEquals(123, tested2.i);
         assertEquals("text", tested2.s);
@@ -198,7 +198,7 @@ public final class TestedClassWithFullConstructorDITest {
      * Verify instantiation of tested class with qualified constructor parameters.
      */
     @Test
-    public void verifyInstantiationOfTestedClassWithQualifiedConstructorParameters() {
+    void verifyInstantiationOfTestedClassWithQualifiedConstructorParameters() {
         assertNotNull(tested3.col1);
         assertNotSame(tested3.col1, tested3.col2);
     }
@@ -249,7 +249,7 @@ public final class TestedClassWithFullConstructorDITest {
      * Verify recursive instantiation of dependency with constructor parameter.
      */
     @Test
-    public void verifyRecursiveInstantiationOfDependencyWithConstructorParameter() {
+    void verifyRecursiveInstantiationOfDependencyWithConstructorParameter() {
         assertEquals("text", tested4.dependency.par);
     }
 }

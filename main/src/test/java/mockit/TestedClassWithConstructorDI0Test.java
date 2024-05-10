@@ -6,13 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class TestedClassWithConstructorDI0Test.
  */
 @SuppressWarnings({ "UnusedParameters", "ClassWithTooManyFields" })
-public final class TestedClassWithConstructorDI0Test {
+final class TestedClassWithConstructorDI0Test {
 
     /**
      * The Class TestedClassWithConstructorHavingPrimitiveParameter.
@@ -258,7 +258,7 @@ public final class TestedClassWithConstructorDI0Test {
      * Verify instantiation of tested objects through constructors with non mocked parameters.
      */
     @Test
-    public void verifyInstantiationOfTestedObjectsThroughConstructorsWithNonMockedParameters() {
+    void verifyInstantiationOfTestedObjectsThroughConstructorsWithNonMockedParameters() {
         assertNotNull(tested0);
         assertNotNull(tested1);
         assertNotNull(tested2);

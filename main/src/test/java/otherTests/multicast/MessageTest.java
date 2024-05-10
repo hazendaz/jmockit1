@@ -13,9 +13,9 @@ import mockit.Mocked;
 import mockit.Tested;
 import mockit.VerificationsInOrder;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public final class MessageTest {
+final class MessageTest {
     // A general-purpose utility class that waits for background task completion.
     abstract static class TaskExecution implements Runnable {
         {
@@ -59,7 +59,7 @@ public final class MessageTest {
     Message message;// = new Message(testClients, testContents, listener);
 
     @Test
-    public void sendMessageToMultipleClients(@Mocked final Socket con) throws Exception {
+    void sendMessageToMultipleClients(@Mocked final Socket con) throws Exception {
         new Expectations() {
             {
                 con.getOutputStream();

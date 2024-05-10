@@ -3,12 +3,12 @@ package mockit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class TestedClassWithConstructorDI3Test.
  */
-public final class TestedClassWithConstructorDI3Test {
+final class TestedClassWithConstructorDI3Test {
 
     /**
      * The Class TestedClass.
@@ -86,7 +86,7 @@ public final class TestedClassWithConstructorDI3Test {
      * Exercise tested object with dependencies of same type injected through varargs constructor parameter.
      */
     @Test
-    public void exerciseTestedObjectWithDependenciesOfSameTypeInjectedThroughVarargsConstructorParameter() {
+    void exerciseTestedObjectWithDependenciesOfSameTypeInjectedThroughVarargsConstructorParameter() {
         assertNotNull(support);
 
         new Expectations() {
@@ -108,8 +108,7 @@ public final class TestedClassWithConstructorDI3Test {
      *            the mock 3
      */
     @Test
-    public void exerciseTestedObjectWithDependenciesProvidedByMockFieldsAndMockParameter(
-            @Injectable final Dependency mock3) {
+    void exerciseTestedObjectWithDependenciesProvidedByMockFieldsAndMockParameter(@Injectable final Dependency mock3) {
         assertNotNull(support);
 
         new Expectations() {
@@ -157,7 +156,7 @@ public final class TestedClassWithConstructorDI3Test {
      * Initialize tested object with empty string parameter.
      */
     @Test
-    public void initializeTestedObjectWithEmptyStringParameter() {
+    void initializeTestedObjectWithEmptyStringParameter() {
         assertEquals("", tested2.name);
     }
 }

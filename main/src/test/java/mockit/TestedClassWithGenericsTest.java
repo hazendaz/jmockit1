@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class TestedClassWithGenericsTest.
  */
-public final class TestedClassWithGenericsTest {
+final class TestedClassWithGenericsTest {
 
     /**
      * The Interface Collaborator.
@@ -100,7 +100,7 @@ public final class TestedClassWithGenericsTest {
      * injectables.
      */
     @Test
-    public void useSUTCreatedWithConstructorOfSingleGenericParameterAndWithGenericFieldInjectedFromConcreteInjectables() {
+    void useSUTCreatedWithConstructorOfSingleGenericParameterAndWithGenericFieldInjectedFromConcreteInjectables() {
         assertSame(mockCollaborator, tested1.collaborator);
         assertNull(tested1.collaborators);
         assertSame(numberToInject, tested1.value);
@@ -119,7 +119,7 @@ public final class TestedClassWithGenericsTest {
      *            the action 1
      */
     @Test
-    public void useSUTInstantiatedWithConstructorHavingMultipleGenericParameters(
+    void useSUTInstantiatedWithConstructorHavingMultipleGenericParameters(
             @Injectable Iterable<Collaborator<Integer>> collaborators, @Injectable Callable<String> mockAction1,
             @Injectable Callable<Integer> action1) {
         assertNull(tested1.collaborator);
@@ -138,7 +138,7 @@ public final class TestedClassWithGenericsTest {
      *            the mock action
      */
     @Test
-    public void useSUTInstantiatedWithGenericConstructorParametersInjectedFromConcreteInjectables(
+    void useSUTInstantiatedWithGenericConstructorParametersInjectedFromConcreteInjectables(
             @Injectable Iterable<Collaborator<Integer>> mockCollaborators, @Injectable Callable<String> mockAction) {
         assertNull(tested1.collaborator);
         assertSame(mockCollaborators, tested1.collaborators);
@@ -184,7 +184,7 @@ public final class TestedClassWithGenericsTest {
      * Use SUT instantiated with generic constructor.
      */
     @Test
-    public void useSUTInstantiatedWithGenericConstructor() {
+    void useSUTInstantiatedWithGenericConstructor() {
         assertSame(mapValues, tested8.values);
     }
 
@@ -249,7 +249,7 @@ public final class TestedClassWithGenericsTest {
      *            the collaborator
      */
     @Test
-    public void useSUTDeclaredWithTypeBound(@Injectable("test") String name, @Injectable Callable<String> textAction,
+    void useSUTDeclaredWithTypeBound(@Injectable("test") String name, @Injectable Callable<String> textAction,
             @Injectable GenericClass<? extends Number> collaborator) {
         assertSame(numberToInject, tested2.numberValue);
         assertSame(name, tested2.textValue);
@@ -279,7 +279,7 @@ public final class TestedClassWithGenericsTest {
      *            the action
      */
     @Test
-    public void useSUTDeclaredWithTypeBoundHavingNonMatchingInjectableWithWildcard(
+    void useSUTDeclaredWithTypeBoundHavingNonMatchingInjectableWithWildcard(
             @Injectable Callable<? extends Number> action) {
         assertNull(tested2.action);
         assertNull(tested3.action);
@@ -333,7 +333,7 @@ public final class TestedClassWithGenericsTest {
      * dependency.
      */
     @Test
-    public void useSUTClassExtendingGenericBaseClassWhichExtendsAnotherGenericBaseClassContainingAGenericDependency() {
+    void useSUTClassExtendingGenericBaseClassWhichExtendsAnotherGenericBaseClassContainingAGenericDependency() {
         assertSame(dep, sut.dep);
     }
 
@@ -357,7 +357,7 @@ public final class TestedClassWithGenericsTest {
      * Use fully initialized SUT class extending generic base class.
      */
     @Test
-    public void useFullyInitializedSUTClassExtendingGenericBaseClass() {
+    void useFullyInitializedSUTClassExtendingGenericBaseClass() {
         AnotherDep anotherDep = sut2.dep;
         assertNotNull(anotherDep);
     }
@@ -376,7 +376,7 @@ public final class TestedClassWithGenericsTest {
      * Use fully initialized SUT class extending generic class which extends another generic class.
      */
     @Test
-    public void useFullyInitializedSUTClassExtendingGenericClassWhichExtendsAnotherGenericClass() {
+    void useFullyInitializedSUTClassExtendingGenericClassWhichExtendsAnotherGenericClass() {
         AnotherDep anotherDep = sut3.dep;
         assertNotNull(anotherDep);
     }
@@ -412,7 +412,7 @@ public final class TestedClassWithGenericsTest {
      * Verify instantiation of class with constructor parameter of generic type.
      */
     @Test
-    public void verifyInstantiationOfClassWithConstructorParameterOfGenericType() {
+    void verifyInstantiationOfClassWithConstructorParameterOfGenericType() {
         assertSame(aClass, tested6.aClass);
     }
 
@@ -439,7 +439,7 @@ public final class TestedClassWithGenericsTest {
      * Verify instantiation of generic class with dependency using type parameter.
      */
     @Test
-    public void verifyInstantiationOfGenericClassWithDependencyUsingTypeParameter() {
+    void verifyInstantiationOfGenericClassWithDependencyUsingTypeParameter() {
         assertSame(dependency, tested7.dependency);
     }
 
@@ -473,7 +473,7 @@ public final class TestedClassWithGenericsTest {
      * Use tested object of implementation type for type variable in generic base class.
      */
     @Test
-    public void useTestedObjectOfImplementationTypeForTypeVariableInGenericBaseClass() {
+    void useTestedObjectOfImplementationTypeForTypeVariableInGenericBaseClass() {
         assertSame(impl, tested.dep);
     }
 
@@ -495,7 +495,7 @@ public final class TestedClassWithGenericsTest {
      *            the t
      */
     @Test
-    public void instantiateObjectContainingGenericTypeFieldWithGenericArrayElement(
+    void instantiateObjectContainingGenericTypeFieldWithGenericArrayElement(
             @Tested ClassWithFieldOfGenericTypeContainingGenericArray t) {
         assertNotNull(t);
     }

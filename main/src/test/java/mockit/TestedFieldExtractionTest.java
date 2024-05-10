@@ -13,12 +13,12 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class TestedFieldExtractionTest.
  */
-public final class TestedFieldExtractionTest {
+final class TestedFieldExtractionTest {
 
     /**
      * The Class Dependency.
@@ -50,7 +50,7 @@ public final class TestedFieldExtractionTest {
      * Extract multiple fields of same type into single tested field.
      */
     @Test
-    public void extractMultipleFieldsOfSameTypeIntoSingleTestedField() {
+    void extractMultipleFieldsOfSameTypeIntoSingleTestedField() {
         assertNotNull(tested1.dep1);
         assertNotNull(tested1.dep2);
         assertSame(tested1.dep1, tested1.dep2); // unqualified fields of same type get the same created instance
@@ -89,7 +89,7 @@ public final class TestedFieldExtractionTest {
      * Extract multiple qualified fields of same type into separate tested fields.
      */
     @Test
-    public void extractMultipleQualifiedFieldsOfSameTypeIntoSeparateTestedFields() {
+    void extractMultipleQualifiedFieldsOfSameTypeIntoSeparateTestedFields() {
         assertNotNull(tested2.dep1);
         assertNotNull(tested2.dep2);
         assertNotSame(tested2.dep1, tested2.dep2);
@@ -141,7 +141,7 @@ public final class TestedFieldExtractionTest {
      * Extract fields initialized by constructor of tested class.
      */
     @Test
-    public void extractFieldsInitializedByConstructorOfTestedClass() {
+    void extractFieldsInitializedByConstructorOfTestedClass() {
         assertEquals(tested3.name, name);
         assertEquals(tested3.number, number);
         assertSame(tested3.names, test);

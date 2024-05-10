@@ -4,12 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class TestedClassWithGenericSubtypesTest.
  */
-public final class TestedClassWithGenericSubtypesTest {
+final class TestedClassWithGenericSubtypesTest {
 
     /**
      * The Class GenericClass.
@@ -57,7 +57,7 @@ public final class TestedClassWithGenericSubtypesTest {
      *            the s 2
      */
     @Test
-    public void injectSubclassInstancesIntoFieldsOfBaseGenericClass(@Tested SUT1 sut, @Injectable Subclass1 s1,
+    void injectSubclassInstancesIntoFieldsOfBaseGenericClass(@Tested SUT1 sut, @Injectable Subclass1 s1,
             @Injectable Subclass2 s2) {
         assertSame(s1, sut.dependency1);
         assertSame(s2, sut.dependency2);
@@ -121,7 +121,7 @@ public final class TestedClassWithGenericSubtypesTest {
      *            the i 2
      */
     @Test
-    public void injectImplementationInstancesIntoFieldsOfBaseGenericInterface(@Tested SUT2 sut, @Injectable Impl1 i1,
+    void injectImplementationInstancesIntoFieldsOfBaseGenericInterface(@Tested SUT2 sut, @Injectable Impl1 i1,
             @Injectable Impl2 i2) {
         assertSame(i1, sut.dependency1);
         assertSame(i2, sut.dependency2);
@@ -154,7 +154,7 @@ public final class TestedClassWithGenericSubtypesTest {
      *            the service 2
      */
     @Test
-    public void injectInstanceIntoTypeVariableOfSecondLevelClass(@Tested(fullyInitialized = true) Service2 service2) {
+    void injectInstanceIntoTypeVariableOfSecondLevelClass(@Tested(fullyInitialized = true) Service2 service2) {
         Service1 service1 = service2.service1;
         assertNotNull(service1);
         assertTrue(service1.value instanceof Dependency);

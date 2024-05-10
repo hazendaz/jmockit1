@@ -6,14 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class TestedClassWithFieldDITest.
  */
-public final class TestedClassWithFieldDITest {
+final class TestedClassWithFieldDITest {
 
     /** The tested global. */
     @Tested
@@ -23,7 +23,7 @@ public final class TestedClassWithFieldDITest {
      * Use local tested field having same type and name as global tested field in previous test class.
      */
     @Test
-    public void useLocalTestedFieldHavingSameTypeAndNameAsGlobalTestedFieldInPreviousTestClass() {
+    void useLocalTestedFieldHavingSameTypeAndNameAsGlobalTestedFieldInPreviousTestClass() {
         assertNull(testedGlobal.someValue);
     }
 
@@ -129,8 +129,8 @@ public final class TestedClassWithFieldDITest {
     /**
      * Sets the up.
      */
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         assertUtilObjectsAreAvailable();
     }
 
@@ -150,8 +150,8 @@ public final class TestedClassWithFieldDITest {
     /**
      * Tear down.
      */
-    @After
-    public void tearDown() {
+    @AfterEach
+    void tearDown() {
         assertUtilObjectsAreAvailable();
     }
 
@@ -159,7 +159,7 @@ public final class TestedClassWithFieldDITest {
      * Exercise tested object with field injected by type.
      */
     @Test
-    public void exerciseTestedObjectWithFieldInjectedByType() {
+    void exerciseTestedObjectWithFieldInjectedByType() {
         assertEquals(-1, tested.i);
         assertSame(dependency, tested.dependency);
 
@@ -181,7 +181,7 @@ public final class TestedClassWithFieldDITest {
      *            the value
      */
     @Test
-    public void exerciseTestedObjectCreatedThroughConstructorAndFieldInjection(@Injectable("123") int value) {
+    void exerciseTestedObjectCreatedThroughConstructorAndFieldInjection(@Injectable("123") int value) {
         assertEquals(0, util.id);
         assertEquals(123, tested.i);
         assertSame(dependency, tested.dependency);
@@ -194,7 +194,7 @@ public final class TestedClassWithFieldDITest {
      *            the action
      */
     @Test
-    public void ignoreStaticFieldsWhenDoingFieldInjection(@Injectable Runnable action) {
+    void ignoreStaticFieldsWhenDoingFieldInjection(@Injectable Runnable action) {
         assertNull(util.action);
         assertNull(TestedClass.globalAction);
     }
@@ -211,7 +211,7 @@ public final class TestedClassWithFieldDITest {
      * Creates the tested object injecting it with value provided in previous tested field.
      */
     @Test
-    public void createTestedObjectInjectingItWithValueProvidedInPreviousTestedField() {
+    void createTestedObjectInjectingItWithValueProvidedInPreviousTestedField() {
         assertEquals(123, tested2.id);
     }
 }
