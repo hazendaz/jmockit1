@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.runners.MethodSorters.NAME_ASCENDING;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -17,14 +16,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-import org.junit.FixMethodOrder;
-import org.junit.Test;
+import org.junit.jupiter.api.MethodOrderer.MethodName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 /**
  * The Class TestedClassWithFullDITest.
  */
-@FixMethodOrder(NAME_ASCENDING)
-public final class TestedClassWithFullDITest {
+@TestMethodOrder(MethodName.class)
+final class TestedClassWithFullDITest {
 
     /**
      * The Class TestedClass.
@@ -131,7 +131,7 @@ public final class TestedClassWithFullDITest {
      * Use fully initialized tested object with no injectable for first level dependency.
      */
     @Test
-    public void useFullyInitializedTestedObjectWithNoInjectableForFirstLevelDependency() {
+    void useFullyInitializedTestedObjectWithNoInjectableForFirstLevelDependency() {
         assertNull(tested.name);
         assertSame(tested.commonDependency, tested.dependency2.dependency.commonDependency);
         assertNull(tested.notToBeInjected);
@@ -144,7 +144,7 @@ public final class TestedClassWithFullDITest {
      *            the id
      */
     @Test
-    public void useFullyInitializedTestedObjectWithValueForFirstLevelDependency(@Injectable("test") String id) {
+    void useFullyInitializedTestedObjectWithValueForFirstLevelDependency(@Injectable("test") String id) {
         assertEquals("test", tested.name);
         assertNull(tested.description);
         assertNull(tested.number);
@@ -180,7 +180,7 @@ public final class TestedClassWithFullDITest {
      * Verify other tested objects get injected into first one.
      */
     @Test
-    public void verifyOtherTestedObjectsGetInjectedIntoFirstOne() {
+    void verifyOtherTestedObjectsGetInjectedIntoFirstOne() {
         assertSame(tested2, tested.subObj);
         assertSame(tested3, tested.subObj2);
         assertSame(tested3, tested.subObj.subObj);
@@ -218,7 +218,7 @@ public final class TestedClassWithFullDITest {
      * Use tested object of subtype for abstract dependency type in another tested object.
      */
     @Test
-    public void useTestedObjectOfSubtypeForAbstractDependencyTypeInAnotherTestedObject() {
+    void useTestedObjectOfSubtypeForAbstractDependencyTypeInAnotherTestedObject() {
         assertSame(concreteDependency, tested4.dependency);
     }
 
@@ -246,7 +246,7 @@ public final class TestedClassWithFullDITest {
      * Instantiate class dependent on another having field of its own type.
      */
     @Test
-    public void instantiateClassDependentOnAnotherHavingFieldOfItsOwnType() {
+    void instantiateClassDependentOnAnotherHavingFieldOfItsOwnType() {
         B b1 = a.b1;
         assertNotNull(b1);
 
@@ -277,7 +277,7 @@ public final class TestedClassWithFullDITest {
      *            the tested 5
      */
     @Test
-    public void instantiateClassWithJPAEntityField(@Tested(fullyInitialized = true) ClassWithJPAEntityField tested5) {
+    void instantiateClassWithJPAEntityField(@Tested(fullyInitialized = true) ClassWithJPAEntityField tested5) {
         assertNull(tested5.person);
     }
 
@@ -296,7 +296,7 @@ public final class TestedClassWithFullDITest {
      *            the tested 5
      */
     @Test
-    public void instantiateClassWithNonAnnotatedDataSourceField(
+    void instantiateClassWithNonAnnotatedDataSourceField(
             @Tested(fullyInitialized = true) ClassWithDataSourceField tested5) {
         assertNull(tested5.ds);
     }
@@ -318,7 +318,7 @@ public final class TestedClassWithFullDITest {
      *            the tested 6
      */
     @Test
-    public void instantiateClassWithNonAnnotatedJPAFields(@Tested(fullyInitialized = true) ClassWithJPAFields tested6) {
+    void instantiateClassWithNonAnnotatedJPAFields(@Tested(fullyInitialized = true) ClassWithJPAFields tested6) {
         // If an EntityManagerFactory was created for a previous test, then it got stored in the global dependency
         // cache, which lasts
         // until the end of the test run; therefore, the assertion needs to allow for that.
@@ -356,7 +356,7 @@ public final class TestedClassWithFullDITest {
      *            the cut
      */
     @Test
-    public void instantiateClassWithFieldToInjectWhoseTypeCannotBeInstantiated(
+    void instantiateClassWithFieldToInjectWhoseTypeCannotBeInstantiated(
             @Tested(fullyInitialized = true) ClassWithFieldToInject cut) {
         assertNotNull(cut);
         assertNull(cut.dependency);
@@ -389,7 +389,7 @@ public final class TestedClassWithFullDITest {
      *            the cut
      */
     @Test
-    public void instantiateClassWithInterfaceInConstructor(
+    void instantiateClassWithInterfaceInConstructor(
             @Tested(fullyInitialized = true) ClassWithInterfaceInConstructor cut) {
         assertNotNull(cut);
     }

@@ -3,16 +3,16 @@ package mockit;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.runners.MethodSorters.NAME_ASCENDING;
 
-import org.junit.FixMethodOrder;
-import org.junit.Test;
+import org.junit.jupiter.api.MethodOrderer.MethodName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 /**
  * The Class TestedClassInGlobalScopeTest.
  */
-@FixMethodOrder(NAME_ASCENDING)
-public final class TestedClassInGlobalScopeTest {
+@TestMethodOrder(MethodName.class)
+final class TestedClassInGlobalScopeTest {
 
     /**
      * The Class TestedClass.
@@ -34,7 +34,7 @@ public final class TestedClassInGlobalScopeTest {
      * Use tested object in first step of tested scenario.
      */
     @Test
-    public void useTestedObjectInFirstStepOfTestedScenario() {
+    void useTestedObjectInFirstStepOfTestedScenario() {
         assertNull(testedGlobal.someValue);
         assertNotSame(testedGlobal, testedLocal);
         testedGlobal.someValue = 123;
@@ -44,7 +44,7 @@ public final class TestedClassInGlobalScopeTest {
      * Use tested object in second step of tested scenario.
      */
     @Test
-    public void useTestedObjectInSecondStepOfTestedScenario() {
+    void useTestedObjectInSecondStepOfTestedScenario() {
         assertNotNull(testedGlobal.someValue);
         assertNull(testedLocal.someValue);
     }
