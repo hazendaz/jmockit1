@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigInteger;
@@ -17,19 +18,13 @@ import java.util.List;
 
 import mockit.internal.expectations.invocation.MissingInvocation;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class WithCaptureTest.
  */
 @SuppressWarnings("ConstantConditions")
-public final class WithCaptureTest {
-
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
+final class WithCaptureTest {
 
     /**
      * The Class Person.
@@ -246,7 +241,7 @@ public final class WithCaptureTest {
      * Capture argument from last matching invocation to local variable.
      */
     @Test
-    public void captureArgumentFromLastMatchingInvocationToLocalVariable() {
+    void captureArgumentFromLastMatchingInvocationToLocalVariable() {
         dao.create("Mary Jane", 10);
         dao.create("John", 25);
 
@@ -263,7 +258,7 @@ public final class WithCaptureTest {
      * Capture argument of wrapper type to local variable of primitive type.
      */
     @Test
-    public void captureArgumentOfWrapperTypeToLocalVariableOfPrimitiveType() {
+    void captureArgumentOfWrapperTypeToLocalVariableOfPrimitiveType() {
         dao.doSomething(45);
 
         new Verifications() {
@@ -279,7 +274,7 @@ public final class WithCaptureTest {
      * Capture null argument of wrapper type to local variable of same wrapper type.
      */
     @Test
-    public void captureNullArgumentOfWrapperTypeToLocalVariableOfSameWrapperType() {
+    void captureNullArgumentOfWrapperTypeToLocalVariableOfSameWrapperType() {
         dao.doSomething((Integer) null);
 
         new Verifications() {
@@ -295,7 +290,7 @@ public final class WithCaptureTest {
      * Capture argument of reference type to local variable of primitive type.
      */
     @Test
-    public void captureArgumentOfReferenceTypeToLocalVariableOfPrimitiveType() {
+    void captureArgumentOfReferenceTypeToLocalVariableOfPrimitiveType() {
         dao.doSomething(123.0F);
 
         new Verifications() {
@@ -311,7 +306,7 @@ public final class WithCaptureTest {
      * Capture null into A list during verification.
      */
     @Test
-    public void captureNullIntoAListDuringVerification() {
+    void captureNullIntoAListDuringVerification() {
         dao.create(null);
 
         new Verifications() {
@@ -328,7 +323,7 @@ public final class WithCaptureTest {
      * Capture argument to variable of specific subtype for separate invocations.
      */
     @Test
-    public void captureArgumentToVariableOfSpecificSubtypeForSeparateInvocations() {
+    void captureArgumentToVariableOfSpecificSubtypeForSeparateInvocations() {
         dao.doSomething(new BigInteger("9999"));
         dao.doSomething((byte) -123);
         dao.doSomething(123.0F);
@@ -364,7 +359,7 @@ public final class WithCaptureTest {
      * Capture array arguments to variables with specific element subtypes.
      */
     @Test
-    public void captureArrayArgumentsToVariablesWithSpecificElementSubtypes() {
+    void captureArrayArgumentsToVariablesWithSpecificElementSubtypes() {
         final Integer[] ints = { 1, 2, 3 };
         dao.doSomething(ints);
 
@@ -395,7 +390,7 @@ public final class WithCaptureTest {
      * Capture argument of primitive type to local variable of primitive type.
      */
     @Test
-    public void captureArgumentOfPrimitiveTypeToLocalVariableOfPrimitiveType() {
+    void captureArgumentOfPrimitiveTypeToLocalVariableOfPrimitiveType() {
         dao.doSomething(true);
 
         new Verifications() {
@@ -411,7 +406,7 @@ public final class WithCaptureTest {
      * Capture argument of primitive type to local variable of reference type.
      */
     @Test
-    public void captureArgumentOfPrimitiveTypeToLocalVariableOfReferenceType() {
+    void captureArgumentOfPrimitiveTypeToLocalVariableOfReferenceType() {
         dao.doSomething(true);
 
         new Verifications() {
@@ -427,7 +422,7 @@ public final class WithCaptureTest {
      * Capture arguments to local variables.
      */
     @Test
-    public void captureArgumentsToLocalVariables() {
+    void captureArgumentsToLocalVariables() {
         final Person p = new Person("John", 10);
         dao.create(p);
         dao.create("Mary Jane", 30);
@@ -475,7 +470,7 @@ public final class WithCaptureTest {
      * Attempt to capture arguments into fields.
      */
     @Test
-    public void attemptToCaptureArgumentsIntoFields() {
+    void attemptToCaptureArgumentsIntoFields() {
         dao.doSomething(56);
 
         new Verifications() {
@@ -492,7 +487,7 @@ public final class WithCaptureTest {
      * Capture first argument in two parameter method.
      */
     @Test
-    public void captureFirstArgumentInTwoParameterMethod() {
+    void captureFirstArgumentInTwoParameterMethod() {
         final String name1 = "Ted";
         final Short age = 15;
         dao.doSomething(name1, age);
@@ -517,7 +512,7 @@ public final class WithCaptureTest {
      * Capture arguments for invocation already matched by recorded expectation.
      */
     @Test
-    public void captureArgumentsForInvocationAlreadyMatchedByRecordedExpectation() {
+    void captureArgumentsForInvocationAlreadyMatchedByRecordedExpectation() {
         new Expectations() {
             {
                 dao.doSomething(anyString, anyShort);
@@ -541,7 +536,7 @@ public final class WithCaptureTest {
      * Capture arguments from consecutive matching invocations.
      */
     @Test
-    public void captureArgumentsFromConsecutiveMatchingInvocations() {
+    void captureArgumentsFromConsecutiveMatchingInvocations() {
         dao.doSomething((byte) 56);
         dao.doSomething(123.4F);
         dao.doSomething((short) -78);
@@ -595,7 +590,7 @@ public final class WithCaptureTest {
      * Capture array arguments.
      */
     @Test
-    public void captureArrayArguments() {
+    void captureArrayArguments() {
         final String[] names = { "Ted", "Lisa" };
         final int[] ages = { 67, 19 };
         dao.doSomething(names, ages);
@@ -616,7 +611,7 @@ public final class WithCaptureTest {
      * Capture varargs parameter.
      */
     @Test
-    public void captureVarargsParameter() {
+    void captureVarargsParameter() {
         dao.doSomething(1.2F, 1.0F, true, false, true);
         dao.doSomething(0.0F, 2.0F, false, true);
         dao.doSomething(-2.0F, 3.0F);
@@ -646,7 +641,7 @@ public final class WithCaptureTest {
      * Capture arguments while mixing any fields and literal values and calls to other methods.
      */
     @Test
-    public void captureArgumentsWhileMixingAnyFieldsAndLiteralValuesAndCallsToOtherMethods() {
+    void captureArgumentsWhileMixingAnyFieldsAndLiteralValuesAndCallsToOtherMethods() {
         final double d = 4.5;
         final long l = 123;
         dao.doSomething("Test", true, "data", d, 12.25F, l, "testing", '9', (byte) 11, (short) 5);
@@ -681,7 +676,7 @@ public final class WithCaptureTest {
      * Capture arguments into list in expectation block.
      */
     @Test
-    public void captureArgumentsIntoListInExpectationBlock() {
+    void captureArgumentsIntoListInExpectationBlock() {
         final List<Person> personsCreated = new ArrayList<>();
         final List<String> personNames = new LinkedList<>();
         final List<Integer> personAges = new LinkedList<>();
@@ -716,7 +711,7 @@ public final class WithCaptureTest {
      * Capture arguments into list in verification block.
      */
     @Test
-    public void captureArgumentsIntoListInVerificationBlock() {
+    void captureArgumentsIntoListInVerificationBlock() {
         dao.create(new Person("John", 10));
         dao.create("Mary Jane", 35);
         dao.create("", 56);
@@ -757,7 +752,7 @@ public final class WithCaptureTest {
      *            the mocked person
      */
     @Test
-    public void captureNewedInstance(@Mocked Person mockedPerson) {
+    void captureNewedInstance(@Mocked Person mockedPerson) {
         Person p = new Person();
         dao.create(p);
 
@@ -780,7 +775,7 @@ public final class WithCaptureTest {
      *            the mocked person
      */
     @Test
-    public void captureMultipleNewInstances(@Mocked Person mockedPerson) {
+    void captureMultipleNewInstances(@Mocked Person mockedPerson) {
         dao.create(new Person("Paul", 10));
         dao.create(new Person("Mary", 15));
         dao.create(new Person("Joe", 20));
@@ -805,21 +800,22 @@ public final class WithCaptureTest {
      *            the mocked person
      */
     @Test
-    public void attemptToCaptureNewInstanceWhenThereWasNone(@Mocked Person mockedPerson) {
-        thrown.expect(MissingInvocation.class);
-        thrown.expectMessage("Person(any String, any int)");
+    void attemptToCaptureNewInstanceWhenThereWasNone(@Mocked Person mockedPerson) {
+        Throwable exception = assertThrows(MissingInvocation.class, () -> {
 
-        dao.create("test", 14);
+            dao.create("test", 14);
 
-        new Verifications() {
-            {
-                List<Person> newInstances = withCapture(new Person());
-                times = 0;
-                assertTrue(newInstances.isEmpty());
+            new Verifications() {
+                {
+                    List<Person> newInstances = withCapture(new Person());
+                    times = 0;
+                    assertTrue(newInstances.isEmpty());
 
-                withCapture(new Person(anyString, anyInt));
-            }
-        };
+                    withCapture(new Person(anyString, anyInt));
+                }
+            };
+        });
+        assertTrue(exception.getMessage().contains("Person(any String, any int)"));
     }
 
     /**
@@ -829,7 +825,7 @@ public final class WithCaptureTest {
      *            the mocked person
      */
     @Test
-    public void captureTwoSetsOfNewInstancesOfTheSameType(@Mocked Person mockedPerson) {
+    void captureTwoSetsOfNewInstancesOfTheSameType(@Mocked Person mockedPerson) {
         // First set.
         final Person p1 = new Person();
 
@@ -855,7 +851,7 @@ public final class WithCaptureTest {
      *            the mocked person
      */
     @Test
-    public void captureNewInstancesAfterVerifyingNewInstanceOfDifferentType(@Mocked Person mockedPerson) {
+    void captureNewInstancesAfterVerifyingNewInstanceOfDifferentType(@Mocked Person mockedPerson) {
         new PersonDAO();
         final Person p1 = new Person("Paul", 10);
         final Person p2 = new Person("Mary", 10);
@@ -874,37 +870,37 @@ public final class WithCaptureTest {
      * Attempt to capture argument for invocation that never occurred unordered.
      */
     @Test
-    public void attemptToCaptureArgumentForInvocationThatNeverOccurred_unordered() {
-        thrown.expect(MissingInvocation.class);
-        thrown.expectMessage("Missing 1 invocation to:");
-        thrown.expectMessage("PersonDAO#create(");
-        thrown.expectMessage("any " + Person.class.getName());
+    void attemptToCaptureArgumentForInvocationThatNeverOccurred_unordered() {
+        Throwable exception = assertThrows(MissingInvocation.class, () -> {
 
-        new Verifications() {
-            {
-                Person p;
-                dao.create(p = withCapture());
-                times = 1;
-                assertEquals("...", p.getName());
-            }
-        };
+            new Verifications() {
+                {
+                    Person p;
+                    dao.create(p = withCapture());
+                    times = 1;
+                    assertEquals("...", p.getName());
+                }
+            };
+        });
+        assertTrue(exception.getMessage().contains("any " + Person.class.getName()));
     }
 
     /**
      * Attempt to capture argument for invocation that never occurred ordered.
      */
     @Test
-    public void attemptToCaptureArgumentForInvocationThatNeverOccurred_ordered() {
-        thrown.expect(MissingInvocation.class);
+    void attemptToCaptureArgumentForInvocationThatNeverOccurred_ordered() {
+        assertThrows(MissingInvocation.class, () -> {
 
-        new VerificationsInOrder() {
-            {
-                Person p;
-                dao.create(p = withCapture());
-                times = 1;
-                assertEquals("...", p.getName());
-            }
-        };
+            new VerificationsInOrder() {
+                {
+                    Person p;
+                    dao.create(p = withCapture());
+                    times = 1;
+                    assertEquals("...", p.getName());
+                }
+            };
+        });
     }
 
     /**
@@ -931,7 +927,7 @@ public final class WithCaptureTest {
      *            the mock
      */
     @Test
-    public void captureVarargsValuesFromAllInvocations(@Mocked final ClassWithVarargsMethod mock) {
+    void captureVarargsValuesFromAllInvocations(@Mocked final ClassWithVarargsMethod mock) {
         final String[] expectedValues1 = { "a", "b" };
         mock.varargsMethod("First", expectedValues1);
 
@@ -956,7 +952,7 @@ public final class WithCaptureTest {
      * Capture arguments into A list of A subtype of the captured parameter type.
      */
     @Test
-    public void captureArgumentsIntoAListOfASubtypeOfTheCapturedParameterType() {
+    void captureArgumentsIntoAListOfASubtypeOfTheCapturedParameterType() {
         dao.doSomethingElse(1);
         dao.doSomethingElse(2.0);
         dao.doSomethingElse(3);
@@ -977,7 +973,7 @@ public final class WithCaptureTest {
      * Capture list arguments from multiple invocations.
      */
     @Test
-    public void captureListArgumentsFromMultipleInvocations() {
+    void captureListArgumentsFromMultipleInvocations() {
         final List<Integer> integers1 = asList(1, 2, 3);
         dao.doSomething(integers1);
 

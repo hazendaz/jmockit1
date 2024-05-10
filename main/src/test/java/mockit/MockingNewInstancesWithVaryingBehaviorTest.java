@@ -8,12 +8,12 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class MockingNewInstancesWithVaryingBehaviorTest.
  */
-public final class MockingNewInstancesWithVaryingBehaviorTest {
+final class MockingNewInstancesWithVaryingBehaviorTest {
 
     /** The Constant DATE_FORMAT. */
     static final String DATE_FORMAT = "yyyy-MM-dd";
@@ -53,7 +53,7 @@ public final class MockingNewInstancesWithVaryingBehaviorTest {
      * Using fakes with invocation parameter.
      */
     @Test
-    public void usingFakesWithInvocationParameter() {
+    void usingFakesWithInvocationParameter() {
         new MockUp<SimpleDateFormat>() {
             @Mock
             void $init(Invocation inv, String pattern) {
@@ -95,7 +95,7 @@ public final class MockingNewInstancesWithVaryingBehaviorTest {
      *            the any date format
      */
     @Test
-    public void usingInstantiationRecording(@Mocked SimpleDateFormat anyDateFormat) {
+    void usingInstantiationRecording(@Mocked SimpleDateFormat anyDateFormat) {
         new Expectations() {
             {
                 SimpleDateFormat dateFmt = new SimpleDateFormat(DATE_FORMAT);
@@ -171,7 +171,7 @@ public final class MockingNewInstancesWithVaryingBehaviorTest {
      *            the any col
      */
     @Test
-    public void matchMethodCallsOnInstancesCreatedWithSpecificConstructorCalls(@Mocked final Collaborator anyCol) {
+    void matchMethodCallsOnInstancesCreatedWithSpecificConstructorCalls(@Mocked final Collaborator anyCol) {
         new Expectations() {
             {
                 col5 = new Collaborator(5);
@@ -221,7 +221,7 @@ public final class MockingNewInstancesWithVaryingBehaviorTest {
      *            the any col
      */
     @Test
-    public void recordDifferentResultsForInstancesCreatedWithDifferentConstructors(@Mocked final Collaborator anyCol) {
+    void recordDifferentResultsForInstancesCreatedWithDifferentConstructors(@Mocked final Collaborator anyCol) {
         new Expectations() {
             {
                 anyCol.getValue();

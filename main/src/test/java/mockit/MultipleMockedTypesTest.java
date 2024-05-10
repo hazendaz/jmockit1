@@ -7,12 +7,12 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.Callable;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class MultipleMockedTypesTest.
  */
-public final class MultipleMockedTypesTest {
+final class MultipleMockedTypesTest {
 
     /**
      * The Class FirstDependency.
@@ -128,7 +128,7 @@ public final class MultipleMockedTypesTest {
      *            the mock 2
      */
     @Test
-    public void invocationsOnMethodsOfDifferentClassesWithDifferentSignatures(@Mocked final SecondDependency mock2) {
+    void invocationsOnMethodsOfDifferentClassesWithDifferentSignatures(@Mocked final SecondDependency mock2) {
         new Expectations() {
             {
                 mock1.getValue();
@@ -148,7 +148,7 @@ public final class MultipleMockedTypesTest {
      *            the mock 2
      */
     @Test
-    public void invocationsOnMethodsOfDifferentClassesButSameSignature(@Mocked final SecondDependency mock2) {
+    void invocationsOnMethodsOfDifferentClassesButSameSignature(@Mocked final SecondDependency mock2) {
         new Expectations() {
             {
                 mock1.getValue();
@@ -191,8 +191,7 @@ public final class MultipleMockedTypesTest {
      *            the mock 2
      */
     @Test
-    public void invocationOnBaseTypeWithReplayOnSubtypeThatOverridesTheInvokedMethod(
-            @Mocked final SecondDependency mock2) {
+    void invocationOnBaseTypeWithReplayOnSubtypeThatOverridesTheInvokedMethod(@Mocked final SecondDependency mock2) {
         new Expectations() {
             {
                 mock1.getValue();
@@ -218,7 +217,7 @@ public final class MultipleMockedTypesTest {
      *            the mock 2
      */
     @Test
-    public void invocationOnBaseTypeWithCapturingOfSubtypeThatInheritsTheInvokedMethod(
+    void invocationOnBaseTypeWithCapturingOfSubtypeThatInheritsTheInvokedMethod(
             @Capturing final SecondDependency mock2) {
         new Expectations() {
             {
@@ -239,7 +238,7 @@ public final class MultipleMockedTypesTest {
      *            the mock 2
      */
     @Test
-    public void invocationOnBaseTypeWithCapturingOfSubtypeThatOverridesTheInvokedMethod(
+    void invocationOnBaseTypeWithCapturingOfSubtypeThatOverridesTheInvokedMethod(
             @Capturing final SecondDependency mock2) {
         new Expectations() {
             {
@@ -272,7 +271,7 @@ public final class MultipleMockedTypesTest {
      *             the exception
      */
     @Test
-    public void invocationsOnCapturedImplementationsOfInterfaces(@Capturing final Callable<String> callable,
+    void invocationsOnCapturedImplementationsOfInterfaces(@Capturing final Callable<String> callable,
             @Capturing final Observer observer) throws Exception {
         new Expectations() {
             {

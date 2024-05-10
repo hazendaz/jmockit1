@@ -17,13 +17,13 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class StandardDITest.
  */
-public final class StandardDITest {
+final class StandardDITest {
 
     /**
      * The Class TestedClass.
@@ -164,7 +164,7 @@ public final class StandardDITest {
      * Invoke inject annotated constructor only.
      */
     @Test
-    public void invokeInjectAnnotatedConstructorOnly() {
+    void invokeInjectAnnotatedConstructorOnly() {
         assertSame(collaborator, tested1.collaborator);
         assertSame(collaborator1, tested1.collaborator1);
         assertNull(tested1.collaborator2);
@@ -183,7 +183,7 @@ public final class StandardDITest {
      *            the not to be used
      */
     @Test
-    public void assignInjectAnnotatedFieldsAndAlsoNonAnnotatedOnes(@Injectable Collaborator collaborator2,
+    void assignInjectAnnotatedFieldsAndAlsoNonAnnotatedOnes(@Injectable Collaborator collaborator2,
             @Injectable("67") int notToBeUsed) {
         assertSame(collaborator, tested1.collaborator);
         assertSame(collaborator1, tested1.collaborator1);
@@ -201,7 +201,7 @@ public final class StandardDITest {
      *            the value
      */
     @Test
-    public void assignAnnotatedFieldEvenIfTestedClassHasNoAnnotatedConstructor(@Injectable("123") int value) {
+    void assignAnnotatedFieldEvenIfTestedClassHasNoAnnotatedConstructor(@Injectable("123") int value) {
         assertEquals(123, tested2.value);
     }
 
@@ -213,7 +213,7 @@ public final class StandardDITest {
      * Assign annotated static field during field injection.
      */
     @Test
-    public void assignAnnotatedStaticFieldDuringFieldInjection() {
+    void assignAnnotatedStaticFieldDuringFieldInjection() {
         assertSame(action, TestedClass.globalAction);
     }
 
@@ -224,7 +224,7 @@ public final class StandardDITest {
      *            the text 2
      */
     @Test
-    public void considerAnnotatedAndNonAnnotatedFieldsForInjection(@Injectable("XY") String text2) {
+    void considerAnnotatedAndNonAnnotatedFieldsForInjection(@Injectable("XY") String text2) {
         assertEquals(aText, tested2.aText);
         assertNull(tested2.anotherText);
         assertEquals(aText, tested3.name);
@@ -284,7 +284,7 @@ public final class StandardDITest {
      * Support provider fields and parameters.
      */
     @Test
-    public void supportProviderFieldsAndParameters() {
+    void supportProviderFieldsAndParameters() {
         assertEquals(portNumber.intValue(), tested4.port);
         assertSame(collaborator, tested4.collaborator);
         assertEquals(user, tested4.user.get());
@@ -349,8 +349,8 @@ public final class StandardDITest {
     /**
      * Configure provider used by constructor of tested class.
      */
-    @Before
-    public void configureProviderUsedByConstructorOfTestedClass() {
+    @BeforeEach
+    void configureProviderUsedByConstructorOfTestedClass() {
         new Expectations() {
             {
                 Collaborator[] collaborators = { col3, null };
@@ -367,7 +367,7 @@ public final class StandardDITest {
      *            the name provider
      */
     @Test
-    public void supportVarargsParameterWithProviders(@Injectable final Provider<String> nameProvider) {
+    void supportVarargsParameterWithProviders(@Injectable final Provider<String> nameProvider) {
         final String[] names = { "John", "Mary" };
         new Expectations() {
             {
@@ -389,7 +389,7 @@ public final class StandardDITest {
      * Fields not annotated with known DI annotations should still be injected.
      */
     @Test
-    public void fieldsNotAnnotatedWithKnownDIAnnotationsShouldStillBeInjected() {
+    void fieldsNotAnnotatedWithKnownDIAnnotationsShouldStillBeInjected() {
         assertEquals("Abc", tested1.nonAnnotatedField);
         assertSame(callable, tested1.nonAnnotatedGenericField);
     }
@@ -417,7 +417,7 @@ public final class StandardDITest {
      * Instantiate class with dependency from standard provider.
      */
     @Test
-    public void instantiateClassWithDependencyFromStandardProvider() {
+    void instantiateClassWithDependencyFromStandardProvider() {
         DependencyToBeProvided providedDependency1 = tested6.provider.get();
         DependencyToBeProvided providedDependency2 = tested6.provider.get();
         assertNotNull(providedDependency1);
@@ -449,7 +449,7 @@ public final class StandardDITest {
      * Instantiate class with singleton dependency from standard provider.
      */
     @Test
-    public void instantiateClassWithSingletonDependencyFromStandardProvider() {
+    void instantiateClassWithSingletonDependencyFromStandardProvider() {
         SingletonDependencyToBeProvided providedDependency1 = tested7.provider.get();
         SingletonDependencyToBeProvided providedDependency2 = tested7.provider.get();
         assertNotNull(providedDependency1);

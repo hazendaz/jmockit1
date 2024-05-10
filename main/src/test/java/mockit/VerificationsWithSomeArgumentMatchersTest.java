@@ -5,18 +5,13 @@ import java.util.List;
 
 import mockit.internal.expectations.invocation.MissingInvocation;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class VerificationsWithSomeArgumentMatchersTest.
  */
-public final class VerificationsWithSomeArgumentMatchersTest {
-
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
+final class VerificationsWithSomeArgumentMatchersTest {
 
     /**
      * The Class Collaborator.
@@ -182,7 +177,7 @@ public final class VerificationsWithSomeArgumentMatchersTest {
      * Use matcher only for one argument.
      */
     @Test
-    public void useMatcherOnlyForOneArgument() {
+    void useMatcherOnlyForOneArgument() {
         mock.simpleOperation(1, "", null);
         mock.simpleOperation(2, "str", null);
         mock.simpleOperation(1, "", null);
@@ -214,55 +209,58 @@ public final class VerificationsWithSomeArgumentMatchersTest {
      * Use matcher only for first argument with unexpected replay value.
      */
     @Test
-    public void useMatcherOnlyForFirstArgumentWithUnexpectedReplayValue() {
-        thrown.expect(MissingInvocation.class);
+    void useMatcherOnlyForFirstArgumentWithUnexpectedReplayValue() {
+        Assertions.assertThrows(MissingInvocation.class, () -> {
 
-        mock.simpleOperation(2, "", null);
+            mock.simpleOperation(2, "", null);
 
-        new Verifications() {
-            {
-                mock.simpleOperation(withEqual(1), "", null);
-            }
-        };
+            new Verifications() {
+                {
+                    mock.simpleOperation(withEqual(1), "", null);
+                }
+            };
+        });
     }
 
     /**
      * Use matcher only for second argument with unexpected replay value.
      */
     @Test
-    public void useMatcherOnlyForSecondArgumentWithUnexpectedReplayValue() {
-        thrown.expect(MissingInvocation.class);
+    void useMatcherOnlyForSecondArgumentWithUnexpectedReplayValue() {
+        Assertions.assertThrows(MissingInvocation.class, () -> {
 
-        mock.simpleOperation(1, "Xyz", null);
+            mock.simpleOperation(1, "Xyz", null);
 
-        new Verifications() {
-            {
-                mock.simpleOperation(1, withPrefix("arg"), null);
-            }
-        };
+            new Verifications() {
+                {
+                    mock.simpleOperation(1, withPrefix("arg"), null);
+                }
+            };
+        });
     }
 
     /**
      * Use matcher only for last argument with unexpected replay value.
      */
     @Test
-    public void useMatcherOnlyForLastArgumentWithUnexpectedReplayValue() {
-        thrown.expect(MissingInvocation.class);
+    void useMatcherOnlyForLastArgumentWithUnexpectedReplayValue() {
+        Assertions.assertThrows(MissingInvocation.class, () -> {
 
-        mock.simpleOperation(12, "arg", null);
+            mock.simpleOperation(12, "arg", null);
 
-        new Verifications() {
-            {
-                mock.simpleOperation(12, "arg", (Date) withNotNull());
-            }
-        };
+            new Verifications() {
+                {
+                    mock.simpleOperation(12, "arg", (Date) withNotNull());
+                }
+            };
+        });
     }
 
     /**
      * Use matchers for parameters of all sizes.
      */
     @Test
-    public void useMatchersForParametersOfAllSizes() {
+    void useMatchersForParametersOfAllSizes() {
         mock.setValues(123L, (byte) 5, 6.4, (short) 41);
         mock.booleanValues(12L, (byte) 4, 6.1, (short) 14);
         Collaborator.staticSetValues(2L, (byte) 4, 6.1, (short) 3);
@@ -282,7 +280,7 @@ public final class VerificationsWithSomeArgumentMatchersTest {
      * Use any int field.
      */
     @Test
-    public void useAnyIntField() {
+    void useAnyIntField() {
         mock.setValue(1);
 
         new FullVerifications() {
@@ -296,7 +294,7 @@ public final class VerificationsWithSomeArgumentMatchersTest {
      * Use several any fields.
      */
     @Test
-    public void useSeveralAnyFields() {
+    void useSeveralAnyFields() {
         final Date now = new Date();
         mock.simpleOperation(2, "abc", now);
         mock.simpleOperation(5, "test", null);
@@ -327,7 +325,7 @@ public final class VerificationsWithSomeArgumentMatchersTest {
      * Use with methods mixed with any fields.
      */
     @Test
-    public void useWithMethodsMixedWithAnyFields() {
+    void useWithMethodsMixedWithAnyFields() {
         Date now = new Date();
         mock.simpleOperation(2, "abc", now);
         mock.simpleOperation(5, "test", null);
@@ -372,7 +370,7 @@ public final class VerificationsWithSomeArgumentMatchersTest {
      *            the scheduler
      */
     @Test
-    public void useMatchersInInvocationsToInterfaceMethods(@Mocked final Scheduler scheduler) {
+    void useMatchersInInvocationsToInterfaceMethods(@Mocked final Scheduler scheduler) {
         scheduler.getAlerts("123", 1, true);
         scheduler.getAlerts(null, 1, false);
 

@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 import mockit.MockingMultipleInterfacesTest.Dependency;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class MockingMultipleInterfacesTest.
@@ -14,7 +14,7 @@ import org.junit.Test;
  * @param <MultiMock>
  *            the generic type
  */
-public final class MockingMultipleInterfacesTest<MultiMock extends Dependency & Runnable> {
+final class MockingMultipleInterfacesTest<MultiMock extends Dependency & Runnable> {
 
     /**
      * The Interface Dependency.
@@ -39,7 +39,7 @@ public final class MockingMultipleInterfacesTest<MultiMock extends Dependency & 
      * Mock field with two interfaces.
      */
     @Test
-    public void mockFieldWithTwoInterfaces() {
+    void mockFieldWithTwoInterfaces() {
         new Expectations() {
             {
                 multiMock.doSomething(false);
@@ -66,7 +66,7 @@ public final class MockingMultipleInterfacesTest<MultiMock extends Dependency & 
      *            the mock
      */
     @Test
-    public <M extends Dependency & Serializable> void mockParameterWithTwoInterfaces(@Mocked final M mock) {
+    <M extends Dependency & Serializable> void mockParameterWithTwoInterfaces(@Mocked final M mock) {
         new Expectations() {
             {
                 mock.doSomething(true);
@@ -111,7 +111,7 @@ public final class MockingMultipleInterfacesTest<MultiMock extends Dependency & 
      *            the mock
      */
     @Test
-    public void mockAbstractMethodInheritedFromInterfaceImplementedBySuperClass(@Mocked final ToBeMocked mock) {
+    void mockAbstractMethodInheritedFromInterfaceImplementedBySuperClass(@Mocked final ToBeMocked mock) {
         mock.doSomething();
 
         new Verifications() {

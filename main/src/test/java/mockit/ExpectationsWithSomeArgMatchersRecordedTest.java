@@ -4,6 +4,7 @@ import static java.util.Arrays.asList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -12,18 +13,12 @@ import java.util.List;
 
 import mockit.internal.expectations.invocation.MissingInvocation;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class ExpectationsWithSomeArgMatchersRecordedTest.
  */
-public final class ExpectationsWithSomeArgMatchersRecordedTest {
-
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
+final class ExpectationsWithSomeArgMatchersRecordedTest {
 
     /**
      * The Class Dependency.
@@ -352,7 +347,7 @@ public final class ExpectationsWithSomeArgMatchersRecordedTest {
      * Use matcher only for one argument.
      */
     @Test
-    public void useMatcherOnlyForOneArgument() {
+    void useMatcherOnlyForOneArgument() {
         final Object o = new Object();
 
         new Expectations() {
@@ -398,55 +393,58 @@ public final class ExpectationsWithSomeArgMatchersRecordedTest {
      * Use matcher only for first argument with unexpected replay value.
      */
     @Test
-    public void useMatcherOnlyForFirstArgumentWithUnexpectedReplayValue() {
-        thrown.expect(MissingInvocation.class);
+    void useMatcherOnlyForFirstArgumentWithUnexpectedReplayValue() {
+        assertThrows(MissingInvocation.class, () -> {
 
-        mock.simpleOperation(2, "", null);
+            mock.simpleOperation(2, "", null);
 
-        new Verifications() {
-            {
-                mock.simpleOperation(withEqual(1), "", null);
-            }
-        };
+            new Verifications() {
+                {
+                    mock.simpleOperation(withEqual(1), "", null);
+                }
+            };
+        });
     }
 
     /**
      * Use matcher only for second argument with unexpected replay value.
      */
     @Test
-    public void useMatcherOnlyForSecondArgumentWithUnexpectedReplayValue() {
-        thrown.expect(MissingInvocation.class);
+    void useMatcherOnlyForSecondArgumentWithUnexpectedReplayValue() {
+        assertThrows(MissingInvocation.class, () -> {
 
-        mock.simpleOperation(1, "Xyz", null);
+            mock.simpleOperation(1, "Xyz", null);
 
-        new Verifications() {
-            {
-                mock.simpleOperation(1, withPrefix("arg"), null);
-            }
-        };
+            new Verifications() {
+                {
+                    mock.simpleOperation(1, withPrefix("arg"), null);
+                }
+            };
+        });
     }
 
     /**
      * Use matcher only for last argument with unexpected replay value.
      */
     @Test
-    public void useMatcherOnlyForLastArgumentWithUnexpectedReplayValue() {
-        thrown.expect(MissingInvocation.class);
+    void useMatcherOnlyForLastArgumentWithUnexpectedReplayValue() {
+        assertThrows(MissingInvocation.class, () -> {
 
-        mock.simpleOperation(12, "arg", null);
+            mock.simpleOperation(12, "arg", null);
 
-        new Verifications() {
-            {
-                mock.simpleOperation(12, "arg", (Date) withNotNull());
-            }
-        };
+            new Verifications() {
+                {
+                    mock.simpleOperation(12, "arg", (Date) withNotNull());
+                }
+            };
+        });
     }
 
     /**
      * Use matchers for parameters of all sizes.
      */
     @Test
-    public void useMatchersForParametersOfAllSizes() {
+    void useMatchersForParametersOfAllSizes() {
         new Expectations() {
             {
                 mock.setValues(123L, withEqual((byte) 5), 6.4, withNotEqual((short) 14));
@@ -466,7 +464,7 @@ public final class ExpectationsWithSomeArgMatchersRecordedTest {
      * Use any int field.
      */
     @Test
-    public void useAnyIntField() {
+    void useAnyIntField() {
         new Expectations() {
             {
                 mock.setValue(anyInt);
@@ -480,7 +478,7 @@ public final class ExpectationsWithSomeArgMatchersRecordedTest {
      * Use any string field.
      */
     @Test
-    public void useAnyStringField() {
+    void useAnyStringField() {
         new Expectations() {
             {
                 mock.setValue(anyString);
@@ -497,7 +495,7 @@ public final class ExpectationsWithSomeArgMatchersRecordedTest {
      * Use several any fields.
      */
     @Test
-    public void useSeveralAnyFields() {
+    void useSeveralAnyFields() {
         final Date now = new Date();
 
         new Expectations() {
@@ -533,7 +531,7 @@ public final class ExpectationsWithSomeArgMatchersRecordedTest {
      * Use with methods mixed with any fields.
      */
     @Test
-    public void useWithMethodsMixedWithAnyFields() {
+    void useWithMethodsMixedWithAnyFields() {
         mock.simpleOperation(2, "abc", new Date());
         mock.simpleOperation(5, "test", null);
         mock.simpleOperation(3, "test2", null);
@@ -577,7 +575,7 @@ public final class ExpectationsWithSomeArgMatchersRecordedTest {
      *            the scheduler
      */
     @Test
-    public void useMatchersInInvocationsToInterfaceMethods(@Mocked final Scheduler scheduler) {
+    void useMatchersInInvocationsToInterfaceMethods(@Mocked final Scheduler scheduler) {
         new Expectations() {
             {
                 scheduler.getAlerts(any, 1, anyBoolean);
@@ -598,7 +596,7 @@ public final class ExpectationsWithSomeArgMatchersRecordedTest {
      *            the dep
      */
     @Test
-    public void recordExpectationsForMockedObjectsInstantiatedInsideSUT(@Mocked Dependency dep) {
+    void recordExpectationsForMockedObjectsInstantiatedInsideSUT(@Mocked Dependency dep) {
         new Expectations() {
             {
                 Dependency src1 = new Dependency(1);
@@ -627,7 +625,7 @@ public final class ExpectationsWithSomeArgMatchersRecordedTest {
      * Verify unordered expectations for mocked objects instantiated inside SUT.
      */
     @Test
-    public void verifyUnorderedExpectationsForMockedObjectsInstantiatedInsideSUT() {
+    void verifyUnorderedExpectationsForMockedObjectsInstantiatedInsideSUT() {
         Dependency src1 = new Dependency(1);
         Dependency src2 = new Dependency(2);
         Dependency src3 = new Dependency(1);
@@ -661,7 +659,7 @@ public final class ExpectationsWithSomeArgMatchersRecordedTest {
      * Verify ordered expectations for mocked objects instantiated inside SUT.
      */
     @Test
-    public void verifyOrderedExpectationsForMockedObjectsInstantiatedInsideSUT() {
+    void verifyOrderedExpectationsForMockedObjectsInstantiatedInsideSUT() {
         Dependency src1 = new Dependency(1);
         Dependency src2 = new Dependency(2);
         Dependency src3 = new Dependency(2);
@@ -691,7 +689,7 @@ public final class ExpectationsWithSomeArgMatchersRecordedTest {
      *            the dep
      */
     @Test
-    public void recordExpectationWithMatcherAndRegularArgumentMatchingMockedObjectInstantiatedInsideSUT(
+    void recordExpectationWithMatcherAndRegularArgumentMatchingMockedObjectInstantiatedInsideSUT(
             @Mocked Dependency dep) {
         final List<Dependency> dependencies = new ArrayList<>();
 
@@ -723,7 +721,7 @@ public final class ExpectationsWithSomeArgMatchersRecordedTest {
      *            the dep
      */
     @Test
-    public void recordVarargsExpectationWithMatcherAndRegularArgumentMatchingMockedObjectInstantiatedInsideSUT(
+    void recordVarargsExpectationWithMatcherAndRegularArgumentMatchingMockedObjectInstantiatedInsideSUT(
             @Mocked Dependency dep) {
         final List<Dependency> dependencies = new ArrayList<>();
 
@@ -755,7 +753,7 @@ public final class ExpectationsWithSomeArgMatchersRecordedTest {
      *            the any dep
      */
     @Test
-    public void recordInstantiationExpectationsForMockedObjectsInstantiatedInsideSUT(@Mocked Dependency anyDep) {
+    void recordInstantiationExpectationsForMockedObjectsInstantiatedInsideSUT(@Mocked Dependency anyDep) {
         new Expectations() {
             {
                 Dependency dep1 = new Dependency(1);
@@ -787,7 +785,7 @@ public final class ExpectationsWithSomeArgMatchersRecordedTest {
      * Expectation with matchers spanning multiple lines.
      */
     @Test
-    public void expectationWithMatchersSpanningMultipleLines() {
+    void expectationWithMatchersSpanningMultipleLines() {
         new Expectations() {
             {
                 mock.simpleOperation(1, (String) withNull());
@@ -801,7 +799,7 @@ public final class ExpectationsWithSomeArgMatchersRecordedTest {
      * Expectation with matcher in second line and constant argument in third line.
      */
     @Test
-    public void expectationWithMatcherInSecondLineAndConstantArgumentInThirdLine() {
+    void expectationWithMatcherInSecondLineAndConstantArgumentInThirdLine() {
         new Expectations() {
             {
                 mock.simpleOperation(anyInt, "test");
@@ -815,7 +813,7 @@ public final class ExpectationsWithSomeArgMatchersRecordedTest {
      * Expectations with partial matchers in every combination for method with three parameters.
      */
     @Test
-    public void expectationsWithPartialMatchersInEveryCombinationForMethodWithThreeParameters() {
+    void expectationsWithPartialMatchersInEveryCombinationForMethodWithThreeParameters() {
         final Date now = new Date();
 
         mock.simpleOperation(123, "test", null);

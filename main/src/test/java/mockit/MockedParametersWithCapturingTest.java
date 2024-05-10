@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.nio.CharBuffer;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class MockedParametersWithCapturingTest.
  */
-public final class MockedParametersWithCapturingTest {
+final class MockedParametersWithCapturingTest {
 
     /**
      * The Interface Service.
@@ -138,7 +138,7 @@ public final class MockedParametersWithCapturingTest {
      *            the service
      */
     @Test
-    public void captureDerivedClass(@Capturing BaseClass service) {
+    void captureDerivedClass(@Capturing BaseClass service) {
         assertNull(new DerivedClass("test").str);
         assertNull(new DerivedClass() {
         }.str);
@@ -156,7 +156,7 @@ public final class MockedParametersWithCapturingTest {
      *             the exception
      */
     @Test
-    public void captureImplementationsOfDifferentInterfaces(@Capturing Runnable mock1, @Capturing Readable mock2)
+    void captureImplementationsOfDifferentInterfaces(@Capturing Runnable mock1, @Capturing Readable mock2)
             throws Exception {
         Runnable runnable = new Runnable() {
             @Override
@@ -182,7 +182,7 @@ public final class MockedParametersWithCapturingTest {
      *            the service
      */
     @Test
-    public void captureImplementationsOfAnInterface(@Capturing final Service service) {
+    void captureImplementationsOfAnInterface(@Capturing final Service service) {
         Service impl1 = new ServiceImpl("test1");
         impl1.doSomethingElse(1);
 
@@ -207,7 +207,7 @@ public final class MockedParametersWithCapturingTest {
      *            the base
      */
     @Test
-    public void captureSubclassesOfABaseClass(@Capturing final BaseClass base) {
+    void captureSubclassesOfABaseClass(@Capturing final BaseClass base) {
         BaseClass impl1 = new DerivedClass("test1");
         impl1.doSomething();
 
@@ -258,7 +258,7 @@ public final class MockedParametersWithCapturingTest {
      *            the mock
      */
     @Test
-    public void recordCallToBaseInterfaceMethodOnCaptureSubInterfaceImplementation(@Capturing final ISub mock) {
+    void recordCallToBaseInterfaceMethodOnCaptureSubInterfaceImplementation(@Capturing final ISub mock) {
         new Expectations() {
             {
                 mock.doSomething();

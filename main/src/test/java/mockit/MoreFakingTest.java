@@ -16,13 +16,13 @@ import javax.accessibility.AccessibleState;
 
 import mockit.MoreFakingTest.ClassWithNested.Nested;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class MoreFakingTest.
  */
 @SuppressWarnings("JUnitTestMethodWithNoAssertions")
-public final class MoreFakingTest {
+final class MoreFakingTest {
 
     /** The code under test. */
     final CodeUnderTest codeUnderTest = new CodeUnderTest();
@@ -152,7 +152,7 @@ public final class MoreFakingTest {
      * Fake doing nothing.
      */
     @Test
-    public void fakeDoingNothing() {
+    void fakeDoingNothing() {
         new FakeCollaborator1();
 
         codeUnderTest.doSomething();
@@ -162,7 +162,7 @@ public final class MoreFakingTest {
      * Apply fakes from inner fake class with fake constructor.
      */
     @Test
-    public void applyFakesFromInnerFakeClassWithFakeConstructor() {
+    void applyFakesFromInnerFakeClassWithFakeConstructor() {
         new FakeCollaborator4();
         assertFalse(fakeExecuted);
 
@@ -235,7 +235,7 @@ public final class MoreFakingTest {
      * Apply fake for constructor.
      */
     @Test
-    public void applyFakeForConstructor() {
+    void applyFakeForConstructor() {
         new FakeCollaboratorWithConstructorFake();
 
         new FacesMessage("test");
@@ -283,7 +283,7 @@ public final class MoreFakingTest {
      * Apply fake for class hierarchy.
      */
     @Test
-    public void applyFakeForClassHierarchy() {
+    void applyFakeForClassHierarchy() {
         new MockUp<SubCollaborator>() {
             @Mock
             void $init(Invocation inv, int i) {
@@ -315,7 +315,7 @@ public final class MoreFakingTest {
      * Apply fake for JRE class.
      */
     @Test
-    public void applyFakeForJREClass() {
+    void applyFakeForJREClass() {
         FakeThread fakeThread = new FakeThread();
 
         Thread.currentThread().interrupt();
@@ -344,7 +344,7 @@ public final class MoreFakingTest {
      * Fake static initializer.
      */
     @Test
-    public void fakeStaticInitializer() {
+    void fakeStaticInitializer() {
         new MockUp<AccessibleState>() {
             @Mock
             void $clinit() {
@@ -373,7 +373,7 @@ public final class MoreFakingTest {
      *            the generic type
      */
     @Test
-    public <A extends AnAbstractClass> void fakeAbstractClassWithFakeForAbstractMethodHavingInvocationParameter() {
+    <A extends AnAbstractClass> void fakeAbstractClassWithFakeForAbstractMethodHavingInvocationParameter() {
         final AnAbstractClass obj = new AnAbstractClass() {
             @Override
             protected int doSomething() {
@@ -415,7 +415,7 @@ public final class MoreFakingTest {
      * Fake generic class with fake having invocation parameter.
      */
     @Test
-    public void fakeGenericClassWithFakeHavingInvocationParameter() {
+    void fakeGenericClassWithFakeHavingInvocationParameter() {
         new MockUp<GenericClass<String>>() {
             @Mock
             String doSomething(Invocation inv) {
@@ -435,7 +435,7 @@ public final class MoreFakingTest {
      */
     @Test
     @SuppressWarnings("MethodWithMultipleLoops")
-    public void concurrentFake() throws Exception {
+    void concurrentFake() throws Exception {
         new MockUp<Collaborator>() {
             @Mock
             long getThreadSpecificValue(int i) {
@@ -468,7 +468,7 @@ public final class MoreFakingTest {
      * Fake affects instances of specified subclass and not of base class.
      */
     @Test
-    public void fakeAffectsInstancesOfSpecifiedSubclassAndNotOfBaseClass() {
+    void fakeAffectsInstancesOfSpecifiedSubclassAndNotOfBaseClass() {
         new FakeForSubclass();
 
         // Faking applies to instance methods executed on instances of the subclass:
@@ -540,7 +540,7 @@ public final class MoreFakingTest {
      * Fake A class having A nested class.
      */
     @Test
-    public void fakeAClassHavingANestedClass() {
+    void fakeAClassHavingANestedClass() {
         new MockUp<ClassWithNested>() {
             @Mock
             void doSomething() {

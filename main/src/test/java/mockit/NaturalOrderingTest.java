@@ -7,12 +7,12 @@ import java.util.Date;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class NaturalOrderingTest.
  */
-public final class NaturalOrderingTest {
+final class NaturalOrderingTest {
 
     /**
      * Verify standard comparable behavior in mocked class.
@@ -23,7 +23,7 @@ public final class NaturalOrderingTest {
      *            the b
      */
     @Test
-    public void verifyStandardComparableBehaviorInMockedClass(@Mocked Date a, @Mocked Date b) {
+    void verifyStandardComparableBehaviorInMockedClass(@Mocked Date a, @Mocked Date b) {
         // noinspection EqualsWithItself
         assertEquals(0, a.compareTo(a));
         // noinspection EqualsWithItself
@@ -72,7 +72,7 @@ public final class NaturalOrderingTest {
      *            the b
      */
     @Test
-    public void mockOverrideOfCompareToMethod(@Mocked final ComparableClass a, @Mocked final ComparableClass b) {
+    void mockOverrideOfCompareToMethod(@Mocked final ComparableClass a, @Mocked final ComparableClass b) {
         new Expectations() {
             {
                 a.compareTo(null);
@@ -103,7 +103,7 @@ public final class NaturalOrderingTest {
      *            the b
      */
     @Test
-    public void mockOverrideOfCompareToMethodInJREClass(@Mocked final Date a, @Mocked final Date b) {
+    void mockOverrideOfCompareToMethodInJREClass(@Mocked final Date a, @Mocked final Date b) {
         new Expectations() {
             {
                 a.compareTo(b);

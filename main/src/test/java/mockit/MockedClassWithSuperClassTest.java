@@ -7,12 +7,12 @@ import java.io.Writer;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class MockedClassWithSuperClassTest.
  */
-public final class MockedClassWithSuperClassTest {
+final class MockedClassWithSuperClassTest {
 
     /**
      * The Class SubclassOfJREClass.
@@ -80,7 +80,7 @@ public final class MockedClassWithSuperClassTest {
      *             the exception
      */
     @Test
-    public void mockedClassExtendingJREClass(@Mocked SubclassOfJREClass mock) throws Exception {
+    void mockedClassExtendingJREClass(@Mocked SubclassOfJREClass mock) throws Exception {
         // Mocked:
         assertSame(mock, mock.append("a"));
         assertSame(mock, mock.append('a'));
@@ -117,7 +117,7 @@ public final class MockedClassWithSuperClassTest {
      *            the mock
      */
     @Test
-    public void mockedClassExtendingNonJREClass(@Mocked final Subclass mock) {
+    void mockedClassExtendingNonJREClass(@Mocked final Subclass mock) {
         new Expectations() {
             {
                 mock.doSomething();
@@ -152,7 +152,7 @@ public final class MockedClassWithSuperClassTest {
      *            the mock
      */
     @Test
-    public void cascadingSubclassWithMethodReturningCascadedBaseClassInstance(@Mocked Subclass mock) {
+    void cascadingSubclassWithMethodReturningCascadedBaseClassInstance(@Mocked Subclass mock) {
         // The subclass is already mocked at this point, when the cascaded instance gets created.
         BaseClass cascaded = mock.getInstance();
 
@@ -167,7 +167,7 @@ public final class MockedClassWithSuperClassTest {
      *            the unused
      */
     @Test
-    public void recordExpectationOnStaticMethodFromBaseClass(@Mocked Subclass unused) {
+    void recordExpectationOnStaticMethodFromBaseClass(@Mocked Subclass unused) {
         new Expectations() {
             {
                 BaseClass.staticMethod();
@@ -223,7 +223,7 @@ public final class MockedClassWithSuperClassTest {
      *            the mock
      */
     @Test
-    public void mockSubclassWithConstructorContainingTryCatch(@Mocked DerivedClass mock) {
+    void mockSubclassWithConstructorContainingTryCatch(@Mocked DerivedClass mock) {
         new DerivedClass();
     }
 
@@ -242,8 +242,7 @@ public final class MockedClassWithSuperClassTest {
      *            the mock 2
      */
     @Test
-    public void recordSameMethodOnDifferentMockedSubclasses(@Mocked final Subclass mock1,
-            @Mocked final Subclass2 mock2) {
+    void recordSameMethodOnDifferentMockedSubclasses(@Mocked final Subclass mock1, @Mocked final Subclass2 mock2) {
         new Expectations() {
             {
                 mock1.doSomething();
@@ -264,7 +263,7 @@ public final class MockedClassWithSuperClassTest {
      *            the base mock
      */
     @Test
-    public void recordMethodOnMockedBaseClassButReplayOnSubclassInstance(@Mocked final BaseClass baseMock) {
+    void recordMethodOnMockedBaseClassButReplayOnSubclassInstance(@Mocked final BaseClass baseMock) {
         new Expectations() {
             {
                 baseMock.doSomething();
@@ -329,7 +328,7 @@ public final class MockedClassWithSuperClassTest {
      *            the mock
      */
     @Test
-    public void mockDirectSubclassOfBaseWithTwoConstructorsButInstantiateSecondLevelSubclass(
+    void mockDirectSubclassOfBaseWithTwoConstructorsButInstantiateSecondLevelSubclass(
             @Mocked SubclassWithOneConstructor mock) {
         int value = new SecondLevelSubclass1().value;
         assertEquals(2, value);
@@ -348,7 +347,7 @@ public final class MockedClassWithSuperClassTest {
      *            the mock
      */
     @Test
-    public void mockOneSubclassButInstantiateUnmockedSibling(@Mocked SecondLevelSubclass1 mock) {
+    void mockOneSubclassButInstantiateUnmockedSibling(@Mocked SecondLevelSubclass1 mock) {
         int value = new SecondLevelSubclass2().value;
         assertEquals(2, value);
     }

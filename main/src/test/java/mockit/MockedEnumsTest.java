@@ -8,12 +8,12 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import java.lang.annotation.RetentionPolicy;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class MockedEnumsTest.
  */
-public final class MockedEnumsTest {
+final class MockedEnumsTest {
 
     /**
      * The Enum MyEnum.
@@ -80,7 +80,7 @@ public final class MockedEnumsTest {
      *            the e
      */
     @Test
-    public void oneEnumBeingMockedMustNotAffectOtherEnums(@Mocked MyEnum e) {
+    void oneEnumBeingMockedMustNotAffectOtherEnums(@Mocked MyEnum e) {
         assertNotNull(RetentionPolicy.valueOf("RUNTIME"));
     }
 
@@ -91,7 +91,7 @@ public final class MockedEnumsTest {
      *            the mock
      */
     @Test
-    public void mockEnumValues(@Mocked final MyEnum mock) {
+    void mockEnumValues(@Mocked final MyEnum mock) {
         new Expectations() {
             {
                 MyEnum.values();
@@ -115,7 +115,7 @@ public final class MockedEnumsTest {
      *            the any enum
      */
     @Test
-    public void mockInstanceMethodOnAnyEnumElement(@Mocked final MyEnum anyEnum) {
+    void mockInstanceMethodOnAnyEnumElement(@Mocked final MyEnum anyEnum) {
         final double f = 2.5;
 
         new Expectations() {
@@ -136,7 +136,7 @@ public final class MockedEnumsTest {
      *            the any enum
      */
     @Test
-    public void verifyInstanceMethodInvocationOnAnyEnumElement(@Mocked MyEnum anyEnum) {
+    void verifyInstanceMethodInvocationOnAnyEnumElement(@Mocked MyEnum anyEnum) {
         assertNull(MyEnum.First.getDescription());
         assertNull(MyEnum.Second.getDescription());
         assertNull(anyEnum.getDescription());
@@ -158,7 +158,7 @@ public final class MockedEnumsTest {
      *            the mock 2
      */
     @Test
-    public void mockSpecificEnumElementsByUsingTwoMockInstances(@Mocked MyEnum mock1, @Mocked MyEnum mock2) {
+    void mockSpecificEnumElementsByUsingTwoMockInstances(@Mocked MyEnum mock1, @Mocked MyEnum mock2) {
         new Expectations() {
             {
                 MyEnum.First.getValue(anyDouble);
@@ -179,7 +179,7 @@ public final class MockedEnumsTest {
      *            the unused
      */
     @Test
-    public void mockSpecificEnumElementsEvenWhenUsingASingleMockInstance(@Mocked MyEnum unused) {
+    void mockSpecificEnumElementsEvenWhenUsingASingleMockInstance(@Mocked MyEnum unused) {
         new Expectations() {
             {
                 MyEnum.First.getValue(anyDouble);
@@ -210,7 +210,7 @@ public final class MockedEnumsTest {
      *             the exception
      */
     @Test
-    public void mockNonAbstractMethodsInEnumWithAbstractMethod(@Mocked final TimeUnit tm) throws Exception {
+    void mockNonAbstractMethodsInEnumWithAbstractMethod(@Mocked final TimeUnit tm) throws Exception {
         new Expectations() {
             {
                 tm.convert(anyLong, TimeUnit.SECONDS);
@@ -279,7 +279,7 @@ public final class MockedEnumsTest {
      *            the mocked enum
      */
     @Test
-    public void mockEnumWithValueSpecificMethods(@Mocked EnumWithValueSpecificMethods mockedEnum) {
+    void mockEnumWithValueSpecificMethods(@Mocked EnumWithValueSpecificMethods mockedEnum) {
         new Expectations() {
             {
                 EnumWithValueSpecificMethods.One.getValue();
@@ -336,7 +336,7 @@ public final class MockedEnumsTest {
      *            the mock
      */
     @Test
-    public void cascadedEnum(@Mocked final InterfaceWhichReturnsAnEnum mock) {
+    void cascadedEnum(@Mocked final InterfaceWhichReturnsAnEnum mock) {
         final Foo foo = Foo.FOO;
 
         new Expectations() {

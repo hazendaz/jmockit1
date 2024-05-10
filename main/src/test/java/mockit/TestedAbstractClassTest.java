@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class TestedAbstractClassTest.
  */
-public final class TestedAbstractClassTest {
+final class TestedAbstractClassTest {
 
     /**
      * The Class AbstractClass.
@@ -77,7 +77,7 @@ public final class TestedAbstractClassTest {
      *            the name
      */
     @Test
-    public void exerciseTestedObject(@Injectable("Test") String name) {
+    void exerciseTestedObject(@Injectable("Test") String name) {
         assertThatGeneratedSubclassIsAlwaysTheSame();
         assertEquals(123, tested.getValue());
         assertEquals("Test", tested.name);
@@ -103,7 +103,7 @@ public final class TestedAbstractClassTest {
      * Exercise dynamically mocked tested object.
      */
     @Test
-    public void exerciseDynamicallyMockedTestedObject() {
+    void exerciseDynamicallyMockedTestedObject() {
         assertThatGeneratedSubclassIsAlwaysTheSame();
         assertEquals(123, tested.getValue());
 
@@ -134,7 +134,7 @@ public final class TestedAbstractClassTest {
      *            the text
      */
     @Test
-    public void exerciseTestedObjectAgain(@Injectable("Another test") String text) {
+    void exerciseTestedObjectAgain(@Injectable("Another test") String text) {
         assertThatGeneratedSubclassIsAlwaysTheSame();
         assertEquals(123, tested.getValue());
         assertEquals("Another test", tested.name);

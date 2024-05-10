@@ -2,7 +2,7 @@ package mockit;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 class BaseTestClass {
     static final class Dependency {
@@ -15,7 +15,7 @@ class BaseTestClass {
 /**
  * The Class TestedClassInjectedFromBaseTest.
  */
-public final class TestedClassInjectedFromBaseTest extends BaseTestClass {
+final class TestedClassInjectedFromBaseTest extends BaseTestClass {
 
     /**
      * The Class TestedClass.
@@ -33,7 +33,7 @@ public final class TestedClassInjectedFromBaseTest extends BaseTestClass {
      * Verify tested object injected with tested dependency provided by base test class.
      */
     @Test
-    public void verifyTestedObjectInjectedWithTestedDependencyProvidedByBaseTestClass() {
+    void verifyTestedObjectInjectedWithTestedDependencyProvidedByBaseTestClass() {
         assertSame(dependency, tested.dependency);
     }
 }

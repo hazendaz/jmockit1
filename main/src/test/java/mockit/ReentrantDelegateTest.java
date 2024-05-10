@@ -2,12 +2,12 @@ package mockit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class ReentrantDelegateTest.
  */
-public final class ReentrantDelegateTest {
+final class ReentrantDelegateTest {
 
     /**
      * The Class RealClass.
@@ -46,7 +46,7 @@ public final class ReentrantDelegateTest {
      *            the mock
      */
     @Test
-    public void recursiveDelegateMethodWithoutInvocationParameter(@Mocked RealClass mock) {
+    void recursiveDelegateMethodWithoutInvocationParameter(@Mocked RealClass mock) {
         new Expectations() {
             {
                 RealClass.nonRecursiveStaticMethod(anyInt);
@@ -73,7 +73,7 @@ public final class ReentrantDelegateTest {
      *            the rc
      */
     @Test
-    public void recursiveDelegateMethodWithInvocationParameterNotUsedForProceeding(@Injectable final RealClass rc) {
+    void recursiveDelegateMethodWithInvocationParameterNotUsedForProceeding(@Injectable final RealClass rc) {
         new Expectations() {
             {
                 rc.nonRecursiveMethod(anyInt);
@@ -101,7 +101,7 @@ public final class ReentrantDelegateTest {
      *            the rc
      */
     @Test
-    public void nonRecursiveDelegateMethodWithInvocationParameterUsedForProceeding(@Injectable final RealClass rc) {
+    void nonRecursiveDelegateMethodWithInvocationParameterUsedForProceeding(@Injectable final RealClass rc) {
         new Expectations() {
             {
                 rc.nonRecursiveMethod(anyInt);

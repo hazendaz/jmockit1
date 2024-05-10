@@ -1,16 +1,16 @@
 package mockit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class ObjectOverridesAndInjectableMocksTest.
  */
 @SuppressWarnings({ "ObjectEqualsNull", "SimplifiableJUnitAssertion" })
-public final class ObjectOverridesAndInjectableMocksTest {
+final class ObjectOverridesAndInjectableMocksTest {
 
     /** The a. */
     @Injectable
@@ -24,7 +24,7 @@ public final class ObjectOverridesAndInjectableMocksTest {
      * Verify standard behavior of overridden equals methods in mocked class.
      */
     @Test
-    public void verifyStandardBehaviorOfOverriddenEqualsMethodsInMockedClass() {
+    void verifyStandardBehaviorOfOverriddenEqualsMethodsInMockedClass() {
         assertDefaultEqualsBehavior(a, b);
         assertDefaultEqualsBehavior(b, a);
     }
@@ -38,18 +38,18 @@ public final class ObjectOverridesAndInjectableMocksTest {
      *            the obj 2
      */
     void assertDefaultEqualsBehavior(Object obj1, Object obj2) {
-        assertFalse(obj1.equals(null));
-        assertFalse(obj1.equals("test"));
+        assertNotEquals(null, obj1);
+        assertNotEquals("test", obj1);
         // noinspection EqualsWithItself
-        assertTrue(obj1.equals(obj1));
-        assertFalse(obj1.equals(obj2));
+        assertEquals(obj1, obj1);
+        assertNotEquals(obj1, obj2);
     }
 
     /**
      * Allow any invocations on overridden object methods for strict mocks.
      */
     @Test
-    public void allowAnyInvocationsOnOverriddenObjectMethodsForStrictMocks() {
+    void allowAnyInvocationsOnOverriddenObjectMethodsForStrictMocks() {
         new Expectations() {
             {
                 a.getIntValue();
@@ -57,12 +57,12 @@ public final class ObjectOverridesAndInjectableMocksTest {
             }
         };
 
-        assertFalse(a.equals(b));
+        assertNotEquals(a, b);
         // noinspection EqualsWithItself
-        assertTrue(a.equals(a));
+        assertEquals(a, a);
         assertEquals(58, a.getIntValue());
-        assertFalse(b.equals(a));
-        assertFalse(a.equals(b));
+        assertNotEquals(b, a);
+        assertNotEquals(a, b);
     }
 
     /**
@@ -120,7 +120,7 @@ public final class ObjectOverridesAndInjectableMocksTest {
      *            the mocked
      */
     @Test
-    public void executeEqualsOverrideOnInstancesOfDifferentSubclassThanTheOneMocked(@Injectable Subclass1 mocked) {
+    void executeEqualsOverrideOnInstancesOfDifferentSubclassThanTheOneMocked(@Injectable Subclass1 mocked) {
         Object s1 = new Subclass2();
         Object s2 = new Subclass2();
 
