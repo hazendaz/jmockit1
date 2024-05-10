@@ -7,12 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class FakeInvocationTest.
  */
-public final class FakeInvocationTest {
+final class FakeInvocationTest {
 
     /**
      * The Class Collaborator.
@@ -124,7 +124,7 @@ public final class FakeInvocationTest {
      * Fake methods for methods without parameters.
      */
     @Test
-    public void fakeMethodsForMethodsWithoutParameters() {
+    void fakeMethodsForMethodsWithoutParameters() {
         new FakeMethods();
         assertFalse(Collaborator.staticMethod());
         assertEquals(123, new Collaborator().getValue());
@@ -134,7 +134,7 @@ public final class FakeInvocationTest {
      * Instance fake method for static method.
      */
     @Test
-    public void instanceFakeMethodForStaticMethod() {
+    void instanceFakeMethodForStaticMethod() {
         new MockUp<Collaborator>() {
             @Mock
             boolean staticMethod(Invocation context) {
@@ -152,7 +152,7 @@ public final class FakeInvocationTest {
      * Fake methods with invocation parameter.
      */
     @Test
-    public void fakeMethodsWithInvocationParameter() {
+    void fakeMethodsWithInvocationParameter() {
         new MockUp<Collaborator>() {
             Collaborator instantiated;
 
@@ -226,7 +226,7 @@ public final class FakeInvocationTest {
      * Fake methods with parameters.
      */
     @Test
-    public void fakeMethodsWithParameters() {
+    void fakeMethodsWithParameters() {
         FakeMethodsWithParameters mock = new FakeMethodsWithParameters();
 
         Collaborator col = new Collaborator(4);
@@ -244,7 +244,7 @@ public final class FakeInvocationTest {
      *             the exception
      */
     @Test
-    public void useOfContextParametersForJREMethods() throws Exception {
+    void useOfContextParametersForJREMethods() throws Exception {
         new MockUp<Runtime>() {
             @Mock
             Process exec(Invocation inv, String command, String[] envp) {
@@ -284,7 +284,7 @@ public final class FakeInvocationTest {
      * Fake method by name only using public fake.
      */
     @Test
-    public void fakeMethodByNameOnly_usingPublicFake() {
+    void fakeMethodByNameOnly_usingPublicFake() {
         new FakeByMethodNameOnly();
 
         String result = new Collaborator().doSomething(true, new int[] { 1, 2 }, "test");
@@ -296,7 +296,7 @@ public final class FakeInvocationTest {
      * Fake method by name only using anonymous fake.
      */
     @Test
-    public void fakeMethodByNameOnly_usingAnonymousFake() {
+    void fakeMethodByNameOnly_usingAnonymousFake() {
         new MockUp<Collaborator>() {
             @Mock
             String doSomething(Invocation inv) {
@@ -331,7 +331,7 @@ public final class FakeInvocationTest {
      * Fake constructor using public fake class with public fake method having invocation parameter.
      */
     @Test
-    public void fakeConstructorUsingPublicFakeClassWithPublicFakeMethodHavingInvocationParameter() {
+    void fakeConstructorUsingPublicFakeClassWithPublicFakeMethodHavingInvocationParameter() {
         new PublicFakeForConstructorUsingInvocation();
 
         new Collaborator();

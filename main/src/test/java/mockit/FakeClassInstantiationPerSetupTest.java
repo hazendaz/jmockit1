@@ -11,14 +11,14 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Scanner;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class FakeClassInstantiationPerSetupTest.
  */
-public final class FakeClassInstantiationPerSetupTest {
+final class FakeClassInstantiationPerSetupTest {
 
     /**
      * The Class RealClass1.
@@ -303,24 +303,24 @@ public final class FakeClassInstantiationPerSetupTest {
     /**
      * Sets the up class level fakes.
      */
-    @BeforeClass
-    public static void setUpClassLevelFakes() {
+    @BeforeAll
+    static void setUpClassLevelFakes() {
         new FakeClass1();
     }
 
     /**
      * Sets the up additional class level fakes.
      */
-    @BeforeClass
-    public static void setUpAdditionalClassLevelFakes() {
+    @BeforeAll
+    static void setUpAdditionalClassLevelFakes() {
         new FakeClass2();
     }
 
     /**
      * Sets the up method level fakes.
      */
-    @Before
-    public void setUpMethodLevelFakes() {
+    @BeforeEach
+    void setUpMethodLevelFakes() {
         FakeClass3.singleInstanceCreated = null;
         new FakeClass3();
     }
@@ -329,7 +329,7 @@ public final class FakeClassInstantiationPerSetupTest {
      * Fake instance per setup in class and fixture scopes.
      */
     @Test
-    public void fakeInstancePerSetupInClassAndFixtureScopes() {
+    void fakeInstancePerSetupInClassAndFixtureScopes() {
         assertFakeClass1();
         assertFakeClass2();
         assertFakeClass3();
@@ -372,7 +372,7 @@ public final class FakeClassInstantiationPerSetupTest {
      * Fake instance per setup in all scopes.
      */
     @Test
-    public void fakeInstancePerSetupInAllScopes() {
+    void fakeInstancePerSetupInAllScopes() {
         new FakeClass4();
 
         assertFakeClass1();
@@ -416,7 +416,7 @@ public final class FakeClassInstantiationPerSetupTest {
      *             the exception
      */
     @Test
-    public void reentrantFakeForJREClass() throws Exception {
+    void reentrantFakeForJREClass() throws Exception {
         new FakeURL();
 
         InputStream response = new URL("http://test").openStream();

@@ -13,12 +13,12 @@ import java.util.Dictionary;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class GenericMockedTypesTest.
  */
-public final class GenericMockedTypesTest {
+final class GenericMockedTypesTest {
 
     /** The mock 2. */
     @Mocked
@@ -34,7 +34,7 @@ public final class GenericMockedTypesTest {
      *             the exception
      */
     @Test
-    public void mockGenericInterfaces(@Mocked final Callable<?> mock1) throws Exception {
+    void mockGenericInterfaces(@Mocked final Callable<?> mock1) throws Exception {
         new Expectations() {
             {
                 mock1.call();
@@ -55,7 +55,7 @@ public final class GenericMockedTypesTest {
      *            the mock
      */
     @Test
-    public void obtainGenericSuperclassFromClassGeneratedForNonGenericInterface(@Mocked Runnable mock) {
+    void obtainGenericSuperclassFromClassGeneratedForNonGenericInterface(@Mocked Runnable mock) {
         Class<?> generatedClass = mock.getClass();
         Type genericSuperClass = generatedClass.getGenericSuperclass();
 
@@ -71,7 +71,7 @@ public final class GenericMockedTypesTest {
      *            the mock
      */
     @Test
-    public void mockGenericAbstractClass(@Mocked final Dictionary<Integer, String> mock) {
+    void mockGenericAbstractClass(@Mocked final Dictionary<Integer, String> mock) {
         new Expectations() {
             {
                 mock.put(123, "test");
@@ -131,8 +131,7 @@ public final class GenericMockedTypesTest {
      *            the mock
      */
     @Test
-    public void mockMethodsHavingGenericsAndArrays(
-            @Mocked InterfaceWithMethodParametersMixingGenericTypesAndArrays mock) {
+    void mockMethodsHavingGenericsAndArrays(@Mocked InterfaceWithMethodParametersMixingGenericTypesAndArrays mock) {
         mock.doSomething((Callable<int[]>) null, new int[] { 1, 2 });
         mock.doSomething(null, new int[] { 1, 2 }, null, new int[] { 3, 4, 5 });
     }
@@ -170,8 +169,7 @@ public final class GenericMockedTypesTest {
      *            the mock
      */
     @Test
-    public void resultFromGenericMethodsOfNonGenericInterface(
-            @Mocked final NonGenericInterfaceWithGenericMethods mock) {
+    void resultFromGenericMethodsOfNonGenericInterface(@Mocked final NonGenericInterfaceWithGenericMethods mock) {
         new Expectations() {
             {
                 mock.genericMethodWithUnboundedReturnType();
@@ -220,7 +218,7 @@ public final class GenericMockedTypesTest {
      *            the mock container
      */
     @Test
-    public void createFirstLevelCascadedMockFromTypeParameter(@Mocked GenericContainer<Item> mockContainer) {
+    void createFirstLevelCascadedMockFromTypeParameter(@Mocked GenericContainer<Item> mockContainer) {
         Serializable mock = mockContainer.getItem();
 
         assertSame(Item.class, mock.getClass());
@@ -248,7 +246,7 @@ public final class GenericMockedTypesTest {
      *            the mock factory
      */
     @Test
-    public void createSecondLevelCascadedMockFromTypeParameterInGenericMethodResolvedFromFirstLevelReturnType(
+    void createSecondLevelCascadedMockFromTypeParameterInGenericMethodResolvedFromFirstLevelReturnType(
             @Mocked Factory1 mockFactory) {
         GenericContainer<Item> mockContainer = Factory1.getContainer();
         Serializable cascadedMock = mockContainer.getItem();
@@ -284,7 +282,7 @@ public final class GenericMockedTypesTest {
      *            the mock factory
      */
     @Test
-    public void createSecondLevelCascadedMockFromTypeParameterInBaseTypeOfMethodReturn(@Mocked Factory2 mockFactory) {
+    void createSecondLevelCascadedMockFromTypeParameterInBaseTypeOfMethodReturn(@Mocked Factory2 mockFactory) {
         ConcreteContainer mockContainer = mockFactory.getContainer();
         Serializable cascadedMock = mockContainer.getItem();
 
@@ -320,7 +318,7 @@ public final class GenericMockedTypesTest {
      *            the cascading mock
      */
     @Test
-    public void cascadingClassWithNameStartingWithAnotherMockedClass(@Mocked final Collaborator regularMock,
+    void cascadingClassWithNameStartingWithAnotherMockedClass(@Mocked final Collaborator regularMock,
             @Mocked Collaborator2 cascadingMock) {
         new Expectations() {
             {
@@ -353,7 +351,7 @@ public final class GenericMockedTypesTest {
      *            the mock
      */
     @Test
-    public void createCascadedMockFromGenericInterfaceMethodWhichReturnsBoundedTypeParameter(
+    void createCascadedMockFromGenericInterfaceMethodWhichReturnsBoundedTypeParameter(
             @Mocked InterfaceWithBoundedTypeParameter<?> mock) {
         Runnable foo = mock.getFoo();
         assertNotNull(foo);
@@ -377,7 +375,7 @@ public final class GenericMockedTypesTest {
      *            the mock
      */
     @Test
-    public void createCascadedMockFromGenericMethodDefinedInSuperInterfaceWithBoundedTypeParameter(
+    void createCascadedMockFromGenericMethodDefinedInSuperInterfaceWithBoundedTypeParameter(
             @Mocked InterfaceWhichExtendsInterfaceWithBoundedTypeParameter<?> mock) {
         Runnable foo = mock.getFoo();
         assertNotNull(foo);
@@ -431,7 +429,7 @@ public final class GenericMockedTypesTest {
      *            the mock
      */
     @Test
-    public void createCascadedMockFromGenericSubclassHavingSameTypeParameterNameAsBaseClass(
+    void createCascadedMockFromGenericSubclassHavingSameTypeParameterNameAsBaseClass(
             @Mocked GenericSubclass<Abc> mock) {
         Abc abc = mock.getAbc();
         assertNotNull(abc);
@@ -444,7 +442,7 @@ public final class GenericMockedTypesTest {
      *            the mock
      */
     @Test
-    public void mockGenericClassHavingTypeArgumentOfArrayType(@Mocked GenericBase<String[]> mock) {
+    void mockGenericClassHavingTypeArgumentOfArrayType(@Mocked GenericBase<String[]> mock) {
         String[] result = mock.doSomething();
 
         assertEquals(0, result.length);
@@ -457,7 +455,7 @@ public final class GenericMockedTypesTest {
      *            the mock
      */
     @Test
-    public void mockGenericClassHavingTypeArgumentOfArrayTypeWithPrimitiveComponent(@Mocked GenericBase<int[]> mock) {
+    void mockGenericClassHavingTypeArgumentOfArrayTypeWithPrimitiveComponent(@Mocked GenericBase<int[]> mock) {
         int[] result = mock.doSomething();
 
         assertEquals(0, result.length);
@@ -470,8 +468,7 @@ public final class GenericMockedTypesTest {
      *            the mock
      */
     @Test
-    public void mockGenericClassHavingTypeArgumentOfArrayTypeWith2DPrimitiveComponent(
-            @Mocked GenericBase<int[][]> mock) {
+    void mockGenericClassHavingTypeArgumentOfArrayTypeWith2DPrimitiveComponent(@Mocked GenericBase<int[][]> mock) {
         int[][] result = mock.doSomething();
 
         assertEquals(0, result.length);
@@ -484,7 +481,7 @@ public final class GenericMockedTypesTest {
      *            the mock
      */
     @Test
-    public void mockGenericClassHavingTypeArgumentOfArrayTypeWithGenericComponent(@Mocked GenericBase<List<?>[]> mock) {
+    void mockGenericClassHavingTypeArgumentOfArrayTypeWithGenericComponent(@Mocked GenericBase<List<?>[]> mock) {
         List<?>[] result = mock.doSomething();
 
         assertEquals(0, result.length);
@@ -503,7 +500,7 @@ public final class GenericMockedTypesTest {
      *            the mock
      */
     @Test
-    public void mockClassExtendingAGenericBaseClassHavingTypeArgumentOfArrayType(@Mocked DerivedClass mock) {
+    void mockClassExtendingAGenericBaseClassHavingTypeArgumentOfArrayType(@Mocked DerivedClass mock) {
         Number[] result = mock.doSomething();
 
         assertEquals(0, result.length);
@@ -547,7 +544,7 @@ public final class GenericMockedTypesTest {
      *            the dep
      */
     @Test
-    public void recordGenericInterfaceMethodWithReturnTypeGivenByTypeParameterDependentOnAnotherTypeParameterOfSameName(
+    void recordGenericInterfaceMethodWithReturnTypeGivenByTypeParameterDependentOnAnotherTypeParameterOfSameName(
             @Mocked final DerivedGenericInterface<String> dep) {
         final List<String> values = asList("a", "b");
 
@@ -574,7 +571,7 @@ public final class GenericMockedTypesTest {
      *            the mock
      */
     @Test
-    public void mockGenericTypeWithGenericMultiDimensionalArrayTypeArgument(@Mocked GenericBase<List<?>[][]> mock) {
+    void mockGenericTypeWithGenericMultiDimensionalArrayTypeArgument(@Mocked GenericBase<List<?>[][]> mock) {
         List<?>[][] result = mock.doSomething();
 
         assertEquals(0, result.length);
@@ -619,7 +616,7 @@ public final class GenericMockedTypesTest {
      *            the mock
      */
     @Test
-    public void invokeGenericBaseInterfaceMethodThatIsOverriddenInMockedSubInterface(@Mocked final SubInterface mock) {
+    void invokeGenericBaseInterfaceMethodThatIsOverriddenInMockedSubInterface(@Mocked final SubInterface mock) {
         @SuppressWarnings("UnnecessaryLocalVariable")
         BaseInterface<String> base = mock;
         base.doSomething("test");
@@ -665,7 +662,7 @@ public final class GenericMockedTypesTest {
      *            the mock
      */
     @Test
-    public void mockInnerClassWhichUsesTypeVariableOfOuterClass(@Mocked Outer<String>.Inner mock) {
+    void mockInnerClassWhichUsesTypeVariableOfOuterClass(@Mocked Outer<String>.Inner mock) {
         String in = mock.getSomeValue();
         assertNull(in);
     }
@@ -677,7 +674,7 @@ public final class GenericMockedTypesTest {
      *            the mock
      */
     @Test
-    public void mockAbstractSubClassOfInnerClassWhichUsesTypeVariableOfOuterClass(@Mocked Outer<String>.SubInner mock) {
+    void mockAbstractSubClassOfInnerClassWhichUsesTypeVariableOfOuterClass(@Mocked Outer<String>.SubInner mock) {
         String in = mock.getSomeValue();
         assertNull(in);
     }
@@ -703,7 +700,7 @@ public final class GenericMockedTypesTest {
      *            the mock 3
      */
     @Test
-    public void cascadeFromGenericMethodOfSecondMockedGenericTypeHavingDifferentParameterTypeFromFirstMockedType(
+    void cascadeFromGenericMethodOfSecondMockedGenericTypeHavingDifferentParameterTypeFromFirstMockedType(
             @Mocked GenericBase<T1> mock1, @Mocked GenericBase<T2> mock3) {
         T2 r = mock3.doSomething();
         assertNotNull(r);
@@ -764,7 +761,7 @@ public final class GenericMockedTypesTest {
      *            the mock
      */
     @Test
-    public void returnNullFromGenericMethod(@Mocked AClass mock) {
+    void returnNullFromGenericMethod(@Mocked AClass mock) {
         String test1 = mock.genericMethod();
         String test2 = mock.genericMethodWithParameter("test2");
         String test3 = mock.genericMethodWithTwoTypeParameters(1);

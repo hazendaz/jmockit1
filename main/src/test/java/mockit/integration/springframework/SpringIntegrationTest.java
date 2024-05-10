@@ -9,17 +9,17 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import mockit.Injectable;
 import mockit.Tested;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanNotOfRequiredTypeException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 
-public final class SpringIntegrationTest {
-    @BeforeClass
-    public static void applySpringIntegration() {
+final class SpringIntegrationTest {
+    @BeforeAll
+    static void applySpringIntegration() {
         new FakeBeanFactory();
     }
 
@@ -62,49 +62,49 @@ public final class SpringIntegrationTest {
     }
 
     @Test
-    public void lookupTestedObjectsAndInjectedDependenciesThroughTheBeanFactory() {
+    void lookupTestedObjectsAndInjectedDependenciesThroughTheBeanFactory() {
         BeanFactory beanFactory = new DefaultListableBeanFactory();
         assertTestedObjectsAndDependencies(beanFactory);
     }
 
     @Test
-    public void lookupTestedObjectsAndInjectedDependenciesThroughTheWebApplicationContext() {
+    void lookupTestedObjectsAndInjectedDependenciesThroughTheWebApplicationContext() {
         BeanFactory beanFactory = new TestWebApplicationContext();
         assertTestedObjectsAndDependencies(beanFactory);
     }
 
     @Test
-    public void lookUpBeanByNameWithUnknownNameUsingBeanFactory() {
+    void lookUpBeanByNameWithUnknownNameUsingBeanFactory() {
         BeanFactory beanFactory = new DefaultListableBeanFactory();
         assertNoSuchBeanDefinitionForUnknownBeanName(beanFactory);
     }
 
     @Test
-    public void lookUpBeanByNameWithUnknownNameUsingWebApplicationContext() {
+    void lookUpBeanByNameWithUnknownNameUsingWebApplicationContext() {
         BeanFactory beanFactory = new TestWebApplicationContext();
         assertNoSuchBeanDefinitionForUnknownBeanName(beanFactory);
     }
 
     @Test
-    public void lookUpBeanByNameAndTypeWithUnknownNameAndTypeUsingBeanFactory() {
+    void lookUpBeanByNameAndTypeWithUnknownNameAndTypeUsingBeanFactory() {
         BeanFactory beanFactory = new DefaultListableBeanFactory();
         assertNoSuchBeanDefinitionForUnknownBeanNameAndType(beanFactory);
     }
 
     @Test
-    public void lookUpBeanByNameAndTypeWithUnknownNameAndTypeUsingWebApplicationContext() {
+    void lookUpBeanByNameAndTypeWithUnknownNameAndTypeUsingWebApplicationContext() {
         BeanFactory beanFactory = new TestWebApplicationContext();
         assertNoSuchBeanDefinitionForUnknownBeanNameAndType(beanFactory);
     }
 
     @Test
-    public void lookUpBeanByNameAndTypeWithWrongTypeUsingBeanFactory() {
+    void lookUpBeanByNameAndTypeWithWrongTypeUsingBeanFactory() {
         BeanFactory beanFactory = new DefaultListableBeanFactory();
         assertBeanNotOfRequiredTypeForWrongBeanType(beanFactory);
     }
 
     @Test
-    public void lookUpBeanByNameAndTypeWithWrongTypeUsingWebApplicationContext() {
+    void lookUpBeanByNameAndTypeWithWrongTypeUsingWebApplicationContext() {
         BeanFactory beanFactory = new TestWebApplicationContext();
         assertBeanNotOfRequiredTypeForWrongBeanType(beanFactory);
     }
@@ -178,7 +178,7 @@ public final class SpringIntegrationTest {
     }
 
     @Test
-    public void lookUpBeanByTypeHavingInjectableInstance(@Injectable Collaborator collaborator) {
+    void lookUpBeanByTypeHavingInjectableInstance(@Injectable Collaborator collaborator) {
         BeanFactory beanFactory = new DefaultListableBeanFactory();
 
         Collaborator collaboratorBean = beanFactory.getBean(Collaborator.class);
@@ -187,7 +187,7 @@ public final class SpringIntegrationTest {
     }
 
     @Test
-    public void lookUpBeanByTypeTwiceHavingSingleInjectableInstance(@Injectable Collaborator collaborator) {
+    void lookUpBeanByTypeTwiceHavingSingleInjectableInstance(@Injectable Collaborator collaborator) {
         BeanFactory beanFactory = new /* TestWebApplicationContext(); */DefaultListableBeanFactory();
 
         Collaborator collaboratorBean1 = beanFactory.getBean(Collaborator.class);
@@ -228,7 +228,7 @@ public final class SpringIntegrationTest {
     }
 
     @Test
-    public void failToLookupBeanButCatchExceptionAndThrowAnother_stillShouldIncludedFilteredStackTrace() {
+    void failToLookupBeanButCatchExceptionAndThrowAnother_stillShouldIncludedFilteredStackTrace() {
         BeanFactory beanFactory = new TestWebApplicationContext();
 
         try {

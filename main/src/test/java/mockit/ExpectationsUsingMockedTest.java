@@ -9,12 +9,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class ExpectationsUsingMockedTest.
  */
-public final class ExpectationsUsingMockedTest {
+final class ExpectationsUsingMockedTest {
 
     /**
      * The Interface Dependency.
@@ -69,7 +69,7 @@ public final class ExpectationsUsingMockedTest {
      *            the dependency 2
      */
     @Test
-    public void multipleMockParametersOfSameMockedType(@Mocked final Dependency dependency1,
+    void multipleMockParametersOfSameMockedType(@Mocked final Dependency dependency1,
             @Mocked final Dependency dependency2) {
         new Expectations() {
             {
@@ -90,7 +90,7 @@ public final class ExpectationsUsingMockedTest {
      * Mock field for abstract class.
      */
     @Test
-    public void mockFieldForAbstractClass() {
+    void mockFieldForAbstractClass() {
         new Expectations() {
             {
                 base.add(1);
@@ -143,7 +143,7 @@ public final class ExpectationsUsingMockedTest {
      *            the unused
      */
     @Test
-    public void doNotStubOutStaticInitializersByDefault(@Mocked ClassWithStaticInitializer2 unused) {
+    void doNotStubOutStaticInitializersByDefault(@Mocked ClassWithStaticInitializer2 unused) {
         assertEquals(0, ClassWithStaticInitializer2.initialized());
         assertTrue(ClassWithStaticInitializer2.initialized);
     }
@@ -173,7 +173,7 @@ public final class ExpectationsUsingMockedTest {
      *            the unused
      */
     @Test
-    public void mockEverythingWithoutStubbingStaticInitializers(@Mocked AnotherClassWithStaticInitializer unused) {
+    void mockEverythingWithoutStubbingStaticInitializers(@Mocked AnotherClassWithStaticInitializer unused) {
         assertEquals(0, AnotherClassWithStaticInitializer.initialized());
         assertTrue(AnotherClassWithStaticInitializer.initialized);
     }
@@ -215,7 +215,7 @@ public final class ExpectationsUsingMockedTest {
      *            the inner mock
      */
     @Test
-    public void mockInnerClass(@Mocked final InnerClass innerMock) {
+    void mockInnerClass(@Mocked final InnerClass innerMock) {
         assertEquals(0, innerMock.getValue());
 
         new Expectations() {
@@ -243,7 +243,7 @@ public final class ExpectationsUsingMockedTest {
      * Record method from abstract base class and replay on subclass.
      */
     @Test
-    public void recordMethodFromAbstractBaseClassAndReplayOnSubclass() {
+    void recordMethodFromAbstractBaseClassAndReplayOnSubclass() {
         new Expectations() {
             {
                 base.doSomething();
@@ -271,7 +271,7 @@ public final class ExpectationsUsingMockedTest {
      *             the exception
      */
     @Test
-    public void beanInfoFromMockedInterface(@Mocked BusinessInterface mock) throws Exception {
+    void beanInfoFromMockedInterface(@Mocked BusinessInterface mock) throws Exception {
         Class<? extends BusinessInterface> mockClass = mock.getClass();
 
         BeanInfo info = Introspector.getBeanInfo(mockClass);
@@ -312,8 +312,7 @@ public final class ExpectationsUsingMockedTest {
      *            the mock
      */
     @Test
-    public void recordExpectationOnBaseMethodHavingASyntheticBridgeMethodInSubclass(
-            @Mocked final GenericSubclass<?> mock) {
+    void recordExpectationOnBaseMethodHavingASyntheticBridgeMethodInSubclass(@Mocked final GenericSubclass<?> mock) {
         new Expectations() {
             {
                 mock.base();

@@ -8,13 +8,13 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class InjectableFieldTest.
  */
-public final class InjectableFieldTest {
+final class InjectableFieldTest {
 
     /**
      * The Class Base.
@@ -89,8 +89,8 @@ public final class InjectableFieldTest {
     /**
      * Record common expectations.
      */
-    @Before
-    public void recordCommonExpectations() {
+    @BeforeEach
+    void recordCommonExpectations() {
         new Expectations() {
             {
                 foo.getValue();
@@ -110,7 +110,7 @@ public final class InjectableFieldTest {
      * Cascade one level.
      */
     @Test
-    public void cascadeOneLevel() {
+    void cascadeOneLevel() {
         try {
             new Foo().doSomething("");
             fail();
@@ -135,7 +135,7 @@ public final class InjectableFieldTest {
      * Override expectation recorded in before method.
      */
     @Test
-    public void overrideExpectationRecordedInBeforeMethod() {
+    void overrideExpectationRecordedInBeforeMethod() {
         new Expectations() {
             {
                 foo.getAnotherValue();
@@ -151,7 +151,7 @@ public final class InjectableFieldTest {
      * Partially mock instance without affecting injectable instances.
      */
     @Test
-    public void partiallyMockInstanceWithoutAffectingInjectableInstances() {
+    void partiallyMockInstanceWithoutAffectingInjectableInstances() {
         final Foo localFoo = new Foo();
 
         new Expectations(localFoo) {
@@ -186,7 +186,7 @@ public final class InjectableFieldTest {
      * Use non mockable injectables with values provided through field assignment.
      */
     @Test
-    public void useNonMockableInjectablesWithValuesProvidedThroughFieldAssignment() {
+    void useNonMockableInjectablesWithValuesProvidedThroughFieldAssignment() {
         assertEquals(123, primitiveInt);
         assertEquals(45, wrapperInt.intValue());
         assertEquals("Abc", string);
@@ -212,7 +212,7 @@ public final class InjectableFieldTest {
      * Use null and empty injectables of non mockable types.
      */
     @Test
-    public void useNullAndEmptyInjectablesOfNonMockableTypes() {
+    void useNullAndEmptyInjectablesOfNonMockableTypes() {
         assertEquals(0, defaultInt);
         assertNull(nullInteger);
         assertNull(nullString);

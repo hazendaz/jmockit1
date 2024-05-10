@@ -13,12 +13,12 @@ import java.util.Set;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class InstanceDITest.
  */
-public final class InstanceDITest {
+final class InstanceDITest {
 
     /**
      * The Class Collaborator.
@@ -74,7 +74,7 @@ public final class InstanceDITest {
      * Allow multiple injectables of same type to be obtained from instance injection point.
      */
     @Test
-    public void allowMultipleInjectablesOfSameTypeToBeObtainedFromInstanceInjectionPoint() {
+    void allowMultipleInjectablesOfSameTypeToBeObtainedFromInstanceInjectionPoint() {
         assertEquals(new HashSet<>(asList("Abc", "Test", "123")), tested.names);
 
         Instance<Collaborator> collaborators = tested.collaborators;

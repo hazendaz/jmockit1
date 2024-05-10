@@ -5,18 +5,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.applet.Applet;
 import java.awt.Component;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class MisusedFakingAPITest.
  */
-public final class MisusedFakingAPITest {
+final class MisusedFakingAPITest {
 
     /**
      * Fake same method twice with reentrant fakes from two different fake classes.
      */
     @Test
-    public void fakeSameMethodTwiceWithReentrantFakesFromTwoDifferentFakeClasses() {
+    void fakeSameMethodTwiceWithReentrantFakesFromTwoDifferentFakeClasses() {
         new MockUp<Applet>() {
             @Mock
             int getComponentCount(Invocation inv) {
@@ -77,7 +77,7 @@ public final class MisusedFakingAPITest {
      * Apply the same fake for A class twice.
      */
     @Test
-    public void applyTheSameFakeForAClassTwice() {
+    void applyTheSameFakeForAClassTwice() {
         new AppletFake(1);
         new AppletFake(2); // second application overrides the previous one
 
@@ -88,7 +88,7 @@ public final class MisusedFakingAPITest {
      * Fake A private method.
      */
     @Test
-    public void fakeAPrivateMethod() {
+    void fakeAPrivateMethod() {
         // Changed to allow fake private constructors.
         new MockUp<Component>() {
             @Mock

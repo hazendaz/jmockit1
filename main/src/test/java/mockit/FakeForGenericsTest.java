@@ -8,12 +8,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class FakeForGenericsTest.
  */
-public final class FakeForGenericsTest {
+final class FakeForGenericsTest {
 
     /**
      * The Class Collaborator.
@@ -39,7 +39,7 @@ public final class FakeForGenericsTest {
      * Fake generic method.
      */
     @Test
-    public void fakeGenericMethod() {
+    void fakeGenericMethod() {
         new MockUp<Collaborator>() {
             @Mock
             <T extends Number> T genericMethod(T t) {
@@ -121,7 +121,7 @@ public final class FakeForGenericsTest {
      * Fake generic class with unspecified type arguments.
      */
     @Test
-    public void fakeGenericClassWithUnspecifiedTypeArguments() {
+    void fakeGenericClassWithUnspecifiedTypeArguments() {
         new MockUp<GenericClass<?, ?>>() {
             @Mock
             void aMethod(Object o) {
@@ -156,7 +156,7 @@ public final class FakeForGenericsTest {
      * Fake both generic and non generic methods in generic class.
      */
     @Test
-    public void fakeBothGenericAndNonGenericMethodsInGenericClass() {
+    void fakeBothGenericAndNonGenericMethodsInGenericClass() {
         new MockUp<GenericClass<String, Boolean>>() {
             @Mock
             int anotherMethod(Integer t, int i, String p) {
@@ -200,7 +200,7 @@ public final class FakeForGenericsTest {
      * Fake generic method with fake method having parameter types matching type arguments.
      */
     @Test
-    public void fakeGenericMethodWithFakeMethodHavingParameterTypesMatchingTypeArguments() {
+    void fakeGenericMethodWithFakeMethodHavingParameterTypesMatchingTypeArguments() {
         new MockUp<GenericBaseClass<String, Integer>>() {
             @Mock
             Integer find(String id) {
@@ -216,7 +216,7 @@ public final class FakeForGenericsTest {
      * Cannot call generic method when some fake method expects different types.
      */
     @Test
-    public void cannotCallGenericMethodWhenSomeFakeMethodExpectsDifferentTypes() {
+    void cannotCallGenericMethodWhenSomeFakeMethodExpectsDifferentTypes() {
         new MockUp<GenericBaseClass<String, Integer>>() {
             @Mock
             Integer find(String id) {
@@ -248,7 +248,7 @@ public final class FakeForGenericsTest {
      * Fake generic method from instantiation of non generic subclass.
      */
     @Test
-    public void fakeGenericMethodFromInstantiationOfNonGenericSubclass() {
+    void fakeGenericMethodFromInstantiationOfNonGenericSubclass() {
         new MockUp<NonGenericSubclass>() {
             @Mock
             String find(Integer id) {
@@ -279,7 +279,7 @@ public final class FakeForGenericsTest {
      * Fake generic method from instantiation of non generic subclass which extends A generic intermediate superclass.
      */
     @Test
-    public void fakeGenericMethodFromInstantiationOfNonGenericSubclassWhichExtendsAGenericIntermediateSuperclass() {
+    void fakeGenericMethodFromInstantiationOfNonGenericSubclassWhichExtendsAGenericIntermediateSuperclass() {
         new MockUp<AnotherNonGenericSubclass>() {
             @Mock
             String find(Integer id) {
@@ -344,7 +344,7 @@ public final class FakeForGenericsTest {
      * Fake generic methods of non generic class.
      */
     @Test
-    public void fakeGenericMethodsOfNonGenericClass() {
+    void fakeGenericMethodsOfNonGenericClass() {
         new MockUp<NonGenericClassWithGenericMethods>() {
             @Mock
             <T> T staticMethod(Class<T> cls, String s) {

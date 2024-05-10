@@ -23,14 +23,14 @@ import javax.xml.parsers.SAXParserFactory;
 
 import mockit.internal.ClassFile;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class CapturingImplementationsTest.
  */
-public final class CapturingImplementationsTest {
+final class CapturingImplementationsTest {
 
     /**
      * The Interface ServiceToBeStubbedOut.
@@ -81,7 +81,7 @@ public final class CapturingImplementationsTest {
      * Capture implementation loaded by service locator.
      */
     @Test
-    public void captureImplementationLoadedByServiceLocator() {
+    void captureImplementationLoadedByServiceLocator() {
         ServiceToBeStubbedOut service = ServiceLocator.getInstance(ServiceToBeStubbedOut.class);
         assertEquals(0, service.doSomething());
     }
@@ -116,7 +116,7 @@ public final class CapturingImplementationsTest {
      * Capture implementation using mock field.
      */
     @Test
-    public void captureImplementationUsingMockField() {
+    void captureImplementationUsingMockField() {
         Service1 service = new Service1Impl();
 
         new Expectations() {
@@ -159,7 +159,7 @@ public final class CapturingImplementationsTest {
      *            the mock
      */
     @Test
-    public void captureImplementationUsingMockParameter(@Capturing final Service2 mock) {
+    void captureImplementationUsingMockParameter(@Capturing final Service2 mock) {
         Service2Impl service = new Service2Impl();
 
         new Expectations() {
@@ -202,7 +202,7 @@ public final class CapturingImplementationsTest {
      *            the mock
      */
     @Test
-    public void captureImplementationOfAbstractClass(@Capturing AbstractService mock) {
+    void captureImplementationOfAbstractClass(@Capturing AbstractService mock) {
         assertFalse(new DefaultServiceImpl().doSomething());
 
         assertFalse(new AbstractService() {
@@ -232,8 +232,8 @@ public final class CapturingImplementationsTest {
      * @throws Exception
      *             the exception
      */
-    @Before
-    public void instantiateCustomLoadedClass() throws Exception {
+    @BeforeEach
+    void instantiateCustomLoadedClass() throws Exception {
         Constructor<?> defaultConstructor = customLoadedClass.getDeclaredConstructors()[0];
         defaultConstructor.setAccessible(true);
         service2 = (Service2) defaultConstructor.newInstance();
@@ -246,7 +246,7 @@ public final class CapturingImplementationsTest {
      *            the mock
      */
     @Test
-    public void captureClassPreviouslyLoadedByClassLoaderOtherThanContext(@Capturing final Service2 mock) {
+    void captureClassPreviouslyLoadedByClassLoaderOtherThanContext(@Capturing final Service2 mock) {
         new Expectations() {
             {
                 mock.doSomething();
@@ -275,8 +275,8 @@ public final class CapturingImplementationsTest {
     /**
      * Generate dynamic proxy class.
      */
-    @BeforeClass
-    public static void generateDynamicProxyClass() {
+    @BeforeAll
+    static void generateDynamicProxyClass() {
         ClassLoader loader = Service3.class.getClassLoader();
         Class<?>[] interfaces = { Service3.class };
         InvocationHandler invocationHandler = (proxy, method, args) -> {
@@ -294,7 +294,7 @@ public final class CapturingImplementationsTest {
      *            the mock
      */
     @Test
-    public void captureDynamicallyGeneratedProxyClass(@Capturing final Service3 mock) {
+    void captureDynamicallyGeneratedProxyClass(@Capturing final Service3 mock) {
         new Expectations() {
             {
                 mock.doSomething();
@@ -338,7 +338,7 @@ public final class CapturingImplementationsTest {
      *            the base
      */
     @Test
-    public void captureClassImplementingSubInterfaceOfCapturedInterface(@Capturing Interface base) {
+    void captureClassImplementingSubInterfaceOfCapturedInterface(@Capturing Interface base) {
         Interface impl = new Implementation();
         impl.op();
     }
@@ -350,7 +350,7 @@ public final class CapturingImplementationsTest {
      *            the any thread MX bean
      */
     @Test
-    public void captureClassesFromTheJavaManagementAPI(@Capturing ThreadMXBean anyThreadMXBean) {
+    void captureClassesFromTheJavaManagementAPI(@Capturing ThreadMXBean anyThreadMXBean) {
         ThreadMXBean threadingBean = ManagementFactory.getThreadMXBean();
         int threadCount = threadingBean.getThreadCount();
 
@@ -367,7 +367,7 @@ public final class CapturingImplementationsTest {
      *             the exception
      */
     @Test
-    public void captureClassesFromTheSAXParserAPI(@Capturing final SAXParser anyParser) throws Exception {
+    void captureClassesFromTheSAXParserAPI(@Capturing final SAXParser anyParser) throws Exception {
         new Expectations() {
             {
                 anyParser.isNamespaceAware();
@@ -388,7 +388,7 @@ public final class CapturingImplementationsTest {
      *            the any executor service
      */
     @Test
-    public void captureClassesFromTheJavaConcurrencyAPI(@Capturing ExecutorService anyExecutorService) {
+    void captureClassesFromTheJavaConcurrencyAPI(@Capturing ExecutorService anyExecutorService) {
         ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
         ExecutorService threadPoolExecutor = Executors.newFixedThreadPool(2);
         ExecutorService cachedThreadPoolExecutor = Executors.newCachedThreadPool();
@@ -437,8 +437,7 @@ public final class CapturingImplementationsTest {
      *            the captured
      */
     @Test
-    public void captureClassWhichImplementsCapturedBaseInterfaceAndExtendsUnrelatedBase(
-            @Capturing Interface2 captured) {
+    void captureClassWhichImplementsCapturedBaseInterfaceAndExtendsUnrelatedBase(@Capturing Interface2 captured) {
         int i = new ClassImplementingSubInterfaceAndExtendingUnrelatedBase().doSomething();
 
         assertEquals(0, i);
@@ -510,7 +509,7 @@ public final class CapturingImplementationsTest {
      *            the any instance
      */
     @Test
-    public void captureImplementationsOfGenericType(@Capturing final Base<Integer> anyInstance) {
+    void captureImplementationsOfGenericType(@Capturing final Base<Integer> anyInstance) {
         new Expectations() {
             {
                 anyInstance.doSomething();
@@ -562,8 +561,7 @@ public final class CapturingImplementationsTest {
      *            the sub
      */
     @Test
-    public void verifyInvocationToMethodFromBaseClassOnCapturedSubclassOfIntermediateSubclass(
-            @Capturing final Sub sub) {
+    void verifyInvocationToMethodFromBaseClassOnCapturedSubclassOfIntermediateSubclass(@Capturing final Sub sub) {
         Sub impl = new Sub2();
         impl.base();
 
@@ -597,8 +595,7 @@ public final class CapturingImplementationsTest {
      *            the sub
      */
     @Test
-    public void verifyInvocationToBaseInterfaceMethodOnCapturedImplementationOfSubInterface(
-            @Capturing final SubItf sub) {
+    void verifyInvocationToBaseInterfaceMethodOnCapturedImplementationOfSubInterface(@Capturing final SubItf sub) {
         SubItf impl = new SubItf() {
             @Override
             public void base() {
@@ -641,7 +638,7 @@ public final class CapturingImplementationsTest {
      *            the action listener
      */
     @Test
-    public void captureUserDefinedClassImplementingExternalAPI(@Capturing ActionListener actionListener) {
+    void captureUserDefinedClassImplementingExternalAPI(@Capturing ActionListener actionListener) {
         boolean notCaptured = new MyActionListener().doSomething();
         assertFalse(notCaptured);
     }
@@ -653,8 +650,7 @@ public final class CapturingImplementationsTest {
      *            the mock
      */
     @Test
-    public void captureLibraryClassImplementingInterfaceFromAnotherLibrary(
-            @Capturing final ServletContextListener mock) {
+    void captureLibraryClassImplementingInterfaceFromAnotherLibrary(@Capturing final ServletContextListener mock) {
         // noinspection UnnecessaryFullyQualifiedName
         ServletContextListener contextListener = new org.springframework.web.util.WebAppRootListener();
         contextListener.contextInitialized(null);
@@ -703,7 +699,7 @@ public final class CapturingImplementationsTest {
      *            the mock
      */
     @Test
-    public void captureMethodWithGenericReturnTypes(@Capturing final BaseGenericReturnTypes mock) {
+    void captureMethodWithGenericReturnTypes(@Capturing final BaseGenericReturnTypes mock) {
         new Expectations() {
             {
                 mock.methodOne();
@@ -751,7 +747,7 @@ public final class CapturingImplementationsTest {
      *            the mock
      */
     @Test
-    public void captureR(@Capturing final BaseR mock) {
+    void captureR(@Capturing final BaseR mock) {
         new Expectations() {
             {
                 mock.foo();

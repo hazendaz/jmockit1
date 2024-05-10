@@ -12,12 +12,12 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Resource;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class MockedAnnotationsTest.
  */
-public final class MockedAnnotationsTest {
+final class MockedAnnotationsTest {
 
     /**
      * The Interface MyAnnotation.
@@ -53,7 +53,7 @@ public final class MockedAnnotationsTest {
      *            the a
      */
     @Test
-    public void specifyValuesForAnnotationAttributes(@Mocked final MyAnnotation a) {
+    void specifyValuesForAnnotationAttributes(@Mocked final MyAnnotation a) {
         assertSame(MyAnnotation.class, a.annotationType());
 
         new Expectations() {
@@ -79,7 +79,7 @@ public final class MockedAnnotationsTest {
      *            the a
      */
     @Test
-    public void verifyUsesOfAnnotationAttributes(@Mocked final MyAnnotation a) {
+    void verifyUsesOfAnnotationAttributes(@Mocked final MyAnnotation a) {
         new Expectations() {
             {
                 a.value();
@@ -120,7 +120,7 @@ public final class MockedAnnotationsTest {
      *            the mock
      */
     @Test
-    public void mockingAnAnnotatedPublicInterface(@Mocked AnInterface mock) {
+    void mockingAnAnnotatedPublicInterface(@Mocked AnInterface mock) {
         Annotation[] mockClassAnnotations = mock.getClass().getAnnotations();
 
         assertEquals(0, mockClassAnnotations.length);
@@ -154,7 +154,7 @@ public final class MockedAnnotationsTest {
      *            the mock
      */
     @Test
-    public void mockClassWithNullabilityAnnotations(@Injectable final ClassWithNullabilityAnnotations mock) {
+    void mockClassWithNullabilityAnnotations(@Injectable final ClassWithNullabilityAnnotations mock) {
         new Expectations() {
             {
                 mock.doSomething(anyInt, any);
@@ -181,8 +181,7 @@ public final class MockedAnnotationsTest {
      *            the mock
      */
     @Test
-    public void mockClassHavingFieldAnnotatedWithAttributeHavingAPrimitiveClassAsValue(
-            @Mocked ClassWithAnnotatedField mock) {
+    void mockClassHavingFieldAnnotatedWithAttributeHavingAPrimitiveClassAsValue(@Mocked ClassWithAnnotatedField mock) {
         assertNull(mock.aField);
     }
 }

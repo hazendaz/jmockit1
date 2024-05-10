@@ -16,15 +16,15 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
 
 /**
  * The Class InstanceSpecificMockingTest.
  */
-public final class InstanceSpecificMockingTest {
+final class InstanceSpecificMockingTest {
 
     /**
      * The Class Collaborator.
@@ -102,7 +102,7 @@ public final class InstanceSpecificMockingTest {
      * Exercise injected instance during replay only.
      */
     @Test
-    public void exerciseInjectedInstanceDuringReplayOnly() {
+    void exerciseInjectedInstanceDuringReplayOnly() {
         assertThatPreviouslyCreatedInstanceIsNotMocked();
 
         assertEquals(0, mock.value);
@@ -135,7 +135,7 @@ public final class InstanceSpecificMockingTest {
      * Mock specific instance.
      */
     @Test
-    public void mockSpecificInstance() {
+    void mockSpecificInstance() {
         new Expectations() {
             {
                 mock.simpleOperation(1, "", null);
@@ -165,7 +165,7 @@ public final class InstanceSpecificMockingTest {
      *            the mock 2
      */
     @Test
-    public void useASecondMockInstanceOfTheSameType(@Injectable final Collaborator mock2) {
+    void useASecondMockInstanceOfTheSameType(@Injectable final Collaborator mock2) {
         assertThatPreviouslyCreatedInstanceIsNotMocked();
 
         new Expectations() {
@@ -196,7 +196,7 @@ public final class InstanceSpecificMockingTest {
      *            the runnable
      */
     @Test
-    public void allowInjectableMockOfInterfaceType(@Injectable final Runnable runnable) {
+    void allowInjectableMockOfInterfaceType(@Injectable final Runnable runnable) {
         runnable.run();
         runnable.run();
 
@@ -216,7 +216,7 @@ public final class InstanceSpecificMockingTest {
      *            the run with
      */
     @Test
-    public void allowInjectableMockOfAnnotationType(@Injectable final RunWith runWith) {
+    void allowInjectableMockOfAnnotationType(@Injectable final RunWith runWith) {
         new Expectations() {
             {
                 runWith.value();
@@ -236,9 +236,9 @@ public final class InstanceSpecificMockingTest {
      *            the buf
      */
     // TODO JWL 2/18/2024 Test not allowed on jdk21
-    @Ignore
+    @Disabled
     @Test
-    public void mockByteBufferAsInjectable(@Injectable final ByteBuffer buf) {
+    void mockByteBufferAsInjectable(@Injectable final ByteBuffer buf) {
         ByteBuffer realBuf = ByteBuffer.allocateDirect(10);
         assertNotNull(realBuf);
         assertEquals(10, realBuf.capacity());
@@ -265,9 +265,9 @@ public final class InstanceSpecificMockingTest {
      *            the mock buffer
      */
     // TODO JWL 10/30/2022 Test is very flaky, ignore it
-    @Ignore
+    @Disabled
     @Test
-    public void mockByteBufferRegularly(@Mocked ByteBuffer mockBuffer) {
+    void mockByteBufferRegularly(@Mocked ByteBuffer mockBuffer) {
         ByteBuffer buffer = ByteBuffer.allocateDirect(10);
         // noinspection MisorderedAssertEqualsArguments
         assertSame(mockBuffer, buffer);
@@ -286,9 +286,9 @@ public final class InstanceSpecificMockingTest {
      *            the unused
      */
     // TODO JWL 10/30/2022 Test is very flaky, ignore it
-    @Ignore
+    @Disabled
     @Test
-    public void mockByteBufferAsCascading(@Mocked ByteBuffer unused) {
+    void mockByteBufferAsCascading(@Mocked ByteBuffer unused) {
         ByteBuffer cascadedBuf = ByteBuffer.allocateDirect(10);
         assertNotNull(cascadedBuf);
         assertEquals(0, cascadedBuf.capacity());
@@ -315,9 +315,9 @@ public final class InstanceSpecificMockingTest {
      *            the cascading mock
      */
     // TODO JWL 2/18/2024 Test not allowed on jdk21
-    @Ignore
+    @Disabled
     @Test
-    public void mockByteBufferAsCascadedMock(@Mocked BufferFactory cascadingMock) {
+    void mockByteBufferAsCascadedMock(@Mocked BufferFactory cascadingMock) {
         ByteBuffer realBuf1 = ByteBuffer.allocateDirect(10);
         assertEquals(10, realBuf1.capacity());
 
@@ -382,7 +382,7 @@ public final class InstanceSpecificMockingTest {
      *             the exception
      */
     @Test
-    public void concatenateInputStreams(@Injectable final InputStream input1, @Injectable final InputStream input2)
+    void concatenateInputStreams(@Injectable final InputStream input1, @Injectable final InputStream input2)
             throws Exception {
         new Expectations() {
             {

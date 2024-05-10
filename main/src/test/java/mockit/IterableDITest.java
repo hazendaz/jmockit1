@@ -12,12 +12,12 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class IterableDITest.
  */
-public final class IterableDITest {
+final class IterableDITest {
 
     /**
      * The Class Collaborator.
@@ -88,7 +88,7 @@ public final class IterableDITest {
      * Inject multi valued injectables into injection points of the same collection types.
      */
     @Test
-    public void injectMultiValuedInjectablesIntoInjectionPointsOfTheSameCollectionTypes() {
+    void injectMultiValuedInjectablesIntoInjectionPointsOfTheSameCollectionTypes() {
         assertSame(nameList, tested1.names);
         assertSame(colList, tested1.collaborators);
         assertNull(tested1.numbers);
@@ -131,7 +131,7 @@ public final class IterableDITest {
      * Inject mocked instance into list.
      */
     @Test
-    public void injectMockedInstanceIntoList() {
+    void injectMockedInstanceIntoList() {
         assertTrue(tested2.dependencies.contains(dependency));
     }
 
@@ -142,7 +142,7 @@ public final class IterableDITest {
      *            the name
      */
     @Test
-    public void doNotInjectStringIntoUnannotatedSet(@Injectable("test") String name) {
+    void doNotInjectStringIntoUnannotatedSet(@Injectable("test") String name) {
         assertNull(tested2.names);
     }
 
@@ -153,7 +153,7 @@ public final class IterableDITest {
      *            the sub
      */
     @Test
-    public void injectSubTypeInstanceIntoListOfBaseType(@Injectable SubDependency sub) {
+    void injectSubTypeInstanceIntoListOfBaseType(@Injectable SubDependency sub) {
         assertTrue(tested2.dependencies.contains(sub));
     }
 }

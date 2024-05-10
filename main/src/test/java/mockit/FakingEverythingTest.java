@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class FakingEverythingTest.
  */
-public final class FakingEverythingTest {
+final class FakingEverythingTest {
 
     /** The traces. */
     final List<String> traces = new ArrayList<>();
@@ -62,7 +62,7 @@ public final class FakingEverythingTest {
      * Fake every method in single class.
      */
     @Test
-    public void fakeEveryMethodInSingleClass() {
+    void fakeEveryMethodInSingleClass() {
         new MockUp<TargetClass>() {
             @Mock
             Object $advice(Invocation inv) {
@@ -117,7 +117,7 @@ public final class FakingEverythingTest {
      * Fake every method in single class with advice only.
      */
     @Test
-    public void fakeEveryMethodInSingleClassWithAdviceOnly() {
+    void fakeEveryMethodInSingleClassWithAdviceOnly() {
         new MockUp<TargetClass>() {
             @Mock
             Object $advice(Invocation inv) {
@@ -136,7 +136,7 @@ public final class FakingEverythingTest {
      *            the generic type
      */
     @Test
-    public <B extends TargetClass> void fakeEveryMethodInClassHierarchy() {
+    <B extends TargetClass> void fakeEveryMethodInClassHierarchy() {
         new MockUp<B>() {
             @Mock
             Object $advice(Invocation inv) {
@@ -220,7 +220,7 @@ public final class FakingEverythingTest {
      * Public advice method in public fake class.
      */
     @Test
-    public void publicAdviceMethodInPublicFakeClass() {
+    void publicAdviceMethodInPublicFakeClass() {
         new PublicFake();
 
         new TargetClass().validateSomething();

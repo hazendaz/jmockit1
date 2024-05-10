@@ -6,12 +6,12 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class CovariantReturnTypesTest.
  */
-public final class CovariantReturnTypesTest {
+final class CovariantReturnTypesTest {
 
     /**
      * The Class SuperClass.
@@ -44,7 +44,7 @@ public final class CovariantReturnTypesTest {
      *            the mock
      */
     @Test
-    public void methodInClassHierarchyUsingRecordedExpectation(@Mocked final SubClass mock) {
+    void methodInClassHierarchyUsingRecordedExpectation(@Mocked final SubClass mock) {
         final JPasswordField passwordField = new JPasswordField();
 
         new Expectations() {
@@ -95,7 +95,7 @@ public final class CovariantReturnTypesTest {
      *            the mock
      */
     @Test
-    public void concreteMethodImplementationUsingRecordedExpectation(@Mocked final ConcreteClass mock) {
+    void concreteMethodImplementationUsingRecordedExpectation(@Mocked final ConcreteClass mock) {
         final JTextField formattedField1 = new JFormattedTextField();
         final JTextField formattedField2 = new JFormattedTextField();
 
@@ -117,7 +117,7 @@ public final class CovariantReturnTypesTest {
      *            the mock
      */
     @Test
-    public void abstractMethodImplementationUsingRecordedExpectation(@Capturing final AbstractBaseClass mock) {
+    void abstractMethodImplementationUsingRecordedExpectation(@Capturing final AbstractBaseClass mock) {
         final JTextField regularField = new JTextField();
         final JTextField formattedField = new JFormattedTextField();
 
@@ -171,8 +171,7 @@ public final class CovariantReturnTypesTest {
      *            the mock
      */
     @Test
-    public void methodInSuperInterfaceWithVaryingReturnValuesUsingRecordedExpectation(
-            @Mocked final SuperInterface mock) {
+    void methodInSuperInterfaceWithVaryingReturnValuesUsingRecordedExpectation(@Mocked final SuperInterface mock) {
         final Object value = new Object();
         final String specificValue = "test";
 
@@ -195,7 +194,7 @@ public final class CovariantReturnTypesTest {
      *            the mock
      */
     @Test
-    public void methodInSubInterfaceUsingRecordedExpectations(@Mocked final SubInterface mock) {
+    void methodInSubInterfaceUsingRecordedExpectations(@Mocked final SubInterface mock) {
         @SuppressWarnings("UnnecessaryLocalVariable")
         final SuperInterface base = mock;
         final Object value = new Object();
@@ -225,8 +224,7 @@ public final class CovariantReturnTypesTest {
      *            the mock
      */
     @Test
-    public void methodInSubInterfaceReplayedThroughSuperInterfaceUsingRecordedExpectation(
-            @Mocked final SubInterface mock) {
+    void methodInSubInterfaceReplayedThroughSuperInterfaceUsingRecordedExpectation(@Mocked final SubInterface mock) {
         final String specificValue = "test";
 
         new Expectations() {

@@ -9,12 +9,12 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.Callable;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class DelegateInvocationTest.
  */
-public final class DelegateInvocationTest {
+final class DelegateInvocationTest {
 
     /**
      * The Class Collaborator.
@@ -102,7 +102,7 @@ public final class DelegateInvocationTest {
      *            the unused
      */
     @Test
-    public void delegateWithContextObject(@Mocked Collaborator unused) {
+    void delegateWithContextObject(@Mocked Collaborator unused) {
         new Expectations() {
             {
                 Collaborator.staticMethod();
@@ -152,7 +152,7 @@ public final class DelegateInvocationTest {
      *            the mock
      */
     @Test
-    public void delegateForConstructorWithContext(@Mocked Collaborator mock) {
+    void delegateForConstructorWithContext(@Mocked Collaborator mock) {
         final ConstructorDelegate delegate = new ConstructorDelegate();
 
         new Expectations() {
@@ -174,7 +174,7 @@ public final class DelegateInvocationTest {
      *            the mock
      */
     @Test
-    public void delegateReceivingNullArguments(@Mocked final Collaborator mock) {
+    void delegateReceivingNullArguments(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.doSomething(true, null, null);
@@ -207,7 +207,7 @@ public final class DelegateInvocationTest {
      *            the mock
      */
     @Test
-    public void delegateWithAnotherMethodOnTheDelegateClass(@Mocked final Collaborator mock) {
+    void delegateWithAnotherMethodOnTheDelegateClass(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.getValue();
@@ -236,7 +236,7 @@ public final class DelegateInvocationTest {
      *            the mock
      */
     @Test
-    public void delegateClassWithMultipleMethodsAndInexactButValidMatch(@Mocked Collaborator mock) {
+    void delegateClassWithMultipleMethodsAndInexactButValidMatch(@Mocked Collaborator mock) {
         new Expectations() {
             {
                 Collaborator.staticMethod(1);
@@ -264,7 +264,7 @@ public final class DelegateInvocationTest {
      *            the mock
      */
     @Test
-    public void delegateMethodWithNoParametersForExpectationWithParameters(@Mocked final Collaborator mock) {
+    void delegateMethodWithNoParametersForExpectationWithParameters(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.publicMethod(true);
@@ -287,7 +287,7 @@ public final class DelegateInvocationTest {
      *            the mock
      */
     @Test
-    public void delegateWithDifferentMethodName(@Mocked final Collaborator mock) {
+    void delegateWithDifferentMethodName(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.publicMethod(anyBoolean);
@@ -313,7 +313,7 @@ public final class DelegateInvocationTest {
      *            the mock
      */
     @Test
-    public void consecutiveDelegatesForTheSameExpectation(@Mocked final Collaborator mock) {
+    void consecutiveDelegatesForTheSameExpectation(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.getValue();
@@ -359,7 +359,7 @@ public final class DelegateInvocationTest {
      *             the exception
      */
     @Test
-    public void delegateMethodWithInvocationForInterface(@Mocked final Callable<String> mock) throws Exception {
+    void delegateMethodWithInvocationForInterface(@Mocked final Callable<String> mock) throws Exception {
         new Expectations() {
             {
                 mock.call();
@@ -384,7 +384,7 @@ public final class DelegateInvocationTest {
      *             the exception
      */
     @Test
-    public void useOfContextParametersForJREMethods() throws Exception {
+    void useOfContextParametersForJREMethods() throws Exception {
         final Runtime rt = Runtime.getRuntime();
 
         new Expectations(rt) {

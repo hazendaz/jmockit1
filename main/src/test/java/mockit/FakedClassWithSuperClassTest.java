@@ -2,12 +2,12 @@ package mockit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class FakedClassWithSuperClassTest.
  */
-public final class FakedClassWithSuperClassTest {
+final class FakedClassWithSuperClassTest {
 
     /**
      * The Class BaseClass.
@@ -57,7 +57,7 @@ public final class FakedClassWithSuperClassTest {
      * Fake only instances of the class specified to be faked.
      */
     @Test
-    public void fakeOnlyInstancesOfTheClassSpecifiedToBeFaked() {
+    void fakeOnlyInstancesOfTheClassSpecifiedToBeFaked() {
         BaseClass d = new Subclass();
         assertEquals(123, d.doSomething());
 
@@ -76,7 +76,7 @@ public final class FakedClassWithSuperClassTest {
      * Fake only instances of the class specified to be faked using fake method bridge.
      */
     @Test
-    public void fakeOnlyInstancesOfTheClassSpecifiedToBeFaked_usingFakeMethodBridge() {
+    void fakeOnlyInstancesOfTheClassSpecifiedToBeFaked_usingFakeMethodBridge() {
         BaseClass d = new Subclass();
         assertEquals(123, d.doSomething());
 

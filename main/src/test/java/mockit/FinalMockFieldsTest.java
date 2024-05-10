@@ -3,13 +3,13 @@ package mockit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class FinalMockFieldsTest.
  */
-public final class FinalMockFieldsTest {
+final class FinalMockFieldsTest {
 
     /**
      * The Class Collaborator.
@@ -82,8 +82,8 @@ public final class FinalMockFieldsTest {
     /**
      * Use mocked types.
      */
-    @Before
-    public void useMockedTypes() {
+    @BeforeEach
+    void useMockedTypes() {
         assertEquals(0, mock.getValue());
         assertEquals(0, mock2.getValue());
         assertEquals(0, YetAnotherCollaborator.doSomethingStatic());
@@ -93,7 +93,7 @@ public final class FinalMockFieldsTest {
      * Record expectations on injectable final mock field.
      */
     @Test
-    public void recordExpectationsOnInjectableFinalMockField() {
+    void recordExpectationsOnInjectableFinalMockField() {
         new Expectations() {
             {
                 mock.getValue();
@@ -110,7 +110,7 @@ public final class FinalMockFieldsTest {
      * Record expectations on final mock field.
      */
     @Test
-    public void recordExpectationsOnFinalMockField() {
+    void recordExpectationsOnFinalMockField() {
         AnotherCollaborator collaborator = new AnotherCollaborator();
 
         new Expectations() {
@@ -132,7 +132,7 @@ public final class FinalMockFieldsTest {
      * Record expectations on constructor of final mock field.
      */
     @Test
-    public void recordExpectationsOnConstructorOfFinalMockField() {
+    void recordExpectationsOnConstructorOfFinalMockField() {
         new Expectations() {
             {
                 new ProcessBuilder("test");
@@ -193,7 +193,7 @@ public final class FinalMockFieldsTest {
      * Record expectations on static method and constructor of final local mock field.
      */
     @Test
-    public void recordExpectationsOnStaticMethodAndConstructorOfFinalLocalMockField() {
+    void recordExpectationsOnStaticMethodAndConstructorOfFinalLocalMockField() {
         new Expectations() {
             {
                 new YetAnotherCollaborator(true);

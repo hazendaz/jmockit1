@@ -18,12 +18,12 @@ import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
 import javax.security.auth.spi.LoginModule;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class FakeLoginContextTest.
  */
-public final class FakeLoginContextTest {
+final class FakeLoginContextTest {
 
     /**
      * Fake JRE method and constructor using fake class.
@@ -32,7 +32,7 @@ public final class FakeLoginContextTest {
      *             the exception
      */
     @Test
-    public void fakeJREMethodAndConstructorUsingFakeClass() throws Exception {
+    void fakeJREMethodAndConstructorUsingFakeClass() throws Exception {
         new FakeLoginContext();
 
         new LoginContext("test", (CallbackHandler) null).login();
@@ -82,7 +82,7 @@ public final class FakeLoginContextTest {
      *             the exception
      */
     @Test
-    public void fakeJREMethodAndConstructorWithFakeClass() throws Exception {
+    void fakeJREMethodAndConstructorWithFakeClass() throws Exception {
         new MockUp<LoginContext>() {
             @Mock
             void $init(String name) {
@@ -107,7 +107,7 @@ public final class FakeLoginContextTest {
      *             the exception
      */
     @Test
-    public void fakeJREClassWithStubs() throws Exception {
+    void fakeJREClassWithStubs() throws Exception {
         new FakeLoginContextWithStubs();
 
         LoginContext context = new LoginContext("");
@@ -152,7 +152,7 @@ public final class FakeLoginContextTest {
      *             the exception
      */
     @Test
-    public void accessFakedInstance() throws Exception {
+    void accessFakedInstance() throws Exception {
         new MockUp<LoginContext>() {
             Subject testSubject;
 
@@ -198,7 +198,7 @@ public final class FakeLoginContextTest {
      *             the exception
      */
     @Test
-    public void proceedIntoRealImplementationsOfFakedMethods() throws Exception {
+    void proceedIntoRealImplementationsOfFakedMethods() throws Exception {
         // Create objects to be exercised by the code under test:
         Configuration configuration = new Configuration() {
             @Override

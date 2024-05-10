@@ -17,13 +17,13 @@ import javax.sound.midi.Patch;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicColorChooserUI;
 
-import org.junit.AfterClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class FakingTest.
  */
-public final class FakingTest {
+final class FakingTest {
 
     /**
      * Attempt to apply fake without the target type.
@@ -44,7 +44,7 @@ public final class FakingTest {
      * Fake A class.
      */
     @Test
-    public void fakeAClass() {
+    void fakeAClass() {
         new MockUp<Panel>() {
             @Mock
             int getComponentCount() {
@@ -94,7 +94,7 @@ public final class FakingTest {
      * Fake A given class.
      */
     @Test
-    public void fakeAGivenClass() {
+    void fakeAGivenClass() {
         final Main main = new Main();
 
         new MockUp<AtomicIntegerFieldUpdater<?>>(Main.atomicCount.getClass()) {
@@ -159,7 +159,7 @@ public final class FakingTest {
      * Fake given class using named fake.
      */
     @Test
-    public void fakeGivenClassUsingNamedFake() {
+    void fakeGivenClassUsingNamedFake() {
         new FakeForGivenClass();
 
         String s = new Panel().getName();
@@ -200,7 +200,7 @@ public final class FakingTest {
      * Fake using invocation parameters.
      */
     @Test
-    public void fakeUsingInvocationParameters() {
+    void fakeUsingInvocationParameters() {
         new MockUp<Panel>() {
             @Mock
             void $init(Invocation inv) {
@@ -250,7 +250,7 @@ public final class FakingTest {
      * Public named fake with no invocation parameter.
      */
     @Test
-    public void publicNamedFakeWithNoInvocationParameter() {
+    void publicNamedFakeWithNoInvocationParameter() {
         PublicNamedFakeWithNoInvocationParameters fake = new PublicNamedFakeWithNoInvocationParameters();
 
         Panel applet = new Panel();
@@ -268,7 +268,7 @@ public final class FakingTest {
      */
     @Test
     @SuppressWarnings("deprecation")
-    public void fakingOfAnnotatedClass() throws Exception {
+    void fakingOfAnnotatedClass() throws Exception {
         new MockUp<RMISecurityException>() {
             @Mock
             void $init(String s) {
@@ -290,7 +290,7 @@ public final class FakingTest {
      * Fake same class twice using separate fakes.
      */
     @Test
-    public void fakeSameClassTwiceUsingSeparateFakes() {
+    void fakeSameClassTwiceUsingSeparateFakes() {
         Panel a = new Panel();
 
         class Fake1 extends MockUp<Panel> {
@@ -315,7 +315,7 @@ public final class FakingTest {
      * Fake constructor of inner class.
      */
     @Test
-    public void fakeConstructorOfInnerClass() {
+    void fakeConstructorOfInnerClass() {
         final BasicColorChooserUI outer = new BasicColorChooserUI();
         final boolean[] constructed = { false };
 
@@ -338,7 +338,7 @@ public final class FakingTest {
      *             the exception
      */
     @Test
-    public void callFakeMethodFromAWTEventDispatchingThread() throws Exception {
+    void callFakeMethodFromAWTEventDispatchingThread() throws Exception {
         new MockUp<Panel>() {
             @Mock
             int getComponentCount() {
@@ -373,7 +373,7 @@ public final class FakingTest {
      * Anonymous fake for JRE subclass having fake method for JRE method.
      */
     @Test
-    public void anonymousFakeForJRESubclassHavingFakeMethodForJREMethod() {
+    void anonymousFakeForJRESubclassHavingFakeMethodForJREMethod() {
         new MockUp<JRESubclass>() {
             @Mock
             int getBank() {
@@ -404,7 +404,7 @@ public final class FakingTest {
      * Perform action on fake tear down.
      */
     @Test
-    public void performActionOnFakeTearDown() {
+    void performActionOnFakeTearDown() {
         fakeTornDown = false;
         new FakeWithActionOnTearDown();
         assertFalse(fakeTornDown);
@@ -413,8 +413,8 @@ public final class FakingTest {
     /**
      * Verify fake applied in test was torn down.
      */
-    @AfterClass
-    public static void verifyFakeAppliedInTestWasTornDown() {
+    @AfterAll
+    static void verifyFakeAppliedInTestWasTornDown() {
         assertTrue(fakeTornDown == null || fakeTornDown);
     }
 
@@ -422,7 +422,7 @@ public final class FakingTest {
      * Fake varargs method with proceeding fake method which passes replacement arguments.
      */
     @Test
-    public void fakeVarargsMethodWithProceedingFakeMethodWhichPassesReplacementArguments() {
+    void fakeVarargsMethodWithProceedingFakeMethodWhichPassesReplacementArguments() {
         new MockUp<ProcessBuilder>() {
             @Mock
             ProcessBuilder command(Invocation inv, String... command) {

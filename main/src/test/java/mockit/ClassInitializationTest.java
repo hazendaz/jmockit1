@@ -4,13 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class ClassInitializationTest.
  */
-public final class ClassInitializationTest {
+final class ClassInitializationTest {
 
     static final class ClassWhichFailsAtInitialization {
         static {
@@ -68,7 +68,7 @@ public final class ClassInitializationTest {
      *            the mocked
      */
     @Test
-    public void mockClassWithStaticInitializerNotStubbedOut(@Mocked ClassWithStaticInitializer mocked) {
+    void mockClassWithStaticInitializerNotStubbedOut(@Mocked ClassWithStaticInitializer mocked) {
         // noinspection ConstantJUnitAssertArgument
         assertNotNull(ClassWithStaticInitializer.CONSTANT);
         assertNull(ClassWithStaticInitializer.doSomething());
@@ -125,7 +125,7 @@ public final class ClassInitializationTest {
      *            the unused
      */
     @Test
-    public void mockUninitializedClass(@Mocked ClassWhichCallsStaticMethodFromInitializer unused) {
+    void mockUninitializedClass(@Mocked ClassWhichCallsStaticMethodFromInitializer unused) {
         assertNull(ClassWhichCallsStaticMethodFromInitializer.someValue());
     }
 
@@ -158,8 +158,8 @@ public final class ClassInitializationTest {
     /**
      * Load nested implementation class.
      */
-    @Before
-    public void loadNestedImplementationClass() {
+    @BeforeEach
+    void loadNestedImplementationClass() {
         // Ensure the class gets loaded, but not initialized, before it gets mocked.
         // The HotSpot VM would (for some reason) already have loaded it, but the J9 VM would not.
         NestedImplementationClass.class.getName();
@@ -172,7 +172,7 @@ public final class ClassInitializationTest {
      *            the mock base
      */
     @Test
-    public void mockUninitializedImplementationClass(@Capturing BaseType mockBase) {
+    void mockUninitializedImplementationClass(@Capturing BaseType mockBase) {
         BaseType obj = new NestedImplementationClass();
 
         assertNull(obj.someValue());
@@ -231,7 +231,7 @@ public final class ClassInitializationTest {
      *            the another dependent
      */
     @Test
-    public void mockAnotherDependentClass(@Mocked AnotherDependent anotherDependent) {
+    void mockAnotherDependentClass(@Mocked AnotherDependent anotherDependent) {
         assertNotNull(Dependent.DEPENDENCY);
         assertNotNull(AnotherDependent.DEPENDENCY);
     }
@@ -258,7 +258,7 @@ public final class ClassInitializationTest {
      * Verify class initializer for mocked base interface.
      */
     @Test
-    public void verifyClassInitializerForMockedBaseInterface() {
+    void verifyClassInitializerForMockedBaseInterface() {
         assertNotNull(mock);
         assertEquals("Testing", BaseInterface.DO_NOT_REMOVE);
     }
@@ -288,7 +288,7 @@ public final class ClassInitializationTest {
      *            the unused
      */
     @Test
-    public void mockClassWhichCallsMethodOnItselfFromInitializerWithoutStubbingOutTheInitializer(
+    void mockClassWhichCallsMethodOnItselfFromInitializerWithoutStubbingOutTheInitializer(
             @Mocked ClassWhichCallsMethodOnItselfFromInitializer unused) {
         assertNotNull(ClassWhichCallsMethodOnItselfFromInitializer.value());
         assertNull(ClassWhichCallsMethodOnItselfFromInitializer.value);
@@ -315,8 +315,9 @@ public final class ClassInitializationTest {
      * @param mock2
      *            the mock 2
      */
-    @Test // failed on JDK 9+ only
-    public void mockAbstractClassImplementingInterfaceWithStaticInitializer(@Mocked AbstractImpl mock2) {
+    // failed on JDK 9+ only
+    @Test
+    void mockAbstractClassImplementingInterfaceWithStaticInitializer(@Mocked AbstractImpl mock2) {
         assertEquals("test", InterfaceWithStaticInitializer.CONSTANT);
     }
 }

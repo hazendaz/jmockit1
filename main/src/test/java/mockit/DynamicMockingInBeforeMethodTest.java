@@ -2,14 +2,14 @@ package mockit;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class DynamicMockingInBeforeMethodTest.
  */
-public final class DynamicMockingInBeforeMethodTest {
+final class DynamicMockingInBeforeMethodTest {
 
     /**
      * The Class MockedClass.
@@ -34,8 +34,8 @@ public final class DynamicMockingInBeforeMethodTest {
     /**
      * Record expectations on dynamically mocked class.
      */
-    @Before
-    public void recordExpectationsOnDynamicallyMockedClass() {
+    @BeforeEach
+    void recordExpectationsOnDynamicallyMockedClass() {
         assertTrue(anInstance.doSomething(56));
 
         new Expectations(anInstance) {
@@ -52,8 +52,8 @@ public final class DynamicMockingInBeforeMethodTest {
     /**
      * Verify that dynamically mocked class is still mocked.
      */
-    @After
-    public void verifyThatDynamicallyMockedClassIsStillMocked() {
+    @AfterEach
+    void verifyThatDynamicallyMockedClassIsStillMocked() {
         new FullVerifications() {
             {
                 anInstance.doSomething(anyInt);
@@ -66,7 +66,7 @@ public final class DynamicMockingInBeforeMethodTest {
      * Test something.
      */
     @Test
-    public void testSomething() {
+    void testSomething() {
         assertTrue(anInstance.doSomething(56));
     }
 
@@ -74,7 +74,7 @@ public final class DynamicMockingInBeforeMethodTest {
      * Test something else.
      */
     @Test
-    public void testSomethingElse() {
+    void testSomethingElse() {
         assertTrue(anInstance.doSomething(-129));
     }
 }

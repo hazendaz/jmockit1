@@ -8,12 +8,12 @@ import java.math.BigInteger;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class InjectableParameterTest.
  */
-public final class InjectableParameterTest {
+final class InjectableParameterTest {
 
     /**
      * Injectable parameters of primitive types.
@@ -38,7 +38,7 @@ public final class InjectableParameterTest {
      *            the d
      */
     @Test
-    public void injectableParametersOfPrimitiveTypes(@Injectable("123") int i, @Injectable("5") long l,
+    void injectableParametersOfPrimitiveTypes(@Injectable("123") int i, @Injectable("5") long l,
             @Injectable("-45 ") short s, @Injectable(" 127") byte b, @Injectable("true") boolean f1,
             @Injectable(" TRUE ") boolean f2, @Injectable("A") char c, @Injectable(" 1.23") float f,
             @Injectable("-1.23") double d) {
@@ -76,7 +76,7 @@ public final class InjectableParameterTest {
      *            the d
      */
     @Test
-    public void injectableParametersOfWrapperTypes(@Injectable("123") Integer i, @Injectable("5") Long l,
+    void injectableParametersOfWrapperTypes(@Injectable("123") Integer i, @Injectable("5") Long l,
             @Injectable("-45 ") Short s, @Injectable(" 127") Byte b, @Injectable("true") Boolean f1,
             @Injectable(" TRUE ") Boolean f2, @Injectable("A") Character c, @Injectable(" 1.23") Float f,
             @Injectable("-1.23") Double d) {
@@ -104,7 +104,7 @@ public final class InjectableParameterTest {
      *            the al
      */
     @Test
-    public void injectableParametersOfOtherNumberSubtypes(@Injectable(" 10.234") BigDecimal d,
+    void injectableParametersOfOtherNumberSubtypes(@Injectable(" 10.234") BigDecimal d,
             @Injectable("123 ") BigInteger i, @Injectable(" 4567 ") AtomicInteger ai,
             @Injectable(" 23434") AtomicLong al) {
         assertEquals(10.234, d.doubleValue(), 0.0);
@@ -138,7 +138,7 @@ public final class InjectableParameterTest {
      *            the n
      */
     @Test
-    public void injectablesHavingSubtypesOfTestedFields(@Tested TestedClass tested, @Injectable("test") String s,
+    void injectablesHavingSubtypesOfTestedFields(@Tested TestedClass tested, @Injectable("test") String s,
             @Injectable("1.2") Float cmp, @Injectable("123") Integer n) {
         assertEquals(123, tested.n.intValue());
         assertEquals("test", tested.text);
@@ -189,7 +189,7 @@ public final class InjectableParameterTest {
      *            the n
      */
     @Test
-    public void injectablesHavingSubtypesOfTestedConstructorParameters(@Tested TestedClass2 tested,
+    void injectablesHavingSubtypesOfTestedConstructorParameters(@Tested TestedClass2 tested,
             @Injectable("1.2") Float cmp, @Injectable("test") String s, @Injectable("123") Integer n) {
         assertEquals(123, tested.n.intValue());
         assertEquals("test", tested.text);

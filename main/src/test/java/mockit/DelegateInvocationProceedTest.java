@@ -13,12 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.AbstractExecutorService;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class DelegateInvocationProceedTest.
  */
-public final class DelegateInvocationProceedTest {
+final class DelegateInvocationProceedTest {
 
     /**
      * The Class BaseClassToBeMocked.
@@ -147,7 +147,7 @@ public final class DelegateInvocationProceedTest {
      *            the mocked
      */
     @Test
-    public void proceedFromDelegateMethodOnRegularMockedClass(@Mocked final ClassToBeMocked mocked) {
+    void proceedFromDelegateMethodOnRegularMockedClass(@Mocked final ClassToBeMocked mocked) {
         new Expectations() {
             {
                 mocked.methodToBeMocked();
@@ -170,7 +170,7 @@ public final class DelegateInvocationProceedTest {
      *            the mocked
      */
     @Test
-    public void proceedFromDelegateMethodOnInjectableMockedClass(@Injectable final ClassToBeMocked mocked) {
+    void proceedFromDelegateMethodOnInjectableMockedClass(@Injectable final ClassToBeMocked mocked) {
         new Expectations() {
             {
                 mocked.methodToBeMocked();
@@ -193,7 +193,7 @@ public final class DelegateInvocationProceedTest {
      *             the exception
      */
     @Test
-    public void proceedFromDelegateMethodWithParameters() throws Exception {
+    void proceedFromDelegateMethodWithParameters() throws Exception {
         final ClassToBeMocked mocked = new ClassToBeMocked();
 
         new Expectations(mocked) {
@@ -228,7 +228,7 @@ public final class DelegateInvocationProceedTest {
      * Proceed conditionally from delegate method.
      */
     @Test
-    public void proceedConditionallyFromDelegateMethod() {
+    void proceedConditionallyFromDelegateMethod() {
         final ClassToBeMocked mocked = new ClassToBeMocked();
 
         new Expectations(mocked) {
@@ -266,7 +266,7 @@ public final class DelegateInvocationProceedTest {
      *             the exception
      */
     @Test
-    public void proceedFromDelegateMethodIntoRealMethodWithModifiedArguments() throws Exception {
+    void proceedFromDelegateMethodIntoRealMethodWithModifiedArguments() throws Exception {
         final ClassToBeMocked mocked = new ClassToBeMocked();
 
         new Expectations(mocked) {
@@ -301,7 +301,7 @@ public final class DelegateInvocationProceedTest {
      *            the mock
      */
     @Test
-    public void proceedFromDelegateMethodIntoConstructor(@Mocked ClassToBeMocked mock) {
+    void proceedFromDelegateMethodIntoConstructor(@Mocked ClassToBeMocked mock) {
         new Expectations() {
             {
                 new ClassToBeMocked();
@@ -326,7 +326,7 @@ public final class DelegateInvocationProceedTest {
      *            the mock
      */
     @Test
-    public void proceedConditionallyFromDelegateMethodIntoConstructor(@Mocked ClassToBeMocked mock) {
+    void proceedConditionallyFromDelegateMethodIntoConstructor(@Mocked ClassToBeMocked mock) {
         new Expectations() {
             {
                 new ClassToBeMocked(anyString);
@@ -354,7 +354,7 @@ public final class DelegateInvocationProceedTest {
      *            the mock
      */
     @Test
-    public void proceedFromDelegateMethodIntoJREConstructor(@Mocked ProcessBuilder mock) {
+    void proceedFromDelegateMethodIntoJREConstructor(@Mocked ProcessBuilder mock) {
         new Expectations() {
             {
                 ProcessBuilder pb = new ProcessBuilder((String[]) any);
@@ -386,7 +386,7 @@ public final class DelegateInvocationProceedTest {
      * Proceed from delegate method into method inherited from base class.
      */
     @Test
-    public void proceedFromDelegateMethodIntoMethodInheritedFromBaseClass() {
+    void proceedFromDelegateMethodIntoMethodInheritedFromBaseClass() {
         final ClassToBeMocked obj = new ClassToBeMocked();
 
         new Expectations(obj) {
@@ -414,7 +414,7 @@ public final class DelegateInvocationProceedTest {
      *             the exception
      */
     @Test
-    public void proceedFromDelegateMethodIntoOverridingMethodWhichCallsSuper(@Mocked final ClassToBeMocked mocked)
+    void proceedFromDelegateMethodIntoOverridingMethodWhichCallsSuper(@Mocked final ClassToBeMocked mocked)
             throws Exception {
         new Expectations() {
             {
@@ -443,7 +443,7 @@ public final class DelegateInvocationProceedTest {
      *             the exception
      */
     @Test
-    public void proceedFromDelegateMethodIntoOverridingMethodThatCallsSuperWhichAlsoHasAProceedingDelegate(
+    void proceedFromDelegateMethodIntoOverridingMethodThatCallsSuperWhichAlsoHasAProceedingDelegate(
             @Mocked final BaseClassToBeMocked mockedBase, @Mocked final ClassToBeMocked mocked) throws Exception {
         new Expectations() {
             {
@@ -483,7 +483,7 @@ public final class DelegateInvocationProceedTest {
      *             the exception
      */
     @Test
-    public void throwExceptionFromProceedIntoJREMethod(@Injectable final AbstractExecutorService c1,
+    void throwExceptionFromProceedIntoJREMethod(@Injectable final AbstractExecutorService c1,
             @Mocked final ClassToBeMocked c2) throws Exception {
         new Expectations() {
             {

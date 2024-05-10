@@ -7,12 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import java.util.Observable;
 import java.util.concurrent.Callable;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class CapturingInstancesTest.
  */
-public final class CapturingInstancesTest {
+final class CapturingInstancesTest {
 
     /**
      * The Interface Service1.
@@ -91,7 +91,7 @@ public final class CapturingInstancesTest {
      * Capture service instances created by tested constructor.
      */
     @Test
-    public void captureServiceInstancesCreatedByTestedConstructor() {
+    void captureServiceInstancesCreatedByTestedConstructor() {
         TestedUnit unit = new TestedUnit();
 
         assertEquals(0, unit.service1.doSomething());
@@ -110,8 +110,8 @@ public final class CapturingInstancesTest {
      *             the exception
      */
     @Test
-    public void captureAllInternallyCreatedInstances(@Capturing Observable observable,
-            @Capturing final Callable<?> callable) throws Exception {
+    void captureAllInternallyCreatedInstances(@Capturing Observable observable, @Capturing final Callable<?> callable)
+            throws Exception {
         new Expectations() {
             {
                 service.doSomething();
@@ -181,7 +181,7 @@ public final class CapturingInstancesTest {
      *            the capturing mock
      */
     @Test
-    public void captureSubclassAndCascadeFromMethodExclusiveToSubclass(@Capturing Base capturingMock) {
+    void captureSubclassAndCascadeFromMethodExclusiveToSubclass(@Capturing Base capturingMock) {
         Derived d = new Derived();
         Service2 service2 = d.doSomethingElse();
 
