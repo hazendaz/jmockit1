@@ -15,6 +15,7 @@ import mockit.internal.expectations.argumentMatching.AlwaysTrueMatcher;
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
 import mockit.internal.expectations.argumentMatching.ArgumentMismatch;
 import mockit.internal.expectations.argumentMatching.EqualityMatcher;
+import mockit.internal.expectations.argumentMatching.HamcrestAdapter;
 import mockit.internal.expectations.argumentMatching.ReflectiveMatcher;
 
 abstract class ArgumentValuesAndMatchers {
@@ -139,7 +140,8 @@ abstract class ArgumentValuesAndMatchers {
 
     private boolean areNonEquivalentMatches(@Nonnull ArgumentValuesAndMatchers other,
             @Nonnull ArgumentMatcher<?> matcher1, @Nonnull ArgumentMatcher<?> matcher2, @Nonnegative int matcherIndex) {
-        return matcher1.getClass() == ReflectiveMatcher.class
+        Class<?> matcherClass = matcher1.getClass();
+        return matcherClass == ReflectiveMatcher.class || matcherClass == HamcrestAdapter.class
                 || !equivalentMatches(matcher1, values[matcherIndex], matcher2, other.values[matcherIndex]);
     }
 
