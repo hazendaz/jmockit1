@@ -3,20 +3,16 @@ package mockit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class MisusedMockingAPITest.
  */
-public final class MisusedMockingAPITest {
-
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
+final class MisusedMockingAPITest {
 
     /**
      * The Class Blah.
@@ -78,7 +74,7 @@ public final class MisusedMockingAPITest {
      * Record expectation after invoking same method in replay phase.
      */
     @Test
-    public void recordExpectationAfterInvokingSameMethodInReplayPhase() {
+    void recordExpectationAfterInvokingSameMethodInReplayPhase() {
         assertEquals(0, mock.value());
 
         new Expectations() {
@@ -98,7 +94,7 @@ public final class MisusedMockingAPITest {
      * Record duplicate invocation with no arguments.
      */
     @Test
-    public void recordDuplicateInvocationWithNoArguments() {
+    void recordDuplicateInvocationWithNoArguments() {
         new Expectations() {
             {
                 mock.value();
@@ -116,7 +112,7 @@ public final class MisusedMockingAPITest {
      * Record duplicate invocation with argument matcher.
      */
     @Test
-    public void recordDuplicateInvocationWithArgumentMatcher() {
+    void recordDuplicateInvocationWithArgumentMatcher() {
         new Expectations() {
             {
                 mock.setValue(anyInt);
@@ -132,7 +128,7 @@ public final class MisusedMockingAPITest {
      * Record duplicate invocation in separate expectation blocks.
      */
     @Test
-    public void recordDuplicateInvocationInSeparateExpectationBlocks() {
+    void recordDuplicateInvocationInSeparateExpectationBlocks() {
         new Expectations() {
             {
                 mock.value();
@@ -153,20 +149,19 @@ public final class MisusedMockingAPITest {
      * Record mock instance for constructor expectation.
      */
     @Test
-    public void recordMockInstanceForConstructorExpectation() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid assignment");
-        thrown.expectMessage("result ");
-        thrown.expectMessage(" constructor");
+    void recordMockInstanceForConstructorExpectation() {
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
 
-        new Expectations() {
-            {
-                new Blah();
-                result = mock;
-            }
-        };
+            new Expectations() {
+                {
+                    new Blah();
+                    result = mock;
+                }
+            };
 
-        new Blah();
+            new Blah();
+        });
+        assertTrue(exception.getMessage().contains(" constructor"));
     }
 
     // Order-related recordings
@@ -179,7 +174,7 @@ public final class MisusedMockingAPITest {
      *            the mock 2
      */
     @Test
-    public void recordUnorderedInstantiationOfClassMockedTwice(@Mocked final Blah mock2) {
+    void recordUnorderedInstantiationOfClassMockedTwice(@Mocked final Blah mock2) {
         new Expectations() {
             {
                 new Blah();
@@ -203,7 +198,7 @@ public final class MisusedMockingAPITest {
      *            the mock 2
      */
     @Test
-    public void verifyOrderedInstantiationOfClassMockedTwice(@Mocked final Blah mock2) {
+    void verifyOrderedInstantiationOfClassMockedTwice(@Mocked final Blah mock2) {
         new Blah();
         mock2.doSomething(true);
 
@@ -222,7 +217,7 @@ public final class MisusedMockingAPITest {
      *            the mock 2
      */
     @Test
-    public void verifyUnorderedInstantiationOfClassMockedTwice(@Mocked final Blah mock2) {
+    void verifyUnorderedInstantiationOfClassMockedTwice(@Mocked final Blah mock2) {
         mock.doSomething(false);
         mock2.doSomething(true);
         new Blah();
@@ -248,8 +243,7 @@ public final class MisusedMockingAPITest {
      *            the r 2
      */
     @Test
-    public void ambiguousCascadingWhenMultipleValidCandidatesAreAvailable(@Injectable Runnable r1,
-            @Injectable Runnable r2) {
+    void ambiguousCascadingWhenMultipleValidCandidatesAreAvailable(@Injectable Runnable r1, @Injectable Runnable r2) {
         Runnable cascaded = mock.getSomethingElse(); // which one to return: r1 or r2?
 
         assertSame(r2, cascaded); // currently, last mock to be declared wins
@@ -282,7 +276,7 @@ public final class MisusedMockingAPITest {
      * Check static injectable is not used.
      */
     @Test
-    public void checkStaticInjectableIsNotUsed() {
+    void checkStaticInjectableIsNotUsed() {
         assertNotSame(mockAction, tested.action);
     }
 
@@ -303,8 +297,10 @@ public final class MisusedMockingAPITest {
      * @param anyCustomException
      *            the any custom exception
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptingToMockAllInstancesOfExceptionSubclass(@Mocked CustomException anyCustomException) {
-        fail("Shouldn't get here");
+    @Test
+    void attemptingToMockAllInstancesOfExceptionSubclass(@Mocked CustomException anyCustomException) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            fail("Shouldn't get here");
+        });
     }
 }

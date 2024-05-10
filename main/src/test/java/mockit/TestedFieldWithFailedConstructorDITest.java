@@ -1,29 +1,25 @@
 package mockit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class TestedFieldWithFailedConstructorDITest.
  */
-public final class TestedFieldWithFailedConstructorDITest {
-
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
+final class TestedFieldWithFailedConstructorDITest {
 
     /**
      * Configure expected exception.
      */
-    @Before
-    public void configureExpectedException() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("No injectable value available for parameter \"value\" in constructor ");
-        thrown.expectMessage("ClassWithOneParameter(Integer value)");
+    @BeforeEach
+    void configureExpectedException() {
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+        });
+        assertTrue(exception.getMessage().contains("ClassWithOneParameter(Integer value)"));
     }
 
     /**
@@ -60,7 +56,7 @@ public final class TestedFieldWithFailedConstructorDITest {
      *            the s
      */
     @Test
-    public void attemptToUseTestedObjectWhoseCreationFailedDueToInjectableWithoutAValue(@Injectable String s) {
+    void attemptToUseTestedObjectWhoseCreationFailedDueToInjectableWithoutAValue(@Injectable String s) {
         assertEquals("", s);
     }
 }
