@@ -18,6 +18,7 @@ final class ArgumentMatching {
     private static final String ANY_FIELDS = "any anyString anyInt anyBoolean anyLong anyDouble anyFloat anyChar anyShort anyByte";
     private static final String WITH_METHODS = "with(Lmockit/Delegate;)Ljava/lang/Object; "
             + "withAny(Ljava/lang/Object;)Ljava/lang/Object; "
+            + "withArgThat(Lorg/hamcrest/Matcher;)Ljava/lang/Object; "
             + "withCapture()Ljava/lang/Object; withCapture(Ljava/util/List;)Ljava/lang/Object; "
             + "withCapture(Ljava/lang/Object;)Ljava/util/List; "
             + "withEqual(Ljava/lang/Object;)Ljava/lang/Object; withEqual(DD)D withEqual(FD)F "

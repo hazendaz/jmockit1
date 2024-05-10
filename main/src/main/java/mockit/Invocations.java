@@ -19,6 +19,7 @@ import mockit.internal.expectations.argumentMatching.AlwaysTrueMatcher;
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
 import mockit.internal.expectations.argumentMatching.CaptureMatcher;
 import mockit.internal.expectations.argumentMatching.ClassMatcher;
+import mockit.internal.expectations.argumentMatching.HamcrestAdapter;
 import mockit.internal.expectations.argumentMatching.InequalityMatcher;
 import mockit.internal.expectations.argumentMatching.LenientEqualityMatcher;
 import mockit.internal.expectations.argumentMatching.NonNullityMatcher;
@@ -32,6 +33,8 @@ import mockit.internal.expectations.argumentMatching.StringPrefixMatcher;
 import mockit.internal.expectations.argumentMatching.StringSuffixMatcher;
 import mockit.internal.startup.Startup;
 import mockit.internal.util.DefaultValues;
+
+import org.hamcrest.Matcher;
 
 /**
  * Provides common API for use inside {@linkplain Expectations expectation} and {@linkplain Verifications verification}
@@ -371,6 +374,34 @@ class Invocations {
     TestOnlyPhase currentPhase;
 
     /**
+     * Applies a <em>Hamcrest</em> argument matcher for a parameter in the current expectation.
+     * <p>
+     * When an argument matcher is used for a regular (ie, non-varargs) parameter in a call to a mocked
+     * method/constructor, it's <em>not</em> necessary to also use matchers for the other parameters. So, it's valid to
+     * mix the use of matchers with given values. Any arguments given as literals, local variables, or fields will be
+     * implicitly matched as if {@link #withEqual(Object)} had been used. In the special case of a varargs method,
+     * however, this flexibility is not available: if a matcher is used for any regular parameter, or for any element in
+     * the varargs array, then a matcher <em>must</em> be used for every other parameter and varargs element.
+     *
+     * @param argumentMatcher
+     *            any <em>org.hamcrest.Matcher</em> object
+     *
+     * @return the value recorded inside the given Hamcrest matcher, or <em>null</em> if there is no such value to be
+     *         found
+     *
+     * @see #with(Delegate) Use {@linkplain #withCapture(List) argument capturing} or {@link #with(Delegate)} instead.
+     */
+    @Nullable
+    protected final <T> T withArgThat(@Nonnull Matcher<? super T> argumentMatcher) {
+        HamcrestAdapter matcher = new HamcrestAdapter(argumentMatcher);
+        addMatcher(matcher);
+
+        @SuppressWarnings("unchecked")
+        T argValue = (T) matcher.getInnerValue();
+        return argValue;
+    }
+
+    /**
      * Applies a custom argument matcher for a parameter in the current expectation.
      * <p>
      * The class of the given delegate object should define a single non-<code>private</code> <em>delegate</em> method
@@ -397,6 +428,7 @@ class Invocations {
      * @return the default primitive value corresponding to <code>T</code> if it's a primitive wrapper type, or
      *         <code>null</code> otherwise
      *
+     * @see #withArgThat(org.hamcrest.Matcher)
      * @see <a href="http://jmockit.github.io/tutorial/Mocking.html#withMethods" target="tutorial">Tutorial</a>
      */
     @Nullable

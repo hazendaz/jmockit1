@@ -4,6 +4,9 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 
 import static mockit.ExpectationsWithArgMatchersTest.Delegates.collectionElement;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -164,6 +167,9 @@ public final class ExpectationsWithArgMatchersTest {
          *            the new value
          */
         void setValue(Exception ex) {
+        }
+
+        void setIntValue(int i) {
         }
 
         /**
@@ -346,6 +352,41 @@ public final class ExpectationsWithArgMatchersTest {
 
         List<String> values = asList("a", "B", "c");
         mock.setTextualValues(values);
+    }
+
+    @Test
+    public void expectInvocationsWithHamcrestMatcher() {
+        new Expectations() {
+            {
+                mock.setTextualValues(this.<Collection<String>>withArgThat(hasItem("B")));
+            }
+        };
+
+        List<String> values = asList("a", "B", "c");
+        mock.setTextualValues(values);
+    }
+
+    @Test
+    public void expectInvocationsWithHamcrestMatcher2() {
+        new Expectations() {
+            {
+                mock.setTextualValues(withArgThat(containsInAnyOrder("B", "c", "a")));
+            }
+        };
+
+        List<String> values = asList("a", "B", "c");
+        mock.setTextualValues(values);
+    }
+
+    @Test
+    public void expectInvocationWithMatcherContainingAnotherMatcher() {
+        new Expectations() {
+            {
+                mock.setIntValue(withArgThat(equalTo(3)));
+            }
+        };
+
+        mock.setIntValue(3);
     }
 
     /**
