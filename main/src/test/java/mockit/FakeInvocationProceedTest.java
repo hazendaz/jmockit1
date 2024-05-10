@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 /**
  * The Class FakeInvocationProceedTest.
  */
-public final class FakeInvocationProceedTest {
+final class FakeInvocationProceedTest {
 
     /**
      * The Class BaseClassToBeFaked.
@@ -144,7 +144,7 @@ public final class FakeInvocationProceedTest {
      * Proceed from fake method without parameters.
      */
     @Test
-    public void proceedFromFakeMethodWithoutParameters() {
+    void proceedFromFakeMethodWithoutParameters() {
         new MockUp<ClassToBeFaked>() {
             @Mock
             boolean methodToBeMocked(Invocation inv) {
@@ -159,7 +159,7 @@ public final class FakeInvocationProceedTest {
      * Proceed from fake method with parameters.
      */
     @Test
-    public void proceedFromFakeMethodWithParameters() {
+    void proceedFromFakeMethodWithParameters() {
         new MockUp<ClassToBeFaked>() {
             @Mock
             int methodToBeFaked(Invocation inv, int i) {
@@ -185,7 +185,7 @@ public final class FakeInvocationProceedTest {
      * Proceed conditionally from fake method.
      */
     @Test
-    public void proceedConditionallyFromFakeMethod() {
+    void proceedConditionallyFromFakeMethod() {
         new MockUp<ClassToBeFaked>() {
             @Mock
             String anotherMethodToBeFaked(Invocation inv, String s, boolean b, List<Number> ints) {
@@ -218,14 +218,13 @@ public final class FakeInvocationProceedTest {
      *             the exception
      */
     @Test
-    public void proceedFromFakeMethodWhichThrowsCheckedException() throws Exception {
+    void proceedFromFakeMethodWhichThrowsCheckedException() throws Exception {
         new MockUp<ClassToBeFaked>() {
             @Mock
             boolean staticMethodToBeFaked(Invocation inv) throws Exception {
                 if (inv.getInvocationIndex() == 0) {
                     return inv.<Boolean> proceed();
                 }
-
                 throw new InterruptedException("fake");
             }
         };
@@ -245,7 +244,7 @@ public final class FakeInvocationProceedTest {
      * Proceed from fake method into real method with modified arguments.
      */
     @Test
-    public void proceedFromFakeMethodIntoRealMethodWithModifiedArguments() {
+    void proceedFromFakeMethodIntoRealMethodWithModifiedArguments() {
         class FakeWhichModifiesArguments extends MockUp<ClassToBeFaked> {
             @Mock
             final int methodToBeFaked(Invocation invocation, int i) {
@@ -270,14 +269,16 @@ public final class FakeInvocationProceedTest {
      * Cannot proceed from fake method into native method.
      */
     @Test
-    public void cannotProceedFromFakeMethodIntoNativeMethod() {
-        new MockUp<ClassToBeFaked>() {
-            @Mock
-            void nativeMethod(Invocation inv) {
-                inv.proceed();
-                fail("Should not get here");
-            }
-        };
+    void cannotProceedFromFakeMethodIntoNativeMethod() {
+        Throwable exception = assertThrows(UnsupportedOperationException.class, () -> {
+            new MockUp<ClassToBeFaked>() {
+                @Mock
+                void nativeMethod(Invocation inv) {
+                    inv.proceed();
+                    fail("Should not get here");
+                }
+            };
+        });
 
         Throwable throwable = assertThrows(UnsupportedOperationException.class, () -> {
             ClassToBeFaked.nativeMethod();
@@ -289,7 +290,7 @@ public final class FakeInvocationProceedTest {
      * Proceed from fake method into constructor.
      */
     @Test
-    public void proceedFromFakeMethodIntoConstructor() {
+    void proceedFromFakeMethodIntoConstructor() {
         new MockUp<ClassToBeFaked>() {
             @Mock
             void $init(Invocation inv) {
@@ -306,7 +307,7 @@ public final class FakeInvocationProceedTest {
      * Proceed conditionally from fake method into constructor.
      */
     @Test
-    public void proceedConditionallyFromFakeMethodIntoConstructor() {
+    void proceedConditionallyFromFakeMethodIntoConstructor() {
         new MockUp<ClassToBeFaked>() {
             @Mock
             void $init(Invocation inv, String name) {
@@ -326,7 +327,7 @@ public final class FakeInvocationProceedTest {
      * Proceed conditionally from fake method into JRE constructor.
      */
     @Test
-    public void proceedConditionallyFromFakeMethodIntoJREConstructor() {
+    void proceedConditionallyFromFakeMethodIntoJREConstructor() {
         new MockUp<File>() {
             @Mock
             void $init(Invocation inv, String name) {
@@ -344,7 +345,7 @@ public final class FakeInvocationProceedTest {
      * Proceed from fake method into method inherited from base class.
      */
     @Test
-    public void proceedFromFakeMethodIntoMethodInheritedFromBaseClass() {
+    void proceedFromFakeMethodIntoMethodInheritedFromBaseClass() {
         new MockUp<ClassToBeFaked>() {
             @Mock
             int baseMethod(Invocation inv, int i) {

@@ -1,7 +1,8 @@
 package mockit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -50,11 +51,11 @@ class ObjectOverridesTest {
      */
     @SuppressWarnings("SimplifiableJUnitAssertion")
     void assertDefaultEqualsBehavior(Object obj1, Object obj2) {
-        assertFalse(obj1.equals(null));
-        assertFalse(obj1.equals("test"));
+        assertNotEquals(null, obj1);
+        assertNotEquals("test", obj1);
         // noinspection EqualsWithItself
-        assertTrue(obj1.equals(obj1));
-        assertFalse(obj1.equals(obj2));
+        assertEquals(obj1, obj1);
+        assertNotEquals(obj1, obj2);
     }
 
     /**
@@ -86,7 +87,7 @@ class ObjectOverridesTest {
      *            the d 2
      */
     @Test
-    public void verifyStandardBehaviorOfOverriddenObjectMethodsInMockedJREClass(@Mocked Date d1, @Mocked Date d2) {
+    void verifyStandardBehaviorOfOverriddenObjectMethodsInMockedJREClass(@Mocked Date d1, @Mocked Date d2) {
         assertDefaultEqualsBehavior(d1, d2);
         assertDefaultEqualsBehavior(d2, d1);
 
@@ -158,9 +159,9 @@ class ObjectOverridesTest {
             }
         };
 
-        assertTrue(a.equals(null));
-        assertTrue(a.equals("test"));
-        assertTrue(b.equals(a));
+        assertNull(a);
+        assertEquals("test", a);
+        assertEquals(b, a);
     }
 
     /**
@@ -190,7 +191,7 @@ class ObjectOverridesTest {
     @Test
     void mockOverrideOfToStringMethod() {
         // noinspection SimplifiableJUnitAssertion
-        assertFalse(a.toString().equals(b.toString()));
+        assertNotEquals(a.toString(), b.toString());
 
         new Expectations() {
             {
@@ -200,7 +201,7 @@ class ObjectOverridesTest {
         };
 
         // noinspection SimplifiableJUnitAssertion
-        assertTrue("mocked".equals(a.toString()));
+        assertEquals("mocked", a.toString());
 
         new Verifications() {
             {
