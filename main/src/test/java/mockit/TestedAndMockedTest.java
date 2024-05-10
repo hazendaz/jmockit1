@@ -1,16 +1,17 @@
 package mockit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import mockit.internal.expectations.invocation.MissingInvocation;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class TestedAndMockedTest.
  */
-public final class TestedAndMockedTest {
+final class TestedAndMockedTest {
 
     /**
      * The Class ClassToBeTested.
@@ -127,7 +128,7 @@ public final class TestedAndMockedTest {
      * Exercise public method while having helper methods mocked.
      */
     @Test
-    public void exercisePublicMethodWhileHavingHelperMethodsMocked() {
+    void exercisePublicMethodWhileHavingHelperMethodsMocked() {
         assertEquals(testData, tested.someData);
 
         new Expectations() {
@@ -159,7 +160,7 @@ public final class TestedAndMockedTest {
      * Exercise top level tested object together with injected second level tested object.
      */
     @Test
-    public void exerciseTopLevelTestedObjectTogetherWithInjectedSecondLevelTestedObject() {
+    void exerciseTopLevelTestedObjectTogetherWithInjectedSecondLevelTestedObject() {
         assertEquals(123, testedAndInjected.doSomething());
         assertEquals(100, tested.doAnotherOperation());
     }
@@ -170,12 +171,14 @@ public final class TestedAndMockedTest {
      * @param mock
      *            the mock
      */
-    @Test(expected = MissingInvocation.class)
-    public void mockTestedClass(@Mocked final ClassToBeTested mock) {
-        new Expectations() {
-            {
-                mock.doSomethingElse("");
-            }
-        };
+    @Test
+    void mockTestedClass(@Mocked final ClassToBeTested mock) {
+        assertThrows(MissingInvocation.class, () -> {
+            new Expectations() {
+                {
+                    mock.doSomethingElse("");
+                }
+            };
+        });
     }
 }
