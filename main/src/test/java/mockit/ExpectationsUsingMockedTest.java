@@ -103,6 +103,21 @@ public final class ExpectationsUsingMockedTest {
         assertFalse(base.add(2));
     }
 
+    static class ClassWithStaticInitializer {
+        static boolean initialized = true;
+
+        static int initialized() {
+            return initialized ? 1 : -1;
+        }
+    }
+
+    @Test
+    public void stubOutStaticInitializersWhenSpecified(
+            @Mocked(stubOutClassInitialization = true) ClassWithStaticInitializer unused) {
+        assertEquals(0, ClassWithStaticInitializer.initialized());
+        assertFalse(ClassWithStaticInitializer.initialized);
+    }
+
     /**
      * The Class ClassWithStaticInitializer2.
      */
@@ -161,6 +176,22 @@ public final class ExpectationsUsingMockedTest {
     public void mockEverythingWithoutStubbingStaticInitializers(@Mocked AnotherClassWithStaticInitializer unused) {
         assertEquals(0, AnotherClassWithStaticInitializer.initialized());
         assertTrue(AnotherClassWithStaticInitializer.initialized);
+    }
+
+    static class AnotherClassWithStaticInitializer2 {
+        static boolean initialized = true;
+
+        static int initialized() {
+            return initialized ? 1 : -1;
+        }
+    }
+
+    @Test
+    @SuppressWarnings("DefaultAnnotationParam")
+    public void avoidStubbingStaticInitializersThroughSpecificAnnotationAttribute(
+            @Mocked(stubOutClassInitialization = false) AnotherClassWithStaticInitializer2 unused) {
+        assertEquals(0, AnotherClassWithStaticInitializer2.initialized());
+        assertTrue(AnotherClassWithStaticInitializer2.initialized);
     }
 
     /**

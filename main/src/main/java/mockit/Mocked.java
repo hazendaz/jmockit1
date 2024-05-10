@@ -47,10 +47,27 @@ import java.lang.annotation.Target;
  * applies to all cascading levels, and even to the type of the mock field/parameter itself (ie, if a method in
  * class/interface "<code>A</code>" has return type <code>A</code>, then it will return itself by default). Finally,
  * when new cascaded instances are created, {@linkplain Injectable @Injectable} semantics apply.
+ * <p>
+ * Static <em>class initializers</em> (including assignments to <em>static</em> fields) of a mocked class are not
+ * affected, unless {@linkplain #stubOutClassInitialization specified otherwise}.
  *
  * @see <a href="http://jmockit.github.io/tutorial/Mocking.html#mocked" target="tutorial">Tutorial</a>
  */
 @Retention(RUNTIME)
 @Target({ FIELD, PARAMETER })
 public @interface Mocked {
+    /**
+     * Indicates whether <em>static initialization code</em> in the mocked class should be stubbed out or not. Static
+     * initialization includes the execution of assignments to static fields of the class and the execution of static
+     * initialization blocks, if any. (Note that <em>static final</em> fields initialized with <em>compile-time</em>
+     * constants are not assigned at runtime, remaining unaffected whether the class is stubbed out or not.)
+     * <p>
+     * By default, static initialization code in a mocked class is <em>not</em> stubbed out. The JVM will only perform
+     * static initialization of a class <em>once</em>, so stubbing out the initialization code can have unexpected
+     * consequences. Stubbing out the static initialization of a class is an unsafe operation, which can cause other
+     * tests, executed later in the same test run, to unexpectedly fail; instead of resorting to stubbing out a class's
+     * static initializer, the root cause for wanting to stub it out should be eliminated. This attribute will be
+     * removed in a future version.
+     */
+    boolean stubOutClassInitialization() default false;
 }

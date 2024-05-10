@@ -82,7 +82,9 @@ class BaseTypeRedefinition {
         if (targetClass == TypeVariable.class || targetClass.isInterface()) {
             createMockedInterfaceImplementationAndInstanceFactory(typeToMock);
         } else {
-            TestRun.ensureThatClassIsInitialized(targetClass);
+            if (typeMetadata == null || !typeMetadata.isClassInitializationToBeStubbedOut()) {
+                TestRun.ensureThatClassIsInitialized(targetClass);
+            }
             redefineTargetClassAndCreateInstanceFactory(typeToMock);
         }
 
