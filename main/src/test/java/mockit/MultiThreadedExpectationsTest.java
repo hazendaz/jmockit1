@@ -2,21 +2,21 @@ package mockit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.runners.MethodSorters.NAME_ASCENDING;
 
 import java.awt.Graphics2D;
 import java.util.concurrent.Callable;
 
 import javax.swing.SwingUtilities;
 
-import org.junit.FixMethodOrder;
-import org.junit.Test;
+import org.junit.jupiter.api.MethodOrderer.MethodName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 /**
  * The Class MultiThreadedExpectationsTest.
  */
-@FixMethodOrder(NAME_ASCENDING)
-public final class MultiThreadedExpectationsTest {
+@TestMethodOrder(MethodName.class)
+final class MultiThreadedExpectationsTest {
 
     /**
      * The Class Collaborator.
@@ -64,7 +64,7 @@ public final class MultiThreadedExpectationsTest {
      * Use mocked object from worker thread while verifying expectation.
      */
     @Test
-    public void useMockedObjectFromWorkerThreadWhileVerifyingExpectation() {
+    void useMockedObjectFromWorkerThreadWhileVerifyingExpectation() {
         mock.doSomething();
         mock.doSomething();
 
@@ -81,7 +81,7 @@ public final class MultiThreadedExpectationsTest {
      * Use mocked object from worker thread while recording and verifying expectation.
      */
     @Test
-    public void useMockedObjectFromWorkerThreadWhileRecordingAndVerifyingExpectation() {
+    void useMockedObjectFromWorkerThreadWhileRecordingAndVerifyingExpectation() {
         new Expectations() {
             {
                 mock.doSomething();
@@ -109,7 +109,7 @@ public final class MultiThreadedExpectationsTest {
      *             the exception
      */
     @Test
-    public void replayRecordedExpectationFromAnotherThread() throws Exception {
+    void replayRecordedExpectationFromAnotherThread() throws Exception {
         new Expectations() {
             {
                 mock.doSomething();
@@ -155,7 +155,7 @@ public final class MultiThreadedExpectationsTest {
      *            the runnable
      */
     @Test
-    public void verifyInvocationsReplayedInAnotherThreadWhoseClassIsNoLongerMocked(@Mocked final Dependency dep,
+    void verifyInvocationsReplayedInAnotherThreadWhoseClassIsNoLongerMocked(@Mocked final Dependency dep,
             @Mocked final Graphics2D g2D, @Mocked final Runnable runnable) {
         new Thread() {
             @Override
@@ -190,7 +190,7 @@ public final class MultiThreadedExpectationsTest {
      *             the exception
      */
     @Test
-    public void invokeMethodOnMockedPublicInterfaceFromEDT(@Mocked final APublicInterface mock2) throws Exception {
+    void invokeMethodOnMockedPublicInterfaceFromEDT(@Mocked final APublicInterface mock2) throws Exception {
         new Expectations() {
             {
                 mock2.doSomething();
@@ -225,7 +225,7 @@ public final class MultiThreadedExpectationsTest {
      *             the exception
      */
     @Test
-    public void invokeMethodOnMockedAbstractClassFromEDT(@Mocked final AnAbstractClass mock2) throws Exception {
+    void invokeMethodOnMockedAbstractClassFromEDT(@Mocked final AnAbstractClass mock2) throws Exception {
         new Expectations() {
             {
                 mock2.doSomething();
@@ -248,7 +248,7 @@ public final class MultiThreadedExpectationsTest {
      *             the exception
      */
     @Test
-    public void invokeMethodOnMockedGenericInterfaceFromEDT(@Mocked final Callable<Boolean> mock2) throws Exception {
+    void invokeMethodOnMockedGenericInterfaceFromEDT(@Mocked final Callable<Boolean> mock2) throws Exception {
         new Expectations() {
             {
                 mock2.call();

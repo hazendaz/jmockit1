@@ -6,16 +6,16 @@ import mockit.Capturing;
 import mockit.Expectations;
 import mockit.Mocked;
 
-import org.junit.Before;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import org.junit.runners.MethodSorters;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer.MethodName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 /**
  * The Class SubclassTest.
  */
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public final class SubclassTest {
+@TestMethodOrder(MethodName.class)
+final class SubclassTest {
 
     /** The super class constructor called. */
     private static boolean superClassConstructorCalled;
@@ -65,8 +65,8 @@ public final class SubclassTest {
     /**
      * Sets the up.
      */
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         superClassConstructorCalled = false;
         subClassConstructorCalled = false;
     }
@@ -78,7 +78,7 @@ public final class SubclassTest {
      *            the captured
      */
     @Test
-    public void captureSubclassThroughClassfileTransformer(@Capturing SuperClass captured) {
+    void captureSubclassThroughClassfileTransformer(@Capturing SuperClass captured) {
         new SubClass("capture");
 
         assertFalse(superClassConstructorCalled);
@@ -92,7 +92,7 @@ public final class SubclassTest {
      *            the captured
      */
     @Test
-    public void captureSubclassThroughRedefinitionOfPreviouslyLoadedClasses(@Capturing SuperClass captured) {
+    void captureSubclassThroughRedefinitionOfPreviouslyLoadedClasses(@Capturing SuperClass captured) {
         new SubClass("capture");
 
         assertFalse(superClassConstructorCalled);
@@ -106,7 +106,7 @@ public final class SubclassTest {
      *            the mock
      */
     @Test
-    public void mockSubclassUsingExpectationsWithFirstSuperConstructor(@Mocked SubClass mock) {
+    void mockSubclassUsingExpectationsWithFirstSuperConstructor(@Mocked SubClass mock) {
         new Expectations() {
             {
                 new SubClass("test");

@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.runners.MethodSorters.NAME_ASCENDING;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -46,17 +45,18 @@ import javax.persistence.metamodel.Metamodel;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.MethodOrderer.MethodName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 /**
  * The Class TestedClassWithFullStandardDITest.
  */
-@FixMethodOrder(NAME_ASCENDING)
-public final class TestedClassWithFullStandardDITest {
+@TestMethodOrder(MethodName.class)
+final class TestedClassWithFullStandardDITest {
 
     /**
      * The Class TestedClass.
@@ -242,9 +242,9 @@ public final class TestedClassWithFullStandardDITest {
      * @throws Exception
      *             the exception
      */
-    @BeforeClass
+    @BeforeAll
     @SuppressWarnings("rawtypes")
-    public static void setUpPersistence() throws Exception {
+    static void setUpPersistence() throws Exception {
         final class FakeEntityManager implements EntityManager {
             @Override
             public void persist(Object entity) {
@@ -609,8 +609,8 @@ public final class TestedClassWithFullStandardDITest {
     /**
      * Delete default persistence xml file.
      */
-    @AfterClass
-    public static void deleteDefaultPersistenceXmlFile() {
+    @AfterAll
+    static void deleteDefaultPersistenceXmlFile() {
         persistenceXmlFile.delete();
         persistenceXmlFile.getParentFile().delete();
     }
@@ -619,7 +619,7 @@ public final class TestedClassWithFullStandardDITest {
      * Use fully initialized tested object.
      */
     @Test
-    public void useFullyInitializedTestedObject() {
+    void useFullyInitializedTestedObject() {
         // First level dependencies:
         assertSame(mockedDependency, tested.dependencyToBeMocked);
         assertNotNull(tested.dependency2);
@@ -655,7 +655,7 @@ public final class TestedClassWithFullStandardDITest {
      * Use fully initialized tested object again.
      */
     @Test
-    public void useFullyInitializedTestedObjectAgain() {
+    void useFullyInitializedTestedObjectAgain() {
         assertNull(tested.text);
     }
 
@@ -663,7 +663,7 @@ public final class TestedClassWithFullStandardDITest {
      * Verify emulated http session.
      */
     @Test
-    public void verifyEmulatedHttpSession() {
+    void verifyEmulatedHttpSession() {
         HttpSession session = tested2.session;
         assertFalse(session.isNew());
         assertFalse(session.getId().isEmpty());
@@ -733,7 +733,7 @@ public final class TestedClassWithFullStandardDITest {
      * Verify emulated servlet context.
      */
     @Test
-    public void verifyEmulatedServletContext() {
+    void verifyEmulatedServletContext() {
         ServletContext ctx = tested2.applicationContext;
 
         assertFalse(ctx.getAttributeNames().hasMoreElements());
@@ -755,8 +755,8 @@ public final class TestedClassWithFullStandardDITest {
     /**
      * Verify that tested fields were cleared and pre destroy methods were executed.
      */
-    @After
-    public void verifyThatTestedFieldsWereClearedAndPreDestroyMethodsWereExecuted() {
+    @AfterEach
+    void verifyThatTestedFieldsWereClearedAndPreDestroyMethodsWereExecuted() {
         assertNull(tested);
         assertNull(tested2);
         assertTrue(TestedClass.destroyed);
@@ -766,8 +766,8 @@ public final class TestedClassWithFullStandardDITest {
     /**
      * Clear entity managers.
      */
-    @After
-    public void clearEntityManagers() {
+    @AfterEach
+    void clearEntityManagers() {
         namedEM = null;
         defaultEM = null;
     }

@@ -8,19 +8,19 @@ import java.nio.CharBuffer;
 
 import javax.annotation.Nonnull;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import org.junit.runners.MethodSorters;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer.MethodName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 /**
  * The Class FakingBaseTypesTest.
  */
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public final class FakingBaseTypesTest {
+@TestMethodOrder(MethodName.class)
+final class FakingBaseTypesTest {
 
     /**
      * The Class BeforeClassBaseAction.
@@ -52,8 +52,8 @@ public final class FakingBaseTypesTest {
      * @param <T>
      *            the generic type
      */
-    @BeforeClass
-    public static <T extends BeforeClassBaseAction> void applyFakeForAllTests() {
+    @BeforeAll
+    static <T extends BeforeClassBaseAction> void applyFakeForAllTests() {
         new MockUp<T>() {
             @Mock
             int perform() {
@@ -65,8 +65,8 @@ public final class FakingBaseTypesTest {
     /**
      * Verify fake for all tests is in effect.
      */
-    @AfterClass
-    public static void verifyFakeForAllTestsIsInEffect() {
+    @AfterAll
+    static void verifyFakeForAllTestsIsInEffect() {
         int i1 = new BeforeClassAction().perform();
         int i2 = new BeforeClassBaseAction().perform();
 
@@ -103,8 +103,8 @@ public final class FakingBaseTypesTest {
      * @param <T>
      *            the generic type
      */
-    @Before
-    public <T extends IBeforeAction> void applyFakeForEachTest() {
+    @BeforeEach
+    <T extends IBeforeAction> void applyFakeForEachTest() {
         new MockUp<T>() {
             @Mock
             int perform() {
@@ -116,8 +116,8 @@ public final class FakingBaseTypesTest {
     /**
      * Verify fake for each test is in effect.
      */
-    @After
-    public void verifyFakeForEachTestIsInEffect() {
+    @AfterEach
+    void verifyFakeForEachTestIsInEffect() {
         int i = new BeforeAction().perform();
         assertEquals(56, i);
     }
@@ -185,7 +185,7 @@ public final class FakingBaseTypesTest {
      *            the generic type
      */
     @Test
-    public <T extends IAction> void test3_fakeInterfaceImplementationClassesUsingAnonymousFake() {
+    <T extends IAction> void test3_fakeInterfaceImplementationClassesUsingAnonymousFake() {
         actionI = new ActionImpl1();
 
         new MockUp<T>() {
@@ -241,7 +241,7 @@ public final class FakingBaseTypesTest {
      * Fake all classes implementing an interface using named fake with invocation parameter.
      */
     @Test
-    public void fakeAllClassesImplementingAnInterfaceUsingNamedFakeWithInvocationParameter() {
+    void fakeAllClassesImplementingAnInterfaceUsingNamedFakeWithInvocationParameter() {
         TestInterface impl1 = new TestInterface() {
             @Override
             public String getData() {
@@ -357,7 +357,7 @@ public final class FakingBaseTypesTest {
      *            the generic type
      */
     @Test
-    public <T extends BaseAction> void test4_fakeConcreteSubclassesUsingAnonymousFake() {
+    <T extends BaseAction> void test4_fakeConcreteSubclassesUsingAnonymousFake() {
         actionB = new ConcreteAction1();
 
         new MockUp<T>() {
@@ -390,8 +390,8 @@ public final class FakingBaseTypesTest {
     /**
      * Check implementation classes are no longer faked.
      */
-    @After
-    public void checkImplementationClassesAreNoLongerFaked() {
+    @AfterEach
+    void checkImplementationClassesAreNoLongerFaked() {
         if (actionI != null) {
             assertEquals(-1, actionI.perform(0));
         }
@@ -432,7 +432,7 @@ public final class FakingBaseTypesTest {
      * Test 5 fake interface implementation classes using named fake.
      */
     @Test
-    public void test5_fakeInterfaceImplementationClassesUsingNamedFake() {
+    void test5_fakeInterfaceImplementationClassesUsingNamedFake() {
         new FakeInterface();
 
         actionI = new ActionImpl1();
@@ -466,7 +466,7 @@ public final class FakingBaseTypesTest {
      * Test 6 fake concrete subclasses using named fake.
      */
     @Test
-    public void test6_fakeConcreteSubclassesUsingNamedFake() {
+    void test6_fakeConcreteSubclassesUsingNamedFake() {
         new FakeBaseClass();
 
         actionB = new ConcreteAction1();
@@ -500,7 +500,7 @@ public final class FakingBaseTypesTest {
      *            the generic type
      */
     @Test
-    public <M extends GenericIAction<Number>> void test7_fakeImplementationsOfGenericInterface() {
+    <M extends GenericIAction<Number>> void test7_fakeImplementationsOfGenericInterface() {
         GenericIAction<Number> actionNumber = new GenericIAction<Number>() {
             @Override
             public Number perform(Number n) {
@@ -549,7 +549,7 @@ public final class FakingBaseTypesTest {
      *             the exception
      */
     @Test
-    public <R extends Readable> void test8_excludeJREClassesFromFakingForSafety() throws Exception {
+    <R extends Readable> void test8_excludeJREClassesFromFakingForSafety() throws Exception {
         new MockUp<R>() {
             @Mock
             int read(CharBuffer cb) {
