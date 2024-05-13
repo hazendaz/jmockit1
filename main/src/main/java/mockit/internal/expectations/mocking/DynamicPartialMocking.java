@@ -18,20 +18,21 @@ import javax.annotation.Nonnull;
 import mockit.internal.expectations.MockingFilters;
 import mockit.internal.state.TestRun;
 
-public final class PartialMocking extends BaseTypeRedefinition {
+public final class DynamicPartialMocking extends BaseTypeRedefinition {
     @Nonnull
     public final List<Object> targetInstances;
     @Nonnull
     private final Map<Class<?>, byte[]> modifiedClassfiles;
+    private boolean methodsOnly;
 
-    public PartialMocking() {
+    public DynamicPartialMocking() {
         targetInstances = new ArrayList<>(2);
         modifiedClassfiles = new HashMap<>();
     }
 
-    public void redefineTypes(@Nonnull Object[] instancesToBePartiallyMocked) {
-        for (Object instance : instancesToBePartiallyMocked) {
-            redefineClassHierarchy(instance);
+    public void redefineTypes(@Nonnull Object[] classesOrInstancesToBePartiallyMocked) {
+        for (Object classOrInstance : classesOrInstancesToBePartiallyMocked) {
+            redefineClassHierarchy(classOrInstance);
         }
 
         if (!modifiedClassfiles.isEmpty()) {
@@ -40,10 +41,24 @@ public final class PartialMocking extends BaseTypeRedefinition {
         }
     }
 
-    private void redefineClassHierarchy(@Nonnull Object mockInstance) {
-        if (mockInstance instanceof Class) {
-            throw new IllegalArgumentException(
-                    "Invalid Class argument for partial mocking (use a MockUp instead): " + mockInstance);
+    private void redefineClassHierarchy(@Nonnull Object classOrInstance) {
+        Object mockInstance;
+
+        if (classOrInstance instanceof Class) {
+            mockInstance = null;
+            targetClass = (Class<?>) classOrInstance;
+            CaptureOfNewInstances capture = TestRun.mockFixture().findCaptureOfImplementations(targetClass);
+
+            if (capture != null) {
+                capture.useDynamicMocking(targetClass);
+                return;
+            }
+
+            applyPartialMockingToGivenClass();
+        } else {
+            mockInstance = classOrInstance;
+            targetClass = getMockedClass(classOrInstance);
+            applyPartialMockingToGivenInstance(classOrInstance);
         }
 
         targetClass = getMockedClass(mockInstance);
@@ -56,8 +71,16 @@ public final class PartialMocking extends BaseTypeRedefinition {
         TestRun.getExecutingTest().getCascadingTypes().add(false, targetClass);
     }
 
+    private void applyPartialMockingToGivenClass() {
+        validateTargetClassType();
+        TestRun.ensureThatClassIsInitialized(targetClass);
+        methodsOnly = false;
+        redefineMethodsAndConstructorsInTargetType();
+    }
+
     private void applyPartialMockingToGivenInstance(@Nonnull Object instance) {
         validateTargetClassType();
+        methodsOnly = false;
         redefineMethodsAndConstructorsInTargetType();
         targetInstances.add(instance);
     }
@@ -73,7 +96,7 @@ public final class PartialMocking extends BaseTypeRedefinition {
 
     @Override
     void configureClassModifier(@Nonnull MockedClassModifier modifier) {
-        modifier.useDynamicMocking();
+        modifier.useDynamicMocking(methodsOnly);
     }
 
     @Override

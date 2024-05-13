@@ -16,8 +16,8 @@ import javax.annotation.Nullable;
 import mockit.Expectations;
 import mockit.internal.expectations.invocation.ExpectedInvocation;
 import mockit.internal.expectations.mocking.CaptureOfNewInstances;
+import mockit.internal.expectations.mocking.DynamicPartialMocking;
 import mockit.internal.expectations.mocking.FieldTypeRedefinitions;
-import mockit.internal.expectations.mocking.PartialMocking;
 import mockit.internal.expectations.mocking.TypeRedefinitions;
 import mockit.internal.expectations.state.ExecutingTest;
 import mockit.internal.state.TestRun;
@@ -30,7 +30,7 @@ public final class RecordAndReplayExecution {
     public static final ReentrantLock TEST_ONLY_PHASE_LOCK = new ReentrantLock();
 
     @Nullable
-    private final PartialMocking partialMocking;
+    private final DynamicPartialMocking dynamicPartialMocking;
     @Nonnull
     private final PhasedExecutionState executionState;
     @Nonnull
@@ -44,14 +44,14 @@ public final class RecordAndReplayExecution {
 
     public RecordAndReplayExecution() {
         executionState = new PhasedExecutionState();
-        partialMocking = null;
+        dynamicPartialMocking = null;
         discoverMockedTypesAndInstancesForMatchingOnInstance();
         failureState = new FailureState();
         replayPhase = new ReplayPhase(executionState, failureState);
     }
 
     public RecordAndReplayExecution(@Nonnull Expectations targetObject,
-            @Nullable Object... instancesToBePartiallyMocked) {
+            @Nullable Object... classesOrInstancesToBePartiallyMocked) {
         TestRun.enterNoMockingZone();
         ExecutingTest executingTest = TestRun.getExecutingTest();
         executingTest.setShouldIgnoreMockingCallbacks(true);
@@ -64,7 +64,7 @@ public final class RecordAndReplayExecution {
             recordPhase = new RecordPhase(executionState);
 
             executingTest.setRecordAndReplay(this);
-            partialMocking = applyPartialMocking(instancesToBePartiallyMocked);
+            dynamicPartialMocking = applyDynamicPartialMocking(classesOrInstancesToBePartiallyMocked);
             discoverMockedTypesAndInstancesForMatchingOnInstance();
 
             // noinspection LockAcquiredButNotSafelyReleased
@@ -93,20 +93,21 @@ public final class RecordAndReplayExecution {
 
             executionState.instanceBasedMatching.discoverMockedTypesToMatchOnInstances(targetClasses);
 
-            if (partialMocking != null && !partialMocking.targetInstances.isEmpty()) {
-                executionState.partiallyMockedInstances = new PartiallyMockedInstances(partialMocking.targetInstances);
+            if (dynamicPartialMocking != null && !dynamicPartialMocking.targetInstances.isEmpty()) {
+                executionState.partiallyMockedInstances = new PartiallyMockedInstances(
+                        dynamicPartialMocking.targetInstances);
             }
         }
     }
 
     @Nullable
-    private static PartialMocking applyPartialMocking(@Nullable Object... instances) {
-        if (instances == null || instances.length == 0) {
+    private static DynamicPartialMocking applyDynamicPartialMocking(@Nullable Object... classesOrInstances) {
+        if (classesOrInstances == null || classesOrInstances.length == 0) {
             return null;
         }
 
-        PartialMocking mocking = new PartialMocking();
-        mocking.redefineTypes(instances);
+        DynamicPartialMocking mocking = new DynamicPartialMocking();
+        mocking.redefineTypes(classesOrInstances);
         return mocking;
     }
 

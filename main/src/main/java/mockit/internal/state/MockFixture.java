@@ -120,6 +120,7 @@ public final class MockFixture {
      * A list of "capturing" class file transformers, used by both the mocking and faking APIs.
      *
      * @see #addCaptureTransformer(CaptureTransformer)
+     * @see #findCaptureOfImplementations(Class)
      * @see #areCapturedClasses(Class, Class)
      * @see #isCaptured(Object)
      * @see #getCaptureTransformerCount()
@@ -414,13 +415,23 @@ public final class MockFixture {
 
     // The following methods are only used by the Mocking API.
 
-    public boolean isCaptured(@Nonnull Object mockedInstance) {
-        if (!captureTransformers.isEmpty()) {
-            Class<?> mockedClass = getMockedClass(mockedInstance);
-            return isCaptured(mockedClass);
+    @Nullable
+    public CaptureOfNewInstances findCaptureOfImplementations(@Nonnull Class<?> capturedType) {
+        for (CaptureTransformer<?> captureTransformer : captureTransformers) {
+            CaptureOfNewInstances capture = captureTransformer.getCaptureOfImplementationsIfApplicable(capturedType);
+
+            if (capture != null) {
+                return capture;
+            }
         }
 
-        return false;
+        return null;
+    }
+
+    public boolean isCaptured(@Nonnull Object mockedInstance) {
+        Class<?> mockedClass = getMockedClass(mockedInstance);
+        CaptureOfNewInstances capture = findCaptureOfImplementations(mockedClass);
+        return capture != null;
     }
 
     private boolean isCaptured(@Nonnull Class<?> mockedClass) {
