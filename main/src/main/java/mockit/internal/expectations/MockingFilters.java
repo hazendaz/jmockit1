@@ -19,7 +19,7 @@ public final class MockingFilters {
 
     public static void validateAsMockable(@Nonnull String typeDesc) {
         boolean unmockable = ("java/lang/String java/lang/StringBuffer java/lang/StringBuilder java/lang/AbstractStringBuilder "
-                + "java/util/Hashtable java/lang/Throwable java/lang/Object java/lang/Enum java/lang/System java/lang/ThreadLocal "
+                + "java/lang/Throwable java/lang/Object java/lang/Enum java/lang/System java/lang/ThreadLocal "
                 + "java/lang/ClassLoader java/lang/Math java/lang/StrictMath java/time/Duration").contains(typeDesc)
                 || "java/nio/file/Paths".equals(typeDesc) || typeDesc.startsWith("java/util/jar/");
 
