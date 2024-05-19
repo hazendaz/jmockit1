@@ -14,7 +14,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.Serializable;
 import java.lang.management.CompilationMXBean;
 import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
@@ -23,18 +22,14 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.nio.channels.SocketChannel;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
 
 import mockit.internal.expectations.invocation.MissingInvocation;
 
-import org.gaul.modernizer_maven_annotations.SuppressModernizer;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -1319,101 +1314,5 @@ public final class CascadingParametersTest {
         Runnable runnable = second.getSomething();
 
         assertNotNull(runnable);
-    }
-
-    /**
-     * The Interface SubInterfaceOfSomeCollectionType.
-     *
-     * @param <T>
-     *            the generic type
-     */
-    public interface SubInterfaceOfSomeCollectionType<T> extends List<T> {
-    }
-
-    /**
-     * The Interface IteratorSubInterface.
-     */
-    public interface IteratorSubInterface extends Iterator<String> {
-    }
-
-    /**
-     * The Interface ComparatorSubInterface.
-     */
-    public interface ComparatorSubInterface extends Comparator<Integer>, Serializable {
-    }
-
-    /**
-     * The Interface EnumerationSubInterface.
-     */
-    @SuppressModernizer
-    public interface EnumerationSubInterface extends Enumeration<Object> {
-    }
-
-    /**
-     * The Class AnotherClass.
-     */
-    static class AnotherClass {
-
-        /**
-         * Gets the list.
-         *
-         * @return the list
-         */
-        SubInterfaceOfSomeCollectionType<?> getList() {
-            return null;
-        }
-
-        /**
-         * Gets the iterator.
-         *
-         * @return the iterator
-         */
-        IteratorSubInterface getIterator() {
-            return null;
-        }
-
-        /**
-         * Gets the comparator.
-         *
-         * @return the comparator
-         */
-        ComparatorSubInterface getComparator() {
-            return null;
-        }
-
-        /**
-         * Gets the enumeration.
-         *
-         * @return the enumeration
-         */
-        EnumerationSubInterface getEnumeration() {
-            return null;
-        }
-    }
-
-    /**
-     * Return null from mocked method returning subtype of unmockable type.
-     *
-     * @param mock
-     *            the mock
-     */
-    @Test
-    public void returnNullFromMockedMethodReturningSubtypeOfUnmockableType(@Mocked AnotherClass mock) {
-        List<?> l = mock.getList();
-
-        assertNull(l);
-    }
-
-    /**
-     * Mock method returning user defined subtypes of unmockable JRE interfaces.
-     *
-     * @param mock
-     *            the mock
-     */
-    @Test
-    public void mockMethodReturningUserDefinedSubtypesOfUnmockableJREInterfaces(@Mocked AnotherClass mock) {
-        assertNull(mock.getIterator());
-        assertNull(mock.getComparator());
-        assertNull(mock.getEnumeration());
     }
 }

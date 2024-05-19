@@ -76,10 +76,6 @@ final class TestedClassWithConstructorAndFieldDI2Test {
         boolean flag;
     }
 
-    /** The names. */
-    @Tested
-    final List<String> names = asList("Abc", "xyz");
-
     /** The tested 1. */
     @Tested
     final TestedClass tested1 = new TestedClass(123, "test", null);
@@ -111,6 +107,9 @@ final class TestedClassWithConstructorAndFieldDI2Test {
     /** The int value 3. */
     @Injectable
     final int intValue3 = 9; // won't be used
+
+    @Injectable
+    final List<String> names = asList("Abc", "xyz");
 
     /**
      * Sets the up.
