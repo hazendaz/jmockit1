@@ -32,7 +32,7 @@ This fork is the new home for jmockit continuation.  All pull requests are welco
 
 Considerations
 
-  - Testing confirmed to work through jdk 21
+  - Testing confirmed to work from jdk 11 through jdk 23
   - New launcher pom in root to build entire project and entire project with demos are distributed to maven central now.
 
 Releasing
