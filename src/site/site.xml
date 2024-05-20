@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="${project.name}" xmlns="http://maven.apache.org/DECORATION/1.8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 http://maven.apache.org/xsd/decoration-1.8.0.xsd">
-    <bannerLeft>
-        <src>/images/hazendaz-banner.jpg</src>
-        <href>https://github.com/hazendaz</href>
+<site name="${project.name}" xmlns="http://maven.apache.org/SITE/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/SITE/2.0.0 https://maven.apache.org/xsd/site-2.0.0.xsd">
+    <bannerLeft href="https://github.com/hazendaz">
+        <image src="/images/hazendaz-banner.jpg" />
     </bannerLeft>
-    <bannerRight>
-        <src>/images/hazendaz.png</src>
-        <href>https://github.com/hazendaz</href>
+    <bannerRight href="https://github.com/hazendaz">
+        <image src="/images/hazendaz.png" />
     </bannerRight>
     <skin>
         <groupId>org.apache.maven.skins</groupId>
         <artifactId>maven-fluido-skin</artifactId>
-        <version>1.12.0</version>
+        <version>2.0.0-M8</version>
     </skin>
     <custom>
         <fluidoSkin>

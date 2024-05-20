@@ -6,12 +6,12 @@
     <parent>
         <groupId>com.github.hazendaz.jmockit</groupId>
         <artifactId>jmockit-parent</artifactId>
-        <version>1.52.1-SNAPSHOT</version>
+        <version>1.53.1-SNAPSHOT</version>
     </parent>
 
     <groupId>com.github.hazendaz.jmockit</groupId>
     <artifactId>coverage-tests</artifactId>
-    <version>1.52.1-SNAPSHOT</version>
+    <version>1.53.1-SNAPSHOT</version>
 
     <name>JMockit Coverage Tests</name>
 

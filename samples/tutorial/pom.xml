@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.github.hazendaz.jmockit</groupId>
         <artifactId>samples</artifactId>
-        <version>1.52.1-SNAPSHOT</version>
+        <version>1.53.1-SNAPSHOT</version>
     </parent>
     <artifactId>tutorial</artifactId>
     <name>Tutorial Sample</name>
