@@ -6,7 +6,7 @@ package mockit.internal.util;
 
 import java.io.IOException;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Provides utility methods to extract and filter stack trace information.

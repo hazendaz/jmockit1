@@ -16,8 +16,8 @@ import mockit.internal.classGeneration.ImplementationClass;
 import mockit.internal.expectations.mocking.InterfaceImplementationGenerator;
 import mockit.internal.util.Utilities;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class FakedImplementationClass<T> {
     private static final ClassLoader THIS_CL = FakedImplementationClass.class.getClassLoader();

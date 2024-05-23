@@ -7,8 +7,9 @@ import mockit.asm.jvmConstants.ClassVersion;
 import mockit.asm.methods.MethodReader;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * A Java class parser to make a {@link ClassVisitor} visit an existing class.

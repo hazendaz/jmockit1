@@ -4,9 +4,8 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
-
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 import petclinic.owners.Owner;
 import petclinic.owners.OwnerData;
 import petclinic.util.TestDatabase;

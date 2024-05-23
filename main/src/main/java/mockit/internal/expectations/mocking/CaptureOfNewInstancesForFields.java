@@ -8,7 +8,7 @@ import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.List;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 final class CaptureOfNewInstancesForFields extends CaptureOfNewInstances {
     void resetCaptureCount(@NonNull Field mockField) {

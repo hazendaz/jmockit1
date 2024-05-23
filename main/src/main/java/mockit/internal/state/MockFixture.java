@@ -35,8 +35,8 @@ import mockit.internal.expectations.mocking.InstanceFactory;
 import mockit.internal.startup.Startup;
 import mockit.internal.util.ClassLoad;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Holds data about redefined/transformed classes, with methods to add/remove and query such data.

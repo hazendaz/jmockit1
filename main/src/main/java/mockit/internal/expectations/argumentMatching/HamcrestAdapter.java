@@ -6,8 +6,6 @@ package mockit.internal.expectations.argumentMatching;
 
 import mockit.internal.reflection.FieldReflection;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.StringDescription;
@@ -15,6 +13,9 @@ import org.hamcrest.core.Is;
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsNot;
 import org.hamcrest.core.IsSame;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Adapts the <tt>org.hamcrest.Matcher</tt> interface to {@link ArgumentMatcher}.

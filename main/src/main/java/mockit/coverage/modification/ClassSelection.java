@@ -16,8 +16,8 @@ import java.util.regex.Pattern;
 
 import mockit.coverage.Configuration;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class ClassSelection {
     private static final String THIS_CLASS_NAME = ClassSelection.class.getName();

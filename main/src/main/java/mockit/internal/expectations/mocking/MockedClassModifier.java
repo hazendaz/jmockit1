@@ -35,8 +35,8 @@ import mockit.asm.types.JavaType;
 import mockit.internal.BaseClassModifier;
 import mockit.internal.expectations.ExecutionMode;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class MockedClassModifier extends BaseClassModifier {
     private static final int METHOD_ACCESS_MASK = PRIVATE + SYNTHETIC + ABSTRACT;

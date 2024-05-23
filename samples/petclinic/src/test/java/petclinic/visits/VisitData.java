@@ -4,8 +4,7 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-
+import edu.umd.cs.findbugs.annotations.NonNull;
 import petclinic.pets.Pet;
 import petclinic.pets.PetData;
 import petclinic.util.TestDatabase;

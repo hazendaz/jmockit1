@@ -19,8 +19,8 @@ import javax.sql.CommonDataSource;
 import mockit.internal.injection.InjectionPoint;
 import mockit.internal.injection.TestedClass;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class TestDataSource {
     @Nullable

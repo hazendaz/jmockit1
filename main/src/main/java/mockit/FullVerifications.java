@@ -4,7 +4,7 @@
  */
 package mockit;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Same as {@link Verifications}, but checking that <em>all</em> invocations from code under test are explicitly

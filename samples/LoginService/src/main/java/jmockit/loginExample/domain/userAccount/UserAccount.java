@@ -1,6 +1,6 @@
 package jmockit.loginExample.domain.userAccount;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class UserAccount {
     private final String id;

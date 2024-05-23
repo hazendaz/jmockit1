@@ -12,7 +12,8 @@ import mockit.asm.util.ByteVector;
 import mockit.asm.util.MethodHandle;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Generates the "BootstrapMethods" attribute in a class file being written by a {@link ClassWriter}.

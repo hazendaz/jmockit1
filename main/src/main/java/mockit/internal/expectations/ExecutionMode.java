@@ -9,8 +9,8 @@ import static java.lang.reflect.Modifier.isStatic;
 
 import mockit.internal.state.TestRun;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public enum ExecutionMode {
     Regular {

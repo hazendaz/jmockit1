@@ -15,8 +15,9 @@ import mockit.coverage.CoveragePercentage;
 import mockit.coverage.data.PerFileCoverage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class PerFileLineCoverage implements PerFileCoverage {
     private static final long serialVersionUID = 6318915843739466316L;

@@ -28,8 +28,8 @@ import mockit.internal.BaseClassModifier;
 import mockit.internal.ClassFile;
 import mockit.internal.util.TypeDescriptor;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public class BaseSubclassGenerator extends BaseClassModifier {
     private static final int CLASS_ACCESS_MASK = 0xFFFF - Access.ABSTRACT;

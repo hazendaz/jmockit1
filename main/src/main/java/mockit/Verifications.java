@@ -11,8 +11,8 @@ import mockit.internal.expectations.RecordAndReplayExecution;
 import mockit.internal.expectations.argumentMatching.AlwaysTrueMatcher;
 import mockit.internal.state.TestRun;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Used to <em>verify</em> a set of expectations on available {@linkplain Mocked mocked} types and/or instances, against

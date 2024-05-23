@@ -31,7 +31,7 @@ import javax.servlet.http.HttpSessionContext;
 import mockit.internal.injection.InjectionPoint;
 import mockit.internal.injection.InjectionState;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Detects and resolves dependencies belonging to the <code>javax.servlet</code> API, namely <code>ServletContext</code>

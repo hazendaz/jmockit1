@@ -11,7 +11,8 @@ import mockit.asm.methods.MethodWriter;
 import mockit.asm.types.JavaType;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 final class ArgumentMatching {
     private static final JavaType[] NO_PARAMETERS = {};

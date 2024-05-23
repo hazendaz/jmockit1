@@ -27,8 +27,8 @@ import mockit.coverage.data.CoverageData;
 import mockit.coverage.data.FileCoverageData;
 import mockit.internal.ClassFile;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class CoverageModifier extends WrappingClassVisitor {
     private static final Map<String, CoverageModifier> INNER_CLASS_MODIFIERS = new HashMap<>();

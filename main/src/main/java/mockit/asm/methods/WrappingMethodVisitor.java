@@ -5,8 +5,9 @@ import mockit.asm.controlFlow.Label;
 import mockit.asm.util.MethodHandle;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Same as {@link MethodVisitor}, except it always wraps a {@link MethodWriter}.

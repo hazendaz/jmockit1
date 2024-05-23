@@ -12,8 +12,8 @@ import mockit.internal.expectations.invocation.ExpectedInvocation;
 import mockit.internal.expectations.invocation.InvocationConstraints;
 import mockit.internal.expectations.invocation.UnexpectedInvocation;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class ReplayPhase extends Phase {
     @NonNull

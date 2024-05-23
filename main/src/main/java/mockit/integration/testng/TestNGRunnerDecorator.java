@@ -14,8 +14,6 @@ import mockit.integration.TestRunnerDecorator;
 import mockit.internal.state.SavePoint;
 import mockit.internal.state.TestRun;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.testng.IExecutionListener;
 import org.testng.IInvokedMethod;
 import org.testng.IInvokedMethodListener;
@@ -23,6 +21,9 @@ import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
 import org.testng.TestException;
 import org.testng.annotations.Test;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Provides callbacks to be called by the TestNG 6.2+ test runner for each test execution. JMockit will then assert any

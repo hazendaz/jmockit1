@@ -16,7 +16,7 @@ import java.util.Map;
 import mockit.internal.expectations.MockingFilters;
 import mockit.internal.state.TestRun;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class PartialMocking extends BaseTypeRedefinition {
     @NonNull

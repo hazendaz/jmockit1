@@ -16,8 +16,8 @@ import mockit.internal.startup.Startup;
 import mockit.internal.state.CachedClassfiles;
 import mockit.internal.state.TestRun;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class FakeClassSetup {
     @NonNull

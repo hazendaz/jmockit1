@@ -10,7 +10,7 @@ import java.lang.reflect.Type;
 import mockit.internal.reflection.GenericTypeReflection;
 import mockit.internal.util.Utilities;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class MockedTypeInfo {
     @NonNull

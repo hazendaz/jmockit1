@@ -6,7 +6,7 @@ package mockit.internal.expectations;
 
 import mockit.asm.types.JavaType;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class MockingFilters {
     private MockingFilters() {

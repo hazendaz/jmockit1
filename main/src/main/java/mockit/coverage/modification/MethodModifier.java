@@ -34,8 +34,9 @@ import mockit.coverage.data.FileCoverageData;
 import mockit.coverage.lines.PerFileLineCoverage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class MethodModifier extends WrappingMethodVisitor {
     private static final String DATA_RECORDING_CLASS = "mockit/coverage/TestRun";

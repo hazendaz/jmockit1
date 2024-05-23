@@ -25,8 +25,8 @@ import mockit.internal.util.ParameterNameExtractor;
 import mockit.internal.util.StackTrace;
 import mockit.internal.util.TestMethod;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Base class for "test runner decorators", which provide integration between JMockit and specific test runners from

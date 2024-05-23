@@ -6,9 +6,10 @@ package mockit.coverage.testRedundancy;
 
 import java.lang.reflect.Method;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.junit.runner.Description;
 import org.junit.runner.notification.RunListener;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class JUnitListener extends RunListener {
     @NonNull

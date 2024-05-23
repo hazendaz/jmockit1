@@ -23,8 +23,8 @@ import mockit.internal.reflection.MockInvocationHandler;
 import mockit.internal.startup.Startup;
 import mockit.internal.state.TestRun;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * A base class used in the creation of a <em>fake</em> for an <em>external</em> type, which is usually a class from

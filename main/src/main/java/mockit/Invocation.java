@@ -9,8 +9,9 @@ import java.lang.reflect.Member;
 import mockit.internal.BaseInvocation;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * A context object representing the current invocation to a mocked or faked method/constructor, to be passed as the

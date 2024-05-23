@@ -13,8 +13,9 @@ import java.util.regex.Pattern;
 import mockit.coverage.data.CoverageData;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class CoverageCheck {
     private static final String configuration = Configuration.getProperty("check", "");

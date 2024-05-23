@@ -13,8 +13,9 @@ import mockit.internal.BaseInvocation;
 import mockit.internal.state.TestRun;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * An invocation to a {@linkplain mockit.Mock fake} method.

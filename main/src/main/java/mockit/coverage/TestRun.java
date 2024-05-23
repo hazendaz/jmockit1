@@ -10,7 +10,8 @@ import mockit.coverage.lines.PerFileLineCoverage;
 import mockit.coverage.testRedundancy.TestCoverage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 @SuppressWarnings("unused")
 public final class TestRun {

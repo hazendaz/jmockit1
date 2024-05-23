@@ -22,7 +22,7 @@ import mockit.internal.ClassFile;
 import mockit.internal.faking.FakeMethods.FakeMethod;
 import mockit.internal.util.ClassLoad;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Responsible for collecting the signatures of all methods defined in a given fake class which are explicitly annotated

@@ -22,8 +22,9 @@ import mockit.asm.jvmConstants.JVMInstruction;
 import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * The control flow graph analysis algorithm, used to compute the maximum stack size for a method or constructor.

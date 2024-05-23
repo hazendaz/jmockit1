@@ -9,7 +9,7 @@ import java.util.Map;
 
 import mockit.internal.state.TestRun;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class StaticFieldData extends FieldData {
     private static final long serialVersionUID = -6596622341651601060L;

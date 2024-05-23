@@ -5,8 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.junit.jupiter.api.Test;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * The Class NaturalOrderingTest.

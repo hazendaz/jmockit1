@@ -31,8 +31,8 @@ import mockit.internal.classGeneration.MockedTypeInfo;
 import mockit.internal.reflection.GenericTypeReflection;
 import mockit.internal.reflection.GenericTypeReflection.GenericSignature;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class InterfaceImplementationGenerator extends BaseClassModifier {
     private static final int CLASS_ACCESS = PUBLIC + FINAL;

@@ -22,7 +22,7 @@ import mockit.integration.junit4.FakeRunNotifier;
 import mockit.internal.reflection.ConstructorReflection;
 import mockit.internal.util.StackTrace;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 final class JMockitInitialization {
     private JMockitInitialization() {

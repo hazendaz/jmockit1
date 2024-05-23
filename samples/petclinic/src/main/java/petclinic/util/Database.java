@@ -8,8 +8,9 @@ import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Provides access to the application database, allowing transient instances of entity classes to be persisted, and

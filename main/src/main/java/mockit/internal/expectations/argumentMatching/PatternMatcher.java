@@ -6,8 +6,8 @@ package mockit.internal.expectations.argumentMatching;
 
 import java.util.regex.Pattern;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class PatternMatcher implements ArgumentMatcher<PatternMatcher> {
     @NonNull

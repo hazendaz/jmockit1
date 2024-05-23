@@ -7,8 +7,9 @@ package mockit.coverage.reporting.parsing;
 import mockit.coverage.reporting.parsing.LineElement.ElementType;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Parses a source line into one or more consecutive segments, identifying which ones contain Java code and which ones

@@ -11,8 +11,9 @@ import java.lang.annotation.Annotation;
 import javax.annotation.Resource;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.junit.jupiter.api.Test;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * The Class MockedAnnotationsTest.

@@ -12,8 +12,8 @@ import mockit.internal.faking.FakeStates;
 import mockit.internal.injection.TestedClassInstantiations;
 import mockit.internal.util.StackTrace;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * A singleton which stores several data structures which in turn hold global state for individual test methods, test

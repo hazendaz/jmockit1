@@ -31,9 +31,10 @@ import mockit.internal.startup.Startup;
 import mockit.internal.util.DefaultValues;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.hamcrest.Matcher;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Provides common API for use inside {@linkplain Expectations expectation} and {@linkplain Verifications verification}

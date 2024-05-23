@@ -7,8 +7,8 @@ import mockit.asm.jvmConstants.Opcodes;
 import mockit.asm.methods.MethodVisitor;
 import mockit.asm.types.JavaType;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * A visitor to visit a Java class, in the following order:<br>

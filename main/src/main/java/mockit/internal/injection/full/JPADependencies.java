@@ -21,11 +21,12 @@ import mockit.internal.injection.InjectionPoint;
 import mockit.internal.injection.InjectionProvider;
 import mockit.internal.injection.InjectionState;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Detects and resolves dependencies belonging to the <code>javax.persistence</code> API, namely

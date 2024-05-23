@@ -5,9 +5,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
-
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 import petclinic.util.Database;
 
 /**

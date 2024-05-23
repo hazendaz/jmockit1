@@ -1,6 +1,6 @@
 package mockit.asm.controlFlow;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * An edge in the control flow graph of a method body. See {@link Label}.

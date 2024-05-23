@@ -3,7 +3,8 @@ package mockit.asm.constantPool;
 import static mockit.asm.jvmConstants.ConstantPoolTypes.NAME_TYPE;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class NameAndTypeItem extends TypeOrMemberItem {
     public NameAndTypeItem(@NonNegative int index) {

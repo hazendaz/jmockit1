@@ -15,9 +15,10 @@ import mockit.Tested;
 import mockit.internal.faking.FakeInvocation;
 import mockit.internal.util.StackTrace;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.runners.model.FrameworkMethod;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Startup fake that modifies the JUnit 4.5+ test runner so that it calls back to JMockit immediately after every test

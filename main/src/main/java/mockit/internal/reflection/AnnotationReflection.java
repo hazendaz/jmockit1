@@ -9,8 +9,8 @@ import static mockit.internal.reflection.ParameterReflection.NO_PARAMETERS;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class AnnotationReflection {
     private AnnotationReflection() {

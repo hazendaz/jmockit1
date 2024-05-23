@@ -4,8 +4,8 @@
  */
 package mockit.internal;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Identifies a class by its loader and name rather than by the <code>Class</code> object, which isn't available during

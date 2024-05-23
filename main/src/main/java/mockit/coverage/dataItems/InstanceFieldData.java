@@ -14,7 +14,7 @@ import java.util.Map;
 
 import mockit.internal.state.TestRun;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class InstanceFieldData extends FieldData {
     private static final long serialVersionUID = 6991762113575259754L;

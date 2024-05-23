@@ -4,7 +4,7 @@
  */
 package mockit.internal.util;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class ClassNaming {
     private ClassNaming() {

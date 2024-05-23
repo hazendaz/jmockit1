@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import mockit.coverage.data.CoverageData;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 final class AccretionFile {
     @NonNull

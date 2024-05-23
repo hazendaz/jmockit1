@@ -6,8 +6,8 @@ package mockit.coverage;
 
 import java.io.File;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class Configuration {
     private static final String COVERAGE_PREFIX = "coverage-";

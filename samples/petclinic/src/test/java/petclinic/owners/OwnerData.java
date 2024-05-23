@@ -1,7 +1,6 @@
 package petclinic.owners;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-
+import edu.umd.cs.findbugs.annotations.NonNull;
 import petclinic.util.TestDatabase;
 
 /**

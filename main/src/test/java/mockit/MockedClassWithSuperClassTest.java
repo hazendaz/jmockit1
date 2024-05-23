@@ -5,8 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.io.Writer;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.junit.jupiter.api.Test;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * The Class MockedClassWithSuperClassTest.

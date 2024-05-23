@@ -12,8 +12,9 @@ import mockit.Invocation;
 import mockit.internal.reflection.MethodReflection;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Base class for encapsulating state and logic needed by both the Mocking and Faking APIs, but which should not go into

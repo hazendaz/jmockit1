@@ -13,7 +13,7 @@ import java.util.Set;
 import mockit.internal.ClassIdentification;
 import mockit.internal.faking.FakeClasses;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class SavePoint {
     @NonNull

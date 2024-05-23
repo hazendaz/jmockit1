@@ -16,8 +16,9 @@ import mockit.asm.util.MethodHandle;
 import mockit.internal.util.ClassLoad;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * A {@link ClassVisitor} that generates classes in bytecode form, that is, a byte array conforming to the

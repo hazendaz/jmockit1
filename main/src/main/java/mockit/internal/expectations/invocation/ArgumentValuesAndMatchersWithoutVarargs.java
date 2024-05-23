@@ -10,7 +10,7 @@ import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
 import mockit.internal.expectations.argumentMatching.EqualityMatcher;
 import mockit.internal.expectations.argumentMatching.LenientEqualityMatcher;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 final class ArgumentValuesAndMatchersWithoutVarargs extends ArgumentValuesAndMatchers {
     ArgumentValuesAndMatchersWithoutVarargs(@NonNull InvocationArguments signature, @NonNull Object[] values) {

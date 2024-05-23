@@ -8,7 +8,7 @@ import mockit.asm.types.ArrayType;
 import mockit.asm.types.JavaType;
 import mockit.asm.types.PrimitiveType;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class TypeDescriptor {
     private static final Class<?>[] NO_PARAMETERS = {};

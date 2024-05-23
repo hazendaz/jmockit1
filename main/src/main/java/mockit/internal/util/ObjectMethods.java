@@ -4,8 +4,8 @@
  */
 package mockit.internal.util;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class ObjectMethods {
     private ObjectMethods() {

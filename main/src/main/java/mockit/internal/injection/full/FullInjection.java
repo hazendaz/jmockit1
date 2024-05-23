@@ -33,8 +33,8 @@ import mockit.internal.injection.Injector;
 import mockit.internal.injection.TestedClass;
 import mockit.internal.injection.TestedObjectCreation;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Responsible for recursive injection of dependencies into a <code>@Tested(fullyInitialized = true)</code> object.

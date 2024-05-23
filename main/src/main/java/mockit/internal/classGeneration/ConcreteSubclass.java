@@ -9,8 +9,8 @@ import static mockit.asm.jvmConstants.Access.PUBLIC;
 import mockit.asm.classes.ClassReader;
 import mockit.asm.classes.ClassVisitor;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Generates a concrete subclass for an {@code abstract} base class.

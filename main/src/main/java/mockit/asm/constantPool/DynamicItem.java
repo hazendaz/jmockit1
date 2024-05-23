@@ -3,7 +3,8 @@ package mockit.asm.constantPool;
 import mockit.asm.jvmConstants.ConstantPoolTypes;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class DynamicItem extends TypeOrMemberItem {
     @NonNegative

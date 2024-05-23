@@ -13,7 +13,7 @@ import mockit.asm.metadata.ClassMetadataReader.MethodInfo;
 import mockit.internal.ClassFile;
 import mockit.internal.state.ParameterNames;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class ParameterNameExtractor {
     private static final EnumSet<Attribute> PARAMETERS = EnumSet.of(Attribute.Parameters);

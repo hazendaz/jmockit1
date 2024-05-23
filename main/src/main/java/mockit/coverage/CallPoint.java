@@ -15,8 +15,9 @@ import java.util.Map;
 import mockit.internal.util.StackTrace;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class CallPoint implements Serializable {
     private static final long serialVersionUID = 362727169057343840L;

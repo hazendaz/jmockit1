@@ -20,7 +20,7 @@ import mockit.Tested;
 import mockit.asm.jvmConstants.Access;
 import mockit.internal.expectations.mocking.MockedType;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class TestedClassInstantiations {
     private static final int FIELD_ACCESS_MASK = Access.SYNTHETIC + Access.STATIC;

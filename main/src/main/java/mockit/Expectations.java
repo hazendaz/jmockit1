@@ -12,8 +12,8 @@ import java.util.Optional;
 import mockit.internal.expectations.RecordAndReplayExecution;
 import mockit.internal.expectations.RecordPhase;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Used to <em>record</em> expectations on {@linkplain Mocked mocked} types and their instances.

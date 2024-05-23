@@ -11,7 +11,8 @@ import java.io.ObjectOutputStream;
 import mockit.asm.controlFlow.Label;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Coverage data gathered for a branch inside a line of source code.

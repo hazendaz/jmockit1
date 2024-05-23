@@ -18,7 +18,7 @@ import mockit.internal.reflection.FieldReflection;
 import mockit.internal.state.TestRun;
 import mockit.internal.util.StackTrace;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 @SuppressWarnings("UnnecessaryFullyQualifiedName")
 public final class FieldTypeRedefinitions extends TypeRedefinitions {

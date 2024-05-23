@@ -30,8 +30,8 @@ import mockit.internal.injection.TestedClass;
 import mockit.internal.state.ParameterNames;
 import mockit.internal.util.ParameterNameExtractor;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class ConstructorSearch {
     private static final int CONSTRUCTOR_ACCESS = PUBLIC + PROTECTED + PRIVATE;

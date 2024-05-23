@@ -1,9 +1,9 @@
 package jmockit.loginExample.domain.userLogin;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 import jmockit.loginExample.domain.userAccount.UserAccount;
 
 public final class LoginService {

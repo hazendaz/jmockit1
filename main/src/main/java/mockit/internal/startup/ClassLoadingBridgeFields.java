@@ -23,8 +23,8 @@ import mockit.internal.expectations.mocking.MockedBridge;
 import mockit.internal.faking.FakeBridge;
 import mockit.internal.faking.FakeMethodBridge;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class ClassLoadingBridgeFields {
     private ClassLoadingBridgeFields() {

@@ -16,8 +16,9 @@ import mockit.coverage.reporting.parsing.LineElement;
 import mockit.coverage.reporting.parsing.LineParser;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Generates an HTML page containing line-by-line coverage information for a single source file.

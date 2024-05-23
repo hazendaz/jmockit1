@@ -12,8 +12,8 @@ import java.lang.reflect.Method;
 import mockit.internal.util.DefaultValues;
 import mockit.internal.util.ObjectMethods;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Handles invocations to all kinds of mock implementations created for interfaces and annotation types through any of

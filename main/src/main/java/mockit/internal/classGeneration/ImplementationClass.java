@@ -13,8 +13,8 @@ import mockit.internal.util.ClassLoad;
 import mockit.internal.util.GeneratedClasses;
 import mockit.internal.util.Utilities;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Allows the creation of new implementation classes for interfaces and abstract classes.

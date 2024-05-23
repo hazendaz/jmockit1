@@ -8,7 +8,7 @@ import java.lang.reflect.TypeVariable;
 
 import mockit.internal.state.TestRun;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 final class FieldTypeRedefinition extends TypeRedefinition {
     private boolean usePartialMocking;

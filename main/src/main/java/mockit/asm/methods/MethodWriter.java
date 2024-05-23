@@ -40,8 +40,9 @@ import mockit.asm.util.ByteVector;
 import mockit.asm.util.MethodHandle;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * A {@link MethodVisitor} that generates methods in bytecode form. Each visit method of this class appends the bytecode

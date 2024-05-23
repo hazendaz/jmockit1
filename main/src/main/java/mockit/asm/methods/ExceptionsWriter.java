@@ -5,7 +5,8 @@ import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Stores the exceptions that can be thrown by a method/constructor, and writes it to the "Exceptions" attribute. For

@@ -4,7 +4,7 @@
  */
 package mockit.internal.reflection;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 @SuppressWarnings("UtilityClassWithoutPrivateConstructor")
 final class ThrowOfCheckedException {

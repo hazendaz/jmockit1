@@ -13,10 +13,11 @@ import mockit.internal.injection.BeanExporter;
 import mockit.internal.injection.TestedClassInstantiations;
 import mockit.internal.state.TestRun;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.springframework.beans.factory.support.AbstractBeanFactory;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * If applied, this fake will take over calls to {@link AbstractBeanFactory#getBean(String)} and

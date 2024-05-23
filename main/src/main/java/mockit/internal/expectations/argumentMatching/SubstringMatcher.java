@@ -4,7 +4,7 @@
  */
 package mockit.internal.expectations.argumentMatching;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 abstract class SubstringMatcher implements ArgumentMatcher<SubstringMatcher> {
     @NonNull

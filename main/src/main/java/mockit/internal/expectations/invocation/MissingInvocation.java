@@ -4,7 +4,7 @@
  */
 package mockit.internal.expectations.invocation;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Thrown to indicate that one or more expected invocations still had not occurred by the end of the test.

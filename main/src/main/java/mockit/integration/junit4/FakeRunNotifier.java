@@ -13,10 +13,11 @@ import mockit.integration.TestRunnerDecorator;
 import mockit.internal.faking.FakeInvocation;
 import mockit.internal.state.TestRun;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.junit.runner.Description;
 import org.junit.runner.Result;
 import org.junit.runner.notification.RunNotifier;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Startup fake which works in conjunction with {@link JUnit4TestRunnerDecorator} to provide JUnit 4.5+ integration.

@@ -10,8 +10,8 @@ import mockit.internal.expectations.invocation.InvocationResults;
 import mockit.internal.expectations.invocation.ReturnTypeConversion;
 import mockit.internal.util.TypeDescriptor;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class Expectation {
     @Nullable

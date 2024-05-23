@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 @SuppressWarnings("OverlyComplexClass")
 public final class GenericTypeReflection {

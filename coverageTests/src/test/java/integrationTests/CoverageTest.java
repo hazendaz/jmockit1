@@ -23,9 +23,10 @@ import mockit.coverage.lines.LineCoverageData;
 import mockit.coverage.lines.PerFileLineCoverage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.jupiter.api.BeforeEach;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 @SuppressWarnings("JUnitTestCaseWithNoTests")
 public class CoverageTest {

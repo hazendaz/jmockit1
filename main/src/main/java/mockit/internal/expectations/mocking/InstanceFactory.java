@@ -6,9 +6,10 @@ package mockit.internal.expectations.mocking;
 
 import mockit.internal.util.StackTrace;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.objenesis.ObjenesisHelper;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Factory for the creation of new mocked instances, and for obtaining/clearing the last instance created. There are

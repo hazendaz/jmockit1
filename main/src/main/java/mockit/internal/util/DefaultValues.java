@@ -37,8 +37,8 @@ import java.util.stream.Stream;
 
 import mockit.asm.types.ArrayType;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Provides default values for each type, typically used for returning default values according to method return types.

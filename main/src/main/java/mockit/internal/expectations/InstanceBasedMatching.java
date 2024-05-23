@@ -11,7 +11,7 @@ import java.util.List;
 
 import mockit.internal.util.GeneratedClasses;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 final class InstanceBasedMatching {
     @NonNull

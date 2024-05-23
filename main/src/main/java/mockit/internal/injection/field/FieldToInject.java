@@ -11,7 +11,7 @@ import mockit.internal.injection.InjectionPoint;
 import mockit.internal.injection.InjectionPoint.KindOfInjectionPoint;
 import mockit.internal.injection.InjectionProvider;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class FieldToInject extends InjectionProvider {
     @NonNull

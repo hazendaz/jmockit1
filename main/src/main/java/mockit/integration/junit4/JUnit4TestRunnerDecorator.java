@@ -14,14 +14,15 @@ import mockit.internal.faking.FakeInvocation;
 import mockit.internal.state.SavePoint;
 import mockit.internal.state.TestRun;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runners.model.FrameworkMethod;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class JUnit4TestRunnerDecorator extends TestRunnerDecorator {
     @Nullable

@@ -3,7 +3,8 @@ package mockit.asm.constantPool;
 import static mockit.asm.constantPool.TypeTableItem.SpecialType.MERGED;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 final class MergedTypeTableItem extends TypeTableItem {
     private int type1;

@@ -4,7 +4,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * A Java field or method type. This class can be used to make it easier to manipulate type and method descriptors.

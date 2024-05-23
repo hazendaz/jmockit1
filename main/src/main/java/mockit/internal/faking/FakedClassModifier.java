@@ -38,8 +38,9 @@ import mockit.internal.state.TestRun;
 import mockit.internal.util.ClassLoad;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Responsible for generating all necessary bytecode in the redefined (real) class. Such code will redirect calls made

@@ -10,7 +10,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Finds and loads all classes that should also be measured, but were not loaded until now.

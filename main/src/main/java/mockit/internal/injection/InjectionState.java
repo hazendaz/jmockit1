@@ -17,8 +17,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import mockit.internal.reflection.FieldReflection;
 import mockit.internal.reflection.GenericTypeReflection;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Holds state used throughout the injection process while it's in progress for a given set of tested objects.

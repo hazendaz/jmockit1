@@ -8,7 +8,7 @@ import static mockit.internal.util.Utilities.containsReference;
 
 import java.util.List;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 final class PartiallyMockedInstances {
     @NonNull

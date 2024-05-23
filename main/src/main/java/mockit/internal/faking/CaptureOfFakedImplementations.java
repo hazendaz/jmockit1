@@ -13,8 +13,8 @@ import mockit.asm.classes.ClassReader;
 import mockit.internal.BaseClassModifier;
 import mockit.internal.capturing.CaptureOfImplementations;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class CaptureOfFakedImplementations extends CaptureOfImplementations<Void> {
     private final FakeClassSetup fakeClassSetup;

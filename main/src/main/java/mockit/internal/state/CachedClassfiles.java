@@ -12,8 +12,8 @@ import java.util.WeakHashMap;
 
 import mockit.internal.startup.Startup;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Holds a map of internal class names to the corresponding class files (bytecode arrays), for the classes that have

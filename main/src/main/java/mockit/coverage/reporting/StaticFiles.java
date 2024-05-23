@@ -15,7 +15,7 @@ import java.security.CodeSource;
 
 import mockit.internal.util.Utilities;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 final class StaticFiles {
     @NonNull

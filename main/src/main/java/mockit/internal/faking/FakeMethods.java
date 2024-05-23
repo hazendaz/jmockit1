@@ -22,8 +22,8 @@ import mockit.internal.state.TestRun;
 import mockit.internal.util.TypeDescriptor;
 import mockit.internal.util.Utilities;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * A container for the fake methods "collected" from a fake class.

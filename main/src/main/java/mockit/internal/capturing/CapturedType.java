@@ -10,8 +10,9 @@ import static mockit.internal.util.GeneratedClasses.isGeneratedClass;
 import java.security.ProtectionDomain;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class CapturedType {
     private static final ProtectionDomain JMOCKIT_DOMAIN = CapturedType.class.getProtectionDomain();

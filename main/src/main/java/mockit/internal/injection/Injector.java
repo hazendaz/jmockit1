@@ -32,8 +32,8 @@ import mockit.internal.injection.full.FullInjection;
 import mockit.internal.reflection.FieldReflection;
 import mockit.internal.util.DefaultValues;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public class Injector {
     private static final Pattern TYPE_NAME = compile("class |interface |java\\.lang\\.");
