@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 /**
  * The Class MyBusinessServiceTest.
  */
-class MyBusinessServiceTest {
+public class MyBusinessServiceTest {
 
     /** The data. */
     @Tested
