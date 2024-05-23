@@ -4,7 +4,7 @@
  */
 package mockit.internal.injection.full;
 
-import javax.enterprise.context.Conversation;
+import jakarta.enterprise.context.Conversation;
 
 final class TestConversation implements Conversation {
     private boolean currentlyTransient;

@@ -2,9 +2,9 @@ package petclinic.visits;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
 
-import java.util.Date;
+import jakarta.inject.Inject;
 
-import javax.inject.Inject;
+import java.util.Date;
 
 import petclinic.pets.Pet;
 import petclinic.pets.PetData;

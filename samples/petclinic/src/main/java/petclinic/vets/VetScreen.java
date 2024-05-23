@@ -2,12 +2,12 @@ package petclinic.vets;
 
 import edu.umd.cs.findbugs.annotations.Nullable;
 
-import java.util.List;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.transaction.Transactional;
 
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * An application service class that handles {@link Vet}-related operations from the vet screen.

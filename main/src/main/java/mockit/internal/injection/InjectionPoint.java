@@ -15,6 +15,16 @@ import static mockit.internal.util.ClassLoad.searchTypeInClasspath;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
+import jakarta.annotation.Resource;
+import jakarta.ejb.EJB;
+import jakarta.enterprise.inject.Instance;
+import jakarta.enterprise.util.TypeLiteral;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.PersistenceUnit;
+import jakarta.servlet.Servlet;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
@@ -24,16 +34,6 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.annotation.Resource;
-import javax.ejb.EJB;
-import javax.enterprise.inject.Instance;
-import javax.enterprise.util.TypeLiteral;
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
-import javax.servlet.Servlet;
 
 public final class InjectionPoint {
     public enum KindOfInjectionPoint {
@@ -54,18 +54,18 @@ public final class InjectionPoint {
     public static final Class<?> CONVERSATION_CLASS;
 
     static {
-        INJECT_CLASS = searchTypeInClasspath("javax.inject.Inject");
-        INSTANCE_CLASS = searchTypeInClasspath("javax.enterprise.inject.Instance");
-        EJB_CLASS = searchTypeInClasspath("javax.ejb.EJB");
-        SERVLET_CLASS = searchTypeInClasspath("javax.servlet.Servlet");
-        CONVERSATION_CLASS = searchTypeInClasspath("javax.enterprise.context.Conversation");
+        INJECT_CLASS = searchTypeInClasspath("jakarta.inject.Inject");
+        INSTANCE_CLASS = searchTypeInClasspath("jakarta.enterprise.inject.Instance");
+        EJB_CLASS = searchTypeInClasspath("jakarta.ejb.EJB");
+        SERVLET_CLASS = searchTypeInClasspath("jakarta.servlet.Servlet");
+        CONVERSATION_CLASS = searchTypeInClasspath("jakarta.enterprise.context.Conversation");
 
-        Class<? extends Annotation> entity = searchTypeInClasspath("javax.persistence.Entity");
+        Class<? extends Annotation> entity = searchTypeInClasspath("jakarta.persistence.Entity");
 
         if (entity == null) {
             PERSISTENCE_UNIT_CLASS = null;
         } else {
-            PERSISTENCE_UNIT_CLASS = searchTypeInClasspath("javax.persistence.PersistenceUnit");
+            PERSISTENCE_UNIT_CLASS = searchTypeInClasspath("jakarta.persistence.PersistenceUnit");
         }
     }
 
@@ -217,6 +217,16 @@ public final class InjectionPoint {
         public Object get() {
             throw new RuntimeException("Unexpected");
         }
+
+        @Override
+        public Handle<Object> getHandle() {
+            return null;
+        }
+
+        @Override
+        public Iterable<? extends Handle<Object>> handles() {
+            return null;
+        }
     }
 
     @NonNull
@@ -298,7 +308,7 @@ public final class InjectionPoint {
             Class<?> annotationType = annotation.annotationType();
             String annotationName = annotationType.getName();
 
-            if ("javax.annotation.Resource javax.ejb.EJB".contains(annotationName)) {
+            if ("jakarta.annotation.Resource jakarta.ejb.EJB".contains(annotationName)) {
                 String name = readAnnotationAttribute(annotation, "name");
 
                 if (name.isEmpty()) {
@@ -315,7 +325,7 @@ public final class InjectionPoint {
                 return name;
             }
 
-            if ("javax.inject.Named".equals(annotationName) || annotationName.endsWith(".Qualifier")) {
+            if ("jakarta.inject.Named".equals(annotationName) || annotationName.endsWith(".Qualifier")) {
                 return readAnnotationAttribute(annotation, "value");
             }
         }

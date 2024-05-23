@@ -7,6 +7,9 @@ package mockit.internal.injection.full;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
+import jakarta.annotation.sql.DataSourceDefinition;
+import jakarta.annotation.sql.DataSourceDefinitions;
+
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -15,8 +18,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import javax.annotation.sql.DataSourceDefinition;
-import javax.annotation.sql.DataSourceDefinitions;
 import javax.sql.CommonDataSource;
 
 import mockit.internal.injection.InjectionPoint;
@@ -82,9 +83,9 @@ final class TestDataSource {
         for (Annotation annotation : targetClass.getDeclaredAnnotations()) {
             String annotationName = annotation.annotationType().getName();
 
-            if ("javax.annotation.sql.DataSourceDefinitions".equals(annotationName)) {
+            if ("jakarta.annotation.sql.DataSourceDefinitions".equals(annotationName)) {
                 createDataSource((DataSourceDefinitions) annotation);
-            } else if ("javax.annotation.sql.DataSourceDefinition".equals(annotationName)) {
+            } else if ("jakarta.annotation.sql.DataSourceDefinition".equals(annotationName)) {
                 createDataSource((DataSourceDefinition) annotation);
             }
 

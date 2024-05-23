@@ -9,6 +9,45 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.annotation.Resource;
+import jakarta.ejb.EJB;
+import jakarta.inject.Inject;
+import jakarta.persistence.Cache;
+import jakarta.persistence.CacheRetrieveMode;
+import jakarta.persistence.CacheStoreMode;
+import jakarta.persistence.ConnectionConsumer;
+import jakarta.persistence.ConnectionFunction;
+import jakarta.persistence.EntityGraph;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.FindOption;
+import jakarta.persistence.FlushModeType;
+import jakarta.persistence.LockModeType;
+import jakarta.persistence.LockOption;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.PersistenceUnit;
+import jakarta.persistence.PersistenceUnitTransactionType;
+import jakarta.persistence.PersistenceUnitUtil;
+import jakarta.persistence.Query;
+import jakarta.persistence.RefreshOption;
+import jakarta.persistence.SchemaManager;
+import jakarta.persistence.StoredProcedureQuery;
+import jakarta.persistence.SynchronizationType;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.TypedQueryReference;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaDelete;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.CriteriaSelect;
+import jakarta.persistence.criteria.CriteriaUpdate;
+import jakarta.persistence.metamodel.Metamodel;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
@@ -19,34 +58,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.annotation.Resource;
-import javax.ejb.EJB;
-import javax.inject.Inject;
-import javax.persistence.Cache;
-import javax.persistence.EntityGraph;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.FlushModeType;
-import javax.persistence.LockModeType;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
-import javax.persistence.PersistenceUnitUtil;
-import javax.persistence.Query;
-import javax.persistence.StoredProcedureQuery;
-import javax.persistence.SynchronizationType;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaDelete;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.CriteriaUpdate;
-import javax.persistence.metamodel.Metamodel;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -489,6 +502,66 @@ final class TestedClassWithFullStandardDITest {
             public <T> List<EntityGraph<? super T>> getEntityGraphs(Class<T> entityClass) {
                 return null;
             }
+
+            @Override
+            public <T> T find(Class<T> entityClass, Object primaryKey, FindOption... options) {
+                return null;
+            }
+
+            @Override
+            public <T> T find(EntityGraph<T> entityGraph, Object primaryKey, FindOption... options) {
+                return null;
+            }
+
+            @Override
+            public <T> T getReference(T entity) {
+                return null;
+            }
+
+            @Override
+            public void lock(Object entity, LockModeType lockMode, LockOption... options) {
+            }
+
+            @Override
+            public void refresh(Object entity, RefreshOption... options) {
+            }
+
+            @Override
+            public void setCacheRetrieveMode(CacheRetrieveMode cacheRetrieveMode) {
+            }
+
+            @Override
+            public void setCacheStoreMode(CacheStoreMode cacheStoreMode) {
+            }
+
+            @Override
+            public CacheRetrieveMode getCacheRetrieveMode() {
+                return null;
+            }
+
+            @Override
+            public CacheStoreMode getCacheStoreMode() {
+                return null;
+            }
+
+            @Override
+            public <T> TypedQuery<T> createQuery(CriteriaSelect<T> selectQuery) {
+                return null;
+            }
+
+            @Override
+            public <T> TypedQuery<T> createQuery(TypedQueryReference<T> reference) {
+                return null;
+            }
+
+            @Override
+            public <C> void runWithConnection(ConnectionConsumer<C> action) {
+            }
+
+            @Override
+            public <C, T> T callWithConnection(ConnectionFunction<C, T> function) {
+                return null;
+            }
         }
         namedEM = new FakeEntityManager();
         defaultEM = new FakeEntityManager();
@@ -565,6 +638,40 @@ final class TestedClassWithFullStandardDITest {
 
             @Override
             public <T> void addNamedEntityGraph(String graphName, EntityGraph<T> entityGraph) {
+            }
+
+            @Override
+            public String getName() {
+                return null;
+            }
+
+            @Override
+            public PersistenceUnitTransactionType getTransactionType() {
+                return null;
+            }
+
+            @Override
+            public SchemaManager getSchemaManager() {
+                return null;
+            }
+
+            @Override
+            public <R> Map<String, TypedQueryReference<R>> getNamedQueries(Class<R> resultType) {
+                return null;
+            }
+
+            @Override
+            public <E> Map<String, EntityGraph<? extends E>> getNamedEntityGraphs(Class<E> entityType) {
+                return null;
+            }
+
+            @Override
+            public void runInTransaction(Consumer<EntityManager> work) {
+            }
+
+            @Override
+            public <R> R callInTransaction(Function<EntityManager, R> work) {
+                return null;
             }
         }
         namedEMFactory = new FakeEntityManagerFactory(namedEM);

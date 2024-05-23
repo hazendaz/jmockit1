@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.runners.MethodSorters.NAME_ASCENDING;
 
-import javax.annotation.Resource;
-import javax.inject.Inject;
+import jakarta.annotation.Resource;
+import jakarta.inject.Inject;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
