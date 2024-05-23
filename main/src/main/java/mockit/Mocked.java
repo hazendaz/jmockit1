@@ -56,6 +56,7 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Target({ FIELD, PARAMETER })
 public @interface Mocked {
+
     /**
      * Indicates whether <em>static initialization code</em> in the mocked class should be stubbed out or not. Static
      * initialization includes the execution of assignments to static fields of the class and the execution of static
@@ -67,6 +68,8 @@ public @interface Mocked {
      * consequences. Stubbing out the static initialization of a class is an unsafe operation, which can cause other
      * tests, executed later in the same test run, to unexpectedly fail; instead of resorting to stubbing out a class's
      * static initializer, the root cause for wanting to stub it out should be eliminated. Caveat Emptor.
+     *
+     * @return true, if successful
      */
     boolean stubOutClassInitialization() default false;
 }
