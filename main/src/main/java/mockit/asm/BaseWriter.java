@@ -2,7 +2,6 @@ package mockit.asm;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.annotations.AnnotationVisitor;
@@ -11,6 +10,7 @@ import mockit.asm.jvmConstants.Access;
 import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class BaseWriter {
     /**
@@ -37,7 +37,7 @@ public class BaseWriter {
     protected BaseWriter() {
     }
 
-    protected BaseWriter(@Nonnull ConstantPoolGeneration cp, int classOrMemberAccess) {
+    protected BaseWriter(@NonNull ConstantPoolGeneration cp, int classOrMemberAccess) {
         this.cp = cp;
         this.classOrMemberAccess = classOrMemberAccess;
     }
@@ -47,7 +47,7 @@ public class BaseWriter {
      *
      * @return the constant pool generation
      */
-    @Nonnull
+    @NonNull
     public final ConstantPoolGeneration getConstantPoolGeneration() {
         return cp;
     }
@@ -62,12 +62,12 @@ public class BaseWriter {
      *         visiting the annotation
      */
     @Nullable
-    public AnnotationVisitor visitAnnotation(@Nonnull String desc) {
+    public AnnotationVisitor visitAnnotation(@NonNull String desc) {
         return addAnnotation(desc);
     }
 
-    @Nonnull
-    private AnnotationVisitor addAnnotation(@Nonnull String desc) {
+    @NonNull
+    private AnnotationVisitor addAnnotation(@NonNull String desc) {
         AnnotationVisitor aw = new AnnotationVisitor(cp, desc);
         aw.setNext(annotations);
         annotations = aw;
@@ -117,12 +117,12 @@ public class BaseWriter {
         return 6 * attributeCount;
     }
 
-    protected final void putAccess(@Nonnull ByteVector out, int baseMask) {
+    protected final void putAccess(@NonNull ByteVector out, int baseMask) {
         int accessFlag = Access.computeFlag(classOrMemberAccess, baseMask);
         out.putShort(accessFlag);
     }
 
-    protected final void putMarkerAttributes(@Nonnull ByteVector out) {
+    protected final void putMarkerAttributes(@NonNull ByteVector out) {
         if (deprecatedAttributeIndex > 0) {
             out.putShort(deprecatedAttributeIndex).putInt(0);
         }
@@ -132,7 +132,7 @@ public class BaseWriter {
         }
     }
 
-    protected final void putAnnotations(@Nonnull ByteVector out) {
+    protected final void putAnnotations(@NonNull ByteVector out) {
         if (annotations != null) {
             int item = getConstantPoolItemForRuntimeVisibleAnnotationsAttribute();
             out.putShort(item);
@@ -140,10 +140,10 @@ public class BaseWriter {
         }
     }
 
-    protected void put(@Nonnull ByteVector out) {
+    protected void put(@NonNull ByteVector out) {
     }
 
-    protected static void put(@Nonnull ByteVector out, @Nonnull List<? extends BaseWriter> writers) {
+    protected static void put(@NonNull ByteVector out, @NonNull List<? extends BaseWriter> writers) {
         out.putShort(writers.size());
 
         for (BaseWriter writer : writers) {

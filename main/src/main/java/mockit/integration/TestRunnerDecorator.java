@@ -10,7 +10,6 @@ import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.expectations.RecordAndReplayExecution;
@@ -27,6 +26,8 @@ import mockit.internal.state.TestRun;
 import mockit.internal.util.ParameterNameExtractor;
 import mockit.internal.util.StackTrace;
 import mockit.internal.util.TestMethod;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Base class for "test runner decorators", which provide integration between JMockit and specific test runners from
@@ -48,7 +49,7 @@ public class TestRunnerDecorator {
         shouldPrepareForNextTest = true;
     }
 
-    protected static void updateTestClassState(@Nullable Object target, @Nonnull Class<?> testClass) {
+    protected static void updateTestClassState(@Nullable Object target, @NonNull Class<?> testClass) {
         testClass = getActualTestClass(testClass);
 
         try {
@@ -73,12 +74,12 @@ public class TestRunnerDecorator {
         }
     }
 
-    @Nonnull
-    private static Class<?> getActualTestClass(@Nonnull Class<?> testClass) {
+    @NonNull
+    private static Class<?> getActualTestClass(@NonNull Class<?> testClass) {
         return testClass.isSynthetic() ? testClass.getSuperclass() : testClass;
     }
 
-    private static void handleSwitchToNewTestClassIfApplicable(@Nonnull Class<?> testClass) {
+    private static void handleSwitchToNewTestClassIfApplicable(@NonNull Class<?> testClass) {
         Class<?> currentTestClass = TestRun.getCurrentTestClass();
 
         if (testClass != currentTestClass) {
@@ -151,7 +152,7 @@ public class TestRunnerDecorator {
         }
     }
 
-    protected static void handleMockFieldsForWholeTestClass(@Nonnull Object target) {
+    protected static void handleMockFieldsForWholeTestClass(@NonNull Object target) {
         Class<?> testClass = getActualTestClass(target.getClass());
         FieldTypeRedefinitions fieldTypeRedefinitions = TestRun.getFieldTypeRedefinitions();
 
@@ -176,7 +177,7 @@ public class TestRunnerDecorator {
         }
     }
 
-    protected static void createInstancesForTestedFieldsFromBaseClasses(@Nonnull Object testClassInstance) {
+    protected static void createInstancesForTestedFieldsFromBaseClasses(@NonNull Object testClassInstance) {
         TestedClassInstantiations testedClasses = TestRun.getTestedClassInstantiations();
 
         if (testedClasses != null) {
@@ -190,7 +191,7 @@ public class TestRunnerDecorator {
         }
     }
 
-    protected static void createInstancesForTestedFieldsBeforeSetup(@Nonnull Object testClassInstance) {
+    protected static void createInstancesForTestedFieldsBeforeSetup(@NonNull Object testClassInstance) {
         TestedClassInstantiations testedClasses = TestRun.getTestedClassInstantiations();
 
         if (testedClasses != null) {
@@ -205,7 +206,7 @@ public class TestRunnerDecorator {
         }
     }
 
-    protected static void createInstancesForTestedFields(@Nonnull Object testClassInstance) {
+    protected static void createInstancesForTestedFields(@NonNull Object testClassInstance) {
         TestedClassInstantiations testedClasses = TestRun.getTestedClassInstantiations();
 
         if (testedClasses != null) {
@@ -227,8 +228,8 @@ public class TestRunnerDecorator {
     }
 
     @Nullable
-    protected static Object[] createInstancesForAnnotatedParameters(@Nonnull Object testClassInstance,
-            @Nonnull Method testMethod, @Nullable Object[] parameterValues) {
+    protected static Object[] createInstancesForAnnotatedParameters(@NonNull Object testClassInstance,
+            @NonNull Method testMethod, @Nullable Object[] parameterValues) {
         int numParameters = getParameterCount(testMethod);
 
         if (numParameters == 0) {
@@ -258,7 +259,7 @@ public class TestRunnerDecorator {
         return parameterValues;
     }
 
-    protected static void concludeTestMethodExecution(@Nonnull SavePoint savePoint, @Nullable Throwable thrownByTest,
+    protected static void concludeTestMethodExecution(@NonNull SavePoint savePoint, @Nullable Throwable thrownByTest,
             boolean thrownAsExpected) throws Throwable {
         TestRun.enterNoMockingZone();
 
@@ -304,7 +305,7 @@ public class TestRunnerDecorator {
         }
     }
 
-    private static boolean isUnexpectedOrMissingInvocation(@Nonnull Throwable error) {
+    private static boolean isUnexpectedOrMissingInvocation(@NonNull Throwable error) {
         Class<?> errorType = error.getClass();
         return errorType == UnexpectedInvocation.class || errorType == MissingInvocation.class;
     }

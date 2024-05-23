@@ -7,24 +7,25 @@ package mockit.internal.expectations.invocation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.BaseInvocation;
 import mockit.internal.expectations.state.ExecutingTest;
 import mockit.internal.state.TestRun;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 final class DelegateInvocation extends BaseInvocation {
-    @Nonnull
+    @NonNull
     private final InvocationArguments invocationArguments;
 
-    DelegateInvocation(@Nullable Object invokedInstance, @Nonnull Object[] invokedArguments,
-            @Nonnull ExpectedInvocation expectedInvocation, @Nonnull InvocationConstraints constraints) {
+    DelegateInvocation(@Nullable Object invokedInstance, @NonNull Object[] invokedArguments,
+            @NonNull ExpectedInvocation expectedInvocation, @NonNull InvocationConstraints constraints) {
         super(invokedInstance, invokedArguments, constraints.invocationCount);
         invocationArguments = expectedInvocation.arguments;
     }
 
-    @Nonnull
+    @NonNull
     @Override
     protected Member findRealMember() {
         return invocationArguments.getRealMethodOrConstructor();

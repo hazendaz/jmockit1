@@ -6,7 +6,6 @@ package mockit.coverage.reporting.lineCoverage;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.coverage.CallPoint;
@@ -15,10 +14,12 @@ import mockit.coverage.lines.PerFileLineCoverage;
 import mockit.coverage.reporting.ListOfCallPoints;
 import mockit.coverage.reporting.parsing.LineParser;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 final class LineCoverageFormatter {
-    @Nonnull
+    @NonNull
     private final StringBuilder formattedLine;
-    @Nonnull
+    @NonNull
     private final LineSegmentsFormatter segmentsFormatter;
     @Nullable
     private final ListOfCallPoints listOfCallPoints;
@@ -29,7 +30,7 @@ final class LineCoverageFormatter {
         listOfCallPoints = withCallPoints ? new ListOfCallPoints() : null;
     }
 
-    String format(@Nonnull LineParser lineParser, @Nonnull PerFileLineCoverage lineCoverageData) {
+    String format(@NonNull LineParser lineParser, @NonNull PerFileLineCoverage lineCoverageData) {
         formattedLine.setLength(0);
         formattedLine.append("<pre class='pp");
 
@@ -45,12 +46,12 @@ final class LineCoverageFormatter {
         return formattedLine.toString();
     }
 
-    private void formatLineWithMultipleSegments(@Nonnull LineParser lineParser, @Nonnull LineCoverageData lineData) {
+    private void formatLineWithMultipleSegments(@NonNull LineParser lineParser, @NonNull LineCoverageData lineData) {
         formattedLine.append(" jmp'>");
         segmentsFormatter.formatSegments(lineParser, lineData);
     }
 
-    private void formatLineWithSingleSegment(@Nonnull LineParser lineParser, @Nonnull LineCoverageData lineData) {
+    private void formatLineWithSingleSegment(@NonNull LineParser lineParser, @NonNull LineCoverageData lineData) {
         formattedLine.append(lineData.isCovered() ? " cvd" : " uncvd");
 
         List<CallPoint> callPoints = lineData.getCallPoints();

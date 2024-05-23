@@ -12,32 +12,32 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.coverage.CoveragePercentage;
 import mockit.coverage.data.PerFileCoverage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class PerFileDataCoverage implements PerFileCoverage {
     private static final long serialVersionUID = -4561686103982673490L;
 
-    @Nonnull
+    @NonNull
     public final List<String> allFields = new ArrayList<>(2);
-    @Nonnull
+    @NonNull
     public final Map<String, StaticFieldData> staticFieldsData = new LinkedHashMap<>();
-    @Nonnull
+    @NonNull
     public final Map<String, InstanceFieldData> instanceFieldsData = new LinkedHashMap<>();
 
     private transient int coveredDataItems = -1;
 
-    private void readObject(@Nonnull ObjectInputStream in) throws IOException, ClassNotFoundException {
+    private void readObject(@NonNull ObjectInputStream in) throws IOException, ClassNotFoundException {
         coveredDataItems = -1;
         in.defaultReadObject();
     }
 
-    public void addField(@Nonnull String className, @Nonnull String fieldName, boolean isStatic) {
+    public void addField(@NonNull String className, @NonNull String fieldName, boolean isStatic) {
         String classAndField = className + '.' + fieldName;
 
         if (!allFields.contains(classAndField)) {
@@ -51,11 +51,11 @@ public final class PerFileDataCoverage implements PerFileCoverage {
         }
     }
 
-    public boolean isFieldWithCoverageData(@Nonnull String classAndFieldNames) {
+    public boolean isFieldWithCoverageData(@NonNull String classAndFieldNames) {
         return instanceFieldsData.containsKey(classAndFieldNames) || staticFieldsData.containsKey(classAndFieldNames);
     }
 
-    public void registerAssignmentToStaticField(@Nonnull String classAndFieldNames) {
+    public void registerAssignmentToStaticField(@NonNull String classAndFieldNames) {
         StaticFieldData staticData = getStaticFieldData(classAndFieldNames);
 
         if (staticData != null) {
@@ -64,11 +64,11 @@ public final class PerFileDataCoverage implements PerFileCoverage {
     }
 
     @Nullable
-    public StaticFieldData getStaticFieldData(@Nonnull String classAndFieldNames) {
+    public StaticFieldData getStaticFieldData(@NonNull String classAndFieldNames) {
         return staticFieldsData.get(classAndFieldNames);
     }
 
-    public void registerReadOfStaticField(@Nonnull String classAndFieldNames) {
+    public void registerReadOfStaticField(@NonNull String classAndFieldNames) {
         StaticFieldData staticData = getStaticFieldData(classAndFieldNames);
 
         if (staticData != null) {
@@ -76,7 +76,7 @@ public final class PerFileDataCoverage implements PerFileCoverage {
         }
     }
 
-    public void registerAssignmentToInstanceField(@Nonnull Object instance, @Nonnull String classAndFieldNames) {
+    public void registerAssignmentToInstanceField(@NonNull Object instance, @NonNull String classAndFieldNames) {
         InstanceFieldData instanceData = getInstanceFieldData(classAndFieldNames);
 
         if (instanceData != null) {
@@ -85,11 +85,11 @@ public final class PerFileDataCoverage implements PerFileCoverage {
     }
 
     @Nullable
-    public InstanceFieldData getInstanceFieldData(@Nonnull String classAndFieldNames) {
+    public InstanceFieldData getInstanceFieldData(@NonNull String classAndFieldNames) {
         return instanceFieldsData.get(classAndFieldNames);
     }
 
-    public void registerReadOfInstanceField(@Nonnull Object instance, @Nonnull String classAndFieldNames) {
+    public void registerReadOfInstanceField(@NonNull Object instance, @NonNull String classAndFieldNames) {
         InstanceFieldData instanceData = getInstanceFieldData(classAndFieldNames);
 
         if (instanceData != null) {
@@ -101,7 +101,7 @@ public final class PerFileDataCoverage implements PerFileCoverage {
         return !allFields.isEmpty();
     }
 
-    public boolean isCovered(@Nonnull String classAndFieldNames) {
+    public boolean isCovered(@NonNull String classAndFieldNames) {
         InstanceFieldData instanceData = getInstanceFieldData(classAndFieldNames);
 
         if (instanceData != null && instanceData.isCovered()) {
@@ -155,7 +155,7 @@ public final class PerFileDataCoverage implements PerFileCoverage {
         return CoveragePercentage.calculate(coveredFields, totalFields);
     }
 
-    public void mergeInformation(@Nonnull PerFileDataCoverage previousInfo) {
+    public void mergeInformation(@NonNull PerFileDataCoverage previousInfo) {
         addInfoFromPreviousTestRun(staticFieldsData, previousInfo.staticFieldsData);
         addFieldsFromPreviousTestRunIfAbsent(staticFieldsData, previousInfo.staticFieldsData);
 
@@ -163,8 +163,8 @@ public final class PerFileDataCoverage implements PerFileCoverage {
         addFieldsFromPreviousTestRunIfAbsent(instanceFieldsData, previousInfo.instanceFieldsData);
     }
 
-    private static <FI extends FieldData> void addInfoFromPreviousTestRun(@Nonnull Map<String, FI> currentInfo,
-            @Nonnull Map<String, FI> previousInfo) {
+    private static <FI extends FieldData> void addInfoFromPreviousTestRun(@NonNull Map<String, FI> currentInfo,
+            @NonNull Map<String, FI> previousInfo) {
         for (Entry<String, FI> nameAndInfo : currentInfo.entrySet()) {
             String fieldName = nameAndInfo.getKey();
             FieldData previousFieldInfo = previousInfo.get(fieldName);
@@ -177,7 +177,7 @@ public final class PerFileDataCoverage implements PerFileCoverage {
     }
 
     private static <FI extends FieldData> void addFieldsFromPreviousTestRunIfAbsent(
-            @Nonnull Map<String, FI> currentInfo, @Nonnull Map<String, FI> previousInfo) {
+            @NonNull Map<String, FI> currentInfo, @NonNull Map<String, FI> previousInfo) {
         for (Entry<String, FI> nameAndInfo : previousInfo.entrySet()) {
             String fieldName = nameAndInfo.getKey();
 

@@ -6,7 +6,6 @@ package mockit.coverage.reporting.sourceFiles;
 
 import java.io.IOException;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.coverage.data.FileCoverageData;
@@ -19,26 +18,27 @@ import mockit.coverage.reporting.parsing.LineElement;
 import mockit.coverage.reporting.parsing.LineParser;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Generates an HTML page containing line-by-line coverage information for a single source file.
  */
 public final class FileCoverageReport {
-    @Nonnull
+    @NonNull
     private final InputFile inputFile;
-    @Nonnull
+    @NonNull
     private final OutputFile output;
-    @Nonnull
+    @NonNull
     private final FileParser fileParser;
-    @Nonnull
+    @NonNull
     private final NeutralOutput neutralOutput;
-    @Nonnull
+    @NonNull
     private final LineCoverageOutput lineCoverage;
     @Nullable
     private final DataCoverageOutput dataCoverage;
 
-    public FileCoverageReport(@Nonnull String outputDir, @Nonnull InputFile inputFile,
-            @Nonnull FileCoverageData fileData, boolean withCallPoints) throws IOException {
+    public FileCoverageReport(@NonNull String outputDir, @NonNull InputFile inputFile,
+            @NonNull FileCoverageData fileData, boolean withCallPoints) throws IOException {
         this.inputFile = inputFile;
         output = new OutputFile(outputDir, inputFile.filePath);
         fileParser = new FileParser();
@@ -48,7 +48,7 @@ public final class FileCoverageReport {
     }
 
     @Nullable
-    private static DataCoverageOutput createDataCoverageOutput(@Nonnull FileCoverageData fileData) {
+    private static DataCoverageOutput createDataCoverageOutput(@NonNull FileCoverageData fileData) {
         PerFileDataCoverage dataCoverageInfo = fileData.dataCoverageInfo;
         return dataCoverageInfo.hasFields() ? new DataCoverageOutput(dataCoverageInfo) : null;
     }
@@ -100,7 +100,7 @@ public final class FileCoverageReport {
         output.write("</td>");
     }
 
-    private void writeLineWithoutCoverageInfo(@Nonnull LineElement initialElement) {
+    private void writeLineWithoutCoverageInfo(@NonNull LineElement initialElement) {
         output.println("<td></td>");
         output.write("      <td><pre class='");
         output.write(initialElement.isComment() ? "cm'>" : "pp'>");

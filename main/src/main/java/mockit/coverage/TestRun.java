@@ -4,14 +4,13 @@
  */
 package mockit.coverage;
 
-import javax.annotation.Nonnull;
-
 import mockit.coverage.data.CoverageData;
 import mockit.coverage.data.FileCoverageData;
 import mockit.coverage.lines.PerFileLineCoverage;
 import mockit.coverage.testRedundancy.TestCoverage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 @SuppressWarnings("unused")
 public final class TestRun {
@@ -70,7 +69,7 @@ public final class TestRun {
         }
     }
 
-    public static void fieldAssigned(@Nonnull String file, @Nonnull String classAndFieldNames) {
+    public static void fieldAssigned(@NonNull String file, @NonNull String classAndFieldNames) {
         if (terminated) {
             return;
         }
@@ -82,7 +81,7 @@ public final class TestRun {
         }
     }
 
-    public static void fieldRead(@Nonnull String file, @Nonnull String classAndFieldNames) {
+    public static void fieldRead(@NonNull String file, @NonNull String classAndFieldNames) {
         if (terminated) {
             return;
         }
@@ -94,8 +93,8 @@ public final class TestRun {
         }
     }
 
-    public static void fieldAssigned(@Nonnull Object instance, @Nonnull String file,
-            @Nonnull String classAndFieldNames) {
+    public static void fieldAssigned(@NonNull Object instance, @NonNull String file,
+            @NonNull String classAndFieldNames) {
         if (terminated) {
             return;
         }
@@ -107,7 +106,7 @@ public final class TestRun {
         }
     }
 
-    public static void fieldRead(@Nonnull Object instance, @Nonnull String file, @Nonnull String classAndFieldNames) {
+    public static void fieldRead(@NonNull Object instance, @NonNull String file, @NonNull String classAndFieldNames) {
         if (terminated) {
             return;
         }

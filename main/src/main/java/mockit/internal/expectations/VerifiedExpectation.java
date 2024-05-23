@@ -6,23 +6,23 @@ package mockit.internal.expectations;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 final class VerifiedExpectation {
-    @Nonnull
+    @NonNull
     final Expectation expectation;
-    @Nonnull
+    @NonNull
     final Object[] arguments;
     @Nullable
     final List<ArgumentMatcher<?>> argMatchers;
     private final int replayIndex;
 
-    VerifiedExpectation(@Nonnull Expectation expectation, @Nonnull Object[] arguments,
+    VerifiedExpectation(@NonNull Expectation expectation, @NonNull Object[] arguments,
             @Nullable List<ArgumentMatcher<?>> argMatchers, int replayIndex) {
         this.expectation = expectation;
         this.arguments = arguments;

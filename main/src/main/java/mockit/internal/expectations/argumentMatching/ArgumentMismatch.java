@@ -7,13 +7,14 @@ package mockit.internal.expectations.argumentMatching;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.util.ObjectMethods;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 public final class ArgumentMismatch {
-    @Nonnull
+    @NonNull
     private final StringBuilder out = new StringBuilder(50);
     @Nullable
     private String parameterType;
@@ -28,25 +29,25 @@ public final class ArgumentMismatch {
         return out.toString();
     }
 
-    @Nonnull
+    @NonNull
     public ArgumentMismatch append(char c) {
         out.append(c);
         return this;
     }
 
-    @Nonnull
+    @NonNull
     public ArgumentMismatch append(int i) {
         out.append(i);
         return this;
     }
 
-    @Nonnull
+    @NonNull
     public ArgumentMismatch append(double d) {
         out.append(d);
         return this;
     }
 
-    @Nonnull
+    @NonNull
     public ArgumentMismatch append(@Nullable CharSequence str) {
         out.append(str);
         return this;
@@ -91,7 +92,7 @@ public final class ArgumentMismatch {
         }
     }
 
-    private void appendArray(@Nonnull Object array) {
+    private void appendArray(@NonNull Object array) {
         out.append('[');
         String separator = "";
 
@@ -105,7 +106,7 @@ public final class ArgumentMismatch {
         out.append(']');
     }
 
-    private void appendCharacters(@Nonnull CharSequence characters) {
+    private void appendCharacters(@NonNull CharSequence characters) {
         out.append('"');
 
         for (int i = 0, n = characters.length(); i < n; i++) {
@@ -136,7 +137,7 @@ public final class ArgumentMismatch {
         }
     }
 
-    private void appendArbitraryArgument(@Nonnull Object value) {
+    private void appendArbitraryArgument(@NonNull Object value) {
         Class<?> valueClass = value.getClass();
 
         Method toStringMethod;
@@ -159,7 +160,7 @@ public final class ArgumentMismatch {
         }
     }
 
-    public void appendFormatted(@Nonnull Object[] values) {
+    public void appendFormatted(@NonNull Object[] values) {
         String separator = "";
 
         for (Object value : values) {

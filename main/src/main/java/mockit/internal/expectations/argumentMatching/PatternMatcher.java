@@ -6,19 +6,20 @@ package mockit.internal.expectations.argumentMatching;
 
 import java.util.regex.Pattern;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 public final class PatternMatcher implements ArgumentMatcher<PatternMatcher> {
-    @Nonnull
+    @NonNull
     private final Pattern pattern;
 
-    public PatternMatcher(@Nonnull String regex) {
+    public PatternMatcher(@NonNull String regex) {
         pattern = Pattern.compile(regex);
     }
 
     @Override
-    public boolean same(@Nonnull PatternMatcher other) {
+    public boolean same(@NonNull PatternMatcher other) {
         return pattern == other.pattern;
     }
 
@@ -28,7 +29,7 @@ public final class PatternMatcher implements ArgumentMatcher<PatternMatcher> {
     }
 
     @Override
-    public void writeMismatchPhrase(@Nonnull ArgumentMismatch argumentMismatch) {
+    public void writeMismatchPhrase(@NonNull ArgumentMismatch argumentMismatch) {
         argumentMismatch.append("a string matching \"").append(pattern.toString()).append('"');
     }
 }

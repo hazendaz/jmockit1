@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
@@ -16,11 +15,12 @@ import mockit.internal.expectations.invocation.ExpectedInvocation;
 import mockit.internal.expectations.invocation.InvocationArguments;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public abstract class BaseVerificationPhase extends TestOnlyPhase {
-    @Nonnull
+    @NonNull
     final ReplayPhase replayPhase;
-    @Nonnull
+    @NonNull
     private final List<VerifiedExpectation> currentVerifiedExpectations;
     @Nullable
     Expectation currentVerification;
@@ -30,7 +30,7 @@ public abstract class BaseVerificationPhase extends TestOnlyPhase {
     @Nullable
     ExpectedInvocation matchingInvocationWithDifferentArgs;
 
-    BaseVerificationPhase(@Nonnull ReplayPhase replayPhase) {
+    BaseVerificationPhase(@NonNull ReplayPhase replayPhase) {
         super(replayPhase.executionState);
         this.replayPhase = replayPhase;
         currentVerifiedExpectations = new ArrayList<>();
@@ -38,9 +38,9 @@ public abstract class BaseVerificationPhase extends TestOnlyPhase {
 
     @Nullable
     @Override
-    final Object handleInvocation(@Nullable Object mock, int mockAccess, @Nonnull String mockClassDesc,
-            @Nonnull String mockNameAndDesc, @Nullable String genericSignature, boolean withRealImpl,
-            @Nonnull Object[] args) {
+    final Object handleInvocation(@Nullable Object mock, int mockAccess, @NonNull String mockClassDesc,
+            @NonNull String mockNameAndDesc, @Nullable String genericSignature, boolean withRealImpl,
+            @NonNull Object[] args) {
         if (pendingError != null) {
             replayPhase.failureState.setErrorThrown(pendingError);
             pendingError = null;
@@ -74,13 +74,13 @@ public abstract class BaseVerificationPhase extends TestOnlyPhase {
         return currentExpectation.invocation.getDefaultValueForReturnType();
     }
 
-    @Nonnull
-    abstract List<ExpectedInvocation> findExpectation(@Nullable Object mock, @Nonnull String mockClassDesc,
-            @Nonnull String mockNameAndDesc, @Nonnull Object[] args);
+    @NonNull
+    abstract List<ExpectedInvocation> findExpectation(@Nullable Object mock, @NonNull String mockClassDesc,
+            @NonNull String mockNameAndDesc, @NonNull Object[] args);
 
-    final boolean matches(@Nullable Object mock, @Nonnull String mockClassDesc, @Nonnull String mockNameAndDesc,
-            @Nonnull Object[] args, @Nonnull Expectation replayExpectation, @Nullable Object replayInstance,
-            @Nonnull Object[] replayArgs) {
+    final boolean matches(@Nullable Object mock, @NonNull String mockClassDesc, @NonNull String mockNameAndDesc,
+            @NonNull Object[] args, @NonNull Expectation replayExpectation, @Nullable Object replayInstance,
+            @NonNull Object[] replayArgs) {
         ExpectedInvocation invocation = replayExpectation.invocation;
         boolean constructor = invocation.isConstructor();
         Map<Object, Object> replacementMap = getReplacementMap();
@@ -115,9 +115,9 @@ public abstract class BaseVerificationPhase extends TestOnlyPhase {
         return false;
     }
 
-    abstract void addVerifiedExpectation(@Nonnull Expectation expectation, @Nonnull Object[] args);
+    abstract void addVerifiedExpectation(@NonNull Expectation expectation, @NonNull Object[] args);
 
-    final void addVerifiedExpectation(@Nonnull VerifiedExpectation verifiedExpectation) {
+    final void addVerifiedExpectation(@NonNull VerifiedExpectation verifiedExpectation) {
         executionState.verifiedExpectations.add(verifiedExpectation);
         currentVerifiedExpectations.add(verifiedExpectation);
     }
@@ -147,7 +147,7 @@ public abstract class BaseVerificationPhase extends TestOnlyPhase {
         return lastMatched.arguments[parameterIndex];
     }
 
-    @Nonnull
+    @NonNull
     public final <T> List<T> getNewInstancesMatchingVerifiedConstructorInvocation() {
         List<T> newInstances = new ArrayList<>();
 

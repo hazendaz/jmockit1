@@ -7,13 +7,13 @@ package mockit.internal.util;
 import java.util.EnumSet;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import mockit.asm.metadata.ClassMetadataReader;
 import mockit.asm.metadata.ClassMetadataReader.Attribute;
 import mockit.asm.metadata.ClassMetadataReader.MethodInfo;
 import mockit.internal.ClassFile;
 import mockit.internal.state.ParameterNames;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class ParameterNameExtractor {
     private static final EnumSet<Attribute> PARAMETERS = EnumSet.of(Attribute.Parameters);
@@ -21,8 +21,8 @@ public final class ParameterNameExtractor {
     private ParameterNameExtractor() {
     }
 
-    @Nonnull
-    public static String extractNames(@Nonnull Class<?> classOfInterest) {
+    @NonNull
+    public static String extractNames(@NonNull Class<?> classOfInterest) {
         String className = classOfInterest.getName();
         String classDesc = className.replace('.', '/');
 

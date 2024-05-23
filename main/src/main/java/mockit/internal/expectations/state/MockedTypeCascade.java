@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.expectations.MockingFilters;
@@ -33,26 +32,28 @@ import mockit.internal.reflection.RealMethodOrConstructor;
 import mockit.internal.state.TestRun;
 import mockit.internal.util.DefaultValues;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 public final class MockedTypeCascade {
-    @Nonnull
+    @NonNull
     private static final CascadingTypes CASCADING_TYPES = TestRun.getExecutingTest().getCascadingTypes();
     private static final int PUBLIC_INTERFACE = PUBLIC + INTERFACE;
 
     final boolean fromMockField;
-    @Nonnull
+    @NonNull
     private final Type mockedType;
-    @Nonnull
+    @NonNull
     final String mockedTypeDesc;
     @Nullable
     Class<?> mockedClass;
     @Nullable
     private GenericTypeReflection genericReflection;
-    @Nonnull
+    @NonNull
     private final Map<String, Type> cascadedTypesAndMocks;
-    @Nonnull
+    @NonNull
     private final List<Object> cascadingInstances;
 
-    MockedTypeCascade(boolean fromMockField, @Nonnull Type mockedType, @Nonnull String mockedTypeDesc) {
+    MockedTypeCascade(boolean fromMockField, @NonNull Type mockedType, @NonNull String mockedTypeDesc) {
         this.fromMockField = fromMockField;
         this.mockedType = mockedType;
         this.mockedTypeDesc = mockedTypeDesc;
@@ -61,8 +62,8 @@ public final class MockedTypeCascade {
     }
 
     @Nullable
-    public static Object getMock(@Nonnull String mockedTypeDesc, @Nonnull String mockedMethodNameAndDesc,
-            @Nullable Object mockInstance, @Nonnull String returnTypeDesc, @Nonnull Class<?> returnType) {
+    public static Object getMock(@NonNull String mockedTypeDesc, @NonNull String mockedMethodNameAndDesc,
+            @Nullable Object mockInstance, @NonNull String returnTypeDesc, @NonNull Class<?> returnType) {
         MockedTypeCascade cascade = CASCADING_TYPES.getCascade(mockedTypeDesc, mockInstance);
 
         if (cascade == null) {
@@ -79,8 +80,8 @@ public final class MockedTypeCascade {
     }
 
     @Nullable
-    public static Object getMock(@Nonnull String mockedTypeDesc, @Nonnull String mockedMethodNameAndDesc,
-            @Nullable Object mockInstance, @Nonnull String returnTypeDesc, @Nullable String genericSignature) {
+    public static Object getMock(@NonNull String mockedTypeDesc, @NonNull String mockedMethodNameAndDesc,
+            @Nullable Object mockInstance, @NonNull String returnTypeDesc, @Nullable String genericSignature) {
         char typeCode = returnTypeDesc.charAt(0);
 
         if (typeCode != 'L') {
@@ -113,7 +114,7 @@ public final class MockedTypeCascade {
     }
 
     @Nullable
-    private String getGenericReturnType(@Nonnull String ownerTypeDesc, @Nonnull String genericSignature) {
+    private String getGenericReturnType(@NonNull String ownerTypeDesc, @NonNull String genericSignature) {
         String resolvedSignature = getGenericReflection().resolveSignature(ownerTypeDesc, genericSignature);
         String returnTypeDesc = resolvedSignature.substring(resolvedSignature.indexOf(')') + 1);
 
@@ -125,7 +126,7 @@ public final class MockedTypeCascade {
         return isTypeSupportedForCascading(returnTypeName) ? returnTypeName : null;
     }
 
-    @Nonnull
+    @NonNull
     private synchronized GenericTypeReflection getGenericReflection() {
         GenericTypeReflection reflection = genericReflection;
 
@@ -138,13 +139,13 @@ public final class MockedTypeCascade {
         return reflection;
     }
 
-    private static boolean isReturnTypeNotSupportedForCascading(@Nonnull Class<?> returnType) {
+    private static boolean isReturnTypeNotSupportedForCascading(@NonNull Class<?> returnType) {
         return MockingFilters.isSubclassOfUnmockable(returnType)
                 || !isTypeSupportedForCascading(getInternalName(returnType));
     }
 
     @SuppressWarnings("OverlyComplexMethod")
-    private static boolean isTypeSupportedForCascading(@Nonnull String typeName) {
+    private static boolean isTypeSupportedForCascading(@NonNull String typeName) {
         // noinspection SimplifiableIfStatement
         if (typeName.contains("/Process") || typeName.endsWith("/Runnable")) {
             return true;
@@ -158,14 +159,14 @@ public final class MockedTypeCascade {
     }
 
     @Nullable
-    private static String getReturnTypeIfCascadingSupportedForIt(@Nonnull String typeDesc) {
+    private static String getReturnTypeIfCascadingSupportedForIt(@NonNull String typeDesc) {
         String typeName = typeDesc.substring(1, typeDesc.length() - 1);
         return isTypeSupportedForCascading(typeName) ? typeName : null;
     }
 
     @Nullable
-    private Object getCascadedInstance(@Nonnull String methodNameAndDesc, @Nonnull String returnTypeInternalName,
-            @Nonnull Class<?> returnClass) {
+    private Object getCascadedInstance(@NonNull String methodNameAndDesc, @NonNull String returnTypeInternalName,
+            @NonNull Class<?> returnClass) {
         MockedTypeCascade nextLevel = this;
 
         if (!cascadedTypesAndMocks.containsKey(returnTypeInternalName)) {
@@ -177,7 +178,7 @@ public final class MockedTypeCascade {
     }
 
     @Nullable
-    private Object getCascadedInstance(@Nonnull String methodNameAndDesc, @Nonnull String returnTypeInternalName,
+    private Object getCascadedInstance(@NonNull String methodNameAndDesc, @NonNull String returnTypeInternalName,
             @Nullable Object mockInstance) {
         MockedTypeCascade nextLevel = this;
         Type returnType = cascadedTypesAndMocks.get(returnTypeInternalName);
@@ -219,14 +220,14 @@ public final class MockedTypeCascade {
         return nextLevel.createNewCascadedInstanceOrUseNonCascadedOneIfAvailable(methodNameAndDesc, returnType);
     }
 
-    private static boolean nonPublicTypeReturnedFromPublicInterface(@Nonnull Class<?> cascadingClass,
-            @Nonnull Class<?> resolvedReturnType) {
+    private static boolean nonPublicTypeReturnedFromPublicInterface(@NonNull Class<?> cascadingClass,
+            @NonNull Class<?> resolvedReturnType) {
         return cascadingClass.isInterface() && !isPublic(resolvedReturnType.getModifiers())
                 && cascadingClass.getClassLoader() != null && (cascadingClass.getModifiers() & PUBLIC_INTERFACE) != 0
                 && !resolvedReturnType.isMemberClass();
     }
 
-    @Nonnull
+    @NonNull
     private Class<?> getClassWithCalledMethod() {
         if (mockedClass != null) {
             return mockedClass;
@@ -240,7 +241,7 @@ public final class MockedTypeCascade {
     }
 
     @Nullable
-    private Type getGenericReturnType(@Nonnull Class<?> cascadingClass, @Nonnull String methodNameAndDesc) {
+    private Type getGenericReturnType(@NonNull Class<?> cascadingClass, @NonNull String methodNameAndDesc) {
         RealMethodOrConstructor realMethod;
 
         try {
@@ -260,8 +261,8 @@ public final class MockedTypeCascade {
     }
 
     @Nullable
-    private Object createNewCascadedInstanceOrUseNonCascadedOneIfAvailable(@Nonnull String methodNameAndDesc,
-            @Nonnull Type mockedReturnType) {
+    private Object createNewCascadedInstanceOrUseNonCascadedOneIfAvailable(@NonNull String methodNameAndDesc,
+            @NonNull Type mockedReturnType) {
         InstanceFactory instanceFactory = TestRun.mockFixture().findInstanceFactory(mockedReturnType);
 
         if (instanceFactory == null) {
@@ -292,11 +293,11 @@ public final class MockedTypeCascade {
         cascadingInstances.clear();
     }
 
-    void addInstance(@Nonnull Object cascadingInstance) {
+    void addInstance(@NonNull Object cascadingInstance) {
         cascadingInstances.add(cascadingInstance);
     }
 
-    boolean hasInstance(@Nonnull Object cascadingInstance) {
+    boolean hasInstance(@NonNull Object cascadingInstance) {
         return containsReference(cascadingInstances, cascadingInstance);
     }
 }

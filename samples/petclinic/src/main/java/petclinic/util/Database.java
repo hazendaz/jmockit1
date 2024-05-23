@@ -2,7 +2,7 @@ package petclinic.util;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import javax.annotation.Nullable;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -33,7 +33,7 @@ public class Database {
      * @return the persistent entity if found, or <code>null</code> if not found
      */
     @Nullable
-    public <E extends BaseEntity> E findById(@Nonnull Class<E> entityClass, int id) {
+    public <E extends BaseEntity> E findById(@NonNull Class<E> entityClass, int id) {
         return em.find(entityClass, id);
     }
 
@@ -53,8 +53,8 @@ public class Database {
      *
      * @see #find(int, String, Object...)
      */
-    @Nonnull
-    public <E extends BaseEntity> List<E> find(@Nonnull String qlStatement, @Nonnull Object... qlArgs) {
+    @NonNull
+    public <E extends BaseEntity> List<E> find(@NonNull String qlStatement, @NonNull Object... qlArgs) {
         return find(0, qlStatement, qlArgs);
     }
 
@@ -75,9 +75,9 @@ public class Database {
      * @return the list of zero or more entities found, in an arbitrary order or in the order specified by an "order by"
      *         clause (if any)
      */
-    @Nonnull
-    public <E extends BaseEntity> List<E> find(@NonNegative int maxResults, @Nonnull String qlStatement,
-            @Nonnull Object... qlArgs) {
+    @NonNull
+    public <E extends BaseEntity> List<E> find(@NonNegative int maxResults, @NonNull String qlStatement,
+            @NonNull Object... qlArgs) {
         Query query = em.createQuery(qlStatement);
 
         if (maxResults > 0) {
@@ -101,7 +101,7 @@ public class Database {
      * @param entity
      *            the entity
      */
-    public void save(@Nonnull BaseEntity entity) {
+    public void save(@NonNull BaseEntity entity) {
         if (entity.isNew()) {
             em.persist(entity);
         } else if (!em.contains(entity)) { // in case it is a detached entity
@@ -117,7 +117,7 @@ public class Database {
      * @param entity
      *            the entity
      */
-    public void remove(@Nonnull BaseEntity entity) {
+    public void remove(@NonNull BaseEntity entity) {
         em.remove(entity);
     }
 }

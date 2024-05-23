@@ -4,11 +4,11 @@
  */
 package mockit.internal.util;
 
-import javax.annotation.Nonnull;
-
 import mockit.asm.types.ArrayType;
 import mockit.asm.types.JavaType;
 import mockit.asm.types.PrimitiveType;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class TypeDescriptor {
     private static final Class<?>[] NO_PARAMETERS = {};
@@ -16,8 +16,8 @@ public final class TypeDescriptor {
     private TypeDescriptor() {
     }
 
-    @Nonnull
-    public static Class<?>[] getParameterTypes(@Nonnull String methodDesc) {
+    @NonNull
+    public static Class<?>[] getParameterTypes(@NonNull String methodDesc) {
         JavaType[] paramTypes = JavaType.getArgumentTypes(methodDesc);
 
         if (paramTypes.length == 0) {
@@ -33,15 +33,15 @@ public final class TypeDescriptor {
         return paramClasses;
     }
 
-    @Nonnull
-    public static Class<?> getReturnType(@Nonnull String methodSignature) {
+    @NonNull
+    public static Class<?> getReturnType(@NonNull String methodSignature) {
         String methodDesc = methodDescriptionWithoutTypeArguments(methodSignature);
         JavaType returnType = JavaType.getReturnType(methodDesc);
         return getClassForType(returnType);
     }
 
-    @Nonnull
-    private static String methodDescriptionWithoutTypeArguments(@Nonnull String methodSignature) {
+    @NonNull
+    private static String methodDescriptionWithoutTypeArguments(@NonNull String methodSignature) {
         while (true) {
             int p = methodSignature.indexOf('<');
 
@@ -60,8 +60,8 @@ public final class TypeDescriptor {
         }
     }
 
-    @Nonnull
-    public static Class<?> getClassForType(@Nonnull JavaType type) {
+    @NonNull
+    public static Class<?> getClassForType(@NonNull JavaType type) {
         if (type instanceof PrimitiveType) {
             return ((PrimitiveType) type).getType();
         }

@@ -6,14 +6,15 @@ package mockit.internal.expectations.argumentMatching;
 
 import java.util.Map;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 public final class LenientEqualityMatcher extends EqualityMatcher {
-    @Nonnull
+    @NonNull
     private final Map<Object, Object> instanceMap;
 
-    public LenientEqualityMatcher(@Nullable Object equalArg, @Nonnull Map<Object, Object> instanceMap) {
+    public LenientEqualityMatcher(@Nullable Object equalArg, @NonNull Map<Object, Object> instanceMap) {
         super(equalArg);
         this.instanceMap = instanceMap;
     }

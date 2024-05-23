@@ -10,7 +10,6 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.Capturing;
@@ -23,6 +22,7 @@ import mockit.internal.state.SavePoint;
 import mockit.internal.state.TestRun;
 import mockit.internal.util.Utilities;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -55,7 +55,7 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
             "No callbacks have been processed, preventing parameter population");
 
     @Override
-    public void beforeAll(@Nonnull ExtensionContext context) {
+    public void beforeAll(@NonNull ExtensionContext context) {
         if (isRegularTestClass(context)) {
             @Nullable
             Class<?> testClass = context.getTestClass().orElse(null);
@@ -84,13 +84,13 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
         }
     }
 
-    private static boolean isRegularTestClass(@Nonnull ExtensionContext context) {
+    private static boolean isRegularTestClass(@NonNull ExtensionContext context) {
         Class<?> testClass = context.getTestClass().orElse(null);
         return testClass != null && !testClass.isAnnotationPresent(Nested.class);
     }
 
     @Override
-    public void postProcessTestInstance(@Nonnull Object testInstance, @Nonnull ExtensionContext context) {
+    public void postProcessTestInstance(@NonNull Object testInstance, @NonNull ExtensionContext context) {
         if (isRegularTestClass(context)) {
             TestRun.enterNoMockingZone();
 
@@ -105,7 +105,7 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
     }
 
     @Override
-    public void beforeEach(@Nonnull ExtensionContext context) {
+    public void beforeEach(@NonNull ExtensionContext context) {
         Object testInstance = context.getTestInstance().orElse(null);
         Class<?> testClass = context.getTestClass().orElse(null);
         if (testInstance == null) {
@@ -138,7 +138,7 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
     }
 
     @Override
-    public void beforeTestExecution(@Nonnull ExtensionContext context) {
+    public void beforeTestExecution(@NonNull ExtensionContext context) {
         Class<?> testClass = context.getTestClass().orElse(null);
         Method testMethod = context.getTestMethod().orElse(null);
         Object testInstance = context.getTestInstance().orElse(null);
@@ -165,15 +165,15 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
     }
 
     @Override
-    public boolean supportsParameter(@Nonnull ParameterContext parameterContext,
-            @Nonnull ExtensionContext extensionContext) {
+    public boolean supportsParameter(@NonNull ParameterContext parameterContext,
+            @NonNull ExtensionContext extensionContext) {
         return parameterContext.isAnnotated(Tested.class) || parameterContext.isAnnotated(Mocked.class)
                 || parameterContext.isAnnotated(Injectable.class) || parameterContext.isAnnotated(Capturing.class);
     }
 
     @Override
-    public Object resolveParameter(@Nonnull ParameterContext parameterContext,
-            @Nonnull ExtensionContext extensionContext) {
+    public Object resolveParameter(@NonNull ParameterContext parameterContext,
+            @NonNull ExtensionContext extensionContext) {
         int parameterIndex = parameterContext.getIndex();
         if (parameterValues == null) {
             String warning = initContext.warning;
@@ -190,14 +190,14 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
     }
 
     @Override
-    public void handleTestExecutionException(@Nonnull ExtensionContext context, @Nonnull Throwable throwable)
+    public void handleTestExecutionException(@NonNull ExtensionContext context, @NonNull Throwable throwable)
             throws Throwable {
         thrownByTest = throwable;
         throw throwable;
     }
 
     @Override
-    public void afterTestExecution(@Nonnull ExtensionContext context) {
+    public void afterTestExecution(@NonNull ExtensionContext context) {
         if (savePointForTestMethod != null) {
             TestRun.enterNoMockingZone();
 
@@ -224,7 +224,7 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
     }
 
     @Override
-    public void afterEach(@Nonnull ExtensionContext context) {
+    public void afterEach(@NonNull ExtensionContext context) {
         if (savePointForTest != null) {
             savePointForTest.rollback();
             savePointForTest = null;
@@ -232,7 +232,7 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
     }
 
     @Override
-    public void afterAll(@Nonnull ExtensionContext context) {
+    public void afterAll(@NonNull ExtensionContext context) {
         if (savePointForTestClass != null && isRegularTestClass(context)) {
             savePointForTestClass.rollback();
             savePointForTestClass = null;

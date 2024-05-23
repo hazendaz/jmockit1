@@ -9,15 +9,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import mockit.coverage.data.CoverageData;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 final class DataFileMerging {
-    @Nonnull
+    @NonNull
     private final List<File> inputFiles;
 
-    DataFileMerging(@Nonnull String[] inputPaths) {
+    DataFileMerging(@NonNull String[] inputPaths) {
         inputFiles = new ArrayList<>(inputPaths.length);
 
         for (String path : inputPaths) {
@@ -25,7 +25,7 @@ final class DataFileMerging {
         }
     }
 
-    private void addInputFileToList(@Nonnull String path) {
+    private void addInputFileToList(@NonNull String path) {
         if (!path.isEmpty()) {
             File inputFile = new File(path);
 
@@ -37,7 +37,7 @@ final class DataFileMerging {
         }
     }
 
-    @Nonnull
+    @NonNull
     CoverageData merge() throws IOException {
         CoverageData mergedData = null;
 

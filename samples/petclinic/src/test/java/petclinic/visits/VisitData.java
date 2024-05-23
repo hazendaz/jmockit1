@@ -2,7 +2,7 @@ package petclinic.visits;
 
 import java.util.Date;
 
-import javax.annotation.Nonnull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import javax.inject.Inject;
 
 import petclinic.pets.Pet;
@@ -16,8 +16,8 @@ public final class VisitData extends TestDatabase {
     @Inject
     private PetData petData;
 
-    @Nonnull
-    public Visit create(@Nonnull String description) {
+    @NonNull
+    public Visit create(@NonNull String description) {
         Pet pet = petData.findOrCreate("Test", null, "mouse");
 
         Visit visit = new Visit();
@@ -28,7 +28,7 @@ public final class VisitData extends TestDatabase {
         return visit;
     }
 
-    @Nonnull
+    @NonNull
     public Visit create() {
         return create("Testing");
     }

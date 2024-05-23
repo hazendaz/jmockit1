@@ -17,7 +17,7 @@ public final class LoginService {
     @Nullable
     private UserAccount account;
 
-    public void login(@Nonnull String accountId, @Nonnull String password)
+    public void login(@NonNull String accountId, @NonNull String password)
             throws UserAccountNotFoundException, UserAccountRevokedException, AccountLoginLimitReachedException {
         account = UserAccount.find(accountId);
 
@@ -46,7 +46,7 @@ public final class LoginService {
         loginAttemptsRemaining = MAX_LOGIN_ATTEMPTS;
     }
 
-    private void handleFailedLoginAttempt(@Nonnull String accountId) {
+    private void handleFailedLoginAttempt(@NonNull String accountId) {
         if (previousAccountId == null) {
             loginAttemptsRemaining--;
             previousAccountId = accountId;

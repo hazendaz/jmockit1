@@ -7,17 +7,18 @@ package mockit.coverage.reporting;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.coverage.CallPoint;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 public final class ListOfCallPoints {
-    @Nonnull
+    @NonNull
     private static final String EOL = System.lineSeparator();
     private static final Pattern LESS_THAN_CHAR = Pattern.compile("<");
 
-    @Nonnull
+    @NonNull
     private final StringBuilder content;
 
     public ListOfCallPoints() {
@@ -60,14 +61,14 @@ public final class ListOfCallPoints {
         content.append("</li>").append(EOL).append("        </ol>").append(EOL).append("      ");
     }
 
-    private void appendTestMethod(@Nonnull StackTraceElement current) {
+    private void appendTestMethod(@NonNull StackTraceElement current) {
         content.append("          <li>");
         content.append(current.getClassName()).append('#');
         content.append(LESS_THAN_CHAR.matcher(current.getMethodName()).replaceFirst("&lt;")).append(": ");
         content.append(current.getLineNumber());
     }
 
-    private void appendRepetitionCountIfNeeded(@Nonnull CallPoint callPoint) {
+    private void appendRepetitionCountIfNeeded(@NonNull CallPoint callPoint) {
         int repetitionCount = callPoint.getRepetitionCount();
 
         if (repetitionCount > 0) {
@@ -75,7 +76,7 @@ public final class ListOfCallPoints {
         }
     }
 
-    @Nonnull
+    @NonNull
     public String getContents() {
         String result = content.toString();
         content.setLength(0);

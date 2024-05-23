@@ -6,18 +6,18 @@ package mockit.internal.util;
 
 import java.io.IOException;
 
-import javax.annotation.Nonnull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Provides utility methods to extract and filter stack trace information.
  */
 public final class StackTrace {
-    @Nonnull
+    @NonNull
     private final Throwable throwable;
-    @Nonnull
+    @NonNull
     private StackTraceElement[] elements;
 
-    public StackTrace(@Nonnull Throwable throwable) {
+    public StackTrace(@NonNull Throwable throwable) {
         this.throwable = throwable;
         elements = throwable.getStackTrace();
     }
@@ -26,12 +26,12 @@ public final class StackTrace {
         return elements.length;
     }
 
-    @Nonnull
+    @NonNull
     public StackTraceElement getElement(int index) {
         return elements[index];
     }
 
-    public static void filterStackTrace(@Nonnull Throwable t) {
+    public static void filterStackTrace(@NonNull Throwable t) {
         new StackTrace(t).filter();
     }
 
@@ -63,7 +63,7 @@ public final class StackTrace {
         }
     }
 
-    private static boolean isJDKOr3rdPartyLibraryInternalMethod(@Nonnull StackTraceElement ste) {
+    private static boolean isJDKOr3rdPartyLibraryInternalMethod(@NonNull StackTraceElement ste) {
         String className = ste.getClassName();
 
         return className.startsWith("sun.") && !ste.isNativeMethod() || className.startsWith("jdk.")
@@ -72,11 +72,11 @@ public final class StackTrace {
                 || className.contains(".intellij.") || className.contains(".jdt.");
     }
 
-    private static boolean isTestFrameworkMethod(@Nonnull String where) {
+    private static boolean isTestFrameworkMethod(@NonNull String where) {
         return where.startsWith("org.junit.") || where.startsWith("org.testng.");
     }
 
-    private static boolean isJMockitMethod(@Nonnull String where) {
+    private static boolean isJMockitMethod(@NonNull String where) {
         if (!where.startsWith("mockit.")) {
             return false;
         }
@@ -98,7 +98,7 @@ public final class StackTrace {
         return q < where.length() && where.charAt(q) != '$';
     }
 
-    public void print(@Nonnull Appendable output) {
+    public void print(@NonNull Appendable output) {
         String previousFileName = null;
         int previousLineNumber = 0;
         String sep = "";

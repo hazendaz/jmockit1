@@ -20,7 +20,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.types.JavaType;
@@ -33,16 +32,18 @@ import mockit.internal.injection.TestedClass;
 import mockit.internal.state.ParameterNames;
 import mockit.internal.util.ParameterNameExtractor;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 public final class ConstructorSearch {
     private static final int CONSTRUCTOR_ACCESS = PUBLIC + PROTECTED + PRIVATE;
 
-    @Nonnull
+    @NonNull
     private final InjectionState injectionState;
-    @Nonnull
+    @NonNull
     private final TestedClass testedClass;
-    @Nonnull
+    @NonNull
     private final String testedClassDesc;
-    @Nonnull
+    @NonNull
     public List<InjectionProvider> parameterProviders;
     private final boolean withFullInjection;
     @Nullable
@@ -50,7 +51,7 @@ public final class ConstructorSearch {
     @Nullable
     private StringBuilder searchResults;
 
-    public ConstructorSearch(@Nonnull InjectionState injectionState, @Nonnull TestedClass testedClass,
+    public ConstructorSearch(@NonNull InjectionState injectionState, @NonNull TestedClass testedClass,
             boolean withFullInjection) {
         this.injectionState = injectionState;
         this.testedClass = testedClass;
@@ -73,7 +74,7 @@ public final class ConstructorSearch {
         return constructor;
     }
 
-    private boolean findSingleAnnotatedConstructor(@Nonnull Constructor<?>[] constructors) {
+    private boolean findSingleAnnotatedConstructor(@NonNull Constructor<?>[] constructors) {
         for (Constructor<?> c : constructors) {
             if (kindOfInjectionPoint(c) != KindOfInjectionPoint.NotAnnotated) {
                 List<InjectionProvider> providersFound = findParameterProvidersForConstructor(c);
@@ -90,7 +91,7 @@ public final class ConstructorSearch {
         return false;
     }
 
-    private void findSatisfiedConstructorWithMostParameters(@Nonnull Constructor<?>[] constructors) {
+    private void findSatisfiedConstructorWithMostParameters(@NonNull Constructor<?>[] constructors) {
         sortConstructorsWithMostAccessibleFirst(constructors);
 
         Constructor<?> unresolvedConstructor = null;
@@ -117,7 +118,7 @@ public final class ConstructorSearch {
         selectConstructorWithUnresolvedParameterIfMoreAccessible(unresolvedConstructor, incompleteProviders);
     }
 
-    private static void sortConstructorsWithMostAccessibleFirst(@Nonnull Constructor<?>[] constructors) {
+    private static void sortConstructorsWithMostAccessibleFirst(@NonNull Constructor<?>[] constructors) {
         if (constructors.length > 1) {
             Arrays.sort(constructors, CONSTRUCTOR_COMPARATOR);
         }
@@ -125,7 +126,7 @@ public final class ConstructorSearch {
 
     private static final Comparator<Constructor<?>> CONSTRUCTOR_COMPARATOR = ConstructorSearch::compareAccessibility;
 
-    private static int compareAccessibility(@Nonnull Constructor<?> c1, @Nonnull Constructor<?> c2) {
+    private static int compareAccessibility(@NonNull Constructor<?> c1, @NonNull Constructor<?> c2) {
         int m1 = getModifiers(c1);
         int m2 = getModifiers(c2);
         if (m1 == m2) {
@@ -149,7 +150,7 @@ public final class ConstructorSearch {
         return 1;
     }
 
-    private static boolean containsUnresolvedProvider(@Nonnull List<InjectionProvider> providersFound) {
+    private static boolean containsUnresolvedProvider(@NonNull List<InjectionProvider> providersFound) {
         for (InjectionProvider provider : providersFound) {
             if (provider instanceof ConstructorParameter && provider.getValue(null) == null) {
                 return true;
@@ -159,19 +160,19 @@ public final class ConstructorSearch {
         return false;
     }
 
-    private static boolean isLargerConstructor(@Nonnull Constructor<?> candidateConstructor,
-            @Nonnull List<InjectionProvider> providersFound, @Nonnull Constructor<?> previousSatisfiableConstructor,
-            @Nonnull List<InjectionProvider> previousProviders) {
+    private static boolean isLargerConstructor(@NonNull Constructor<?> candidateConstructor,
+            @NonNull List<InjectionProvider> providersFound, @NonNull Constructor<?> previousSatisfiableConstructor,
+            @NonNull List<InjectionProvider> previousProviders) {
         return getModifiers(candidateConstructor) == getModifiers(previousSatisfiableConstructor)
                 && providersFound.size() >= previousProviders.size();
     }
 
-    private static int getModifiers(@Nonnull Constructor<?> c) {
+    private static int getModifiers(@NonNull Constructor<?> c) {
         return CONSTRUCTOR_ACCESS & c.getModifiers();
     }
 
     @Nullable
-    private List<InjectionProvider> findParameterProvidersForConstructor(@Nonnull Constructor<?> candidate) {
+    private List<InjectionProvider> findParameterProvidersForConstructor(@NonNull Constructor<?> candidate) {
         Type[] parameterTypes = candidate.getGenericParameterTypes();
         Annotation[][] parameterAnnotations = candidate.getParameterAnnotations();
         int n = parameterTypes.length;
@@ -219,8 +220,8 @@ public final class ConstructorSearch {
     }
 
     @Nullable
-    private InjectionProvider findOrCreateInjectionProvider(@Nonnull Type parameterType, @Nullable String parameterName,
-            @Nonnull Annotation[] parameterAnnotations) {
+    private InjectionProvider findOrCreateInjectionProvider(@NonNull Type parameterType, @Nullable String parameterName,
+            @NonNull Annotation[] parameterAnnotations) {
         String qualifiedName = getQualifiedName(parameterAnnotations);
 
         if (parameterName == null && qualifiedName == null) {
@@ -247,8 +248,8 @@ public final class ConstructorSearch {
     }
 
     @Nullable
-    private InjectionProvider hasInjectedValuesForVarargsParameter(@Nonnull Type parameterType,
-            @Nonnull KindOfInjectionPoint kindOfInjectionPoint, @Nonnull InjectionProviders injectionProviders) {
+    private InjectionProvider hasInjectedValuesForVarargsParameter(@NonNull Type parameterType,
+            @NonNull KindOfInjectionPoint kindOfInjectionPoint, @NonNull InjectionProviders injectionProviders) {
         Type varargsElementType = getTypeOfInjectionPointFromVarargsParameter(parameterType);
         injectionProviders.setTypeOfInjectionPoint(varargsElementType, kindOfInjectionPoint);
         return injectionProviders.findNextInjectableForInjectionPoint(testedClass);
@@ -265,7 +266,7 @@ public final class ConstructorSearch {
 
     // Methods used only when no satisfiable constructor is found //////////////////////////////////////////////////////
 
-    @Nonnull
+    @NonNull
     public String getDescription() {
         searchResults = new StringBuilder();
         findConstructorToUse();
@@ -275,7 +276,7 @@ public final class ConstructorSearch {
     }
 
     @SuppressWarnings("DynamicRegexReplaceableByCompiledPattern")
-    private void printCandidateConstructorNameIfRequested(@Nonnull Constructor<?> candidate) {
+    private void printCandidateConstructorNameIfRequested(@NonNull Constructor<?> candidate) {
         if (searchResults != null) {
             String constructorDesc = candidate.toGenericString().replace("java.lang.", "").replace(",", ", ");
             searchResults.append("\r\n  ").append(constructorDesc).append("\r\n");

@@ -1,11 +1,10 @@
 package mockit.asm.constantPool;
 
-import javax.annotation.Nonnull;
-
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class ClassMemberItem extends TypeOrMemberItem {
-    @Nonnull
+    @NonNull
     String owner;
 
     public ClassMemberItem(@NonNegative int index) {
@@ -13,7 +12,7 @@ public final class ClassMemberItem extends TypeOrMemberItem {
         owner = "";
     }
 
-    ClassMemberItem(@NonNegative int index, @Nonnull ClassMemberItem item) {
+    ClassMemberItem(@NonNegative int index, @NonNull ClassMemberItem item) {
         super(index, item);
         owner = item.owner;
     }
@@ -21,14 +20,14 @@ public final class ClassMemberItem extends TypeOrMemberItem {
     /**
      * Sets the values of this field/method item.
      */
-    public void set(int type, @Nonnull String owner, @Nonnull String name, @Nonnull String desc) {
+    public void set(int type, @NonNull String owner, @NonNull String name, @NonNull String desc) {
         this.type = type;
         this.owner = owner;
         setValuesAndHashcode(name, desc, owner.hashCode());
     }
 
     @Override
-    boolean isEqualTo(@Nonnull Item item) {
+    boolean isEqualTo(@NonNull Item item) {
         ClassMemberItem other = (ClassMemberItem) item;
         return other.owner.equals(owner) && isEqualTo(other);
     }

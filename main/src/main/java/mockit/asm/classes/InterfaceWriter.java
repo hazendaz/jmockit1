@@ -1,19 +1,19 @@
 package mockit.asm.classes;
 
-import javax.annotation.Nonnull;
-
 import mockit.asm.constantPool.AttributeWriter;
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.util.ByteVector;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Writes out the interfaces implemented or extended by the class or interface being written.
  */
 final class InterfaceWriter extends AttributeWriter {
-    @Nonnull
+    @NonNull
     private final int[] interfaceItemIndices;
 
-    InterfaceWriter(@Nonnull ConstantPoolGeneration cp, @Nonnull String[] interfaceNames) {
+    InterfaceWriter(@NonNull ConstantPoolGeneration cp, @NonNull String[] interfaceNames) {
         super(cp);
 
         int n = interfaceNames.length;
@@ -32,7 +32,7 @@ final class InterfaceWriter extends AttributeWriter {
     }
 
     @Override
-    public void put(@Nonnull ByteVector out) {
+    public void put(@NonNull ByteVector out) {
         out.putShort(interfaceItemIndices.length);
 
         for (int interfaceItemIndex : interfaceItemIndices) {

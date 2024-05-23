@@ -15,7 +15,6 @@ import static mockit.internal.expectations.argumentMatching.AlwaysTrueMatcher.AN
 import static mockit.internal.expectations.argumentMatching.AlwaysTrueMatcher.ANY_STRING;
 import static mockit.internal.expectations.argumentMatching.AlwaysTrueMatcher.ANY_VALUE;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
@@ -24,6 +23,7 @@ import mockit.internal.state.TestRun;
 import mockit.internal.util.ClassLoad;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 @SuppressWarnings("unused")
 public final class ActiveInvocations {
@@ -70,7 +70,7 @@ public final class ActiveInvocations {
         addArgMatcher(ANY_VALUE);
     }
 
-    private static void addArgMatcher(@Nonnull ArgumentMatcher<?> argumentMatcher) {
+    private static void addArgMatcher(@NonNull ArgumentMatcher<?> argumentMatcher) {
         RecordAndReplayExecution instance = TestRun.getRecordAndReplayForRunningTest();
 
         if (instance != null) {
@@ -94,7 +94,7 @@ public final class ActiveInvocations {
         }
     }
 
-    public static void setExpectedArgumentType(@NonNegative int parameterIndex, @Nonnull String typeDesc) {
+    public static void setExpectedArgumentType(@NonNegative int parameterIndex, @NonNull String typeDesc) {
         RecordAndReplayExecution instance = TestRun.getRecordAndReplayForRunningTest();
 
         if (instance != null) {

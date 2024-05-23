@@ -8,7 +8,6 @@ import static java.lang.Character.isWhitespace;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.coverage.CallPoint;
@@ -20,11 +19,12 @@ import mockit.coverage.reporting.parsing.LineElement;
 import mockit.coverage.reporting.parsing.LineParser;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 final class LineSegmentsFormatter {
     @Nullable
     private final ListOfCallPoints listOfCallPoints;
-    @Nonnull
+    @NonNull
     private final StringBuilder formattedLine;
 
     // Helper fields:
@@ -34,12 +34,12 @@ final class LineSegmentsFormatter {
     @Nullable
     private LineElement element;
 
-    LineSegmentsFormatter(boolean withCallPoints, @Nonnull StringBuilder formattedLine) {
+    LineSegmentsFormatter(boolean withCallPoints, @NonNull StringBuilder formattedLine) {
         listOfCallPoints = withCallPoints ? new ListOfCallPoints() : null;
         this.formattedLine = formattedLine;
     }
 
-    void formatSegments(@Nonnull LineParser lineParser, @Nonnull LineCoverageData lineData) {
+    void formatSegments(@NonNull LineParser lineParser, @NonNull LineCoverageData lineData) {
         lineNumber = lineParser.getNumber();
 
         List<BranchCoverageData> branchData = lineData.getBranches();
@@ -67,7 +67,7 @@ final class LineSegmentsFormatter {
         }
     }
 
-    private void appendUntilNextBranchingPoint(@Nonnull LineSegmentData segmentData) {
+    private void appendUntilNextBranchingPoint(@NonNull LineSegmentData segmentData) {
         if (element != null) {
             LineElement firstElement = element;
             element = element.findNextBranchingPoint();
@@ -81,7 +81,7 @@ final class LineSegmentsFormatter {
         }
     }
 
-    private void appendToFormattedLine(@Nonnull LineSegmentData segmentData, @Nonnull LineElement firstElement) {
+    private void appendToFormattedLine(@NonNull LineSegmentData segmentData, @NonNull LineElement firstElement) {
         if (firstElement != element) {
             appendStartTag(segmentData);
             firstElement.appendAllBefore(formattedLine, element);
@@ -91,7 +91,7 @@ final class LineSegmentsFormatter {
         }
     }
 
-    private void appendStartTag(@Nonnull LineSegmentData segmentData) {
+    private void appendStartTag(@NonNull LineSegmentData segmentData) {
         formattedLine.append("<span id='l").append(lineNumber).append('s').append(segmentIndex);
         formattedLine.append("' title='Executions: ").append(segmentData.getExecutionCount()).append("' ");
 
@@ -106,7 +106,7 @@ final class LineSegmentsFormatter {
         }
     }
 
-    private void appendEndTag(@Nonnull LineSegmentData segmentData) {
+    private void appendEndTag(@NonNull LineSegmentData segmentData) {
         int i = formattedLine.length() - 1;
 
         while (isWhitespace(formattedLine.charAt(i))) {

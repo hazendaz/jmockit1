@@ -1,18 +1,17 @@
 package mockit.asm.classes;
 
-import javax.annotation.Nonnull;
-
 import mockit.asm.constantPool.AttributeWriter;
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 final class NestHostWriter extends AttributeWriter {
     @NonNegative
     private final int hostClassNameIndex;
 
-    NestHostWriter(@Nonnull ConstantPoolGeneration cp, @Nonnull String hostClassName) {
+    NestHostWriter(@NonNull ConstantPoolGeneration cp, @NonNull String hostClassName) {
         super(cp, "NestHost");
         hostClassNameIndex = cp.newClass(hostClassName);
     }
@@ -24,7 +23,7 @@ final class NestHostWriter extends AttributeWriter {
     }
 
     @Override
-    public void put(@Nonnull ByteVector out) {
+    public void put(@NonNull ByteVector out) {
         super.put(out);
         out.putShort(hostClassNameIndex);
     }

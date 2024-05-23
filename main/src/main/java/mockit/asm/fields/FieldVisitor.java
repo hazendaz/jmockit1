@@ -1,6 +1,5 @@
 package mockit.asm.fields;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.BaseWriter;
@@ -11,6 +10,7 @@ import mockit.asm.types.JavaType;
 import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * A visitor to visit a Java field, in the following order: ({@link #visitAnnotation})* {@link #visitEnd}.
@@ -53,7 +53,7 @@ public final class FieldVisitor extends BaseWriter {
      * @param value
      *            the field's constant value
      */
-    public FieldVisitor(@Nonnull ClassWriter cw, int access, @Nonnull String name, @Nonnull String desc,
+    public FieldVisitor(@NonNull ClassWriter cw, int access, @NonNull String name, @NonNull String desc,
             @Nullable String signature, @Nullable Object value) {
         super(cw.getConstantPoolGeneration(), access);
 
@@ -88,7 +88,7 @@ public final class FieldVisitor extends BaseWriter {
      * Puts the content of this field into the given byte vector.
      */
     @Override
-    protected void put(@Nonnull ByteVector out) {
+    protected void put(@NonNull ByteVector out) {
         putAccess(out, 0);
         out.putShort(nameItemIndex);
         out.putShort(descItemIndex);

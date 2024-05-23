@@ -1,6 +1,5 @@
 package mockit.asm.classes;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.BaseWriter;
@@ -9,6 +8,8 @@ import mockit.asm.jvmConstants.Access;
 import mockit.asm.jvmConstants.Opcodes;
 import mockit.asm.methods.MethodVisitor;
 import mockit.asm.types.JavaType;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * A visitor to visit a Java class, in the following order:<br>
@@ -31,7 +32,7 @@ public class ClassVisitor extends BaseWriter {
      * @param additionalInfo
      *            additional class information
      */
-    public void visit(int version, int access, @Nonnull String name, @Nonnull ClassInfo additionalInfo) {
+    public void visit(int version, int access, @NonNull String name, @NonNull ClassInfo additionalInfo) {
     }
 
     /**
@@ -48,7 +49,7 @@ public class ClassVisitor extends BaseWriter {
      * @param access
      *            the access flags of the inner class as originally declared in the enclosing class
      */
-    public void visitInnerClass(@Nonnull String name, @Nullable String outerName, @Nullable String innerName,
+    public void visitInnerClass(@NonNull String name, @Nullable String outerName, @Nullable String innerName,
             int access) {
     }
 
@@ -74,7 +75,7 @@ public class ClassVisitor extends BaseWriter {
      *         interested in visiting these annotations and attributes
      */
     @Nullable
-    public FieldVisitor visitField(int access, @Nonnull String name, @Nonnull String desc, @Nullable String signature,
+    public FieldVisitor visitField(int access, @NonNull String name, @NonNull String desc, @Nullable String signature,
             @Nullable Object value) {
         return null;
     }
@@ -99,7 +100,7 @@ public class ClassVisitor extends BaseWriter {
      *         interested in visiting the code of this method
      */
     @Nullable
-    public MethodVisitor visitMethod(int access, @Nonnull String name, @Nonnull String desc, @Nullable String signature,
+    public MethodVisitor visitMethod(int access, @NonNull String name, @NonNull String desc, @Nullable String signature,
             @Nullable String[] exceptions) {
         return null;
     }

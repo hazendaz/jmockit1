@@ -7,24 +7,25 @@ package mockit.internal.expectations;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.expectations.invocation.ExpectedInvocation;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 class UnorderedVerificationPhase extends BaseVerificationPhase {
-    @Nonnull
+    @NonNull
     private final List<VerifiedExpectation> verifiedExpectations;
 
-    UnorderedVerificationPhase(@Nonnull ReplayPhase replayPhase) {
+    UnorderedVerificationPhase(@NonNull ReplayPhase replayPhase) {
         super(replayPhase);
         verifiedExpectations = new ArrayList<>();
     }
 
-    @Nonnull
+    @NonNull
     @Override
-    final List<ExpectedInvocation> findExpectation(@Nullable Object mock, @Nonnull String mockClassDesc,
-            @Nonnull String mockNameAndDesc, @Nonnull Object[] args) {
+    final List<ExpectedInvocation> findExpectation(@Nullable Object mock, @NonNull String mockClassDesc,
+            @NonNull String mockNameAndDesc, @NonNull Object[] args) {
         if (!matchInstance && executionState.isToBeMatchedOnInstance(mock, mockNameAndDesc)) {
             matchInstance = true;
         }
@@ -60,14 +61,14 @@ class UnorderedVerificationPhase extends BaseVerificationPhase {
     }
 
     @Nullable
-    private Error verifyConstraints(@Nonnull Expectation verification) {
+    private Error verifyConstraints(@NonNull Expectation verification) {
         ExpectedInvocation lastInvocation = replayPhase.invocations.get(replayIndex).invocation;
         Object[] lastArgs = replayPhase.invocationArguments.get(replayIndex);
         return verification.verifyConstraints(lastInvocation, lastArgs, 1, -1);
     }
 
     @Override
-    final void addVerifiedExpectation(@Nonnull Expectation expectation, @Nonnull Object[] args) {
+    final void addVerifiedExpectation(@NonNull Expectation expectation, @NonNull Object[] args) {
         VerifiedExpectation verifiedExpectation = new VerifiedExpectation(expectation, args, argMatchers, -1);
         addVerifiedExpectation(verifiedExpectation);
         verifiedExpectations.add(verifiedExpectation);

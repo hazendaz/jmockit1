@@ -1,11 +1,11 @@
 package mockit.asm.controlFlow;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * A label represents a position in the bytecode of a method. Labels are used for jump, goto, and switch instructions,
@@ -218,7 +218,7 @@ public final class Label {
         status |= Status.REACHABLE;
     }
 
-    void markAsTarget(@Nonnull Label target) {
+    void markAsTarget(@NonNull Label target) {
         status |= target.status & Status.TARGET;
     }
 
@@ -238,7 +238,7 @@ public final class Label {
      * @throws IllegalArgumentException
      *             if this label has not been created by the given code writer
      */
-    public void put(@Nonnull ByteVector out, @NonNegative int source, boolean wideOffset) {
+    public void put(@NonNull ByteVector out, @NonNegative int source, boolean wideOffset) {
         if (isResolved()) {
             int reference = position - source;
 
@@ -291,7 +291,7 @@ public final class Label {
      *            bytecode of the method containing this label
      */
     @SuppressWarnings("NumericCastThatLosesPrecision")
-    void resolve(@Nonnull ByteVector methodBytecode) {
+    void resolve(@NonNull ByteVector methodBytecode) {
         markAsResolved();
 
         byte[] data = methodBytecode.getData();
@@ -327,7 +327,7 @@ public final class Label {
      *
      * @return the first label of the series to which this label belongs
      */
-    @Nonnull
+    @NonNull
     public Label getFirst() {
         return frame == null ? this : frame.owner;
     }
@@ -350,7 +350,7 @@ public final class Label {
     }
 
     @Nullable
-    public Label setSuccessors(@Nonnull Edge edge) {
+    public Label setSuccessors(@NonNull Edge edge) {
         edge.setNext(successors);
         successors = edge;
         return successor;

@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.classes.ClassReader;
@@ -37,16 +36,18 @@ import mockit.internal.state.TestRun;
 import mockit.internal.util.ClassLoad;
 import mockit.internal.util.VisitInterruptedException;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 class BaseTypeRedefinition {
     private static final ClassDefinition[] CLASS_DEFINITIONS = {};
 
     private static final class MockedClass {
         @Nullable
         final InstanceFactory instanceFactory;
-        @Nonnull
+        @NonNull
         final ClassDefinition[] mockedClassDefinitions;
 
-        MockedClass(@Nullable InstanceFactory instanceFactory, @Nonnull ClassDefinition[] classDefinitions) {
+        MockedClass(@Nullable InstanceFactory instanceFactory, @NonNull ClassDefinition[] classDefinitions) {
             this.instanceFactory = instanceFactory;
             mockedClassDefinitions = classDefinitions;
         }
@@ -56,9 +57,9 @@ class BaseTypeRedefinition {
         }
     }
 
-    @Nonnull
+    @NonNull
     private static final Map<Integer, MockedClass> mockedClasses = new HashMap<>();
-    @Nonnull
+    @NonNull
     private static final Map<Type, Class<?>> mockImplementations = new HashMap<>();
 
     Class<?> targetClass;
@@ -72,13 +73,13 @@ class BaseTypeRedefinition {
     BaseTypeRedefinition() {
     }
 
-    BaseTypeRedefinition(@Nonnull MockedType typeMetadata) {
+    BaseTypeRedefinition(@NonNull MockedType typeMetadata) {
         targetClass = typeMetadata.getClassType();
         this.typeMetadata = typeMetadata;
     }
 
     @Nullable
-    final InstanceFactory redefineType(@Nonnull Type typeToMock) {
+    final InstanceFactory redefineType(@NonNull Type typeToMock) {
         if (targetClass == TypeVariable.class || targetClass.isInterface()) {
             createMockedInterfaceImplementationAndInstanceFactory(typeToMock);
         } else {
@@ -96,7 +97,7 @@ class BaseTypeRedefinition {
         return instanceFactory;
     }
 
-    private void createMockedInterfaceImplementationAndInstanceFactory(@Nonnull Type interfaceToMock) {
+    private void createMockedInterfaceImplementationAndInstanceFactory(@NonNull Type interfaceToMock) {
         Class<?> mockedInterface = interfaceToMock(interfaceToMock);
         Object mockedInstance;
 
@@ -111,7 +112,7 @@ class BaseTypeRedefinition {
     }
 
     @Nullable
-    private static Class<?> interfaceToMock(@Nonnull Type typeToMock) {
+    private static Class<?> interfaceToMock(@NonNull Type typeToMock) {
         while (true) {
             if (typeToMock instanceof Class<?>) {
                 Class<?> theInterface = (Class<?>) typeToMock;
@@ -128,8 +129,8 @@ class BaseTypeRedefinition {
         }
     }
 
-    @Nonnull
-    private Object createMockInterfaceImplementationUsingStandardProxy(@Nonnull Type typeToMock) {
+    @NonNull
+    private Object createMockInterfaceImplementationUsingStandardProxy(@NonNull Type typeToMock) {
         ClassLoader loader = getClass().getClassLoader();
         Object mockedInstance = Impl.newEmptyProxy(loader, typeToMock);
         targetClass = mockedInstance.getClass();
@@ -137,8 +138,8 @@ class BaseTypeRedefinition {
         return mockedInstance;
     }
 
-    @Nonnull
-    private Object createMockInterfaceImplementationDirectly(@Nonnull Type interfaceToMock) {
+    @NonNull
+    private Object createMockInterfaceImplementationDirectly(@NonNull Type interfaceToMock) {
         Class<?> previousMockImplementationClass = mockImplementations.get(interfaceToMock);
 
         if (previousMockImplementationClass == null) {
@@ -151,7 +152,7 @@ class BaseTypeRedefinition {
         return ConstructorReflection.newInstanceUsingDefaultConstructor(targetClass);
     }
 
-    private void redefineClass(@Nonnull Class<?> realClass) {
+    private void redefineClass(@NonNull Class<?> realClass) {
         ClassReader classReader = ClassFile.createReaderOrGetFromCache(realClass);
 
         if (realClass.isInterface() && classReader.getVersion() < ClassVersion.V8) {
@@ -163,21 +164,21 @@ class BaseTypeRedefinition {
         redefineClass(realClass, classReader, modifier);
     }
 
-    @Nonnull
-    private MockedClassModifier createClassModifier(@Nullable ClassLoader loader, @Nonnull ClassReader classReader) {
+    @NonNull
+    private MockedClassModifier createClassModifier(@Nullable ClassLoader loader, @NonNull ClassReader classReader) {
         MockedClassModifier modifier = new MockedClassModifier(loader, classReader, typeMetadata);
         configureClassModifier(modifier);
         return modifier;
     }
 
-    void configureClassModifier(@Nonnull MockedClassModifier modifier) {
+    void configureClassModifier(@NonNull MockedClassModifier modifier) {
     }
 
-    private void generateNewMockImplementationClassForInterface(@Nonnull final Type interfaceToMock) {
+    private void generateNewMockImplementationClassForInterface(@NonNull final Type interfaceToMock) {
         ImplementationClass<?> implementationGenerator = new ImplementationClass<>(interfaceToMock) {
-            @Nonnull
+            @NonNull
             @Override
-            protected ClassVisitor createMethodBodyGenerator(@Nonnull ClassReader cr) {
+            protected ClassVisitor createMethodBodyGenerator(@NonNull ClassReader cr) {
                 return new InterfaceImplementationGenerator(cr, interfaceToMock, generatedClassName);
             }
         };
@@ -185,7 +186,7 @@ class BaseTypeRedefinition {
         targetClass = implementationGenerator.generateClass();
     }
 
-    private void redefinedImplementedInterfacesIfRunningOnJava8(@Nonnull Class<?> aClass) {
+    private void redefinedImplementedInterfacesIfRunningOnJava8(@NonNull Class<?> aClass) {
         if (JAVA8) {
             redefineImplementedInterfaces(aClass.getInterfaces());
         }
@@ -195,7 +196,7 @@ class BaseTypeRedefinition {
         return redefineClassAndItsSuperClasses(targetClass);
     }
 
-    private boolean redefineClassAndItsSuperClasses(@Nonnull Class<?> realClass) {
+    private boolean redefineClassAndItsSuperClasses(@NonNull Class<?> realClass) {
         ClassLoader loader = realClass.getClassLoader();
         ClassReader classReader = ClassFile.createReaderOrGetFromCache(realClass);
         MockedClassModifier modifier = createClassModifier(loader, classReader);
@@ -222,8 +223,8 @@ class BaseTypeRedefinition {
         return redefined;
     }
 
-    private void redefineClass(@Nonnull Class<?> realClass, @Nonnull ClassReader classReader,
-            @Nonnull MockedClassModifier modifier) {
+    private void redefineClass(@NonNull Class<?> realClass, @NonNull ClassReader classReader,
+            @NonNull MockedClassModifier modifier) {
         classReader.accept(modifier);
 
         if (modifier.wasModified()) {
@@ -232,7 +233,7 @@ class BaseTypeRedefinition {
         }
     }
 
-    void applyClassRedefinition(@Nonnull Class<?> realClass, @Nonnull byte[] modifiedClass) {
+    void applyClassRedefinition(@NonNull Class<?> realClass, @NonNull byte[] modifiedClass) {
         ClassDefinition classDefinition = new ClassDefinition(realClass, modifiedClass);
         TestRun.mockFixture().redefineClasses(classDefinition);
 
@@ -250,14 +251,14 @@ class BaseTypeRedefinition {
         }
     }
 
-    private void redefineImplementedInterfaces(@Nonnull Class<?>[] implementedInterfaces) {
+    private void redefineImplementedInterfaces(@NonNull Class<?>[] implementedInterfaces) {
         for (Class<?> implementedInterface : implementedInterfaces) {
             redefineClass(implementedInterface);
             redefineImplementedInterfaces(implementedInterface.getInterfaces());
         }
     }
 
-    private void redefineTargetClassAndCreateInstanceFactory(@Nonnull Type typeToMock) {
+    private void redefineTargetClassAndCreateInstanceFactory(@NonNull Type typeToMock) {
         Integer mockedClassId = redefineClassesFromCache();
 
         if (mockedClassId == null) {
@@ -272,8 +273,8 @@ class BaseTypeRedefinition {
         }
     }
 
-    @Nonnull
-    final InstanceFactory createInstanceFactory(@Nonnull Type typeToMock) {
+    @NonNull
+    final InstanceFactory createInstanceFactory(@NonNull Type typeToMock) {
         Class<?> classToInstantiate = targetClass;
 
         if (isAbstract(classToInstantiate.getModifiers())) {
@@ -299,7 +300,7 @@ class BaseTypeRedefinition {
         return mockedClassId;
     }
 
-    private void storeRedefinedClassesInCache(@Nonnull Integer mockedClassId) {
+    private void storeRedefinedClassesInCache(@NonNull Integer mockedClassId) {
         assert mockedClassDefinitions != null;
         ClassDefinition[] classDefs = mockedClassDefinitions.toArray(CLASS_DEFINITIONS);
         MockedClass mockedClass = new MockedClass(instanceFactory, classDefs);
@@ -307,20 +308,20 @@ class BaseTypeRedefinition {
         mockedClasses.put(mockedClassId, mockedClass);
     }
 
-    @Nonnull
-    private Class<?> generateConcreteSubclassForAbstractType(@Nonnull final Type typeToMock) {
+    @NonNull
+    private Class<?> generateConcreteSubclassForAbstractType(@NonNull final Type typeToMock) {
         final String subclassName = getNameForConcreteSubclassToCreate();
 
         return new ImplementationClass<>(targetClass, subclassName) {
-            @Nonnull
+            @NonNull
             @Override
-            protected ClassVisitor createMethodBodyGenerator(@Nonnull ClassReader cr) {
+            protected ClassVisitor createMethodBodyGenerator(@NonNull ClassReader cr) {
                 return new SubclassGenerationModifier(targetClass, typeToMock, cr, subclassName, false);
             }
         }.generateClass();
     }
 
-    @Nonnull
+    @NonNull
     private String getNameForConcreteSubclassToCreate() {
         String mockId = typeMetadata == null ? null : typeMetadata.getName();
         return getNameForGeneratedClass(targetClass, mockId);

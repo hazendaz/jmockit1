@@ -7,7 +7,6 @@ package mockit.internal.expectations;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
@@ -15,6 +14,7 @@ import mockit.internal.expectations.argumentMatching.CaptureMatcher;
 import mockit.internal.expectations.argumentMatching.ClassMatcher;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public abstract class TestOnlyPhase extends Phase {
     boolean matchInstance;
@@ -23,15 +23,15 @@ public abstract class TestOnlyPhase extends Phase {
     @Nullable
     Expectation currentExpectation;
 
-    TestOnlyPhase(@Nonnull PhasedExecutionState executionState) {
+    TestOnlyPhase(@NonNull PhasedExecutionState executionState) {
         super(executionState);
     }
 
-    public final void addArgMatcher(@Nonnull ArgumentMatcher<?> matcher) {
+    public final void addArgMatcher(@NonNull ArgumentMatcher<?> matcher) {
         getArgumentMatchers().add(matcher);
     }
 
-    @Nonnull
+    @NonNull
     private List<ArgumentMatcher<?>> getArgumentMatchers() {
         if (argMatchers == null) {
             argMatchers = new ArrayList<>();
@@ -51,7 +51,7 @@ public abstract class TestOnlyPhase extends Phase {
 
     @NonNegative
     private static int getMatcherPositionIgnoringNulls(@NonNegative int originalMatcherIndex,
-            @Nonnull List<ArgumentMatcher<?>> matchers) {
+            @NonNull List<ArgumentMatcher<?>> matchers) {
         int i = 0;
 
         for (int matchersFound = 0; matchersFound <= originalMatcherIndex; i++) {
@@ -63,12 +63,12 @@ public abstract class TestOnlyPhase extends Phase {
         return i;
     }
 
-    final void setExpectedSingleArgumentType(@NonNegative int parameterIndex, @Nonnull Class<?> argumentType) {
+    final void setExpectedSingleArgumentType(@NonNegative int parameterIndex, @NonNull Class<?> argumentType) {
         ArgumentMatcher<?> newMatcher = ClassMatcher.create(argumentType);
         getArgumentMatchers().set(parameterIndex, newMatcher);
     }
 
-    final void setExpectedMultiArgumentType(@NonNegative int parameterIndex, @Nonnull Class<?> argumentType) {
+    final void setExpectedMultiArgumentType(@NonNegative int parameterIndex, @NonNull Class<?> argumentType) {
         CaptureMatcher<?> matcher = (CaptureMatcher<?>) getArgumentMatchers().get(parameterIndex);
         matcher.setExpectedType(argumentType);
     }
@@ -83,7 +83,7 @@ public abstract class TestOnlyPhase extends Phase {
 
     abstract void handleInvocationCountConstraint(int minInvocations, int maxInvocations);
 
-    static boolean isEnumElement(@Nonnull Object mock) {
+    static boolean isEnumElement(@NonNull Object mock) {
         Object[] enumElements = mock.getClass().getEnumConstants();
 
         if (enumElements != null) {

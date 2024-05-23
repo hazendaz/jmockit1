@@ -15,11 +15,12 @@ import java.util.Map.Entry;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 final class InterfaceResolution {
-    @Nonnull
+    @NonNull
     private final NavigableMap<ParameterizedType, Method> interfaceResolutionMethods;
 
     InterfaceResolution() {
@@ -47,7 +48,7 @@ final class InterfaceResolution {
         });
     }
 
-    private static int compareTypesFromResolutionMethods(@Nonnull WildcardType type1, @Nonnull WildcardType type2) {
+    private static int compareTypesFromResolutionMethods(@NonNull WildcardType type1, @NonNull WildcardType type2) {
         Type upperBound1 = type1.getUpperBounds()[0];
         Class<?> classOfUpperBound1 = getClassType(upperBound1);
 
@@ -69,12 +70,12 @@ final class InterfaceResolution {
         return !interfaceResolutionMethods.isEmpty();
     }
 
-    void addInterfaceResolutionMethod(@Nonnull ParameterizedType interfaceType, @Nonnull Method resolutionMethod) {
+    void addInterfaceResolutionMethod(@NonNull ParameterizedType interfaceType, @NonNull Method resolutionMethod) {
         interfaceResolutionMethods.put(interfaceType, resolutionMethod);
     }
 
     @Nullable
-    Class<?> resolveInterface(@Nonnull Class<?> anInterface, @Nonnull Object testClassInstance) {
+    Class<?> resolveInterface(@NonNull Class<?> anInterface, @NonNull Object testClassInstance) {
         if (interfaceResolutionMethods.isEmpty()) {
             return null;
         }
@@ -97,7 +98,7 @@ final class InterfaceResolution {
         return null;
     }
 
-    private static boolean satisfiesUpperBounds(@Nonnull Class<?> interfaceType, @Nonnull WildcardType targetType) {
+    private static boolean satisfiesUpperBounds(@NonNull Class<?> interfaceType, @NonNull WildcardType targetType) {
         for (Type upperBound : targetType.getUpperBounds()) {
             Class<?> classOfUpperBound = getClassType(upperBound);
 

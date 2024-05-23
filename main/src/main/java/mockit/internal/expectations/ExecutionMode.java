@@ -7,10 +7,11 @@ package mockit.internal.expectations;
 import static java.lang.reflect.Modifier.isNative;
 import static java.lang.reflect.Modifier.isStatic;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.state.TestRun;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public enum ExecutionMode {
     Regular {
@@ -37,7 +38,7 @@ public enum ExecutionMode {
         }
 
         @Override
-        boolean isToExecuteRealObjectOverride(@Nonnull Object instance) {
+        boolean isToExecuteRealObjectOverride(@NonNull Object instance) {
             return true;
         }
     },
@@ -54,7 +55,7 @@ public enum ExecutionMode {
         }
 
         @Override
-        boolean isToExecuteRealObjectOverride(@Nonnull Object instance) {
+        boolean isToExecuteRealObjectOverride(@NonNull Object instance) {
             return TestRun.getExecutingTest().isUnmockedInstance(instance);
         }
     };
@@ -79,7 +80,7 @@ public enum ExecutionMode {
         return false;
     }
 
-    boolean isToExecuteRealObjectOverride(@Nonnull Object instance) {
+    boolean isToExecuteRealObjectOverride(@NonNull Object instance) {
         return false;
     }
 }

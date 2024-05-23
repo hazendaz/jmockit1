@@ -10,24 +10,24 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.coverage.data.FileCoverageData;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 final class PackageCoverageReport extends ListWithFilesAndPercentages {
-    @Nonnull
+    @NonNull
     private final Map<String, FileCoverageData> filesToFileData;
     @Nullable
     private final Collection<String> sourceFilesNotFound;
-    @Nonnull
+    @NonNull
     private final char[] fileNameWithSpaces;
 
-    PackageCoverageReport(@Nonnull PrintWriter output, @Nullable Collection<String> sourceFilesNotFound,
-            @Nonnull Map<String, FileCoverageData> filesToFileData,
-            @Nonnull Collection<List<String>> allSourceFileNames) {
+    PackageCoverageReport(@NonNull PrintWriter output, @Nullable Collection<String> sourceFilesNotFound,
+            @NonNull Map<String, FileCoverageData> filesToFileData,
+            @NonNull Collection<List<String>> allSourceFileNames) {
         super(output, "          ");
         this.sourceFilesNotFound = sourceFilesNotFound;
         this.filesToFileData = filesToFileData;
@@ -35,7 +35,7 @@ final class PackageCoverageReport extends ListWithFilesAndPercentages {
     }
 
     @NonNegative
-    private static int maximumSourceFileNameLength(@Nonnull Collection<List<String>> allSourceFileNames) {
+    private static int maximumSourceFileNameLength(@NonNull Collection<List<String>> allSourceFileNames) {
         int maxLength = 0;
 
         for (List<String> files : allSourceFileNames) {
@@ -52,7 +52,7 @@ final class PackageCoverageReport extends ListWithFilesAndPercentages {
     }
 
     @Override
-    protected void writeMetricsForFile(@Nullable String packageName, @Nonnull String fileName) {
+    protected void writeMetricsForFile(@Nullable String packageName, @NonNull String fileName) {
         String filePath = packageName == null || packageName.isEmpty() ? fileName : packageName + '/' + fileName;
         FileCoverageData fileData = filesToFileData.get(filePath);
 
@@ -69,7 +69,7 @@ final class PackageCoverageReport extends ListWithFilesAndPercentages {
     }
 
     @NonNegative
-    private int buildFileNameWithTrailingSpaces(@Nonnull String fileName) {
+    private int buildFileNameWithTrailingSpaces(@NonNull String fileName) {
         int n = fileName.length();
 
         fileName.getChars(0, n, fileNameWithSpaces, 0);
@@ -78,7 +78,7 @@ final class PackageCoverageReport extends ListWithFilesAndPercentages {
         return n;
     }
 
-    private void writeTableCellWithFileName(@Nonnull String filePath, @NonNegative int fileNameLen) {
+    private void writeTableCellWithFileName(@NonNull String filePath, @NonNegative int fileNameLen) {
         if (sourceFilesNotFound == null || sourceFilesNotFound.contains(filePath)) {
             output.write(fileNameWithSpaces);
         } else {
@@ -94,7 +94,7 @@ final class PackageCoverageReport extends ListWithFilesAndPercentages {
         output.println("</td>");
     }
 
-    private void writeCodeCoverageMetricForFile(@Nonnull FileCoverageData coverageInfo) {
+    private void writeCodeCoverageMetricForFile(@NonNull FileCoverageData coverageInfo) {
         int percentage = coverageInfo.getCoveragePercentage();
         int covered = coverageInfo.getCoveredItems();
         int total = coverageInfo.getTotalItems();

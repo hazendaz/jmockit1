@@ -7,7 +7,6 @@ package mockit.internal.expectations;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.expectations.invocation.ExpectedInvocation;
@@ -15,12 +14,13 @@ import mockit.internal.expectations.invocation.InvocationArguments;
 import mockit.internal.util.ClassLoad;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 final class FullVerificationPhase extends UnorderedVerificationPhase {
-    @Nonnull
+    @NonNull
     private final Object[] mockedTypesAndInstancesToVerify;
 
-    FullVerificationPhase(@Nonnull ReplayPhase replayPhase, @Nonnull Object[] mockedTypesAndInstancesToVerify) {
+    FullVerificationPhase(@NonNull ReplayPhase replayPhase, @NonNull Object[] mockedTypesAndInstancesToVerify) {
         super(replayPhase);
         this.mockedTypesAndInstancesToVerify = mockedTypesAndInstancesToVerify;
     }
@@ -59,11 +59,11 @@ final class FullVerificationPhase extends UnorderedVerificationPhase {
         return null;
     }
 
-    private static boolean isEligibleForFullVerification(@Nonnull Expectation replayExpectation) {
+    private static boolean isEligibleForFullVerification(@NonNull Expectation replayExpectation) {
         return !replayExpectation.executedRealImplementation && replayExpectation.constraints.minInvocations <= 0;
     }
 
-    private boolean wasVerified(@Nonnull Expectation replayExpectation, @Nonnull Object[] replayArgs,
+    private boolean wasVerified(@NonNull Expectation replayExpectation, @NonNull Object[] replayArgs,
             @NonNegative int expectationIndex) {
         InvocationArguments invokedArgs = replayExpectation.invocation.arguments;
         List<VerifiedExpectation> verifiedExpectations = executionState.verifiedExpectations;
@@ -85,7 +85,7 @@ final class FullVerificationPhase extends UnorderedVerificationPhase {
     }
 
     @Nullable
-    private Error validateThatUnverifiedInvocationsAreAllowed(@Nonnull List<Expectation> unverified) {
+    private Error validateThatUnverifiedInvocationsAreAllowed(@NonNull List<Expectation> unverified) {
         for (Expectation expectation : unverified) {
             ExpectedInvocation invocation = expectation.invocation;
 
@@ -97,7 +97,7 @@ final class FullVerificationPhase extends UnorderedVerificationPhase {
         return null;
     }
 
-    private boolean isInvocationToBeVerified(@Nonnull ExpectedInvocation unverifiedInvocation) {
+    private boolean isInvocationToBeVerified(@NonNull ExpectedInvocation unverifiedInvocation) {
         String invokedClassName = unverifiedInvocation.getClassName();
         Object invokedInstance = unverifiedInvocation.instance;
 

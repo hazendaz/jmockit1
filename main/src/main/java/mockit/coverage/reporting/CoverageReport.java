@@ -14,7 +14,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.coverage.Configuration;
@@ -24,22 +23,24 @@ import mockit.coverage.reporting.packages.IndexPage;
 import mockit.coverage.reporting.sourceFiles.FileCoverageReport;
 import mockit.coverage.reporting.sourceFiles.InputFile;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 public final class CoverageReport {
-    @Nonnull
+    @NonNull
     private final String outputDir;
     private boolean outputDirCreated;
     @Nullable
     private final List<File> sourceDirs;
-    @Nonnull
+    @NonNull
     private final Map<String, FileCoverageData> fileToFileData;
-    @Nonnull
+    @NonNull
     private final Map<String, List<String>> packageToFiles;
     private final boolean withCallPoints;
     @Nullable
     private final Collection<String> sourceFilesNotFound;
 
-    public CoverageReport(@Nonnull String outputDir, boolean outputDirCreated, @Nullable String[] srcDirs,
-            @Nonnull CoverageData coverageData, boolean withCallPoints) {
+    public CoverageReport(@NonNull String outputDir, boolean outputDirCreated, @Nullable String[] srcDirs,
+            @NonNull CoverageData coverageData, boolean withCallPoints) {
         this.outputDir = Configuration.getOrChooseOutputDirectory(outputDir, "coverage-report");
         this.outputDirCreated = outputDirCreated;
         sourceDirs = srcDirs == null ? null : new SourceFiles().buildListOfSourceDirectories(srcDirs);
@@ -100,7 +101,7 @@ public final class CoverageReport {
         }
     }
 
-    private void generateFileCoverageReport(@Nonnull String sourceFile, @Nonnull FileCoverageData fileData)
+    private void generateFileCoverageReport(@NonNull String sourceFile, @NonNull FileCoverageData fileData)
             throws IOException {
         if (sourceDirs != null) {
             InputFile inputFile = InputFile.createIfFileExists(sourceDirs, sourceFile);
@@ -119,7 +120,7 @@ public final class CoverageReport {
         addFileToPackageFileList(sourceFile);
     }
 
-    private void addFileToPackageFileList(@Nonnull String file) {
+    private void addFileToPackageFileList(@NonNull String file) {
         int p = file.lastIndexOf('/');
         String filePackage = p < 0 ? "" : file.substring(0, p);
         List<String> filesInPackage = packageToFiles.get(filePackage);
@@ -132,7 +133,7 @@ public final class CoverageReport {
         filesInPackage.add(file.substring(p + 1));
     }
 
-    private void deleteOutdatedHTMLFileIfExists(@Nonnull String filePath) {
+    private void deleteOutdatedHTMLFileIfExists(@NonNull String filePath) {
         if (!outputDirCreated) {
             File outputFile = OutputFile.getOutputFile(outputDir, filePath);
             // noinspection ResultOfMethodCallIgnored

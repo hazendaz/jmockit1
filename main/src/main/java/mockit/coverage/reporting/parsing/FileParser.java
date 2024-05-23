@@ -7,23 +7,24 @@ package mockit.coverage.reporting.parsing;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class FileParser {
     private static final class PendingClass {
-        @Nonnull
+        @NonNull
         final String className;
         int braceBalance;
 
-        PendingClass(@Nonnull String className) {
+        PendingClass(@NonNull String className) {
             this.className = className;
         }
     }
 
-    @Nonnull
+    @NonNull
     public final LineParser lineParser = new LineParser();
-    @Nonnull
+    @NonNull
     public final List<PendingClass> currentClasses = new ArrayList<>(2);
 
     @Nullable
@@ -31,7 +32,7 @@ public final class FileParser {
     private boolean openingBraceForClassFound;
     private int currentBraceBalance;
 
-    public boolean parseCurrentLine(@Nonnull String line) {
+    public boolean parseCurrentLine(@NonNull String line) {
         if (!lineParser.parse(line)) {
             return false;
         }
@@ -66,7 +67,7 @@ public final class FileParser {
         return null;
     }
 
-    private void registerStartOfClassDeclaration(@Nonnull LineElement elementWithClassName) {
+    private void registerStartOfClassDeclaration(@NonNull LineElement elementWithClassName) {
         String className = elementWithClassName.getText();
 
         if (currentClass != null) {
@@ -78,7 +79,7 @@ public final class FileParser {
         currentBraceBalance = 0;
     }
 
-    private void detectPotentialEndOfClassDeclaration(@Nonnull LineElement firstElement) {
+    private void detectPotentialEndOfClassDeclaration(@NonNull LineElement firstElement) {
         // TODO: how to deal with classes defined entirely in one line?
         currentBraceBalance += firstElement.getBraceBalanceUntilEndOfLine();
 

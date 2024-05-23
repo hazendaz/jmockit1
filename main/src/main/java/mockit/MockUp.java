@@ -13,7 +13,6 @@ import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.classGeneration.ConcreteSubclass;
@@ -25,6 +24,8 @@ import mockit.internal.reflection.ConstructorReflection;
 import mockit.internal.reflection.MockInvocationHandler;
 import mockit.internal.startup.Startup;
 import mockit.internal.state.TestRun;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * A base class used in the creation of a <em>fake</em> for an <em>external</em> type, which is usually a class from
@@ -142,7 +143,7 @@ public abstract class MockUp<T> {
      *
      * @return the type to fake
      */
-    @Nonnull
+    @NonNull
     private Type getTypeToFake() {
         Class<?> currentClass = getClass();
 
@@ -161,8 +162,8 @@ public abstract class MockUp<T> {
         } while (true);
     }
 
-    @Nonnull
-    private Class<?> redefineClassOrImplementInterface(@Nonnull Class<T> classToMock) {
+    @NonNull
+    private Class<?> redefineClassOrImplementInterface(@NonNull Class<T> classToMock) {
         if (classToMock.isInterface()) {
             return createInstanceOfMockedImplementationClass(classToMock, targetType);
         }
@@ -177,13 +178,13 @@ public abstract class MockUp<T> {
         return classToMock;
     }
 
-    @Nonnull
-    private Class<T> createInstanceOfMockedImplementationClass(@Nonnull Class<T> classToMock,
+    @NonNull
+    private Class<T> createInstanceOfMockedImplementationClass(@NonNull Class<T> classToMock,
             @Nullable Type typeToMock) {
         return new FakedImplementationClass<T>(this).createImplementation(classToMock, typeToMock);
     }
 
-    private void redefineMethods(@Nonnull Class<T> realClass, @Nonnull Class<T> classToMock,
+    private void redefineMethods(@NonNull Class<T> realClass, @NonNull Class<T> classToMock,
             @Nullable Type genericMockedType) {
         new FakeClassSetup(realClass, classToMock, genericMockedType, this).redefineMethods();
     }
@@ -258,7 +259,7 @@ public abstract class MockUp<T> {
         setMockInstance(targetInstance);
     }
 
-    private void setMockInstance(@Nonnull T mockInstance) {
+    private void setMockInstance(@NonNull T mockInstance) {
         TestRun.getFakeClasses().addFake(this, mockInstance);
         this.mockInstance = mockInstance;
     }
@@ -295,8 +296,8 @@ public abstract class MockUp<T> {
         return mockInstance;
     }
 
-    @Nonnull
-    private Object createMockInstance(@Nonnull Class<?> mockedClass) {
+    @NonNull
+    private Object createMockInstance(@NonNull Class<?> mockedClass) {
         String mockedClassName = mockedClass.getName();
 
         if (isGeneratedImplementationClassName(mockedClassName)) {

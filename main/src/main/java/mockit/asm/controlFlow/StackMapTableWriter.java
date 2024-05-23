@@ -8,8 +8,6 @@ import static mockit.asm.controlFlow.StackMapTableWriter.LocalsAndStackItemsDiff
 import static mockit.asm.controlFlow.StackMapTableWriter.LocalsAndStackItemsDiff.SAME_LOCALS_1_STACK_ITEM_FRAME;
 import static mockit.asm.controlFlow.StackMapTableWriter.LocalsAndStackItemsDiff.SAME_LOCALS_1_STACK_ITEM_FRAME_EXTENDED;
 
-import javax.annotation.Nonnull;
-
 import mockit.asm.constantPool.AttributeWriter;
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.constantPool.UninitializedTypeTableItem;
@@ -18,6 +16,7 @@ import mockit.asm.types.JavaType;
 import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Writes the "StackMapTable" method attribute (or "StackMap" for classfiles older than Java 6).
@@ -116,8 +115,8 @@ public final class StackMapTableWriter extends AttributeWriter {
     @NonNegative
     private int frameIndex;
 
-    public StackMapTableWriter(@Nonnull ConstantPoolGeneration cp, boolean java6OrNewer, int methodAccess,
-            @Nonnull String methodDesc) {
+    public StackMapTableWriter(@NonNull ConstantPoolGeneration cp, boolean java6OrNewer, int methodAccess,
+            @NonNull String methodDesc) {
         super(cp);
         this.java6OrNewer = java6OrNewer;
 
@@ -140,7 +139,7 @@ public final class StackMapTableWriter extends AttributeWriter {
         }
     }
 
-    public void putMaxStackAndLocals(@Nonnull ByteVector out) {
+    public void putMaxStackAndLocals(@NonNull ByteVector out) {
         out.putShort(maxStack).putShort(maxLocals);
     }
 
@@ -425,7 +424,7 @@ public final class StackMapTableWriter extends AttributeWriter {
         stackMap.putByte(7).putShort(typeDescIndex);
     }
 
-    private static void writeDimensionsIntoArrayDescriptor(@Nonnull StringBuilder sb,
+    private static void writeDimensionsIntoArrayDescriptor(@NonNull StringBuilder sb,
             @NonNegative int arrayDimensions) {
         arrayDimensions >>= 28;
 
@@ -458,7 +457,7 @@ public final class StackMapTableWriter extends AttributeWriter {
     /**
      * Creates and visits the first (implicit) frame.
      */
-    public void createAndVisitFirstFrame(@Nonnull Frame frame, @Nonnull String classDesc, @Nonnull String methodDesc,
+    public void createAndVisitFirstFrame(@NonNull Frame frame, @NonNull String classDesc, @NonNull String methodDesc,
             int methodAccess) {
         JavaType[] args = JavaType.getArgumentTypes(methodDesc);
         frame.initInputFrame(classDesc, methodAccess, args, maxLocals);
@@ -468,7 +467,7 @@ public final class StackMapTableWriter extends AttributeWriter {
     /**
      * Visits a frame that has been computed from scratch.
      */
-    public void visitFrame(@Nonnull Frame frame) {
+    public void visitFrame(@NonNull Frame frame) {
         int[] locals = frame.inputLocals;
         int nLocal = computeNumberOfLocals(locals);
 
@@ -486,7 +485,7 @@ public final class StackMapTableWriter extends AttributeWriter {
      * types).
      */
     @NonNegative
-    private static int computeNumberOfLocals(@Nonnull int[] locals) {
+    private static int computeNumberOfLocals(@NonNull int[] locals) {
         int nLocal = 0;
         int nTop = 0;
 
@@ -512,7 +511,7 @@ public final class StackMapTableWriter extends AttributeWriter {
      * Computes the stack size (ignores TOP types that are just after a LONG or a DOUBLE).
      */
     @NonNegative
-    private static int computeStackSize(@Nonnull int[] stacks) {
+    private static int computeStackSize(@NonNull int[] stacks) {
         int nStack = 0;
 
         for (int i = 0; i < stacks.length; i++) {
@@ -527,7 +526,7 @@ public final class StackMapTableWriter extends AttributeWriter {
         return nStack;
     }
 
-    private void putLocalsOrStackElements(@Nonnull int[] itemIndices, @NonNegative int nItems) {
+    private void putLocalsOrStackElements(@NonNull int[] itemIndices, @NonNegative int nItems) {
         for (int i = 0; nItems > 0; i++, nItems--) {
             int itemType = itemIndices[i];
             writeFrameDefinition(itemType);
@@ -545,7 +544,7 @@ public final class StackMapTableWriter extends AttributeWriter {
     }
 
     @Override
-    public void put(@Nonnull ByteVector out) {
+    public void put(@NonNull ByteVector out) {
         if (stackMap != null) {
             put(out, 2 + stackMap.getLength());
             out.putShort(frameCount);

@@ -6,21 +6,20 @@ package mockit.coverage.testRedundancy;
 
 import java.lang.reflect.Method;
 
-import javax.annotation.Nonnull;
-
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.junit.runner.Description;
 import org.junit.runner.notification.RunListener;
 
 public final class JUnitListener extends RunListener {
-    @Nonnull
+    @NonNull
     private final TestCoverage testCoverage;
 
-    public JUnitListener(@Nonnull TestCoverage testCoverage) {
+    public JUnitListener(@NonNull TestCoverage testCoverage) {
         this.testCoverage = testCoverage;
     }
 
     @Override
-    public void testStarted(@Nonnull Description description) {
+    public void testStarted(@NonNull Description description) {
         if (description.isTest()) {
             Class<?> testClass = description.getTestClass();
             String testMethodName = description.getMethodName();
@@ -35,7 +34,7 @@ public final class JUnitListener extends RunListener {
     }
 
     @Override
-    public void testFinished(@Nonnull Description description) {
+    public void testFinished(@NonNull Description description) {
         if (description.isTest()) {
             testCoverage.setCurrentTestMethod(null);
         }

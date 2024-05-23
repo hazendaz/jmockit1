@@ -8,21 +8,21 @@ import static mockit.internal.util.Utilities.containsReference;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 final class PartiallyMockedInstances {
-    @Nonnull
+    @NonNull
     private final List<?> dynamicMockInstancesToMatch;
 
-    PartiallyMockedInstances(@Nonnull List<?> dynamicMockInstancesToMatch) {
+    PartiallyMockedInstances(@NonNull List<?> dynamicMockInstancesToMatch) {
         this.dynamicMockInstancesToMatch = dynamicMockInstancesToMatch;
     }
 
-    boolean isToBeMatchedOnInstance(@Nonnull Object mock) {
+    boolean isToBeMatchedOnInstance(@NonNull Object mock) {
         return containsReference(dynamicMockInstancesToMatch, mock);
     }
 
-    boolean isDynamicMockInstanceOrClass(@Nonnull Object invokedInstance, @Nonnull Object invocationInstance) {
+    boolean isDynamicMockInstanceOrClass(@NonNull Object invokedInstance, @NonNull Object invocationInstance) {
         if (containsReference(dynamicMockInstancesToMatch, invokedInstance)) {
             return true;
         }

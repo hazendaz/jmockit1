@@ -14,10 +14,11 @@ import java.security.ProtectionDomain;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.coverage.Configuration;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 final class ClassSelection {
     private static final String THIS_CLASS_NAME = ClassSelection.class.getName();
@@ -32,7 +33,7 @@ final class ClassSelection {
     private Matcher classesToInclude;
     @Nullable
     private Matcher classesToExclude;
-    @Nonnull
+    @NonNull
     private final Matcher testCode;
     private boolean configurationRead;
 
@@ -41,7 +42,7 @@ final class ClassSelection {
     }
 
     @Nullable
-    private static Matcher newMatcherForClassSelection(@Nonnull String specification) {
+    private static Matcher newMatcherForClassSelection(@NonNull String specification) {
         if (specification.isEmpty()) {
             return null;
         }
@@ -71,7 +72,7 @@ final class ClassSelection {
         return finalRegex.isEmpty() ? null : compile(finalRegex).matcher("");
     }
 
-    boolean isSelected(@Nonnull String className, @Nonnull ProtectionDomain protectionDomain) {
+    boolean isSelected(@NonNull String className, @NonNull ProtectionDomain protectionDomain) {
         CodeSource codeSource = protectionDomain.getCodeSource();
 
         if (codeSource == null || isIneligibleForSelection(className)
@@ -100,14 +101,14 @@ final class ClassSelection {
         return !isClassFromExternalLibrary(location);
     }
 
-    private static boolean isIneligibleForSelection(@Nonnull String className) {
+    private static boolean isIneligibleForSelection(@NonNull String className) {
         return className.charAt(0) == '[' || className.startsWith("mockit.") || className.startsWith("org.hamcrest.")
                 || className.startsWith("org.junit.") || className.startsWith("junit.")
                 || className.startsWith("org.testng.") || className.startsWith("org.apache.maven.surefire.")
                 || isExternallyGeneratedSubclass(className);
     }
 
-    private static boolean canAccessJMockitFromClassToBeMeasured(@Nonnull ProtectionDomain protectionDomain) {
+    private static boolean canAccessJMockitFromClassToBeMeasured(@NonNull ProtectionDomain protectionDomain) {
         ClassLoader loaderOfClassToBeMeasured = protectionDomain.getClassLoader();
 
         if (loaderOfClassToBeMeasured != null) {
@@ -122,7 +123,7 @@ final class ClassSelection {
     }
 
     @Nullable
-    private static URL findLocationInCodeSource(@Nonnull String className, @Nonnull ProtectionDomain protectionDomain) {
+    private static URL findLocationInCodeSource(@NonNull String className, @NonNull ProtectionDomain protectionDomain) {
         URL location = protectionDomain.getCodeSource().getLocation();
 
         if (location == null) {
@@ -138,12 +139,12 @@ final class ClassSelection {
         return location;
     }
 
-    private boolean isClassExcludedFromCoverage(@Nonnull String className) {
+    private boolean isClassExcludedFromCoverage(@NonNull String className) {
         return classesToExclude != null && classesToExclude.reset(className).matches()
                 || testCode.reset(className).matches();
     }
 
-    private static boolean isClassFromExternalLibrary(@Nonnull URL location) {
+    private static boolean isClassFromExternalLibrary(@NonNull URL location) {
         if ("jar".equals(location.getProtocol())) {
             return true;
         }

@@ -5,8 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.io.Writer;
 
-import javax.annotation.Nonnull;
-
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -19,7 +18,7 @@ final class MockedClassWithSuperClassTest {
      */
     static class SubclassOfJREClass extends Writer {
         @Override
-        public void write(@Nonnull char[] cbuf, int off, int len) {
+        public void write(@NonNull char[] cbuf, int off, int len) {
         }
 
         @Override
@@ -89,7 +88,7 @@ final class MockedClassWithSuperClassTest {
         // Not mocked:
         Writer w = new Writer() {
             @Override
-            public void write(@Nonnull char[] cbuf, int off, int len) {
+            public void write(@NonNull char[] cbuf, int off, int len) {
             }
 
             @Override

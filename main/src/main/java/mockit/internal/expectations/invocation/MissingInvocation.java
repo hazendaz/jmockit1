@@ -4,7 +4,7 @@
  */
 package mockit.internal.expectations.invocation;
 
-import javax.annotation.Nonnull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Thrown to indicate that one or more expected invocations still had not occurred by the end of the test.
@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 public final class MissingInvocation extends Error {
     private static final long serialVersionUID = 1L;
 
-    public MissingInvocation(@Nonnull String detailMessage) {
+    public MissingInvocation(@NonNull String detailMessage) {
         super(detailMessage);
     }
 

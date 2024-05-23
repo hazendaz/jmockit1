@@ -2,7 +2,7 @@ package petclinic.pets;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import javax.annotation.Nullable;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -30,7 +30,7 @@ public class PetScreen {
     @Nullable
     private Pet pet;
 
-    @Nonnull
+    @NonNull
     public List<PetType> getTypes() {
         if (types == null) {
             types = petMaintenance.findPetTypes();

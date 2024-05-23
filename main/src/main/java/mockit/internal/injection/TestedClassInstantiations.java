@@ -15,23 +15,23 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import mockit.Injectable;
 import mockit.Tested;
 import mockit.asm.jvmConstants.Access;
 import mockit.internal.expectations.mocking.MockedType;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class TestedClassInstantiations {
     private static final int FIELD_ACCESS_MASK = Access.SYNTHETIC + Access.STATIC;
     private static final int METHOD_ACCESS_MASK = Access.BRIDGE + Access.VARARGS + Access.NATIVE + Access.ABSTRACT
             + Access.SYNTHETIC;
 
-    @Nonnull
+    @NonNull
     private final List<TestedField> testedFields;
-    @Nonnull
+    @NonNull
     private final List<InjectionProvider> injectableFields;
-    @Nonnull
+    @NonNull
     final InjectionState injectionState;
 
     public TestedClassInstantiations() {
@@ -40,14 +40,14 @@ public final class TestedClassInstantiations {
         injectionState = new InjectionState();
     }
 
-    public boolean findTestedAndInjectableMembers(@Nonnull Class<?> testClass) {
+    public boolean findTestedAndInjectableMembers(@NonNull Class<?> testClass) {
         findAllTestedAndInjectableMembersInTestClassHierarchy(testClass);
 
         return injectionState.injectionProviders.setInjectables(injectableFields) || !testedFields.isEmpty()
                 || injectionState.interfaceResolution.canResolveInterfaces();
     }
 
-    private void findAllTestedAndInjectableMembersInTestClassHierarchy(@Nonnull Class<?> testClass) {
+    private void findAllTestedAndInjectableMembersInTestClassHierarchy(@NonNull Class<?> testClass) {
         Class<?> superclass = testClass.getSuperclass();
 
         if (superclass.getClassLoader() != null) {
@@ -58,7 +58,7 @@ public final class TestedClassInstantiations {
         examineMethods(testClass);
     }
 
-    private void examineInstanceFields(@Nonnull Class<?> testClass) {
+    private void examineInstanceFields(@NonNull Class<?> testClass) {
         for (Field candidateField : testClass.getDeclaredFields()) {
             if ((candidateField.getModifiers() & FIELD_ACCESS_MASK) == 0) {
                 addAsTestedOrInjectableFieldIfApplicable(candidateField);
@@ -66,7 +66,7 @@ public final class TestedClassInstantiations {
         }
     }
 
-    private void examineMethods(@Nonnull Class<?> testClass) {
+    private void examineMethods(@NonNull Class<?> testClass) {
         for (Method candidateMethod : testClass.getDeclaredMethods()) {
             if ((candidateMethod.getModifiers() & METHOD_ACCESS_MASK) == 0) {
                 addAsTestedMethodIfApplicable(candidateMethod);
@@ -74,7 +74,7 @@ public final class TestedClassInstantiations {
         }
     }
 
-    private void addAsTestedOrInjectableFieldIfApplicable(@Nonnull Field fieldFromTestClass) {
+    private void addAsTestedOrInjectableFieldIfApplicable(@NonNull Field fieldFromTestClass) {
         for (Annotation fieldAnnotation : fieldFromTestClass.getDeclaredAnnotations()) {
             if (fieldAnnotation instanceof Injectable) {
                 InjectionProvider mockedType = new MockedType(fieldFromTestClass);
@@ -92,7 +92,7 @@ public final class TestedClassInstantiations {
         }
     }
 
-    private void addAsTestedMethodIfApplicable(@Nonnull Method methodFromTestClass) {
+    private void addAsTestedMethodIfApplicable(@NonNull Method methodFromTestClass) {
         for (Annotation methodAnnotation : methodFromTestClass.getDeclaredAnnotations()) {
             Tested testedMetadata = getTestedAnnotationIfPresent(methodAnnotation);
 
@@ -103,7 +103,7 @@ public final class TestedClassInstantiations {
         }
     }
 
-    private void addTestedMethodIfApplicable(@Nonnull Method methodFromTestClass) {
+    private void addTestedMethodIfApplicable(@NonNull Method methodFromTestClass) {
         Class<?> returnType = methodFromTestClass.getReturnType();
 
         if (returnType == Class.class) {
@@ -124,7 +124,7 @@ public final class TestedClassInstantiations {
         }
     }
 
-    public void assignNewInstancesToTestedFieldsFromBaseClasses(@Nonnull Object testClassInstance) {
+    public void assignNewInstancesToTestedFieldsFromBaseClasses(@NonNull Object testClassInstance) {
         injectionState.setInjectables(testClassInstance, injectableFields);
 
         Class<?> testClass = testClassInstance.getClass();
@@ -136,8 +136,8 @@ public final class TestedClassInstantiations {
         }
     }
 
-    public void assignNewInstancesToTestedFields(@Nonnull Object testClassInstance, boolean beforeSetup,
-            @Nonnull List<? extends InjectionProvider> injectableParameters) {
+    public void assignNewInstancesToTestedFields(@NonNull Object testClassInstance, boolean beforeSetup,
+            @NonNull List<? extends InjectionProvider> injectableParameters) {
         List<InjectionProvider> injectables = injectableFields;
 
         if (!injectableParameters.isEmpty()) {
@@ -154,7 +154,7 @@ public final class TestedClassInstantiations {
         }
     }
 
-    private void instantiateTestedObject(@Nonnull Object testClassInstance, @Nonnull TestedObject testedObject) {
+    private void instantiateTestedObject(@NonNull Object testClassInstance, @NonNull TestedObject testedObject) {
         try {
             testedObject.instantiateWithInjectableValues(testClassInstance);
         } finally {
@@ -182,7 +182,7 @@ public final class TestedClassInstantiations {
         resetTestedFields(true);
     }
 
-    @Nonnull
+    @NonNull
     public BeanExporter getBeanExporter() {
         return injectionState.getBeanExporter();
     }

@@ -7,8 +7,9 @@ package mockit.internal.expectations.argumentMatching;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class ClassMatcher implements ArgumentMatcher<ClassMatcher> {
     private static final Map<Class<?>, ClassMatcher> PRIMITIVE_MATCHERS;
@@ -34,8 +35,8 @@ public final class ClassMatcher implements ArgumentMatcher<ClassMatcher> {
         PRIMITIVE_MATCHERS.put(double.class, new ClassMatcher(double.class, Double.class));
     }
 
-    @Nonnull
-    public static ClassMatcher create(@Nonnull Class<?> expectedClass) {
+    @NonNull
+    public static ClassMatcher create(@NonNull Class<?> expectedClass) {
         ClassMatcher matcher = PRIMITIVE_MATCHERS.get(expectedClass);
 
         if (matcher == null) {
@@ -45,23 +46,23 @@ public final class ClassMatcher implements ArgumentMatcher<ClassMatcher> {
         return matcher;
     }
 
-    @Nonnull
+    @NonNull
     private final String nameOfExpectedClass;
-    @Nonnull
+    @NonNull
     private final Class<?> matchableClass;
 
-    private ClassMatcher(@Nonnull Class<?> expectedClass) {
+    private ClassMatcher(@NonNull Class<?> expectedClass) {
         nameOfExpectedClass = expectedClass.getName();
         matchableClass = expectedClass;
     }
 
-    private ClassMatcher(@Nonnull Class<?> primitiveClass, @Nonnull Class<?> primitiveWrapperClass) {
+    private ClassMatcher(@NonNull Class<?> primitiveClass, @NonNull Class<?> primitiveWrapperClass) {
         nameOfExpectedClass = primitiveClass.getName();
         matchableClass = primitiveWrapperClass;
     }
 
     @Override
-    public boolean same(@Nonnull ClassMatcher other) {
+    public boolean same(@NonNull ClassMatcher other) {
         return matchableClass == other.matchableClass;
     }
 
@@ -71,7 +72,7 @@ public final class ClassMatcher implements ArgumentMatcher<ClassMatcher> {
     }
 
     @Override
-    public void writeMismatchPhrase(@Nonnull ArgumentMismatch argumentMismatch) {
+    public void writeMismatchPhrase(@NonNull ArgumentMismatch argumentMismatch) {
         argumentMismatch.append("an instance of ").append(nameOfExpectedClass);
     }
 }

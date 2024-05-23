@@ -11,8 +11,9 @@ import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * This marker interface exists only to guarantee that JMockit can get the bytecode definition of each Proxy class it
@@ -27,8 +28,8 @@ public interface EmptyProxy {
         private Impl() {
         }
 
-        @Nonnull
-        public static <E> E newEmptyProxy(@Nullable ClassLoader loader, @Nonnull Type... interfacesToBeProxied) {
+        @NonNull
+        public static <E> E newEmptyProxy(@Nullable ClassLoader loader, @NonNull Type... interfacesToBeProxied) {
             List<Class<?>> interfaces = new ArrayList<>();
 
             for (Type type : interfacesToBeProxied) {
@@ -50,7 +51,7 @@ public interface EmptyProxy {
             return (E) Proxy.newProxyInstance(loader, interfacesArray, MockInvocationHandler.INSTANCE);
         }
 
-        private static void addInterface(@Nonnull List<Class<?>> interfaces, @Nonnull Type type) {
+        private static void addInterface(@NonNull List<Class<?>> interfaces, @NonNull Type type) {
             if (type instanceof Class<?>) {
                 interfaces.add((Class<?>) type);
             } else if (type instanceof ParameterizedType) {
@@ -62,7 +63,7 @@ public interface EmptyProxy {
             }
         }
 
-        private static void addBoundInterfaces(@Nonnull List<Class<?>> interfaces, @Nonnull Type[] bounds) {
+        private static void addBoundInterfaces(@NonNull List<Class<?>> interfaces, @NonNull Type[] bounds) {
             for (Type bound : bounds) {
                 addInterface(interfaces, bound);
             }

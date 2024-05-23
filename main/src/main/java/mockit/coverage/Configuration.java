@@ -6,8 +6,9 @@ package mockit.coverage;
 
 import java.io.File;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class Configuration {
     private static final String COVERAGE_PREFIX = "coverage-";
@@ -16,16 +17,16 @@ public final class Configuration {
     }
 
     @Nullable
-    public static String getProperty(@Nonnull String nameSuffix) {
+    public static String getProperty(@NonNull String nameSuffix) {
         return getProperty(nameSuffix, null);
     }
 
-    public static String getProperty(@Nonnull String nameSuffix, @Nullable String defaultValue) {
+    public static String getProperty(@NonNull String nameSuffix, @Nullable String defaultValue) {
         return System.getProperty(COVERAGE_PREFIX + nameSuffix, defaultValue);
     }
 
     @Nullable
-    public static String getOrChooseOutputDirectory(@Nonnull String outputDir) {
+    public static String getOrChooseOutputDirectory(@NonNull String outputDir) {
         if (!outputDir.isEmpty()) {
             return outputDir;
         }
@@ -37,8 +38,8 @@ public final class Configuration {
         return System.getProperty("basedir") != null || new File("target").exists();
     }
 
-    @Nonnull
-    public static String getOrChooseOutputDirectory(@Nonnull String outputDir, @Nonnull String defaultDir) {
+    @NonNull
+    public static String getOrChooseOutputDirectory(@NonNull String outputDir, @NonNull String defaultDir) {
         if (!outputDir.isEmpty()) {
             return outputDir;
         }

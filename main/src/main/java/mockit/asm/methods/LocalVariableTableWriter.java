@@ -1,6 +1,5 @@
 package mockit.asm.methods;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.constantPool.AttributeWriter;
@@ -9,6 +8,7 @@ import mockit.asm.controlFlow.Label;
 import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Writes the bytecode for the "LocalVariableTable" and "LocalVariableTypeTable" method code attributes.
@@ -41,13 +41,13 @@ final class LocalVariableTableWriter extends AttributeWriter {
     @Nullable
     private ByteVector localVarTypeTable;
 
-    LocalVariableTableWriter(@Nonnull ConstantPoolGeneration cp) {
+    LocalVariableTableWriter(@NonNull ConstantPoolGeneration cp) {
         super(cp);
     }
 
     @NonNegative
-    int addLocalVariable(@Nonnull String name, @Nonnull String desc, @Nullable String signature, @Nonnull Label start,
-            @Nonnull Label end, @NonNegative int index) {
+    int addLocalVariable(@NonNull String name, @NonNull String desc, @Nullable String signature, @NonNull Label start,
+            @NonNull Label end, @NonNegative int index) {
         if (signature != null) {
             if (localVarTypeTable == null) {
                 localVarTypeAttributeIndex = cp.newUTF8("LocalVariableTypeTable");
@@ -70,8 +70,8 @@ final class LocalVariableTableWriter extends AttributeWriter {
         return index + (c == 'J' || c == 'D' ? 2 : 1);
     }
 
-    private void addAttribute(@Nonnull ByteVector attribute, @Nonnull String name, @Nonnull String desc,
-            @Nonnull Label start, @Nonnull Label end, @NonNegative int index) {
+    private void addAttribute(@NonNull ByteVector attribute, @NonNull String name, @NonNull String desc,
+            @NonNull Label start, @NonNull Label end, @NonNegative int index) {
         attribute.putShort(start.position).putShort(end.position - start.position).putShort(cp.newUTF8(name))
                 .putShort(cp.newUTF8(desc)).putShort(index);
     }
@@ -93,13 +93,13 @@ final class LocalVariableTableWriter extends AttributeWriter {
     }
 
     @Override
-    public void put(@Nonnull ByteVector out) {
+    public void put(@NonNull ByteVector out) {
         put(out, localVarTable, localVarCount);
         attributeIndex = localVarTypeAttributeIndex;
         put(out, localVarTypeTable, localVarTypeCount);
     }
 
-    private void put(@Nonnull ByteVector out, @Nullable ByteVector attribute, @NonNegative int numEntries) {
+    private void put(@NonNull ByteVector out, @Nullable ByteVector attribute, @NonNegative int numEntries) {
         if (attribute != null) {
             put(out, 2 + attribute.getLength());
             out.putShort(numEntries);

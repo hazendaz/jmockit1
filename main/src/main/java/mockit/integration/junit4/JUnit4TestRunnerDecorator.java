@@ -8,7 +8,6 @@ import static mockit.internal.util.StackTrace.filterStackTrace;
 
 import java.lang.reflect.Method;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.integration.TestRunnerDecorator;
@@ -17,6 +16,7 @@ import mockit.internal.faking.FakeInvocation;
 import mockit.internal.state.SavePoint;
 import mockit.internal.state.TestRun;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -26,7 +26,7 @@ import org.junit.runners.model.FrameworkMethod;
 
 final class JUnit4TestRunnerDecorator extends TestRunnerDecorator {
     @Nullable
-    Object invokeExplosively(@Nonnull FakeInvocation invocation, @Nullable Object target, Object... params)
+    Object invokeExplosively(@NonNull FakeInvocation invocation, @Nullable Object target, Object... params)
             throws Throwable {
         FrameworkMethod it = invocation.getInvokedInstance();
         assert it != null;
@@ -84,7 +84,7 @@ final class JUnit4TestRunnerDecorator extends TestRunnerDecorator {
     }
 
     @Nullable
-    private static Object executeClassMethod(@Nonnull FakeInvocation inv, @Nonnull Object[] params) throws Throwable {
+    private static Object executeClassMethod(@NonNull FakeInvocation inv, @NonNull Object[] params) throws Throwable {
         FrameworkMethod method = inv.getInvokedInstance();
         assert method != null;
         handleMockingOutsideTests(method);
@@ -95,14 +95,14 @@ final class JUnit4TestRunnerDecorator extends TestRunnerDecorator {
         return method.invokeExplosively(null, params);
     }
 
-    private void prepareToExecuteSetupMethod(@Nonnull Object target) {
+    private void prepareToExecuteSetupMethod(@NonNull Object target) {
         discardTestLevelMockedTypes();
         prepareForNextTest();
         shouldPrepareForNextTest = false;
         createInstancesForTestedFieldsBeforeSetup(target);
     }
 
-    private static void handleMockingOutsideTests(@Nonnull FrameworkMethod it) {
+    private static void handleMockingOutsideTests(@NonNull FrameworkMethod it) {
         Class<?> testClass = it.getMethod().getDeclaringClass();
 
         TestRun.enterNoMockingZone();
@@ -123,7 +123,7 @@ final class JUnit4TestRunnerDecorator extends TestRunnerDecorator {
         }
     }
 
-    private static void handleMockingOutsideTestMethods(@Nonnull Object target) {
+    private static void handleMockingOutsideTestMethods(@NonNull Object target) {
         Class<?> testClass = target.getClass();
 
         TestRun.enterNoMockingZone();
@@ -135,7 +135,7 @@ final class JUnit4TestRunnerDecorator extends TestRunnerDecorator {
         }
     }
 
-    private static void executeTestMethod(@Nonnull FakeInvocation invocation, @Nonnull Object testInstance,
+    private static void executeTestMethod(@NonNull FakeInvocation invocation, @NonNull Object testInstance,
             @Nullable Object... parameters) throws Throwable {
         SavePoint savePoint = new SavePoint();
 

@@ -1,6 +1,5 @@
 package mockit.asm;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.annotations.AnnotationReader;
@@ -9,12 +8,13 @@ import mockit.asm.jvmConstants.Access;
 import mockit.asm.util.BytecodeReader;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * A bytecode reader for reading common elements (signature, annotations) of a class, field, or method.
  */
 public abstract class AnnotatedReader extends BytecodeReader {
-    @Nonnull
+    @NonNull
     private final AnnotationReader annotationReader = new AnnotationReader(this);
     @NonNegative
     private int annotationsCodeIndex;
@@ -30,11 +30,11 @@ public abstract class AnnotatedReader extends BytecodeReader {
     @Nullable
     protected String signature;
 
-    protected AnnotatedReader(@Nonnull byte[] code) {
+    protected AnnotatedReader(@NonNull byte[] code) {
         super(code);
     }
 
-    protected AnnotatedReader(@Nonnull AnnotatedReader another) {
+    protected AnnotatedReader(@NonNull AnnotatedReader another) {
         super(another);
     }
 
@@ -87,9 +87,9 @@ public abstract class AnnotatedReader extends BytecodeReader {
      *         "Synthetic")
      */
     @Nullable
-    protected abstract Boolean readAttribute(@Nonnull String attributeName);
+    protected abstract Boolean readAttribute(@NonNull String attributeName);
 
-    protected final void readAnnotations(@Nonnull BaseWriter visitor) {
+    protected final void readAnnotations(@NonNull BaseWriter visitor) {
         if (annotationsCodeIndex > 0) {
             int previousCodeIndex = codeIndex;
             codeIndex = annotationsCodeIndex;

@@ -4,18 +4,18 @@
  */
 package mockit.internal.expectations.argumentMatching;
 
-import javax.annotation.Nonnull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 abstract class SubstringMatcher implements ArgumentMatcher<SubstringMatcher> {
-    @Nonnull
+    @NonNull
     final String substring;
 
-    SubstringMatcher(@Nonnull CharSequence substring) {
+    SubstringMatcher(@NonNull CharSequence substring) {
         this.substring = substring.toString();
     }
 
     @Override
-    public final boolean same(@Nonnull SubstringMatcher other) {
+    public final boolean same(@NonNull SubstringMatcher other) {
         return substring.equals(other.substring);
     }
 }

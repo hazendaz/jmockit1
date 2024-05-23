@@ -9,12 +9,13 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.classes.ClassReader;
 import mockit.internal.state.CachedClassfiles;
 import mockit.internal.state.TestRun;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class ClassFile {
     private static final Map<String, ClassReader> CLASS_FILES = new ConcurrentHashMap<>();
@@ -25,19 +26,19 @@ public final class ClassFile {
     public static final class NotFoundException extends RuntimeException {
         private static final long serialVersionUID = 1L;
 
-        private NotFoundException(@Nonnull String classNameOrDesc) {
+        private NotFoundException(@NonNull String classNameOrDesc) {
             super("Unable to find class file for " + classNameOrDesc.replace('/', '.'));
         }
     }
 
-    private static void verifyClassFileFound(@Nullable InputStream classFile, @Nonnull String classNameOrDesc) {
+    private static void verifyClassFileFound(@Nullable InputStream classFile, @NonNull String classNameOrDesc) {
         if (classFile == null) {
             throw new NotFoundException(classNameOrDesc);
         }
     }
 
     @Nullable
-    public static ClassReader createClassReader(@Nonnull ClassLoader cl, @Nonnull String internalClassName) {
+    public static ClassReader createClassReader(@NonNull ClassLoader cl, @NonNull String internalClassName) {
         String classFileName = internalClassName + ".class";
         InputStream classFile = cl.getResourceAsStream(classFileName);
 
@@ -52,8 +53,8 @@ public final class ClassFile {
         return null;
     }
 
-    @Nonnull
-    private static byte[] readClass(@Nonnull InputStream is) throws IOException {
+    @NonNull
+    private static byte[] readClass(@NonNull InputStream is) throws IOException {
         try {
             byte[] bytecode = new byte[is.available()];
             int len = 0;
@@ -93,8 +94,8 @@ public final class ClassFile {
         }
     }
 
-    @Nonnull
-    public static ClassReader createReaderOrGetFromCache(@Nonnull Class<?> aClass) {
+    @NonNull
+    public static ClassReader createReaderOrGetFromCache(@NonNull Class<?> aClass) {
         byte[] cachedClassfile = CachedClassfiles.getClassfile(aClass);
 
         if (cachedClassfile != null) {
@@ -111,16 +112,16 @@ public final class ClassFile {
         return reader;
     }
 
-    @Nonnull
-    private static ClassReader readFromFileSavingInCache(@Nonnull String classDesc) {
+    @NonNull
+    private static ClassReader readFromFileSavingInCache(@NonNull String classDesc) {
         byte[] classfileBytes = readBytesFromClassFile(classDesc);
         ClassReader cr = new ClassReader(classfileBytes);
         CLASS_FILES.put(classDesc, cr);
         return cr;
     }
 
-    @Nonnull
-    public static ClassReader createReaderFromLastRedefinitionIfAny(@Nonnull Class<?> aClass) {
+    @NonNull
+    public static ClassReader createReaderFromLastRedefinitionIfAny(@NonNull Class<?> aClass) {
         byte[] classfile = TestRun.mockFixture().getRedefinedClassfile(aClass);
 
         if (classfile == null) {
@@ -135,8 +136,8 @@ public final class ClassFile {
         return readFromFileSavingInCache(classDesc);
     }
 
-    @Nonnull
-    public static byte[] getClassFile(@Nonnull String internalClassName) {
+    @NonNull
+    public static byte[] getClassFile(@NonNull String internalClassName) {
         byte[] classfileBytes = CachedClassfiles.getClassfile(internalClassName);
 
         if (classfileBytes == null) {
@@ -146,8 +147,8 @@ public final class ClassFile {
         return classfileBytes;
     }
 
-    @Nonnull
-    public static byte[] getClassFile(@Nullable ClassLoader loader, @Nonnull String internalClassName) {
+    @NonNull
+    public static byte[] getClassFile(@Nullable ClassLoader loader, @NonNull String internalClassName) {
         byte[] classfileBytes = CachedClassfiles.getClassfile(loader, internalClassName);
 
         if (classfileBytes == null) {
@@ -157,8 +158,8 @@ public final class ClassFile {
         return classfileBytes;
     }
 
-    @Nonnull
-    public static byte[] getClassFile(@Nonnull Class<?> aClass) {
+    @NonNull
+    public static byte[] getClassFile(@NonNull Class<?> aClass) {
         byte[] classfileBytes = CachedClassfiles.getClassfile(aClass);
 
         if (classfileBytes == null) {
@@ -168,8 +169,8 @@ public final class ClassFile {
         return classfileBytes;
     }
 
-    @Nonnull
-    public static byte[] readBytesFromClassFile(@Nonnull String classDesc) {
+    @NonNull
+    public static byte[] readBytesFromClassFile(@NonNull String classDesc) {
         if (classDesc.startsWith("java/") || classDesc.startsWith("javax/")) {
             byte[] classfile = CachedClassfiles.getClassfile(classDesc);
 
@@ -187,15 +188,15 @@ public final class ClassFile {
         }
     }
 
-    @Nonnull
-    public static byte[] readBytesFromClassFile(@Nonnull Class<?> aClass) {
+    @NonNull
+    public static byte[] readBytesFromClassFile(@NonNull Class<?> aClass) {
         String classDesc = aClass.getName().replace('.', '/');
         return readBytesFromClassFile(classDesc);
     }
 
-    @Nonnull
+    @NonNull
     @SuppressWarnings("IOResourceOpenedButNotSafelyClosed")
-    private static InputStream readClassFromClasspath(@Nonnull String classDesc) {
+    private static InputStream readClassFromClasspath(@NonNull String classDesc) {
         String classFileName = classDesc + ".class";
         ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
         InputStream inputStream = null;

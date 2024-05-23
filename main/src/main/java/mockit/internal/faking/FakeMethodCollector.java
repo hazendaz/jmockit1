@@ -12,8 +12,6 @@ import static mockit.asm.jvmConstants.Access.SYNTHETIC;
 import java.util.EnumSet;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import mockit.Mock;
 import mockit.MockUp;
 import mockit.asm.metadata.ClassMetadataReader;
@@ -24,6 +22,8 @@ import mockit.internal.ClassFile;
 import mockit.internal.faking.FakeMethods.FakeMethod;
 import mockit.internal.util.ClassLoad;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 /**
  * Responsible for collecting the signatures of all methods defined in a given fake class which are explicitly annotated
  * as {@link Mock fakes}.
@@ -32,15 +32,15 @@ final class FakeMethodCollector {
     private static final int INVALID_METHOD_ACCESSES = BRIDGE + SYNTHETIC + ABSTRACT + NATIVE;
     private static final EnumSet<Attribute> ANNOTATIONS = EnumSet.of(Attribute.Annotations);
 
-    @Nonnull
+    @NonNull
     private final FakeMethods fakeMethods;
     private boolean collectingFromSuperClass;
 
-    FakeMethodCollector(@Nonnull FakeMethods fakeMethods) {
+    FakeMethodCollector(@NonNull FakeMethods fakeMethods) {
         this.fakeMethods = fakeMethods;
     }
 
-    void collectFakeMethods(@Nonnull Class<?> fakeClass) {
+    void collectFakeMethods(@NonNull Class<?> fakeClass) {
         ClassLoad.registerLoadedClass(fakeClass);
         fakeMethods.setFakeClassInternalName(JavaType.getInternalName(fakeClass));
 
@@ -57,7 +57,7 @@ final class FakeMethodCollector {
         } while (classToCollectFakesFrom != MockUp.class);
     }
 
-    private void addFakeMethods(@Nonnull List<MethodInfo> methods) {
+    private void addFakeMethods(@NonNull List<MethodInfo> methods) {
         for (MethodInfo method : methods) {
             int access = method.accessFlags;
 

@@ -26,7 +26,6 @@ import static mockit.asm.controlFlow.FrameTypeMask.UNINITIALIZED_THIS;
 import static mockit.asm.controlFlow.FrameTypeMask.VALUE;
 import static mockit.asm.jvmConstants.Opcodes.*;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.constantPool.ConstantPoolGeneration;
@@ -42,6 +41,7 @@ import mockit.asm.types.JavaType;
 import mockit.asm.types.PrimitiveType;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Information about the input and output stack map frames of a basic block.
@@ -84,13 +84,13 @@ import org.checkerframework.checker.index.qual.NonNegative;
 public final class Frame {
     private static final int[] EMPTY_INPUT_STACK = {};
 
-    @Nonnull
+    @NonNull
     private final ConstantPoolGeneration cp;
 
     /**
      * The label (i.e. basic block) to which these input and output stack map frames correspond.
      */
-    @Nonnull
+    @NonNull
     final Label owner;
 
     /**
@@ -144,7 +144,7 @@ public final class Frame {
      */
     private int[] initializations;
 
-    Frame(@Nonnull ConstantPoolGeneration cp, @Nonnull Label owner) {
+    Frame(@NonNull ConstantPoolGeneration cp, @NonNull Label owner) {
         this.cp = cp;
         this.owner = owner;
     }
@@ -159,7 +159,7 @@ public final class Frame {
      * @param maxLocals
      *            the maximum number of local variables of this method.
      */
-    void initInputFrame(@Nonnull String classDesc, int access, @Nonnull JavaType[] args, @NonNegative int maxLocals) {
+    void initInputFrame(@NonNull String classDesc, int access, @NonNull JavaType[] args, @NonNegative int maxLocals) {
         inputLocals = new int[maxLocals];
         inputStack = EMPTY_INPUT_STACK;
 
@@ -173,7 +173,7 @@ public final class Frame {
     }
 
     @NonNegative
-    private int initializeThisParameterIfApplicable(@Nonnull String classDesc, int access) {
+    private int initializeThisParameterIfApplicable(@NonNull String classDesc, int access) {
         if ((access & Access.STATIC) == 0) {
             inputLocals[0] = Access.isConstructor(access) ? UNINITIALIZED_THIS : OBJECT | cp.addNormalType(classDesc);
             return 1;
@@ -183,7 +183,7 @@ public final class Frame {
     }
 
     @NonNegative
-    private int initializeFormalParameterTypes(@NonNegative int localIndex, @Nonnull JavaType[] args) {
+    private int initializeFormalParameterTypes(@NonNegative int localIndex, @NonNull JavaType[] args) {
         for (JavaType arg : args) {
             int typeEncoding = getTypeEncoding(arg.getDescriptor());
             inputLocals[localIndex] = typeEncoding;
@@ -207,7 +207,7 @@ public final class Frame {
      * @return the int encoding of the given type
      */
     @NonNegative
-    private int getTypeEncoding(@Nonnull String typeDesc) {
+    private int getTypeEncoding(@NonNull String typeDesc) {
         int index = typeDesc.charAt(0) == '(' ? typeDesc.indexOf(')') + 1 : 0;
 
         switch (typeDesc.charAt(index)) {
@@ -235,21 +235,21 @@ public final class Frame {
     }
 
     @NonNegative
-    private int getObjectTypeEncoding(@Nonnull String typeDesc, @NonNegative int index) {
+    private int getObjectTypeEncoding(@NonNull String typeDesc, @NonNegative int index) {
         // Stores the internal name, not the descriptor!
         String t = typeDesc.substring(index + 1, typeDesc.length() - 1);
         return OBJECT | cp.addNormalType(t);
     }
 
     @NonNegative
-    private int getArrayTypeEncoding(@Nonnull String typeDesc, @NonNegative int index) {
+    private int getArrayTypeEncoding(@NonNull String typeDesc, @NonNegative int index) {
         int dims = getNumberOfDimensions(typeDesc, index);
         int data = getArrayElementTypeEncoding(typeDesc, index + dims);
         return dims << 28 | data;
     }
 
     @NonNegative
-    private static int getNumberOfDimensions(@Nonnull String typeDesc, @NonNegative int index) {
+    private static int getNumberOfDimensions(@NonNull String typeDesc, @NonNegative int index) {
         int dims = 1;
 
         while (typeDesc.charAt(index + dims) == '[') {
@@ -261,7 +261,7 @@ public final class Frame {
 
     @NonNegative
     @SuppressWarnings("OverlyComplexMethod")
-    private int getArrayElementTypeEncoding(@Nonnull String typeDesc, @NonNegative int index) {
+    private int getArrayElementTypeEncoding(@NonNull String typeDesc, @NonNegative int index) {
         switch (typeDesc.charAt(index)) {
             case 'Z':
                 return BOOLEAN;
@@ -433,7 +433,7 @@ public final class Frame {
      *            the descriptor of the type to be popped. Can also be a method descriptor (in this case this method
      *            pops the types corresponding to the method arguments).
      */
-    private void pop(@Nonnull String desc) {
+    private void pop(@NonNull String desc) {
         char c = desc.charAt(0);
 
         if (c == '(') {
@@ -478,7 +478,7 @@ public final class Frame {
      *         basic block, the type corresponding to this constructor
      */
     @NonNegative
-    private int init(@Nonnull String classDesc, @NonNegative int type) {
+    private int init(@NonNull String classDesc, @NonNegative int type) {
         int s;
 
         if (type == UNINITIALIZED_THIS) {
@@ -906,7 +906,7 @@ public final class Frame {
      * @param item
      *            the operand of the instructions
      */
-    void executeLDC(@Nonnull Item item) {
+    void executeLDC(@NonNull Item item) {
         switch (item.getType()) {
             case ConstantPoolTypes.INTEGER:
                 push(INTEGER);
@@ -1012,7 +1012,7 @@ public final class Frame {
      * @param item
      *            the operand of the instruction
      */
-    void executeTYPE(@NonNegative int opcode, @NonNegative int codeLength, @Nonnull StringItem item) {
+    void executeTYPE(@NonNegative int opcode, @NonNegative int codeLength, @NonNull StringItem item) {
         // noinspection SwitchStatementWithoutDefaultBranch
         switch (opcode) {
             case NEW:
@@ -1030,7 +1030,7 @@ public final class Frame {
         }
     }
 
-    private void executeANewArray(@Nonnull StringItem item) {
+    private void executeANewArray(@NonNull StringItem item) {
         String s = item.getValue();
         pop();
 
@@ -1048,7 +1048,7 @@ public final class Frame {
      *            the descriptor of the type to be pushed; can also be a method descriptor (in this case this method
      *            pushes its return type onto the output frame stack)
      */
-    private void push(@Nonnull String desc) {
+    private void push(@NonNull String desc) {
         int type = getTypeEncoding(desc);
 
         if (type != 0) {
@@ -1060,7 +1060,7 @@ public final class Frame {
         }
     }
 
-    private void executeCheckCast(@Nonnull StringItem item) {
+    private void executeCheckCast(@NonNull StringItem item) {
         String s = item.getValue();
         pop();
 
@@ -1079,7 +1079,7 @@ public final class Frame {
      * @param arrayType
      *            the type of the array elements
      */
-    void executeMULTIANEWARRAY(@NonNegative int dims, @Nonnull StringItem arrayType) {
+    void executeMULTIANEWARRAY(@NonNegative int dims, @NonNull StringItem arrayType) {
         pop(dims);
         push(arrayType.getValue());
     }
@@ -1092,7 +1092,7 @@ public final class Frame {
      * @param item
      *            the operand of the instruction
      */
-    public void execute(@NonNegative int opcode, @Nonnull TypeOrMemberItem item) {
+    public void execute(@NonNegative int opcode, @NonNull TypeOrMemberItem item) {
         if (opcode == INVOKEDYNAMIC) {
             executeInvokeDynamic(item);
         } else {
@@ -1121,7 +1121,7 @@ public final class Frame {
         }
     }
 
-    private void executeInvoke(@NonNegative int opcode, @Nonnull TypeOrMemberItem item) {
+    private void executeInvoke(@NonNegative int opcode, @NonNull TypeOrMemberItem item) {
         String methodDesc = item.getDesc();
         pop(methodDesc);
 
@@ -1136,7 +1136,7 @@ public final class Frame {
         push(methodDesc);
     }
 
-    private void executeInvokeDynamic(@Nonnull TypeOrMemberItem item) {
+    private void executeInvokeDynamic(@NonNull TypeOrMemberItem item) {
         String desc = item.getDesc();
         pop(desc);
         push(desc);
@@ -1152,7 +1152,7 @@ public final class Frame {
      *
      * @return <code>true</code> if the input frame of the given label has been changed by this operation
      */
-    boolean merge(@Nonnull String classDesc, @Nonnull Frame frame, @NonNegative int edge) {
+    boolean merge(@NonNull String classDesc, @NonNull Frame frame, @NonNegative int edge) {
         int nLocal = inputLocals.length;
         int nStack = inputStack.length;
         boolean changed = false;
@@ -1275,7 +1275,7 @@ public final class Frame {
      *
      * @return <code>true</code> if the type array has been modified by this operation
      */
-    private boolean merge(@NonNegative int type1, @Nonnull int[] types, @NonNegative int index) {
+    private boolean merge(@NonNegative int type1, @NonNull int[] types, @NonNegative int index) {
         int type2 = types[index];
 
         if (type2 == type1) {

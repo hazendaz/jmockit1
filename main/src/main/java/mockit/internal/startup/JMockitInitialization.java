@@ -15,8 +15,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import mockit.MockUp;
 import mockit.coverage.CodeCoverage;
 import mockit.integration.junit4.FakeFrameworkMethod;
@@ -24,11 +22,13 @@ import mockit.integration.junit4.FakeRunNotifier;
 import mockit.internal.reflection.ConstructorReflection;
 import mockit.internal.util.StackTrace;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 final class JMockitInitialization {
     private JMockitInitialization() {
     }
 
-    static void initialize(@Nonnull Instrumentation inst, boolean activateCoverage) {
+    static void initialize(@NonNull Instrumentation inst, boolean activateCoverage) {
         if (activateCoverage || CodeCoverage.active()) {
             inst.addTransformer(new CodeCoverage());
         }
@@ -57,7 +57,7 @@ final class JMockitInitialization {
         }
     }
 
-    @Nonnull
+    @NonNull
     private static Collection<String> getFakeClasses() {
         String commaOrSpaceSeparatedValues = System.getProperty("fakes");
 
@@ -72,7 +72,7 @@ final class JMockitInitialization {
         return uniqueClassNames;
     }
 
-    private static void applyStartupFake(@Nonnull String fakeClassName) {
+    private static void applyStartupFake(@NonNull String fakeClassName) {
         String argument = null;
         int p = fakeClassName.indexOf('=');
 

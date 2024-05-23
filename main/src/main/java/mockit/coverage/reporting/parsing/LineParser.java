@@ -4,12 +4,12 @@
  */
 package mockit.coverage.reporting.parsing;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.coverage.reporting.parsing.LineElement.ElementType;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Parses a source line into one or more consecutive segments, identifying which ones contain Java code and which ones
@@ -60,13 +60,13 @@ public final class LineParser {
         return true;
     }
 
-    @Nonnull
+    @NonNull
     public LineElement getInitialElement() {
         assert initialElement != null;
         return initialElement;
     }
 
-    boolean parse(@Nonnull String lineToParse) {
+    boolean parse(@NonNull String lineToParse) {
         lineNum++;
         initialElement = null;
         currentElement = null;
@@ -198,7 +198,7 @@ public final class LineParser {
         addElement(text);
     }
 
-    private void addElement(@Nonnull String text) {
+    private void addElement(@NonNull String text) {
         ElementType type;
 
         if (inComments) {

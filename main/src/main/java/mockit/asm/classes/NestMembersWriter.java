@@ -1,18 +1,17 @@
 package mockit.asm.classes;
 
-import javax.annotation.Nonnull;
-
 import mockit.asm.constantPool.AttributeWriter;
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 final class NestMembersWriter extends AttributeWriter {
     @NonNegative
     private final int[] memberClassNameIndices;
 
-    NestMembersWriter(@Nonnull ConstantPoolGeneration cp, @Nonnull String[] memberClassNames) {
+    NestMembersWriter(@NonNull ConstantPoolGeneration cp, @NonNull String[] memberClassNames) {
         super(cp, "NestMembers");
 
         memberClassNameIndices = new int[memberClassNames.length];
@@ -29,7 +28,7 @@ final class NestMembersWriter extends AttributeWriter {
     }
 
     @Override
-    public void put(@Nonnull ByteVector out) {
+    public void put(@NonNull ByteVector out) {
         int numberOfMembers = memberClassNameIndices.length;
         put(out, 2 + 2 * numberOfMembers);
         out.putShort(numberOfMembers);

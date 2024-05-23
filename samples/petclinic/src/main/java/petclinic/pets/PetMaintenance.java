@@ -2,7 +2,7 @@ package petclinic.pets;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -29,12 +29,12 @@ public class PetMaintenance {
      *
      * @return the types found, in order of name
      */
-    @Nonnull
+    @NonNull
     public List<PetType> findPetTypes() {
         return db.find("select t from PetType t order by t.name");
     }
 
-    public void createPet(@Nonnull Owner owner, @Nonnull Pet data) {
+    public void createPet(@NonNull Owner owner, @NonNull Pet data) {
         validate(owner, data);
 
         data.setOwner(owner);
@@ -42,7 +42,7 @@ public class PetMaintenance {
         db.save(data);
     }
 
-    private void validate(@Nonnull Owner owner, @Nonnull Pet pet) {
+    private void validate(@NonNull Owner owner, @NonNull Pet pet) {
         Pet existingPetOfSameName = owner.getPet(pet.getName());
 
         if (existingPetOfSameName != null) {
@@ -50,7 +50,7 @@ public class PetMaintenance {
         }
     }
 
-    public void updatePet(@Nonnull Pet data) {
+    public void updatePet(@NonNull Pet data) {
         db.save(data);
     }
 }

@@ -4,8 +4,9 @@
  */
 package mockit.internal.expectations.argumentMatching;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Matches a decimal argument against another within a given margin of error.
@@ -21,7 +22,7 @@ public final class NumericEqualityMatcher implements ArgumentMatcher<NumericEqua
 
     @Override
     @SuppressWarnings("FloatingPointEquality")
-    public boolean same(@Nonnull NumericEqualityMatcher other) {
+    public boolean same(@NonNull NumericEqualityMatcher other) {
         return value == other.value && delta == other.delta;
     }
 
@@ -31,12 +32,12 @@ public final class NumericEqualityMatcher implements ArgumentMatcher<NumericEqua
         return decimalValue instanceof Number && actualDelta((Number) decimalValue) <= delta;
     }
 
-    private double actualDelta(@Nonnull Number decimalValue) {
+    private double actualDelta(@NonNull Number decimalValue) {
         return Math.abs(decimalValue.doubleValue() - value);
     }
 
     @Override
-    public void writeMismatchPhrase(@Nonnull ArgumentMismatch argumentMismatch) {
+    public void writeMismatchPhrase(@NonNull ArgumentMismatch argumentMismatch) {
         argumentMismatch.append("a numeric value within ").append(delta).append(" of ").append(value);
     }
 }

@@ -3,7 +3,7 @@ package petclinic.owners;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import javax.annotation.Nullable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -57,7 +57,7 @@ public class Owner extends Person {
         return pets;
     }
 
-    public void addPet(@Nonnull Pet pet) {
+    public void addPet(@NonNull Pet pet) {
         pets.add(pet);
         pet.setOwner(this);
     }
@@ -71,7 +71,7 @@ public class Owner extends Person {
      * @return the pet
      */
     @Nullable
-    public Pet getPet(@Nonnull String name) {
+    public Pet getPet(@NonNull String name) {
         return pets.stream().filter(pet -> pet.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
     }
 }

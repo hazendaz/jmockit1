@@ -8,7 +8,6 @@ import java.lang.instrument.ClassDefinition;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.MockUp;
@@ -19,29 +18,31 @@ import mockit.internal.startup.Startup;
 import mockit.internal.state.CachedClassfiles;
 import mockit.internal.state.TestRun;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 public final class FakeClassSetup {
-    @Nonnull
+    @NonNull
     final Class<?> realClass;
     @Nullable
     private ClassReader rcReader;
-    @Nonnull
+    @NonNull
     private final FakeMethods fakeMethods;
-    @Nonnull
+    @NonNull
     final MockUp<?> fake;
     private final boolean forStartupFake;
 
-    public FakeClassSetup(@Nonnull Class<?> realClass, @Nonnull Class<?> classToFake, @Nullable Type fakedType,
-            @Nonnull MockUp<?> fake) {
+    public FakeClassSetup(@NonNull Class<?> realClass, @NonNull Class<?> classToFake, @Nullable Type fakedType,
+            @NonNull MockUp<?> fake) {
         this(realClass, classToFake, fakedType, fake, null);
     }
 
-    FakeClassSetup(@Nonnull Class<?> realClass, @Nullable Type fakedType, @Nonnull MockUp<?> fake,
+    FakeClassSetup(@NonNull Class<?> realClass, @Nullable Type fakedType, @NonNull MockUp<?> fake,
             @Nullable byte[] realClassCode) {
         this(realClass, realClass, fakedType, fake, realClassCode);
     }
 
-    FakeClassSetup(@Nonnull Class<?> realClass, @Nonnull Class<?> classToFake, @Nullable Type fakedType,
-            @Nonnull MockUp<?> fake, @Nullable byte[] realClassCode) {
+    FakeClassSetup(@NonNull Class<?> realClass, @NonNull Class<?> classToFake, @Nullable Type fakedType,
+            @NonNull MockUp<?> fake, @Nullable byte[] realClassCode) {
         this.realClass = classToFake;
         this.fake = fake;
         forStartupFake = Startup.initializing;
@@ -95,7 +96,7 @@ public final class FakeClassSetup {
     }
 
     @Nullable
-    private byte[] modifyRealClass(@Nonnull Class<?> classToModify) {
+    private byte[] modifyRealClass(@NonNull Class<?> classToModify) {
         if (rcReader == null) {
             rcReader = ClassFile.createReaderFromLastRedefinitionIfAny(classToModify);
         }
@@ -106,12 +107,12 @@ public final class FakeClassSetup {
         return modifier.wasModified() ? modifier.toByteArray() : null;
     }
 
-    @Nonnull
-    BaseClassModifier createClassModifier(@Nonnull ClassReader cr) {
+    @NonNull
+    BaseClassModifier createClassModifier(@NonNull ClassReader cr) {
         return new FakedClassModifier(cr, realClass, fake, fakeMethods);
     }
 
-    void applyClassModifications(@Nonnull Class<?> classToModify, @Nonnull byte[] modifiedClassFile) {
+    void applyClassModifications(@NonNull Class<?> classToModify, @NonNull byte[] modifiedClassFile) {
         ClassDefinition classDef = new ClassDefinition(classToModify, modifiedClassFile);
         Startup.redefineMethods(classDef);
 

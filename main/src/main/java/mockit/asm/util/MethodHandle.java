@@ -1,8 +1,7 @@
 package mockit.asm.util;
 
-import javax.annotation.Nonnull;
-
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * A reference to a method.
@@ -29,19 +28,19 @@ public final class MethodHandle {
     /**
      * The internal name of the class that owns the method designated by this handle.
      */
-    @Nonnull
+    @NonNull
     public final String owner;
 
     /**
      * The name of the method designated by this handle.
      */
-    @Nonnull
+    @NonNull
     public final String name;
 
     /**
      * The descriptor of the method designated by this handle.
      */
-    @Nonnull
+    @NonNull
     public final String desc;
 
     /**
@@ -56,7 +55,7 @@ public final class MethodHandle {
      * @param desc
      *            the descriptor of the method designated by this handle.
      */
-    public MethodHandle(@NonNegative int tag, @Nonnull String owner, @Nonnull String name, @Nonnull String desc) {
+    public MethodHandle(@NonNegative int tag, @NonNull String owner, @NonNull String name, @NonNull String desc) {
         this.tag = tag;
         this.owner = owner;
         this.name = name;

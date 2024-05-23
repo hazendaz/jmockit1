@@ -1,8 +1,7 @@
 package mockit.asm.constantPool;
 
-import javax.annotation.Nonnull;
-
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 abstract class TypeTableItem extends Item {
     /**
@@ -17,7 +16,7 @@ abstract class TypeTableItem extends Item {
         int MERGED = 32;
     }
 
-    @Nonnull
+    @NonNull
     String typeDesc;
 
     TypeTableItem() {
@@ -25,7 +24,7 @@ abstract class TypeTableItem extends Item {
         typeDesc = "";
     }
 
-    TypeTableItem(@NonNegative int index, @Nonnull TypeTableItem item) {
+    TypeTableItem(@NonNegative int index, @NonNull TypeTableItem item) {
         super(index, item);
         typeDesc = item.typeDesc;
     }

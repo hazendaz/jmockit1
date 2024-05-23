@@ -10,20 +10,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import mockit.internal.ClassIdentification;
 import mockit.internal.faking.FakeClasses;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 public final class SavePoint {
-    @Nonnull
+    @NonNull
     private final Set<ClassIdentification> previousTransformedClasses;
-    @Nonnull
+    @NonNull
     private final Map<Class<?>, byte[]> previousRedefinedClasses;
     private final int previousCaptureTransformerCount;
-    @Nonnull
+    @NonNull
     private final List<Class<?>> previousMockedClasses;
-    @Nonnull
+    @NonNull
     private final FakeClasses.SavePoint previousFakeClasses;
 
     public SavePoint() {

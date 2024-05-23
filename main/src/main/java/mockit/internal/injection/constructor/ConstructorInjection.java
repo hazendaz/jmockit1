@@ -20,7 +20,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.types.JavaType;
@@ -36,19 +35,21 @@ import mockit.internal.state.TestRun;
 import mockit.internal.util.MethodFormatter;
 import mockit.internal.util.StackTrace;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 public final class ConstructorInjection extends Injector {
-    @Nonnull
+    @NonNull
     private final Constructor<?> constructor;
 
-    public ConstructorInjection(@Nonnull InjectionState injectionState, @Nullable FullInjection fullInjection,
-            @Nonnull Constructor<?> constructor) {
+    public ConstructorInjection(@NonNull InjectionState injectionState, @Nullable FullInjection fullInjection,
+            @NonNull Constructor<?> constructor) {
         super(injectionState, fullInjection);
         ensureThatMemberIsAccessible(constructor);
         this.constructor = constructor;
     }
 
     @Nullable
-    public Object instantiate(@Nonnull List<InjectionProvider> parameterProviders, @Nonnull TestedClass testedClass,
+    public Object instantiate(@NonNull List<InjectionProvider> parameterProviders, @NonNull TestedClass testedClass,
             boolean required, boolean needToConstruct) {
         Type[] parameterTypes = constructor.getGenericParameterTypes();
         int n = parameterTypes.length;
@@ -62,7 +63,7 @@ public final class ConstructorInjection extends Injector {
         }
 
         for (int i = 0; i < n; i++) {
-            @Nonnull
+            @NonNull
             InjectionProvider parameterProvider = parameterProviders.get(i);
             Object value;
 
@@ -95,7 +96,7 @@ public final class ConstructorInjection extends Injector {
     }
 
     @Nullable
-    private Object createOrReuseArgumentValue(@Nonnull ConstructorParameter constructorParameter, boolean required) {
+    private Object createOrReuseArgumentValue(@NonNull ConstructorParameter constructorParameter, boolean required) {
         Object givenValue = constructorParameter.getValue(null);
 
         if (givenValue != null) {
@@ -132,8 +133,8 @@ public final class ConstructorInjection extends Injector {
         return newOrReusedValue;
     }
 
-    @Nonnull
-    private Object getArgumentValueToInject(@Nonnull InjectionProvider injectable, int parameterIndex) {
+    @NonNull
+    private Object getArgumentValueToInject(@NonNull InjectionProvider injectable, int parameterIndex) {
         Object argument = injectionState.getValueToInject(injectable);
 
         if (argument == null) {
@@ -152,18 +153,18 @@ public final class ConstructorInjection extends Injector {
         return argument;
     }
 
-    @Nonnull
+    @NonNull
     private String getClassDesc() {
         return JavaType.getInternalName(constructor.getDeclaringClass());
     }
 
-    @Nonnull
+    @NonNull
     private String getConstructorDesc() {
         return "<init>" + JavaType.getConstructorDescriptor(constructor);
     }
 
-    @Nonnull
-    private Object obtainInjectedVarargsArray(@Nonnull Type parameterType, @Nonnull TestedClass testedClass) {
+    @NonNull
+    private Object obtainInjectedVarargsArray(@NonNull Type parameterType, @NonNull TestedClass testedClass) {
         Type varargsElementType = getTypeOfInjectionPointFromVarargsParameter(parameterType);
         KindOfInjectionPoint kindOfInjectionPoint = kindOfInjectionPoint(constructor);
         InjectionProviders injectionProviders = injectionState.injectionProviders;
@@ -184,8 +185,8 @@ public final class ConstructorInjection extends Injector {
         return newArrayFromList(varargsElementType, varargValues);
     }
 
-    @Nonnull
-    private static Object newArrayFromList(@Nonnull Type elementType, @Nonnull List<Object> values) {
+    @NonNull
+    private static Object newArrayFromList(@NonNull Type elementType, @NonNull List<Object> values) {
         Class<?> componentType = getClassType(elementType);
         int elementCount = values.size();
         Object array = Array.newInstance(componentType, elementCount);
@@ -197,8 +198,8 @@ public final class ConstructorInjection extends Injector {
         return array;
     }
 
-    @Nonnull
-    private String missingValueDescription(@Nonnull String name) {
+    @NonNull
+    private String missingValueDescription(@NonNull String name) {
         String classDesc = getClassDesc();
         String constructorDesc = getConstructorDesc();
         String constructorDescription = new MethodFormatter(classDesc, constructorDesc).toString();
@@ -209,8 +210,8 @@ public final class ConstructorInjection extends Injector {
         return " for parameter \"" + name + "\" in constructor " + friendlyConstructorDesc;
     }
 
-    @Nonnull
-    private Object invokeConstructor(@Nonnull Object[] arguments) {
+    @NonNull
+    private Object invokeConstructor(@NonNull Object[] arguments) {
         TestRun.exitNoMockingZone();
 
         try {

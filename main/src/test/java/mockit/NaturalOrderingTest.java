@@ -5,8 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
 
-import javax.annotation.Nonnull;
-
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -58,7 +57,7 @@ final class NaturalOrderingTest {
         }
 
         @Override
-        public int compareTo(@Nonnull String s) {
+        public int compareTo(@NonNull String s) {
             return value.compareTo(s);
         }
     }

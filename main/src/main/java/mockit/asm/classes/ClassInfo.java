@@ -1,7 +1,8 @@
 package mockit.asm.classes;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Holds additional information about a classfile: {@link #signature}, {@link #superName}, {@link #interfaces},
@@ -13,7 +14,7 @@ public final class ClassInfo {
     /**
      * The internal names of the class's interfaces, if any.
      */
-    @Nonnull
+    @NonNull
     public String[] interfaces = NO_INTERFACES;
 
     /**

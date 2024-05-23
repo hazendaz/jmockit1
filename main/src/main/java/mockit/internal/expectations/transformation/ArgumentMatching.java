@@ -7,12 +7,11 @@ package mockit.internal.expectations.transformation;
 import static mockit.asm.jvmConstants.Opcodes.GETFIELD;
 import static mockit.asm.jvmConstants.Opcodes.SIPUSH;
 
-import javax.annotation.Nonnull;
-
 import mockit.asm.methods.MethodWriter;
 import mockit.asm.types.JavaType;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 final class ArgumentMatching {
     private static final JavaType[] NO_PARAMETERS = {};
@@ -33,27 +32,27 @@ final class ArgumentMatching {
             + "withSuffix(Ljava/lang/CharSequence;)Ljava/lang/CharSequence; "
             + "withMatch(Ljava/lang/CharSequence;)Ljava/lang/CharSequence;";
 
-    @Nonnull
+    @NonNull
     private final InvocationBlockModifier modifier;
 
     // Helper fields that allow argument matchers to be moved to the correct positions of their corresponding
     // parameters:
-    @Nonnull
+    @NonNull
     private final int[] matcherStacks;
     @NonNegative
     private int matcherCount;
-    @Nonnull
+    @NonNull
     private JavaType[] parameterTypes;
 
-    static boolean isAnyField(@Nonnull String name) {
+    static boolean isAnyField(@NonNull String name) {
         return name.startsWith("any") && ANY_FIELDS.contains(name);
     }
 
-    static boolean isCallToArgumentMatcher(@Nonnull String name, @Nonnull String desc) {
+    static boolean isCallToArgumentMatcher(@NonNull String name, @NonNull String desc) {
         return name.startsWith("with") && WITH_METHODS.contains(name + desc);
     }
 
-    ArgumentMatching(@Nonnull InvocationBlockModifier modifier) {
+    ArgumentMatching(@NonNull InvocationBlockModifier modifier) {
         this.modifier = modifier;
         matcherStacks = new int[40];
         parameterTypes = NO_PARAMETERS;
@@ -68,19 +67,19 @@ final class ArgumentMatching {
         return matcherCount;
     }
 
-    @Nonnull
+    @NonNull
     JavaType getParameterType(@NonNegative int parameterIndex) {
         return parameterTypes[parameterIndex];
     }
 
-    void generateCodeToAddArgumentMatcherForAnyField(@Nonnull String fieldOwner, @Nonnull String name,
-            @Nonnull String desc) {
+    void generateCodeToAddArgumentMatcherForAnyField(@NonNull String fieldOwner, @NonNull String name,
+            @NonNull String desc) {
         MethodWriter mw = modifier.getMethodWriter();
         mw.visitFieldInsn(GETFIELD, fieldOwner, name, desc);
         modifier.generateCallToActiveInvocationsMethod(name);
     }
 
-    boolean handleInvocationParameters(@NonNegative int stackSize, @Nonnull String desc) {
+    boolean handleInvocationParameters(@NonNegative int stackSize, @NonNull String desc) {
         parameterTypes = JavaType.getArgumentTypes(desc);
         int stackAfter = stackSize - getSumOfParameterSizes();
         boolean mockedInvocationUsingTheMatchers = stackAfter < matcherStacks[0];

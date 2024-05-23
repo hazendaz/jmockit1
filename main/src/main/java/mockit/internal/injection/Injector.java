@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.persistence.Entity;
 
@@ -34,22 +33,24 @@ import mockit.internal.injection.full.FullInjection;
 import mockit.internal.reflection.FieldReflection;
 import mockit.internal.util.DefaultValues;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 public class Injector {
     private static final Pattern TYPE_NAME = compile("class |interface |java\\.lang\\.");
 
-    @Nonnull
+    @NonNull
     protected final InjectionState injectionState;
     @Nullable
     protected final FullInjection fullInjection;
 
-    protected Injector(@Nonnull InjectionState state, @Nullable FullInjection fullInjection) {
+    protected Injector(@NonNull InjectionState state, @Nullable FullInjection fullInjection) {
         injectionState = state;
         this.fullInjection = fullInjection;
     }
 
-    @Nonnull
-    static List<Field> findAllTargetInstanceFieldsInTestedClassHierarchy(@Nonnull Class<?> actualTestedClass,
-            @Nonnull TestedClass testedClass) {
+    @NonNull
+    static List<Field> findAllTargetInstanceFieldsInTestedClassHierarchy(@NonNull Class<?> actualTestedClass,
+            @NonNull TestedClass testedClass) {
         List<Field> targetFields = new ArrayList<>();
         Class<?> classWithFields = actualTestedClass;
 
@@ -61,7 +62,7 @@ public class Injector {
         return targetFields;
     }
 
-    private static void addEligibleFields(@Nonnull List<Field> targetFields, @Nonnull Class<?> classWithFields) {
+    private static void addEligibleFields(@NonNull List<Field> targetFields, @NonNull Class<?> classWithFields) {
         Field[] fields = classWithFields.getDeclaredFields();
 
         for (Field field : fields) {
@@ -71,7 +72,7 @@ public class Injector {
         }
     }
 
-    private static boolean isEligibleForInjection(@Nonnull Field field) {
+    private static boolean isEligibleForInjection(@NonNull Field field) {
         int modifiers = field.getModifiers();
 
         if (isFinal(modifiers)) {
@@ -90,7 +91,7 @@ public class Injector {
         return !isStatic(modifiers) && !isVolatile(modifiers);
     }
 
-    public final void fillOutDependenciesRecursively(@Nonnull Object dependency, @Nonnull TestedClass testedClass) {
+    public final void fillOutDependenciesRecursively(@NonNull Object dependency, @NonNull TestedClass testedClass) {
         Class<?> dependencyClass = dependency.getClass();
         List<Field> targetFields = findAllTargetInstanceFieldsInTestedClassHierarchy(dependencyClass, testedClass);
 
@@ -102,8 +103,8 @@ public class Injector {
         }
     }
 
-    public final void injectIntoEligibleFields(@Nonnull List<Field> targetFields, @Nonnull Object testedObject,
-            @Nonnull TestedClass testedClass) {
+    public final void injectIntoEligibleFields(@NonNull List<Field> targetFields, @NonNull Object testedObject,
+            @NonNull TestedClass testedClass) {
         for (Field field : targetFields) {
             if (targetFieldWasNotAssignedByConstructor(testedObject, field)) {
                 Object injectableValue = getValueForFieldIfAvailable(targetFields, testedClass, field);
@@ -116,8 +117,8 @@ public class Injector {
         }
     }
 
-    private static boolean targetFieldWasNotAssignedByConstructor(@Nonnull Object testedObject,
-            @Nonnull Field targetField) {
+    private static boolean targetFieldWasNotAssignedByConstructor(@NonNull Object testedObject,
+            @NonNull Field targetField) {
         if (kindOfInjectionPoint(targetField) != KindOfInjectionPoint.NotAnnotated) {
             return true;
         }
@@ -140,8 +141,8 @@ public class Injector {
     }
 
     @Nullable
-    private Object getValueForFieldIfAvailable(@Nonnull List<Field> targetFields, @Nonnull TestedClass testedClass,
-            @Nonnull Field targetField) {
+    private Object getValueForFieldIfAvailable(@NonNull List<Field> targetFields, @NonNull TestedClass testedClass,
+            @NonNull Field targetField) {
         @Nullable
         String qualifiedFieldName = getQualifiedName(targetField.getDeclaredAnnotations());
         InjectionProvider injectable = findAvailableInjectableIfAny(targetFields, qualifiedFieldName, testedClass,
@@ -177,8 +178,8 @@ public class Injector {
     }
 
     @Nullable
-    private InjectionProvider findAvailableInjectableIfAny(@Nonnull List<Field> targetFields,
-            @Nullable String qualifiedTargetFieldName, @Nonnull TestedClass testedClass, @Nonnull Field targetField) {
+    private InjectionProvider findAvailableInjectableIfAny(@NonNull List<Field> targetFields,
+            @Nullable String qualifiedTargetFieldName, @NonNull TestedClass testedClass, @NonNull Field targetField) {
         KindOfInjectionPoint kindOfInjectionPoint = kindOfInjectionPoint(targetField);
         InjectionProviders injectionProviders = injectionState.injectionProviders;
         injectionProviders.setTypeOfInjectionPoint(targetField.getGenericType(), kindOfInjectionPoint);
@@ -202,9 +203,9 @@ public class Injector {
         return injectionProviders.getProviderByTypeAndOptionallyName(targetFieldName, testedClass);
     }
 
-    private static boolean withMultipleTargetFieldsOfSameType(@Nonnull List<Field> targetFields,
-            @Nonnull TestedClass testedClass, @Nonnull Field targetField,
-            @Nonnull InjectionProviders injectionProviders) {
+    private static boolean withMultipleTargetFieldsOfSameType(@NonNull List<Field> targetFields,
+            @NonNull TestedClass testedClass, @NonNull Field targetField,
+            @NonNull InjectionProviders injectionProviders) {
         for (Field anotherTargetField : targetFields) {
             if (anotherTargetField != targetField && injectionProviders
                     .isAssignableToInjectionPoint(anotherTargetField.getGenericType(), testedClass)) {
@@ -215,8 +216,8 @@ public class Injector {
         return false;
     }
 
-    private void throwExceptionIfUnableToInjectRequiredTargetField(@Nonnull KindOfInjectionPoint kindOfInjectionPoint,
-            @Nonnull Field targetField, @Nullable String qualifiedFieldName) {
+    private void throwExceptionIfUnableToInjectRequiredTargetField(@NonNull KindOfInjectionPoint kindOfInjectionPoint,
+            @NonNull Field targetField, @Nullable String qualifiedFieldName) {
         if (kindOfInjectionPoint == KindOfInjectionPoint.Required) {
             Type fieldType = targetField.getGenericType();
             String fieldTypeName = fieldType.toString();

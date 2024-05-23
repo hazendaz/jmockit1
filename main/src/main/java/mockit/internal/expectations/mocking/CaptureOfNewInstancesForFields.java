@@ -8,10 +8,10 @@ import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.List;
 
-import javax.annotation.Nonnull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 final class CaptureOfNewInstancesForFields extends CaptureOfNewInstances {
-    void resetCaptureCount(@Nonnull Field mockField) {
+    void resetCaptureCount(@NonNull Field mockField) {
         Collection<List<Capture>> capturesForAllBaseTypes = getCapturesForAllBaseTypes();
 
         for (List<Capture> fieldsWithCapture : capturesForAllBaseTypes) {
@@ -19,7 +19,7 @@ final class CaptureOfNewInstancesForFields extends CaptureOfNewInstances {
         }
     }
 
-    private static void resetCaptureCount(@Nonnull Field mockField, @Nonnull List<Capture> fieldsWithCapture) {
+    private static void resetCaptureCount(@NonNull Field mockField, @NonNull List<Capture> fieldsWithCapture) {
         for (Capture fieldWithCapture : fieldsWithCapture) {
             if (fieldWithCapture.typeMetadata.field == mockField) {
                 fieldWithCapture.reset();

@@ -2,7 +2,7 @@ package petclinic.visits;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -18,7 +18,7 @@ public class VisitMaintenance {
     @Inject
     private Database db;
 
-    public void create(@Nonnull Pet visitedPet, @Nonnull Visit visitData) {
+    public void create(@NonNull Pet visitedPet, @NonNull Visit visitData) {
         visitData.setPet(visitedPet);
         visitedPet.addVisit(visitData);
         db.save(visitData);
@@ -29,7 +29,7 @@ public class VisitMaintenance {
         return db.findById(Visit.class, visitId);
     }
 
-    @Nonnull
+    @NonNull
     public List<Visit> findByPetId(int petId) {
         return db.find("select v from Visit v where v.pet.id = ?1", petId);
     }

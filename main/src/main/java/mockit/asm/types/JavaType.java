@@ -3,9 +3,8 @@ package mockit.asm.types;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
-import javax.annotation.Nonnull;
-
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * A Java field or method type. This class can be used to make it easier to manipulate type and method descriptors.
@@ -36,16 +35,16 @@ public abstract class JavaType {
      * @param typeDescriptor
      *            a field or method type descriptor.
      */
-    @Nonnull
-    public static JavaType getType(@Nonnull String typeDescriptor) {
+    @NonNull
+    public static JavaType getType(@NonNull String typeDescriptor) {
         return getType(typeDescriptor.toCharArray(), 0);
     }
 
     /**
      * Returns the Java types corresponding to the argument types of the given method descriptor.
      */
-    @Nonnull
-    public static JavaType[] getArgumentTypes(@Nonnull String methodDescriptor) {
+    @NonNull
+    public static JavaType[] getArgumentTypes(@NonNull String methodDescriptor) {
         char[] buf = methodDescriptor.toCharArray();
         int off = 1;
         int size = 0;
@@ -69,14 +68,14 @@ public abstract class JavaType {
     }
 
     @NonNegative
-    private static int findNextTypeTerminatorCharacter(@Nonnull char[] desc, @NonNegative int i) {
+    private static int findNextTypeTerminatorCharacter(@NonNull char[] desc, @NonNegative int i) {
         while (desc[i++] != ';') {
         }
         return i;
     }
 
-    @Nonnull
-    private static JavaType[] getArgumentTypes(@Nonnull char[] buf, @NonNegative int argCount) {
+    @NonNull
+    private static JavaType[] getArgumentTypes(@NonNull char[] buf, @NonNegative int argCount) {
         if (argCount == 0) {
             return NO_ARGS;
         }
@@ -96,8 +95,8 @@ public abstract class JavaType {
     /**
      * Returns the Java type corresponding to the return type of the given method descriptor.
      */
-    @Nonnull
-    public static JavaType getReturnType(@Nonnull String methodDescriptor) {
+    @NonNull
+    public static JavaType getReturnType(@NonNull String methodDescriptor) {
         char[] buf = methodDescriptor.toCharArray();
         return getType(buf, methodDescriptor.indexOf(')') + 1);
     }
@@ -129,7 +128,7 @@ public abstract class JavaType {
      *
      *         ).
      */
-    public static int getArgumentsAndReturnSizes(@Nonnull String desc) {
+    public static int getArgumentsAndReturnSizes(@NonNull String desc) {
         int argSize = 1;
         int i = 1;
 
@@ -170,14 +169,14 @@ public abstract class JavaType {
     }
 
     @NonNegative
-    private static int findNextTypeTerminatorCharacter(@Nonnull String desc, @NonNegative int i) {
+    private static int findNextTypeTerminatorCharacter(@NonNull String desc, @NonNegative int i) {
         while (desc.charAt(i++) != ';') {
         }
         return i;
     }
 
     @NonNegative
-    private static int findStartOfArrayElementType(@Nonnull String desc, @NonNegative int i) {
+    private static int findStartOfArrayElementType(@NonNull String desc, @NonNegative int i) {
         while (desc.charAt(i) == '[') {
             i++;
         }
@@ -193,8 +192,8 @@ public abstract class JavaType {
      * @param off
      *            the offset of this descriptor in the previous buffer.
      */
-    @Nonnull
-    static JavaType getType(@Nonnull char[] buf, @NonNegative int off) {
+    @NonNull
+    static JavaType getType(@NonNull char[] buf, @NonNegative int off) {
         PrimitiveType primitiveType = PrimitiveType.getPrimitiveType(buf[off]);
 
         if (primitiveType != null) {
@@ -207,7 +206,7 @@ public abstract class JavaType {
     /**
      * Returns the binary name of the class corresponding to this type. This method must not be used on method types.
      */
-    @Nonnull
+    @NonNull
     public abstract String getClassName();
 
     // ------------------------------------------------------------------------
@@ -217,7 +216,7 @@ public abstract class JavaType {
     /**
      * Returns the descriptor corresponding to this Java type.
      */
-    @Nonnull
+    @NonNull
     public final String getDescriptor() {
         StringBuilder buf = new StringBuilder();
         getDescriptor(buf);
@@ -230,7 +229,7 @@ public abstract class JavaType {
      * @param typeDesc
      *            the string builder to which the descriptor must be appended
      */
-    abstract void getDescriptor(@Nonnull StringBuilder typeDesc);
+    abstract void getDescriptor(@NonNull StringBuilder typeDesc);
 
     // -------------------------------------------------------------------------------------------------------
     // Direct conversion from classes to type descriptors, and vice-versa, without intermediate JavaType objects
@@ -243,23 +242,23 @@ public abstract class JavaType {
      * @param aClass
      *            an object or array class
      */
-    @Nonnull
-    public static String getInternalName(@Nonnull Class<?> aClass) {
+    @NonNull
+    public static String getInternalName(@NonNull Class<?> aClass) {
         return aClass.getName().replace('.', '/');
     }
 
     /**
      * Returns the descriptor corresponding to the given constructor.
      */
-    @Nonnull
-    public static String getConstructorDescriptor(@Nonnull Constructor<?> constructor) {
+    @NonNull
+    public static String getConstructorDescriptor(@NonNull Constructor<?> constructor) {
         StringBuilder buf = getMemberDescriptor(constructor.getParameterTypes());
         buf.append('V');
         return buf.toString();
     }
 
-    @Nonnull
-    private static StringBuilder getMemberDescriptor(@Nonnull Class<?>[] parameterTypes) {
+    @NonNull
+    private static StringBuilder getMemberDescriptor(@NonNull Class<?>[] parameterTypes) {
         StringBuilder buf = new StringBuilder();
         buf.append('(');
 
@@ -274,8 +273,8 @@ public abstract class JavaType {
     /**
      * Returns the descriptor corresponding to the given method.
      */
-    @Nonnull
-    public static String getMethodDescriptor(@Nonnull Method method) {
+    @NonNull
+    public static String getMethodDescriptor(@NonNull Method method) {
         StringBuilder buf = getMemberDescriptor(method.getParameterTypes());
         getDescriptor(buf, method.getReturnType());
         return buf.toString();
@@ -284,7 +283,7 @@ public abstract class JavaType {
     /**
      * Appends the descriptor of the given class to the given string builder.
      */
-    private static void getDescriptor(@Nonnull StringBuilder buf, @Nonnull Class<?> aClass) {
+    private static void getDescriptor(@NonNull StringBuilder buf, @NonNull Class<?> aClass) {
         Class<?> d = aClass;
 
         while (true) {

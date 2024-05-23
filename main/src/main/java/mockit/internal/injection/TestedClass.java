@@ -9,37 +9,38 @@ import java.lang.reflect.Type;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.reflection.GenericTypeReflection;
 import mockit.internal.util.Utilities;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 public final class TestedClass {
-    @Nonnull
+    @NonNull
     final Type declaredType;
-    @Nonnull
+    @NonNull
     final Class<?> declaredClass;
-    @Nonnull
+    @NonNull
     public final Class<?> targetClass;
-    @Nonnull
+    @NonNull
     public final GenericTypeReflection reflection;
-    @Nonnull
+    @NonNull
     final ProtectionDomain protectionDomainOfTestedClass;
     @Nullable
     final String codeLocationParentPath;
-    @Nonnull
+    @NonNull
     public final String nameOfTestedClass;
     @Nullable
     public final TestedClass parent;
     @Nullable
     public Class<?> testClass;
 
-    public TestedClass(@Nonnull Type declaredType, @Nonnull Class<?> targetClass) {
+    public TestedClass(@NonNull Type declaredType, @NonNull Class<?> targetClass) {
         this(declaredType, targetClass, null);
     }
 
-    public TestedClass(@Nonnull Type declaredType, @Nonnull Class<?> targetClass, @Nullable TestedClass parent) {
+    public TestedClass(@NonNull Type declaredType, @NonNull Class<?> targetClass, @Nullable TestedClass parent) {
         this.declaredType = declaredType;
         declaredClass = Utilities.getClassType(declaredType);
         this.targetClass = targetClass;
@@ -52,12 +53,12 @@ public final class TestedClass {
         this.parent = parent;
     }
 
-    @Nonnull
+    @NonNull
     public Class<?> getDeclaredClass() {
         return declaredClass;
     }
 
-    public boolean isClassFromSameModuleOrSystemAsTestedClass(@Nonnull Class<?> anotherClass) {
+    public boolean isClassFromSameModuleOrSystemAsTestedClass(@NonNull Class<?> anotherClass) {
         if (anotherClass.getClassLoader() == null) {
             return false;
         }
@@ -90,7 +91,7 @@ public final class TestedClass {
         return isInSameSubpackageAsTestedClass(anotherClass);
     }
 
-    private boolean isInSameSubpackageAsTestedClass(@Nonnull Class<?> anotherClass) {
+    private boolean isInSameSubpackageAsTestedClass(@NonNull Class<?> anotherClass) {
         String nameOfAnotherClass = anotherClass.getName();
         int p1 = nameOfAnotherClass.indexOf('.');
         int p2 = nameOfTestedClass.indexOf('.');

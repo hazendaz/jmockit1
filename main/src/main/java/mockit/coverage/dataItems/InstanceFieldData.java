@@ -12,17 +12,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
 import mockit.internal.state.TestRun;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class InstanceFieldData extends FieldData {
     private static final long serialVersionUID = 6991762113575259754L;
 
-    @Nonnull
+    @NonNull
     private final transient Map<Integer, List<Integer>> testIdsToAssignments = new HashMap<>();
 
-    void registerAssignment(@Nonnull Object instance) {
+    void registerAssignment(@NonNull Object instance) {
         List<Integer> dataForRunningTest = getDataForRunningTest();
         Integer instanceId = System.identityHashCode(instance);
 
@@ -33,7 +33,7 @@ public final class InstanceFieldData extends FieldData {
         writeCount++;
     }
 
-    void registerRead(@Nonnull Object instance) {
+    void registerRead(@NonNull Object instance) {
         List<Integer> dataForRunningTest = getDataForRunningTest();
         Integer instanceId = System.identityHashCode(instance);
 
@@ -41,7 +41,7 @@ public final class InstanceFieldData extends FieldData {
         readCount++;
     }
 
-    @Nonnull
+    @NonNull
     private List<Integer> getDataForRunningTest() {
         int testId = TestRun.getTestId();
         List<Integer> fieldData = testIdsToAssignments.get(testId);
@@ -64,7 +64,7 @@ public final class InstanceFieldData extends FieldData {
         }
     }
 
-    @Nonnull
+    @NonNull
     public List<Integer> getOwnerInstancesWithUnreadAssignments() {
         if (isCovered()) {
             return emptyList();

@@ -1,6 +1,6 @@
 package petclinic.vets;
 
-import javax.annotation.Nonnull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import petclinic.util.TestDatabase;
 
@@ -8,8 +8,8 @@ import petclinic.util.TestDatabase;
  * Utility class for creation of {@link Vet} data in the test database, to be used in integration tests.
  */
 public final class VetData extends TestDatabase {
-    @Nonnull
-    public Vet create(@Nonnull String fullName, @Nonnull String... specialtyNames) {
+    @NonNull
+    public Vet create(@NonNull String fullName, @NonNull String... specialtyNames) {
         String[] names = fullName.split(" ");
 
         Vet vet = new Vet();

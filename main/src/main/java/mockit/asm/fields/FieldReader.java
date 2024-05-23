@@ -1,6 +1,5 @@
 package mockit.asm.fields;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.AnnotatedReader;
@@ -8,14 +7,15 @@ import mockit.asm.classes.ClassReader;
 import mockit.asm.classes.ClassVisitor;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class FieldReader extends AnnotatedReader {
-    @Nonnull
+    @NonNull
     private final ClassVisitor cv;
     @Nullable
     private Object constantValue;
 
-    public FieldReader(@Nonnull ClassReader cr, @Nonnull ClassVisitor cv) {
+    public FieldReader(@NonNull ClassReader cr, @NonNull ClassVisitor cv) {
         super(cr);
         this.cv = cv;
     }
@@ -52,7 +52,7 @@ public final class FieldReader extends AnnotatedReader {
 
     @Nullable
     @Override
-    protected Boolean readAttribute(@Nonnull String attributeName) {
+    protected Boolean readAttribute(@NonNull String attributeName) {
         if ("ConstantValue".equals(attributeName)) {
             int constItemIndex = readUnsignedShort();
 

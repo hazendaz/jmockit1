@@ -9,7 +9,6 @@ import static mockit.internal.expectations.RecordAndReplayExecution.recordOrRepl
 
 import java.lang.reflect.Method;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.ClassLoadingBridge;
@@ -17,8 +16,10 @@ import mockit.internal.expectations.ExecutionMode;
 import mockit.internal.state.TestRun;
 import mockit.internal.util.ObjectMethods;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 public final class MockedBridge extends ClassLoadingBridge {
-    @Nonnull
+    @NonNull
     public static final ClassLoadingBridge MB = new MockedBridge();
 
     private MockedBridge() {
@@ -27,7 +28,7 @@ public final class MockedBridge extends ClassLoadingBridge {
 
     @Nullable
     @Override
-    public Object invoke(@Nullable Object mocked, Method method, @Nonnull Object[] args) throws Throwable {
+    public Object invoke(@Nullable Object mocked, Method method, @NonNull Object[] args) throws Throwable {
         String mockedClassDesc = (String) args[1];
 
         if (notToBeMocked(mocked, mockedClassDesc)) {

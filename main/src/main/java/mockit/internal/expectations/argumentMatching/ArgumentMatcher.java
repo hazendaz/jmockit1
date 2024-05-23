@@ -4,8 +4,9 @@
  */
 package mockit.internal.expectations.argumentMatching;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * An argument matcher for the recording/verification of expectations.
@@ -14,7 +15,7 @@ public interface ArgumentMatcher<M extends ArgumentMatcher<M>> {
     /**
      * Indicates whether this matcher instance is functionally the same as another one of the same type.
      */
-    boolean same(@Nonnull M other);
+    boolean same(@NonNull M other);
 
     /**
      * Evaluates the matcher for the given argument.
@@ -24,5 +25,5 @@ public interface ArgumentMatcher<M extends ArgumentMatcher<M>> {
     /**
      * Writes a phrase to be part of an error message describing an argument mismatch.
      */
-    void writeMismatchPhrase(@Nonnull ArgumentMismatch argumentMismatch);
+    void writeMismatchPhrase(@NonNull ArgumentMismatch argumentMismatch);
 }

@@ -9,19 +9,19 @@ import static mockit.internal.util.Utilities.containsReference;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import mockit.internal.util.GeneratedClasses;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 final class InstanceBasedMatching {
-    @Nonnull
+    @NonNull
     private final List<Class<?>> mockedTypesToMatchOnInstances;
 
     InstanceBasedMatching() {
         mockedTypesToMatchOnInstances = new LinkedList<>();
     }
 
-    void discoverMockedTypesToMatchOnInstances(@Nonnull List<Class<?>> targetClasses) {
+    void discoverMockedTypesToMatchOnInstances(@NonNull List<Class<?>> targetClasses) {
         int numClasses = targetClasses.size();
 
         if (numClasses > 1) {
@@ -35,13 +35,13 @@ final class InstanceBasedMatching {
         }
     }
 
-    private void addMockedTypeToMatchOnInstance(@Nonnull Class<?> mockedType) {
+    private void addMockedTypeToMatchOnInstance(@NonNull Class<?> mockedType) {
         if (!containsReference(mockedTypesToMatchOnInstances, mockedType)) {
             mockedTypesToMatchOnInstances.add(mockedType);
         }
     }
 
-    boolean isToBeMatchedOnInstance(@Nonnull Object mock) {
+    boolean isToBeMatchedOnInstance(@NonNull Object mock) {
         Class<?> mockedClass = GeneratedClasses.getMockedClass(mock);
         return containsReference(mockedTypesToMatchOnInstances, mockedClass);
     }

@@ -2,7 +2,7 @@ package petclinic.vets;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
@@ -16,7 +16,7 @@ public class VetMaintenance {
     @Inject
     private Database db;
 
-    @Nonnull
+    @NonNull
     public List<Vet> findAll() {
         return db.find("select v from Vet v order by v.lastName, v.firstName");
     }

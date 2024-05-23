@@ -8,13 +8,14 @@ import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.state.TestRun;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 public class TypeRedefinitions {
-    @Nonnull
+    @NonNull
     private final List<Class<?>> targetClasses;
     @Nullable
     protected CaptureOfNewInstances captureOfNewInstances;
@@ -23,7 +24,7 @@ public class TypeRedefinitions {
         targetClasses = new ArrayList<>(2);
     }
 
-    final void addTargetClass(@Nonnull MockedType mockedType) {
+    final void addTargetClass(@NonNull MockedType mockedType) {
         Class<?> targetClass = mockedType.getClassType();
 
         if (targetClass != TypeVariable.class) {
@@ -31,7 +32,7 @@ public class TypeRedefinitions {
         }
     }
 
-    @Nonnull
+    @NonNull
     public final List<Class<?>> getTargetClasses() {
         return targetClasses;
     }
@@ -41,7 +42,7 @@ public class TypeRedefinitions {
         return captureOfNewInstances;
     }
 
-    static void registerMock(@Nonnull MockedType mockedType, @Nonnull Object mock) {
+    static void registerMock(@NonNull MockedType mockedType, @NonNull Object mock) {
         TestRun.getExecutingTest().registerMock(mockedType, mock);
     }
 

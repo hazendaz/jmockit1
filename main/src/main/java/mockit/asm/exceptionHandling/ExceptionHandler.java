@@ -1,12 +1,12 @@
 package mockit.asm.exceptionHandling;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.controlFlow.Label;
 import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Information about an exception handler block.
@@ -15,19 +15,19 @@ final class ExceptionHandler {
     /**
      * Beginning of the exception handler's scope (inclusive).
      */
-    @Nonnull
+    @NonNull
     final Label start;
 
     /**
      * End of the exception handler's scope (exclusive).
      */
-    @Nonnull
+    @NonNull
     final Label end;
 
     /**
      * Beginning of the exception handler's code.
      */
-    @Nonnull
+    @NonNull
     final Label handler;
 
     /**
@@ -43,7 +43,7 @@ final class ExceptionHandler {
     @NonNegative
     private final int type;
 
-    ExceptionHandler(@Nonnull Label start, @Nonnull Label end, @Nonnull Label handler, @Nullable String desc,
+    ExceptionHandler(@NonNull Label start, @NonNull Label end, @NonNull Label handler, @Nullable String desc,
             @NonNegative int type) {
         this.start = start;
         this.end = end;
@@ -52,12 +52,12 @@ final class ExceptionHandler {
         this.type = type;
     }
 
-    @Nonnull
+    @NonNull
     String getCatchTypeDesc() {
         return desc == null ? "java/lang/Throwable" : desc;
     }
 
-    void put(@Nonnull ByteVector out) {
+    void put(@NonNull ByteVector out) {
         out.putShort(start.position).putShort(end.position).putShort(handler.position).putShort(type);
     }
 }

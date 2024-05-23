@@ -6,20 +6,21 @@ package mockit.internal.expectations.invocation;
 
 import java.util.Iterator;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 class InvocationResult {
     InvocationResult next;
 
     @Nullable
-    Object produceResult(@Nonnull Object[] args) throws Throwable {
+    Object produceResult(@NonNull Object[] args) throws Throwable {
         return null;
     }
 
     @Nullable
-    Object produceResult(@Nullable Object invokedObject, @Nonnull ExpectedInvocation invocation,
-            @Nonnull InvocationConstraints constraints, @Nonnull Object[] args) throws Throwable {
+    Object produceResult(@Nullable Object invokedObject, @NonNull ExpectedInvocation invocation,
+            @NonNull InvocationConstraints constraints, @NonNull Object[] args) throws Throwable {
         return produceResult(args);
     }
 
@@ -33,38 +34,38 @@ class InvocationResult {
 
         @Nullable
         @Override
-        Object produceResult(@Nonnull Object[] args) {
+        Object produceResult(@NonNull Object[] args) {
             return returnValue;
         }
     }
 
     static final class ThrowableResult extends InvocationResult {
-        @Nonnull
+        @NonNull
         private final Throwable throwable;
 
-        ThrowableResult(@Nonnull Throwable throwable) {
+        ThrowableResult(@NonNull Throwable throwable) {
             this.throwable = throwable;
         }
 
-        @Nonnull
+        @NonNull
         @Override
-        Object produceResult(@Nonnull Object[] args) throws Throwable {
+        Object produceResult(@NonNull Object[] args) throws Throwable {
             throwable.fillInStackTrace();
             throw throwable;
         }
     }
 
     static final class DeferredResults extends InvocationResult {
-        @Nonnull
+        @NonNull
         private final Iterator<?> values;
 
-        DeferredResults(@Nonnull Iterator<?> values) {
+        DeferredResults(@NonNull Iterator<?> values) {
             this.values = values;
         }
 
         @Nullable
         @Override
-        Object produceResult(@Nonnull Object[] args) throws Throwable {
+        Object produceResult(@NonNull Object[] args) throws Throwable {
             Object nextValue = values.hasNext() ? values.next() : null;
 
             if (nextValue instanceof Throwable) {

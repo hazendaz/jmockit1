@@ -7,19 +7,20 @@ package mockit.coverage;
 import java.io.File;
 import java.io.IOException;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.coverage.data.CoverageData;
 import mockit.coverage.reporting.CoverageReport;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 @SuppressWarnings("DynamicRegexReplaceableByCompiledPattern")
 final class OutputFileGenerator {
     private static final String[] ALL_SOURCE_DIRS = {};
 
-    @Nonnull
+    @NonNull
     private final String[] outputFormats;
-    @Nonnull
+    @NonNull
     private final String outputDir;
     @Nullable
     private final String[] sourceDirs;
@@ -39,7 +40,7 @@ final class OutputFileGenerator {
         }
     }
 
-    @Nonnull
+    @NonNull
     private static String[] getOutputFormat() {
         String format = Configuration.getProperty("output", "");
         return format.isEmpty() ? new String[] { "html" } : format.trim().split("\\s*,\\s*|\\s+");
@@ -58,7 +59,7 @@ final class OutputFileGenerator {
         return hasOutputFormat("html-cp");
     }
 
-    private boolean hasOutputFormat(@Nonnull String format) {
+    private boolean hasOutputFormat(@NonNull String format) {
         for (String outputFormat : outputFormats) {
             if (format.equals(outputFormat)) {
                 return true;
@@ -98,7 +99,7 @@ final class OutputFileGenerator {
         }
     }
 
-    void generateAggregateReportFromInputFiles(@Nonnull String[] inputPaths) {
+    void generateAggregateReportFromInputFiles(@NonNull String[] inputPaths) {
         boolean outputDirCreated = createOutputDirIfSpecifiedButNotExists();
 
         try {
@@ -118,7 +119,7 @@ final class OutputFileGenerator {
         return outDir.mkdirs();
     }
 
-    private void generateAccretionDataFileIfRequested(@Nonnull CoverageData newData) throws IOException {
+    private void generateAccretionDataFileIfRequested(@NonNull CoverageData newData) throws IOException {
         if (hasOutputFormat("serial")) {
             new AccretionFile(outputDir, newData).generate();
         } else if (hasOutputFormat("serial-append")) {
@@ -128,13 +129,13 @@ final class OutputFileGenerator {
         }
     }
 
-    private void generateXmlDataFileIfRequested(@Nonnull CoverageData newData) throws IOException {
+    private void generateXmlDataFileIfRequested(@NonNull CoverageData newData) throws IOException {
         if (hasOutputFormat("xml")) {
             new XmlFile(outputDir, newData).generate();
         }
     }
 
-    private void generateHTMLReportIfRequested(@Nonnull CoverageData coverageData, boolean outputDirCreated)
+    private void generateHTMLReportIfRequested(@NonNull CoverageData coverageData, boolean outputDirCreated)
             throws IOException {
         if (isHTMLWithNoCallPoints()) {
             new CoverageReport(outputDir, outputDirCreated, sourceDirs, coverageData, false).generate();

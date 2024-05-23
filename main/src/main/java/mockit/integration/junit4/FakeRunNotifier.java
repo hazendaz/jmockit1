@@ -4,8 +4,6 @@
  */
 package mockit.integration.junit4;
 
-import javax.annotation.Nonnull;
-
 import mockit.Invocation;
 import mockit.Mock;
 import mockit.MockUp;
@@ -15,6 +13,7 @@ import mockit.integration.TestRunnerDecorator;
 import mockit.internal.faking.FakeInvocation;
 import mockit.internal.state.TestRun;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.junit.runner.Description;
 import org.junit.runner.Result;
 import org.junit.runner.notification.RunNotifier;
@@ -40,7 +39,7 @@ public final class FakeRunNotifier extends MockUp<RunNotifier> {
         it.fireTestRunStarted(description);
     }
 
-    private static void prepareToProceed(@Nonnull Invocation invocation) {
+    private static void prepareToProceed(@NonNull Invocation invocation) {
         ((FakeInvocation) invocation).prepareToProceedFromNonRecursiveMock();
     }
 

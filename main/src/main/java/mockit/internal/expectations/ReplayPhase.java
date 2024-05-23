@@ -8,24 +8,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.expectations.invocation.ExpectedInvocation;
 import mockit.internal.expectations.invocation.InvocationConstraints;
 import mockit.internal.expectations.invocation.UnexpectedInvocation;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 final class ReplayPhase extends Phase {
-    @Nonnull
+    @NonNull
     final FailureState failureState;
-    @Nonnull
+    @NonNull
     final List<Expectation> invocations;
-    @Nonnull
+    @NonNull
     final List<Object> invocationInstances;
-    @Nonnull
+    @NonNull
     final List<Object[]> invocationArguments;
 
-    ReplayPhase(@Nonnull PhasedExecutionState executionState, @Nonnull FailureState failureState) {
+    ReplayPhase(@NonNull PhasedExecutionState executionState, @NonNull FailureState failureState) {
         super(executionState);
         this.failureState = failureState;
         invocations = new ArrayList<>();
@@ -35,9 +36,9 @@ final class ReplayPhase extends Phase {
 
     @Override
     @Nullable
-    Object handleInvocation(@Nullable Object mock, int mockAccess, @Nonnull String mockClassDesc,
-            @Nonnull String mockNameAndDesc, @Nullable String genericSignature, boolean withRealImpl,
-            @Nonnull Object[] args) throws Throwable {
+    Object handleInvocation(@Nullable Object mock, int mockAccess, @NonNull String mockClassDesc,
+            @NonNull String mockNameAndDesc, @Nullable String genericSignature, boolean withRealImpl,
+            @NonNull Object[] args) throws Throwable {
         Expectation expectation = executionState.findExpectation(mock, mockClassDesc, mockNameAndDesc, args);
         Object replacementInstance = mock == null ? null
                 : executionState.equivalentInstances.getReplacementInstanceForMethodInvocation(mock, mockNameAndDesc);
@@ -57,9 +58,9 @@ final class ReplayPhase extends Phase {
         return produceResult(expectation, mock, withRealImpl, args);
     }
 
-    @Nonnull
-    private Expectation createExpectation(@Nullable Object mock, int mockAccess, @Nonnull String mockClassDesc,
-            @Nonnull String mockNameAndDesc, @Nullable String genericSignature, @Nonnull Object[] args) {
+    @NonNull
+    private Expectation createExpectation(@Nullable Object mock, int mockAccess, @NonNull String mockClassDesc,
+            @NonNull String mockNameAndDesc, @Nullable String genericSignature, @NonNull Object[] args) {
         ExpectedInvocation invocation = new ExpectedInvocation(mock, mockAccess, mockClassDesc, mockNameAndDesc, false,
                 genericSignature, args);
         Expectation expectation = new Expectation(invocation);
@@ -68,7 +69,7 @@ final class ReplayPhase extends Phase {
     }
 
     private void registerNewInstanceAsEquivalentToOneFromRecordedConstructorInvocation(@Nullable Object mock,
-            @Nonnull ExpectedInvocation invocation) {
+            @NonNull ExpectedInvocation invocation) {
         if (mock != null && invocation.isConstructor()) {
             Map<Object, Object> instanceMap = getInstanceMap();
             instanceMap.put(mock, invocation.instance);
@@ -76,8 +77,8 @@ final class ReplayPhase extends Phase {
     }
 
     @Nullable
-    private Object produceResult(@Nonnull Expectation expectation, @Nullable Object mock, boolean withRealImpl,
-            @Nonnull Object[] args) throws Throwable {
+    private Object produceResult(@NonNull Expectation expectation, @Nullable Object mock, boolean withRealImpl,
+            @NonNull Object[] args) throws Throwable {
         boolean executeRealImpl = withRealImpl && expectation.recordPhase == null;
 
         if (executeRealImpl) {
@@ -116,8 +117,8 @@ final class ReplayPhase extends Phase {
         return null;
     }
 
-    @Nonnull
-    private List<ExpectedInvocation> getNonMatchingInvocations(@Nonnull Expectation unsatisfiedExpectation) {
+    @NonNull
+    private List<ExpectedInvocation> getNonMatchingInvocations(@NonNull Expectation unsatisfiedExpectation) {
         ExpectedInvocation unsatisfiedInvocation = unsatisfiedExpectation.invocation;
         List<ExpectedInvocation> nonMatchingInvocations = new ArrayList<>();
 

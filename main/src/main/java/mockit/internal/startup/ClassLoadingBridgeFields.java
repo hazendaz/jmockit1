@@ -13,7 +13,6 @@ import java.lang.instrument.Instrumentation;
 import java.security.ProtectionDomain;
 import java.security.Provider;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.classes.ClassReader;
@@ -26,11 +25,13 @@ import mockit.internal.expectations.mocking.MockedBridge;
 import mockit.internal.faking.FakeBridge;
 import mockit.internal.faking.FakeMethodBridge;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 final class ClassLoadingBridgeFields {
     private ClassLoadingBridgeFields() {
     }
 
-    static void createSyntheticFieldsInJREClassToHoldClassLoadingBridges(@Nonnull Instrumentation instrumentation) {
+    static void createSyntheticFieldsInJREClassToHoldClassLoadingBridges(@NonNull Instrumentation instrumentation) {
         FieldAdditionTransformer fieldAdditionTransformer = new FieldAdditionTransformer(instrumentation);
         instrumentation.addTransformer(fieldAdditionTransformer);
 
@@ -48,19 +49,19 @@ final class ClassLoadingBridgeFields {
 
     private static final class FieldAdditionTransformer implements ClassFileTransformer {
         private static final int FIELD_ACCESS = PUBLIC + STATIC + Access.SYNTHETIC;
-        @Nonnull
+        @NonNull
         private final Instrumentation instrumentation;
         String hostClassName;
 
-        FieldAdditionTransformer(@Nonnull Instrumentation instrumentation) {
+        FieldAdditionTransformer(@NonNull Instrumentation instrumentation) {
             this.instrumentation = instrumentation;
         }
 
         @Nullable
         @Override
-        public byte[] transform(@Nullable ClassLoader loader, @Nonnull String className,
+        public byte[] transform(@Nullable ClassLoader loader, @NonNull String className,
                 @Nullable Class<?> classBeingRedefined, @Nullable ProtectionDomain protectionDomain,
-                @Nonnull byte[] classfileBuffer) {
+                @NonNull byte[] classfileBuffer) {
             if (loader == null && hostClassName == null) { // adds the fields to the first public JRE class to be loaded
                 ClassReader cr = new ClassReader(classfileBuffer);
 
@@ -74,8 +75,8 @@ final class ClassLoadingBridgeFields {
             return null;
         }
 
-        @Nonnull
-        private static byte[] getModifiedJREClassWithAddedFields(@Nonnull ClassReader classReader) {
+        @NonNull
+        private static byte[] getModifiedJREClassWithAddedFields(@NonNull ClassReader classReader) {
             ClassWriter cw = new ClassWriter(classReader);
 
             ClassVisitor cv = new WrappingClassVisitor(cw) {
@@ -86,7 +87,7 @@ final class ClassLoadingBridgeFields {
                     addField(FakeMethodBridge.MB);
                 }
 
-                private void addField(@Nonnull ClassLoadingBridge mb) {
+                private void addField(@NonNull ClassLoadingBridge mb) {
                     cw.visitField(FIELD_ACCESS, mb.id, "Ljava/lang/reflect/InvocationHandler;", null, null);
                 }
             };

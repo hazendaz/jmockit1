@@ -11,11 +11,12 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.MockUp;
 import mockit.internal.util.ClassLoad;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class FakeClasses {
     private static final Field INVOKED_INSTANCE_FIELD;
@@ -33,7 +34,7 @@ public final class FakeClasses {
         }
     }
 
-    private static void notifyOfTearDown(@Nonnull MockUp<?> mockUp) {
+    private static void notifyOfTearDown(@NonNull MockUp<?> mockUp) {
         try {
             ON_TEAR_DOWN_METHOD.invoke(mockUp);
         } catch (IllegalAccessException ignore) {
@@ -43,11 +44,11 @@ public final class FakeClasses {
     }
 
     public static final class MockUpInstances {
-        @Nonnull
+        @NonNull
         public final MockUp<?> initialMockUp;
         boolean hasMockupsForSingleInstances;
 
-        MockUpInstances(@Nonnull MockUp<?> initialMockUp) {
+        MockUpInstances(@NonNull MockUp<?> initialMockUp) {
             this.initialMockUp = initialMockUp;
             hasMockupsForSingleInstances = false;
         }
@@ -61,13 +62,13 @@ public final class FakeClasses {
         }
     }
 
-    @Nonnull
+    @NonNull
     private final Map<String, MockUp<?>> startupMocks;
-    @Nonnull
+    @NonNull
     private final Map<Class<?>, MockUpInstances> mockupClassesToMockupInstances;
-    @Nonnull
+    @NonNull
     private final Map<Object, MockUp<?>> mockedToMockupInstances;
-    @Nonnull
+    @NonNull
     public final FakeStates fakeStates;
 
     public FakeClasses() {
@@ -77,17 +78,17 @@ public final class FakeClasses {
         fakeStates = new FakeStates();
     }
 
-    public void addFake(@Nonnull String mockClassDesc, @Nonnull MockUp<?> mockUp) {
+    public void addFake(@NonNull String mockClassDesc, @NonNull MockUp<?> mockUp) {
         startupMocks.put(mockClassDesc, mockUp);
     }
 
-    public void addFake(@Nonnull MockUp<?> mockUp) {
+    public void addFake(@NonNull MockUp<?> mockUp) {
         Class<?> mockUpClass = mockUp.getClass();
         MockUpInstances newData = new MockUpInstances(mockUp);
         mockupClassesToMockupInstances.put(mockUpClass, newData);
     }
 
-    public void addFake(@Nonnull MockUp<?> mockUp, @Nonnull Object mockedInstance) {
+    public void addFake(@NonNull MockUp<?> mockUp, @NonNull Object mockedInstance) {
         MockUp<?> previousMockup = mockedToMockupInstances.put(mockedInstance, mockUp);
         assert previousMockup == null;
 
@@ -96,7 +97,7 @@ public final class FakeClasses {
     }
 
     @Nullable
-    public MockUp<?> getFake(@Nonnull String mockUpClassDesc, @Nullable Object mockedInstance) {
+    public MockUp<?> getFake(@NonNull String mockUpClassDesc, @Nullable Object mockedInstance) {
         if (mockedInstance != null) {
             MockUp<?> mockUpForSingleInstance = mockedToMockupInstances.get(mockedInstance);
 
@@ -130,7 +131,7 @@ public final class FakeClasses {
     }
 
     @Nullable
-    public MockUpInstances findPreviouslyAppliedMockUps(@Nonnull MockUp<?> newMockUp) {
+    public MockUpInstances findPreviouslyAppliedMockUps(@NonNull MockUp<?> newMockUp) {
         Class<?> mockUpClass = newMockUp.getClass();
         MockUpInstances mockUpInstances = mockupClassesToMockupInstances.get(mockUpClass);
 
@@ -141,7 +142,7 @@ public final class FakeClasses {
         return mockUpInstances;
     }
 
-    private void discardMockupInstances(@Nonnull Map<Object, MockUp<?>> previousMockInstances) {
+    private void discardMockupInstances(@NonNull Map<Object, MockUp<?>> previousMockInstances) {
         if (!previousMockInstances.isEmpty()) {
             mockedToMockupInstances.entrySet().retainAll(previousMockInstances.entrySet());
         } else if (!mockedToMockupInstances.isEmpty()) {
@@ -149,7 +150,7 @@ public final class FakeClasses {
         }
     }
 
-    private void discardMockupInstancesExceptPreviousOnes(@Nonnull Map<Class<?>, Boolean> previousMockupClasses) {
+    private void discardMockupInstancesExceptPreviousOnes(@NonNull Map<Class<?>, Boolean> previousMockupClasses) {
         updatePreviousMockups(previousMockupClasses);
 
         for (Entry<Class<?>, MockUpInstances> mockupClassAndInstances : mockupClassesToMockupInstances.entrySet()) {
@@ -164,7 +165,7 @@ public final class FakeClasses {
         mockupClassesToMockupInstances.keySet().retainAll(previousMockupClasses.keySet());
     }
 
-    private void updatePreviousMockups(@Nonnull Map<Class<?>, Boolean> previousMockupClasses) {
+    private void updatePreviousMockups(@NonNull Map<Class<?>, Boolean> previousMockupClasses) {
         for (Entry<Class<?>, Boolean> mockupClassAndData : previousMockupClasses.entrySet()) {
             Class<?> mockupClass = mockupClassAndData.getKey();
             MockUpInstances mockUpData = mockupClassesToMockupInstances.get(mockupClass);
@@ -189,9 +190,9 @@ public final class FakeClasses {
     }
 
     public final class SavePoint {
-        @Nonnull
+        @NonNull
         private final Map<Object, MockUp<?>> previousMockInstances;
-        @Nonnull
+        @NonNull
         private final Map<Class<?>, Boolean> previousMockupClasses;
 
         public SavePoint() {

@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
 import javax.servlet.Filter;
 import javax.servlet.FilterRegistration;
 import javax.servlet.RequestDispatcher;
@@ -32,24 +31,26 @@ import javax.servlet.http.HttpSessionContext;
 import mockit.internal.injection.InjectionPoint;
 import mockit.internal.injection.InjectionState;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 /**
  * Detects and resolves dependencies belonging to the <code>javax.servlet</code> API, namely <code>ServletContext</code>
  * and <code>HttpSession</code>.
  */
 final class ServletDependencies {
-    static boolean isApplicable(@Nonnull Class<?> dependencyType) {
+    static boolean isApplicable(@NonNull Class<?> dependencyType) {
         return dependencyType == HttpSession.class || dependencyType == ServletContext.class;
     }
 
-    @Nonnull
+    @NonNull
     private final InjectionState injectionState;
 
-    ServletDependencies(@Nonnull InjectionState injectionState) {
+    ServletDependencies(@NonNull InjectionState injectionState) {
         this.injectionState = injectionState;
     }
 
-    @Nonnull
-    Object createAndRegisterDependency(@Nonnull Class<?> dependencyType) {
+    @NonNull
+    Object createAndRegisterDependency(@NonNull Class<?> dependencyType) {
         if (dependencyType == ServletContext.class) {
             return createAndRegisterServletContext();
         }
@@ -57,7 +58,7 @@ final class ServletDependencies {
         return createAndRegisterHttpSession();
     }
 
-    @Nonnull
+    @NonNull
     private ServletContext createAndRegisterServletContext() {
         ServletContext context = new ServletContext() {
             private final Map<String, String> init = new HashMap<>();
@@ -358,7 +359,7 @@ final class ServletDependencies {
         return context;
     }
 
-    @Nonnull
+    @NonNull
     private HttpSession createAndRegisterHttpSession() {
         HttpSession session = new HttpSession() {
             private final String id = String.valueOf(Math.abs(new Random().nextInt()));

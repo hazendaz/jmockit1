@@ -6,8 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.StringReader;
 import java.nio.CharBuffer;
 
-import javax.annotation.Nonnull;
-
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -560,7 +559,7 @@ final class FakingBaseTypesTest {
         CharBuffer buf = CharBuffer.allocate(10);
         int r1 = new Readable() {
             @Override
-            public int read(@Nonnull CharBuffer cb) {
+            public int read(@NonNull CharBuffer cb) {
                 return 1;
             }
         }.read(buf);

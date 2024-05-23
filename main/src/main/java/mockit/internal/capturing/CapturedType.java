@@ -9,22 +9,22 @@ import static mockit.internal.util.GeneratedClasses.isGeneratedClass;
 
 import java.security.ProtectionDomain;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 final class CapturedType {
     private static final ProtectionDomain JMOCKIT_DOMAIN = CapturedType.class.getProtectionDomain();
 
-    @Nonnull
+    @NonNull
     final Class<?> baseType;
 
-    CapturedType(@Nonnull Class<?> baseType) {
+    CapturedType(@NonNull Class<?> baseType) {
         this.baseType = baseType;
     }
 
-    boolean isToBeCaptured(@Nonnull Class<?> aClass) {
+    boolean isToBeCaptured(@NonNull Class<?> aClass) {
         if (aClass == baseType || aClass.isArray() || !baseType.isAssignableFrom(aClass)
                 || extendsJMockitBaseType(aClass)) {
             return false;
@@ -34,13 +34,13 @@ final class CapturedType {
     }
 
     @SuppressWarnings("UnnecessaryFullyQualifiedName")
-    private static boolean extendsJMockitBaseType(@Nonnull Class<?> aClass) {
+    private static boolean extendsJMockitBaseType(@NonNull Class<?> aClass) {
         return mockit.MockUp.class.isAssignableFrom(aClass) || mockit.Expectations.class.isAssignableFrom(aClass)
                 || mockit.Verifications.class.isAssignableFrom(aClass)
                 || mockit.Delegate.class.isAssignableFrom(aClass);
     }
 
-    static boolean isNotToBeCaptured(@Nullable ProtectionDomain pd, @Nonnull String classNameOrDesc) {
+    static boolean isNotToBeCaptured(@Nullable ProtectionDomain pd, @NonNull String classNameOrDesc) {
         return pd == JMOCKIT_DOMAIN || classNameOrDesc.endsWith("Test")
                 || isNonEligibleInternalJDKClass(classNameOrDesc) || isNonEligibleStandardJavaClass(classNameOrDesc)
                 || isNonEligibleClassFromIDERuntime(classNameOrDesc)
@@ -48,33 +48,33 @@ final class CapturedType {
                 || isExternallyGeneratedSubclass(classNameOrDesc);
     }
 
-    private static boolean isNonEligibleInternalJDKClass(@Nonnull String classNameOrDesc) {
+    private static boolean isNonEligibleInternalJDKClass(@NonNull String classNameOrDesc) {
         return classNameOrDesc.startsWith("jdk/")
                 || classNameOrDesc.startsWith("sun") && !hasSubPackage(classNameOrDesc, 4, "management")
                 || classNameOrDesc.startsWith("com") && hasSubPackage(classNameOrDesc, 4, "sun")
                         && !hasSubPackages(classNameOrDesc, 8, "proxy org");
     }
 
-    private static boolean isNonEligibleStandardJavaClass(@Nonnull String classNameOrDesc) {
+    private static boolean isNonEligibleStandardJavaClass(@NonNull String classNameOrDesc) {
         return classNameOrDesc.startsWith("java") && !hasSubPackage(classNameOrDesc, 10, "concurrent");
     }
 
-    private static boolean isNonEligibleClassFromIDERuntime(@Nonnull String classNameOrDesc) {
+    private static boolean isNonEligibleClassFromIDERuntime(@NonNull String classNameOrDesc) {
         return classNameOrDesc.startsWith("com") && hasSubPackage(classNameOrDesc, 4, "intellij");
     }
 
-    private static boolean isNonEligibleClassFromThirdPartyLibrary(@Nonnull String classNameOrDesc) {
+    private static boolean isNonEligibleClassFromThirdPartyLibrary(@NonNull String classNameOrDesc) {
         return classNameOrDesc.startsWith("junit") || classNameOrDesc.startsWith("org")
                 && hasSubPackages(classNameOrDesc, 4, "junit testng hamcrest gradle");
     }
 
-    private static boolean hasSubPackage(@Nonnull String nameOrDesc, @NonNegative int offset,
-            @Nonnull String subPackage) {
+    private static boolean hasSubPackage(@NonNull String nameOrDesc, @NonNegative int offset,
+            @NonNull String subPackage) {
         return nameOrDesc.regionMatches(offset, subPackage, 0, subPackage.length());
     }
 
-    private static boolean hasSubPackages(@Nonnull String nameOrDesc, @NonNegative int offset,
-            @Nonnull String subPackages) {
+    private static boolean hasSubPackages(@NonNull String nameOrDesc, @NonNegative int offset,
+            @NonNull String subPackages) {
         int subPackageStart = 0;
         int subPackageEnd;
 

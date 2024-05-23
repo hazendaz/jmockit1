@@ -20,7 +20,6 @@ import static mockit.asm.jvmConstants.Opcodes.SIPUSH;
 import static mockit.asm.jvmConstants.Opcodes.TABLESWITCH;
 import static mockit.asm.jvmConstants.Opcodes.WIDE;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.SignatureWriter;
@@ -43,6 +42,7 @@ import mockit.asm.util.ByteVector;
 import mockit.asm.util.MethodHandle;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * A {@link MethodVisitor} that generates methods in bytecode form. Each visit method of this class appends the bytecode
@@ -53,7 +53,7 @@ public final class MethodWriter extends MethodVisitor {
     /**
      * The class writer to which this method must be added.
      */
-    @Nonnull
+    @NonNull
     public final ClassWriter cw;
 
     /**
@@ -69,7 +69,7 @@ public final class MethodWriter extends MethodVisitor {
     /**
      * The descriptor of this method.
      */
-    @Nonnull
+    @NonNull
     private final String descriptor;
 
     @Nullable
@@ -101,18 +101,18 @@ public final class MethodWriter extends MethodVisitor {
     /**
      * The bytecode of this method.
      */
-    @Nonnull
+    @NonNull
     private final ByteVector code;
 
-    @Nonnull
+    @NonNull
     private final ExceptionHandling exceptionHandling;
-    @Nonnull
+    @NonNull
     private final StackMapTableWriter stackMapTableWriter;
-    @Nonnull
+    @NonNull
     private final LocalVariableTableWriter localVariableTableWriter;
-    @Nonnull
+    @NonNull
     private final LineNumberTableWriter lineNumberTableWriter;
-    @Nonnull
+    @NonNull
     private final CFGAnalysis cfgAnalysis;
 
     private final boolean computeFrames;
@@ -135,7 +135,7 @@ public final class MethodWriter extends MethodVisitor {
      * @param computeFrames
      *            <code>true</code> if the stack map tables must be recomputed from scratch
      */
-    public MethodWriter(@Nonnull ClassWriter cw, int access, @Nonnull String name, @Nonnull String desc,
+    public MethodWriter(@NonNull ClassWriter cw, int access, @NonNull String name, @NonNull String desc,
             @Nullable String signature, @Nullable String[] exceptions, boolean computeFrames) {
         super(cw.getConstantPoolGeneration(), "<init>".equals(name) ? access | Access.CONSTRUCTOR : access);
         this.cw = cw;
@@ -155,9 +155,9 @@ public final class MethodWriter extends MethodVisitor {
         createMarkerAttributes(cw.getClassVersion());
     }
 
-    @Nonnull
+    @NonNull
     @Override
-    public AnnotationVisitor visitParameterAnnotation(@NonNegative int parameter, @Nonnull String desc) {
+    public AnnotationVisitor visitParameterAnnotation(@NonNegative int parameter, @NonNull String desc) {
         AnnotationVisitor aw = new AnnotationVisitor(cp, desc);
 
         if (parameterAnnotations == null) {
@@ -226,7 +226,7 @@ public final class MethodWriter extends MethodVisitor {
     }
 
     @Override
-    public void visitTypeInsn(int opcode, @Nonnull String typeDesc) {
+    public void visitTypeInsn(int opcode, @NonNull String typeDesc) {
         StringItem typeItem = cp.newClassItem(typeDesc);
         cfgAnalysis.updateCurrentBlockForTypeInstruction(opcode, typeItem);
 
@@ -235,7 +235,7 @@ public final class MethodWriter extends MethodVisitor {
     }
 
     @Override
-    public void visitFieldInsn(int opcode, @Nonnull String owner, @Nonnull String name, @Nonnull String desc) {
+    public void visitFieldInsn(int opcode, @NonNull String owner, @NonNull String name, @NonNull String desc) {
         ClassMemberItem fieldItem = cp.newFieldItem(owner, name, desc);
         cfgAnalysis.updateCurrentBlockForFieldInstruction(opcode, fieldItem, desc);
 
@@ -244,7 +244,7 @@ public final class MethodWriter extends MethodVisitor {
     }
 
     @Override
-    public void visitMethodInsn(int opcode, @Nonnull String owner, @Nonnull String name, @Nonnull String desc,
+    public void visitMethodInsn(int opcode, @NonNull String owner, @NonNull String name, @NonNull String desc,
             boolean itf) {
         ClassMemberItem invokeItem = cp.newMethodItem(owner, name, desc, itf);
         cfgAnalysis.updateCurrentBlockForInvokeInstruction(invokeItem, opcode, desc);
@@ -259,8 +259,8 @@ public final class MethodWriter extends MethodVisitor {
     }
 
     @Override
-    public void visitInvokeDynamicInsn(@Nonnull String name, @Nonnull String desc, @Nonnull MethodHandle bsm,
-            @Nonnull Object... bsmArgs) {
+    public void visitInvokeDynamicInsn(@NonNull String name, @NonNull String desc, @NonNull MethodHandle bsm,
+            @NonNull Object... bsmArgs) {
         DynamicItem invokeItem = cw.addInvokeDynamicReference(name, desc, bsm, bsmArgs);
         cfgAnalysis.updateCurrentBlockForInvokeInstruction(invokeItem, INVOKEDYNAMIC, desc);
 
@@ -270,7 +270,7 @@ public final class MethodWriter extends MethodVisitor {
     }
 
     @Override
-    public void visitJumpInsn(int opcode, @Nonnull Label label) {
+    public void visitJumpInsn(int opcode, @NonNull Label label) {
         Label nextInsn = cfgAnalysis.updateCurrentBlockForJumpInstruction(opcode, label);
 
         // Adds the instruction to the bytecode of the method.
@@ -305,12 +305,12 @@ public final class MethodWriter extends MethodVisitor {
     }
 
     @Override
-    public void visitLabel(@Nonnull Label label) {
+    public void visitLabel(@NonNull Label label) {
         cfgAnalysis.updateCurrentBlockForLabelBeforeNextInstruction(label);
     }
 
     @Override
-    public void visitLdcInsn(@Nonnull Object cst) {
+    public void visitLdcInsn(@NonNull Object cst) {
         Item constItem = cp.newConstItem(cst);
         cfgAnalysis.updateCurrentBlockForLDCInstruction(constItem);
 
@@ -343,7 +343,7 @@ public final class MethodWriter extends MethodVisitor {
     }
 
     @Override
-    public void visitTableSwitchInsn(int min, int max, @Nonnull Label dflt, @Nonnull Label... labels) {
+    public void visitTableSwitchInsn(int min, int max, @NonNull Label dflt, @NonNull Label... labels) {
         // Adds the instruction to the bytecode of the method.
         int source = code.getLength();
         code.putByte(TABLESWITCH);
@@ -359,7 +359,7 @@ public final class MethodWriter extends MethodVisitor {
     }
 
     @Override
-    public void visitLookupSwitchInsn(@Nonnull Label dflt, @Nonnull int[] keys, @Nonnull Label[] labels) {
+    public void visitLookupSwitchInsn(@NonNull Label dflt, @NonNull int[] keys, @NonNull Label[] labels) {
         // Adds the instruction to the bytecode of the method.
         int source = code.getLength();
         code.putByte(LOOKUPSWITCH);
@@ -376,7 +376,7 @@ public final class MethodWriter extends MethodVisitor {
     }
 
     @Override
-    public void visitMultiANewArrayInsn(@Nonnull String desc, @NonNegative int dims) {
+    public void visitMultiANewArrayInsn(@NonNull String desc, @NonNegative int dims) {
         StringItem arrayTypeItem = cp.newClassItem(desc);
         cfgAnalysis.updateCurrentBlockForMULTIANEWARRAYInstruction(arrayTypeItem, dims);
 
@@ -385,20 +385,20 @@ public final class MethodWriter extends MethodVisitor {
     }
 
     @Override
-    public void visitTryCatchBlock(@Nonnull Label start, @Nonnull Label end, @Nonnull Label handler,
+    public void visitTryCatchBlock(@NonNull Label start, @NonNull Label end, @NonNull Label handler,
             @Nullable String type) {
         exceptionHandling.addHandler(start, end, handler, type);
     }
 
     @Override
-    public void visitLocalVariable(@Nonnull String name, @Nonnull String desc, @Nullable String signature,
-            @Nonnull Label start, @Nonnull Label end, @NonNegative int index) {
+    public void visitLocalVariable(@NonNull String name, @NonNull String desc, @Nullable String signature,
+            @NonNull Label start, @NonNull Label end, @NonNegative int index) {
         int localsCount = localVariableTableWriter.addLocalVariable(name, desc, signature, start, end, index);
         stackMapTableWriter.updateMaxLocals(localsCount);
     }
 
     @Override
-    public void visitLineNumber(@NonNegative int line, @Nonnull Label start) {
+    public void visitLineNumber(@NonNegative int line, @NonNull Label start) {
         lineNumberTableWriter.addLineNumber(line, start);
     }
 
@@ -499,7 +499,7 @@ public final class MethodWriter extends MethodVisitor {
      * Puts the bytecode of this method in the given byte vector.
      */
     @Override
-    protected void put(@Nonnull ByteVector out) {
+    protected void put(@NonNull ByteVector out) {
         putAccess(out, Access.CONSTRUCTOR);
         out.putShort(nameItemIndex);
         out.putShort(descItemIndex);
@@ -525,7 +525,7 @@ public final class MethodWriter extends MethodVisitor {
         putAnnotationAttributes(out);
     }
 
-    private void putMethodAttributeCount(@Nonnull ByteVector out) {
+    private void putMethodAttributeCount(@NonNull ByteVector out) {
         int attributeCount = getMarkerAttributeCount();
 
         if (code.getLength() > 0) {
@@ -551,7 +551,7 @@ public final class MethodWriter extends MethodVisitor {
         out.putShort(attributeCount);
     }
 
-    private void putMethodCode(@Nonnull ByteVector out) {
+    private void putMethodCode(@NonNull ByteVector out) {
         if (code.getLength() > 0) {
             putCodeSize(out);
             stackMapTableWriter.putMaxStackAndLocals(out);
@@ -575,14 +575,14 @@ public final class MethodWriter extends MethodVisitor {
         }
     }
 
-    private void putCodeSize(@Nonnull ByteVector out) {
+    private void putCodeSize(@NonNull ByteVector out) {
         int size = 12 + code.getLength() + exceptionHandling.getSize() + localVariableTableWriter.getSize()
                 + lineNumberTableWriter.getSize() + stackMapTableWriter.getSize();
 
         out.putShort(cp.newUTF8("Code")).putInt(size);
     }
 
-    private void putAnnotationAttributes(@Nonnull ByteVector out) {
+    private void putAnnotationAttributes(@NonNull ByteVector out) {
         putAnnotations(out);
 
         if (parameterAnnotations != null) {

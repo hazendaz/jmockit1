@@ -8,30 +8,30 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.types.JavaType;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class TestMethod {
-    @Nonnull
+    @NonNull
     public final Class<?> testClass;
-    @Nonnull
+    @NonNull
     public final String testClassDesc;
-    @Nonnull
+    @NonNull
     public final String testMethodDesc;
-    @Nonnull
+    @NonNull
     private final Type[] parameterTypes;
-    @Nonnull
+    @NonNull
     private final Class<?>[] parameterClasses;
-    @Nonnull
+    @NonNull
     private final Annotation[][] parameterAnnotations;
-    @Nonnull
+    @NonNull
     private final Object[] parameterValues;
 
-    public TestMethod(@Nonnull Method testMethod, @Nonnull Object[] parameterValues) {
+    public TestMethod(@NonNull Method testMethod, @NonNull Object[] parameterValues) {
         testClass = testMethod.getDeclaringClass();
         testClassDesc = JavaType.getInternalName(testClass);
         testMethodDesc = testMethod.getName() + JavaType.getMethodDescriptor(testMethod);
@@ -46,17 +46,17 @@ public final class TestMethod {
         return parameterTypes.length;
     }
 
-    @Nonnull
+    @NonNull
     public Type getParameterType(@NonNegative int index) {
         return parameterTypes[index];
     }
 
-    @Nonnull
+    @NonNull
     public Class<?> getParameterClass(@NonNegative int index) {
         return parameterClasses[index];
     }
 
-    @Nonnull
+    @NonNull
     public Annotation[] getParameterAnnotations(@NonNegative int index) {
         return parameterAnnotations[index];
     }

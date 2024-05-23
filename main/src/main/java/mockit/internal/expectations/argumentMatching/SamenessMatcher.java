@@ -4,8 +4,9 @@
  */
 package mockit.internal.expectations.argumentMatching;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class SamenessMatcher implements ArgumentMatcher<SamenessMatcher> {
     @Nullable
@@ -16,7 +17,7 @@ public final class SamenessMatcher implements ArgumentMatcher<SamenessMatcher> {
     }
 
     @Override
-    public boolean same(@Nonnull SamenessMatcher other) {
+    public boolean same(@NonNull SamenessMatcher other) {
         return object == other.object;
     }
 
@@ -26,7 +27,7 @@ public final class SamenessMatcher implements ArgumentMatcher<SamenessMatcher> {
     }
 
     @Override
-    public void writeMismatchPhrase(@Nonnull ArgumentMismatch argumentMismatch) {
+    public void writeMismatchPhrase(@NonNull ArgumentMismatch argumentMismatch) {
         argumentMismatch.append("same instance as ").appendFormatted(object);
     }
 }

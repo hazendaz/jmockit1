@@ -25,7 +25,6 @@ import static mockit.asm.jvmConstants.Opcodes.IRETURN;
 import static mockit.asm.jvmConstants.Opcodes.RETURN;
 import static mockit.asm.jvmConstants.Opcodes.SIPUSH;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.MockUp;
@@ -41,6 +40,7 @@ import mockit.internal.state.TestRun;
 import mockit.internal.util.ClassLoad;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Responsible for generating all necessary bytecode in the redefined (real) class. Such code will redirect calls made
@@ -54,10 +54,10 @@ import org.checkerframework.checker.index.qual.NonNegative;
 final class FakedClassModifier extends BaseClassModifier {
     private static final int ABSTRACT_OR_SYNTHETIC = Access.ABSTRACT + Access.SYNTHETIC;
 
-    @Nonnull
+    @NonNull
     private final FakeMethods fakeMethods;
     private final boolean useClassLoadingBridgeForUpdatingFakeState;
-    @Nonnull
+    @NonNull
     private final Class<?> fakedClass;
     private FakeMethod fakeMethod;
     private boolean isConstructor;
@@ -81,8 +81,8 @@ final class FakedClassModifier extends BaseClassModifier {
      *            description of the parameters; once the real class modification is complete this set will be empty,
      *            unless no corresponding real method was found for any of its method identifiers
      */
-    FakedClassModifier(@Nonnull ClassReader cr, @Nonnull Class<?> realClass, @Nonnull MockUp<?> fake,
-            @Nonnull FakeMethods fakeMethods) {
+    FakedClassModifier(@NonNull ClassReader cr, @NonNull Class<?> realClass, @NonNull MockUp<?> fake,
+            @NonNull FakeMethods fakeMethods) {
         super(cr);
         fakedClass = realClass;
         this.fakeMethods = fakeMethods;
@@ -92,7 +92,7 @@ final class FakedClassModifier extends BaseClassModifier {
         inferUseOfClassLoadingBridge(classLoaderOfRealClass, fake);
     }
 
-    private void inferUseOfClassLoadingBridge(@Nullable ClassLoader classLoaderOfRealClass, @Nonnull Object fake) {
+    private void inferUseOfClassLoadingBridge(@Nullable ClassLoader classLoaderOfRealClass, @NonNull Object fake) {
         setUseClassLoadingBridge(classLoaderOfRealClass);
 
         if (!useClassLoadingBridge && !isPublic(fake.getClass().getModifiers())) {
@@ -101,7 +101,7 @@ final class FakedClassModifier extends BaseClassModifier {
     }
 
     @Override
-    public MethodVisitor visitMethod(int access, @Nonnull String name, @Nonnull String desc, @Nullable String signature,
+    public MethodVisitor visitMethod(int access, @NonNull String name, @NonNull String desc, @Nullable String signature,
             @Nullable String[] exceptions) {
         if ((access & ABSTRACT_OR_SYNTHETIC) != 0) {
             if (isAbstract(access)) {
@@ -128,14 +128,14 @@ final class FakedClassModifier extends BaseClassModifier {
         return copyOriginalImplementationWithInjectedInterceptionCode();
     }
 
-    private boolean hasFake(int access, @Nonnull String name, @Nonnull String desc, @Nullable String signature) {
+    private boolean hasFake(int access, @NonNull String name, @NonNull String desc, @Nullable String signature) {
         String fakeName = getCorrespondingFakeName(name);
         fakeMethod = fakeMethods.findMethod(access, fakeName, desc, signature);
         return fakeMethod != null;
     }
 
-    @Nonnull
-    private static String getCorrespondingFakeName(@Nonnull String name) {
+    @NonNull
+    private static String getCorrespondingFakeName(@NonNull String name) {
         if ("<init>".equals(name)) {
             return "$init";
         }
@@ -313,7 +313,7 @@ final class FakedClassModifier extends BaseClassModifier {
         }
     }
 
-    private void generateCodeToObtainFakeInstance(@Nonnull String fakeClassDesc) {
+    private void generateCodeToObtainFakeInstance(@NonNull String fakeClassDesc) {
         mw.visitLdcInsn(fakeClassDesc);
         generateCodeToPassThisOrNullIfStaticMethod();
         mw.visitMethodInsn(INVOKESTATIC, "mockit/internal/state/TestRun", "getFake",
@@ -345,7 +345,7 @@ final class FakedClassModifier extends BaseClassModifier {
         return canProceedIntoConstructor;
     }
 
-    private void generateCallToCreateNewFakeInvocation(@Nonnull JavaType[] argTypes,
+    private void generateCallToCreateNewFakeInvocation(@NonNull JavaType[] argTypes,
             @NonNegative int initialParameterIndex) {
         generateCodeToPassThisOrNullIfStaticMethod();
 
@@ -370,7 +370,7 @@ final class FakedClassModifier extends BaseClassModifier {
                 false);
     }
 
-    private void passArgumentsForFakeMethodCall(@Nonnull JavaType[] argTypes, @NonNegative int varIndex) {
+    private void passArgumentsForFakeMethodCall(@NonNull JavaType[] argTypes, @NonNegative int varIndex) {
         boolean forGenericMethod = fakeMethod.isForGenericMethod();
 
         for (JavaType argType : argTypes) {

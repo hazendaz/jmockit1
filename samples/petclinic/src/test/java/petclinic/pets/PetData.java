@@ -2,7 +2,7 @@ package petclinic.pets;
 
 import java.util.Date;
 
-import javax.annotation.Nonnull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -17,8 +17,8 @@ public final class PetData extends TestDatabase {
     @Inject
     private OwnerData ownerData;
 
-    @Nonnull
-    public Pet findOrCreate(@Nonnull String name, @Nullable Date birthDate, @Nonnull String petType) {
+    @NonNull
+    public Pet findOrCreate(@NonNull String name, @Nullable Date birthDate, @NonNull String petType) {
         Pet pet = findOne("select p from Pet p where p.name = ?1", name);
 
         if (pet == null) {
@@ -28,14 +28,14 @@ public final class PetData extends TestDatabase {
         return pet;
     }
 
-    @Nonnull
-    public Pet create(@Nonnull String name, @Nullable Date birthDate, @Nonnull String petType) {
+    @NonNull
+    public Pet create(@NonNull String name, @Nullable Date birthDate, @NonNull String petType) {
         Owner owner = ownerData.create("Pet Owner");
         return create(owner, name, birthDate, petType);
     }
 
-    @Nonnull
-    public Pet create(@Nonnull Owner owner, @Nonnull String name, @Nullable Date birthDate, @Nonnull String petType) {
+    @NonNull
+    public Pet create(@NonNull Owner owner, @NonNull String name, @Nullable Date birthDate, @NonNull String petType) {
         PetType type = findOrCreatePetType(petType);
 
         Pet pet = new Pet();
@@ -48,8 +48,8 @@ public final class PetData extends TestDatabase {
         return pet;
     }
 
-    @Nonnull
-    PetType findOrCreatePetType(@Nonnull String petType) {
+    @NonNull
+    PetType findOrCreatePetType(@NonNull String petType) {
         PetType type = findOne("select t from PetType t where t.name = ?1", petType);
 
         if (type == null) {
@@ -59,8 +59,8 @@ public final class PetData extends TestDatabase {
         return type;
     }
 
-    @Nonnull
-    PetType createType(@Nonnull String name) {
+    @NonNull
+    PetType createType(@NonNull String name) {
         PetType type = new PetType();
         type.setName(name);
         db.save(type);

@@ -9,20 +9,19 @@ import java.security.ProtectionDomain;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Finds and loads all classes that should also be measured, but were not loaded until now.
  */
 public final class ClassesNotLoaded {
-    @Nonnull
+    @NonNull
     private final ClassModification classModification;
     @NonNegative
     private int firstPosAfterParentDir;
 
-    public ClassesNotLoaded(@Nonnull ClassModification classModification) {
+    public ClassesNotLoaded(@NonNull ClassModification classModification) {
         this.classModification = classModification;
     }
 
@@ -40,7 +39,7 @@ public final class ClassesNotLoaded {
         }
     }
 
-    private void loadAdditionalClasses(@Nonnull File classPathEntry, @Nonnull ProtectionDomain protectionDomain) {
+    private void loadAdditionalClasses(@NonNull File classPathEntry, @NonNull ProtectionDomain protectionDomain) {
         File[] filesInDir = classPathEntry.listFiles();
 
         if (filesInDir != null) {
@@ -54,7 +53,7 @@ public final class ClassesNotLoaded {
         }
     }
 
-    private void loadAdditionalClass(@Nonnull String filePath, @Nonnull ProtectionDomain protectionDomain) {
+    private void loadAdditionalClass(@NonNull String filePath, @NonNull ProtectionDomain protectionDomain) {
         int p = filePath.lastIndexOf(".class");
 
         if (p > 0) {
@@ -67,7 +66,7 @@ public final class ClassesNotLoaded {
         }
     }
 
-    private static void loadClass(@Nonnull String className, @Nonnull ProtectionDomain protectionDomain) {
+    private static void loadClass(@NonNull String className, @NonNull ProtectionDomain protectionDomain) {
         try {
             Class.forName(className, false, protectionDomain.getClassLoader());
         } catch (ClassNotFoundException | NoClassDefFoundError ignore) {

@@ -4,11 +4,12 @@
  */
 package mockit.internal.expectations.argumentMatching;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 public final class StringSuffixMatcher extends SubstringMatcher {
-    public StringSuffixMatcher(@Nonnull CharSequence substring) {
+    public StringSuffixMatcher(@NonNull CharSequence substring) {
         super(substring);
     }
 
@@ -18,7 +19,7 @@ public final class StringSuffixMatcher extends SubstringMatcher {
     }
 
     @Override
-    public void writeMismatchPhrase(@Nonnull ArgumentMismatch argumentMismatch) {
+    public void writeMismatchPhrase(@NonNull ArgumentMismatch argumentMismatch) {
         argumentMismatch.append("a string ending with ").appendFormatted(substring);
     }
 }

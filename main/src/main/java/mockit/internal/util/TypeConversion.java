@@ -11,15 +11,16 @@ import java.math.BigInteger;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class TypeConversion {
     private TypeConversion() {
     }
 
     @Nullable
-    public static Object convertFromString(@Nonnull Class<?> targetType, @Nonnull String value) {
+    public static Object convertFromString(@NonNull Class<?> targetType, @NonNull String value) {
         if (targetType == String.class) {
             return value;
         }
@@ -49,12 +50,12 @@ public final class TypeConversion {
         return null;
     }
 
-    private static boolean isCharacter(@Nonnull Class<?> targetType) {
+    private static boolean isCharacter(@NonNull Class<?> targetType) {
         return targetType == char.class || targetType == Character.class;
     }
 
-    @Nonnull
-    private static Object newWrapperInstance(@Nonnull Class<?> targetType, @Nonnull String value) {
+    @NonNull
+    private static Object newWrapperInstance(@NonNull Class<?> targetType, @NonNull String value) {
         String trimmedValue = value.trim();
 
         try {
@@ -83,8 +84,8 @@ public final class TypeConversion {
         return Boolean.valueOf(trimmedValue);
     }
 
-    @Nonnull
-    private static <E extends Enum<E>> Object enumValue(Class<?> targetType, @Nonnull String value) {
+    @NonNull
+    private static <E extends Enum<E>> Object enumValue(Class<?> targetType, @NonNull String value) {
         @SuppressWarnings("unchecked")
         Class<E> enumType = (Class<E>) targetType;
         return Enum.valueOf(enumType, value);

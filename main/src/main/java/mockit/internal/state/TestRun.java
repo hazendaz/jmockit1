@@ -4,7 +4,6 @@
  */
 package mockit.internal.state;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.expectations.RecordAndReplayExecution;
@@ -14,6 +13,8 @@ import mockit.internal.faking.FakeClasses;
 import mockit.internal.faking.FakeStates;
 import mockit.internal.injection.TestedClassInstantiations;
 import mockit.internal.util.StackTrace;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * A singleton which stores several data structures which in turn hold global state for individual test methods, test
@@ -52,12 +53,12 @@ public final class TestRun {
     @Nullable
     private TestedClassInstantiations testedClassInstantiations;
 
-    @Nonnull
+    @NonNull
     private final MockFixture mockFixture = new MockFixture();
 
-    @Nonnull
+    @NonNull
     private final ExecutingTest executingTest = new ExecutingTest();
-    @Nonnull
+    @NonNull
     private final FakeClasses fakeClasses = new FakeClasses();
 
     // Static "getters" for global state
@@ -91,12 +92,12 @@ public final class TestRun {
         return INSTANCE.testedClassInstantiations;
     }
 
-    @Nonnull
+    @NonNull
     public static MockFixture mockFixture() {
         return INSTANCE.mockFixture;
     }
 
-    @Nonnull
+    @NonNull
     public static ExecutingTest getExecutingTest() {
         return INSTANCE.executingTest;
     }
@@ -106,22 +107,22 @@ public final class TestRun {
         return INSTANCE.executingTest.getCurrentRecordAndReplay();
     }
 
-    @Nonnull
+    @NonNull
     public static RecordAndReplayExecution getOrCreateRecordAndReplayForRunningTest() {
         return INSTANCE.executingTest.getOrCreateRecordAndReplay();
     }
 
-    @Nonnull
+    @NonNull
     public static RecordAndReplayExecution getRecordAndReplayForVerifications() {
         return INSTANCE.executingTest.getRecordAndReplayForVerifications();
     }
 
-    @Nonnull
+    @NonNull
     public static FakeClasses getFakeClasses() {
         return INSTANCE.fakeClasses;
     }
 
-    @Nonnull
+    @NonNull
     public static FakeStates getFakeStates() {
         return INSTANCE.fakeClasses.fakeStates;
     }
@@ -154,7 +155,7 @@ public final class TestRun {
         INSTANCE.currentTestInstance = null;
     }
 
-    public static void setRunningIndividualTest(@Nonnull Object testInstance) {
+    public static void setRunningIndividualTest(@NonNull Object testInstance) {
         INSTANCE.currentTestInstance = testInstance;
     }
 
@@ -174,7 +175,7 @@ public final class TestRun {
     // ////////////////////////////////////////////////////
 
     @SuppressWarnings({ "StaticMethodOnlyUsedInOneClass", "SimplifiableIfStatement" })
-    public static boolean updateFakeState(@Nonnull String fakeClassDesc, @Nullable Object mockedInstance,
+    public static boolean updateFakeState(@NonNull String fakeClassDesc, @Nullable Object mockedInstance,
             int fakeStateIndex) {
         Object fake = getFake(fakeClassDesc, mockedInstance);
 
@@ -190,13 +191,13 @@ public final class TestRun {
     }
 
     @Nullable
-    public static Object getFake(@Nonnull String fakeClassDesc, @Nullable Object mockedInstance) {
+    public static Object getFake(@NonNull String fakeClassDesc, @Nullable Object mockedInstance) {
         return INSTANCE.fakeClasses.getFake(fakeClassDesc, mockedInstance);
     }
 
     // Other methods ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static void ensureThatClassIsInitialized(@Nonnull Class<?> aClass) {
+    public static void ensureThatClassIsInitialized(@NonNull Class<?> aClass) {
         boolean previousFlag = INSTANCE.executingTest.setShouldIgnoreMockingCallbacks(true);
 
         try {

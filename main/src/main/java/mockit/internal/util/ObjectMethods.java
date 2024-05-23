@@ -4,21 +4,22 @@
  */
 package mockit.internal.util;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class ObjectMethods {
     private ObjectMethods() {
     }
 
-    @Nonnull
-    public static String objectIdentity(@Nonnull Object obj) {
+    @NonNull
+    public static String objectIdentity(@NonNull Object obj) {
         return obj.getClass().getName() + '@' + Integer.toHexString(System.identityHashCode(obj));
     }
 
     @Nullable
-    public static Object evaluateOverride(@Nonnull Object obj, @Nonnull String methodNameAndDesc,
-            @Nonnull Object[] args) {
+    public static Object evaluateOverride(@NonNull Object obj, @NonNull String methodNameAndDesc,
+            @NonNull Object[] args) {
         if ("equals(Ljava/lang/Object;)Z".equals(methodNameAndDesc)) {
             return obj == args[0];
         }
@@ -42,7 +43,7 @@ public final class ObjectMethods {
         return null;
     }
 
-    public static boolean isMethodFromObject(@Nonnull String name, @Nonnull String desc) {
+    public static boolean isMethodFromObject(@NonNull String name, @NonNull String desc) {
         return "equals".equals(name) && "(Ljava/lang/Object;)Z".equals(desc)
                 || "hashCode".equals(name) && "()I".equals(desc)
                 || "toString".equals(name) && "()Ljava/lang/String;".equals(desc)

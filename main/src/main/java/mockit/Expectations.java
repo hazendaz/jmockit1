@@ -9,11 +9,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.expectations.RecordAndReplayExecution;
 import mockit.internal.expectations.RecordPhase;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Used to <em>record</em> expectations on {@linkplain Mocked mocked} types and their instances.
@@ -147,7 +148,7 @@ public class Expectations extends Invocations {
      *
      * @see <a href="http://jmockit.github.io/tutorial/Mocking.html#partial" target="tutorial">Tutorial</a>
      */
-    protected Expectations(@Nonnull Object... objectsToBePartiallyMocked) {
+    protected Expectations(@NonNull Object... objectsToBePartiallyMocked) {
         RecordAndReplayExecution execution = new RecordAndReplayExecution(this, objectsToBePartiallyMocked);
         // noinspection ConstantConditions
         currentPhase = execution.getRecordPhase();
@@ -188,7 +189,7 @@ public class Expectations extends Invocations {
      * @see <a href="http://jmockit.github.io/tutorial/Mocking.html#results" target="tutorial">Tutorial</a>
      */
     protected final void returns(@Nullable Object firstValue, @Nullable Object secondValue,
-            @Nonnull Object... remainingValues) {
+            @NonNull Object... remainingValues) {
         int n = remainingValues.length;
         Object[] values = new Object[2 + n];
         values[0] = firstValue;

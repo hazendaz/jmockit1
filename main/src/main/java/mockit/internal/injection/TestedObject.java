@@ -12,23 +12,24 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.Tested;
 import mockit.internal.injection.field.FieldInjection;
 import mockit.internal.injection.full.FullInjection;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 abstract class TestedObject {
-    @Nonnull
+    @NonNull
     private final InjectionState injectionState;
-    @Nonnull
+    @NonNull
     final Tested metadata;
-    @Nonnull
+    @NonNull
     private final String testedName;
     @Nullable
     private final FullInjection fullInjection;
-    @Nonnull
+    @NonNull
     private final TestedClass testedClass;
     @Nullable
     private final TestedObjectCreation testedObjectCreation;
@@ -37,7 +38,7 @@ abstract class TestedObject {
     boolean createAutomatically;
 
     @Nullable
-    static Tested getTestedAnnotationIfPresent(@Nonnull Annotation annotation) {
+    static Tested getTestedAnnotationIfPresent(@NonNull Annotation annotation) {
         if (annotation instanceof Tested) {
             return (Tested) annotation;
         }
@@ -45,8 +46,8 @@ abstract class TestedObject {
         return annotation.annotationType().getAnnotation(Tested.class);
     }
 
-    TestedObject(@Nonnull InjectionState injectionState, @Nonnull Tested metadata, @Nonnull Class<?> testClass,
-            @Nonnull String testedName, @Nonnull Type testedType, @Nonnull Class<?> testedClass) {
+    TestedObject(@NonNull InjectionState injectionState, @NonNull Tested metadata, @NonNull Class<?> testClass,
+            @NonNull String testedName, @NonNull Type testedType, @NonNull Class<?> testedClass) {
         this.injectionState = injectionState;
         this.metadata = metadata;
         this.testedName = testedName;
@@ -68,7 +69,7 @@ abstract class TestedObject {
         return metadata.availableDuringSetup();
     }
 
-    void instantiateWithInjectableValues(@Nonnull Object testClassInstance) {
+    void instantiateWithInjectableValues(@NonNull Object testClassInstance) {
         if (alreadyInstantiated(testClassInstance)) {
             return;
         }
@@ -102,21 +103,21 @@ abstract class TestedObject {
         }
     }
 
-    boolean alreadyInstantiated(@Nonnull Object testClassInstance) {
+    boolean alreadyInstantiated(@NonNull Object testClassInstance) {
         return false;
     }
 
     @Nullable
-    abstract Object getExistingTestedInstanceIfApplicable(@Nonnull Object testClassInstance);
+    abstract Object getExistingTestedInstanceIfApplicable(@NonNull Object testClassInstance);
 
-    static boolean isNonInstantiableType(@Nonnull Class<?> targetClass, @Nullable Object currentValue) {
+    static boolean isNonInstantiableType(@NonNull Class<?> targetClass, @Nullable Object currentValue) {
         return targetClass.isPrimitive() && defaultValueForPrimitiveType(targetClass).equals(currentValue)
                 || currentValue == null && (targetClass.isArray() || targetClass.isEnum() || targetClass.isAnnotation()
                         || isWrapperOfPrimitiveType(targetClass));
     }
 
-    private boolean reusePreviouslyCreatedInstance(@Nonnull Object testClassInstance,
-            @Nonnull InjectionPoint injectionPoint) {
+    private boolean reusePreviouslyCreatedInstance(@NonNull Object testClassInstance,
+            @NonNull InjectionPoint injectionPoint) {
         Object previousInstance = injectionState.getTestedInstance(injectionPoint, metadata.global());
 
         if (previousInstance != null) {
@@ -127,11 +128,11 @@ abstract class TestedObject {
         return false;
     }
 
-    abstract void setInstance(@Nonnull Object testClassInstance, @Nullable Object testedInstance);
+    abstract void setInstance(@NonNull Object testClassInstance, @Nullable Object testedInstance);
 
     @Nullable
-    private Object createAndRegisterNewObject(@Nonnull Object testClassInstance,
-            @Nonnull InjectionPoint injectionPoint) {
+    private Object createAndRegisterNewObject(@NonNull Object testClassInstance,
+            @NonNull InjectionPoint injectionPoint) {
         Object testedInstance = null;
 
         if (testedObjectCreation != null) {
@@ -146,11 +147,11 @@ abstract class TestedObject {
         return testedInstance;
     }
 
-    private void registerTestedObject(@Nonnull InjectionPoint injectionPoint, @Nonnull Object testedObject) {
+    private void registerTestedObject(@NonNull InjectionPoint injectionPoint, @NonNull Object testedObject) {
         injectionState.saveTestedObject(injectionPoint, testedObject, metadata.global());
     }
 
-    private void performFieldInjection(@Nonnull Class<?> targetClass, @Nonnull Object testedObject) {
+    private void performFieldInjection(@NonNull Class<?> targetClass, @NonNull Object testedObject) {
         FieldInjection fieldInjection = new FieldInjection(injectionState, fullInjection);
 
         if (targetFields == null) {
@@ -160,7 +161,7 @@ abstract class TestedObject {
         fieldInjection.injectIntoEligibleFields(targetFields, testedObject, testedClass);
     }
 
-    void clearIfAutomaticCreation(@Nonnull Object testClassInstance, boolean duringTearDown) {
+    void clearIfAutomaticCreation(@NonNull Object testClassInstance, boolean duringTearDown) {
         if (createAutomatically && (duringTearDown || !isAvailableDuringSetup())) {
             setInstance(testClassInstance, null);
 

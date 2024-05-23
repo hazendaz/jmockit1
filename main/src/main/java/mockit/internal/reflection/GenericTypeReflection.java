@@ -18,29 +18,30 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 @SuppressWarnings("OverlyComplexClass")
 public final class GenericTypeReflection {
-    @Nonnull
+    @NonNull
     private final Map<String, Type> typeParametersToTypeArguments;
-    @Nonnull
+    @NonNull
     private final Map<String, String> typeParametersToTypeArgumentNames;
     private final boolean withSignatures;
 
-    public GenericTypeReflection(@Nonnull Class<?> ownerClass, @Nullable Type genericType) {
+    public GenericTypeReflection(@NonNull Class<?> ownerClass, @Nullable Type genericType) {
         this(ownerClass, genericType, true);
     }
 
-    public GenericTypeReflection(@Nonnull Class<?> ownerClass, @Nullable Type genericType, boolean withSignatures) {
+    public GenericTypeReflection(@NonNull Class<?> ownerClass, @Nullable Type genericType, boolean withSignatures) {
         typeParametersToTypeArguments = new HashMap<>(4);
         typeParametersToTypeArgumentNames = withSignatures ? new HashMap<>(4) : Collections.<String, String>emptyMap();
         this.withSignatures = withSignatures;
         discoverTypeMappings(ownerClass, genericType);
     }
 
-    private void discoverTypeMappings(@Nonnull Class<?> rawType, @Nullable Type genericType) {
+    private void discoverTypeMappings(@NonNull Class<?> rawType, @Nullable Type genericType) {
         if (genericType instanceof ParameterizedType) {
             addMappingsFromTypeParametersToTypeArguments(rawType, (ParameterizedType) genericType);
         }
@@ -48,7 +49,7 @@ public final class GenericTypeReflection {
         addGenericTypeMappingsForSuperTypes(rawType);
     }
 
-    private void addGenericTypeMappingsForSuperTypes(@Nonnull Class<?> rawType) {
+    private void addGenericTypeMappingsForSuperTypes(@NonNull Class<?> rawType) {
         Type superType = rawType;
 
         while (superType != null && superType != Object.class) {
@@ -64,8 +65,8 @@ public final class GenericTypeReflection {
         }
     }
 
-    @Nonnull
-    private Class<?> addGenericTypeMappingsIfParameterized(@Nonnull Type superType) {
+    @NonNull
+    private Class<?> addGenericTypeMappingsIfParameterized(@NonNull Type superType) {
         if (superType instanceof ParameterizedType) {
             ParameterizedType genericSuperType = (ParameterizedType) superType;
             Class<?> rawType = (Class<?>) genericSuperType.getRawType();
@@ -76,15 +77,15 @@ public final class GenericTypeReflection {
         return (Class<?>) superType;
     }
 
-    private void addGenericTypeMappingsForInterfaces(@Nonnull Class<?> classOrInterface) {
+    private void addGenericTypeMappingsForInterfaces(@NonNull Class<?> classOrInterface) {
         for (Type implementedInterface : classOrInterface.getGenericInterfaces()) {
             Class<?> implementedType = addGenericTypeMappingsIfParameterized(implementedInterface);
             addGenericTypeMappingsForInterfaces(implementedType);
         }
     }
 
-    private void addMappingsFromTypeParametersToTypeArguments(@Nonnull Class<?> rawType,
-            @Nonnull ParameterizedType genericType) {
+    private void addMappingsFromTypeParametersToTypeArguments(@NonNull Class<?> rawType,
+            @NonNull ParameterizedType genericType) {
         String ownerTypeDesc = getOwnerClassDesc(rawType);
         TypeVariable<?>[] typeParameters = rawType.getTypeParameters();
         Type[] typeArguments = genericType.getActualTypeArguments();
@@ -121,8 +122,8 @@ public final class GenericTypeReflection {
         }
     }
 
-    private void addMappingForClassType(@Nonnull String ownerTypeDesc, @Nonnull String typeName,
-            @Nonnull Type typeArg) {
+    private void addMappingForClassType(@NonNull String ownerTypeDesc, @NonNull String typeName,
+            @NonNull Type typeArg) {
         String mappedTypeArgName = null;
 
         if (withSignatures) {
@@ -134,8 +135,8 @@ public final class GenericTypeReflection {
         addTypeMapping(ownerTypeDesc, typeName, typeArg, mappedTypeArgName);
     }
 
-    private void addMappingForTypeVariable(@Nonnull String ownerTypeDesc, @Nonnull String typeName,
-            @Nonnull Type typeArg) {
+    private void addMappingForTypeVariable(@NonNull String ownerTypeDesc, @NonNull String typeName,
+            @NonNull Type typeArg) {
         @Nullable
         String mappedTypeArgName = null;
 
@@ -149,14 +150,14 @@ public final class GenericTypeReflection {
         addTypeMapping(ownerTypeDesc, typeName, typeArg, mappedTypeArgName);
     }
 
-    private void addMappingForParameterizedType(@Nonnull String ownerTypeDesc, @Nonnull String typeName,
-            @Nonnull Type typeArg) {
+    private void addMappingForParameterizedType(@NonNull String ownerTypeDesc, @NonNull String typeName,
+            @NonNull Type typeArg) {
         String mappedTypeArgName = getMappedTypeArgName(typeArg);
         addTypeMapping(ownerTypeDesc, typeName, typeArg, mappedTypeArgName);
     }
 
     @Nullable
-    private String getMappedTypeArgName(@Nonnull Type typeArg) {
+    private String getMappedTypeArgName(@NonNull Type typeArg) {
         if (withSignatures) {
             Class<?> classType = getClassType(typeArg);
             return 'L' + getOwnerClassDesc(classType);
@@ -165,8 +166,8 @@ public final class GenericTypeReflection {
         return null;
     }
 
-    private void addMappingForArrayType(@Nonnull String ownerTypeDesc, @Nonnull String typeName,
-            @Nonnull Type typeArg) {
+    private void addMappingForArrayType(@NonNull String ownerTypeDesc, @NonNull String typeName,
+            @NonNull Type typeArg) {
         String mappedTypeArgName = null;
 
         if (withSignatures) {
@@ -176,19 +177,19 @@ public final class GenericTypeReflection {
         addTypeMapping(ownerTypeDesc, typeName, typeArg, mappedTypeArgName);
     }
 
-    private void addMappingForFirstTypeBound(@Nonnull String ownerTypeDesc, @Nonnull TypeVariable<?> typeParam) {
+    private void addMappingForFirstTypeBound(@NonNull String ownerTypeDesc, @NonNull TypeVariable<?> typeParam) {
         Type typeArg = typeParam.getBounds()[0];
         String mappedTypeArgName = getMappedTypeArgName(typeArg);
         addTypeMapping(ownerTypeDesc, typeParam.getName(), typeArg, mappedTypeArgName);
     }
 
-    @Nonnull
-    private static String getOwnerClassDesc(@Nonnull Class<?> rawType) {
+    @NonNull
+    private static String getOwnerClassDesc(@NonNull Class<?> rawType) {
         return rawType.getName().replace('.', '/');
     }
 
-    @Nonnull
-    private Class<?> getClassType(@Nonnull Type type) {
+    @NonNull
+    private Class<?> getClassType(@NonNull Type type) {
         if (type instanceof ParameterizedType) {
             ParameterizedType parameterizedType = (ParameterizedType) type;
             return (Class<?>) parameterizedType.getRawType();
@@ -211,8 +212,8 @@ public final class GenericTypeReflection {
         return (Class<?>) type;
     }
 
-    @Nonnull
-    private String getMappedTypeArgName(@Nonnull GenericArrayType arrayType) {
+    @NonNull
+    private String getMappedTypeArgName(@NonNull GenericArrayType arrayType) {
         StringBuilder argName = new StringBuilder(20);
         argName.append('[');
 
@@ -230,7 +231,7 @@ public final class GenericTypeReflection {
         }
     }
 
-    private void addTypeMapping(@Nonnull String ownerTypeDesc, @Nonnull String typeVarName, @Nonnull Type mappedTypeArg,
+    private void addTypeMapping(@NonNull String ownerTypeDesc, @NonNull String typeVarName, @NonNull Type mappedTypeArg,
             @Nullable String mappedTypeArgName) {
         typeParametersToTypeArguments.put(ownerTypeDesc + ':' + typeVarName, mappedTypeArg);
 
@@ -239,8 +240,8 @@ public final class GenericTypeReflection {
         }
     }
 
-    private void addTypeMapping(@Nonnull String ownerTypeDesc, @Nonnull String typeVarName,
-            @Nonnull String mappedTypeArgName) {
+    private void addTypeMapping(@NonNull String ownerTypeDesc, @NonNull String typeVarName,
+            @NonNull String mappedTypeArgName) {
         String typeMappingKey = ownerTypeDesc + ":T" + typeVarName;
         typeParametersToTypeArgumentNames.put(typeMappingKey, mappedTypeArgName);
     }
@@ -251,7 +252,7 @@ public final class GenericTypeReflection {
         private final int lengthOfParameterTypeDescs;
         private int currentPos;
 
-        GenericSignature(@Nonnull String signature) {
+        GenericSignature(@NonNull String signature) {
             int p = signature.indexOf('(');
             int q = signature.lastIndexOf(')');
             parameterTypeDescs = signature.substring(p + 1, q);
@@ -346,12 +347,12 @@ public final class GenericTypeReflection {
             } while (angleBracketDepth > 0);
         }
 
-        public boolean satisfiesGenericSignature(@Nonnull String otherSignature) {
+        public boolean satisfiesGenericSignature(@NonNull String otherSignature) {
             GenericSignature other = new GenericSignature(otherSignature);
             return areMatchingSignatures(other);
         }
 
-        private boolean areMatchingSignatures(@Nonnull GenericSignature other) {
+        private boolean areMatchingSignatures(@NonNull GenericSignature other) {
             int n = parameters.size();
 
             if (n != other.parameters.size()) {
@@ -371,7 +372,7 @@ public final class GenericTypeReflection {
         }
 
         @SuppressWarnings("MethodWithMultipleLoops")
-        private boolean areParametersOfSameType(@Nonnull String param1, @Nonnull String param2) {
+        private boolean areParametersOfSameType(@NonNull String param1, @NonNull String param2) {
             if (param1.equals(param2)) {
                 return true;
             }
@@ -403,19 +404,19 @@ public final class GenericTypeReflection {
             return typeVarName2.equals(typeArg1);
         }
 
-        public boolean satisfiesSignature(@Nonnull String otherSignature) {
+        public boolean satisfiesSignature(@NonNull String otherSignature) {
             GenericSignature other = new GenericSignature(otherSignature);
             return other.areMatchingSignatures(this);
         }
     }
 
-    @Nonnull
-    public GenericSignature parseSignature(@Nonnull String genericSignature) {
+    @NonNull
+    public GenericSignature parseSignature(@NonNull String genericSignature) {
         return new GenericSignature(genericSignature);
     }
 
-    @Nonnull
-    public String resolveSignature(@Nonnull String ownerTypeDesc, @Nonnull String genericSignature) {
+    @NonNull
+    public String resolveSignature(@NonNull String ownerTypeDesc, @NonNull String genericSignature) {
         addTypeArgumentsIfAvailable(ownerTypeDesc, genericSignature);
 
         int p = genericSignature.lastIndexOf(')') + 1;
@@ -428,7 +429,7 @@ public final class GenericTypeReflection {
         return finalSignature.toString();
     }
 
-    private void addTypeArgumentsIfAvailable(@Nonnull String ownerTypeDesc, @Nonnull String signature) {
+    private void addTypeArgumentsIfAvailable(@NonNull String ownerTypeDesc, @NonNull String signature) {
         int firstParen = signature.indexOf('(');
         if (firstParen == 0) {
             return;
@@ -462,8 +463,8 @@ public final class GenericTypeReflection {
         }
     }
 
-    @Nonnull
-    private String replaceTypeParametersWithActualTypes(@Nonnull String ownerTypeDesc, @Nonnull String typeDesc) {
+    @NonNull
+    private String replaceTypeParametersWithActualTypes(@NonNull String ownerTypeDesc, @NonNull String typeDesc) {
         if (typeDesc.charAt(0) == 'T' && !typeParametersToTypeArgumentNames.isEmpty()) {
             return replaceTypeParameters(ownerTypeDesc, typeDesc);
         }
@@ -486,8 +487,8 @@ public final class GenericTypeReflection {
         return resolvedTypeDesc;
     }
 
-    @Nonnull
-    private String replaceTypeParameters(@Nonnull String ownerTypeDesc, @Nonnull String typeDesc) {
+    @NonNull
+    private String replaceTypeParameters(@NonNull String ownerTypeDesc, @NonNull String typeDesc) {
         String typeParameter = typeDesc.substring(0, typeDesc.length() - 1);
 
         while (true) {
@@ -506,8 +507,8 @@ public final class GenericTypeReflection {
         }
     }
 
-    @Nonnull
-    public Type resolveTypeVariable(@Nonnull TypeVariable<?> typeVariable) {
+    @NonNull
+    public Type resolveTypeVariable(@NonNull TypeVariable<?> typeVariable) {
         String typeVarKey = getTypeVariableKey(typeVariable);
         @Nullable
         Type typeArgument = typeParametersToTypeArguments.get(typeVarKey);
@@ -523,20 +524,20 @@ public final class GenericTypeReflection {
         return typeArgument;
     }
 
-    @Nonnull
-    private static String getTypeVariableKey(@Nonnull TypeVariable<?> typeVariable) {
+    @NonNull
+    private static String getTypeVariableKey(@NonNull TypeVariable<?> typeVariable) {
         String ownerClassDesc = getOwnerClassDesc(typeVariable);
         return ownerClassDesc + ':' + typeVariable.getName();
     }
 
-    @Nonnull
-    private static String getOwnerClassDesc(@Nonnull TypeVariable<?> typeVariable) {
+    @NonNull
+    private static String getOwnerClassDesc(@NonNull TypeVariable<?> typeVariable) {
         GenericDeclaration owner = typeVariable.getGenericDeclaration();
         Class<?> ownerClass = owner instanceof Member ? ((Member) owner).getDeclaringClass() : (Class<?>) owner;
         return getOwnerClassDesc(ownerClass);
     }
 
-    public boolean areMatchingTypes(@Nonnull Type declarationType, @Nonnull Type realizationType) {
+    public boolean areMatchingTypes(@NonNull Type declarationType, @NonNull Type realizationType) {
         if (declarationType.equals(realizationType)) {
             return true;
         }
@@ -567,7 +568,7 @@ public final class GenericTypeReflection {
     }
 
     @Nullable
-    private static ParameterizedType getParameterizedType(@Nonnull Type realizationType) {
+    private static ParameterizedType getParameterizedType(@NonNull Type realizationType) {
         if (realizationType instanceof ParameterizedType) {
             return (ParameterizedType) realizationType;
         }
@@ -580,7 +581,7 @@ public final class GenericTypeReflection {
     }
 
     @Nullable
-    private static ParameterizedType findRealizationSupertype(@Nonnull Class<?> realizationType) {
+    private static ParameterizedType findRealizationSupertype(@NonNull Class<?> realizationType) {
         Type realizationSuperclass = realizationType.getGenericSuperclass();
         ParameterizedType parameterizedRealizationType = null;
 
@@ -598,7 +599,7 @@ public final class GenericTypeReflection {
         return parameterizedRealizationType;
     }
 
-    private boolean areMatchingTypes(@Nonnull TypeVariable<?> declarationType, @Nonnull Type realizationType) {
+    private boolean areMatchingTypes(@NonNull TypeVariable<?> declarationType, @NonNull Type realizationType) {
         String typeVarKey = getTypeVariableKey(declarationType);
         @Nullable
         Type resolvedType = typeParametersToTypeArguments.get(typeVarKey);
@@ -607,14 +608,14 @@ public final class GenericTypeReflection {
                 || typeSatisfiesResolvedTypeVariable(resolvedType, realizationType));
     }
 
-    private boolean areMatchingTypes(@Nonnull ParameterizedType declarationType,
-            @Nonnull ParameterizedType realizationType) {
+    private boolean areMatchingTypes(@NonNull ParameterizedType declarationType,
+            @NonNull ParameterizedType realizationType) {
         return declarationType.getRawType().equals(realizationType.getRawType())
                 && haveMatchingActualTypeArguments(declarationType, realizationType);
     }
 
-    private boolean haveMatchingActualTypeArguments(@Nonnull ParameterizedType declarationType,
-            @Nonnull ParameterizedType realizationType) {
+    private boolean haveMatchingActualTypeArguments(@NonNull ParameterizedType declarationType,
+            @NonNull ParameterizedType realizationType) {
         Type[] declaredTypeArguments = declarationType.getActualTypeArguments();
         Type[] concreteTypeArguments = realizationType.getActualTypeArguments();
 
@@ -637,7 +638,7 @@ public final class GenericTypeReflection {
     }
 
     @SuppressWarnings("RedundantIfStatement")
-    private boolean areMatchingTypeArguments(@Nonnull TypeVariable<?> declaredType, @Nonnull Type concreteType) {
+    private boolean areMatchingTypeArguments(@NonNull TypeVariable<?> declaredType, @NonNull Type concreteType) {
         String typeVarKey = getTypeVariableKey(declaredType);
         @Nullable
         Type resolvedType = typeParametersToTypeArguments.get(typeVarKey);
@@ -659,17 +660,17 @@ public final class GenericTypeReflection {
         return false;
     }
 
-    private boolean typeSatisfiesResolvedTypeVariable(@Nonnull Type resolvedType, @Nonnull Type realizationType) {
+    private boolean typeSatisfiesResolvedTypeVariable(@NonNull Type resolvedType, @NonNull Type realizationType) {
         Class<?> realizationClass = getClassType(realizationType);
         return typeSatisfiesResolvedTypeVariable(resolvedType, realizationClass);
     }
 
-    private boolean typeSatisfiesResolvedTypeVariable(@Nonnull Type resolvedType, @Nonnull Class<?> realizationType) {
+    private boolean typeSatisfiesResolvedTypeVariable(@NonNull Type resolvedType, @NonNull Class<?> realizationType) {
         Class<?> resolvedClass = getClassType(resolvedType);
         return resolvedClass.isAssignableFrom(realizationType);
     }
 
-    private boolean typeSatisfiesUpperBounds(@Nonnull Type type, @Nonnull Type[] upperBounds) {
+    private boolean typeSatisfiesUpperBounds(@NonNull Type type, @NonNull Type[] upperBounds) {
         Class<?> classType = getClassType(type);
 
         for (Type upperBound : upperBounds) {

@@ -1,6 +1,5 @@
 package mockit.asm.classes;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.constantPool.AttributeWriter;
@@ -8,19 +7,20 @@ import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 final class InnerClassesWriter extends AttributeWriter {
-    @Nonnull
+    @NonNull
     private final ByteVector innerClasses;
     @NonNegative
     private int innerClassesCount;
 
-    InnerClassesWriter(@Nonnull ConstantPoolGeneration cp) {
+    InnerClassesWriter(@NonNull ConstantPoolGeneration cp) {
         super(cp, "InnerClasses");
         innerClasses = new ByteVector();
     }
 
-    void add(@Nonnull String name, @Nullable String outerName, @Nullable String innerName, int access) {
+    void add(@NonNull String name, @Nullable String outerName, @Nullable String innerName, int access) {
         innerClasses.putShort(cp.newClass(name));
         innerClasses.putShort(outerName == null ? 0 : cp.newClass(outerName));
         innerClasses.putShort(innerName == null ? 0 : cp.newUTF8(innerName));
@@ -35,7 +35,7 @@ final class InnerClassesWriter extends AttributeWriter {
     }
 
     @Override
-    public void put(@Nonnull ByteVector out) {
+    public void put(@NonNull ByteVector out) {
         put(out, 2 + innerClasses.getLength());
         out.putShort(innerClassesCount);
         out.putByteVector(innerClasses);

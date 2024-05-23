@@ -9,15 +9,16 @@ import static mockit.internal.reflection.ParameterReflection.NO_PARAMETERS;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class AnnotationReflection {
     private AnnotationReflection() {
     }
 
-    @Nonnull
-    public static String readAnnotationAttribute(@Nonnull Object annotationInstance, @Nonnull String attributeName) {
+    @NonNull
+    public static String readAnnotationAttribute(@NonNull Object annotationInstance, @NonNull String attributeName) {
         try {
             return readAttribute(annotationInstance, attributeName);
         } catch (NoSuchMethodException e) {
@@ -26,8 +27,8 @@ public final class AnnotationReflection {
     }
 
     @Nullable
-    public static String readAnnotationAttributeIfAvailable(@Nonnull Object annotationInstance,
-            @Nonnull String attributeName) {
+    public static String readAnnotationAttributeIfAvailable(@NonNull Object annotationInstance,
+            @NonNull String attributeName) {
         try {
             return readAttribute(annotationInstance, attributeName);
         } catch (NoSuchMethodException e) {
@@ -35,8 +36,8 @@ public final class AnnotationReflection {
         }
     }
 
-    @Nonnull
-    private static String readAttribute(@Nonnull Object annotationInstance, @Nonnull String attributeName)
+    @NonNull
+    private static String readAttribute(@NonNull Object annotationInstance, @NonNull String attributeName)
             throws NoSuchMethodException {
         try {
             Method publicMethod = annotationInstance.getClass().getMethod(attributeName, NO_PARAMETERS);

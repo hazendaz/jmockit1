@@ -4,21 +4,21 @@
  */
 package mockit.internal.expectations.invocation;
 
-import javax.annotation.Nonnull;
-
 import mockit.internal.util.StackTrace;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 final class ExpectationError extends AssertionError {
     private static final long serialVersionUID = 1L;
     private String message;
 
-    @Nonnull
+    @NonNull
     @Override
     public String toString() {
         return message;
     }
 
-    void defineCause(@Nonnull String title, @Nonnull Throwable error) {
+    void defineCause(@NonNull String title, @NonNull Throwable error) {
         message = title;
         StackTrace.filterStackTrace(this);
         error.initCause(this);

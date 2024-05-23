@@ -4,12 +4,13 @@
  */
 package mockit;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.reflection.FieldReflection;
 import mockit.internal.reflection.MethodReflection;
 import mockit.internal.util.ClassLoad;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Provides utility methods that enable access to ("de-encapsulate") otherwise non-accessible fields.
@@ -41,7 +42,7 @@ public final class Deencapsulation {
      * @see #setField(Object, String, Object)
      */
     @Nullable
-    public static <T> T getField(@Nonnull Object objectWithField, @Nonnull String fieldName) {
+    public static <T> T getField(@NonNull Object objectWithField, @NonNull String fieldName) {
         return FieldReflection.getField(objectWithField.getClass(), fieldName, objectWithField);
     }
 
@@ -67,7 +68,7 @@ public final class Deencapsulation {
      * @see #setField(Object, Object)
      */
     @Nullable
-    public static <T> T getField(@Nonnull Object objectWithField, @Nonnull Class<T> fieldType) {
+    public static <T> T getField(@NonNull Object objectWithField, @NonNull Class<T> fieldType) {
         return FieldReflection.getField(objectWithField.getClass(), fieldType, objectWithField);
     }
 
@@ -91,7 +92,7 @@ public final class Deencapsulation {
      * @see #setField(Class, String, Object)
      */
     @Nullable
-    public static <T> T getField(@Nonnull Class<?> classWithStaticField, @Nonnull String fieldName) {
+    public static <T> T getField(@NonNull Class<?> classWithStaticField, @NonNull String fieldName) {
         return FieldReflection.getField(classWithStaticField, fieldName, null);
     }
 
@@ -116,7 +117,7 @@ public final class Deencapsulation {
      * @see #setField(Class, Object)
      */
     @Nullable
-    public static <T> T getField(@Nonnull Class<?> classWithStaticField, @Nonnull Class<T> fieldType) {
+    public static <T> T getField(@NonNull Class<?> classWithStaticField, @NonNull Class<T> fieldType) {
         return FieldReflection.getField(classWithStaticField, fieldType, null);
     }
 
@@ -137,7 +138,7 @@ public final class Deencapsulation {
      * @see #setField(Object, Object)
      * @see #getField(Object, String)
      */
-    public static void setField(@Nonnull Object objectWithField, @Nonnull String fieldName,
+    public static void setField(@NonNull Object objectWithField, @NonNull String fieldName,
             @Nullable Object fieldValue) {
         FieldReflection.setField(objectWithField.getClass(), objectWithField, fieldName, fieldValue);
     }
@@ -158,7 +159,7 @@ public final class Deencapsulation {
      * @see #setField(Class, String, Object)
      * @see #getField(Object, String)
      */
-    public static void setField(@Nonnull Object objectWithField, @Nonnull Object fieldValue) {
+    public static void setField(@NonNull Object objectWithField, @NonNull Object fieldValue) {
         FieldReflection.setField(objectWithField.getClass(), objectWithField, null, fieldValue);
     }
 
@@ -179,7 +180,7 @@ public final class Deencapsulation {
      * @see #setField(Object, String, Object)
      * @see #getField(Class, String)
      */
-    public static void setField(@Nonnull Class<?> classWithStaticField, @Nonnull String fieldName,
+    public static void setField(@NonNull Class<?> classWithStaticField, @NonNull String fieldName,
             @Nullable Object fieldValue) {
         FieldReflection.setField(classWithStaticField, null, fieldName, fieldValue);
     }
@@ -200,7 +201,7 @@ public final class Deencapsulation {
      * @see #setField(Object, Object)
      * @see #getField(Class, Class)
      */
-    public static void setField(@Nonnull Class<?> classWithStaticField, @Nonnull Object fieldValue) {
+    public static void setField(@NonNull Class<?> classWithStaticField, @NonNull Object fieldValue) {
         FieldReflection.setField(classWithStaticField, null, null, fieldValue);
     }
 

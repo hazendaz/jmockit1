@@ -12,7 +12,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.classes.ClassReader;
@@ -24,23 +23,25 @@ import mockit.internal.ClassIdentification;
 import mockit.internal.startup.Startup;
 import mockit.internal.state.TestRun;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 public final class CaptureTransformer<M> implements ClassFileTransformer {
-    @Nonnull
+    @NonNull
     private final CapturedType capturedType;
-    @Nonnull
+    @NonNull
     private final String capturedTypeDesc;
-    @Nonnull
+    @NonNull
     private final CaptureOfImplementations<M> captureOfImplementations;
-    @Nonnull
+    @NonNull
     private final Map<ClassIdentification, byte[]> transformedClasses;
-    @Nonnull
+    @NonNull
     private final Map<String, Boolean> superTypesSearched;
     @Nullable
     private final M typeMetadata;
     private boolean inactive;
 
-    CaptureTransformer(@Nonnull CapturedType capturedType,
-            @Nonnull CaptureOfImplementations<M> captureOfImplementations, boolean registerTransformedClasses,
+    CaptureTransformer(@NonNull CapturedType capturedType,
+            @NonNull CaptureOfImplementations<M> captureOfImplementations, boolean registerTransformedClasses,
             @Nullable M typeMetadata) {
         this.capturedType = capturedType;
         capturedTypeDesc = JavaType.getInternalName(capturedType.baseType);
@@ -68,9 +69,9 @@ public final class CaptureTransformer<M> implements ClassFileTransformer {
 
     @Nullable
     @Override
-    public byte[] transform(@Nullable ClassLoader loader, @Nonnull String classDesc,
+    public byte[] transform(@Nullable ClassLoader loader, @NonNull String classDesc,
             @Nullable Class<?> classBeingRedefined, @Nullable ProtectionDomain protectionDomain,
-            @Nonnull byte[] classfileBuffer) {
+            @NonNull byte[] classfileBuffer) {
         if (classBeingRedefined != null || inactive || isNotToBeCaptured(protectionDomain, classDesc)) {
             return null;
         }
@@ -84,7 +85,7 @@ public final class CaptureTransformer<M> implements ClassFileTransformer {
         return null;
     }
 
-    private boolean isClassToBeCaptured(@Nullable ClassLoader loader, @Nonnull byte[] classfileBuffer) {
+    private boolean isClassToBeCaptured(@Nullable ClassLoader loader, @NonNull byte[] classfileBuffer) {
         ClassMetadataReader cmr = new ClassMetadataReader(classfileBuffer);
         String superName = cmr.getSuperClass();
 
@@ -101,7 +102,7 @@ public final class CaptureTransformer<M> implements ClassFileTransformer {
         return superName != null && searchSuperTypes(loader, superName, interfaces);
     }
 
-    private boolean isClassWhichImplementsACapturingInterface(@Nonnull String[] interfaces) {
+    private boolean isClassWhichImplementsACapturingInterface(@NonNull String[] interfaces) {
         for (String implementedInterface : interfaces) {
             if (capturedTypeDesc.equals(implementedInterface)) {
                 return true;
@@ -111,7 +112,7 @@ public final class CaptureTransformer<M> implements ClassFileTransformer {
         return false;
     }
 
-    private boolean searchSuperTypes(@Nullable ClassLoader loader, @Nonnull String superName,
+    private boolean searchSuperTypes(@Nullable ClassLoader loader, @NonNull String superName,
             @Nullable String[] interfaces) {
         if (!"java/lang/Object".equals(superName) && !superName.startsWith("mockit/")
                 && searchSuperType(loader, superName)) {
@@ -129,7 +130,7 @@ public final class CaptureTransformer<M> implements ClassFileTransformer {
         return false;
     }
 
-    private boolean searchSuperType(@Nullable ClassLoader loader, @Nonnull String superName) {
+    private boolean searchSuperType(@Nullable ClassLoader loader, @NonNull String superName) {
         Boolean extendsCapturedType = superTypesSearched.get(superName);
 
         if (extendsCapturedType == null) {
@@ -141,9 +142,9 @@ public final class CaptureTransformer<M> implements ClassFileTransformer {
         return extendsCapturedType;
     }
 
-    @Nonnull
-    private byte[] modifyAndRegisterClass(@Nullable ClassLoader loader, @Nonnull String className,
-            @Nonnull ClassReader cr) {
+    @NonNull
+    private byte[] modifyAndRegisterClass(@Nullable ClassLoader loader, @NonNull String className,
+            @NonNull ClassReader cr) {
         ClassVisitor modifier = captureOfImplementations.createModifier(loader, cr, capturedType.baseType,
                 typeMetadata);
         cr.accept(modifier);
@@ -162,7 +163,7 @@ public final class CaptureTransformer<M> implements ClassFileTransformer {
     }
 
     @Nullable
-    public <C extends CaptureOfImplementations<?>> C getCaptureOfImplementationsIfApplicable(@Nonnull Class<?> aType) {
+    public <C extends CaptureOfImplementations<?>> C getCaptureOfImplementationsIfApplicable(@NonNull Class<?> aType) {
         if (typeMetadata != null && capturedType.baseType.isAssignableFrom(aType)) {
             // noinspection unchecked
             return (C) captureOfImplementations;
@@ -171,7 +172,7 @@ public final class CaptureTransformer<M> implements ClassFileTransformer {
         return null;
     }
 
-    public boolean areCapturedClasses(@Nonnull Class<?> mockedClass1, @Nonnull Class<?> mockedClass2) {
+    public boolean areCapturedClasses(@NonNull Class<?> mockedClass1, @NonNull Class<?> mockedClass2) {
         Class<?> baseType = capturedType.baseType;
         return baseType.isAssignableFrom(mockedClass1) && baseType.isAssignableFrom(mockedClass2);
     }

@@ -6,14 +6,15 @@ package mockit.coverage.reporting.sourceFiles;
 
 import java.io.PrintWriter;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.coverage.reporting.parsing.LineElement;
 import mockit.coverage.reporting.parsing.LineParser;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 final class NeutralOutput {
-    @Nonnull
+    @NonNull
     private final PrintWriter output;
     private boolean previousLineInImports;
     private boolean previousLineInComments;
@@ -21,11 +22,11 @@ final class NeutralOutput {
     private String lineIndentation;
     private boolean blankLinesPending;
 
-    NeutralOutput(@Nonnull PrintWriter output) {
+    NeutralOutput(@NonNull PrintWriter output) {
         this.output = output;
     }
 
-    boolean writeLineWithoutCoverageInfo(@Nonnull LineParser lineParser) {
+    boolean writeLineWithoutCoverageInfo(@NonNull LineParser lineParser) {
         if (previousLineInComments || !previousLineInImports) {
             if (writeLineInComments(lineParser) || writeLineInImports(lineParser)) {
                 return true;
@@ -43,7 +44,7 @@ final class NeutralOutput {
         return false;
     }
 
-    private boolean writeLineInComments(@Nonnull LineParser lineParser) {
+    private boolean writeLineInComments(@NonNull LineParser lineParser) {
         LineElement initialElement = lineParser.getInitialElement();
 
         if (lineParser.isInComments()
@@ -84,7 +85,7 @@ final class NeutralOutput {
         }
     }
 
-    private void extractLineIndentation(@Nonnull String lineText) {
+    private void extractLineIndentation(@NonNull String lineText) {
         int indentationSize = 0;
 
         for (int i = 0; i < lineText.length(); i++, indentationSize++) {
@@ -96,7 +97,7 @@ final class NeutralOutput {
         lineIndentation = lineText.substring(0, indentationSize);
     }
 
-    private boolean writeLineInImports(@Nonnull LineParser lineParser) {
+    private boolean writeLineInImports(@NonNull LineParser lineParser) {
         LineElement initialElement = lineParser.getInitialElement();
         boolean isImport = initialElement.isKeyword("import");
 

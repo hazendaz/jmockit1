@@ -26,40 +26,41 @@ import java.util.Optional;
 import java.util.TreeSet;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.util.AutoBoxing;
 import mockit.internal.util.MethodFormatter;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 public final class ReturnTypeConversion {
     private static final Class<?>[] STRING = { String.class };
 
-    @Nonnull
+    @NonNull
     private ExpectedInvocation invocation;
     @Nullable
     private final InvocationResults invocationResults;
-    @Nonnull
+    @NonNull
     private final Class<?> returnType;
-    @Nonnull
+    @NonNull
     private final Object valueToReturn;
 
-    public ReturnTypeConversion(@Nonnull ExpectedInvocation invocation, @Nonnull InvocationResults invocationResults,
-            @Nonnull Class<?> returnType, @Nonnull Object value) {
+    public ReturnTypeConversion(@NonNull ExpectedInvocation invocation, @NonNull InvocationResults invocationResults,
+            @NonNull Class<?> returnType, @NonNull Object value) {
         this.invocation = invocation;
         this.invocationResults = invocationResults;
         this.returnType = returnType;
         valueToReturn = value;
     }
 
-    ReturnTypeConversion(@Nonnull ExpectedInvocation invocation, @Nonnull Class<?> returnType, @Nonnull Object value) {
+    ReturnTypeConversion(@NonNull ExpectedInvocation invocation, @NonNull Class<?> returnType, @NonNull Object value) {
         this.invocation = invocation;
         invocationResults = null;
         this.returnType = returnType;
         valueToReturn = value;
     }
 
-    @Nonnull
+    @NonNull
     Object getConvertedValue() {
         Class<?> wrapperType = getWrapperType();
         Class<?> valueType = valueToReturn.getClass();
@@ -103,12 +104,12 @@ public final class ReturnTypeConversion {
         }
     }
 
-    private void addReturnValue(@Nonnull Object returnValue) {
+    private void addReturnValue(@NonNull Object returnValue) {
         assert invocationResults != null;
         invocationResults.addReturnValueResult(returnValue);
     }
 
-    private void addPrimitiveValueConvertingAsNeeded(@Nonnull Class<?> targetType) {
+    private void addPrimitiveValueConvertingAsNeeded(@NonNull Class<?> targetType) {
         Object convertedValue = getPrimitiveValueConvertingAsNeeded(targetType);
         addReturnValue(convertedValue);
     }
@@ -133,7 +134,7 @@ public final class ReturnTypeConversion {
         }
     }
 
-    @Nonnull
+    @NonNull
     private IllegalArgumentException newIncompatibleTypesException() {
         String valueTypeName = JAVA_LANG.matcher(valueToReturn.getClass().getName()).replaceAll("");
         String returnTypeName = JAVA_LANG.matcher(returnType.getName()).replaceAll("");
@@ -159,8 +160,8 @@ public final class ReturnTypeConversion {
         addReturnValue(iterator);
     }
 
-    private void addCharSequence(@Nonnull CharSequence textualValue) {
-        @Nonnull
+    private void addCharSequence(@NonNull CharSequence textualValue) {
+        @NonNull
         Object convertedValue = textualValue;
 
         if (returnType.isAssignableFrom(ByteArrayInputStream.class)) {
@@ -250,8 +251,8 @@ public final class ReturnTypeConversion {
         throw newIncompatibleTypesException();
     }
 
-    @Nonnull
-    private Object getPrimitiveValueConvertingAsNeeded(@Nonnull Class<?> targetType) {
+    @NonNull
+    private Object getPrimitiveValueConvertingAsNeeded(@NonNull Class<?> targetType) {
         Object convertedValue = null;
 
         if (valueToReturn instanceof Number) {
@@ -268,7 +269,7 @@ public final class ReturnTypeConversion {
     }
 
     @Nullable
-    private static Object convertFromNumber(@Nonnull Class<?> targetType, @Nonnull Number number) {
+    private static Object convertFromNumber(@NonNull Class<?> targetType, @NonNull Number number) {
         if (targetType == Integer.class) {
             return number.intValue();
         }
@@ -301,7 +302,7 @@ public final class ReturnTypeConversion {
     }
 
     @Nullable
-    private static Object convertFromChar(@Nonnull Class<?> targetType, char c) {
+    private static Object convertFromChar(@NonNull Class<?> targetType, char c) {
         if (targetType == Integer.class) {
             return (int) c;
         }

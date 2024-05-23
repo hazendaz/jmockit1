@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.controlFlow.Label;
 import mockit.coverage.CallPoint;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Coverage data gathered for a single executable line of code in a source file.
@@ -25,7 +25,7 @@ public final class LineCoverageData extends LineSegmentData {
     private static final long serialVersionUID = -6233980722802474992L;
 
     // Static data:
-    @Nonnull
+    @NonNull
     private List<BranchCoverageData> branches;
     @NonNegative
     private transient int segments;
@@ -35,7 +35,7 @@ public final class LineCoverageData extends LineSegmentData {
     }
 
     @NonNegative
-    public int addBranchingPoint(@Nonnull Label jumpSource, @Nonnull Label jumpTarget) {
+    public int addBranchingPoint(@NonNull Label jumpSource, @NonNull Label jumpTarget) {
         int initialIndex = branches.size();
 
         if (initialIndex == 0) {
@@ -56,7 +56,7 @@ public final class LineCoverageData extends LineSegmentData {
         return branches == Collections.<BranchCoverageData>emptyList();
     }
 
-    @Nonnull
+    @NonNull
     public BranchCoverageData getBranchData(@NonNegative int index) {
         return branches.get(index);
     }
@@ -76,7 +76,7 @@ public final class LineCoverageData extends LineSegmentData {
         return !noBranchesYet();
     }
 
-    @Nonnull
+    @NonNull
     public List<BranchCoverageData> getBranches() {
         return branches;
     }
@@ -200,7 +200,7 @@ public final class LineCoverageData extends LineSegmentData {
         return sourcesAndTargetsCovered;
     }
 
-    void addCountsFromPreviousTestRun(@Nonnull LineCoverageData previousData) {
+    void addCountsFromPreviousTestRun(@NonNull LineCoverageData previousData) {
         addExecutionCountAndCallPointsFromPreviousTestRun(previousData);
 
         if (containsBranches()) {

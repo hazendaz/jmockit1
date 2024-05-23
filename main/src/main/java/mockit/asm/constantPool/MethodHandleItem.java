@@ -2,11 +2,10 @@ package mockit.asm.constantPool;
 
 import static mockit.asm.jvmConstants.ConstantPoolTypes.HANDLE_BASE;
 
-import javax.annotation.Nonnull;
-
 import mockit.asm.util.MethodHandle;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class MethodHandleItem extends Item {
     private MethodHandle methodHandle;
@@ -16,7 +15,7 @@ public final class MethodHandleItem extends Item {
         type = HANDLE_BASE;
     }
 
-    MethodHandleItem(@NonNegative int index, @Nonnull MethodHandleItem item) {
+    MethodHandleItem(@NonNegative int index, @NonNull MethodHandleItem item) {
         super(index, item);
         methodHandle = item.methodHandle;
     }
@@ -24,7 +23,7 @@ public final class MethodHandleItem extends Item {
     /**
      * Sets the type and hash code of this method handle item.
      */
-    public void set(@Nonnull MethodHandle methodHandle) {
+    public void set(@NonNull MethodHandle methodHandle) {
         this.methodHandle = methodHandle;
         type = HANDLE_BASE;
         setHashCode(methodHandle.hashCode());
@@ -32,7 +31,7 @@ public final class MethodHandleItem extends Item {
     }
 
     @Override
-    boolean isEqualTo(@Nonnull Item item) {
+    boolean isEqualTo(@NonNull Item item) {
         return ((MethodHandleItem) item).methodHandle.equals(methodHandle);
     }
 }

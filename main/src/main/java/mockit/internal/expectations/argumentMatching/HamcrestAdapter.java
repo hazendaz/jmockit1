@@ -4,11 +4,11 @@
  */
 package mockit.internal.expectations.argumentMatching;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.reflection.FieldReflection;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.StringDescription;
@@ -21,15 +21,15 @@ import org.hamcrest.core.IsSame;
  * Adapts the <tt>org.hamcrest.Matcher</tt> interface to {@link ArgumentMatcher}.
  */
 public final class HamcrestAdapter implements ArgumentMatcher<HamcrestAdapter> {
-    @Nonnull
+    @NonNull
     private final Matcher<?> hamcrestMatcher;
 
-    public HamcrestAdapter(@Nonnull Matcher<?> matcher) {
+    public HamcrestAdapter(@NonNull Matcher<?> matcher) {
         hamcrestMatcher = matcher;
     }
 
     @Override
-    public boolean same(@Nonnull HamcrestAdapter other) {
+    public boolean same(@NonNull HamcrestAdapter other) {
         return hamcrestMatcher == other.hamcrestMatcher;
     }
 
@@ -39,7 +39,7 @@ public final class HamcrestAdapter implements ArgumentMatcher<HamcrestAdapter> {
     }
 
     @Override
-    public void writeMismatchPhrase(@Nonnull ArgumentMismatch argumentMismatch) {
+    public void writeMismatchPhrase(@NonNull ArgumentMismatch argumentMismatch) {
         Description strDescription = new StringDescription();
         hamcrestMatcher.describeTo(strDescription);
         argumentMismatch.append(strDescription.toString());
@@ -51,7 +51,7 @@ public final class HamcrestAdapter implements ArgumentMatcher<HamcrestAdapter> {
         return getArgumentValueFromMatcherIfAvailable(innermostMatcher);
     }
 
-    @Nonnull
+    @NonNull
     private Object getInnermostMatcher() {
         Matcher<?> innerMatcher = hamcrestMatcher;
 
@@ -64,7 +64,7 @@ public final class HamcrestAdapter implements ArgumentMatcher<HamcrestAdapter> {
     }
 
     @Nullable
-    private static Object getArgumentValueFromMatcherIfAvailable(@Nonnull Object argMatcher) {
+    private static Object getArgumentValueFromMatcherIfAvailable(@NonNull Object argMatcher) {
         if (argMatcher instanceof IsEqual || argMatcher instanceof IsSame
                 || "org.hamcrest.number.OrderingComparison".equals(argMatcher.getClass().getName())) {
             return FieldReflection.getField(argMatcher.getClass(), Object.class, argMatcher);

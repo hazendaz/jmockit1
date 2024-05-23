@@ -4,7 +4,6 @@
  */
 package mockit.internal.expectations;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.expectations.invocation.ExpectedInvocation;
@@ -13,30 +12,32 @@ import mockit.internal.expectations.invocation.InvocationResults;
 import mockit.internal.expectations.invocation.ReturnTypeConversion;
 import mockit.internal.util.TypeDescriptor;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 final class Expectation {
     @Nullable
     final RecordPhase recordPhase;
-    @Nonnull
+    @NonNull
     final ExpectedInvocation invocation;
-    @Nonnull
+    @NonNull
     final InvocationConstraints constraints;
     @Nullable
     private InvocationResults results;
     boolean executedRealImplementation;
 
-    Expectation(@Nonnull ExpectedInvocation invocation) {
+    Expectation(@NonNull ExpectedInvocation invocation) {
         recordPhase = null;
         this.invocation = invocation;
         constraints = new InvocationConstraints(true);
     }
 
-    Expectation(@Nonnull RecordPhase recordPhase, @Nonnull ExpectedInvocation invocation, boolean nonStrict) {
+    Expectation(@NonNull RecordPhase recordPhase, @NonNull ExpectedInvocation invocation, boolean nonStrict) {
         this.recordPhase = recordPhase;
         this.invocation = invocation;
         constraints = new InvocationConstraints(nonStrict);
     }
 
-    @Nonnull
+    @NonNull
     InvocationResults getResults() {
         if (results == null) {
             results = new InvocationResults(invocation, constraints);
@@ -46,7 +47,7 @@ final class Expectation {
     }
 
     @Nullable
-    Object produceResult(@Nullable Object invokedObject, @Nonnull Object[] invocationArgs) throws Throwable {
+    Object produceResult(@Nullable Object invokedObject, @NonNull Object[] invocationArgs) throws Throwable {
         if (results == null) {
             return invocation.getDefaultValueForReturnType();
         }
@@ -54,13 +55,13 @@ final class Expectation {
         return results.produceResult(invokedObject, invocationArgs);
     }
 
-    @Nonnull
+    @NonNull
     Class<?> getReturnType() {
         String resolvedReturnType = invocation.getSignatureWithResolvedReturnType();
         return TypeDescriptor.getReturnType(resolvedReturnType);
     }
 
-    void addSequenceOfReturnValues(@Nonnull Object[] values) {
+    void addSequenceOfReturnValues(@NonNull Object[] values) {
         int n = values.length - 1;
         Object firstValue = values[0];
         Object[] remainingValues = new Object[n];
@@ -98,7 +99,7 @@ final class Expectation {
     }
 
     @Nullable
-    Error verifyConstraints(@Nonnull ExpectedInvocation replayInvocation, @Nonnull Object[] replayArgs,
+    Error verifyConstraints(@NonNull ExpectedInvocation replayInvocation, @NonNull Object[] replayArgs,
             int minInvocations, int maxInvocations) {
         Error error = verifyConstraints(minInvocations);
 

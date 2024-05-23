@@ -10,29 +10,30 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 final class MultiValuedProvider extends InjectionProvider {
-    @Nonnull
+    @NonNull
     private final List<InjectionProvider> individualProviders;
 
-    MultiValuedProvider(@Nonnull Type elementType) {
+    MultiValuedProvider(@NonNull Type elementType) {
         super(elementType, "");
         individualProviders = new ArrayList<>();
     }
 
-    void addInjectable(@Nonnull InjectionProvider provider) {
+    void addInjectable(@NonNull InjectionProvider provider) {
         individualProviders.add(provider);
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public Class<?> getClassOfDeclaredType() {
         return getClassType(declaredType);
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public Object getValue(@Nullable Object owner) {
         List<Object> values = new ArrayList<>(individualProviders.size());

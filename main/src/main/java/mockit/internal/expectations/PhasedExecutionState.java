@@ -7,7 +7,6 @@ package mockit.internal.expectations;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.expectations.invocation.ExpectedInvocation;
@@ -15,14 +14,16 @@ import mockit.internal.expectations.invocation.InvocationArguments;
 import mockit.internal.state.TestRun;
 import mockit.internal.util.GeneratedClasses;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 final class PhasedExecutionState {
-    @Nonnull
+    @NonNull
     final List<Expectation> expectations;
-    @Nonnull
+    @NonNull
     final List<VerifiedExpectation> verifiedExpectations;
-    @Nonnull
+    @NonNull
     final EquivalentInstances equivalentInstances;
-    @Nonnull
+    @NonNull
     final InstanceBasedMatching instanceBasedMatching;
     @Nullable
     PartiallyMockedInstances partiallyMockedInstances;
@@ -34,21 +35,21 @@ final class PhasedExecutionState {
         instanceBasedMatching = new InstanceBasedMatching();
     }
 
-    void addExpectation(@Nonnull Expectation expectation) {
+    void addExpectation(@NonNull Expectation expectation) {
         ExpectedInvocation invocation = expectation.invocation;
         forceMatchingOnMockInstanceIfRequired(invocation);
         removeMatchingExpectationsCreatedBefore(invocation);
         expectations.add(expectation);
     }
 
-    private void forceMatchingOnMockInstanceIfRequired(@Nonnull ExpectedInvocation invocation) {
+    private void forceMatchingOnMockInstanceIfRequired(@NonNull ExpectedInvocation invocation) {
         if (!invocation.matchInstance
                 && isToBeMatchedOnInstance(invocation.instance, invocation.getMethodNameAndDescription())) {
             invocation.matchInstance = true;
         }
     }
 
-    boolean isToBeMatchedOnInstance(@Nullable Object mock, @Nonnull String mockNameAndDesc) {
+    boolean isToBeMatchedOnInstance(@Nullable Object mock, @NonNull String mockNameAndDesc) {
         if (mock == null || mockNameAndDesc.charAt(0) == '<') {
             return false;
         }
@@ -61,7 +62,7 @@ final class PhasedExecutionState {
         return TestRun.getExecutingTest().isInjectableMock(mock);
     }
 
-    private void removeMatchingExpectationsCreatedBefore(@Nonnull ExpectedInvocation invocation) {
+    private void removeMatchingExpectationsCreatedBefore(@NonNull ExpectedInvocation invocation) {
         Expectation previousExpectation = findPreviousExpectation(invocation);
 
         if (previousExpectation != null) {
@@ -71,7 +72,7 @@ final class PhasedExecutionState {
     }
 
     @Nullable
-    private Expectation findPreviousExpectation(@Nonnull ExpectedInvocation newInvocation) {
+    private Expectation findPreviousExpectation(@NonNull ExpectedInvocation newInvocation) {
         int n = expectations.size();
 
         if (n == 0) {
@@ -79,7 +80,7 @@ final class PhasedExecutionState {
         }
 
         Object mock = newInvocation.instance;
-        @Nonnull
+        @NonNull
         Boolean matchInstance = newInvocation.matchInstance;
         String mockClassDesc = newInvocation.getClassDesc();
         String mockNameAndDesc = newInvocation.getMethodNameAndDescription();
@@ -96,8 +97,8 @@ final class PhasedExecutionState {
     }
 
     private boolean isMatchingInvocation(@Nullable Object mock, @Nullable Boolean matchInstance,
-            @Nonnull String mockClassDesc, @Nonnull String mockNameAndDesc, boolean constructorInvocation,
-            @Nonnull Expectation expectation) {
+            @NonNull String mockClassDesc, @NonNull String mockNameAndDesc, boolean constructorInvocation,
+            @NonNull Expectation expectation) {
         ExpectedInvocation invocation = expectation.invocation;
 
         return invocation.isMatch(mock, mockClassDesc, mockNameAndDesc) && isSameMockedClass(mock, invocation.instance)
@@ -119,8 +120,8 @@ final class PhasedExecutionState {
         return false;
     }
 
-    private boolean isWithMatchingArguments(@Nonnull ExpectedInvocation newInvocation,
-            @Nonnull ExpectedInvocation previousInvocation) {
+    private boolean isWithMatchingArguments(@NonNull ExpectedInvocation newInvocation,
+            @NonNull ExpectedInvocation previousInvocation) {
         InvocationArguments newArguments = newInvocation.arguments;
         InvocationArguments previousArguments = previousInvocation.arguments;
 
@@ -132,8 +133,8 @@ final class PhasedExecutionState {
     }
 
     @Nullable
-    Expectation findExpectation(@Nullable Object mock, @Nonnull String mockClassDesc, @Nonnull String mockNameAndDesc,
-            @Nonnull Object[] args) {
+    Expectation findExpectation(@Nullable Object mock, @NonNull String mockClassDesc, @NonNull String mockNameAndDesc,
+            @NonNull Object[] args) {
         boolean isConstructor = mockNameAndDesc.charAt(0) == '<';
         Expectation replayExpectationFound = null;
 
@@ -162,8 +163,8 @@ final class PhasedExecutionState {
         return replayExpectationFound;
     }
 
-    private boolean isMatchingInstance(@Nonnull Object invokedInstance, @Nullable Boolean matchInstance,
-            @Nonnull Expectation expectation) {
+    private boolean isMatchingInstance(@NonNull Object invokedInstance, @Nullable Boolean matchInstance,
+            @NonNull Expectation expectation) {
         ExpectedInvocation invocation = expectation.invocation;
         Object invocationInstance = invocation.instance;
         assert invocationInstance != null;

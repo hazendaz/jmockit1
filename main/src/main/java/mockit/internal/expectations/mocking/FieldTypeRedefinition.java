@@ -6,14 +6,14 @@ package mockit.internal.expectations.mocking;
 
 import java.lang.reflect.TypeVariable;
 
-import javax.annotation.Nonnull;
-
 import mockit.internal.state.TestRun;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 final class FieldTypeRedefinition extends TypeRedefinition {
     private boolean usePartialMocking;
 
-    FieldTypeRedefinition(@Nonnull MockedType typeMetadata) {
+    FieldTypeRedefinition(@NonNull MockedType typeMetadata) {
         super(typeMetadata);
     }
 
@@ -23,7 +23,7 @@ final class FieldTypeRedefinition extends TypeRedefinition {
     }
 
     @Override
-    void configureClassModifier(@Nonnull MockedClassModifier modifier) {
+    void configureClassModifier(@NonNull MockedClassModifier modifier) {
         if (usePartialMocking) {
             modifier.useDynamicMocking();
         }

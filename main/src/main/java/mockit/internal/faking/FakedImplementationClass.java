@@ -9,7 +9,6 @@ import static java.lang.reflect.Modifier.isPublic;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.MockUp;
@@ -19,21 +18,23 @@ import mockit.internal.classGeneration.ImplementationClass;
 import mockit.internal.expectations.mocking.InterfaceImplementationGenerator;
 import mockit.internal.util.Utilities;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 public final class FakedImplementationClass<T> {
     private static final ClassLoader THIS_CL = FakedImplementationClass.class.getClassLoader();
 
-    @Nonnull
+    @NonNull
     private final MockUp<?> fakeInstance;
     @Nullable
     private ImplementationClass<T> implementationClass;
     private Class<T> generatedClass;
 
-    public FakedImplementationClass(@Nonnull MockUp<?> fakeInstance) {
+    public FakedImplementationClass(@NonNull MockUp<?> fakeInstance) {
         this.fakeInstance = fakeInstance;
     }
 
-    @Nonnull
-    public Class<T> createImplementation(@Nonnull Class<T> interfaceToBeFaked, @Nullable Type typeToFake) {
+    @NonNull
+    public Class<T> createImplementation(@NonNull Class<T> interfaceToBeFaked, @Nullable Type typeToFake) {
         createImplementation(interfaceToBeFaked);
         byte[] generatedBytecode = implementationClass == null ? null : implementationClass.getGeneratedBytecode();
 
@@ -43,8 +44,8 @@ public final class FakedImplementationClass<T> {
         return generatedClass;
     }
 
-    @Nonnull
-    Class<T> createImplementation(@Nonnull Class<T> interfaceToBeFaked) {
+    @NonNull
+    Class<T> createImplementation(@NonNull Class<T> interfaceToBeFaked) {
         if (isPublic(interfaceToBeFaked.getModifiers())) {
             generateImplementationForPublicInterface(interfaceToBeFaked);
         } else {
@@ -55,11 +56,11 @@ public final class FakedImplementationClass<T> {
         return generatedClass;
     }
 
-    private void generateImplementationForPublicInterface(@Nonnull Class<T> interfaceToBeFaked) {
+    private void generateImplementationForPublicInterface(@NonNull Class<T> interfaceToBeFaked) {
         implementationClass = new ImplementationClass<T>(interfaceToBeFaked) {
-            @Nonnull
+            @NonNull
             @Override
-            protected ClassVisitor createMethodBodyGenerator(@Nonnull ClassReader typeReader) {
+            protected ClassVisitor createMethodBodyGenerator(@NonNull ClassReader typeReader) {
                 return new InterfaceImplementationGenerator(typeReader, interfaceToBeFaked, generatedClassName);
             }
         };
@@ -67,8 +68,8 @@ public final class FakedImplementationClass<T> {
         generatedClass = implementationClass.generateClass();
     }
 
-    @Nonnull
-    public Class<T> createImplementation(@Nonnull Type[] interfacesToBeFaked) {
+    @NonNull
+    public Class<T> createImplementation(@NonNull Type[] interfacesToBeFaked) {
         Class<?>[] interfacesToFake = new Class<?>[interfacesToBeFaked.length];
 
         for (int i = 0; i < interfacesToFake.length; i++) {

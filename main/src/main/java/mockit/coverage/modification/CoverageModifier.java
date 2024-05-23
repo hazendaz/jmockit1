@@ -16,7 +16,6 @@ import static mockit.asm.jvmConstants.Access.SYNTHETIC;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.classes.ClassInfo;
@@ -30,12 +29,14 @@ import mockit.coverage.data.CoverageData;
 import mockit.coverage.data.FileCoverageData;
 import mockit.internal.ClassFile;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 final class CoverageModifier extends WrappingClassVisitor {
     private static final Map<String, CoverageModifier> INNER_CLASS_MODIFIERS = new HashMap<>();
     private static final int FIELD_MODIFIERS_TO_IGNORE = FINAL + SYNTHETIC;
 
     @Nullable
-    static byte[] recoverModifiedByteCodeIfAvailable(@Nonnull String innerClassName) {
+    static byte[] recoverModifiedByteCodeIfAvailable(@NonNull String innerClassName) {
         CoverageModifier modifier = INNER_CLASS_MODIFIERS.remove(innerClassName);
         return modifier == null ? null : modifier.toByteArray();
     }
@@ -44,7 +45,7 @@ final class CoverageModifier extends WrappingClassVisitor {
     private String internalClassName;
     @Nullable
     private String simpleClassName;
-    @Nonnull
+    @NonNull
     private String sourceFileName;
     @Nullable
     private FileCoverageData fileData;
@@ -53,17 +54,17 @@ final class CoverageModifier extends WrappingClassVisitor {
     @Nullable
     private String kindOfTopLevelType;
 
-    CoverageModifier(@Nonnull ClassReader cr) {
+    CoverageModifier(@NonNull ClassReader cr) {
         this(cr, false);
     }
 
-    private CoverageModifier(@Nonnull ClassReader cr, boolean forInnerClass) {
+    private CoverageModifier(@NonNull ClassReader cr, boolean forInnerClass) {
         super(new ClassWriter(cr));
         sourceFileName = "";
         this.forInnerClass = forInnerClass;
     }
 
-    private CoverageModifier(@Nonnull ClassReader cr, @Nonnull CoverageModifier other,
+    private CoverageModifier(@NonNull ClassReader cr, @NonNull CoverageModifier other,
             @Nullable String simpleClassName) {
         this(cr, true);
         sourceFileName = other.sourceFileName;
@@ -73,7 +74,7 @@ final class CoverageModifier extends WrappingClassVisitor {
     }
 
     @Override
-    public void visit(int version, int access, @Nonnull String name, @Nonnull ClassInfo additionalInfo) {
+    public void visit(int version, int access, @NonNull String name, @NonNull ClassInfo additionalInfo) {
         if ((access & SYNTHETIC) != 0) {
             throw new VisitInterruptedException();
         }
@@ -105,8 +106,8 @@ final class CoverageModifier extends WrappingClassVisitor {
         cw.visit(version, access, name, additionalInfo);
     }
 
-    @Nonnull
-    private static String getKindOfJavaType(int typeModifiers, @Nonnull String superName) {
+    @NonNull
+    private static String getKindOfJavaType(int typeModifiers, @NonNull String superName) {
         if ((typeModifiers & ANNOTATION) != 0) {
             return "ant";
         }
@@ -125,8 +126,8 @@ final class CoverageModifier extends WrappingClassVisitor {
         return "cls";
     }
 
-    @Nonnull
-    private static String getSourceFileDebugName(@Nonnull ClassInfo additionalInfo) {
+    @NonNull
+    private static String getSourceFileDebugName(@NonNull ClassInfo additionalInfo) {
         String sourceFileDebugName = additionalInfo.sourceFileName;
 
         if (sourceFileDebugName == null || !sourceFileDebugName.endsWith(".java")) {
@@ -136,7 +137,7 @@ final class CoverageModifier extends WrappingClassVisitor {
         return sourceFileDebugName;
     }
 
-    private void extractClassAndSourceFileName(@Nonnull String className) {
+    private void extractClassAndSourceFileName(@NonNull String className) {
         internalClassName = className;
         int p = className.lastIndexOf('/');
 
@@ -149,19 +150,19 @@ final class CoverageModifier extends WrappingClassVisitor {
         }
     }
 
-    private void registerAsInnerClassModifierIfApplicable(int access, @Nonnull String name, boolean nestedType) {
+    private void registerAsInnerClassModifierIfApplicable(int access, @NonNull String name, boolean nestedType) {
         if (!forEnumClass && (access & SUPER) != 0 && nestedType) {
             INNER_CLASS_MODIFIERS.put(name.replace('/', '.'), this);
         }
     }
 
-    private void createFileData(@Nonnull String sourceFileDebugName) {
+    private void createFileData(@NonNull String sourceFileDebugName) {
         sourceFileName += sourceFileDebugName;
         fileData = CoverageData.instance().getOrAddFile(sourceFileName, kindOfTopLevelType);
     }
 
     @Override
-    public void visitInnerClass(@Nonnull String name, @Nullable String outerName, @Nullable String innerName,
+    public void visitInnerClass(@NonNull String name, @Nullable String outerName, @Nullable String innerName,
             int access) {
         cw.visitInnerClass(name, outerName, innerName, access);
 
@@ -188,7 +189,7 @@ final class CoverageModifier extends WrappingClassVisitor {
         return (access & SYNTHETIC) != 0 || access == STATIC + ENUM;
     }
 
-    private boolean isNestedInsideClassBeingModified(@Nonnull String internalName, @Nullable String outerName) {
+    private boolean isNestedInsideClassBeingModified(@NonNull String internalName, @Nullable String outerName) {
         String className = outerName == null ? internalName : outerName;
         int p = className.indexOf('$');
         String outerClassName = p < 0 ? className : className.substring(0, p);
@@ -197,7 +198,7 @@ final class CoverageModifier extends WrappingClassVisitor {
     }
 
     @Override
-    public FieldVisitor visitField(int access, @Nonnull String name, @Nonnull String desc, @Nullable String signature,
+    public FieldVisitor visitField(int access, @NonNull String name, @NonNull String desc, @Nullable String signature,
             @Nullable Object value) {
         if (fileData != null && simpleClassName != null && (access & FIELD_MODIFIERS_TO_IGNORE) == 0) {
             fileData.dataCoverageInfo.addField(simpleClassName, name, (access & STATIC) != 0);
@@ -207,7 +208,7 @@ final class CoverageModifier extends WrappingClassVisitor {
     }
 
     @Override
-    public MethodVisitor visitMethod(int access, @Nonnull String name, @Nonnull String desc, @Nullable String signature,
+    public MethodVisitor visitMethod(int access, @NonNull String name, @NonNull String desc, @Nullable String signature,
             @Nullable String[] exceptions) {
         MethodWriter mw = cw.visitMethod(access, name, desc, signature, exceptions);
 

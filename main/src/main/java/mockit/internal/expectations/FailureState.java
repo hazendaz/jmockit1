@@ -4,11 +4,12 @@
  */
 package mockit.internal.expectations;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 final class FailureState {
-    @Nonnull
+    @NonNull
     private final Thread testThread;
     @Nullable
     private Error errorThrownInAnotherThread;

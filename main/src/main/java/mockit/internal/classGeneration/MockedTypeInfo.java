@@ -7,18 +7,18 @@ package mockit.internal.classGeneration;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import javax.annotation.Nonnull;
-
 import mockit.internal.reflection.GenericTypeReflection;
 import mockit.internal.util.Utilities;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 public final class MockedTypeInfo {
-    @Nonnull
+    @NonNull
     public final GenericTypeReflection genericTypeMap;
-    @Nonnull
+    @NonNull
     public final String implementationSignature;
 
-    public MockedTypeInfo(@Nonnull Type mockedType) {
+    public MockedTypeInfo(@NonNull Type mockedType) {
         Class<?> mockedClass = Utilities.getClassType(mockedType);
         genericTypeMap = new GenericTypeReflection(mockedClass, mockedType);
 
@@ -27,8 +27,8 @@ public final class MockedTypeInfo {
         implementationSignature = 'L' + classDesc + signature;
     }
 
-    @Nonnull
-    private static String getGenericClassSignature(@Nonnull Type mockedType) {
+    @NonNull
+    private static String getGenericClassSignature(@NonNull Type mockedType) {
         StringBuilder signature = new StringBuilder(100);
 
         if (mockedType instanceof ParameterizedType) {

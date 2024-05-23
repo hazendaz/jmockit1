@@ -41,7 +41,7 @@ public final class UserAccount {
         return password.equals(candidatePassword);
     }
 
-    public static UserAccount find(@Nonnull String accountId) {
+    public static UserAccount find(@NonNull String accountId) {
         throw new UnsupportedOperationException("Not implemented");
     }
 }

@@ -2,8 +2,6 @@ package mockit.asm.classes;
 
 import static mockit.asm.jvmConstants.ConstantPoolTypes.INVOKE_DYNAMIC;
 
-import javax.annotation.Nonnull;
-
 import mockit.asm.constantPool.AttributeWriter;
 import mockit.asm.constantPool.BootstrapMethodItem;
 import mockit.asm.constantPool.ConstantPoolGeneration;
@@ -14,19 +12,20 @@ import mockit.asm.util.ByteVector;
 import mockit.asm.util.MethodHandle;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Generates the "BootstrapMethods" attribute in a class file being written by a {@link ClassWriter}.
  */
 final class BootstrapMethodsWriter extends AttributeWriter {
-    @Nonnull
+    @NonNull
     private final ByteVector bootstrapMethods;
     @NonNegative
     private final int bootstrapMethodsCount;
     @NonNegative
     private final int bsmStartCodeIndex;
 
-    BootstrapMethodsWriter(@Nonnull ConstantPoolGeneration cp, @Nonnull ClassReader cr) {
+    BootstrapMethodsWriter(@NonNull ConstantPoolGeneration cp, @NonNull ClassReader cr) {
         super(cp);
 
         int attrSize = cr.readInt();
@@ -40,7 +39,7 @@ final class BootstrapMethodsWriter extends AttributeWriter {
     /**
      * Copies the bootstrap method data from the given {@link ClassReader}.
      */
-    void copyBootstrapMethods(@Nonnull ClassReader cr, @Nonnull Item[] items) {
+    void copyBootstrapMethods(@NonNull ClassReader cr, @NonNull Item[] items) {
         int previousCodeIndex = cr.codeIndex;
         cr.codeIndex = bsmStartCodeIndex;
 
@@ -51,7 +50,7 @@ final class BootstrapMethodsWriter extends AttributeWriter {
         cr.codeIndex = previousCodeIndex;
     }
 
-    private void copyBootstrapMethod(@Nonnull ClassReader cr, @Nonnull Item[] items, @NonNegative int bsmIndex) {
+    private void copyBootstrapMethod(@NonNull ClassReader cr, @NonNull Item[] items, @NonNegative int bsmIndex) {
         int position = cr.codeIndex - bsmStartCodeIndex;
         MethodHandle bsm = cr.readMethodHandle();
         int hashCode = bsm.hashCode();
@@ -80,9 +79,9 @@ final class BootstrapMethodsWriter extends AttributeWriter {
      *
      * @return a new or an already existing invokedynamic type reference item
      */
-    @Nonnull
-    DynamicItem addInvokeDynamicReference(@Nonnull String name, @Nonnull String desc, @Nonnull MethodHandle bsm,
-            @Nonnull Object... bsmArgs) {
+    @NonNull
+    DynamicItem addInvokeDynamicReference(@NonNull String name, @NonNull String desc, @NonNull MethodHandle bsm,
+            @NonNull Object... bsmArgs) {
         ByteVector methods = bootstrapMethods;
         int position = methods.getLength(); // record current position
 
@@ -102,7 +101,7 @@ final class BootstrapMethodsWriter extends AttributeWriter {
         return cp.createDynamicItem(INVOKE_DYNAMIC, name, desc, bsmItem.index);
     }
 
-    private int putBSMArgs(int hashCode, @Nonnull Object[] bsmArgs) {
+    private int putBSMArgs(int hashCode, @NonNull Object[] bsmArgs) {
         for (Object bsmArg : bsmArgs) {
             hashCode ^= bsmArg.hashCode();
 
@@ -113,7 +112,7 @@ final class BootstrapMethodsWriter extends AttributeWriter {
         return hashCode;
     }
 
-    @Nonnull
+    @NonNull
     private BootstrapMethodItem getBSMItem(@NonNegative int hashCode) {
         Item item = cp.getItem(hashCode);
 
@@ -135,7 +134,7 @@ final class BootstrapMethodsWriter extends AttributeWriter {
     }
 
     @Override
-    public void put(@Nonnull ByteVector out) {
+    public void put(@NonNull ByteVector out) {
         setAttribute("BootstrapMethods");
         put(out, 2 + bootstrapMethods.getLength());
         out.putShort(bootstrapMethodsCount);

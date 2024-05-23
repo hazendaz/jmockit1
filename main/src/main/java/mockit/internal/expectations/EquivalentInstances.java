@@ -8,15 +8,16 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.expectations.invocation.ExpectedInvocation;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 final class EquivalentInstances {
-    @Nonnull
+    @NonNull
     final Map<Object, Object> instanceMap;
-    @Nonnull
+    @NonNull
     final Map<Object, Object> replacementMap;
 
     EquivalentInstances() {
@@ -24,7 +25,7 @@ final class EquivalentInstances {
         replacementMap = new IdentityHashMap<>();
     }
 
-    void registerReplacementInstanceIfApplicable(@Nullable Object mock, @Nonnull ExpectedInvocation invocation) {
+    void registerReplacementInstanceIfApplicable(@Nullable Object mock, @NonNull ExpectedInvocation invocation) {
         Object replacementInstance = invocation.replacementInstance;
 
         if (replacementInstance != null && replacementInstance != invocation.instance) {
@@ -32,24 +33,24 @@ final class EquivalentInstances {
         }
     }
 
-    boolean isEquivalentInstance(@Nonnull Object invocationInstance, @Nonnull Object invokedInstance) {
+    boolean isEquivalentInstance(@NonNull Object invocationInstance, @NonNull Object invokedInstance) {
         return invocationInstance == invokedInstance || invocationInstance == replacementMap.get(invokedInstance)
                 || invocationInstance == instanceMap.get(invokedInstance)
                 || invokedInstance == instanceMap.get(invocationInstance);
     }
 
-    boolean areNonEquivalentInstances(@Nonnull Object invocationInstance, @Nonnull Object invokedInstance) {
+    boolean areNonEquivalentInstances(@NonNull Object invocationInstance, @NonNull Object invokedInstance) {
         boolean recordedInstanceMatchingAnyInstance = !isMatchingInstance(invocationInstance);
         boolean invokedInstanceMatchingSpecificInstance = isMatchingInstance(invokedInstance);
         return recordedInstanceMatchingAnyInstance && invokedInstanceMatchingSpecificInstance;
     }
 
-    private boolean isMatchingInstance(@Nonnull Object instance) {
+    private boolean isMatchingInstance(@NonNull Object instance) {
         return instanceMap.containsKey(instance) || instanceMap.containsValue(instance)
                 || replacementMap.containsKey(instance) || replacementMap.containsValue(instance);
     }
 
-    boolean areMatchingInstances(boolean matchInstance, @Nonnull Object mock1, @Nonnull Object mock2) {
+    boolean areMatchingInstances(boolean matchInstance, @NonNull Object mock1, @NonNull Object mock2) {
         if (matchInstance) {
             return isEquivalentInstance(mock1, mock2);
         }
@@ -57,7 +58,7 @@ final class EquivalentInstances {
         return !areInDifferentEquivalenceSets(mock1, mock2);
     }
 
-    private boolean areInDifferentEquivalenceSets(@Nonnull Object mock1, @Nonnull Object mock2) {
+    private boolean areInDifferentEquivalenceSets(@NonNull Object mock1, @NonNull Object mock2) {
         if (mock1 == mock2 || instanceMap.isEmpty()) {
             return false;
         }
@@ -77,7 +78,7 @@ final class EquivalentInstances {
         return instanceMapHasMocksInSeparateEntries(mock1, mock2);
     }
 
-    private boolean instanceMapHasMocksInSeparateEntries(@Nonnull Object mock1, @Nonnull Object mock2) {
+    private boolean instanceMapHasMocksInSeparateEntries(@NonNull Object mock1, @NonNull Object mock2) {
         boolean found1 = false;
         boolean found2 = false;
 
@@ -98,17 +99,17 @@ final class EquivalentInstances {
         return false;
     }
 
-    private static boolean isInMapEntry(@Nonnull Entry<Object, Object> mapEntry, @Nonnull Object mock) {
+    private static boolean isInMapEntry(@NonNull Entry<Object, Object> mapEntry, @NonNull Object mock) {
         return mapEntry.getKey() == mock || mapEntry.getValue() == mock;
     }
 
     @Nullable
-    Object getReplacementInstanceForMethodInvocation(@Nonnull Object invokedInstance,
-            @Nonnull String methodNameAndDesc) {
+    Object getReplacementInstanceForMethodInvocation(@NonNull Object invokedInstance,
+            @NonNull String methodNameAndDesc) {
         return methodNameAndDesc.charAt(0) == '<' ? null : replacementMap.get(invokedInstance);
     }
 
-    boolean isReplacementInstance(@Nonnull Object invokedInstance, @Nonnull String methodNameAndDesc) {
+    boolean isReplacementInstance(@NonNull Object invokedInstance, @NonNull String methodNameAndDesc) {
         return methodNameAndDesc.charAt(0) != '<'
                 && (replacementMap.containsKey(invokedInstance) || replacementMap.containsValue(invokedInstance));
     }

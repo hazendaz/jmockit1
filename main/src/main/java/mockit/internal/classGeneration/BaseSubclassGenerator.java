@@ -16,7 +16,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.classes.ClassInfo;
@@ -31,28 +30,30 @@ import mockit.internal.BaseClassModifier;
 import mockit.internal.ClassFile;
 import mockit.internal.util.TypeDescriptor;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 public class BaseSubclassGenerator extends BaseClassModifier {
     private static final int CLASS_ACCESS_MASK = 0xFFFF - Access.ABSTRACT;
     private static final int CONSTRUCTOR_ACCESS_MASK = Access.PUBLIC + Access.PROTECTED;
 
     // Fixed initial state:
-    @Nonnull
+    @NonNull
     Class<?> baseClass;
-    @Nonnull
+    @NonNull
     private final String subclassName;
     @Nullable
     protected final MockedTypeInfo mockedTypeInfo;
     private final boolean copyConstructors;
 
     // Helper fields for mutable state:
-    @Nonnull
+    @NonNull
     private final List<String> implementedMethods;
     @Nullable
     private String superClassOfSuperClass;
     private Set<String> superInterfaces;
 
-    protected BaseSubclassGenerator(@Nonnull Class<?> baseClass, @Nonnull ClassReader cr,
-            @Nullable Type genericMockedType, @Nonnull String subclassName, boolean copyConstructors) {
+    protected BaseSubclassGenerator(@NonNull Class<?> baseClass, @NonNull ClassReader cr,
+            @Nullable Type genericMockedType, @NonNull String subclassName, boolean copyConstructors) {
         super(cr);
         this.baseClass = baseClass;
         this.subclassName = subclassName.replace('.', '/');
@@ -62,7 +63,7 @@ public class BaseSubclassGenerator extends BaseClassModifier {
     }
 
     @Override
-    public void visit(int version, int access, @Nonnull String name, @Nonnull ClassInfo additionalInfo) {
+    public void visit(int version, int access, @NonNull String name, @NonNull ClassInfo additionalInfo) {
         ClassInfo subClassInfo = new ClassInfo();
         subClassInfo.superName = name;
         subClassInfo.signature = mockedTypeInfo == null ? additionalInfo.signature
@@ -82,20 +83,20 @@ public class BaseSubclassGenerator extends BaseClassModifier {
     }
 
     @Override
-    public final void visitInnerClass(@Nonnull String name, @Nullable String outerName, @Nullable String innerName,
+    public final void visitInnerClass(@NonNull String name, @Nullable String outerName, @Nullable String innerName,
             int access) {
     }
 
     @Override
     @Nullable
-    public final FieldVisitor visitField(int access, @Nonnull String name, @Nonnull String desc,
+    public final FieldVisitor visitField(int access, @NonNull String name, @NonNull String desc,
             @Nullable String signature, @Nullable Object value) {
         return null;
     }
 
     @Override
     @Nullable
-    public MethodVisitor visitMethod(int access, @Nonnull String name, @Nonnull String desc, @Nullable String signature,
+    public MethodVisitor visitMethod(int access, @NonNull String name, @NonNull String desc, @Nullable String signature,
             @Nullable String[] exceptions) {
         if (copyConstructors && "<init>".equals(name)) {
             if ((access & CONSTRUCTOR_ACCESS_MASK) != 0) {
@@ -109,7 +110,7 @@ public class BaseSubclassGenerator extends BaseClassModifier {
         return null;
     }
 
-    private void generateConstructorDelegatingToSuper(@Nonnull String desc, @Nullable String signature,
+    private void generateConstructorDelegatingToSuper(@NonNull String desc, @Nullable String signature,
             @Nullable String[] exceptions) {
         mw = cw.visitMethod(Access.PUBLIC, "<init>", desc, signature, exceptions);
         mw.visitVarInsn(ALOAD, 0);
@@ -125,8 +126,8 @@ public class BaseSubclassGenerator extends BaseClassModifier {
         generateEmptyImplementation();
     }
 
-    private void generateImplementationIfAbstractMethod(String className, int access, @Nonnull String name,
-            @Nonnull String desc, @Nullable String signature, @Nullable String[] exceptions) {
+    private void generateImplementationIfAbstractMethod(String className, int access, @NonNull String name,
+            @NonNull String desc, @Nullable String signature, @Nullable String[] exceptions) {
         if (!"<init>".equals(name)) {
             String methodNameAndDesc = name + desc;
 
@@ -140,8 +141,8 @@ public class BaseSubclassGenerator extends BaseClassModifier {
         }
     }
 
-    protected void generateMethodImplementation(String className, int access, @Nonnull String name,
-            @Nonnull String desc, @Nullable String signature, @Nullable String[] exceptions) {
+    protected void generateMethodImplementation(String className, int access, @NonNull String name,
+            @NonNull String desc, @Nullable String signature, @Nullable String[] exceptions) {
     }
 
     @Override
@@ -161,7 +162,7 @@ public class BaseSubclassGenerator extends BaseClassModifier {
         }
     }
 
-    private void generateImplementationsForAbstractMethods(@Nonnull String typeName, boolean abstractClass) {
+    private void generateImplementationsForAbstractMethods(@NonNull String typeName, boolean abstractClass) {
         if (!"java/lang/Object".equals(typeName)) {
             byte[] typeBytecode = ClassFile.getClassFile(typeName);
             ClassMetadataReader cmr = new ClassMetadataReader(typeBytecode);
@@ -187,8 +188,8 @@ public class BaseSubclassGenerator extends BaseClassModifier {
         }
     }
 
-    private void generateImplementationForInterfaceMethodIfMissing(@Nonnull String typeName,
-            @Nonnull MethodInfo method) {
+    private void generateImplementationForInterfaceMethodIfMissing(@NonNull String typeName,
+            @NonNull MethodInfo method) {
         String name = method.name;
         String desc = method.desc;
         String methodNameAndDesc = name + desc;
@@ -202,7 +203,7 @@ public class BaseSubclassGenerator extends BaseClassModifier {
         }
     }
 
-    private boolean hasMethodImplementation(@Nonnull String name, @Nonnull String desc) {
+    private boolean hasMethodImplementation(@NonNull String name, @NonNull String desc) {
         Class<?>[] paramTypes = TypeDescriptor.getParameterTypes(desc);
 
         try {

@@ -7,17 +7,17 @@ package mockit.coverage;
 import java.io.File;
 import java.io.IOException;
 
-import javax.annotation.Nonnull;
-
 import mockit.coverage.data.CoverageData;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 final class AccretionFile {
-    @Nonnull
+    @NonNull
     private final File outputFile;
-    @Nonnull
+    @NonNull
     private final CoverageData newData;
 
-    AccretionFile(@Nonnull String outputDir, @Nonnull CoverageData newData) {
+    AccretionFile(@NonNull String outputDir, @NonNull CoverageData newData) {
         String parentDir = Configuration.getOrChooseOutputDirectory(outputDir);
         outputFile = new File(parentDir, "coverage.ser");
 
