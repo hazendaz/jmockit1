@@ -4,13 +4,14 @@
  */
 package mockit.coverage;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import mockit.coverage.data.CoverageData;
 import mockit.coverage.data.FileCoverageData;
 import mockit.coverage.lines.PerFileLineCoverage;
 import mockit.coverage.testRedundancy.TestCoverage;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 @SuppressWarnings("unused")
 public final class TestRun {
@@ -20,7 +21,7 @@ public final class TestRun {
     private TestRun() {
     }
 
-    public static void lineExecuted(@Nonnegative int fileIndex, @Nonnegative int line) {
+    public static void lineExecuted(@NonNegative int fileIndex, @NonNegative int line) {
         if (terminated) {
             return;
         }
@@ -39,7 +40,7 @@ public final class TestRun {
         }
     }
 
-    private static void recordNewLineOrSegmentAsCoveredIfApplicable(@Nonnegative int previousExecutionCount) {
+    private static void recordNewLineOrSegmentAsCoveredIfApplicable(@NonNegative int previousExecutionCount) {
         TestCoverage testCoverage = TestCoverage.INSTANCE;
 
         if (testCoverage != null) {
@@ -47,7 +48,7 @@ public final class TestRun {
         }
     }
 
-    public static void branchExecuted(@Nonnegative int fileIndex, @Nonnegative int line, @Nonnegative int branchIndex) {
+    public static void branchExecuted(@NonNegative int fileIndex, @NonNegative int line, @NonNegative int branchIndex) {
         if (terminated) {
             return;
         }

@@ -7,11 +7,12 @@ package mockit.internal.expectations.transformation;
 import static mockit.asm.jvmConstants.Opcodes.GETFIELD;
 import static mockit.asm.jvmConstants.Opcodes.SIPUSH;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import mockit.asm.methods.MethodWriter;
 import mockit.asm.types.JavaType;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 final class ArgumentMatching {
     private static final JavaType[] NO_PARAMETERS = {};
@@ -39,7 +40,7 @@ final class ArgumentMatching {
     // parameters:
     @Nonnull
     private final int[] matcherStacks;
-    @Nonnegative
+    @NonNegative
     private int matcherCount;
     @Nonnull
     private JavaType[] parameterTypes;
@@ -58,17 +59,17 @@ final class ArgumentMatching {
         parameterTypes = NO_PARAMETERS;
     }
 
-    void addMatcher(@Nonnegative int stackSize) {
+    void addMatcher(@NonNegative int stackSize) {
         matcherStacks[matcherCount++] = stackSize;
     }
 
-    @Nonnegative
+    @NonNegative
     int getMatcherCount() {
         return matcherCount;
     }
 
     @Nonnull
-    JavaType getParameterType(@Nonnegative int parameterIndex) {
+    JavaType getParameterType(@NonNegative int parameterIndex) {
         return parameterTypes[parameterIndex];
     }
 
@@ -79,7 +80,7 @@ final class ArgumentMatching {
         modifier.generateCallToActiveInvocationsMethod(name);
     }
 
-    boolean handleInvocationParameters(@Nonnegative int stackSize, @Nonnull String desc) {
+    boolean handleInvocationParameters(@NonNegative int stackSize, @Nonnull String desc) {
         parameterTypes = JavaType.getArgumentTypes(desc);
         int stackAfter = stackSize - getSumOfParameterSizes();
         boolean mockedInvocationUsingTheMatchers = stackAfter < matcherStacks[0];
@@ -93,9 +94,9 @@ final class ArgumentMatching {
         return mockedInvocationUsingTheMatchers;
     }
 
-    @Nonnegative
+    @NonNegative
     private int getSumOfParameterSizes() {
-        @Nonnegative
+        @NonNegative
         int sum = 0;
 
         for (JavaType argType : parameterTypes) {
@@ -105,12 +106,12 @@ final class ArgumentMatching {
         return sum;
     }
 
-    private void generateCallsToMoveArgMatchers(@Nonnegative int initialStack) {
-        @Nonnegative
+    private void generateCallsToMoveArgMatchers(@NonNegative int initialStack) {
+        @NonNegative
         int stack = initialStack;
-        @Nonnegative
+        @NonNegative
         int nextMatcher = 0;
-        @Nonnegative
+        @NonNegative
         int matcherStack = matcherStacks[0];
 
         for (int i = 0; i < parameterTypes.length && nextMatcher < matcherCount; i++) {
@@ -128,7 +129,7 @@ final class ArgumentMatching {
         }
     }
 
-    private void generateCallToMoveArgMatcher(@Nonnegative int originalMatcherIndex, @Nonnegative int toIndex) {
+    private void generateCallToMoveArgMatcher(@NonNegative int originalMatcherIndex, @NonNegative int toIndex) {
         MethodWriter mw = modifier.getMethodWriter();
         mw.visitIntInsn(SIPUSH, originalMatcherIndex);
         mw.visitIntInsn(SIPUSH, toIndex);

@@ -3,8 +3,9 @@ package mockit.asm.types;
 import static mockit.asm.jvmConstants.Opcodes.ACONST_NULL;
 import static mockit.asm.jvmConstants.Opcodes.ALOAD;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public abstract class ReferenceType extends JavaType {
     /**
@@ -16,7 +17,7 @@ public abstract class ReferenceType extends JavaType {
     /**
      * The offset of the internal name of this Java type in {@link #typeDescChars}.
      */
-    @Nonnegative
+    @NonNegative
     final int off;
 
     ReferenceType(@Nonnull char[] typeDesc) {
@@ -25,7 +26,7 @@ public abstract class ReferenceType extends JavaType {
         off = 0;
     }
 
-    ReferenceType(@Nonnull char[] typeDesc, @Nonnegative int off, @Nonnegative int len) {
+    ReferenceType(@Nonnull char[] typeDesc, @NonNegative int off, @NonNegative int len) {
         super(len);
         typeDescChars = typeDesc;
         this.off = off;
@@ -52,7 +53,7 @@ public abstract class ReferenceType extends JavaType {
      *            the offset of this descriptor in the previous buffer.
      */
     @Nonnull
-    static ReferenceType getReferenceType(@Nonnull char[] buf, @Nonnegative int off) {
+    static ReferenceType getReferenceType(@Nonnull char[] buf, @NonNegative int off) {
         switch (buf[off]) {
             case '[':
                 return ArrayType.create(buf, off);
@@ -74,7 +75,7 @@ public abstract class ReferenceType extends JavaType {
         return buf[0] == '[' ? new ArrayType(buf) : new ObjectType(buf);
     }
 
-    static int findTypeNameLength(@Nonnull char[] buf, @Nonnegative int off, @Nonnegative int len) {
+    static int findTypeNameLength(@Nonnull char[] buf, @NonNegative int off, @NonNegative int len) {
         len++;
 
         while (buf[off + len] != ';') {

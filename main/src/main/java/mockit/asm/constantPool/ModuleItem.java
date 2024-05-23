@@ -1,7 +1,8 @@
 package mockit.asm.constantPool;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class ModuleItem extends Item {
     @Nonnull
@@ -13,12 +14,12 @@ public final class ModuleItem extends Item {
         strVal = "";
     }
 
-    public ModuleItem(@Nonnegative int index, int type, @Nonnull String strVal) {
+    public ModuleItem(@NonNegative int index, int type, @Nonnull String strVal) {
         super(index);
         set(type, strVal);
     }
 
-    ModuleItem(@Nonnegative int index, @Nonnull ModuleItem item) {
+    ModuleItem(@NonNegative int index, @Nonnull ModuleItem item) {
         super(index, item);
         strVal = item.strVal;
     }

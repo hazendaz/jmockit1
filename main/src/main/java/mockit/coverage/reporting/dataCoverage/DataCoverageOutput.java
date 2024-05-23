@@ -4,7 +4,6 @@
  */
 package mockit.coverage.reporting.dataCoverage;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -15,12 +14,14 @@ import mockit.coverage.dataItems.StaticFieldData;
 import mockit.coverage.reporting.parsing.FileParser;
 import mockit.coverage.reporting.parsing.LineElement;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 public final class DataCoverageOutput {
     @Nonnull
     private final StringBuilder openingTag;
     @Nonnull
     private final PerFileDataCoverage coverageInfo;
-    @Nonnegative
+    @NonNegative
     private int nextField;
     @Nullable
     private String classAndFieldNames;

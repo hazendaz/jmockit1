@@ -1,6 +1,5 @@
 package mockit.asm.fields;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -11,6 +10,8 @@ import mockit.asm.jvmConstants.Opcodes;
 import mockit.asm.types.JavaType;
 import mockit.asm.util.ByteVector;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 /**
  * A visitor to visit a Java field, in the following order: ({@link #visitAnnotation})* {@link #visitEnd}.
  */
@@ -18,13 +19,13 @@ public final class FieldVisitor extends BaseWriter {
     /**
      * The index of the constant pool item that contains the name of this field.
      */
-    @Nonnegative
+    @NonNegative
     private final int nameItemIndex;
 
     /**
      * The index of the constant pool item that contains the descriptor of this field.
      */
-    @Nonnegative
+    @NonNegative
     private final int descItemIndex;
 
     @Nullable
@@ -33,7 +34,7 @@ public final class FieldVisitor extends BaseWriter {
     /**
      * The index of the constant pool item that contains the constant value of this field.
      */
-    @Nonnegative
+    @NonNegative
     private final int valueItemIndex;
 
     /**
@@ -67,7 +68,7 @@ public final class FieldVisitor extends BaseWriter {
     /**
      * Returns the size of this field.
      */
-    @Nonnegative
+    @NonNegative
     public int getSize() {
         int size = 8 + getMarkerAttributesSize() + getAnnotationsSize();
 
@@ -109,7 +110,7 @@ public final class FieldVisitor extends BaseWriter {
         putAnnotations(out);
     }
 
-    @Nonnegative
+    @NonNegative
     private int getAttributeCount() {
         int attributeCount = getMarkerAttributeCount();
 

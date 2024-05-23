@@ -18,7 +18,6 @@ import static mockit.asm.jvmConstants.ConstantPoolTypes.PACKAGE;
 import static mockit.asm.jvmConstants.ConstantPoolTypes.STRING;
 import static mockit.asm.jvmConstants.ConstantPoolTypes.UTF8;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -36,6 +35,8 @@ import mockit.asm.constantPool.PackageItem;
 import mockit.asm.constantPool.StringItem;
 import mockit.asm.util.MethodHandle;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 /**
  * Copies the constant pool data from a {@link ClassReader} into a {@link ClassWriter}.
  */
@@ -46,7 +47,7 @@ final class ConstantPoolCopying {
     private final ClassWriter destination;
     @Nonnull
     private final Item[] newItems;
-    @Nonnegative
+    @NonNegative
     private int itemIndex;
 
     ConstantPoolCopying(@Nonnull ClassReader source, @Nonnull ClassWriter destination) {

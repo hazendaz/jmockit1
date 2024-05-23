@@ -1,18 +1,19 @@
 package mockit.asm.constantPool;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class ClassMemberItem extends TypeOrMemberItem {
     @Nonnull
     String owner;
 
-    public ClassMemberItem(@Nonnegative int index) {
+    public ClassMemberItem(@NonNegative int index) {
         super(index);
         owner = "";
     }
 
-    ClassMemberItem(@Nonnegative int index, @Nonnull ClassMemberItem item) {
+    ClassMemberItem(@NonNegative int index, @Nonnull ClassMemberItem item) {
         super(index, item);
         owner = item.owner;
     }

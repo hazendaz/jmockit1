@@ -2,20 +2,21 @@ package mockit.asm.constantPool;
 
 import static mockit.asm.jvmConstants.ConstantPoolTypes.HANDLE_BASE;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import mockit.asm.util.MethodHandle;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 public final class MethodHandleItem extends Item {
     private MethodHandle methodHandle;
 
-    public MethodHandleItem(@Nonnegative int index) {
+    public MethodHandleItem(@NonNegative int index) {
         super(index);
         type = HANDLE_BASE;
     }
 
-    MethodHandleItem(@Nonnegative int index, @Nonnull MethodHandleItem item) {
+    MethodHandleItem(@NonNegative int index, @Nonnull MethodHandleItem item) {
         super(index, item);
         methodHandle = item.methodHandle;
     }

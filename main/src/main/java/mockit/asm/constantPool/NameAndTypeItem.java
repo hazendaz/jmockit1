@@ -2,16 +2,17 @@ package mockit.asm.constantPool;
 
 import static mockit.asm.jvmConstants.ConstantPoolTypes.NAME_TYPE;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 public final class NameAndTypeItem extends TypeOrMemberItem {
-    public NameAndTypeItem(@Nonnegative int index) {
+    public NameAndTypeItem(@NonNegative int index) {
         super(index);
         type = NAME_TYPE;
     }
 
-    NameAndTypeItem(@Nonnegative int index, @Nonnull NameAndTypeItem item) {
+    NameAndTypeItem(@NonNegative int index, @Nonnull NameAndTypeItem item) {
         super(index, item);
     }
 

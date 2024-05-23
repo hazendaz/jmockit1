@@ -6,11 +6,12 @@ package mockit.coverage.reporting.lineCoverage;
 
 import java.io.PrintWriter;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import mockit.coverage.lines.PerFileLineCoverage;
 import mockit.coverage.reporting.parsing.LineParser;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class LineCoverageOutput {
     @Nonnull
@@ -45,7 +46,7 @@ public final class LineCoverageOutput {
         return true;
     }
 
-    private void writeLineExecutionCount(@Nonnegative int lineExecutionCount) {
+    private void writeLineExecutionCount(@NonNegative int lineExecutionCount) {
         output.write("<td class='ct'>");
         output.print(lineExecutionCount);
         output.println("</td>");

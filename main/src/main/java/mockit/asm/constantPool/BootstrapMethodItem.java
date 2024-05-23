@@ -2,11 +2,12 @@ package mockit.asm.constantPool;
 
 import static mockit.asm.jvmConstants.ConstantPoolTypes.BSM;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 public final class BootstrapMethodItem extends Item {
-    @Nonnegative
+    @NonNegative
     final int position;
 
     /**
@@ -18,7 +19,7 @@ public final class BootstrapMethodItem extends Item {
      *            hashcode of the item, which is processed from the hashcode of the bootstrap method and the hashcode of
      *            all bootstrap arguments
      */
-    public BootstrapMethodItem(@Nonnegative int index, @Nonnegative int position, int hashCode) {
+    public BootstrapMethodItem(@NonNegative int index, @NonNegative int position, int hashCode) {
         super(index);
         this.position = position;
         setHashCode(hashCode);

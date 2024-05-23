@@ -10,11 +10,12 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.jvmConstants.Access;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class ClassMetadataReader extends ObjectWithAttributes {
     private static final Charset UTF8 = Charset.forName("UTF-8");
@@ -41,14 +42,14 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
         Module(2), // 19, added in Java 9
         Package(2); // 20, added in Java 9
 
-        @Nonnegative
+        @NonNegative
         final int itemSize;
 
         ConstantPoolTag() {
             itemSize = 0;
         }
 
-        ConstantPoolTag(@Nonnegative int itemSize) {
+        ConstantPoolTag(@NonNegative int itemSize) {
             this.itemSize = itemSize;
         }
     }
@@ -68,15 +69,15 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
      * The constant pool starts at index 10 in the code array; this is the end index, which must be computed as it's not
      * stored anywhere.
      */
-    @Nonnegative
+    @NonNegative
     private final int cpEndIndex;
 
-    @Nonnegative
+    @NonNegative
     private int fieldsEndIndex;
-    @Nonnegative
+    @NonNegative
     private int methodsEndIndex;
 
-    @Nonnegative
+    @NonNegative
     public static int readVersion(@Nonnull byte[] code) {
         int byte0 = (code[4] & 0xFF) << 24;
         int byte1 = (code[5] & 0xFF) << 16;
@@ -98,8 +99,8 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
         cpEndIndex = findEndIndexOfConstantPoolTable(cpTable);
     }
 
-    @Nonnegative
-    private int readUnsignedShort(@Nonnegative int codeIndex) {
+    @NonNegative
+    private int readUnsignedShort(@NonNegative int codeIndex) {
         byte[] b = code;
         int i = codeIndex;
         int byte0 = (b[i] & 0xFF) << 8;
@@ -108,7 +109,7 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
         return byte0 | byte1;
     }
 
-    private int readInt(@Nonnegative int codeIndex) {
+    private int readInt(@NonNegative int codeIndex) {
         byte[] b = code;
         int i = codeIndex;
         int byte0 = (b[i] & 0xFF) << 24;
@@ -121,7 +122,7 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
         return byte0 | byte1 | byte2 | byte3;
     }
 
-    @Nonnegative
+    @NonNegative
     private int findEndIndexOfConstantPoolTable(@Nonnull int[] cpTable) {
         byte[] b = code;
         int codeIndex = 10;
@@ -148,12 +149,12 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
         return codeIndex;
     }
 
-    @Nonnegative
+    @NonNegative
     public int getVersion() {
         return readVersion(code);
     }
 
-    @Nonnegative
+    @NonNegative
     public int getAccessFlags() {
         return readUnsignedShort(cpEndIndex);
     }
@@ -165,14 +166,14 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
     }
 
     @Nonnull
-    private String getTypeDescription(@Nonnegative int cpClassIndex) {
+    private String getTypeDescription(@NonNegative int cpClassIndex) {
         int cpClassCodeIndex = cpItemCodeIndexes[cpClassIndex];
         int cpDescriptionIndex = readUnsignedShort(cpClassCodeIndex);
         return getString(cpDescriptionIndex);
     }
 
     @Nonnull
-    private String getString(@Nonnegative int cpStringIndex) {
+    private String getString(@NonNegative int cpStringIndex) {
         int codeIndex = cpItemCodeIndexes[cpStringIndex];
         int stringLength = readUnsignedShort(codeIndex);
         return new String(code, codeIndex + 2, stringLength, UTF8);
@@ -212,7 +213,7 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
     }
 
     private static class MemberInfo extends ObjectWithAttributes {
-        @Nonnegative
+        @NonNegative
         public final int accessFlags;
         @Nonnull
         public final String name;
@@ -221,8 +222,8 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
         @Nullable
         public String signature;
 
-        MemberInfo(@Nonnegative int accessFlags, @Nonnull String name, @Nonnull String desc,
-                @Nonnegative int attributeCount) {
+        MemberInfo(@NonNegative int accessFlags, @Nonnull String name, @Nonnull String desc,
+                @NonNegative int attributeCount) {
             this.accessFlags = accessFlags;
             this.name = name;
             this.desc = desc;
@@ -242,7 +243,7 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
     }
 
     public static final class FieldInfo extends MemberInfo {
-        FieldInfo(int accessFlags, @Nonnull String name, @Nonnull String desc, @Nonnegative int attributeCount) {
+        FieldInfo(int accessFlags, @Nonnull String name, @Nonnull String desc, @NonNegative int attributeCount) {
             super(accessFlags, name, desc, attributeCount);
         }
     }
@@ -288,9 +289,9 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
         return fields;
     }
 
-    @Nonnegative
-    private int readAttributes(@Nonnegative int attributeCount, @Nullable ObjectWithAttributes attributeOwner,
-            @Nonnegative int codeIndex) {
+    @NonNegative
+    private int readAttributes(@NonNegative int attributeCount, @Nullable ObjectWithAttributes attributeOwner,
+            @NonNegative int codeIndex) {
         EnumSet<Attribute> attributes = attributesToRead;
         boolean readAnnotations = false;
 
@@ -337,7 +338,7 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
     }
 
     @Nonnull
-    private List<AnnotationInfo> readAnnotations(@Nonnegative int codeIndex) {
+    private List<AnnotationInfo> readAnnotations(@NonNegative int codeIndex) {
         int numAnnotations = readUnsignedShort(codeIndex);
         codeIndex += 2;
 
@@ -350,8 +351,8 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
         return annotationInfos;
     }
 
-    @Nonnegative
-    private int readAnnotation(@Nonnull List<AnnotationInfo> currentAnnotations, @Nonnegative int codeIndex) {
+    @NonNegative
+    private int readAnnotation(@Nonnull List<AnnotationInfo> currentAnnotations, @NonNegative int codeIndex) {
         int cpTypeIndex = readUnsignedShort(codeIndex);
         codeIndex += 2;
 
@@ -374,7 +375,7 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
         return codeIndex;
     }
 
-    @Nonnegative
+    @NonNegative
     private int getFieldsEndIndex() {
         int codeIndex = fieldsEndIndex;
 
@@ -405,7 +406,7 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
         @Nullable
         public String[] parameters;
 
-        MethodInfo(int accessFlags, @Nonnull String name, @Nonnull String desc, @Nonnegative int attributeCount) {
+        MethodInfo(int accessFlags, @Nonnull String name, @Nonnull String desc, @NonNegative int attributeCount) {
             super(accessFlags, name, desc, attributeCount);
         }
 
@@ -417,7 +418,7 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
             return "<init>".equals(name);
         }
 
-        void readAttributes(@Nonnull String attributeName, @Nonnegative int codeIndex) {
+        void readAttributes(@Nonnull String attributeName, @NonNegative int codeIndex) {
             assert attributesToRead != null;
 
             if ("Code".equals(attributeName)) {
@@ -429,7 +430,7 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
             }
         }
 
-        private void readParameters(@Nonnegative int codeIndex) {
+        private void readParameters(@NonNegative int codeIndex) {
             codeIndex += 4;
 
             int codeLength = readInt(codeIndex);
@@ -444,7 +445,7 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
             readParameters(attributeCount, codeIndex);
         }
 
-        private void readParameters(@Nonnegative int attributeCount, @Nonnegative int codeIndex) {
+        private void readParameters(@NonNegative int attributeCount, @NonNegative int codeIndex) {
             for (int i = 0; i < attributeCount; i++) {
                 int cpNameIndex = readUnsignedShort(codeIndex);
                 codeIndex += 2;
@@ -463,7 +464,7 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
         }
 
         @Nullable
-        private String[] readParametersFromLocalVariableTable(@Nonnegative int codeIndex) {
+        private String[] readParametersFromLocalVariableTable(@NonNegative int codeIndex) {
             int localVariableTableLength = readUnsignedShort(codeIndex);
             codeIndex += 2;
 
@@ -504,7 +505,7 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
             return compactArray(parameterNames);
         }
 
-        @Nonnegative
+        @NonNegative
         private int getSumOfArgumentSizes(@Nonnull String memberDesc) {
             int sum = 0;
             int i = 1;
@@ -566,7 +567,7 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
             return n == 1 && arrayPossiblyWithNulls[0] == null ? null : arrayPossiblyWithNulls;
         }
 
-        private void readSignature(@Nonnegative int codeIndex) {
+        private void readSignature(@NonNegative int codeIndex) {
             int cpSignatureIndex = readUnsignedShort(codeIndex);
             signature = getString(cpSignatureIndex);
         }
@@ -604,7 +605,7 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
         return methods;
     }
 
-    @Nonnegative
+    @NonNegative
     private int getMethodsEndIndex() {
         int codeIndex = methodsEndIndex;
 

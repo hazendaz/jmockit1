@@ -1,6 +1,5 @@
 package mockit.asm.classes;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -8,10 +7,12 @@ import mockit.asm.constantPool.AttributeWriter;
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.util.ByteVector;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 final class InnerClassesWriter extends AttributeWriter {
     @Nonnull
     private final ByteVector innerClasses;
-    @Nonnegative
+    @NonNegative
     private int innerClassesCount;
 
     InnerClassesWriter(@Nonnull ConstantPoolGeneration cp) {
@@ -27,7 +28,7 @@ final class InnerClassesWriter extends AttributeWriter {
         innerClassesCount++;
     }
 
-    @Nonnegative
+    @NonNegative
     @Override
     public int getSize() {
         return 8 + innerClasses.getLength();

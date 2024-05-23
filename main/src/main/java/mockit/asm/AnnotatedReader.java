@@ -1,6 +1,5 @@
 package mockit.asm;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -9,13 +8,15 @@ import mockit.asm.annotations.AnnotationVisitor;
 import mockit.asm.jvmConstants.Access;
 import mockit.asm.util.BytecodeReader;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 /**
  * A bytecode reader for reading common elements (signature, annotations) of a class, field, or method.
  */
 public abstract class AnnotatedReader extends BytecodeReader {
     @Nonnull
     private final AnnotationReader annotationReader = new AnnotationReader(this);
-    @Nonnegative
+    @NonNegative
     private int annotationsCodeIndex;
 
     /**

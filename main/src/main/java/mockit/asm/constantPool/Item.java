@@ -1,10 +1,11 @@
 package mockit.asm.constantPool;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.jvmConstants.ConstantPoolTypes;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * A constant pool item of a given {@linkplain ConstantPoolTypes type}.
@@ -13,7 +14,7 @@ public abstract class Item {
     /**
      * Index of this item in the constant pool.
      */
-    @Nonnegative
+    @NonNegative
     public final int index;
 
     /**
@@ -26,13 +27,13 @@ public abstract class Item {
      * the constant pool, in order to avoid clashes with normal constant pool items in the constant pool's hash table.
      * These special item types are defined in {@link TypeTableItem.SpecialType}.
      */
-    @Nonnegative
+    @NonNegative
     int type;
 
     /**
      * The hash code value of this constant pool item.
      */
-    @Nonnegative
+    @NonNegative
     private int hashCode;
 
     /**
@@ -47,7 +48,7 @@ public abstract class Item {
      * @param index
      *            index of the item
      */
-    Item(@Nonnegative int index) {
+    Item(@NonNegative int index) {
         this.index = index;
     }
 
@@ -59,7 +60,7 @@ public abstract class Item {
      * @param item
      *            the item to be copied into this item
      */
-    Item(@Nonnegative int index, @Nonnull Item item) {
+    Item(@NonNegative int index, @Nonnull Item item) {
         this.index = index;
         type = item.type;
         hashCode = item.hashCode;
@@ -68,7 +69,7 @@ public abstract class Item {
     /**
      * Returns the {@link #type} of this item.
      */
-    @Nonnegative
+    @NonNegative
     public int getType() {
         return type;
     }
@@ -76,7 +77,7 @@ public abstract class Item {
     /**
      * Returns the {@link #hashCode} value.
      */
-    @Nonnegative
+    @NonNegative
     public final int getHashCode() {
         return hashCode;
     }

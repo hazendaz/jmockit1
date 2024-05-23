@@ -20,7 +20,6 @@ import static mockit.asm.jvmConstants.Opcodes.SIPUSH;
 import static mockit.asm.jvmConstants.Opcodes.TABLESWITCH;
 import static mockit.asm.jvmConstants.Opcodes.WIDE;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -42,6 +41,8 @@ import mockit.asm.jvmConstants.Opcodes;
 import mockit.asm.types.JavaType;
 import mockit.asm.util.ByteVector;
 import mockit.asm.util.MethodHandle;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * A {@link MethodVisitor} that generates methods in bytecode form. Each visit method of this class appends the bytecode
@@ -78,14 +79,14 @@ public final class MethodWriter extends MethodVisitor {
      * If not zero, indicates that the code of this method must be copied from <code>cw.code</code>. More precisely,
      * this field gives the index of the first byte to be copied from <code>cw.code</code>.
      */
-    @Nonnegative
+    @NonNegative
     int classReaderOffset;
 
     /**
      * If not zero, indicates that the code of this method must be copied from <code>cw.cr</code>. More precisely, this
      * field gives the number of bytes to be copied from <code>cw.code</code>.
      */
-    @Nonnegative
+    @NonNegative
     int classReaderLength;
 
     @Nullable
@@ -156,7 +157,7 @@ public final class MethodWriter extends MethodVisitor {
 
     @Nonnull
     @Override
-    public AnnotationVisitor visitParameterAnnotation(@Nonnegative int parameter, @Nonnull String desc) {
+    public AnnotationVisitor visitParameterAnnotation(@NonNegative int parameter, @Nonnull String desc) {
         AnnotationVisitor aw = new AnnotationVisitor(cp, desc);
 
         if (parameterAnnotations == null) {
@@ -191,7 +192,7 @@ public final class MethodWriter extends MethodVisitor {
     }
 
     @Override
-    public void visitVarInsn(int opcode, @Nonnegative int varIndex) {
+    public void visitVarInsn(int opcode, @NonNegative int varIndex) {
         cfgAnalysis.updateCurrentBlockForLocalVariableInstruction(opcode, varIndex);
 
         updateMaxLocals(opcode, varIndex);
@@ -218,7 +219,7 @@ public final class MethodWriter extends MethodVisitor {
         }
     }
 
-    private void updateMaxLocals(int opcode, @Nonnegative int varIndex) {
+    private void updateMaxLocals(int opcode, @NonNegative int varIndex) {
         int n = opcode == LLOAD || opcode == DLOAD || opcode == LSTORE || opcode == DSTORE ? varIndex + 2
                 : varIndex + 1;
         stackMapTableWriter.updateMaxLocals(n);
@@ -326,7 +327,7 @@ public final class MethodWriter extends MethodVisitor {
     }
 
     @Override
-    public void visitIincInsn(@Nonnegative int varIndex, int increment) {
+    public void visitIincInsn(@NonNegative int varIndex, int increment) {
         cfgAnalysis.updateCurrentBlockForIINCInstruction(varIndex);
 
         // Updates max locals.
@@ -375,7 +376,7 @@ public final class MethodWriter extends MethodVisitor {
     }
 
     @Override
-    public void visitMultiANewArrayInsn(@Nonnull String desc, @Nonnegative int dims) {
+    public void visitMultiANewArrayInsn(@Nonnull String desc, @NonNegative int dims) {
         StringItem arrayTypeItem = cp.newClassItem(desc);
         cfgAnalysis.updateCurrentBlockForMULTIANEWARRAYInstruction(arrayTypeItem, dims);
 
@@ -391,18 +392,18 @@ public final class MethodWriter extends MethodVisitor {
 
     @Override
     public void visitLocalVariable(@Nonnull String name, @Nonnull String desc, @Nullable String signature,
-            @Nonnull Label start, @Nonnull Label end, @Nonnegative int index) {
+            @Nonnull Label start, @Nonnull Label end, @NonNegative int index) {
         int localsCount = localVariableTableWriter.addLocalVariable(name, desc, signature, start, end, index);
         stackMapTableWriter.updateMaxLocals(localsCount);
     }
 
     @Override
-    public void visitLineNumber(@Nonnegative int line, @Nonnull Label start) {
+    public void visitLineNumber(@NonNegative int line, @Nonnull Label start) {
         lineNumberTableWriter.addLineNumber(line, start);
     }
 
     @Override
-    public void visitMaxStack(@Nonnegative int maxStack) {
+    public void visitMaxStack(@NonNegative int maxStack) {
         int computedMaxStack;
 
         if (computeFrames) {
@@ -442,7 +443,7 @@ public final class MethodWriter extends MethodVisitor {
     /**
      * Returns the size of the bytecode of this method.
      */
-    @Nonnegative
+    @NonNegative
     public int getSize() {
         if (classReaderOffset > 0) {
             return 6 + classReaderLength;
@@ -475,7 +476,7 @@ public final class MethodWriter extends MethodVisitor {
         return size;
     }
 
-    @Nonnegative
+    @NonNegative
     private int getParameterAnnotationsSize() {
         int size = 0;
 

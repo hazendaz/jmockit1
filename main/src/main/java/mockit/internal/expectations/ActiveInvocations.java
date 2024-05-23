@@ -15,7 +15,6 @@ import static mockit.internal.expectations.argumentMatching.AlwaysTrueMatcher.AN
 import static mockit.internal.expectations.argumentMatching.AlwaysTrueMatcher.ANY_STRING;
 import static mockit.internal.expectations.argumentMatching.AlwaysTrueMatcher.ANY_VALUE;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -23,6 +22,8 @@ import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
 import mockit.internal.expectations.transformation.ArgumentCapturing;
 import mockit.internal.state.TestRun;
 import mockit.internal.util.ClassLoad;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 @SuppressWarnings("unused")
 public final class ActiveInvocations {
@@ -81,7 +82,7 @@ public final class ActiveInvocations {
         }
     }
 
-    public static void moveArgMatcher(@Nonnegative int originalMatcherIndex, @Nonnegative int toIndex) {
+    public static void moveArgMatcher(@NonNegative int originalMatcherIndex, @NonNegative int toIndex) {
         RecordAndReplayExecution instance = TestRun.getRecordAndReplayForRunningTest();
 
         if (instance != null) {
@@ -93,7 +94,7 @@ public final class ActiveInvocations {
         }
     }
 
-    public static void setExpectedArgumentType(@Nonnegative int parameterIndex, @Nonnull String typeDesc) {
+    public static void setExpectedArgumentType(@NonNegative int parameterIndex, @Nonnull String typeDesc) {
         RecordAndReplayExecution instance = TestRun.getRecordAndReplayForRunningTest();
 
         if (instance != null) {
@@ -106,7 +107,7 @@ public final class ActiveInvocations {
         }
     }
 
-    public static void setExpectedArgumentType(@Nonnegative int parameterIndex, int varIndex) {
+    public static void setExpectedArgumentType(@NonNegative int parameterIndex, int varIndex) {
         RecordAndReplayExecution instance = TestRun.getRecordAndReplayForRunningTest();
 
         if (instance != null) {
@@ -124,7 +125,7 @@ public final class ActiveInvocations {
     }
 
     @Nullable
-    public static Object matchedArgument(@Nonnegative int parameterIndex, @Nullable String argTypeDesc) {
+    public static Object matchedArgument(@NonNegative int parameterIndex, @Nullable String argTypeDesc) {
         RecordAndReplayExecution instance = TestRun.getRecordAndReplayForRunningTest();
 
         if (instance != null) {

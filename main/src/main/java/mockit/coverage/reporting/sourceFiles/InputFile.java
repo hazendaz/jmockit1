@@ -12,9 +12,10 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class InputFile {
     @Nonnull
@@ -77,7 +78,7 @@ public final class InputFile {
     }
 
     private static void giveCurrentSourceDirHighestPriority(@Nonnull List<File> sourceDirs,
-            @Nonnegative int currentSourceDirIndex) {
+            @NonNegative int currentSourceDirIndex) {
         if (currentSourceDirIndex > 0) {
             File firstSourceDir = sourceDirs.get(0);
             File currentSourceDir = sourceDirs.get(currentSourceDirIndex);

@@ -2,23 +2,24 @@ package mockit.asm.constantPool;
 
 import static mockit.asm.constantPool.TypeTableItem.SpecialType.UNINIT;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 public final class UninitializedTypeTableItem extends TypeTableItem {
-    @Nonnegative
+    @NonNegative
     int offset;
 
     UninitializedTypeTableItem() {
         type = UNINIT;
     }
 
-    UninitializedTypeTableItem(@Nonnegative int index, @Nonnull UninitializedTypeTableItem item) {
+    UninitializedTypeTableItem(@NonNegative int index, @Nonnull UninitializedTypeTableItem item) {
         super(index, item);
         offset = item.offset;
     }
 
-    @Nonnegative
+    @NonNegative
     public int getOffset() {
         return offset;
     }
@@ -31,7 +32,7 @@ public final class UninitializedTypeTableItem extends TypeTableItem {
      * @param offset
      *            the bytecode offset of the NEW instruction that created the UNINITIALIZED type value.
      */
-    void set(@Nonnull String type, @Nonnegative int offset) {
+    void set(@Nonnull String type, @NonNegative int offset) {
         typeDesc = type;
         this.offset = offset;
         setHashCode(type.hashCode() + offset);

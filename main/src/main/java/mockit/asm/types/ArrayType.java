@@ -1,7 +1,8 @@
 package mockit.asm.types;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class ArrayType extends ReferenceType {
     @Nonnull
@@ -18,7 +19,7 @@ public final class ArrayType extends ReferenceType {
      *            the offset of the descriptor in the buffer
      */
     @Nonnull
-    static ArrayType create(@Nonnull char[] typeDesc, @Nonnegative int off) {
+    static ArrayType create(@Nonnull char[] typeDesc, @NonNegative int off) {
         int len = findNumberOfDimensions(typeDesc, off);
 
         if (typeDesc[off + len] == 'L') {
@@ -28,8 +29,8 @@ public final class ArrayType extends ReferenceType {
         return new ArrayType(typeDesc, off, len + 1);
     }
 
-    @Nonnegative
-    private static int findNumberOfDimensions(@Nonnull char[] typeDesc, @Nonnegative int off) {
+    @NonNegative
+    private static int findNumberOfDimensions(@Nonnull char[] typeDesc, @NonNegative int off) {
         int dimensions = 1;
 
         while (typeDesc[off + dimensions] == '[') {
@@ -39,7 +40,7 @@ public final class ArrayType extends ReferenceType {
         return dimensions;
     }
 
-    private ArrayType(@Nonnull char[] typeDesc, @Nonnegative int off, @Nonnegative int len) {
+    private ArrayType(@Nonnull char[] typeDesc, @NonNegative int off, @NonNegative int len) {
         super(typeDesc, off, len);
     }
 
@@ -50,7 +51,7 @@ public final class ArrayType extends ReferenceType {
     /**
      * Returns the number of dimensions of this array type.
      */
-    @Nonnegative
+    @NonNegative
     public int getDimensions() {
         return findNumberOfDimensions(typeDescChars, off);
     }

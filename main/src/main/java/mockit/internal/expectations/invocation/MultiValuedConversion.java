@@ -22,9 +22,10 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 final class MultiValuedConversion {
     @Nonnull
@@ -78,7 +79,7 @@ final class MultiValuedConversion {
 
     @SuppressWarnings("Since15")
     private boolean addCollectionOrMapWithElementsFromArray() {
-        @Nonnegative
+        @NonNegative
         int n = Array.getLength(valueToReturn);
         Object values = null;
 
@@ -109,7 +110,7 @@ final class MultiValuedConversion {
     }
 
     @Nonnull
-    private Collection<?> addArrayElements(@Nonnull Collection<Object> values, @Nonnegative int elementCount) {
+    private Collection<?> addArrayElements(@Nonnull Collection<Object> values, @NonNegative int elementCount) {
         for (int i = 0; i < elementCount; i++) {
             Object element = Array.get(valueToReturn, i);
             values.add(element);
@@ -119,7 +120,7 @@ final class MultiValuedConversion {
     }
 
     @Nullable
-    private Object addArrayElements(@Nonnull Map<Object, Object> values, @Nonnegative int elementPairCount) {
+    private Object addArrayElements(@Nonnull Map<Object, Object> values, @NonNegative int elementPairCount) {
         for (int i = 0; i < elementPairCount; i++) {
             Object keyAndValue = Array.get(valueToReturn, i);
 

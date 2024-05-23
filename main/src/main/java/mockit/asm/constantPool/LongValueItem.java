@@ -1,7 +1,8 @@
 package mockit.asm.constantPool;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public class LongValueItem extends Item {
     /**
@@ -9,11 +10,11 @@ public class LongValueItem extends Item {
      */
     long longVal;
 
-    LongValueItem(@Nonnegative int index) {
+    LongValueItem(@NonNegative int index) {
         super(index);
     }
 
-    LongValueItem(@Nonnegative int index, @Nonnull LongValueItem item) {
+    LongValueItem(@NonNegative int index, @Nonnull LongValueItem item) {
         super(index, item);
         longVal = item.longVal;
     }

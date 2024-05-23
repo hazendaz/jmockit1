@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -34,6 +33,7 @@ import mockit.internal.expectations.argumentMatching.StringSuffixMatcher;
 import mockit.internal.startup.Startup;
 import mockit.internal.util.DefaultValues;
 
+import org.checkerframework.checker.index.qual.NonNegative;
 import org.hamcrest.Matcher;
 
 /**
@@ -334,7 +334,7 @@ class Invocations {
      * @see #maxTimes
      * @see <a href="http://jmockit.github.io/tutorial/Mocking.html#constraints" target="tutorial">Tutorial</a>
      */
-    @Nonnegative
+    @NonNegative
     protected int times;
 
     /**

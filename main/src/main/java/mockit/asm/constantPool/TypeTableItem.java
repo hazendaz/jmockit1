@@ -1,7 +1,8 @@
 package mockit.asm.constantPool;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 abstract class TypeTableItem extends Item {
     /**
@@ -24,7 +25,7 @@ abstract class TypeTableItem extends Item {
         typeDesc = "";
     }
 
-    TypeTableItem(@Nonnegative int index, @Nonnull TypeTableItem item) {
+    TypeTableItem(@NonNegative int index, @Nonnull TypeTableItem item) {
         super(index, item);
         typeDesc = item.typeDesc;
     }

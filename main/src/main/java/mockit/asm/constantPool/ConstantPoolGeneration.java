@@ -15,7 +15,6 @@ import static mockit.asm.jvmConstants.ConstantPoolTypes.STRING;
 import static mockit.asm.jvmConstants.ConstantPoolTypes.UTF8;
 import static mockit.internal.util.ClassLoad.OBJECT;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -27,6 +26,8 @@ import mockit.asm.types.ReferenceType;
 import mockit.asm.util.ByteVector;
 import mockit.asm.util.MethodHandle;
 import mockit.internal.util.ClassLoad;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * Allows the constant pool for a classfile to be created from scratch, when that classfile itself is being generated or
@@ -49,13 +50,13 @@ public final class ConstantPoolGeneration {
     /**
      * The threshold of the constant pool's hash table.
      */
-    @Nonnegative
+    @NonNegative
     private int threshold;
 
     /**
      * Index of the next item to be added in the constant pool.
      */
-    @Nonnegative
+    @NonNegative
     private int index;
 
     @Nonnull
@@ -133,7 +134,7 @@ public final class ConstantPoolGeneration {
      *
      * @return the index of a new or already existing UTF8 item.
      */
-    @Nonnegative
+    @NonNegative
     public int newUTF8(@Nonnull String value) {
         reusableUTF8Item.set(UTF8, value);
 
@@ -158,7 +159,7 @@ public final class ConstantPoolGeneration {
      *
      * @return the index of a new or already existing class reference item.
      */
-    @Nonnegative
+    @NonNegative
     public int newClass(@Nonnull String internalName) {
         return newClassItem(internalName).index;
     }
@@ -403,7 +404,7 @@ public final class ConstantPoolGeneration {
      *
      * @return the index of a new or already existing name and type item
      */
-    @Nonnegative
+    @NonNegative
     private int newNameType(@Nonnull String name, @Nonnull String desc) {
         reusableNameTypeItem.set(name, desc);
 
@@ -497,7 +498,7 @@ public final class ConstantPoolGeneration {
      *
      * @return the index of this internal name in the type table
      */
-    @Nonnegative
+    @NonNegative
     public int addNormalType(@Nonnull String type) {
         reusableNormalItem.set(type);
 
@@ -522,8 +523,8 @@ public final class ConstantPoolGeneration {
      *
      * @return the index of this internal name in the type table
      */
-    @Nonnegative
-    public int addUninitializedType(@Nonnull String type, @Nonnegative int offset) {
+    @NonNegative
+    public int addUninitializedType(@Nonnull String type, @NonNegative int offset) {
         reusableUninitializedItem.set(type, offset);
 
         TypeTableItem result = get(reusableUninitializedItem);
@@ -548,7 +549,7 @@ public final class ConstantPoolGeneration {
         typeTable[newItemIndex] = newItem;
     }
 
-    private void enlargeTypeTableIfNeeded(@Nonnegative int newItemIndex) {
+    private void enlargeTypeTableIfNeeded(@NonNegative int newItemIndex) {
         int currentTypeCount = typeTable.length;
 
         if (newItemIndex == currentTypeCount) {
@@ -569,8 +570,8 @@ public final class ConstantPoolGeneration {
      *
      * @return the index of the common super type of the two given types
      */
-    @Nonnegative
-    public int getMergedType(@Nonnegative int type1, @Nonnegative int type2) {
+    @NonNegative
+    public int getMergedType(@NonNegative int type1, @NonNegative int type2) {
         reusableMergedItem.set(type1, type2);
 
         MergedTypeTableItem result = get(reusableMergedItem);
@@ -629,18 +630,18 @@ public final class ConstantPoolGeneration {
     }
 
     @Nonnull
-    public String getInternalName(@Nonnegative int typeTableIndex) {
+    public String getInternalName(@NonNegative int typeTableIndex) {
         TypeTableItem typeTableItem = typeTable[typeTableIndex]; // Normal or Uninitialized
         return typeTableItem.typeDesc;
     }
 
     @Nonnull
-    public UninitializedTypeTableItem getUninitializedItemValue(@Nonnegative int typeTableIndex) {
+    public UninitializedTypeTableItem getUninitializedItemValue(@NonNegative int typeTableIndex) {
         return (UninitializedTypeTableItem) typeTable[typeTableIndex];
     }
 
     @Nullable
-    public Item getItem(@Nonnegative int itemHashCode) {
+    public Item getItem(@NonNegative int itemHashCode) {
         return items[itemHashCode % items.length];
     }
 
@@ -710,7 +711,7 @@ public final class ConstantPoolGeneration {
         pool.put12(b, s1).putShort(s2);
     }
 
-    @Nonnegative
+    @NonNegative
     public int getSize() {
         return pool.getLength();
     }
@@ -725,7 +726,7 @@ public final class ConstantPoolGeneration {
         out.putShort(index).putByteVector(pool);
     }
 
-    public void copy(@Nonnull byte[] code, @Nonnegative int off, @Nonnegative int header, @Nonnull Item[] cpItems) {
+    public void copy(@Nonnull byte[] code, @NonNegative int off, @NonNegative int header, @Nonnull Item[] cpItems) {
         pool.putByteArray(code, off, header - off);
         items = cpItems;
 
@@ -737,7 +738,7 @@ public final class ConstantPoolGeneration {
 
     @Nonnull
     public DynamicItem createDynamicItem(int type, @Nonnull String name, @Nonnull String desc,
-            @Nonnegative int bsmIndex) {
+            @NonNegative int bsmIndex) {
         reusableDynamicItem.set(type, name, desc, bsmIndex);
 
         DynamicItem result = get(reusableDynamicItem);

@@ -7,13 +7,14 @@ package mockit.internal.injection;
 import java.lang.annotation.Annotation;
 import java.util.List;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.Tested;
 import mockit.internal.state.TestRun;
 import mockit.internal.util.TestMethod;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class TestedParameters {
     @Nonnull
@@ -42,7 +43,7 @@ public final class TestedParameters {
     }
 
     @Nullable
-    private TestedParameter createTestedParameterIfApplicable(@Nonnegative int parameterIndex) {
+    private TestedParameter createTestedParameterIfApplicable(@NonNegative int parameterIndex) {
         Annotation[] parameterAnnotations = testMethod.getParameterAnnotations(parameterIndex);
 
         for (Annotation parameterAnnotation : parameterAnnotations) {

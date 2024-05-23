@@ -1,10 +1,11 @@
 package mockit.asm.controlFlow;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.util.ByteVector;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * A label represents a position in the bytecode of a method. Labels are used for jump, goto, and switch instructions,
@@ -58,25 +59,25 @@ public final class Label {
     /**
      * The line number corresponding to this label, if known.
      */
-    @Nonnegative
+    @NonNegative
     public int line;
 
     /**
      * Line number of label which is the target of a JMP instruction.
      */
-    @Nonnegative
+    @NonNegative
     public int jumpTargetLine;
 
     /**
      * The position of this label in the code, if known.
      */
-    @Nonnegative
+    @NonNegative
     public int position;
 
     /**
      * Number of forward references to this label, times two.
      */
-    @Nonnegative
+    @NonNegative
     private int referenceCount;
 
     /**
@@ -125,14 +126,14 @@ public final class Label {
      * output stack must be appended to the input stack. A -n offset means that the first n output stack elements must
      * replace the top n input stack elements, and that the other elements must be appended to the input stack.
      */
-    @Nonnegative
+    @NonNegative
     int inputStackTop;
 
     /**
      * Maximum height reached by the output stack, relatively to the top of the input stack. This maximum is always
      * positive or null.
      */
-    @Nonnegative
+    @NonNegative
     int outputStackMax;
 
     /**
@@ -237,7 +238,7 @@ public final class Label {
      * @throws IllegalArgumentException
      *             if this label has not been created by the given code writer
      */
-    public void put(@Nonnull ByteVector out, @Nonnegative int source, boolean wideOffset) {
+    public void put(@Nonnull ByteVector out, @NonNegative int source, boolean wideOffset) {
         if (isResolved()) {
             int reference = position - source;
 
@@ -266,7 +267,7 @@ public final class Label {
      * @param referencePosition
      *            the position where the offset for this forward reference must be stored
      */
-    private void addReference(@Nonnegative int sourcePosition, @Nonnegative int referencePosition) {
+    private void addReference(@NonNegative int sourcePosition, @NonNegative int referencePosition) {
         if (srcAndRefPositions == null) {
             srcAndRefPositions = new int[6];
         }
@@ -331,13 +332,12 @@ public final class Label {
         return frame == null ? this : frame.owner;
     }
 
-    @Nonnegative
+    @NonNegative
     int decrementInputStackTop() {
         return --inputStackTop;
     }
 
-    @Nonnegative
-    void decrementInputStackTop(@Nonnegative int amount) {
+    void decrementInputStackTop(@NonNegative int amount) {
         inputStackTop -= amount;
     }
 
@@ -359,7 +359,7 @@ public final class Label {
     /**
      * Updates the maximum height reached by the output stack, if needed.
      */
-    void updateOutputStackMaxHeight(@Nonnegative int outputStackTop) {
+    void updateOutputStackMaxHeight(@NonNegative int outputStackTop) {
         int top = inputStackTop + outputStackTop;
 
         if (top > outputStackMax) {

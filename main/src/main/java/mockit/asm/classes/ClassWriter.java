@@ -3,7 +3,6 @@ package mockit.asm.classes;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -18,6 +17,8 @@ import mockit.asm.methods.MethodWriter;
 import mockit.asm.util.ByteVector;
 import mockit.asm.util.MethodHandle;
 import mockit.internal.util.ClassLoad;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * A {@link ClassVisitor} that generates classes in bytecode form, that is, a byte array conforming to the
@@ -42,7 +43,7 @@ public final class ClassWriter extends ClassVisitor {
     /**
      * The constant pool item that contains the internal name of this class.
      */
-    @Nonnegative
+    @NonNegative
     private int nameItemIndex;
 
     /**
@@ -53,7 +54,7 @@ public final class ClassWriter extends ClassVisitor {
     /**
      * The constant pool item that contains the internal name of the super class of this class.
      */
-    @Nonnegative
+    @NonNegative
     private int superNameItemIndex;
 
     @Nonnull
@@ -211,7 +212,7 @@ public final class ClassWriter extends ClassVisitor {
         return out.getData();
     }
 
-    @Nonnegative
+    @NonNegative
     private int getBytecodeSize() {
         int size = 24 + getMarkerAttributesSize() + getFieldsSize() + getMethodsSize();
 
@@ -226,7 +227,7 @@ public final class ClassWriter extends ClassVisitor {
         return size + getAnnotationsSize() + cp.getSize();
     }
 
-    @Nonnegative
+    @NonNegative
     private int getFieldsSize() {
         int size = 0;
 
@@ -237,7 +238,7 @@ public final class ClassWriter extends ClassVisitor {
         return size;
     }
 
-    @Nonnegative
+    @NonNegative
     private int getMethodsSize() {
         int size = 0;
 
@@ -274,7 +275,7 @@ public final class ClassWriter extends ClassVisitor {
         putMarkerAttributes(out);
     }
 
-    @Nonnegative
+    @NonNegative
     private int getAttributeCount() {
         int attributeCount = getMarkerAttributeCount() + attributeWriters.size();
 

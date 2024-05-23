@@ -8,16 +8,17 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public abstract class FieldData implements Serializable {
     private static final long serialVersionUID = 8565599590976858508L;
 
-    @Nonnegative
+    @NonNegative
     int readCount;
-    @Nonnegative
+    @NonNegative
     int writeCount;
     @Nullable
     Boolean covered;
@@ -27,12 +28,12 @@ public abstract class FieldData implements Serializable {
         out.defaultWriteObject();
     }
 
-    @Nonnegative
+    @NonNegative
     public final int getReadCount() {
         return readCount;
     }
 
-    @Nonnegative
+    @NonNegative
     public final int getWriteCount() {
         return writeCount;
     }

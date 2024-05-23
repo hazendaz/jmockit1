@@ -2,13 +2,14 @@ package petclinic.util;
 
 import java.util.List;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * Provides access to the application database, allowing transient instances of entity classes to be persisted, and
@@ -75,7 +76,7 @@ public class Database {
      *         clause (if any)
      */
     @Nonnull
-    public <E extends BaseEntity> List<E> find(@Nonnegative int maxResults, @Nonnull String qlStatement,
+    public <E extends BaseEntity> List<E> find(@NonNegative int maxResults, @Nonnull String qlStatement,
             @Nonnull Object... qlArgs) {
         Query query = em.createQuery(qlStatement);
 

@@ -6,13 +6,13 @@ package mockit.coverage.data;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnegative;
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public interface PerFileCoverage extends Serializable {
-    @Nonnegative
+    @NonNegative
     int getTotalItems();
 
-    @Nonnegative
+    @NonNegative
     int getCoveredItems();
 
     int getCoveragePercentage();

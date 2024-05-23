@@ -11,11 +11,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.coverage.Configuration;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class TestCoverage {
     @Nullable
@@ -41,7 +42,7 @@ public final class TestCoverage {
         currentTestMethod = testMethod;
     }
 
-    public void recordNewItemCoveredByTestIfApplicable(@Nonnegative int previousExecutionCount) {
+    public void recordNewItemCoveredByTestIfApplicable(@NonNegative int previousExecutionCount) {
         if (previousExecutionCount == 0 && currentTestMethod != null) {
             Integer itemsCoveredByTest = testsToItemsCovered.get(currentTestMethod);
             testsToItemsCovered.put(currentTestMethod, itemsCoveredByTest == null ? 1 : itemsCoveredByTest + 1);

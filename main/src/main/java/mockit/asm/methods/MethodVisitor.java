@@ -1,6 +1,5 @@
 package mockit.asm.methods;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -15,6 +14,8 @@ import mockit.asm.types.JavaType;
 import mockit.asm.types.MethodType;
 import mockit.asm.types.ObjectType;
 import mockit.asm.util.MethodHandle;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * A visitor to visit a Java method, in the following order:<br>
@@ -47,7 +48,7 @@ public class MethodVisitor extends BaseWriter {
      *         visiting this annotation
      */
     @Nullable
-    public AnnotationVisitor visitParameterAnnotation(@Nonnegative int parameter, @Nonnull String desc) {
+    public AnnotationVisitor visitParameterAnnotation(@NonNegative int parameter, @Nonnull String desc) {
         return null;
     }
 
@@ -91,7 +92,7 @@ public class MethodVisitor extends BaseWriter {
      * @param varIndex
      *            the operand of the instruction to be visited, which is the index of a local variable
      */
-    public void visitVarInsn(int opcode, @Nonnegative int varIndex) {
+    public void visitVarInsn(int opcode, @NonNegative int varIndex) {
     }
 
     /**
@@ -198,7 +199,7 @@ public class MethodVisitor extends BaseWriter {
      * @param increment
      *            amount to increment the local variable by
      */
-    public void visitIincInsn(@Nonnegative int varIndex, int increment) {
+    public void visitIincInsn(@NonNegative int varIndex, int increment) {
     }
 
     /**
@@ -239,7 +240,7 @@ public class MethodVisitor extends BaseWriter {
      * @param dims
      *            number of dimensions of the array to allocate
      */
-    public void visitMultiANewArrayInsn(@Nonnull String desc, @Nonnegative int dims) {
+    public void visitMultiANewArrayInsn(@Nonnull String desc, @NonNegative int dims) {
     }
 
     /**
@@ -277,7 +278,7 @@ public class MethodVisitor extends BaseWriter {
      *            the local variable's index
      */
     public void visitLocalVariable(@Nonnull String name, @Nonnull String desc, @Nullable String signature,
-            @Nonnull Label start, @Nonnull Label end, @Nonnegative int index) {
+            @Nonnull Label start, @Nonnull Label end, @NonNegative int index) {
     }
 
     /**
@@ -288,12 +289,12 @@ public class MethodVisitor extends BaseWriter {
      * @param start
      *            the first instruction corresponding to this line number
      */
-    public void visitLineNumber(@Nonnegative int line, @Nonnull Label start) {
+    public void visitLineNumber(@NonNegative int line, @Nonnull Label start) {
     }
 
     /**
      * Visits the maximum stack size of the method.
      */
-    public void visitMaxStack(@Nonnegative int maxStack) {
+    public void visitMaxStack(@NonNegative int maxStack) {
     }
 }

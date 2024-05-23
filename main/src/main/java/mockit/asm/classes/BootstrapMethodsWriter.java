@@ -2,7 +2,6 @@ package mockit.asm.classes;
 
 import static mockit.asm.jvmConstants.ConstantPoolTypes.INVOKE_DYNAMIC;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import mockit.asm.constantPool.AttributeWriter;
@@ -14,15 +13,17 @@ import mockit.asm.constantPool.MethodHandleItem;
 import mockit.asm.util.ByteVector;
 import mockit.asm.util.MethodHandle;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 /**
  * Generates the "BootstrapMethods" attribute in a class file being written by a {@link ClassWriter}.
  */
 final class BootstrapMethodsWriter extends AttributeWriter {
     @Nonnull
     private final ByteVector bootstrapMethods;
-    @Nonnegative
+    @NonNegative
     private final int bootstrapMethodsCount;
-    @Nonnegative
+    @NonNegative
     private final int bsmStartCodeIndex;
 
     BootstrapMethodsWriter(@Nonnull ConstantPoolGeneration cp, @Nonnull ClassReader cr) {
@@ -50,7 +51,7 @@ final class BootstrapMethodsWriter extends AttributeWriter {
         cr.codeIndex = previousCodeIndex;
     }
 
-    private void copyBootstrapMethod(@Nonnull ClassReader cr, @Nonnull Item[] items, @Nonnegative int bsmIndex) {
+    private void copyBootstrapMethod(@Nonnull ClassReader cr, @Nonnull Item[] items, @NonNegative int bsmIndex) {
         int position = cr.codeIndex - bsmStartCodeIndex;
         MethodHandle bsm = cr.readMethodHandle();
         int hashCode = bsm.hashCode();
@@ -113,7 +114,7 @@ final class BootstrapMethodsWriter extends AttributeWriter {
     }
 
     @Nonnull
-    private BootstrapMethodItem getBSMItem(@Nonnegative int hashCode) {
+    private BootstrapMethodItem getBSMItem(@NonNegative int hashCode) {
         Item item = cp.getItem(hashCode);
 
         while (item != null) {
@@ -127,7 +128,7 @@ final class BootstrapMethodsWriter extends AttributeWriter {
         throw new IllegalStateException("BootstrapMethodItem not found for hash code " + hashCode);
     }
 
-    @Nonnegative
+    @NonNegative
     @Override
     public int getSize() {
         return 8 + bootstrapMethods.getLength();

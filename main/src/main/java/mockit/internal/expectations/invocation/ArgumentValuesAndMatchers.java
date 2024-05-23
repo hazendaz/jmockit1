@@ -7,7 +7,6 @@ package mockit.internal.expectations.invocation;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -17,6 +16,8 @@ import mockit.internal.expectations.argumentMatching.ArgumentMismatch;
 import mockit.internal.expectations.argumentMatching.EqualityMatcher;
 import mockit.internal.expectations.argumentMatching.HamcrestAdapter;
 import mockit.internal.expectations.argumentMatching.ReflectiveMatcher;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 abstract class ArgumentValuesAndMatchers {
     @Nonnull
@@ -49,7 +50,7 @@ abstract class ArgumentValuesAndMatchers {
     }
 
     @Nullable
-    final ArgumentMatcher<?> getArgumentMatcher(@Nonnegative int parameterIndex) {
+    final ArgumentMatcher<?> getArgumentMatcher(@NonNegative int parameterIndex) {
         if (matchers == null) {
             return null;
         }
@@ -65,7 +66,7 @@ abstract class ArgumentValuesAndMatchers {
 
     abstract boolean isMatch(@Nonnull Object[] replayArgs, @Nonnull Map<Object, Object> instanceMap);
 
-    static boolean areEqual(@Nonnull Object[] expectedValues, @Nonnull Object[] actualValues, @Nonnegative int count,
+    static boolean areEqual(@Nonnull Object[] expectedValues, @Nonnull Object[] actualValues, @NonNegative int count,
             @Nonnull Map<Object, Object> instanceMap) {
         for (int i = 0; i < count; i++) {
             if (isNotEqual(expectedValues[i], actualValues[i], instanceMap)) {
@@ -139,7 +140,7 @@ abstract class ArgumentValuesAndMatchers {
     }
 
     private boolean areNonEquivalentMatches(@Nonnull ArgumentValuesAndMatchers other,
-            @Nonnull ArgumentMatcher<?> matcher1, @Nonnull ArgumentMatcher<?> matcher2, @Nonnegative int matcherIndex) {
+            @Nonnull ArgumentMatcher<?> matcher1, @Nonnull ArgumentMatcher<?> matcher2, @NonNegative int matcherIndex) {
         Class<?> matcherClass = matcher1.getClass();
         return matcherClass == ReflectiveMatcher.class || matcherClass == HamcrestAdapter.class
                 || !equivalentMatches(matcher1, values[matcherIndex], matcher2, other.values[matcherIndex]);

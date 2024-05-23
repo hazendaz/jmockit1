@@ -4,7 +4,6 @@
  */
 package mockit.internal.injection;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -13,14 +12,16 @@ import mockit.internal.state.ParameterNames;
 import mockit.internal.util.TestMethod;
 import mockit.internal.util.TypeConversion;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 final class TestedParameter extends TestedObject {
     @Nonnull
     private final TestMethod testMethod;
-    @Nonnegative
+    @NonNegative
     private final int parameterIndex;
 
     TestedParameter(@Nonnull InjectionState injectionState, @Nonnull TestMethod testMethod,
-            @Nonnegative int parameterIndex, @Nonnull Tested metadata) {
+            @NonNegative int parameterIndex, @Nonnull Tested metadata) {
         super(injectionState, metadata, testMethod.testClass, ParameterNames.getName(testMethod, parameterIndex),
                 testMethod.getParameterType(parameterIndex), testMethod.getParameterClass(parameterIndex));
         this.testMethod = testMethod;

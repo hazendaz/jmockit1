@@ -3,14 +3,14 @@ package jmockit.loginExample.domain.userLogin;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
-import javax.annotation.Nonnegative;
+import org.checkerframework.checker.index.qual.NonNegative;
 
 import jmockit.loginExample.domain.userAccount.UserAccount;
 
 public final class LoginService {
     private static final int MAX_LOGIN_ATTEMPTS = 3;
 
-    @Nonnegative
+    @NonNegative
     private int loginAttemptsRemaining = MAX_LOGIN_ATTEMPTS;
     @Nullable
     private String previousAccountId;

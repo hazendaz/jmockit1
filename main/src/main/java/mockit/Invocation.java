@@ -6,11 +6,12 @@ package mockit;
 
 import java.lang.reflect.Member;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.BaseInvocation;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * A context object representing the current invocation to a mocked or faked method/constructor, to be passed as the
@@ -38,7 +39,7 @@ public class Invocation {
     private final Object[] invokedArguments;
 
     /** The invocation count. */
-    @Nonnegative
+    @NonNegative
     private final int invocationCount;
 
     /**
@@ -52,7 +53,7 @@ public class Invocation {
      *            the invocation count
      */
     protected Invocation(@Nullable Object invokedInstance, @Nonnull Object[] invokedArguments,
-            @Nonnegative int invocationCount) {
+            @NonNegative int invocationCount) {
         this.invokedInstance = invokedInstance;
         this.invokedArguments = invokedArguments;
         this.invocationCount = invocationCount;
@@ -103,7 +104,7 @@ public class Invocation {
      *
      * @return the invocation count
      */
-    @Nonnegative
+    @NonNegative
     public final int getInvocationCount() {
         return invocationCount;
     }

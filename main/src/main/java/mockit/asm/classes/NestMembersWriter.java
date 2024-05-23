@@ -1,14 +1,15 @@
 package mockit.asm.classes;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import mockit.asm.constantPool.AttributeWriter;
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.util.ByteVector;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 final class NestMembersWriter extends AttributeWriter {
-    @Nonnegative
+    @NonNegative
     private final int[] memberClassNameIndices;
 
     NestMembersWriter(@Nonnull ConstantPoolGeneration cp, @Nonnull String[] memberClassNames) {
@@ -21,7 +22,7 @@ final class NestMembersWriter extends AttributeWriter {
         }
     }
 
-    @Nonnegative
+    @NonNegative
     @Override
     public int getSize() {
         return 8 + 2 * memberClassNameIndices.length;

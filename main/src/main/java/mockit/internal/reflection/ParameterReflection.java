@@ -9,12 +9,13 @@ import static mockit.internal.util.Utilities.JAVA8;
 
 import java.lang.reflect.Method;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import mockit.Invocation;
 import mockit.internal.util.AutoBoxing;
 import mockit.internal.util.GeneratedClasses;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class ParameterReflection {
     @Nonnull
@@ -159,7 +160,7 @@ public final class ParameterReflection {
         return true;
     }
 
-    @Nonnegative
+    @NonNegative
     public static int getParameterCount(@Nonnull Method method) {
         // noinspection Since15
         return JAVA8 ? method.getParameterCount() : method.getParameterTypes().length;

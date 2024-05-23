@@ -9,16 +9,17 @@ import static java.util.Collections.emptyList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.expectations.invocation.ExpectedInvocation;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 final class OrderedVerificationPhase extends BaseVerificationPhase {
-    @Nonnegative
+    @NonNegative
     private final int expectationCount;
-    @Nonnegative
+    @NonNegative
     private int indexIncrement;
 
     OrderedVerificationPhase(@Nonnull ReplayPhase replayPhase) {

@@ -2,16 +2,17 @@ package mockit.asm.constantPool;
 
 import static mockit.asm.jvmConstants.ConstantPoolTypes.INTEGER;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 public final class IntItem extends IntValueItem {
-    public IntItem(@Nonnegative int index) {
+    public IntItem(@NonNegative int index) {
         super(index);
         type = INTEGER;
     }
 
-    IntItem(@Nonnegative int index, @Nonnull IntItem item) {
+    IntItem(@NonNegative int index, @Nonnull IntItem item) {
         super(index, item);
     }
 }

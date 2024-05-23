@@ -2,16 +2,17 @@ package mockit.asm.constantPool;
 
 import static mockit.asm.jvmConstants.ConstantPoolTypes.LONG;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 public final class LongItem extends LongValueItem {
-    public LongItem(@Nonnegative int index) {
+    public LongItem(@NonNegative int index) {
         super(index);
         type = LONG;
     }
 
-    LongItem(@Nonnegative int index, @Nonnull LongItem item) {
+    LongItem(@NonNegative int index, @Nonnull LongItem item) {
         super(index, item);
     }
 }

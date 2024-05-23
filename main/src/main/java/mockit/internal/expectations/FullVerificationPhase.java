@@ -7,13 +7,14 @@ package mockit.internal.expectations;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.expectations.invocation.ExpectedInvocation;
 import mockit.internal.expectations.invocation.InvocationArguments;
 import mockit.internal.util.ClassLoad;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 final class FullVerificationPhase extends UnorderedVerificationPhase {
     @Nonnull
@@ -63,7 +64,7 @@ final class FullVerificationPhase extends UnorderedVerificationPhase {
     }
 
     private boolean wasVerified(@Nonnull Expectation replayExpectation, @Nonnull Object[] replayArgs,
-            @Nonnegative int expectationIndex) {
+            @NonNegative int expectationIndex) {
         InvocationArguments invokedArgs = replayExpectation.invocation.arguments;
         List<VerifiedExpectation> verifiedExpectations = executionState.verifiedExpectations;
 

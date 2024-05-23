@@ -26,7 +26,6 @@ import static mockit.asm.jvmConstants.Opcodes.INVOKEVIRTUAL;
 import static mockit.asm.jvmConstants.Opcodes.ISTORE;
 import static mockit.asm.jvmConstants.Opcodes.ISTORE_0;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -38,6 +37,8 @@ import mockit.asm.controlFlow.Label;
 import mockit.asm.jvmConstants.ConstantPoolTypes;
 import mockit.asm.jvmConstants.JVMInstruction;
 import mockit.asm.util.MethodHandle;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 @SuppressWarnings("OverlyComplexClass")
 public final class MethodReader extends AnnotatedReader {
@@ -59,11 +60,11 @@ public final class MethodReader extends AnnotatedReader {
      */
     private String desc;
 
-    @Nonnegative
+    @NonNegative
     private int methodStartCodeIndex;
-    @Nonnegative
+    @NonNegative
     private int bodyStartCodeIndex;
-    @Nonnegative
+    @NonNegative
     private int parameterAnnotationsCodeIndex;
 
     /**
@@ -89,7 +90,7 @@ public final class MethodReader extends AnnotatedReader {
      *
      * @return the offset of the first byte following the last method in the class
      */
-    @Nonnegative
+    @NonNegative
     public int readMethods() {
         for (int methodCount = readUnsignedShort(); methodCount > 0; methodCount--) {
             readMethod();
@@ -196,7 +197,7 @@ public final class MethodReader extends AnnotatedReader {
         }
     }
 
-    private void readParameterAnnotations(@Nonnegative int parameterIndex) {
+    private void readParameterAnnotations(@NonNegative int parameterIndex) {
         for (int annotationCount = readUnsignedShort(); annotationCount > 0; annotationCount--) {
             String annotationTypeDesc = readNonnullUTF8();
             AnnotationVisitor av = mv.visitParameterAnnotation(parameterIndex, annotationTypeDesc);
@@ -248,7 +249,7 @@ public final class MethodReader extends AnnotatedReader {
         mv.visitMaxStack(maxStack);
     }
 
-    private void readAllLabelsInCodeBlock(@Nonnegative int codeStart, @Nonnegative int codeEnd) {
+    private void readAllLabelsInCodeBlock(@NonNegative int codeStart, @NonNegative int codeEnd) {
         getOrCreateLabel(codeEnd - codeStart + 1);
 
         while (codeIndex < codeEnd) {
@@ -258,7 +259,7 @@ public final class MethodReader extends AnnotatedReader {
     }
 
     @Nonnull
-    private Label getOrCreateLabel(@Nonnegative int offset) {
+    private Label getOrCreateLabel(@NonNegative int offset) {
         Label label = labels[offset];
 
         if (label == null) {
@@ -269,7 +270,7 @@ public final class MethodReader extends AnnotatedReader {
         return label;
     }
 
-    private void readLabelForInstructionIfAny(@Nonnegative int offset) {
+    private void readLabelForInstructionIfAny(@NonNegative int offset) {
         int opcode = readUnsignedByte();
         byte instructionType = JVMInstruction.TYPE[opcode];
         boolean tablInsn = instructionType == TABL_INSN;
@@ -281,7 +282,7 @@ public final class MethodReader extends AnnotatedReader {
         }
     }
 
-    private void readLabelsForSwitchInstruction(@Nonnegative int offset, boolean tableNotLookup) {
+    private void readLabelsForSwitchInstruction(@NonNegative int offset, boolean tableNotLookup) {
         readSwitchDefaultLabel(offset);
 
         int caseCount;
@@ -306,7 +307,7 @@ public final class MethodReader extends AnnotatedReader {
     }
 
     @Nonnull
-    private Label readSwitchDefaultLabel(@Nonnegative int offset) {
+    private Label readSwitchDefaultLabel(@NonNegative int offset) {
         codeIndex += 3 - (offset & 3); // skips 0 to 3 padding bytes
 
         int defaultLabelOffset = readInt();
@@ -314,7 +315,7 @@ public final class MethodReader extends AnnotatedReader {
     }
 
     @SuppressWarnings("OverlyLongMethod")
-    private void readLabelsForNonSwitchInstruction(@Nonnegative int offset, byte instructionType) {
+    private void readLabelsForNonSwitchInstruction(@NonNegative int offset, byte instructionType) {
         int codeIndexSize = 0;
 
         // noinspection SwitchStatementWithoutDefaultBranch
@@ -384,7 +385,7 @@ public final class MethodReader extends AnnotatedReader {
     }
 
     @Nonnull
-    private Label getOrCreateDebugLabel(@Nonnegative int offset) {
+    private Label getOrCreateDebugLabel(@NonNegative int offset) {
         Label label = labels[offset];
 
         if (label == null) {
@@ -427,7 +428,7 @@ public final class MethodReader extends AnnotatedReader {
     }
 
     @SuppressWarnings({ "OverlyComplexMethod", "OverlyLongMethod" })
-    private void readBytecodeInstructionsInCodeBlock(@Nonnegative int codeStartIndex, @Nonnegative int codeEndIndex) {
+    private void readBytecodeInstructionsInCodeBlock(@NonNegative int codeStartIndex, @NonNegative int codeEndIndex) {
         codeIndex = codeStartIndex;
 
         while (codeIndex < codeEndIndex) {
@@ -494,7 +495,7 @@ public final class MethodReader extends AnnotatedReader {
         }
     }
 
-    private void visitLabelAndLineNumber(@Nonnegative int offset) {
+    private void visitLabelAndLineNumber(@NonNegative int offset) {
         Label label = labels[offset];
 
         if (label != null) {
@@ -535,13 +536,13 @@ public final class MethodReader extends AnnotatedReader {
         mv.visitTypeInsn(opcode, typeDesc);
     }
 
-    private void readJump(int opcode, @Nonnegative int offset) {
+    private void readJump(int opcode, @NonNegative int offset) {
         short targetIndex = readShort();
         Label targetLabel = labels[offset + targetIndex];
         mv.visitJumpInsn(opcode, targetLabel);
     }
 
-    private void readWideJump(int opcode, @Nonnegative int offset) {
+    private void readWideJump(int opcode, @NonNegative int offset) {
         int targetIndex = readInt();
         Label targetLabel = labels[offset + targetIndex];
         mv.visitJumpInsn(opcode - 33, targetLabel);
@@ -574,7 +575,7 @@ public final class MethodReader extends AnnotatedReader {
         mv.visitIntInsn(opcode, operand);
     }
 
-    private void readSwitchInstruction(@Nonnegative int offset, boolean tableNotLookup) {
+    private void readSwitchInstruction(@NonNegative int offset, boolean tableNotLookup) {
         Label dfltLabel = readSwitchDefaultLabel(offset);
         int min;
         int max;
@@ -602,7 +603,7 @@ public final class MethodReader extends AnnotatedReader {
     }
 
     @Nonnull
-    private Label[] readSwitchCaseLabels(@Nonnegative int offset, @Nonnegative int caseCount, @Nullable int[] keys) {
+    private Label[] readSwitchCaseLabels(@NonNegative int offset, @NonNegative int caseCount, @Nullable int[] keys) {
         Label[] caseLabels = new Label[caseCount];
 
         for (int i = 0; i < caseCount; i++) {
@@ -678,7 +679,7 @@ public final class MethodReader extends AnnotatedReader {
         codeIndex += 2;
     }
 
-    private void visitEndLabel(@Nonnegative int codeLength) {
+    private void visitEndLabel(@NonNegative int codeLength) {
         Label label = labels[codeLength];
 
         if (label != null) {
@@ -686,7 +687,7 @@ public final class MethodReader extends AnnotatedReader {
         }
     }
 
-    private void readLocalVariableTables(@Nonnegative int varTableCodeIndex, @Nullable int[] typeTable) {
+    private void readLocalVariableTables(@NonNegative int varTableCodeIndex, @Nullable int[] typeTable) {
         if (varTableCodeIndex > 0) {
             codeIndex = varTableCodeIndex;
 
@@ -704,7 +705,7 @@ public final class MethodReader extends AnnotatedReader {
     }
 
     @Nullable
-    private String getLocalVariableSignature(@Nonnull int[] typeTable, @Nonnegative int start, @Nonnegative int index) {
+    private String getLocalVariableSignature(@Nonnull int[] typeTable, @NonNegative int start, @NonNegative int index) {
         for (int i = 0, n = typeTable.length; i < n; i += 3) {
             if (typeTable[i] == start && typeTable[i + 1] == index) {
                 return readNonnullUTF8(typeTable[i + 2]);

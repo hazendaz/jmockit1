@@ -9,9 +9,10 @@ import static mockit.internal.util.GeneratedClasses.isGeneratedClass;
 
 import java.security.ProtectionDomain;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 final class CapturedType {
     private static final ProtectionDomain JMOCKIT_DOMAIN = CapturedType.class.getProtectionDomain();
@@ -67,12 +68,12 @@ final class CapturedType {
                 && hasSubPackages(classNameOrDesc, 4, "junit testng hamcrest gradle");
     }
 
-    private static boolean hasSubPackage(@Nonnull String nameOrDesc, @Nonnegative int offset,
+    private static boolean hasSubPackage(@Nonnull String nameOrDesc, @NonNegative int offset,
             @Nonnull String subPackage) {
         return nameOrDesc.regionMatches(offset, subPackage, 0, subPackage.length());
     }
 
-    private static boolean hasSubPackages(@Nonnull String nameOrDesc, @Nonnegative int offset,
+    private static boolean hasSubPackages(@Nonnull String nameOrDesc, @NonNegative int offset,
             @Nonnull String subPackages) {
         int subPackageStart = 0;
         int subPackageEnd;

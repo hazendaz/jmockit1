@@ -10,11 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.coverage.data.CoverageData;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 final class CoverageCheck {
     private static final String configuration = Configuration.getProperty("check", "");
@@ -31,7 +32,7 @@ final class CoverageCheck {
         private final String sourceFilePrefix;
         @Nonnull
         private final String scopeDescription;
-        @Nonnegative
+        @NonNegative
         private int minPercentage;
 
         Threshold(@Nonnull String configurationParameter) {
@@ -79,7 +80,7 @@ final class CoverageCheck {
             return percentage < 0 || verifyMinimum(percentage);
         }
 
-        private boolean verifyMinimum(@Nonnegative int percentage) {
+        private boolean verifyMinimum(@NonNegative int percentage) {
             if (percentage < minPercentage) {
                 System.out.println("JMockit: coverage too low" + scopeDescription + ": " + percentage + "% < "
                         + minPercentage + '%');

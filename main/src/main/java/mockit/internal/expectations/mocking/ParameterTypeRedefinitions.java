@@ -9,11 +9,12 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.util.TestMethod;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class ParameterTypeRedefinitions extends TypeRedefinitions {
     @Nonnull
@@ -38,7 +39,7 @@ public final class ParameterTypeRedefinitions extends TypeRedefinitions {
         instantiateMockedTypes(instanceFactories);
     }
 
-    private void createMockedTypeFromMockParameterDeclaration(@Nonnegative int parameterIndex, @Nullable Object mock) {
+    private void createMockedTypeFromMockParameterDeclaration(@NonNegative int parameterIndex, @Nullable Object mock) {
         Type parameterType = testMethod.getParameterType(parameterIndex);
         Annotation[] annotationsOnParameter = testMethod.getParameterAnnotations(parameterIndex);
         Class<?> parameterImplementationClass = mock == null ? null : mock.getClass();
@@ -108,7 +109,7 @@ public final class ParameterTypeRedefinitions extends TypeRedefinitions {
 
     @Nonnull
     private Object instantiateMockedType(@Nonnull MockedType mockedType, @Nonnull InstanceFactory instanceFactory,
-            @Nonnegative int paramIndex) {
+            @NonNegative int paramIndex) {
         Object mock = testMethod.getParameterValue(paramIndex);
 
         if (mock == null) {
