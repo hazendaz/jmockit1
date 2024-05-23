@@ -2,10 +2,11 @@ package petclinic.owners;
 
 import java.util.List;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import petclinic.util.Database;
 

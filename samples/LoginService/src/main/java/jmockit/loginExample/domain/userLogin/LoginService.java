@@ -1,9 +1,8 @@
 package jmockit.loginExample.domain.userLogin;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import jmockit.loginExample.domain.userAccount.UserAccount;
 

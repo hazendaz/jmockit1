@@ -2,11 +2,12 @@ package petclinic.visits;
 
 import java.util.List;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
+
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import petclinic.pets.Pet;
 import petclinic.pets.PetMaintenance;

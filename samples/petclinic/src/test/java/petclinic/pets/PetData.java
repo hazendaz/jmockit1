@@ -2,9 +2,10 @@ package petclinic.pets;
 
 import java.util.Date;
 
+import javax.inject.Inject;
+
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import javax.inject.Inject;
 
 import petclinic.owners.Owner;
 import petclinic.owners.OwnerData;

@@ -2,8 +2,9 @@ package petclinic.visits;
 
 import java.util.Date;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
 import javax.inject.Inject;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import petclinic.pets.Pet;
 import petclinic.pets.PetData;
