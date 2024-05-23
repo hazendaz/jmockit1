@@ -383,6 +383,8 @@ class Invocations {
      * however, this flexibility is not available: if a matcher is used for any regular parameter, or for any element in
      * the varargs array, then a matcher <em>must</em> be used for every other parameter and varargs element.
      *
+     * @param <T>
+     *            the generic type
      * @param argumentMatcher
      *            any <em>org.hamcrest.Matcher</em> object
      *

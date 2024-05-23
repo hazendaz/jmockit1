@@ -24,12 +24,14 @@ public final class Deencapsulation {
     /**
      * Gets the value of a non-accessible (eg <code>private</code>) field from a given object.
      *
+     * @param <T>
+     *            interface or class type to which the returned value should be assignable
      * @param objectWithField
      *            the instance from which to get the field value
      * @param fieldName
      *            the name of the field to get
-     * @param <T>
-     *            interface or class type to which the returned value should be assignable
+     *
+     * @return the field
      *
      * @throws IllegalArgumentException
      *             if the desired field is not found
@@ -48,10 +50,14 @@ public final class Deencapsulation {
      * is only one field declared in the class of the given object whose type can receive values of the specified field
      * type.
      *
+     * @param <T>
+     *            the generic type
      * @param objectWithField
      *            the instance from which to get the field value
      * @param fieldType
      *            the declared type of the field, or a sub-type of the declared field type
+     *
+     * @return the field
      *
      * @throws IllegalArgumentException
      *             if either the desired field is not found, or more than one is
@@ -68,12 +74,14 @@ public final class Deencapsulation {
     /**
      * Gets the value of a non-accessible static field defined in a given class.
      *
+     * @param <T>
+     *            interface or class type to which the returned value should be assignable
      * @param classWithStaticField
      *            the class from which to get the field value
      * @param fieldName
      *            the name of the static field to get
-     * @param <T>
-     *            interface or class type to which the returned value should be assignable
+     *
+     * @return the field
      *
      * @throws IllegalArgumentException
      *             if the desired field is not found
@@ -91,12 +99,14 @@ public final class Deencapsulation {
      * Gets the value of a non-accessible static field defined in a given class, <em>assuming</em> there is only one
      * field declared in the given class whose type can receive values of the specified field type.
      *
+     * @param <T>
+     *            interface or class type to which the returned value should be assignable
      * @param classWithStaticField
      *            the class from which to get the field value
      * @param fieldType
      *            the declared type of the field, or a sub-type of the declared field type
-     * @param <T>
-     *            interface or class type to which the returned value should be assignable
+     *
+     * @return the field
      *
      * @throws IllegalArgumentException
      *             if either the desired field is not found, or more than one is
@@ -135,6 +145,11 @@ public final class Deencapsulation {
     /**
      * Sets the value of a non-accessible field on a given object. The field is looked up by the type of the given field
      * value instead of by name.
+     *
+     * @param objectWithField
+     *            the object with field
+     * @param fieldValue
+     *            the field value
      *
      * @throws IllegalArgumentException
      *             if either the desired field is not found, or more than one is
@@ -192,6 +207,8 @@ public final class Deencapsulation {
     /**
      * Invokes a non-accessible (eg {@code private}) instance method from a given class with the given arguments.
      *
+     * @param <T>
+     *            type to which the returned value should be assignable
      * @param objectWithMethod
      *            the instance on which the invocation is to be done
      * @param methodName
@@ -200,8 +217,6 @@ public final class Deencapsulation {
      *            the types of the parameters as declared in the desired method
      * @param methodArgs
      *            zero or more parameter values for the invocation
-     * @param <T>
-     *            type to which the returned value should be assignable
      *
      * @return the return value from the invoked method
      *
@@ -219,6 +234,8 @@ public final class Deencapsulation {
     /**
      * Invokes a non-accessible (eg {@code private}) instance method from a given class with the given arguments.
      *
+     * @param <T>
+     *            type to which the returned value should be assignable
      * @param objectWithMethod
      *            the instance on which the invocation is to be done
      * @param methodName
@@ -226,8 +243,6 @@ public final class Deencapsulation {
      * @param nonNullArgs
      *            zero or more non-null parameter values for the invocation; if a null value needs to be passed, the
      *            {@code Class} object for the corresponding parameter type must be passed instead
-     * @param <T>
-     *            type to which the returned value should be assignable
      *
      * @return the return value from the invoked method
      *
@@ -244,6 +259,8 @@ public final class Deencapsulation {
     /**
      * Invokes a non-accessible (eg {@code private}) {@code static} method with the given arguments.
      *
+     * @param <T>
+     *            type to which the returned value should be assignable
      * @param classWithStaticMethod
      *            the class on which the invocation is to be done
      * @param methodName
@@ -252,8 +269,6 @@ public final class Deencapsulation {
      *            the types of the parameters as declared in the desired method
      * @param methodArgs
      *            zero or more parameter values for the invocation
-     * @param <T>
-     *            type to which the returned value should be assignable
      *
      * @return the return value from the invoked method
      *
@@ -267,6 +282,8 @@ public final class Deencapsulation {
     /**
      * Invokes a non-accessible (eg {@code private}) {@code static} method with the given arguments.
      *
+     * @param <T>
+     *            type to which the returned value should be assignable
      * @param classWithStaticMethod
      *            the class on which the invocation is to be done
      * @param methodName
@@ -274,8 +291,6 @@ public final class Deencapsulation {
      * @param nonNullArgs
      *            zero or more non-null parameter values for the invocation; if a null value needs to be passed, the
      *            {@code Class} object for the corresponding parameter type must be passed instead
-     * @param <T>
-     *            type to which the returned value should be assignable
      *
      * @return the return value from the invoked method
      *
@@ -291,6 +306,8 @@ public final class Deencapsulation {
     /**
      * Invokes a non-accessible (eg {@code private}) {@code static} method with the given arguments.
      *
+     * @param <T>
+     *            type to which the returned value should be assignable
      * @param classWithStaticMethod
      *            the (fully qualified) name of the class on which the invocation is to be done; must not be null
      * @param methodName
@@ -298,8 +315,6 @@ public final class Deencapsulation {
      * @param nonNullArgs
      *            zero or more non-null parameter values for the invocation; if a null value needs to be passed, the
      *            {@code Class} object for the corresponding parameter type must be passed instead
-     * @param <T>
-     *            type to which the returned value should be assignable
      *
      * @return the return value from the invoked method
      *

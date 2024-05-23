@@ -194,6 +194,9 @@ public abstract class MockUp<T> {
      * In most cases, the constructor with no parameters can be used. This variation should be used only when the type
      * to be faked is not accessible or known from the test code.
      *
+     * @param targetClass
+     *            the target class
+     *
      * @see #MockUp()
      * @see #MockUp(Object)
      */
@@ -269,6 +272,8 @@ public abstract class MockUp<T> {
      * instead.
      * <p>
      * In any case, for a given mock-up instance this method will always return the same mock instance.
+     *
+     * @return the mock instance
      *
      * @see <a href="http://jmockit.github.io/tutorial/Faking.html#interfaces" target="tutorial">Tutorial</a>
      */
