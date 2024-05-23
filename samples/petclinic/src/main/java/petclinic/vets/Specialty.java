@@ -1,7 +1,7 @@
 package petclinic.vets;
 
-import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 
 import petclinic.util.BaseEntity;
 
