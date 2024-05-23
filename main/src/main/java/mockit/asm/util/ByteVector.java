@@ -1,7 +1,8 @@
 package mockit.asm.util;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * A dynamically extensible vector of bytes. This class is roughly equivalent to a DataOutputStream on top of a
@@ -18,7 +19,7 @@ public final class ByteVector {
     /**
      * Actual number of bytes in this vector.
      */
-    @Nonnegative
+    @NonNegative
     private int length;
 
     /**
@@ -31,7 +32,7 @@ public final class ByteVector {
     /**
      * Constructs a new ByteVector with the given initial size.
      */
-    public ByteVector(@Nonnegative int initialSize) {
+    public ByteVector(@NonNegative int initialSize) {
         data = new byte[initialSize];
     }
 
@@ -46,7 +47,7 @@ public final class ByteVector {
     /**
      * Returns the {@link #length} of this vector, in bytes.
      */
-    @Nonnegative
+    @NonNegative
     public int getLength() {
         return length;
     }
@@ -54,7 +55,7 @@ public final class ByteVector {
     /**
      * Sets the {@link #length} of this vector, in bytes.
      */
-    public void setLength(@Nonnegative int length) {
+    public void setLength(@NonNegative int length) {
         this.length = length;
     }
 
@@ -72,8 +73,8 @@ public final class ByteVector {
         return this;
     }
 
-    @Nonnegative
-    private int getLengthEnlargingIfNeeded(@Nonnegative int bytesToAdd) {
+    @NonNegative
+    private int getLengthEnlargingIfNeeded(@NonNegative int bytesToAdd) {
         int len = length;
 
         if (len + bytesToAdd > data.length) {
@@ -89,7 +90,7 @@ public final class ByteVector {
      * @param size
      *            number of additional bytes that this byte vector should be able to receive
      */
-    private void enlarge(@Nonnegative int size) {
+    private void enlarge(@NonNegative int size) {
         int length1 = 2 * data.length;
         int length2 = length + size;
         byte[] newData = new byte[length1 > length2 ? length1 : length2];
@@ -225,7 +226,7 @@ public final class ByteVector {
      *            the index of the first character to encode. The previous characters are supposed to have already been
      *            encoded, using only one byte per character.
      */
-    private void encodeUTF8(@Nonnull String utf8String, @Nonnegative int startIndex) {
+    private void encodeUTF8(@Nonnull String utf8String, @NonNegative int startIndex) {
         int byteLength = computeByteLength(utf8String, startIndex);
 
         if (byteLength > 65535) {
@@ -246,8 +247,8 @@ public final class ByteVector {
         putEncodedCharacters(utf8String, startIndex);
     }
 
-    @Nonnegative
-    private static int computeByteLength(@Nonnull String utf8String, @Nonnegative int startIndex) {
+    @NonNegative
+    private static int computeByteLength(@Nonnull String utf8String, @NonNegative int startIndex) {
         int byteLength = startIndex;
 
         for (int i = startIndex, n = utf8String.length(); i < n; i++) {
@@ -265,7 +266,7 @@ public final class ByteVector {
         return byteLength;
     }
 
-    private void putEncodedCharacters(@Nonnull String utf8String, @Nonnegative int startIndex) {
+    private void putEncodedCharacters(@Nonnull String utf8String, @NonNegative int startIndex) {
         byte[] characters = data;
         int len = length;
 
@@ -302,7 +303,7 @@ public final class ByteVector {
      * @param numBytes
      *            number of bytes of code that must be copied
      */
-    public void putByteArray(@Nonnull byte[] bytes, @Nonnegative int offset, @Nonnegative int numBytes) {
+    public void putByteArray(@Nonnull byte[] bytes, @NonNegative int offset, @NonNegative int numBytes) {
         int len = getLengthEnlargingIfNeeded(numBytes);
         System.arraycopy(bytes, offset, data, len, numBytes);
         length += numBytes;

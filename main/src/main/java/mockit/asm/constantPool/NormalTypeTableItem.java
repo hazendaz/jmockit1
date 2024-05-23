@@ -2,15 +2,16 @@ package mockit.asm.constantPool;
 
 import static mockit.asm.constantPool.TypeTableItem.SpecialType.NORMAL;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 final class NormalTypeTableItem extends TypeTableItem {
     NormalTypeTableItem() {
         type = NORMAL;
     }
 
-    NormalTypeTableItem(@Nonnegative int index, @Nonnull NormalTypeTableItem item) {
+    NormalTypeTableItem(@NonNegative int index, @Nonnull NormalTypeTableItem item) {
         super(index, item);
     }
 

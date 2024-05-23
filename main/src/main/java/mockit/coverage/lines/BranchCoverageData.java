@@ -8,10 +8,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import mockit.asm.controlFlow.Label;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * Coverage data gathered for a branch inside a line of source code.
@@ -32,7 +33,7 @@ public final class BranchCoverageData extends LineSegmentData {
         return empty || label.line == 0 && label.jumpTargetLine == 0;
     }
 
-    @Nonnegative
+    @NonNegative
     int getLine() {
         return label.jumpTargetLine == 0 ? label.line : label.jumpTargetLine;
     }

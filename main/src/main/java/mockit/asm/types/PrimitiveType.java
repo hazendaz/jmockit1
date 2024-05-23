@@ -11,11 +11,12 @@ import static mockit.asm.jvmConstants.Opcodes.ILOAD;
 import static mockit.asm.jvmConstants.Opcodes.LCONST_0;
 import static mockit.asm.jvmConstants.Opcodes.LLOAD;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.jvmConstants.ArrayElementType;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class PrimitiveType extends JavaType {
     private static final Class<?>[] TYPES = { void.class, boolean.class, char.class, byte.class, short.class, int.class,
@@ -39,22 +40,22 @@ public final class PrimitiveType extends JavaType {
     private static final PrimitiveType DOUBLE = new PrimitiveType(8, 3);
     private static final PrimitiveType[] JAVA_TYPES = { VOID, BOOLEAN, CHAR, BYTE, SHORT, INT, FLOAT, LONG, DOUBLE };
 
-    @Nonnegative
+    @NonNegative
     private final int index; // index of the type for lookup in several data type arrays
-    @Nonnegative
+    @NonNegative
     private final int loadOrStoreOffset; // instruction offset for IALOAD or IASTORE
-    @Nonnegative
+    @NonNegative
     private final int otherOffset; // offset for all other instructions
-    @Nonnegative
+    @NonNegative
     private final int size; // the size in words of the primitive type
-    @Nonnegative
+    @NonNegative
     private final int loadOpcode; // the xLOAD instruction for this primitive type
-    @Nonnegative
+    @NonNegative
     private final int constOpcode; // the xCONST_0 value for this primitive type
     @Nonnull
     private final String wrapperTypeDesc; // internal name of the corresponding "java.lang" wrapper class
 
-    private PrimitiveType(@Nonnegative int index, @Nonnegative int otherOffset) {
+    private PrimitiveType(@NonNegative int index, @NonNegative int otherOffset) {
         super(1);
         this.index = index;
         this.otherOffset = otherOffset;
@@ -156,7 +157,7 @@ public final class PrimitiveType extends JavaType {
         return getType().getName();
     }
 
-    @Nonnegative
+    @NonNegative
     @Override
     public int getSize() {
         return size;

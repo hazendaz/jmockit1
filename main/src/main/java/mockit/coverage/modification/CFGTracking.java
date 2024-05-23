@@ -11,13 +11,14 @@ import static mockit.asm.jvmConstants.Opcodes.INVOKEVIRTUAL;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import mockit.asm.controlFlow.Label;
 import mockit.coverage.lines.BranchCoverageData;
 import mockit.coverage.lines.LineCoverageData;
 import mockit.coverage.lines.PerFileLineCoverage;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 final class CFGTracking {
     @Nonnull
@@ -28,13 +29,13 @@ final class CFGTracking {
     private final List<Label> jumpTargetsForCurrentLine;
     @Nonnull
     private final List<Integer> pendingBranches;
-    @Nonnegative
+    @NonNegative
     private int lineExpectingInstructionAfterJump;
     private boolean assertFoundInCurrentLine;
     private boolean ignoreUntilNextLabel;
-    @Nonnegative
+    @NonNegative
     private int foundPotentialBooleanExpressionValue;
-    @Nonnegative
+    @NonNegative
     private int ignoreUntilNextSwitch;
 
     CFGTracking(@Nonnull PerFileLineCoverage lineCoverageInfo) {
@@ -52,7 +53,7 @@ final class CFGTracking {
         jumpTargetsForCurrentLine.clear();
     }
 
-    void afterNewLabel(@Nonnegative int currentLine, @Nonnull Label label) {
+    void afterNewLabel(@NonNegative int currentLine, @Nonnull Label label) {
         if (ignoreUntilNextLabel || ignoreUntilNextSwitch > 0) {
             ignoreUntilNextLabel = false;
             return;
@@ -143,7 +144,7 @@ final class CFGTracking {
         ignoreUntilNextLabel = true;
     }
 
-    void beforeNoOperandInstruction(@Nonnull MethodModifier methodModifier, @Nonnegative int opcode) {
+    void beforeNoOperandInstruction(@Nonnull MethodModifier methodModifier, @NonNegative int opcode) {
         if ((opcode == ICONST_0 || opcode == ICONST_1) && foundPotentialBooleanExpressionValue == 0) {
             generateCallToRegisterBranchTargetExecutionIfPending(methodModifier);
             foundPotentialBooleanExpressionValue = 1;
@@ -152,7 +153,7 @@ final class CFGTracking {
         }
     }
 
-    void afterMethodInstruction(@Nonnegative int opcode, @Nonnull String owner, @Nonnull String name) {
+    void afterMethodInstruction(@NonNegative int opcode, @Nonnull String owner, @Nonnull String name) {
         if (opcode == INVOKEVIRTUAL && "hashCode".equals(name) && "java/lang/String".equals(owner)
                 && ignoreUntilNextSwitch == 0) {
             ignoreUntilNextSwitch = 1;

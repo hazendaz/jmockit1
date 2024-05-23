@@ -12,12 +12,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.coverage.CoveragePercentage;
 import mockit.coverage.data.PerFileCoverage;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class PerFileDataCoverage implements PerFileCoverage {
     private static final long serialVersionUID = -4561686103982673490L;
@@ -113,13 +114,13 @@ public final class PerFileDataCoverage implements PerFileCoverage {
     }
 
     @Override
-    @Nonnegative
+    @NonNegative
     public int getTotalItems() {
         return staticFieldsData.size() + instanceFieldsData.size();
     }
 
     @Override
-    @Nonnegative
+    @NonNegative
     public int getCoveredItems() {
         if (coveredDataItems >= 0) {
             return coveredDataItems;

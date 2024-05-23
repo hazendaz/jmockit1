@@ -26,7 +26,6 @@ import static mockit.asm.controlFlow.FrameTypeMask.UNINITIALIZED_THIS;
 import static mockit.asm.controlFlow.FrameTypeMask.VALUE;
 import static mockit.asm.jvmConstants.Opcodes.*;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -41,6 +40,8 @@ import mockit.asm.jvmConstants.ConstantPoolTypes;
 import mockit.asm.types.ArrayType;
 import mockit.asm.types.JavaType;
 import mockit.asm.types.PrimitiveType;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * Information about the input and output stack map frames of a basic block.
@@ -122,7 +123,7 @@ public final class Frame {
      * When the stack map frames are completely computed, this field is the actual number of types in
      * {@link #outputStack}.
      */
-    @Nonnegative
+    @NonNegative
     private int outputStackTop;
 
     /**
@@ -158,7 +159,7 @@ public final class Frame {
      * @param maxLocals
      *            the maximum number of local variables of this method.
      */
-    void initInputFrame(@Nonnull String classDesc, int access, @Nonnull JavaType[] args, @Nonnegative int maxLocals) {
+    void initInputFrame(@Nonnull String classDesc, int access, @Nonnull JavaType[] args, @NonNegative int maxLocals) {
         inputLocals = new int[maxLocals];
         inputStack = EMPTY_INPUT_STACK;
 
@@ -171,7 +172,7 @@ public final class Frame {
         }
     }
 
-    @Nonnegative
+    @NonNegative
     private int initializeThisParameterIfApplicable(@Nonnull String classDesc, int access) {
         if ((access & Access.STATIC) == 0) {
             inputLocals[0] = Access.isConstructor(access) ? UNINITIALIZED_THIS : OBJECT | cp.addNormalType(classDesc);
@@ -181,8 +182,8 @@ public final class Frame {
         return 0;
     }
 
-    @Nonnegative
-    private int initializeFormalParameterTypes(@Nonnegative int localIndex, @Nonnull JavaType[] args) {
+    @NonNegative
+    private int initializeFormalParameterTypes(@NonNegative int localIndex, @Nonnull JavaType[] args) {
         for (JavaType arg : args) {
             int typeEncoding = getTypeEncoding(arg.getDescriptor());
             inputLocals[localIndex] = typeEncoding;
@@ -205,7 +206,7 @@ public final class Frame {
      *
      * @return the int encoding of the given type
      */
-    @Nonnegative
+    @NonNegative
     private int getTypeEncoding(@Nonnull String typeDesc) {
         int index = typeDesc.charAt(0) == '(' ? typeDesc.indexOf(')') + 1 : 0;
 
@@ -233,22 +234,22 @@ public final class Frame {
         }
     }
 
-    @Nonnegative
-    private int getObjectTypeEncoding(@Nonnull String typeDesc, @Nonnegative int index) {
+    @NonNegative
+    private int getObjectTypeEncoding(@Nonnull String typeDesc, @NonNegative int index) {
         // Stores the internal name, not the descriptor!
         String t = typeDesc.substring(index + 1, typeDesc.length() - 1);
         return OBJECT | cp.addNormalType(t);
     }
 
-    @Nonnegative
-    private int getArrayTypeEncoding(@Nonnull String typeDesc, @Nonnegative int index) {
+    @NonNegative
+    private int getArrayTypeEncoding(@Nonnull String typeDesc, @NonNegative int index) {
         int dims = getNumberOfDimensions(typeDesc, index);
         int data = getArrayElementTypeEncoding(typeDesc, index + dims);
         return dims << 28 | data;
     }
 
-    @Nonnegative
-    private static int getNumberOfDimensions(@Nonnull String typeDesc, @Nonnegative int index) {
+    @NonNegative
+    private static int getNumberOfDimensions(@Nonnull String typeDesc, @NonNegative int index) {
         int dims = 1;
 
         while (typeDesc.charAt(index + dims) == '[') {
@@ -258,9 +259,9 @@ public final class Frame {
         return dims;
     }
 
-    @Nonnegative
+    @NonNegative
     @SuppressWarnings("OverlyComplexMethod")
-    private int getArrayElementTypeEncoding(@Nonnull String typeDesc, @Nonnegative int index) {
+    private int getArrayElementTypeEncoding(@Nonnull String typeDesc, @NonNegative int index) {
         switch (typeDesc.charAt(index)) {
             case 'Z':
                 return BOOLEAN;
@@ -288,7 +289,7 @@ public final class Frame {
     /**
      * Simulates the action of a IINC instruction on the output stack frame.
      */
-    void executeIINC(@Nonnegative int varIndex) {
+    void executeIINC(@NonNegative int varIndex) {
         set(varIndex, INTEGER);
     }
 
@@ -300,7 +301,7 @@ public final class Frame {
      * @param type
      *            the value of the local that must be set
      */
-    private void set(@Nonnegative int local, int type) {
+    private void set(@NonNegative int local, int type) {
         // Creates and/or resizes the output local variables array if necessary.
         if (outputLocals == null) {
             outputLocals = new int[10];
@@ -326,7 +327,7 @@ public final class Frame {
      * @param operand
      *            the operand of the instruction, if any
      */
-    void executeINT(@Nonnegative int opcode, int operand) {
+    void executeINT(@NonNegative int opcode, int operand) {
         if (opcode == NEWARRAY) {
             executeNewArray(operand);
         } else {
@@ -334,7 +335,7 @@ public final class Frame {
         }
     }
 
-    private void executeNewArray(@Nonnegative int arrayElementType) {
+    private void executeNewArray(@NonNegative int arrayElementType) {
         pop();
 
         // noinspection SwitchStatementWithoutDefaultBranch
@@ -413,7 +414,7 @@ public final class Frame {
      * @param elements
      *            the number of types that must be popped.
      */
-    private void pop(@Nonnegative int elements) {
+    private void pop(@NonNegative int elements) {
         if (outputStackTop >= elements) {
             outputStackTop -= elements;
         } else {
@@ -476,8 +477,8 @@ public final class Frame {
      * @return the given type or, if <code>type</code> is one of the types on which a constructor is invoked in the
      *         basic block, the type corresponding to this constructor
      */
-    @Nonnegative
-    private int init(@Nonnull String classDesc, @Nonnegative int type) {
+    @NonNegative
+    private int init(@Nonnull String classDesc, @NonNegative int type) {
         int s;
 
         if (type == UNINITIALIZED_THIS) {
@@ -516,7 +517,7 @@ public final class Frame {
      * @param varIndex
      *            the local variable index
      */
-    void executeVAR(int opcode, @Nonnegative int varIndex) {
+    void executeVAR(int opcode, @NonNegative int varIndex) {
         // noinspection SwitchStatementWithoutDefaultBranch
         switch (opcode) {
             case ILOAD:
@@ -550,8 +551,8 @@ public final class Frame {
     /**
      * Returns the output frame local variable type at the given index.
      */
-    @Nonnegative
-    private int get(@Nonnegative int localIndex) {
+    @NonNegative
+    private int get(@NonNegative int localIndex) {
         if (outputLocals == null || localIndex >= outputLocals.length) {
             // This local has never been assigned in this basic block, so it's still equal to its value in the input
             // frame.
@@ -569,13 +570,13 @@ public final class Frame {
         return type;
     }
 
-    private void executeSingleWordStore(@Nonnegative int arg) {
+    private void executeSingleWordStore(@NonNegative int arg) {
         int type1 = pop();
         set(arg, type1);
         executeStore(arg);
     }
 
-    private void executeDoubleWordStore(@Nonnegative int arg) {
+    private void executeDoubleWordStore(@NonNegative int arg) {
         pop(1);
 
         int type1 = pop();
@@ -585,7 +586,7 @@ public final class Frame {
         executeStore(arg);
     }
 
-    private void executeStore(@Nonnegative int arg) {
+    private void executeStore(@NonNegative int arg) {
         if (arg > 0) {
             int type2 = get(arg - 1);
 
@@ -601,7 +602,7 @@ public final class Frame {
     /**
      * Simulates the action of a conditional/unconditional jump instruction on the output stack frame.
      */
-    void executeJUMP(@Nonnegative int opcode) {
+    void executeJUMP(@NonNegative int opcode) {
         // noinspection SwitchStatementWithoutDefaultBranch
         switch (opcode) {
             case IFEQ:
@@ -630,7 +631,7 @@ public final class Frame {
      * Simulates the action of the given zero-operand instruction on the output stack frame.
      */
     @SuppressWarnings({ "OverlyComplexMethod", "OverlyLongMethod" })
-    public void execute(@Nonnegative int opcode) {
+    public void execute(@NonNegative int opcode) {
         // noinspection SwitchStatementWithoutDefaultBranch
         switch (opcode) {
             case NOP:
@@ -1011,7 +1012,7 @@ public final class Frame {
      * @param item
      *            the operand of the instruction
      */
-    void executeTYPE(@Nonnegative int opcode, @Nonnegative int codeLength, @Nonnull StringItem item) {
+    void executeTYPE(@NonNegative int opcode, @NonNegative int codeLength, @Nonnull StringItem item) {
         // noinspection SwitchStatementWithoutDefaultBranch
         switch (opcode) {
             case NEW:
@@ -1078,7 +1079,7 @@ public final class Frame {
      * @param arrayType
      *            the type of the array elements
      */
-    void executeMULTIANEWARRAY(@Nonnegative int dims, @Nonnull StringItem arrayType) {
+    void executeMULTIANEWARRAY(@NonNegative int dims, @Nonnull StringItem arrayType) {
         pop(dims);
         push(arrayType.getValue());
     }
@@ -1091,7 +1092,7 @@ public final class Frame {
      * @param item
      *            the operand of the instruction
      */
-    public void execute(@Nonnegative int opcode, @Nonnull TypeOrMemberItem item) {
+    public void execute(@NonNegative int opcode, @Nonnull TypeOrMemberItem item) {
         if (opcode == INVOKEDYNAMIC) {
             executeInvokeDynamic(item);
         } else {
@@ -1120,7 +1121,7 @@ public final class Frame {
         }
     }
 
-    private void executeInvoke(@Nonnegative int opcode, @Nonnull TypeOrMemberItem item) {
+    private void executeInvoke(@NonNegative int opcode, @Nonnull TypeOrMemberItem item) {
         String methodDesc = item.getDesc();
         pop(methodDesc);
 
@@ -1151,7 +1152,7 @@ public final class Frame {
      *
      * @return <code>true</code> if the input frame of the given label has been changed by this operation
      */
-    boolean merge(@Nonnull String classDesc, @Nonnull Frame frame, @Nonnegative int edge) {
+    boolean merge(@Nonnull String classDesc, @Nonnull Frame frame, @NonNegative int edge) {
         int nLocal = inputLocals.length;
         int nStack = inputStack.length;
         boolean changed = false;
@@ -1274,7 +1275,7 @@ public final class Frame {
      *
      * @return <code>true</code> if the type array has been modified by this operation
      */
-    private boolean merge(@Nonnegative int type1, @Nonnull int[] types, @Nonnegative int index) {
+    private boolean merge(@NonNegative int type1, @Nonnull int[] types, @NonNegative int index) {
         int type2 = types[index];
 
         if (type2 == type1) {

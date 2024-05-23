@@ -2,13 +2,14 @@ package mockit.asm.annotations;
 
 import java.lang.reflect.Array;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.types.JavaType;
 import mockit.asm.types.PrimitiveType;
 import mockit.asm.util.BytecodeReader;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class AnnotationReader extends BytecodeReader {
     public AnnotationReader(@Nonnull BytecodeReader br) {
@@ -26,8 +27,8 @@ public final class AnnotationReader extends BytecodeReader {
      *
      * @return the end offset of the annotation values
      */
-    @Nonnegative
-    public int readNamedAnnotationValues(@Nonnegative int startingCodeIndex, @Nullable AnnotationVisitor av) {
+    @NonNegative
+    public int readNamedAnnotationValues(@NonNegative int startingCodeIndex, @Nullable AnnotationVisitor av) {
         codeIndex = startingCodeIndex;
         readAnnotationValues(true, av);
         return codeIndex;
@@ -38,7 +39,7 @@ public final class AnnotationReader extends BytecodeReader {
         readAnnotationValues(valueCount, named, av);
     }
 
-    private void readAnnotationValues(@Nonnegative int valueCount, boolean named, @Nullable AnnotationVisitor av) {
+    private void readAnnotationValues(@NonNegative int valueCount, boolean named, @Nullable AnnotationVisitor av) {
         while (valueCount > 0) {
             String name = named ? readNonnullUTF8() : null;
             readAnnotationValue(name, av);
@@ -79,7 +80,7 @@ public final class AnnotationReader extends BytecodeReader {
         }
     }
 
-    private void readAnnotationValue(@Nonnegative int typeCode) {
+    private void readAnnotationValue(@NonNegative int typeCode) {
         switch (typeCode) {
             case 'e':
                 codeIndex += 4;
@@ -98,7 +99,7 @@ public final class AnnotationReader extends BytecodeReader {
 
     @Nullable
     @SuppressWarnings({ "NumericCastThatLosesPrecision", "SwitchStatementWithoutDefaultBranch" })
-    private Object readAnnotationValueIfPrimitiveOrString(@Nonnegative int typeCode) {
+    private Object readAnnotationValueIfPrimitiveOrString(@NonNegative int typeCode) {
         switch (typeCode) {
             case 'I':
             case 'J':
@@ -170,7 +171,7 @@ public final class AnnotationReader extends BytecodeReader {
         codeIndex--;
     }
 
-    private void fillArrayElements(@Nonnegative int length, @Nonnegative int typeCode, @Nonnull Object array) {
+    private void fillArrayElements(@NonNegative int length, @NonNegative int typeCode, @Nonnull Object array) {
         for (int i = 0; i < length; i++) {
             int itemIndex = readUnsignedShort();
             int index = items[itemIndex];
@@ -181,7 +182,7 @@ public final class AnnotationReader extends BytecodeReader {
     }
 
     @Nonnull
-    private Object getArrayElementValue(@Nonnegative int typeCode, @Nonnegative int valueCodeIndex) {
+    private Object getArrayElementValue(@NonNegative int typeCode, @NonNegative int valueCodeIndex) {
         switch (typeCode) {
             case 'Z':
                 return readBoolean(valueCodeIndex);

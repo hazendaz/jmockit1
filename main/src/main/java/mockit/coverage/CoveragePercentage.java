@@ -4,14 +4,15 @@
  */
 package mockit.coverage;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class CoveragePercentage {
     private CoveragePercentage() {
     }
 
-    public static int calculate(@Nonnegative int coveredCount, @Nonnegative int totalCount) {
+    public static int calculate(@NonNegative int coveredCount, @NonNegative int totalCount) {
         if (totalCount == 0) {
             return -1;
         }
@@ -21,7 +22,7 @@ public final class CoveragePercentage {
     }
 
     @Nonnull
-    public static String percentageColor(@Nonnegative int coveredCount, @Nonnegative int totalCount) {
+    public static String percentageColor(@NonNegative int coveredCount, @NonNegative int totalCount) {
         if (coveredCount == 0) {
             return "ff0000";
         }
@@ -42,7 +43,7 @@ public final class CoveragePercentage {
         return color.toString();
     }
 
-    private static void appendColorInHexadecimal(@Nonnull StringBuilder colorInHexa, @Nonnegative int rgb) {
+    private static void appendColorInHexadecimal(@Nonnull StringBuilder colorInHexa, @NonNegative int rgb) {
         String hex = Integer.toHexString(rgb);
 
         if (hex.length() == 1) {

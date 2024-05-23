@@ -22,7 +22,6 @@ import static mockit.asm.jvmConstants.Opcodes.RETURN;
 import static mockit.internal.util.TypeConversionBytecode.isBoxing;
 import static mockit.internal.util.TypeConversionBytecode.isUnboxing;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -32,6 +31,8 @@ import mockit.asm.methods.MethodWriter;
 import mockit.asm.methods.WrappingMethodVisitor;
 import mockit.asm.types.JavaType;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 public final class InvocationBlockModifier extends WrappingMethodVisitor {
     private static final String CLASS_DESC = "mockit/internal/expectations/ActiveInvocations";
 
@@ -40,7 +41,7 @@ public final class InvocationBlockModifier extends WrappingMethodVisitor {
     private final String blockOwner;
 
     // Keeps track of the current stack size (after each bytecode instruction) within the invocation block:
-    @Nonnegative
+    @NonNegative
     private int stackSize;
 
     // Handle withCapture()/anyXyz/withXyz matchers, if any:
@@ -51,7 +52,7 @@ public final class InvocationBlockModifier extends WrappingMethodVisitor {
     private boolean justAfterWithCaptureInvocation;
 
     // Stores the index of the local variable holding a list passed in a withCapture(List) call, if any:
-    @Nonnegative
+    @NonNegative
     private int lastLoadedVarIndex;
 
     InvocationBlockModifier(@Nonnull MethodWriter mw, @Nonnull String blockOwner) {
@@ -70,7 +71,7 @@ public final class InvocationBlockModifier extends WrappingMethodVisitor {
     }
 
     @Override
-    public void visitFieldInsn(@Nonnegative int opcode, @Nonnull String owner, @Nonnull String name,
+    public void visitFieldInsn(@NonNegative int opcode, @Nonnull String owner, @Nonnull String name,
             @Nonnull String desc) {
         boolean getField = opcode == GETFIELD;
 
@@ -105,7 +106,7 @@ public final class InvocationBlockModifier extends WrappingMethodVisitor {
         return false;
     }
 
-    private static int stackSizeVariationForFieldAccess(@Nonnegative int opcode, @Nonnull String fieldType) {
+    private static int stackSizeVariationForFieldAccess(@NonNegative int opcode, @Nonnull String fieldType) {
         char c = fieldType.charAt(0);
         boolean twoByteType = c == 'D' || c == 'J';
 
@@ -124,7 +125,7 @@ public final class InvocationBlockModifier extends WrappingMethodVisitor {
     }
 
     @Override
-    public void visitMethodInsn(@Nonnegative int opcode, @Nonnull String owner, @Nonnull String name,
+    public void visitMethodInsn(@NonNegative int opcode, @Nonnull String owner, @Nonnull String name,
             @Nonnull String desc, boolean itf) {
         if (opcode == INVOKESTATIC && (isBoxing(owner, name, desc) || isAccessMethod(owner, name))) {
             // It's an invocation to a primitive boxing method or to a synthetic method for private access, just ignore
@@ -155,7 +156,7 @@ public final class InvocationBlockModifier extends WrappingMethodVisitor {
         return !methodOwner.equals(blockOwner) && name.startsWith("access$");
     }
 
-    private void visitMethodInstruction(@Nonnegative int opcode, @Nonnull String owner, @Nonnull String name,
+    private void visitMethodInstruction(@NonNegative int opcode, @Nonnull String owner, @Nonnull String name,
             @Nonnull String desc, boolean itf) {
         if (!"()V".equals(desc)) {
             int argAndRetSize = JavaType.getArgumentsAndReturnSizes(desc);
@@ -176,7 +177,7 @@ public final class InvocationBlockModifier extends WrappingMethodVisitor {
         mw.visitMethodInsn(opcode, owner, name, desc, itf);
     }
 
-    private boolean isCallToArgumentMatcher(@Nonnegative int opcode, @Nonnull String owner, @Nonnull String name,
+    private boolean isCallToArgumentMatcher(@NonNegative int opcode, @Nonnull String owner, @Nonnull String name,
             @Nonnull String desc) {
         return opcode == INVOKEVIRTUAL && owner.equals(blockOwner)
                 && ArgumentMatching.isCallToArgumentMatcher(name, desc);
@@ -205,7 +206,7 @@ public final class InvocationBlockModifier extends WrappingMethodVisitor {
         visitInsn(zeroOpcode);
     }
 
-    private void handleMockedOrNonMockedInvocation(@Nonnegative int opcode, @Nonnull String owner, @Nonnull String name,
+    private void handleMockedOrNonMockedInvocation(@NonNegative int opcode, @Nonnull String owner, @Nonnull String name,
             @Nonnull String desc, boolean itf) {
         if (argumentMatching.getMatcherCount() == 0) {
             visitMethodInstruction(opcode, owner, name, desc, itf);
@@ -234,7 +235,7 @@ public final class InvocationBlockModifier extends WrappingMethodVisitor {
     }
 
     @Override
-    public void visitTypeInsn(@Nonnegative int opcode, @Nonnull String typeDesc) {
+    public void visitTypeInsn(@NonNegative int opcode, @Nonnull String typeDesc) {
         argumentCapturing.registerTypeToCaptureIfApplicable(opcode, typeDesc);
 
         if (opcode == NEW) {
@@ -245,7 +246,7 @@ public final class InvocationBlockModifier extends WrappingMethodVisitor {
     }
 
     @Override
-    public void visitIntInsn(@Nonnegative int opcode, int operand) {
+    public void visitIntInsn(@NonNegative int opcode, int operand) {
         if (opcode != NEWARRAY) {
             stackSize++;
         }
@@ -254,7 +255,7 @@ public final class InvocationBlockModifier extends WrappingMethodVisitor {
     }
 
     @Override
-    public void visitVarInsn(@Nonnegative int opcode, @Nonnegative int varIndex) {
+    public void visitVarInsn(@NonNegative int opcode, @NonNegative int varIndex) {
         if (opcode == ALOAD) {
             lastLoadedVarIndex = varIndex;
         }
@@ -276,7 +277,7 @@ public final class InvocationBlockModifier extends WrappingMethodVisitor {
     }
 
     @Override
-    public void visitJumpInsn(@Nonnegative int opcode, @Nonnull Label label) {
+    public void visitJumpInsn(@NonNegative int opcode, @Nonnull Label label) {
         stackSize += JVMInstruction.SIZE[opcode];
         mw.visitJumpInsn(opcode, label);
     }
@@ -294,13 +295,13 @@ public final class InvocationBlockModifier extends WrappingMethodVisitor {
     }
 
     @Override
-    public void visitMultiANewArrayInsn(@Nonnull String desc, @Nonnegative int dims) {
+    public void visitMultiANewArrayInsn(@Nonnull String desc, @NonNegative int dims) {
         stackSize += 1 - dims;
         mw.visitMultiANewArrayInsn(desc, dims);
     }
 
     @Override
-    public void visitInsn(@Nonnegative int opcode) {
+    public void visitInsn(@NonNegative int opcode) {
         if (opcode == RETURN) {
             generateCallToActiveInvocationsMethod("endInvocations");
         } else {
@@ -312,7 +313,7 @@ public final class InvocationBlockModifier extends WrappingMethodVisitor {
 
     @Override
     public void visitLocalVariable(@Nonnull String name, @Nonnull String desc, @Nullable String signature,
-            @Nonnull Label start, @Nonnull Label end, @Nonnegative int index) {
+            @Nonnull Label start, @Nonnull Label end, @NonNegative int index) {
         if (signature != null) {
             ArgumentCapturing.registerTypeToCaptureIntoListIfApplicable(index, signature);
         }

@@ -7,14 +7,15 @@ package mockit.internal.expectations.invocation;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class InvocationConstraints {
     public int minInvocations;
     private int maxInvocations;
-    @Nonnegative
+    @NonNegative
     public int invocationCount;
 
     public InvocationConstraints(boolean nonStrictInvocation) {
@@ -26,7 +27,7 @@ public final class InvocationConstraints {
         this.maxInvocations = maxInvocations;
     }
 
-    void adjustMaxInvocations(@Nonnegative int expectedInvocationCount) {
+    void adjustMaxInvocations(@NonNegative int expectedInvocationCount) {
         if (maxInvocations > 0 && maxInvocations < expectedInvocationCount) {
             maxInvocations = expectedInvocationCount;
         }

@@ -1,6 +1,5 @@
 package mockit.asm.classes;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -9,6 +8,8 @@ import mockit.asm.fields.FieldReader;
 import mockit.asm.jvmConstants.Access;
 import mockit.asm.jvmConstants.ClassVersion;
 import mockit.asm.methods.MethodReader;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * A Java class parser to make a {@link ClassVisitor} visit an existing class.
@@ -21,18 +22,18 @@ public final class ClassReader extends AnnotatedReader {
     /**
      * Start index of the class header information (access, name...) in {@link #code}.
      */
-    @Nonnegative
+    @NonNegative
     final int header;
 
-    @Nonnegative
+    @NonNegative
     private final int version;
     @Nonnull
     private final ClassInfo classInfo;
 
     private ClassVisitor cv;
-    @Nonnegative
+    @NonNegative
     private int innerClassesCodeIndex;
-    @Nonnegative
+    @NonNegative
     private int attributesCodeIndex;
 
     /**
@@ -211,15 +212,15 @@ public final class ClassReader extends AnnotatedReader {
         codeIndex = methodReader.readMethods();
     }
 
-    @Nonnegative
-    private int getCodeIndexAfterInterfaces(@Nonnegative int interfaceCount) {
+    @NonNegative
+    private int getCodeIndexAfterInterfaces(@NonNegative int interfaceCount) {
         return header + 8 + 2 * interfaceCount;
     }
 
     /**
      * Returns the start index of the attribute_info structure of this class.
      */
-    @Nonnegative
+    @NonNegative
     private int getAttributesStartIndex() {
         if (attributesCodeIndex == 0) {
             skipHeader();
@@ -268,8 +269,8 @@ public final class ClassReader extends AnnotatedReader {
         return false;
     }
 
-    @Nonnegative
-    public int getBSMCodeIndex(@Nonnegative int bsmStartIndex) {
+    @NonNegative
+    public int getBSMCodeIndex(@NonNegative int bsmStartIndex) {
         assert bootstrapMethods != null;
         return bootstrapMethods[bsmStartIndex];
     }

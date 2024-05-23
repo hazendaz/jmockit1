@@ -1,14 +1,15 @@
 package mockit.asm.classes;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import mockit.asm.constantPool.AttributeWriter;
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.util.ByteVector;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 final class NestHostWriter extends AttributeWriter {
-    @Nonnegative
+    @NonNegative
     private final int hostClassNameIndex;
 
     NestHostWriter(@Nonnull ConstantPoolGeneration cp, @Nonnull String hostClassName) {
@@ -16,7 +17,7 @@ final class NestHostWriter extends AttributeWriter {
         hostClassNameIndex = cp.newClass(hostClassName);
     }
 
-    @Nonnegative
+    @NonNegative
     @Override
     public int getSize() {
         return 8;

@@ -1,6 +1,5 @@
 package mockit.asm.methods;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -9,6 +8,8 @@ import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.controlFlow.Label;
 import mockit.asm.util.ByteVector;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 /**
  * Writes the bytecode for the "LocalVariableTable" and "LocalVariableTypeTable" method code attributes.
  */
@@ -16,7 +17,7 @@ final class LocalVariableTableWriter extends AttributeWriter {
     /**
      * Number of entries in the LocalVariableTable attribute.
      */
-    @Nonnegative
+    @NonNegative
     private int localVarCount;
 
     /**
@@ -25,13 +26,13 @@ final class LocalVariableTableWriter extends AttributeWriter {
     @Nullable
     private ByteVector localVarTable;
 
-    @Nonnegative
+    @NonNegative
     private int localVarTypeAttributeIndex;
 
     /**
      * Number of entries in the LocalVariableTypeTable attribute.
      */
-    @Nonnegative
+    @NonNegative
     private int localVarTypeCount;
 
     /**
@@ -44,9 +45,9 @@ final class LocalVariableTableWriter extends AttributeWriter {
         super(cp);
     }
 
-    @Nonnegative
+    @NonNegative
     int addLocalVariable(@Nonnull String name, @Nonnull String desc, @Nullable String signature, @Nonnull Label start,
-            @Nonnull Label end, @Nonnegative int index) {
+            @Nonnull Label end, @NonNegative int index) {
         if (signature != null) {
             if (localVarTypeTable == null) {
                 localVarTypeAttributeIndex = cp.newUTF8("LocalVariableTypeTable");
@@ -70,23 +71,23 @@ final class LocalVariableTableWriter extends AttributeWriter {
     }
 
     private void addAttribute(@Nonnull ByteVector attribute, @Nonnull String name, @Nonnull String desc,
-            @Nonnull Label start, @Nonnull Label end, @Nonnegative int index) {
+            @Nonnull Label start, @Nonnull Label end, @NonNegative int index) {
         attribute.putShort(start.position).putShort(end.position - start.position).putShort(cp.newUTF8(name))
                 .putShort(cp.newUTF8(desc)).putShort(index);
     }
 
-    @Nonnegative
+    @NonNegative
     @Override
     public int getSize() {
         return getSize(localVarTable) + getSize(localVarTypeTable);
     }
 
-    @Nonnegative
+    @NonNegative
     private static int getSize(@Nullable ByteVector attribute) {
         return attribute == null ? 0 : 8 + attribute.getLength();
     }
 
-    @Nonnegative
+    @NonNegative
     int getAttributeCount() {
         return (localVarTable == null ? 0 : 1) + (localVarTypeTable == null ? 0 : 1);
     }
@@ -98,7 +99,7 @@ final class LocalVariableTableWriter extends AttributeWriter {
         put(out, localVarTypeTable, localVarTypeCount);
     }
 
-    private void put(@Nonnull ByteVector out, @Nullable ByteVector attribute, @Nonnegative int numEntries) {
+    private void put(@Nonnull ByteVector out, @Nullable ByteVector attribute, @NonNegative int numEntries) {
         if (attribute != null) {
             put(out, 2 + attribute.getLength());
             out.putShort(numEntries);

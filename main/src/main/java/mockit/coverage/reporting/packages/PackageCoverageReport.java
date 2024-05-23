@@ -10,11 +10,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.coverage.data.FileCoverageData;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 final class PackageCoverageReport extends ListWithFilesAndPercentages {
     @Nonnull
@@ -33,7 +34,7 @@ final class PackageCoverageReport extends ListWithFilesAndPercentages {
         fileNameWithSpaces = new char[maximumSourceFileNameLength(allSourceFileNames)];
     }
 
-    @Nonnegative
+    @NonNegative
     private static int maximumSourceFileNameLength(@Nonnull Collection<List<String>> allSourceFileNames) {
         int maxLength = 0;
 
@@ -67,7 +68,7 @@ final class PackageCoverageReport extends ListWithFilesAndPercentages {
         writeRowClose();
     }
 
-    @Nonnegative
+    @NonNegative
     private int buildFileNameWithTrailingSpaces(@Nonnull String fileName) {
         int n = fileName.length();
 
@@ -77,7 +78,7 @@ final class PackageCoverageReport extends ListWithFilesAndPercentages {
         return n;
     }
 
-    private void writeTableCellWithFileName(@Nonnull String filePath, @Nonnegative int fileNameLen) {
+    private void writeTableCellWithFileName(@Nonnull String filePath, @NonNegative int fileNameLen) {
         if (sourceFilesNotFound == null || sourceFilesNotFound.contains(filePath)) {
             output.write(fileNameWithSpaces);
         } else {

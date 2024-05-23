@@ -6,7 +6,6 @@ package mockit.coverage.data;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -14,6 +13,8 @@ import mockit.coverage.CoveragePercentage;
 import mockit.coverage.TestRun;
 import mockit.coverage.dataItems.PerFileDataCoverage;
 import mockit.coverage.lines.PerFileLineCoverage;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * Coverage data gathered for the lines, branching points, and fields of a single source file.
@@ -32,7 +33,7 @@ public final class FileCoverageData implements Serializable {
     public PerFileDataCoverage dataCoverageInfo;
 
     // Used for fast indexed access.
-    @Nonnegative
+    @NonNegative
     public final int index;
 
     // Used for output styling in the HTML report.
@@ -40,12 +41,12 @@ public final class FileCoverageData implements Serializable {
     public String kindOfTopLevelType;
 
     // Used to track the last time the ".class" file was modified, to decide if merging can be done.
-    @Nonnegative
+    @NonNegative
     long lastModified;
 
     private final boolean loadedAfterTestCompletion;
 
-    FileCoverageData(@Nonnegative int index, @Nullable String kindOfTopLevelType) {
+    FileCoverageData(@NonNegative int index, @Nullable String kindOfTopLevelType) {
         this.index = index;
         this.kindOfTopLevelType = kindOfTopLevelType;
         lineCoverageInfo = new PerFileLineCoverage();
@@ -62,12 +63,12 @@ public final class FileCoverageData implements Serializable {
         return lineCoverageInfo;
     }
 
-    @Nonnegative
+    @NonNegative
     public int getTotalItems() {
         return lineCoverageInfo.getTotalItems() + dataCoverageInfo.getTotalItems();
     }
 
-    @Nonnegative
+    @NonNegative
     public int getCoveredItems() {
         return lineCoverageInfo.getCoveredItems() + dataCoverageInfo.getCoveredItems();
     }

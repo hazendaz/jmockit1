@@ -1,24 +1,25 @@
 package mockit.asm.constantPool;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import mockit.asm.types.JavaType;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public class TypeOrMemberItem extends Item {
     @Nonnull
     String name;
     @Nonnull
     String desc;
-    @Nonnegative
+    @NonNegative
     private int argSize;
 
-    TypeOrMemberItem(@Nonnegative int index) {
+    TypeOrMemberItem(@NonNegative int index) {
         super(index);
         name = desc = "";
     }
 
-    TypeOrMemberItem(@Nonnegative int index, @Nonnull TypeOrMemberItem item) {
+    TypeOrMemberItem(@NonNegative int index, @Nonnull TypeOrMemberItem item) {
         super(index, item);
         name = item.name;
         desc = item.desc;
@@ -37,7 +38,7 @@ public class TypeOrMemberItem extends Item {
     /**
      * Sets the name and type descriptor of this item, and computes its hashcode.
      */
-    final void setValuesAndHashcode(@Nonnull String name, @Nonnull String desc, @Nonnegative int hashCodeMultiplier) {
+    final void setValuesAndHashcode(@Nonnull String name, @Nonnull String desc, @NonNegative int hashCodeMultiplier) {
         this.name = name;
         this.desc = desc;
         setHashCode(hashCodeMultiplier * name.hashCode() * desc.hashCode());
@@ -57,7 +58,7 @@ public class TypeOrMemberItem extends Item {
      * {@link #argSize} field stores the sizes of the arguments and of the return value corresponding to
      * <code>desc</code>.
      */
-    @Nonnegative
+    @NonNegative
     public final int getArgSizeComputingIfNeeded(@Nonnull String methodDesc) {
         int thisArgSize = argSize;
 

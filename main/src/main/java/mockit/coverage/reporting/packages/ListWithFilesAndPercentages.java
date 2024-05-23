@@ -8,20 +8,21 @@ import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.coverage.CoveragePercentage;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 abstract class ListWithFilesAndPercentages {
     @Nonnull
     protected final PrintWriter output;
     @Nonnull
     private final String baseIndent;
-    @Nonnegative
+    @NonNegative
     int totalItems;
-    @Nonnegative
+    @NonNegative
     int coveredItems;
 
     ListWithFilesAndPercentages(@Nonnull PrintWriter output, @Nonnull String baseIndent) {
@@ -59,7 +60,7 @@ abstract class ListWithFilesAndPercentages {
 
     protected abstract void writeMetricsForFile(@Nullable String packageName, @Nonnull String fileName);
 
-    final void printCoveragePercentage(@Nonnegative int covered, @Nonnegative int total, int percentage) {
+    final void printCoveragePercentage(@NonNegative int covered, @NonNegative int total, int percentage) {
         printIndent();
         output.write("  <td ");
 
@@ -72,8 +73,8 @@ abstract class ListWithFilesAndPercentages {
         output.println("</td>");
     }
 
-    private void writeRowCellWithCoveragePercentage(@Nonnegative int covered, @Nonnegative int total,
-            @Nonnegative int percentage) {
+    private void writeRowCellWithCoveragePercentage(@NonNegative int covered, @NonNegative int total,
+            @NonNegative int percentage) {
         output.write("style='background-color:#");
         output.write(CoveragePercentage.percentageColor(covered, total));
         output.write("' title='Items: ");
@@ -85,7 +86,7 @@ abstract class ListWithFilesAndPercentages {
         output.print("%");
     }
 
-    private void writePercentageValue(@Nonnegative int covered, @Nonnegative int total, @Nonnegative int percentage) {
+    private void writePercentageValue(@NonNegative int covered, @NonNegative int total, @NonNegative int percentage) {
         if (percentage < 100) {
             output.print(percentage);
         } else if (covered == total) {

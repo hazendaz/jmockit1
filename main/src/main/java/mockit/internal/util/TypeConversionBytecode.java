@@ -10,13 +10,14 @@ import static mockit.asm.jvmConstants.Opcodes.INVOKESTATIC;
 import static mockit.asm.jvmConstants.Opcodes.INVOKEVIRTUAL;
 import static mockit.asm.jvmConstants.Opcodes.POP;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import mockit.asm.methods.MethodVisitor;
 import mockit.asm.types.JavaType;
 import mockit.asm.types.PrimitiveType;
 import mockit.asm.types.ReferenceType;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class TypeConversionBytecode {
     private TypeConversionBytecode() {
@@ -67,7 +68,7 @@ public final class TypeConversionBytecode {
     }
 
     public static void generateCastOrUnboxing(@Nonnull MethodVisitor mv, @Nonnull JavaType parameterType,
-            @Nonnegative int opcode) {
+            @NonNegative int opcode) {
         if (opcode == ASTORE) {
             generateTypeCheck(mv, parameterType);
             return;
@@ -90,7 +91,7 @@ public final class TypeConversionBytecode {
         return desc.charAt(2) == ')' && "valueOf".equals(name) && isPrimitiveWrapper(owner);
     }
 
-    public static boolean isUnboxing(@Nonnegative int opcode, @Nonnull String owner, @Nonnull String desc) {
+    public static boolean isUnboxing(@NonNegative int opcode, @Nonnull String owner, @Nonnull String desc) {
         return opcode == INVOKEVIRTUAL && desc.charAt(1) == ')' && isPrimitiveWrapper(owner);
     }
 }

@@ -8,7 +8,6 @@ import static java.lang.Character.isWhitespace;
 
 import java.util.List;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -20,6 +19,8 @@ import mockit.coverage.reporting.ListOfCallPoints;
 import mockit.coverage.reporting.parsing.LineElement;
 import mockit.coverage.reporting.parsing.LineParser;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 final class LineSegmentsFormatter {
     @Nullable
     private final ListOfCallPoints listOfCallPoints;
@@ -28,7 +29,7 @@ final class LineSegmentsFormatter {
 
     // Helper fields:
     private int lineNumber;
-    @Nonnegative
+    @NonNegative
     private int segmentIndex;
     @Nullable
     private LineElement element;

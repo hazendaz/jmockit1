@@ -12,7 +12,6 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -30,6 +29,8 @@ import mockit.internal.util.DefaultValues;
 import mockit.internal.util.TestMethod;
 import mockit.internal.util.TypeConversion;
 import mockit.internal.util.Utilities;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 @SuppressWarnings("EqualsAndHashcode")
 public final class MockedType extends InjectionProvider {
@@ -107,7 +108,7 @@ public final class MockedType extends InjectionProvider {
         }
     }
 
-    MockedType(@Nonnull TestMethod testMethod, @Nonnegative int paramIndex, @Nonnull Type parameterType,
+    MockedType(@Nonnull TestMethod testMethod, @NonNegative int paramIndex, @Nonnull Type parameterType,
             @Nonnull Annotation[] annotationsOnParameter, @Nullable Class<?> parameterImplementationClass) {
         super(parameterType, ParameterNames.getName(testMethod, paramIndex));
         field = null;

@@ -12,11 +12,12 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.util.StackTrace;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class CallPoint implements Serializable {
     private static final long serialVersionUID = 362727169057343840L;
@@ -80,7 +81,7 @@ public final class CallPoint implements Serializable {
 
     @Nonnull
     private final StackTraceElement ste;
-    @Nonnegative
+    @NonNegative
     private int repetitionCount;
 
     private CallPoint(@Nonnull StackTraceElement ste) {
@@ -92,7 +93,7 @@ public final class CallPoint implements Serializable {
         return ste;
     }
 
-    @Nonnegative
+    @NonNegative
     public int getRepetitionCount() {
         return repetitionCount;
     }

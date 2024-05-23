@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -23,6 +22,8 @@ import mockit.coverage.CoveragePercentage;
 import mockit.coverage.data.FileCoverageData;
 import mockit.coverage.reporting.OutputFile;
 import mockit.coverage.testRedundancy.TestCoverage;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class IndexPage extends ListWithFilesAndPercentages {
     @Nullable
@@ -33,7 +34,7 @@ public final class IndexPage extends ListWithFilesAndPercentages {
     private final Map<String, Integer> packageToPackagePercentages;
     @Nonnull
     private final PackageCoverageReport packageReport;
-    @Nonnegative
+    @NonNegative
     private final int totalFileCount;
 
     public IndexPage(@Nonnull File outputFile, @Nullable List<File> sourceDirs,
@@ -47,7 +48,7 @@ public final class IndexPage extends ListWithFilesAndPercentages {
         totalFileCount = totalNumberOfSourceFilesWithCoverageData(fileToFileData.values());
     }
 
-    @Nonnegative
+    @NonNegative
     private static int totalNumberOfSourceFilesWithCoverageData(@Nonnull Collection<FileCoverageData> fileData) {
         return fileData.size() - Collections.frequency(fileData, null);
     }
@@ -105,7 +106,7 @@ public final class IndexPage extends ListWithFilesAndPercentages {
         }
     }
 
-    private static int removeRedundantSourceDirectory(@Nonnull List<File> dirs, @Nonnegative int dirIndex) {
+    private static int removeRedundantSourceDirectory(@Nonnull List<File> dirs, @NonNegative int dirIndex) {
         String dir1 = dirs.get(dirIndex).getPath();
         int j = dirIndex + 1;
 
@@ -220,7 +221,7 @@ public final class IndexPage extends ListWithFilesAndPercentages {
         packageToPackagePercentages.put(packageName, packagePercentage);
     }
 
-    private void writeInitiallyHiddenSourceFileCount(@Nonnegative int fileCount) {
+    private void writeInitiallyHiddenSourceFileCount(@NonNegative int fileCount) {
         output.write("    <span>(");
         output.print(fileCount);
         output.println(" source files)</span>");

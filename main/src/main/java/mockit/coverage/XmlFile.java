@@ -11,13 +11,14 @@ import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.Map.Entry;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import mockit.coverage.data.CoverageData;
 import mockit.coverage.data.FileCoverageData;
 import mockit.coverage.lines.LineCoverageData;
 import mockit.coverage.lines.PerFileLineCoverage;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * Generates a XML file containing the coverage data gathered by the test run. The XML schema used is the one
@@ -104,7 +105,7 @@ final class XmlFile {
         }
     }
 
-    private static void writeNumber(@Nonnull Writer out, @Nonnegative int value) throws IOException {
+    private static void writeNumber(@Nonnull Writer out, @NonNegative int value) throws IOException {
         out.write(Integer.toString(value));
     }
 }

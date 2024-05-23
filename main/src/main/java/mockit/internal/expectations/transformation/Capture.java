@@ -10,7 +10,6 @@ import static mockit.asm.jvmConstants.Opcodes.SIPUSH;
 import static mockit.internal.util.TypeConversionBytecode.generateCastOrUnboxing;
 import static mockit.internal.util.TypeConversionBytecode.isPrimitiveWrapper;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -20,24 +19,26 @@ import mockit.asm.types.JavaType;
 import mockit.asm.types.ObjectType;
 import mockit.asm.types.ReferenceType;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 final class Capture {
     @Nonnull
     private final InvocationBlockModifier invocationBlockModifier;
     @Nonnull
     private final MethodWriter mw;
-    @Nonnegative
+    @NonNegative
     private final int opcode;
-    @Nonnegative
+    @NonNegative
     private final int varIndex;
     @Nullable
     private String typeToCapture;
-    @Nonnegative
+    @NonNegative
     private int parameterIndex;
-    @Nonnegative
+    @NonNegative
     private boolean parameterIndexFixed;
 
-    Capture(@Nonnull InvocationBlockModifier invocationBlockModifier, @Nonnegative int opcode,
-            @Nonnegative int varIndex, @Nullable String typeToCapture, @Nonnegative int parameterIndex) {
+    Capture(@Nonnull InvocationBlockModifier invocationBlockModifier, @NonNegative int opcode,
+            @NonNegative int varIndex, @Nullable String typeToCapture, @NonNegative int parameterIndex) {
         this.invocationBlockModifier = invocationBlockModifier;
         mw = invocationBlockModifier.getMethodWriter();
         this.opcode = opcode;
@@ -46,8 +47,8 @@ final class Capture {
         this.parameterIndex = parameterIndex;
     }
 
-    Capture(@Nonnull InvocationBlockModifier invocationBlockModifier, @Nonnegative int varIndex,
-            @Nonnegative int parameterIndex) {
+    Capture(@Nonnull InvocationBlockModifier invocationBlockModifier, @NonNegative int varIndex,
+            @NonNegative int parameterIndex) {
         this.invocationBlockModifier = invocationBlockModifier;
         mw = invocationBlockModifier.getMethodWriter();
         opcode = ALOAD;
@@ -93,7 +94,7 @@ final class Capture {
         return ObjectType.create(typeToCapture);
     }
 
-    boolean fixParameterIndex(@Nonnegative int originalIndex, @Nonnegative int newIndex) {
+    boolean fixParameterIndex(@NonNegative int originalIndex, @NonNegative int newIndex) {
         if (!parameterIndexFixed && parameterIndex == originalIndex) {
             parameterIndex = newIndex;
             parameterIndexFixed = true;

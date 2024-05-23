@@ -3,8 +3,9 @@ package mockit.asm.types;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * A Java field or method type. This class can be used to make it easier to manipulate type and method descriptors.
@@ -16,7 +17,7 @@ public abstract class JavaType {
     /**
      * The length of the internal name of this Java type.
      */
-    @Nonnegative
+    @NonNegative
     final int len;
 
     /**
@@ -25,7 +26,7 @@ public abstract class JavaType {
      * @param len
      *            the length of this descriptor.
      */
-    JavaType(@Nonnegative int len) {
+    JavaType(@NonNegative int len) {
         this.len = len;
     }
 
@@ -67,15 +68,15 @@ public abstract class JavaType {
         return getArgumentTypes(buf, size);
     }
 
-    @Nonnegative
-    private static int findNextTypeTerminatorCharacter(@Nonnull char[] desc, @Nonnegative int i) {
+    @NonNegative
+    private static int findNextTypeTerminatorCharacter(@Nonnull char[] desc, @NonNegative int i) {
         while (desc[i++] != ';') {
         }
         return i;
     }
 
     @Nonnull
-    private static JavaType[] getArgumentTypes(@Nonnull char[] buf, @Nonnegative int argCount) {
+    private static JavaType[] getArgumentTypes(@Nonnull char[] buf, @NonNegative int argCount) {
         if (argCount == 0) {
             return NO_ARGS;
         }
@@ -168,15 +169,15 @@ public abstract class JavaType {
         return typeCode == 'D' || typeCode == 'J';
     }
 
-    @Nonnegative
-    private static int findNextTypeTerminatorCharacter(@Nonnull String desc, @Nonnegative int i) {
+    @NonNegative
+    private static int findNextTypeTerminatorCharacter(@Nonnull String desc, @NonNegative int i) {
         while (desc.charAt(i++) != ';') {
         }
         return i;
     }
 
-    @Nonnegative
-    private static int findStartOfArrayElementType(@Nonnull String desc, @Nonnegative int i) {
+    @NonNegative
+    private static int findStartOfArrayElementType(@Nonnull String desc, @NonNegative int i) {
         while (desc.charAt(i) == '[') {
             i++;
         }
@@ -193,7 +194,7 @@ public abstract class JavaType {
      *            the offset of this descriptor in the previous buffer.
      */
     @Nonnull
-    static JavaType getType(@Nonnull char[] buf, @Nonnegative int off) {
+    static JavaType getType(@Nonnull char[] buf, @NonNegative int off) {
         PrimitiveType primitiveType = PrimitiveType.getPrimitiveType(buf[off]);
 
         if (primitiveType != null) {
@@ -311,7 +312,7 @@ public abstract class JavaType {
      * @return the size of values of this type, i.e., 2 for <code>long</code> and <code>double</code>, 0 for
      *         <code>void</code> and 1 otherwise.
      */
-    @Nonnegative
+    @NonNegative
     public abstract int getSize();
 
     /**

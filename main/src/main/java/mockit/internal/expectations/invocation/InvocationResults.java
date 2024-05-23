@@ -7,7 +7,6 @@ package mockit.internal.expectations.invocation;
 import java.lang.reflect.Array;
 import java.util.Iterator;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -15,6 +14,8 @@ import mockit.Delegate;
 import mockit.internal.expectations.invocation.InvocationResult.DeferredResults;
 import mockit.internal.expectations.invocation.InvocationResult.ReturnValueResult;
 import mockit.internal.expectations.invocation.InvocationResult.ThrowableResult;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class InvocationResults {
     @Nonnull
@@ -25,7 +26,7 @@ public final class InvocationResults {
     private InvocationResult currentResult;
     @Nullable
     private InvocationResult lastResult;
-    @Nonnegative
+    @NonNegative
     private int resultCount;
 
     public InvocationResults(@Nonnull ExpectedInvocation invocation, @Nonnull InvocationConstraints constraints) {

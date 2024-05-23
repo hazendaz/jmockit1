@@ -8,10 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.lang.annotation.Annotation;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Resource;
 
+import org.checkerframework.checker.index.qual.NonNegative;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -142,7 +142,7 @@ final class MockedAnnotationsTest {
          * @return the string
          */
         @Nonnull
-        String doSomething(@Nonnegative int i, @Nonnull Object obj) {
+        String doSomething(@NonNegative int i, @Nonnull Object obj) {
             return "";
         }
     }

@@ -13,11 +13,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.types.ReferenceType;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class ArgumentCapturing {
     private static final Map<Integer, String> varIndexToTypeDesc = new HashMap<>();
@@ -35,7 +36,7 @@ public final class ArgumentCapturing {
     }
 
     boolean registerMatcher(boolean withCaptureMethod, @Nonnull String methodDesc,
-            @Nonnegative int lastLoadedVarIndex) {
+            @NonNegative int lastLoadedVarIndex) {
         if (withCaptureMethod && "(Ljava/lang/Object;)Ljava/util/List;".equals(methodDesc)) {
             return false;
         }
@@ -59,13 +60,13 @@ public final class ArgumentCapturing {
         return true;
     }
 
-    void registerTypeToCaptureIfApplicable(@Nonnegative int opcode, @Nonnull String typeDesc) {
+    void registerTypeToCaptureIfApplicable(@NonNegative int opcode, @Nonnull String typeDesc) {
         if (opcode == CHECKCAST && parameterForCapture) {
             capturedTypeDesc = typeDesc;
         }
     }
 
-    static void registerTypeToCaptureIntoListIfApplicable(@Nonnegative int varIndex, @Nonnull String signature) {
+    static void registerTypeToCaptureIntoListIfApplicable(@NonNegative int varIndex, @Nonnull String signature) {
         if (signature.startsWith("Ljava/util/List<")) {
             String typeDesc = signature.substring(16, signature.length() - 2);
             int p = typeDesc.indexOf('<');
@@ -79,7 +80,7 @@ public final class ArgumentCapturing {
         }
     }
 
-    void registerAssignmentToCaptureVariableIfApplicable(@Nonnegative int opcode, @Nonnegative int varIndex) {
+    void registerAssignmentToCaptureVariableIfApplicable(@NonNegative int opcode, @NonNegative int varIndex) {
         if (opcode >= ISTORE && opcode <= ASTORE && parameterForCapture) {
             int parameterIndex = modifier.argumentMatching.getMatcherCount() - 1;
             Capture capture = new Capture(modifier, opcode, varIndex, capturedTypeDesc, parameterIndex);
@@ -97,7 +98,7 @@ public final class ArgumentCapturing {
         captures.add(capture);
     }
 
-    void updateCaptureIfAny(@Nonnegative int originalIndex, @Nonnegative int newIndex) {
+    void updateCaptureIfAny(@NonNegative int originalIndex, @NonNegative int newIndex) {
         if (captures != null) {
             for (int i = captures.size() - 1; i >= 0; i--) {
                 Capture capture = captures.get(i);
@@ -128,7 +129,7 @@ public final class ArgumentCapturing {
     }
 
     @Nullable
-    public static String extractArgumentType(@Nonnegative int varIndex) {
+    public static String extractArgumentType(@NonNegative int varIndex) {
         return varIndexToTypeDesc.remove(varIndex);
     }
 }

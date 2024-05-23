@@ -7,7 +7,6 @@ package mockit.internal.expectations.invocation;
 import java.lang.reflect.Array;
 import java.util.Map;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -15,6 +14,8 @@ import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
 import mockit.internal.expectations.argumentMatching.CaptureMatcher;
 import mockit.internal.expectations.argumentMatching.EqualityMatcher;
 import mockit.internal.expectations.argumentMatching.LenientEqualityMatcher;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 final class ArgumentValuesAndMatchersWithVarargs extends ArgumentValuesAndMatchers {
     ArgumentValuesAndMatchersWithVarargs(@Nonnull InvocationArguments signature, @Nonnull Object[] values) {
@@ -170,7 +171,7 @@ final class ArgumentValuesAndMatchersWithVarargs extends ArgumentValuesAndMatche
         }
 
         @Nullable
-        Object getThisArgument(@Nonnegative int parameter) {
+        Object getThisArgument(@NonNegative int parameter) {
             if (parameter < regularArgCount) {
                 return values[parameter];
             }
@@ -182,7 +183,7 @@ final class ArgumentValuesAndMatchersWithVarargs extends ArgumentValuesAndMatche
         }
 
         @Nullable
-        Object getOtherArgument(@Nonnegative int parameter) {
+        Object getOtherArgument(@NonNegative int parameter) {
             if (parameter < regularArgCount) {
                 return otherValues[parameter];
             }

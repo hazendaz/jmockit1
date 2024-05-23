@@ -9,8 +9,9 @@ import java.security.ProtectionDomain;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * Finds and loads all classes that should also be measured, but were not loaded until now.
@@ -18,7 +19,7 @@ import javax.annotation.Nonnull;
 public final class ClassesNotLoaded {
     @Nonnull
     private final ClassModification classModification;
-    @Nonnegative
+    @NonNegative
     private int firstPosAfterParentDir;
 
     public ClassesNotLoaded(@Nonnull ClassModification classModification) {

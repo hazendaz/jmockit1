@@ -8,13 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
 import mockit.internal.expectations.invocation.ExpectedInvocation;
 import mockit.internal.expectations.invocation.InvocationArguments;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public abstract class BaseVerificationPhase extends TestOnlyPhase {
     @Nonnull
@@ -134,7 +135,7 @@ public abstract class BaseVerificationPhase extends TestOnlyPhase {
     }
 
     @Nullable
-    final Object getArgumentValueForCurrentVerification(@Nonnegative int parameterIndex) {
+    final Object getArgumentValueForCurrentVerification(@NonNegative int parameterIndex) {
         List<VerifiedExpectation> verifiedExpectations = executionState.verifiedExpectations;
 
         if (verifiedExpectations.isEmpty()) {

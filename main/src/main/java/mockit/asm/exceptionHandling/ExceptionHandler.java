@@ -1,11 +1,12 @@
 package mockit.asm.exceptionHandling;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.controlFlow.Label;
 import mockit.asm.util.ByteVector;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * Information about an exception handler block.
@@ -39,11 +40,11 @@ final class ExceptionHandler {
      * Constant pool index of the internal name of the type of exceptions handled by this handler, or <code>0</code> to
      * catch any exceptions.
      */
-    @Nonnegative
+    @NonNegative
     private final int type;
 
     ExceptionHandler(@Nonnull Label start, @Nonnull Label end, @Nonnull Label handler, @Nullable String desc,
-            @Nonnegative int type) {
+            @NonNegative int type) {
         this.start = start;
         this.end = end;
         this.handler = handler;

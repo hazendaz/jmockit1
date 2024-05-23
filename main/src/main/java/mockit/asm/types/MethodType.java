@@ -1,7 +1,8 @@
 package mockit.asm.types;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class MethodType extends ReferenceType {
     /**
@@ -22,7 +23,7 @@ public final class MethodType extends ReferenceType {
      * @param len
      *            the length of this descriptor
      */
-    MethodType(@Nonnull char[] typeDesc, @Nonnegative int off, @Nonnegative int len) {
+    MethodType(@Nonnull char[] typeDesc, @NonNegative int off, @NonNegative int len) {
         super(typeDesc, off, len);
     }
 

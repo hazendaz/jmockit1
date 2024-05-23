@@ -1,7 +1,8 @@
 package mockit.asm.types;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class ObjectType extends ReferenceType {
     @Nonnull
@@ -18,12 +19,12 @@ public final class ObjectType extends ReferenceType {
      *            the offset of the descriptor in the buffer
      */
     @Nonnull
-    static ObjectType create(@Nonnull char[] typeDesc, @Nonnegative int off) {
+    static ObjectType create(@Nonnull char[] typeDesc, @NonNegative int off) {
         int len = findTypeNameLength(typeDesc, off, 0);
         return new ObjectType(typeDesc, off + 1, len - 1);
     }
 
-    private ObjectType(@Nonnull char[] typeDesc, @Nonnegative int off, @Nonnegative int len) {
+    private ObjectType(@Nonnull char[] typeDesc, @NonNegative int off, @NonNegative int len) {
         super(typeDesc, off, len);
     }
 

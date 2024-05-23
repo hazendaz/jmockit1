@@ -1,9 +1,10 @@
 package mockit.asm.constantPool;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import mockit.asm.util.ByteVector;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public abstract class AttributeWriter {
     @Nonnull
@@ -12,7 +13,7 @@ public abstract class AttributeWriter {
     /**
      * The index of the constant pool item that contains the name of the associated attribute.
      */
-    @Nonnegative
+    @NonNegative
     protected int attributeIndex;
 
     protected AttributeWriter(@Nonnull ConstantPoolGeneration cp) {
@@ -28,14 +29,14 @@ public abstract class AttributeWriter {
         attributeIndex = cp.newUTF8(attributeName);
     }
 
-    @Nonnegative
+    @NonNegative
     public abstract int getSize();
 
     public void put(@Nonnull ByteVector out) {
         put(out, 2);
     }
 
-    protected final void put(@Nonnull ByteVector out, @Nonnegative int size) {
+    protected final void put(@Nonnull ByteVector out, @NonNegative int size) {
         out.putShort(attributeIndex).putInt(size);
     }
 }

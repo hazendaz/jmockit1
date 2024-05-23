@@ -8,7 +8,6 @@ import static mockit.asm.controlFlow.StackMapTableWriter.LocalsAndStackItemsDiff
 import static mockit.asm.controlFlow.StackMapTableWriter.LocalsAndStackItemsDiff.SAME_LOCALS_1_STACK_ITEM_FRAME;
 import static mockit.asm.controlFlow.StackMapTableWriter.LocalsAndStackItemsDiff.SAME_LOCALS_1_STACK_ITEM_FRAME_EXTENDED;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import mockit.asm.constantPool.AttributeWriter;
@@ -17,6 +16,8 @@ import mockit.asm.constantPool.UninitializedTypeTableItem;
 import mockit.asm.jvmConstants.Access;
 import mockit.asm.types.JavaType;
 import mockit.asm.util.ByteVector;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * Writes the "StackMapTable" method attribute (or "StackMap" for classfiles older than Java 6).
@@ -69,19 +70,19 @@ public final class StackMapTableWriter extends AttributeWriter {
     /**
      * Maximum stack size of this method.
      */
-    @Nonnegative
+    @NonNegative
     private int maxStack;
 
     /**
      * Maximum number of local variables for this method.
      */
-    @Nonnegative
+    @NonNegative
     private int maxLocals;
 
     /**
      * Number of stack map frames in the StackMapTable attribute.
      */
-    @Nonnegative
+    @NonNegative
     private int frameCount;
 
     /**
@@ -112,7 +113,7 @@ public final class StackMapTableWriter extends AttributeWriter {
     /**
      * The current index in {@link #frameDefinition}, when writing new values into the array.
      */
-    @Nonnegative
+    @NonNegative
     private int frameIndex;
 
     public StackMapTableWriter(@Nonnull ConstantPoolGeneration cp, boolean java6OrNewer, int methodAccess,
@@ -129,11 +130,11 @@ public final class StackMapTableWriter extends AttributeWriter {
         maxLocals = size;
     }
 
-    public void setMaxStack(@Nonnegative int maxStack) {
+    public void setMaxStack(@NonNegative int maxStack) {
         this.maxStack = maxStack;
     }
 
-    public void updateMaxLocals(@Nonnegative int n) {
+    public void updateMaxLocals(@NonNegative int n) {
         if (n > maxLocals) {
             maxLocals = n;
         }
@@ -143,34 +144,34 @@ public final class StackMapTableWriter extends AttributeWriter {
         out.putShort(maxStack).putShort(maxLocals);
     }
 
-    @Nonnegative
+    @NonNegative
     private int getInstructionOffset() {
         return frameDefinition[0];
     }
 
-    private void setInstructionOffset(@Nonnegative int offset) {
+    private void setInstructionOffset(@NonNegative int offset) {
         frameDefinition[0] = offset;
     }
 
-    @Nonnegative
+    @NonNegative
     private int getNumLocals() {
         return frameDefinition[1];
     }
 
-    private void setNumLocals(@Nonnegative int numLocals) {
+    private void setNumLocals(@NonNegative int numLocals) {
         frameDefinition[1] = numLocals;
     }
 
-    @Nonnegative
+    @NonNegative
     private int getStackSize() {
         return frameDefinition[2];
     }
 
-    private void setStackSize(@Nonnegative int stackSize) {
+    private void setStackSize(@NonNegative int stackSize) {
         frameDefinition[2] = stackSize;
     }
 
-    private void writeFrameDefinition(@Nonnegative int value) {
+    private void writeFrameDefinition(@NonNegative int value) {
         frameDefinition[frameIndex++] = value;
     }
 
@@ -189,7 +190,7 @@ public final class StackMapTableWriter extends AttributeWriter {
      * @param nStack
      *            the number of stack elements in the frame.
      */
-    private void startFrame(@Nonnegative int offset, @Nonnegative int nLocals, @Nonnegative int nStack) {
+    private void startFrame(@NonNegative int offset, @NonNegative int nLocals, @NonNegative int nStack) {
         int n = 3 + nLocals + nStack;
 
         if (frameDefinition == null || frameDefinition.length < n) {
@@ -235,19 +236,19 @@ public final class StackMapTableWriter extends AttributeWriter {
         }
     }
 
-    private void writeFrameForOldVersionOfJava(@Nonnegative int localsSize, @Nonnegative int stackSize) {
+    private void writeFrameForOldVersionOfJava(@NonNegative int localsSize, @NonNegative int stackSize) {
         int instructionOffset = getInstructionOffset();
         writeFrame(instructionOffset, localsSize, stackSize);
     }
 
-    private void writeFullFrame(@Nonnegative int instructionOffset, @Nonnegative int localsSize,
-            @Nonnegative int stackSize) {
+    private void writeFullFrame(@NonNegative int instructionOffset, @NonNegative int localsSize,
+            @NonNegative int stackSize) {
         stackMap.putByte(FULL_FRAME);
         writeFrame(instructionOffset, localsSize, stackSize);
     }
 
-    private void writeFrame(@Nonnegative int instructionOffset, @Nonnegative int localsSize,
-            @Nonnegative int stackSize) {
+    private void writeFrame(@NonNegative int instructionOffset, @NonNegative int localsSize,
+            @NonNegative int stackSize) {
         stackMap.putShort(instructionOffset);
 
         stackMap.putShort(localsSize);
@@ -258,11 +259,11 @@ public final class StackMapTableWriter extends AttributeWriter {
         writeFrameTypes(lastTypeIndex, lastTypeIndex + stackSize);
     }
 
-    private void writeFrameForJava6OrNewer(@Nonnegative int currentLocalsSize, @Nonnegative int currentStackSize) {
-        @Nonnegative
+    private void writeFrameForJava6OrNewer(@NonNegative int currentLocalsSize, @NonNegative int currentStackSize) {
+        @NonNegative
         int previousLocalsSize = previousFrame[1];
         int k = currentStackSize == 0 ? currentLocalsSize - previousLocalsSize : 0;
-        @Nonnegative
+        @NonNegative
         int delta = getDelta();
         int type = selectFrameType(currentLocalsSize, currentStackSize, previousLocalsSize, k, delta);
 
@@ -299,15 +300,15 @@ public final class StackMapTableWriter extends AttributeWriter {
         }
     }
 
-    @Nonnegative
+    @NonNegative
     private int getDelta() {
         int offset = getInstructionOffset();
         return frameCount == 0 ? offset : offset - previousFrame[0] - 1;
     }
 
-    @Nonnegative
-    private static int selectFrameType(@Nonnegative int currentLocalsSize, @Nonnegative int currentStackSize,
-            @Nonnegative int previousLocalsSize, int k, @Nonnegative int delta) {
+    @NonNegative
+    private static int selectFrameType(@NonNegative int currentLocalsSize, @NonNegative int currentStackSize,
+            @NonNegative int previousLocalsSize, int k, @NonNegative int delta) {
         int type = FULL_FRAME;
 
         if (currentStackSize == 0) {
@@ -327,8 +328,8 @@ public final class StackMapTableWriter extends AttributeWriter {
         return type;
     }
 
-    @Nonnegative
-    private int selectFullFrameIfLocalsAreNotTheSame(@Nonnegative int previousLocalsSize, @Nonnegative int type) {
+    @NonNegative
+    private int selectFullFrameIfLocalsAreNotTheSame(@NonNegative int previousLocalsSize, @NonNegative int type) {
         if (type != FULL_FRAME) {
             // Verify if locals are the same.
             int l = 3;
@@ -345,22 +346,22 @@ public final class StackMapTableWriter extends AttributeWriter {
         return type;
     }
 
-    private void writeFrameWithSameLocalsAndOneStackItem(@Nonnegative int localsSize, @Nonnegative int delta) {
+    private void writeFrameWithSameLocalsAndOneStackItem(@NonNegative int localsSize, @NonNegative int delta) {
         stackMap.putByte(SAME_LOCALS_1_STACK_ITEM_FRAME + delta);
         writeFrameTypes(3 + localsSize, 4 + localsSize);
     }
 
-    private void writeFrameWithSameLocalsAndZeroStackItems(int k, @Nonnegative int delta) {
+    private void writeFrameWithSameLocalsAndZeroStackItems(int k, @NonNegative int delta) {
         stackMap.putByte(SAME_FRAME_EXTENDED + k).putShort(delta);
     }
 
-    private void writeExtendedFrameWithSameLocalsAndOneStackItem(@Nonnegative int localsSize, @Nonnegative int delta) {
+    private void writeExtendedFrameWithSameLocalsAndOneStackItem(@NonNegative int localsSize, @NonNegative int delta) {
         stackMap.putByte(SAME_LOCALS_1_STACK_ITEM_FRAME_EXTENDED).putShort(delta);
         writeFrameTypes(3 + localsSize, 4 + localsSize);
     }
 
-    private void writeAppendedFrame(@Nonnegative int currentLocalsSize, @Nonnegative int previousLocalsSize, int k,
-            @Nonnegative int delta) {
+    private void writeAppendedFrame(@NonNegative int currentLocalsSize, @NonNegative int previousLocalsSize, int k,
+            @NonNegative int delta) {
         stackMap.putByte(SAME_FRAME_EXTENDED + k).putShort(delta);
         writeFrameTypes(3 + previousLocalsSize, 3 + currentLocalsSize);
     }
@@ -375,7 +376,7 @@ public final class StackMapTableWriter extends AttributeWriter {
      * @param end
      *            index of last type in {@link #frameDefinition} to write (exclusive)
      */
-    private void writeFrameTypes(@Nonnegative int start, @Nonnegative int end) {
+    private void writeFrameTypes(@NonNegative int start, @NonNegative int end) {
         for (int i = start; i < end; i++) {
             int type = frameDefinition[i];
             int dimensions = type & FrameTypeMask.DIM;
@@ -388,7 +389,7 @@ public final class StackMapTableWriter extends AttributeWriter {
         }
     }
 
-    private void writeFrameOfRegularType(@Nonnegative int type) {
+    private void writeFrameOfRegularType(@NonNegative int type) {
         int typeTableIndex = type & FrameTypeMask.BASE_VALUE;
 
         switch (type & FrameTypeMask.BASE_KIND) {
@@ -407,7 +408,7 @@ public final class StackMapTableWriter extends AttributeWriter {
         }
     }
 
-    private void writeFrameOfArrayType(@Nonnegative int arrayDimensions, @Nonnegative int arrayElementType) {
+    private void writeFrameOfArrayType(@NonNegative int arrayDimensions, @NonNegative int arrayElementType) {
         StringBuilder sb = new StringBuilder();
         writeDimensionsIntoArrayDescriptor(sb, arrayDimensions);
 
@@ -425,7 +426,7 @@ public final class StackMapTableWriter extends AttributeWriter {
     }
 
     private static void writeDimensionsIntoArrayDescriptor(@Nonnull StringBuilder sb,
-            @Nonnegative int arrayDimensions) {
+            @NonNegative int arrayDimensions) {
         arrayDimensions >>= 28;
 
         while (arrayDimensions-- > 0) {
@@ -433,7 +434,7 @@ public final class StackMapTableWriter extends AttributeWriter {
         }
     }
 
-    private static char getTypeCodeForArrayElements(@Nonnegative int arrayElementType) {
+    private static char getTypeCodeForArrayElements(@NonNegative int arrayElementType) {
         switch (arrayElementType & 0xF) {
             case 1:
                 return 'I';
@@ -484,7 +485,7 @@ public final class StackMapTableWriter extends AttributeWriter {
      * Computes the number of locals (ignores TOP types that are just after a LONG or a DOUBLE, and all trailing TOP
      * types).
      */
-    @Nonnegative
+    @NonNegative
     private static int computeNumberOfLocals(@Nonnull int[] locals) {
         int nLocal = 0;
         int nTop = 0;
@@ -510,7 +511,7 @@ public final class StackMapTableWriter extends AttributeWriter {
     /**
      * Computes the stack size (ignores TOP types that are just after a LONG or a DOUBLE).
      */
-    @Nonnegative
+    @NonNegative
     private static int computeStackSize(@Nonnull int[] stacks) {
         int nStack = 0;
 
@@ -526,7 +527,7 @@ public final class StackMapTableWriter extends AttributeWriter {
         return nStack;
     }
 
-    private void putLocalsOrStackElements(@Nonnull int[] itemIndices, @Nonnegative int nItems) {
+    private void putLocalsOrStackElements(@Nonnull int[] itemIndices, @NonNegative int nItems) {
         for (int i = 0; nItems > 0; i++, nItems--) {
             int itemType = itemIndices[i];
             writeFrameDefinition(itemType);
@@ -537,7 +538,7 @@ public final class StackMapTableWriter extends AttributeWriter {
         }
     }
 
-    @Nonnegative
+    @NonNegative
     @Override
     public int getSize() {
         return stackMap == null ? 0 : 8 + stackMap.getLength();

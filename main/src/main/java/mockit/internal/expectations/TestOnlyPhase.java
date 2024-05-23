@@ -7,13 +7,14 @@ package mockit.internal.expectations;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
 import mockit.internal.expectations.argumentMatching.CaptureMatcher;
 import mockit.internal.expectations.argumentMatching.ClassMatcher;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public abstract class TestOnlyPhase extends Phase {
     boolean matchInstance;
@@ -39,7 +40,7 @@ public abstract class TestOnlyPhase extends Phase {
         return argMatchers;
     }
 
-    final void moveArgMatcher(@Nonnegative int originalMatcherIndex, @Nonnegative int toIndex) {
+    final void moveArgMatcher(@NonNegative int originalMatcherIndex, @NonNegative int toIndex) {
         List<ArgumentMatcher<?>> matchers = getArgumentMatchers();
         int i = getMatcherPositionIgnoringNulls(originalMatcherIndex, matchers);
 
@@ -48,8 +49,8 @@ public abstract class TestOnlyPhase extends Phase {
         }
     }
 
-    @Nonnegative
-    private static int getMatcherPositionIgnoringNulls(@Nonnegative int originalMatcherIndex,
+    @NonNegative
+    private static int getMatcherPositionIgnoringNulls(@NonNegative int originalMatcherIndex,
             @Nonnull List<ArgumentMatcher<?>> matchers) {
         int i = 0;
 
@@ -62,12 +63,12 @@ public abstract class TestOnlyPhase extends Phase {
         return i;
     }
 
-    final void setExpectedSingleArgumentType(@Nonnegative int parameterIndex, @Nonnull Class<?> argumentType) {
+    final void setExpectedSingleArgumentType(@NonNegative int parameterIndex, @Nonnull Class<?> argumentType) {
         ArgumentMatcher<?> newMatcher = ClassMatcher.create(argumentType);
         getArgumentMatchers().set(parameterIndex, newMatcher);
     }
 
-    final void setExpectedMultiArgumentType(@Nonnegative int parameterIndex, @Nonnull Class<?> argumentType) {
+    final void setExpectedMultiArgumentType(@NonNegative int parameterIndex, @Nonnull Class<?> argumentType) {
         CaptureMatcher<?> matcher = (CaptureMatcher<?>) getArgumentMatchers().get(parameterIndex);
         matcher.setExpectedType(argumentType);
     }

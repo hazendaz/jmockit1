@@ -2,7 +2,6 @@ package mockit.asm;
 
 import java.util.List;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -10,6 +9,8 @@ import mockit.asm.annotations.AnnotationVisitor;
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.jvmConstants.Access;
 import mockit.asm.util.ByteVector;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public class BaseWriter {
     /**
@@ -22,9 +23,9 @@ public class BaseWriter {
      */
     protected int classOrMemberAccess;
 
-    @Nonnegative
+    @NonNegative
     private int deprecatedAttributeIndex;
-    @Nonnegative
+    @NonNegative
     private int syntheticAttributeIndex;
 
     /**
@@ -90,7 +91,7 @@ public class BaseWriter {
         }
     }
 
-    @Nonnegative
+    @NonNegative
     protected final int getAnnotationsSize() {
         if (annotations != null) {
             getConstantPoolItemForRuntimeVisibleAnnotationsAttribute();
@@ -100,17 +101,17 @@ public class BaseWriter {
         return 0;
     }
 
-    @Nonnegative
+    @NonNegative
     private int getConstantPoolItemForRuntimeVisibleAnnotationsAttribute() {
         return cp.newUTF8("RuntimeVisibleAnnotations");
     }
 
-    @Nonnegative
+    @NonNegative
     protected final int getMarkerAttributeCount() {
         return (deprecatedAttributeIndex == 0 ? 0 : 1) + (syntheticAttributeIndex == 0 ? 0 : 1);
     }
 
-    @Nonnegative
+    @NonNegative
     protected final int getMarkerAttributesSize() {
         int attributeCount = getMarkerAttributeCount();
         return 6 * attributeCount;

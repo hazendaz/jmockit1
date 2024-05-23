@@ -8,12 +8,13 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.Invocation;
 import mockit.internal.reflection.MethodReflection;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * Base class for encapsulating state and logic needed by both the Mocking and Faking APIs, but which should not go into
@@ -26,7 +27,7 @@ public abstract class BaseInvocation extends Invocation {
     private BaseInvocation previousInvocation;
 
     protected BaseInvocation(@Nullable Object invokedInstance, @Nonnull Object[] invokedArguments,
-            @Nonnegative int invocationCount) {
+            @NonNegative int invocationCount) {
         super(invokedInstance, invokedArguments, invocationCount);
     }
 

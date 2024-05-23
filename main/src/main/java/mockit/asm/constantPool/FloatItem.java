@@ -2,16 +2,17 @@ package mockit.asm.constantPool;
 
 import static mockit.asm.jvmConstants.ConstantPoolTypes.FLOAT;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 public final class FloatItem extends IntValueItem {
-    public FloatItem(@Nonnegative int index) {
+    public FloatItem(@NonNegative int index) {
         super(index);
         type = FLOAT;
     }
 
-    FloatItem(@Nonnegative int index, @Nonnull FloatItem item) {
+    FloatItem(@NonNegative int index, @Nonnull FloatItem item) {
         super(index, item);
     }
 

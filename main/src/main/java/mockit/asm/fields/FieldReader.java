@@ -1,12 +1,13 @@
 package mockit.asm.fields;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.AnnotatedReader;
 import mockit.asm.classes.ClassReader;
 import mockit.asm.classes.ClassVisitor;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class FieldReader extends AnnotatedReader {
     @Nonnull
@@ -24,7 +25,7 @@ public final class FieldReader extends AnnotatedReader {
      *
      * @return the offset of the first byte following the last field in the class.
      */
-    @Nonnegative
+    @NonNegative
     public int readFields() {
         for (int fieldCount = readUnsignedShort(); fieldCount > 0; fieldCount--) {
             readField();

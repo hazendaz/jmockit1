@@ -10,12 +10,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.controlFlow.Label;
 import mockit.coverage.CallPoint;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * Coverage data gathered for a single executable line of code in a source file.
@@ -26,14 +27,14 @@ public final class LineCoverageData extends LineSegmentData {
     // Static data:
     @Nonnull
     private List<BranchCoverageData> branches;
-    @Nonnegative
+    @NonNegative
     private transient int segments;
 
     LineCoverageData() {
         branches = emptyList();
     }
 
-    @Nonnegative
+    @NonNegative
     public int addBranchingPoint(@Nonnull Label jumpSource, @Nonnull Label jumpTarget) {
         int initialIndex = branches.size();
 
@@ -56,17 +57,17 @@ public final class LineCoverageData extends LineSegmentData {
     }
 
     @Nonnull
-    public BranchCoverageData getBranchData(@Nonnegative int index) {
+    public BranchCoverageData getBranchData(@NonNegative int index) {
         return branches.get(index);
     }
 
-    boolean acceptsAdditionalCallPoints(@Nonnegative int branchIndex) {
+    boolean acceptsAdditionalCallPoints(@NonNegative int branchIndex) {
         BranchCoverageData data = branches.get(branchIndex);
         return data.acceptsAdditionalCallPoints();
     }
 
-    @Nonnegative
-    int registerExecution(@Nonnegative int branchIndex, @Nullable CallPoint callPoint) {
+    @NonNegative
+    int registerExecution(@NonNegative int branchIndex, @Nullable CallPoint callPoint) {
         BranchCoverageData data = branches.get(branchIndex);
         return data.registerExecution(callPoint);
     }
@@ -80,11 +81,11 @@ public final class LineCoverageData extends LineSegmentData {
         return branches;
     }
 
-    boolean isValidBranch(@Nonnegative int branchIndex) {
+    boolean isValidBranch(@NonNegative int branchIndex) {
         return branches.get(branchIndex) != BranchCoverageData.INVALID;
     }
 
-    @Nonnegative
+    @NonNegative
     public int getNumberOfSegments() {
         int previouslyCounted = segments;
 
@@ -117,7 +118,7 @@ public final class LineCoverageData extends LineSegmentData {
         return count;
     }
 
-    @Nonnegative
+    @NonNegative
     public int getNumberOfCoveredSegments() {
         int segmentsCovered = isCovered() ? 1 : 0;
         int n = branches.size();
@@ -146,7 +147,7 @@ public final class LineCoverageData extends LineSegmentData {
         return segmentsCovered;
     }
 
-    @Nonnegative
+    @NonNegative
     public int getNumberOfBranchingSourcesAndTargets() {
         int n = branches.size();
 
@@ -169,7 +170,7 @@ public final class LineCoverageData extends LineSegmentData {
         return count;
     }
 
-    @Nonnegative
+    @NonNegative
     public int getNumberOfCoveredBranchingSourcesAndTargets() {
         int n = branches.size();
 

@@ -2,13 +2,14 @@ package mockit.asm.constantPool;
 
 import static mockit.asm.constantPool.TypeTableItem.SpecialType.MERGED;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 final class MergedTypeTableItem extends TypeTableItem {
     private int type1;
     private int type2;
-    @Nonnegative
+    @NonNegative
     int commonSuperTypeIndex;
 
     MergedTypeTableItem() {
@@ -30,7 +31,7 @@ final class MergedTypeTableItem extends TypeTableItem {
      * @param type2
      *            index of an internal name in the type table.
      */
-    void set(@Nonnegative int type1, @Nonnegative int type2) {
+    void set(@NonNegative int type1, @NonNegative int type2) {
         this.type1 = type1;
         this.type2 = type2;
         setHashCode(type1 + type2);

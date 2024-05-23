@@ -8,11 +8,12 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.asm.types.JavaType;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class TestMethod {
     @Nonnull
@@ -40,32 +41,32 @@ public final class TestMethod {
         this.parameterValues = parameterValues;
     }
 
-    @Nonnegative
+    @NonNegative
     public int getParameterCount() {
         return parameterTypes.length;
     }
 
     @Nonnull
-    public Type getParameterType(@Nonnegative int index) {
+    public Type getParameterType(@NonNegative int index) {
         return parameterTypes[index];
     }
 
     @Nonnull
-    public Class<?> getParameterClass(@Nonnegative int index) {
+    public Class<?> getParameterClass(@NonNegative int index) {
         return parameterClasses[index];
     }
 
     @Nonnull
-    public Annotation[] getParameterAnnotations(@Nonnegative int index) {
+    public Annotation[] getParameterAnnotations(@NonNegative int index) {
         return parameterAnnotations[index];
     }
 
     @Nullable
-    public Object getParameterValue(@Nonnegative int index) {
+    public Object getParameterValue(@NonNegative int index) {
         return parameterValues[index];
     }
 
-    public void setParameterValue(@Nonnegative int index, @Nullable Object value) {
+    public void setParameterValue(@NonNegative int index, @Nullable Object value) {
         if (value != null) {
             parameterValues[index] = value;
         }

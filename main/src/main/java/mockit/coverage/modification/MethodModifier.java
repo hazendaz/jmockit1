@@ -26,7 +26,6 @@ import static mockit.asm.jvmConstants.Opcodes.PUTSTATIC;
 import static mockit.asm.jvmConstants.Opcodes.RETURN;
 import static mockit.asm.jvmConstants.Opcodes.SIPUSH;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -36,6 +35,8 @@ import mockit.asm.methods.MethodWriter;
 import mockit.asm.methods.WrappingMethodVisitor;
 import mockit.coverage.data.FileCoverageData;
 import mockit.coverage.lines.PerFileLineCoverage;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 final class MethodModifier extends WrappingMethodVisitor {
     private static final String DATA_RECORDING_CLASS = "mockit/coverage/TestRun";
@@ -49,7 +50,7 @@ final class MethodModifier extends WrappingMethodVisitor {
     @Nonnull
     private final CFGTracking cfgTracking;
     private boolean foundInterestingInstruction;
-    @Nonnegative
+    @NonNegative
     int currentLine;
 
     MethodModifier(@Nonnull MethodWriter mw, @Nonnull String sourceFileName, @Nonnull FileCoverageData fileData) {
@@ -72,7 +73,7 @@ final class MethodModifier extends WrappingMethodVisitor {
     }
 
     @Override
-    public void visitLineNumber(@Nonnegative int line, @Nonnull Label start) {
+    public void visitLineNumber(@NonNegative int line, @Nonnull Label start) {
         lineCoverageInfo.addLine(line);
         currentLine = line;
         cfgTracking.startNewLine();
@@ -101,7 +102,7 @@ final class MethodModifier extends WrappingMethodVisitor {
     }
 
     @Override
-    public void visitJumpInsn(@Nonnegative int opcode, @Nonnull Label label) {
+    public void visitJumpInsn(@NonNegative int opcode, @Nonnull Label label) {
         Label jumpSource = mw.getCurrentBlock();
         assert jumpSource != null;
 
@@ -118,7 +119,7 @@ final class MethodModifier extends WrappingMethodVisitor {
         cfgTracking.generateCallToRegisterBranchTargetExecutionIfPending(this);
     }
 
-    void generateCallToRegisterBranchTargetExecution(@Nonnegative int branchIndex) {
+    void generateCallToRegisterBranchTargetExecution(@NonNegative int branchIndex) {
         mw.visitIntInsn(SIPUSH, fileData.index);
         pushCurrentLineOnTheStack();
         mw.visitIntInsn(SIPUSH, branchIndex);
@@ -126,7 +127,7 @@ final class MethodModifier extends WrappingMethodVisitor {
     }
 
     @Override
-    public void visitInsn(@Nonnegative int opcode) {
+    public void visitInsn(@NonNegative int opcode) {
         boolean isReturn = opcode >= IRETURN && opcode <= RETURN;
 
         if (!isReturn && !isDefaultReturnValue(opcode)) {
@@ -142,32 +143,32 @@ final class MethodModifier extends WrappingMethodVisitor {
         mw.visitInsn(opcode);
     }
 
-    private static boolean isDefaultReturnValue(@Nonnegative int opcode) {
+    private static boolean isDefaultReturnValue(@NonNegative int opcode) {
         return opcode == ACONST_NULL || opcode == ICONST_0 || opcode == LCONST_0 || opcode == FCONST_0
                 || opcode == DCONST_0;
     }
 
     @Override
-    public void visitIntInsn(@Nonnegative int opcode, int operand) {
+    public void visitIntInsn(@NonNegative int opcode, int operand) {
         foundInterestingInstruction = true;
         generateCallToRegisterBranchTargetExecutionIfPending();
         mw.visitIntInsn(opcode, operand);
     }
 
     @Override
-    public void visitVarInsn(@Nonnegative int opcode, @Nonnegative int varIndex) {
+    public void visitVarInsn(@NonNegative int opcode, @NonNegative int varIndex) {
         generateCallToRegisterBranchTargetExecutionIfPending();
         mw.visitVarInsn(opcode, varIndex);
     }
 
     @Override
-    public void visitTypeInsn(@Nonnegative int opcode, @Nonnull String typeDesc) {
+    public void visitTypeInsn(@NonNegative int opcode, @Nonnull String typeDesc) {
         generateCallToRegisterBranchTargetExecutionIfPending();
         mw.visitTypeInsn(opcode, typeDesc);
     }
 
     @Override
-    public void visitFieldInsn(@Nonnegative int opcode, @Nonnull String owner, @Nonnull String name,
+    public void visitFieldInsn(@NonNegative int opcode, @Nonnull String owner, @Nonnull String name,
             @Nonnull String desc) {
         // TODO: need to also process field instructions inside accessor methods (STATIC + SYNTHETIC, "access$nnn")
         boolean getField = opcode == GETSTATIC || opcode == GETFIELD;
@@ -240,7 +241,7 @@ final class MethodModifier extends WrappingMethodVisitor {
     }
 
     @Override
-    public void visitMethodInsn(@Nonnegative int opcode, @Nonnull String owner, @Nonnull String name,
+    public void visitMethodInsn(@NonNegative int opcode, @Nonnull String owner, @Nonnull String name,
             @Nonnull String desc, boolean itf) {
         // This is to ignore bytecode belonging to a static initialization block inserted in a regular line of code by
         // the Java
@@ -267,7 +268,7 @@ final class MethodModifier extends WrappingMethodVisitor {
     }
 
     @Override
-    public void visitIincInsn(@Nonnegative int varIndex, int increment) {
+    public void visitIincInsn(@NonNegative int varIndex, int increment) {
         generateCallToRegisterBranchTargetExecutionIfPending();
         mw.visitIincInsn(varIndex, increment);
     }
@@ -287,20 +288,20 @@ final class MethodModifier extends WrappingMethodVisitor {
     }
 
     @Override
-    public void visitTableSwitchInsn(@Nonnegative int min, @Nonnegative int max, @Nonnull Label dflt,
+    public void visitTableSwitchInsn(@NonNegative int min, @NonNegative int max, @Nonnull Label dflt,
             @Nonnull Label... labels) {
         generateCallToRegisterBranchTargetExecutionIfPending();
         mw.visitTableSwitchInsn(min, max, dflt, labels);
     }
 
     @Override
-    public void visitMultiANewArrayInsn(@Nonnull String desc, @Nonnegative int dims) {
+    public void visitMultiANewArrayInsn(@Nonnull String desc, @NonNegative int dims) {
         generateCallToRegisterBranchTargetExecutionIfPending();
         mw.visitMultiANewArrayInsn(desc, dims);
     }
 
     @Override
-    public void visitMaxStack(@Nonnegative int maxStack) {
+    public void visitMaxStack(@NonNegative int maxStack) {
         if (maxStack > 1) {
             lineCoverageInfo.markLineAsReachable(currentLine);
         }

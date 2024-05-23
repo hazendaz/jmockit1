@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -24,6 +23,8 @@ import mockit.internal.util.ClassLoad;
 import mockit.internal.util.DefaultValues;
 import mockit.internal.util.ObjectMethods;
 import mockit.internal.util.StackTrace;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 @SuppressWarnings("OverlyComplexClass")
 public final class ExpectedInvocation {
@@ -194,7 +195,7 @@ public final class ExpectedInvocation {
         }
     }
 
-    private boolean haveSameReturnTypes(@Nonnull String invokedMethod, @Nonnegative int returnTypeStartPos) {
+    private boolean haveSameReturnTypes(@Nonnull String invokedMethod, @NonNegative int returnTypeStartPos) {
         String recordedMethod = getMethodNameAndDescription();
         int n = invokedMethod.length();
 
@@ -220,7 +221,7 @@ public final class ExpectedInvocation {
     }
 
     private boolean isReturnTypeOfRecordedMethodAssignableToReturnTypeOfInvokedMethod(@Nonnull String invokedMethod,
-            @Nonnegative int returnTypeStartPos) {
+            @NonNegative int returnTypeStartPos) {
         String recordedMethod = getMethodNameAndDescription();
         JavaType recordedRT = JavaType.getType(recordedMethod.substring(returnTypeStartPos));
         JavaType invokedRT = JavaType.getType(invokedMethod.substring(returnTypeStartPos));
@@ -277,7 +278,7 @@ public final class ExpectedInvocation {
     }
 
     @Nonnull
-    public MissingInvocation errorForMissingInvocations(@Nonnegative int missingInvocations,
+    public MissingInvocation errorForMissingInvocations(@NonNegative int missingInvocations,
             @Nonnull List<ExpectedInvocation> nonMatchingInvocations) {
         StringBuilder errorMessage = new StringBuilder(200);
         errorMessage.append("Missing ").append(missingInvocations).append(invocationsTo(missingInvocations))
@@ -311,7 +312,7 @@ public final class ExpectedInvocation {
     }
 
     @Nonnull
-    private static String invocationsTo(@Nonnegative int invocations) {
+    private static String invocationsTo(@NonNegative int invocations) {
         return invocations == 1 ? " invocation to:\n" : " invocations to:\n";
     }
 

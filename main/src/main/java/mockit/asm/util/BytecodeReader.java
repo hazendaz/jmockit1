@@ -18,7 +18,6 @@ import static mockit.asm.jvmConstants.ConstantPoolTypes.PACKAGE;
 import static mockit.asm.jvmConstants.ConstantPoolTypes.STRING;
 import static mockit.asm.jvmConstants.ConstantPoolTypes.UTF8;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -27,6 +26,8 @@ import mockit.asm.jvmConstants.ConstantPoolTypes;
 import mockit.asm.types.JavaType;
 import mockit.asm.types.MethodType;
 import mockit.asm.types.ReferenceType;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public class BytecodeReader {
     /**
@@ -60,7 +61,7 @@ public class BytecodeReader {
     /**
      * The next index at {@link #code} to be read.
      */
-    @Nonnegative
+    @NonNegative
     public int codeIndex;
 
     protected BytecodeReader(@Nonnull byte[] code) {
@@ -75,7 +76,7 @@ public class BytecodeReader {
         buf = new char[maxStringSize];
     }
 
-    @Nonnegative
+    @NonNegative
     private int readConstantPoolItems() {
         int maxStringSize = 0;
 
@@ -96,7 +97,7 @@ public class BytecodeReader {
         return maxStringSize;
     }
 
-    @Nonnegative
+    @NonNegative
     private int getItemSize(int itemType) {
         switch (itemType) {
             case FIELD_REF:
@@ -139,7 +140,7 @@ public class BytecodeReader {
      *
      * @return the int
      */
-    @Nonnegative
+    @NonNegative
     public final int readUnsignedByte() {
         return code[codeIndex++] & 0xFF;
     }
@@ -152,8 +153,8 @@ public class BytecodeReader {
      *
      * @return the int
      */
-    @Nonnegative
-    protected final int readUnsignedByte(@Nonnegative int u1CodeIndex) {
+    @NonNegative
+    protected final int readUnsignedByte(@NonNegative int u1CodeIndex) {
         return code[u1CodeIndex] & 0xFF;
     }
 
@@ -166,11 +167,11 @@ public class BytecodeReader {
         return code[codeIndex++];
     }
 
-    protected final char readChar(@Nonnegative int s4CodeIndex) {
+    protected final char readChar(@NonNegative int s4CodeIndex) {
         return (char) readInt(s4CodeIndex);
     }
 
-    protected final boolean readBoolean(@Nonnegative int s4CodeIndex) {
+    protected final boolean readBoolean(@NonNegative int s4CodeIndex) {
         return readInt(s4CodeIndex) != 0;
     }
 
@@ -179,7 +180,7 @@ public class BytecodeReader {
      *
      * @return the int
      */
-    @Nonnegative
+    @NonNegative
     public final int readUnsignedShort() {
         byte[] b = code;
         int i = codeIndex;
@@ -199,8 +200,8 @@ public class BytecodeReader {
      *
      * @return the int
      */
-    @Nonnegative
-    protected final int readUnsignedShort(@Nonnegative int u2CodeIndex) {
+    @NonNegative
+    protected final int readUnsignedShort(@NonNegative int u2CodeIndex) {
         byte[] b = code;
         int byte0 = (b[u2CodeIndex] & 0xFF) << 8;
         int byte1 = b[u2CodeIndex + 1] & 0xFF;
@@ -225,7 +226,7 @@ public class BytecodeReader {
      *
      * @return the short
      */
-    protected final short readShort(@Nonnegative int u2CodeIndex) {
+    protected final short readShort(@NonNegative int u2CodeIndex) {
         // noinspection NumericCastThatLosesPrecision
         return (short) readUnsignedShort(u2CodeIndex);
     }
@@ -258,7 +259,7 @@ public class BytecodeReader {
      *
      * @return the int
      */
-    protected final int readInt(@Nonnegative int s4CodeIndex) {
+    protected final int readInt(@NonNegative int s4CodeIndex) {
         byte[] b = code;
         return (b[s4CodeIndex] & 0xFF) << 24 | (b[s4CodeIndex + 1] & 0xFF) << 16 | (b[s4CodeIndex + 2] & 0xFF) << 8
                 | b[s4CodeIndex + 3] & 0xFF;
@@ -283,7 +284,7 @@ public class BytecodeReader {
      *
      * @return the long
      */
-    protected final long readLong(@Nonnegative int s8CodeIndex) {
+    protected final long readLong(@NonNegative int s8CodeIndex) {
         long l1 = readInt(s8CodeIndex);
         long l0 = readInt(s8CodeIndex + 4) & 0xFFFFFFFFL;
         return l1 << 32 | l0;
@@ -294,7 +295,7 @@ public class BytecodeReader {
         return Double.longBitsToDouble(bits);
     }
 
-    protected final double readDouble(@Nonnegative int s8CodeIndex) {
+    protected final double readDouble(@NonNegative int s8CodeIndex) {
         long bits = readLong(s8CodeIndex);
         return Double.longBitsToDouble(bits);
     }
@@ -304,7 +305,7 @@ public class BytecodeReader {
         return Float.intBitsToFloat(bits);
     }
 
-    protected final float readFloat(@Nonnegative int s4CodeIndex) {
+    protected final float readFloat(@NonNegative int s4CodeIndex) {
         int bits = readInt(s4CodeIndex);
         return Float.intBitsToFloat(bits);
     }
@@ -319,7 +320,7 @@ public class BytecodeReader {
      */
     @Nonnull
     @SuppressWarnings("CharUsedInArithmeticContext")
-    private String readUTF(@Nonnegative int itemIndex) {
+    private String readUTF(@NonNegative int itemIndex) {
         int startIndex = items[itemIndex];
         int utfLen = readUnsignedShort(startIndex);
         startIndex += 2;
@@ -387,7 +388,7 @@ public class BytecodeReader {
      *         whose value is zero
      */
     @Nullable
-    protected final String readUTF8(@Nonnegative int u2CodeIndex) {
+    protected final String readUTF8(@NonNegative int u2CodeIndex) {
         if (u2CodeIndex == 0) {
             return null;
         }
@@ -421,7 +422,7 @@ public class BytecodeReader {
      * @return the UTF8 string found in {@link #strings} at that index
      */
     @Nonnull
-    public final String readNonnullUTF8(@Nonnegative int u2CodeIndex) {
+    public final String readNonnullUTF8(@NonNegative int u2CodeIndex) {
         int itemIndex = readUnsignedShort(u2CodeIndex);
         return readString(itemIndex);
     }
@@ -435,7 +436,7 @@ public class BytecodeReader {
      * @return the string
      */
     @Nonnull
-    public final String readString(@Nonnegative int itemIndex) {
+    public final String readString(@NonNegative int itemIndex) {
         String cachedString = strings[itemIndex];
 
         if (cachedString != null) {
@@ -459,7 +460,7 @@ public class BytecodeReader {
     }
 
     @Nonnull
-    protected final Object readConstItem(@Nonnegative int u2CodeIndex) {
+    protected final Object readConstItem(@NonNegative int u2CodeIndex) {
         int itemIndex = readUnsignedShort(u2CodeIndex);
         return readConst(itemIndex);
     }
@@ -474,7 +475,7 @@ public class BytecodeReader {
      *         {@link MethodHandle} corresponding to the given constant pool item
      */
     @Nonnull
-    protected final Object readConst(@Nonnegative int itemIndex) {
+    protected final Object readConst(@NonNegative int itemIndex) {
         int constCodeIndex = items[itemIndex];
         byte itemType = code[constCodeIndex - 1];
 
@@ -518,13 +519,13 @@ public class BytecodeReader {
     }
 
     @Nonnull
-    protected final MethodHandle readMethodHandleItem(@Nonnegative int bsmCodeIndex) {
+    protected final MethodHandle readMethodHandleItem(@NonNegative int bsmCodeIndex) {
         int itemIndex = readUnsignedShort(bsmCodeIndex);
         return readMethodHandle(items[itemIndex]);
     }
 
     @Nonnull
-    private MethodHandle readMethodHandle(@Nonnegative int bsmCodeIndex) {
+    private MethodHandle readMethodHandle(@NonNegative int bsmCodeIndex) {
         int tag = readUnsignedByte(bsmCodeIndex);
         if (tag < MethodHandle.Tag.TAG_GETFIELD || tag > MethodHandle.Tag.TAG_INVOKEINTERFACE) {
             throw new IllegalArgumentException("Illegal method-handle tag: " + tag);
@@ -563,7 +564,7 @@ public class BytecodeReader {
     }
 
     @Nonnull
-    public final String readNonnullClass(@Nonnegative int u2CodeIndex) {
+    public final String readNonnullClass(@NonNegative int u2CodeIndex) {
         int itemCodeIndex = readItem(u2CodeIndex);
         return readNonnullUTF8(itemCodeIndex);
     }
@@ -573,14 +574,14 @@ public class BytecodeReader {
      *
      * @return the item at that index in {@link #items}
      */
-    @Nonnegative
+    @NonNegative
     public final int readItem() {
         int itemIndex = readUnsignedShort();
         return items[itemIndex];
     }
 
-    @Nonnegative
-    public final int readItem(@Nonnegative int u2CodeIndex) {
+    @NonNegative
+    public final int readItem(@NonNegative int u2CodeIndex) {
         int itemIndex = readUnsignedShort(u2CodeIndex);
         return items[itemIndex];
     }

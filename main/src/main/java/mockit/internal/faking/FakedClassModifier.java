@@ -25,7 +25,6 @@ import static mockit.asm.jvmConstants.Opcodes.IRETURN;
 import static mockit.asm.jvmConstants.Opcodes.RETURN;
 import static mockit.asm.jvmConstants.Opcodes.SIPUSH;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -40,6 +39,8 @@ import mockit.internal.BaseClassModifier;
 import mockit.internal.faking.FakeMethods.FakeMethod;
 import mockit.internal.state.TestRun;
 import mockit.internal.util.ClassLoad;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * Responsible for generating all necessary bytecode in the redefined (real) class. Such code will redirect calls made
@@ -345,7 +346,7 @@ final class FakedClassModifier extends BaseClassModifier {
     }
 
     private void generateCallToCreateNewFakeInvocation(@Nonnull JavaType[] argTypes,
-            @Nonnegative int initialParameterIndex) {
+            @NonNegative int initialParameterIndex) {
         generateCodeToPassThisOrNullIfStaticMethod();
 
         int argCount = argTypes.length;
@@ -369,7 +370,7 @@ final class FakedClassModifier extends BaseClassModifier {
                 false);
     }
 
-    private void passArgumentsForFakeMethodCall(@Nonnull JavaType[] argTypes, @Nonnegative int varIndex) {
+    private void passArgumentsForFakeMethodCall(@Nonnull JavaType[] argTypes, @NonNegative int varIndex) {
         boolean forGenericMethod = fakeMethod.isForGenericMethod();
 
         for (JavaType argType : argTypes) {

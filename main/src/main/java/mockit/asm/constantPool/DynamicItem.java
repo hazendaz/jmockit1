@@ -1,19 +1,20 @@
 package mockit.asm.constantPool;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import mockit.asm.jvmConstants.ConstantPoolTypes;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 public final class DynamicItem extends TypeOrMemberItem {
-    @Nonnegative
+    @NonNegative
     int bsmIndex;
 
-    public DynamicItem(@Nonnegative int index) {
+    public DynamicItem(@NonNegative int index) {
         super(index);
     }
 
-    DynamicItem(@Nonnegative int index, @Nonnull DynamicItem item) {
+    DynamicItem(@NonNegative int index, @Nonnull DynamicItem item) {
         super(index, item);
         bsmIndex = item.bsmIndex;
     }
@@ -31,7 +32,7 @@ public final class DynamicItem extends TypeOrMemberItem {
      * @param index
      *            zero based index into the class attribute "BootstrapMethods".
      */
-    public void set(int type, @Nonnull String name, @Nonnull String desc, @Nonnegative int index) {
+    public void set(int type, @Nonnull String name, @Nonnull String desc, @NonNegative int index) {
         super.type = type;
         bsmIndex = index;
         setValuesAndHashcode(name, desc, index);

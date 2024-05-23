@@ -13,7 +13,6 @@ import static mockit.asm.jvmConstants.Opcodes.PUTFIELD;
 import static mockit.asm.jvmConstants.Opcodes.PUTSTATIC;
 import static mockit.asm.jvmConstants.Opcodes.RETURN;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -24,6 +23,8 @@ import mockit.asm.constantPool.StringItem;
 import mockit.asm.constantPool.TypeOrMemberItem;
 import mockit.asm.jvmConstants.JVMInstruction;
 import mockit.asm.util.ByteVector;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * The control flow graph analysis algorithm, used to compute the maximum stack size for a method or constructor.
@@ -72,7 +73,7 @@ public final class CFGAnalysis {
      * current basic block, i.e., the true stack size after the last visited instruction is equal to the
      * {@link Label#inputStackTop beginStackSize} of the current basic block plus <code>stackSize</code>.
      */
-    @Nonnegative
+    @NonNegative
     private int stackSize;
 
     /**
@@ -80,7 +81,7 @@ public final class CFGAnalysis {
      * the current basic block, i.e., the true maximum stack size after the last visited instruction is equal to the
      * {@link Label#inputStackTop beginStackSize} of the current basic block plus <code>stackSize</code>.
      */
-    @Nonnegative
+    @NonNegative
     private int maxStackSize;
 
     public CFGAnalysis(@Nonnull ConstantPoolGeneration cp, @Nonnull String classDesc, @Nonnull ByteVector code,
@@ -184,7 +185,7 @@ public final class CFGAnalysis {
         }
     }
 
-    public void updateCurrentBlockForLocalVariableInstruction(int opcode, @Nonnegative int varIndex) {
+    public void updateCurrentBlockForLocalVariableInstruction(int opcode, @NonNegative int varIndex) {
         if (currentBlock != null) {
             if (computeFrames) {
                 currentBlock.frame.executeVAR(opcode, varIndex);
@@ -370,7 +371,7 @@ public final class CFGAnalysis {
         }
     }
 
-    public void updateCurrentBlockForIINCInstruction(@Nonnegative int varIndex) {
+    public void updateCurrentBlockForIINCInstruction(@NonNegative int varIndex) {
         if (currentBlock != null && computeFrames) {
             currentBlock.frame.executeIINC(varIndex);
         }
@@ -410,7 +411,7 @@ public final class CFGAnalysis {
     }
 
     public void updateCurrentBlockForMULTIANEWARRAYInstruction(@Nonnull StringItem arrayTypeItem,
-            @Nonnegative int dims) {
+            @NonNegative int dims) {
         if (currentBlock != null) {
             if (computeFrames) {
                 currentBlock.frame.executeMULTIANEWARRAY(dims, arrayTypeItem);
@@ -427,7 +428,7 @@ public final class CFGAnalysis {
      * are changed basic blocks, choose one, mark it as unchanged, and update its successors (which can be changed in
      * the process).
      */
-    @Nonnegative
+    @NonNegative
     public int computeMaxStackSizeFromComputedFrames() {
         int max = 0;
         Label changed = labels;
@@ -490,7 +491,7 @@ public final class CFGAnalysis {
      * {@link Label#inputStackTop} of the blocks in the block stack are the true (non relative) beginning stack sizes of
      * these blocks.
      */
-    @Nonnegative
+    @NonNegative
     public int computeMaxStackSize() {
         int max = 0;
         Label stack = labels;
@@ -516,7 +517,7 @@ public final class CFGAnalysis {
     }
 
     @Nullable
-    private static Label analyzeBlockSuccessors(@Nullable Label stack, @Nonnull Label label, @Nonnegative int start) {
+    private static Label analyzeBlockSuccessors(@Nullable Label stack, @Nonnull Label label, @NonNegative int start) {
         Edge block = label.successors;
 
         while (block != null) {

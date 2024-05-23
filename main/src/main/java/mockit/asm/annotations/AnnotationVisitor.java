@@ -2,7 +2,6 @@ package mockit.asm.annotations;
 
 import java.lang.reflect.Array;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -10,6 +9,8 @@ import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.constantPool.Item;
 import mockit.asm.types.JavaType;
 import mockit.asm.util.ByteVector;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * A visitor to visit a Java annotation, in the following order: (<code>visit</code> | <code>visitEnum</code> |
@@ -25,7 +26,7 @@ public final class AnnotationVisitor {
     /**
      * The number of attribute values in this annotation.
      */
-    @Nonnegative
+    @NonNegative
     private int attributeCount;
 
     /**
@@ -44,7 +45,7 @@ public final class AnnotationVisitor {
     /**
      * Where the number of values of this annotation must be stored in {@link #bv}.
      */
-    @Nonnegative
+    @NonNegative
     private final int offset;
 
     /**
@@ -75,7 +76,7 @@ public final class AnnotationVisitor {
         offset = getByteLength() - 2;
     }
 
-    @Nonnegative
+    @NonNegative
     private int getByteLength() {
         return bv.getLength();
     }
@@ -189,7 +190,7 @@ public final class AnnotationVisitor {
         bv.putShort(itemIndex);
     }
 
-    private void putArrayLength(@Nonnegative int length) {
+    private void putArrayLength(@NonNegative int length) {
         bv.put12('[', length);
     }
 
@@ -318,7 +319,7 @@ public final class AnnotationVisitor {
     /**
      * Returns the size of this annotation list.
      */
-    @Nonnegative
+    @NonNegative
     public int getSize() {
         int size = 0;
         AnnotationVisitor annotation = this;

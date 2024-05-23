@@ -4,11 +4,12 @@
  */
 package mockit.coverage.reporting.parsing;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.coverage.reporting.parsing.LineElement.ElementType;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * Parses a source line into one or more consecutive segments, identifying which ones contain Java code and which ones
@@ -18,7 +19,7 @@ import mockit.coverage.reporting.parsing.LineElement.ElementType;
 public final class LineParser {
     private static final String SEPARATORS = ".,;()";
 
-    @Nonnegative
+    @NonNegative
     private int lineNum;
     private String line;
     @Nullable
@@ -28,15 +29,15 @@ public final class LineParser {
     // Helper fields:
     @Nullable
     private LineElement currentElement;
-    @Nonnegative
+    @NonNegative
     private int lineLength;
     private int startPos;
     private boolean inCodeElement;
-    @Nonnegative
+    @NonNegative
     private int pos;
     private int currChar;
 
-    @Nonnegative
+    @NonNegative
     public int getNumber() {
         return lineNum;
     }

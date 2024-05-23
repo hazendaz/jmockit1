@@ -12,11 +12,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.util.ClassLoad;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * Holds state associated with fake class containing {@linkplain mockit.Mock annotated fakes}.
@@ -105,13 +106,13 @@ public final class FakeStates {
         }
     }
 
-    public boolean updateFakeState(@Nonnull Object fake, @Nonnegative int fakeStateIndex) {
+    public boolean updateFakeState(@Nonnull Object fake, @NonNegative int fakeStateIndex) {
         FakeState fakeState = getFakeState(fake, fakeStateIndex);
         return fakeState.update();
     }
 
     @Nonnull
-    FakeState getFakeState(@Nonnull Object fake, @Nonnegative int fakeStateIndex) {
+    FakeState getFakeState(@Nonnull Object fake, @NonNegative int fakeStateIndex) {
         List<FakeState> fakeStates = startupFakesToFakeStates.get(fake);
 
         if (fakeStates == null) {

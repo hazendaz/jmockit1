@@ -22,12 +22,13 @@ import java.util.Map.Entry;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.coverage.CoveragePercentage;
 import mockit.internal.util.Utilities;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * Coverage data captured for all source files exercised during a test run.
@@ -85,7 +86,7 @@ public final class CoverageData implements Serializable {
     }
 
     @Nonnull
-    public FileCoverageData getFileData(@Nonnegative int fileIndex) {
+    public FileCoverageData getFileData(@NonNegative int fileIndex) {
         return indexedFileData.get(fileIndex);
     }
 
@@ -130,7 +131,7 @@ public final class CoverageData implements Serializable {
      * @return the percentage value for the file found, or <code>Integer.MAX_VALUE</code> if no file is found with a
      *         meaningful percentage
      */
-    @Nonnegative
+    @NonNegative
     public int getSmallestPerFilePercentage() {
         int minPercentage = Integer.MAX_VALUE;
 

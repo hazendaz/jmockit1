@@ -6,7 +6,6 @@ package mockit.coverage.reporting.sourceFiles;
 
 import java.io.IOException;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -18,6 +17,8 @@ import mockit.coverage.reporting.lineCoverage.LineCoverageOutput;
 import mockit.coverage.reporting.parsing.FileParser;
 import mockit.coverage.reporting.parsing.LineElement;
 import mockit.coverage.reporting.parsing.LineParser;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * Generates an HTML page containing line-by-line coverage information for a single source file.
@@ -92,7 +93,7 @@ public final class FileCoverageReport {
         }
     }
 
-    private void writeOpeningOfNewLine(@Nonnegative int lineNumber) {
+    private void writeOpeningOfNewLine(@NonNegative int lineNumber) {
         output.println("    <tr>");
         output.write("      <td>");
         output.print(lineNumber);

@@ -15,7 +15,6 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -24,6 +23,8 @@ import mockit.internal.faking.FakeBridge;
 import mockit.internal.faking.FakeMethodBridge;
 import mockit.internal.util.ClassLoad;
 import mockit.internal.util.StackTrace;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public abstract class ClassLoadingBridge implements InvocationHandler {
     private static final Object[] EMPTY_ARGS = {};
@@ -81,7 +82,7 @@ public abstract class ClassLoadingBridge implements InvocationHandler {
     }
 
     @Nonnull
-    protected static Object[] extractArguments(@Nonnegative int startingIndex, @Nonnull Object[] args) {
+    protected static Object[] extractArguments(@NonNegative int startingIndex, @Nonnull Object[] args) {
         if (args.length > startingIndex) {
             Object[] targetMemberArgs = new Object[args.length - startingIndex];
             System.arraycopy(args, startingIndex, targetMemberArgs, 0, targetMemberArgs.length);

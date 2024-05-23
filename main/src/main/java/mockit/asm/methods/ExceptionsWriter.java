@@ -1,11 +1,12 @@
 package mockit.asm.methods;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import mockit.asm.constantPool.AttributeWriter;
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.util.ByteVector;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * Stores the exceptions that can be thrown by a method/constructor, and writes it to the "Exceptions" attribute. For
@@ -26,7 +27,7 @@ final class ExceptionsWriter extends AttributeWriter {
         }
     }
 
-    @Nonnegative
+    @NonNegative
     @Override
     public int getSize() {
         return 8 + 2 * exceptionIndices.length;

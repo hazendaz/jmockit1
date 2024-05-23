@@ -6,11 +6,12 @@ package mockit.internal.expectations;
 
 import java.util.List;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 final class VerifiedExpectation {
     @Nonnull
@@ -29,7 +30,7 @@ final class VerifiedExpectation {
         this.replayIndex = replayIndex;
     }
 
-    boolean matchesReplayIndex(@Nonnegative int expectationIndex) {
+    boolean matchesReplayIndex(@NonNegative int expectationIndex) {
         return replayIndex < 0 || replayIndex == expectationIndex;
     }
 

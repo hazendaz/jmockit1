@@ -1,14 +1,15 @@
 package mockit.asm;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import mockit.asm.constantPool.AttributeWriter;
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.util.ByteVector;
 
+import org.checkerframework.checker.index.qual.NonNegative;
+
 public final class SignatureWriter extends AttributeWriter {
-    @Nonnegative
+    @NonNegative
     private final int signatureIndex;
 
     public SignatureWriter(@Nonnull ConstantPoolGeneration cp, @Nonnull String signature) {
@@ -16,7 +17,7 @@ public final class SignatureWriter extends AttributeWriter {
         signatureIndex = cp.newUTF8(signature);
     }
 
-    @Nonnegative
+    @NonNegative
     @Override
     public int getSize() {
         return 8;

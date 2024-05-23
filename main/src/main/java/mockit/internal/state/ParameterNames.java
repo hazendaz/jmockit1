@@ -7,11 +7,12 @@ package mockit.internal.state;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mockit.internal.util.TestMethod;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class ParameterNames {
     private static final Map<String, Map<String, String[]>> classesToMethodsToParameters = new HashMap<>();
@@ -37,13 +38,13 @@ public final class ParameterNames {
     }
 
     @Nonnull
-    public static String getName(@Nonnull TestMethod method, @Nonnegative int index) {
+    public static String getName(@Nonnull TestMethod method, @NonNegative int index) {
         String name = getName(method.testClassDesc, method.testMethodDesc, index);
         return name == null ? "param" + index : name;
     }
 
     @Nullable
-    public static String getName(@Nonnull String classDesc, @Nonnull String methodDesc, @Nonnegative int index) {
+    public static String getName(@Nonnull String classDesc, @Nonnull String methodDesc, @NonNegative int index) {
         Map<String, String[]> methodsToParameters = classesToMethodsToParameters.get(classDesc);
 
         if (methodsToParameters == null) {

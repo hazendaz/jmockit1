@@ -12,7 +12,6 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -26,6 +25,7 @@ import mockit.coverage.lines.BranchCoverageData;
 import mockit.coverage.lines.LineCoverageData;
 import mockit.coverage.lines.PerFileLineCoverage;
 
+import org.checkerframework.checker.index.qual.NonNegative;
 import org.junit.jupiter.api.BeforeEach;
 
 @SuppressWarnings("JUnitTestCaseWithNoTests")
@@ -93,8 +93,8 @@ public class CoverageTest {
     // Line Coverage assertions
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected final void assertLines(@Nonnegative int startingLine, @Nonnegative int endingLine,
-            @Nonnegative int expectedLinesExecuted) {
+    protected final void assertLines(@NonNegative int startingLine, @NonNegative int endingLine,
+            @NonNegative int expectedLinesExecuted) {
         PerFileLineCoverage lineCoverageInfo = fileData().lineCoverageInfo;
         int lineCount = lineCoverageInfo.getLineCount();
         assertTrue(lineCount >= startingLine, "Starting line not found");
@@ -111,8 +111,8 @@ public class CoverageTest {
         assertEquals(expectedLinesExecuted, linesExecuted, "Unexpected number of lines executed:");
     }
 
-    protected final void assertLine(@Nonnegative int line, @Nonnegative int expectedSegments,
-            @Nonnegative int expectedCoveredSegments, int... expectedExecutionCounts) {
+    protected final void assertLine(@NonNegative int line, @NonNegative int expectedSegments,
+            @NonNegative int expectedCoveredSegments, int... expectedExecutionCounts) {
         PerFileLineCoverage info = fileData().lineCoverageInfo;
         LineCoverageData lineData = info.getLineData(line);
 
@@ -142,8 +142,8 @@ public class CoverageTest {
         }
     }
 
-    protected final void assertBranchingPoints(@Nonnegative int line, @Nonnegative int expectedSourcesAndTargets,
-            @Nonnegative int expectedCoveredSourcesAndTargets) {
+    protected final void assertBranchingPoints(@NonNegative int line, @NonNegative int expectedSourcesAndTargets,
+            @NonNegative int expectedCoveredSourcesAndTargets) {
         PerFileLineCoverage lineCoverageInfo = fileData().lineCoverageInfo;
         LineCoverageData lineData = lineCoverageInfo.getLineData(line);
 
@@ -212,8 +212,8 @@ public class CoverageTest {
         }
     }
 
-    protected static void verifyDataCoverage(@Nonnegative int expectedItems, @Nonnegative int expectedCoveredItems,
-            @Nonnegative int expectedCoverage) {
+    protected static void verifyDataCoverage(@NonNegative int expectedItems, @NonNegative int expectedCoveredItems,
+            @NonNegative int expectedCoverage) {
         PerFileDataCoverage info = fileData.dataCoverageInfo;
         assertEquals(expectedItems, info.getTotalItems(), "Total data items:");
         assertEquals(expectedCoveredItems, info.getCoveredItems(), "Covered data items:");
