@@ -14,8 +14,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.annotation.Nullable;
-
 import mockit.coverage.Configuration;
 import mockit.coverage.data.CoverageData;
 import mockit.coverage.data.FileCoverageData;
@@ -24,6 +22,7 @@ import mockit.coverage.reporting.sourceFiles.FileCoverageReport;
 import mockit.coverage.reporting.sourceFiles.InputFile;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class CoverageReport {
     @NonNull

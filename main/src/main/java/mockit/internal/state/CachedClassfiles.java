@@ -10,11 +10,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.startup.Startup;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Holds a map of internal class names to the corresponding class files (bytecode arrays), for the classes that have

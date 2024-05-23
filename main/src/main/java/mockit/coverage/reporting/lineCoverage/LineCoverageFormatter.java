@@ -6,8 +6,6 @@ package mockit.coverage.reporting.lineCoverage;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import mockit.coverage.CallPoint;
 import mockit.coverage.lines.LineCoverageData;
 import mockit.coverage.lines.PerFileLineCoverage;
@@ -15,6 +13,7 @@ import mockit.coverage.reporting.ListOfCallPoints;
 import mockit.coverage.reporting.parsing.LineParser;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 final class LineCoverageFormatter {
     @NonNull

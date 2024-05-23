@@ -6,9 +6,8 @@ package mockit.internal.expectations;
 
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 abstract class Phase {
     @NonNull

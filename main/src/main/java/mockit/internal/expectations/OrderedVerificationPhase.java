@@ -9,12 +9,11 @@ import static java.util.Collections.emptyList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.expectations.invocation.ExpectedInvocation;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 final class OrderedVerificationPhase extends BaseVerificationPhase {
     @NonNegative

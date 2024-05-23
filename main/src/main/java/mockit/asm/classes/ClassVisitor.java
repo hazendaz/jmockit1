@@ -1,7 +1,5 @@
 package mockit.asm.classes;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.BaseWriter;
 import mockit.asm.fields.FieldVisitor;
 import mockit.asm.jvmConstants.Access;
@@ -10,6 +8,7 @@ import mockit.asm.methods.MethodVisitor;
 import mockit.asm.types.JavaType;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * A visitor to visit a Java class, in the following order:<br>

@@ -1,7 +1,5 @@
 package mockit.asm.fields;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.BaseWriter;
 import mockit.asm.SignatureWriter;
 import mockit.asm.classes.ClassWriter;
@@ -11,6 +9,7 @@ import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * A visitor to visit a Java field, in the following order: ({@link #visitAnnotation})* {@link #visitEnd}.

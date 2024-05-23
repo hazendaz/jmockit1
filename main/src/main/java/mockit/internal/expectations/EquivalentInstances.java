@@ -8,11 +8,10 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.expectations.invocation.ExpectedInvocation;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 final class EquivalentInstances {
     @NonNull

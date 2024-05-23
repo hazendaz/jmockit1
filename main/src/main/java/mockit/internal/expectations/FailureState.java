@@ -4,9 +4,8 @@
  */
 package mockit.internal.expectations;
 
-import javax.annotation.Nullable;
-
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 final class FailureState {
     @NonNull

@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javax.annotation.Nullable;
-
 import mockit.Expectations;
 import mockit.internal.expectations.invocation.ExpectedInvocation;
 import mockit.internal.expectations.mocking.CaptureOfNewInstances;
@@ -25,6 +23,7 @@ import mockit.internal.util.DefaultValues;
 import mockit.internal.util.ObjectMethods;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class RecordAndReplayExecution {
     public static final ReentrantLock RECORD_OR_REPLAY_LOCK = new ReentrantLock();

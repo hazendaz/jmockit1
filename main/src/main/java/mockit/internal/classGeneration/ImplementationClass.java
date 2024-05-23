@@ -6,8 +6,6 @@ package mockit.internal.classGeneration;
 
 import java.lang.reflect.Type;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.classes.ClassReader;
 import mockit.asm.classes.ClassVisitor;
 import mockit.internal.ClassFile;
@@ -16,6 +14,7 @@ import mockit.internal.util.GeneratedClasses;
 import mockit.internal.util.Utilities;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Allows the creation of new implementation classes for interfaces and abstract classes.

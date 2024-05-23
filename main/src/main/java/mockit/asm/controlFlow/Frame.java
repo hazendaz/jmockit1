@@ -26,8 +26,6 @@ import static mockit.asm.controlFlow.FrameTypeMask.UNINITIALIZED_THIS;
 import static mockit.asm.controlFlow.FrameTypeMask.VALUE;
 import static mockit.asm.jvmConstants.Opcodes.*;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.constantPool.DynamicItem;
 import mockit.asm.constantPool.Item;
@@ -42,6 +40,7 @@ import mockit.asm.types.PrimitiveType;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Information about the input and output stack map frames of a basic block.

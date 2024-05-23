@@ -9,12 +9,11 @@ import java.lang.reflect.Type;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.reflection.GenericTypeReflection;
 import mockit.internal.util.Utilities;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class TestedClass {
     @NonNull

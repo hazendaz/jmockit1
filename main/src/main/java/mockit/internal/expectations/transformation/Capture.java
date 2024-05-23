@@ -10,8 +10,6 @@ import static mockit.asm.jvmConstants.Opcodes.SIPUSH;
 import static mockit.internal.util.TypeConversionBytecode.generateCastOrUnboxing;
 import static mockit.internal.util.TypeConversionBytecode.isPrimitiveWrapper;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.methods.MethodWriter;
 import mockit.asm.types.ArrayType;
 import mockit.asm.types.JavaType;
@@ -20,6 +18,7 @@ import mockit.asm.types.ReferenceType;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 final class Capture {
     @NonNull

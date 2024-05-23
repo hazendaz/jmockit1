@@ -8,12 +8,11 @@ import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import mockit.coverage.CoveragePercentage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 abstract class ListWithFilesAndPercentages {
     @NonNull

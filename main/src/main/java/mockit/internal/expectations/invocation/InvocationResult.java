@@ -6,9 +6,8 @@ package mockit.internal.expectations.invocation;
 
 import java.util.Iterator;
 
-import javax.annotation.Nullable;
-
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 class InvocationResult {
     InvocationResult next;

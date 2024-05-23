@@ -1,13 +1,12 @@
 package mockit.asm.classes;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.constantPool.AttributeWriter;
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 final class InnerClassesWriter extends AttributeWriter {
     @NonNull

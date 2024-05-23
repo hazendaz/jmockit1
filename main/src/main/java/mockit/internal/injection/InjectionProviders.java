@@ -13,13 +13,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nullable;
 import javax.inject.Provider;
 
 import mockit.internal.injection.InjectionPoint.KindOfInjectionPoint;
 import mockit.internal.reflection.GenericTypeReflection;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class InjectionProviders {
     @NonNull

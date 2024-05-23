@@ -8,8 +8,6 @@ import static java.lang.Character.isWhitespace;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import mockit.coverage.CallPoint;
 import mockit.coverage.lines.BranchCoverageData;
 import mockit.coverage.lines.LineCoverageData;
@@ -20,6 +18,7 @@ import mockit.coverage.reporting.parsing.LineParser;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 final class LineSegmentsFormatter {
     @Nullable

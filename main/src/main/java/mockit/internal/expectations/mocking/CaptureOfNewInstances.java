@@ -13,8 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.classes.ClassReader;
 import mockit.asm.types.JavaType;
 import mockit.internal.BaseClassModifier;
@@ -25,6 +23,7 @@ import mockit.internal.state.TestRun;
 import mockit.internal.util.Utilities;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public class CaptureOfNewInstances extends CaptureOfImplementations<MockedType> {
     protected static final class Capture {

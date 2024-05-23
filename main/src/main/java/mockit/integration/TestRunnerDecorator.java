@@ -10,8 +10,6 @@ import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.expectations.RecordAndReplayExecution;
 import mockit.internal.expectations.invocation.MissingInvocation;
 import mockit.internal.expectations.invocation.UnexpectedInvocation;
@@ -28,6 +26,7 @@ import mockit.internal.util.StackTrace;
 import mockit.internal.util.TestMethod;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Base class for "test runner decorators", which provide integration between JMockit and specific test runners from

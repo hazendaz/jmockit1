@@ -13,13 +13,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nullable;
-
 import mockit.Delegate;
 import mockit.internal.util.StackTrace;
 import mockit.internal.util.Utilities;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class MethodReflection {
     @NonNull

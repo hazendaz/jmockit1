@@ -9,12 +9,11 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.util.DefaultValues;
 import mockit.internal.util.ObjectMethods;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Handles invocations to all kinds of mock implementations created for interfaces and annotation types through any of

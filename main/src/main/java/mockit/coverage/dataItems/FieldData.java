@@ -8,10 +8,9 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import javax.annotation.Nullable;
-
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public abstract class FieldData implements Serializable {
     private static final long serialVersionUID = 8565599590976858508L;

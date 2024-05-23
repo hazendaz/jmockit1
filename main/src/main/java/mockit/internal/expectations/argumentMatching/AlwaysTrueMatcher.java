@@ -4,9 +4,8 @@
  */
 package mockit.internal.expectations.argumentMatching;
 
-import javax.annotation.Nullable;
-
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class AlwaysTrueMatcher implements ArgumentMatcher<AlwaysTrueMatcher> {
     public static final ArgumentMatcher<?> ANY_STRING = new AlwaysTrueMatcher(String.class, "String");

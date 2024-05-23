@@ -4,13 +4,12 @@
  */
 package mockit;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.reflection.FieldReflection;
 import mockit.internal.reflection.MethodReflection;
 import mockit.internal.util.ClassLoad;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Provides utility methods that enable access to ("de-encapsulate") otherwise non-accessible fields.

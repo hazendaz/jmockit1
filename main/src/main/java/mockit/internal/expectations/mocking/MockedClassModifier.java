@@ -27,8 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.classes.ClassInfo;
 import mockit.asm.classes.ClassReader;
 import mockit.asm.controlFlow.Label;
@@ -38,6 +36,7 @@ import mockit.internal.BaseClassModifier;
 import mockit.internal.expectations.ExecutionMode;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 final class MockedClassModifier extends BaseClassModifier {
     private static final int METHOD_ACCESS_MASK = PRIVATE + SYNTHETIC + ABSTRACT;

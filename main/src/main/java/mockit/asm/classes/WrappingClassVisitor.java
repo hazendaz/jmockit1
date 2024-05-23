@@ -1,12 +1,11 @@
 package mockit.asm.classes;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.annotations.AnnotationVisitor;
 import mockit.asm.fields.FieldVisitor;
 import mockit.asm.methods.MethodVisitor;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Same as {@link ClassVisitor}, except it always wraps a {@link ClassWriter}.

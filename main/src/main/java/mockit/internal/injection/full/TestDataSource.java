@@ -12,7 +12,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import javax.annotation.Nullable;
 import javax.annotation.sql.DataSourceDefinition;
 import javax.annotation.sql.DataSourceDefinitions;
 import javax.sql.CommonDataSource;
@@ -21,6 +20,7 @@ import mockit.internal.injection.InjectionPoint;
 import mockit.internal.injection.TestedClass;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 final class TestDataSource {
     @Nullable

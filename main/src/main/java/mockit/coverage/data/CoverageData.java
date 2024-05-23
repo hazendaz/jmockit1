@@ -22,13 +22,12 @@ import java.util.Map.Entry;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import javax.annotation.Nullable;
-
 import mockit.coverage.CoveragePercentage;
 import mockit.internal.util.Utilities;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Coverage data captured for all source files exercised during a test run.

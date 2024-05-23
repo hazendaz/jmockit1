@@ -6,12 +6,11 @@ package mockit.internal.classGeneration;
 
 import static mockit.asm.jvmConstants.Access.PUBLIC;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.classes.ClassReader;
 import mockit.asm.classes.ClassVisitor;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Generates a concrete subclass for an {@code abstract} base class.

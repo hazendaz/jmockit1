@@ -8,11 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.state.ParameterNames;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class MethodFormatter {
     private static final Pattern CONSTRUCTOR_NAME = Pattern.compile("<init>");

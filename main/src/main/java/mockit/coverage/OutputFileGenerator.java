@@ -7,12 +7,11 @@ package mockit.coverage;
 import java.io.File;
 import java.io.IOException;
 
-import javax.annotation.Nullable;
-
 import mockit.coverage.data.CoverageData;
 import mockit.coverage.reporting.CoverageReport;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 @SuppressWarnings("DynamicRegexReplaceableByCompiledPattern")
 final class OutputFileGenerator {

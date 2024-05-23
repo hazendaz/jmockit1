@@ -4,8 +4,6 @@
  */
 package mockit.internal.injection;
 
-import javax.annotation.Nullable;
-
 import mockit.Tested;
 import mockit.internal.state.ParameterNames;
 import mockit.internal.util.TestMethod;
@@ -13,6 +11,7 @@ import mockit.internal.util.TypeConversion;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 final class TestedParameter extends TestedObject {
     @NonNull

@@ -8,8 +8,6 @@ import java.lang.reflect.Member;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.jvmConstants.Access;
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
 import mockit.internal.expectations.state.ExecutingTest;
@@ -18,6 +16,7 @@ import mockit.internal.state.TestRun;
 import mockit.internal.util.MethodFormatter;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class InvocationArguments {
     @NonNull

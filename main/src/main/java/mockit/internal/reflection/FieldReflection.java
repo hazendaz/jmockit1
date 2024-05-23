@@ -11,12 +11,11 @@ import static mockit.internal.util.Utilities.ensureThatMemberIsAccessible;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.util.AutoBoxing;
 import mockit.internal.util.Utilities;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class FieldReflection {
     private FieldReflection() {

@@ -19,7 +19,6 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.logging.Logger;
 
-import javax.annotation.Nullable;
 import javax.annotation.Resource;
 import javax.enterprise.context.Conversation;
 import javax.inject.Provider;
@@ -35,6 +34,7 @@ import mockit.internal.injection.TestedClass;
 import mockit.internal.injection.TestedObjectCreation;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Responsible for recursive injection of dependencies into a <code>@Tested(fullyInitialized = true)</code> object.

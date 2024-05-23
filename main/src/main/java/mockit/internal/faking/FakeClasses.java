@@ -11,12 +11,11 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.annotation.Nullable;
-
 import mockit.MockUp;
 import mockit.internal.util.ClassLoad;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class FakeClasses {
     private static final Field INVOKED_INSTANCE_FIELD;

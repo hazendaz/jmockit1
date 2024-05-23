@@ -2,8 +2,6 @@ package mockit.asm;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.annotations.AnnotationVisitor;
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.jvmConstants.Access;
@@ -11,6 +9,7 @@ import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public class BaseWriter {
     /**

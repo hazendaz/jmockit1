@@ -4,13 +4,12 @@
  */
 package mockit.integration.springframework;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.injection.BeanExporter;
 import mockit.internal.injection.TestedClassInstantiations;
 import mockit.internal.state.TestRun;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.web.context.support.StaticWebApplicationContext;
 

@@ -7,8 +7,6 @@ package mockit.internal.expectations.invocation;
 import java.lang.reflect.Array;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
 import mockit.internal.expectations.argumentMatching.CaptureMatcher;
 import mockit.internal.expectations.argumentMatching.EqualityMatcher;
@@ -16,6 +14,7 @@ import mockit.internal.expectations.argumentMatching.LenientEqualityMatcher;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 final class ArgumentValuesAndMatchersWithVarargs extends ArgumentValuesAndMatchers {
     ArgumentValuesAndMatchersWithVarargs(@NonNull InvocationArguments signature, @NonNull Object[] values) {

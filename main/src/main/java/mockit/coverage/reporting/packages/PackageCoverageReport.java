@@ -10,12 +10,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
 import mockit.coverage.data.FileCoverageData;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 final class PackageCoverageReport extends ListWithFilesAndPercentages {
     @NonNull

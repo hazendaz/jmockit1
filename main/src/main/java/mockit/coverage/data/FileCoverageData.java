@@ -6,8 +6,6 @@ package mockit.coverage.data;
 
 import java.io.Serializable;
 
-import javax.annotation.Nullable;
-
 import mockit.coverage.CoveragePercentage;
 import mockit.coverage.TestRun;
 import mockit.coverage.dataItems.PerFileDataCoverage;
@@ -15,6 +13,7 @@ import mockit.coverage.lines.PerFileLineCoverage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Coverage data gathered for the lines, branching points, and fields of a single source file.

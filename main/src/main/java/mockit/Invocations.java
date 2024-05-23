@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.expectations.TestOnlyPhase;
 import mockit.internal.expectations.argumentMatching.AlwaysTrueMatcher;
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
@@ -34,6 +32,7 @@ import mockit.internal.util.DefaultValues;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.hamcrest.Matcher;
 
 /**

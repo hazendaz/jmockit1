@@ -7,14 +7,13 @@ package mockit.internal.expectations;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
 import mockit.internal.expectations.argumentMatching.CaptureMatcher;
 import mockit.internal.expectations.argumentMatching.ClassMatcher;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public abstract class TestOnlyPhase extends Phase {
     boolean matchInstance;

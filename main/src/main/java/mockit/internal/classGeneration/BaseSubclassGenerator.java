@@ -16,8 +16,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.classes.ClassInfo;
 import mockit.asm.classes.ClassReader;
 import mockit.asm.fields.FieldVisitor;
@@ -31,6 +29,7 @@ import mockit.internal.ClassFile;
 import mockit.internal.util.TypeDescriptor;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public class BaseSubclassGenerator extends BaseClassModifier {
     private static final int CLASS_ACCESS_MASK = 0xFFFF - Access.ABSTRACT;

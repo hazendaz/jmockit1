@@ -15,8 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
 import mockit.coverage.CoveragePercentage;
 import mockit.coverage.data.FileCoverageData;
 import mockit.coverage.reporting.OutputFile;
@@ -24,6 +22,7 @@ import mockit.coverage.testRedundancy.TestCoverage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class IndexPage extends ListWithFilesAndPercentages {
     @Nullable

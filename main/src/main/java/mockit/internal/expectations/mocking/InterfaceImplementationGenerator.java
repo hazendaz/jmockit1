@@ -17,8 +17,6 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.annotations.AnnotationVisitor;
 import mockit.asm.classes.ClassInfo;
 import mockit.asm.classes.ClassReader;
@@ -34,6 +32,7 @@ import mockit.internal.reflection.GenericTypeReflection;
 import mockit.internal.reflection.GenericTypeReflection.GenericSignature;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class InterfaceImplementationGenerator extends BaseClassModifier {
     private static final int CLASS_ACCESS = PUBLIC + FINAL;

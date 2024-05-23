@@ -35,11 +35,10 @@ import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.types.ArrayType;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Provides default values for each type, typically used for returning default values according to method return types.

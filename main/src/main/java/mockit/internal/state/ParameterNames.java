@@ -7,12 +7,11 @@ package mockit.internal.state;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.util.TestMethod;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class ParameterNames {
     private static final Map<String, Map<String, String[]>> classesToMethodsToParameters = new HashMap<>();

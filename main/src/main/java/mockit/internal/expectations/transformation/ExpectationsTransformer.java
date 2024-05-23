@@ -7,8 +7,6 @@ package mockit.internal.expectations.transformation;
 import java.lang.instrument.ClassFileTransformer;
 import java.security.ProtectionDomain;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.classes.ClassReader;
 import mockit.asm.classes.ClassVisitor;
 import mockit.asm.classes.ClassWriter;
@@ -19,6 +17,7 @@ import mockit.internal.util.ClassNaming;
 import mockit.internal.util.VisitInterruptedException;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class ExpectationsTransformer implements ClassFileTransformer {
     private static final String BASE_CLASSES = "mockit/Expectations mockit/Verifications mockit/VerificationsInOrder mockit/FullVerifications";

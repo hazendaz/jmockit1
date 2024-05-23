@@ -7,11 +7,10 @@ package mockit.internal.expectations;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.expectations.invocation.ExpectedInvocation;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 class UnorderedVerificationPhase extends BaseVerificationPhase {
     @NonNull

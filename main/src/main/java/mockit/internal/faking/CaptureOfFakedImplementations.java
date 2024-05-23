@@ -8,14 +8,13 @@ import static mockit.internal.util.Utilities.getClassType;
 
 import java.lang.reflect.Type;
 
-import javax.annotation.Nullable;
-
 import mockit.MockUp;
 import mockit.asm.classes.ClassReader;
 import mockit.internal.BaseClassModifier;
 import mockit.internal.capturing.CaptureOfImplementations;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class CaptureOfFakedImplementations extends CaptureOfImplementations<Void> {
     private final FakeClassSetup fakeClassSetup;

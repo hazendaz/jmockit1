@@ -14,11 +14,10 @@ import java.security.ProtectionDomain;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nullable;
-
 import mockit.coverage.Configuration;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 final class ClassSelection {
     private static final String THIS_CLASS_NAME = ClassSelection.class.getName();

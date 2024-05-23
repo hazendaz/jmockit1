@@ -7,14 +7,13 @@ package mockit.internal.faking;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.faking.FakeMethods.FakeMethod;
 import mockit.internal.reflection.MethodReflection;
 import mockit.internal.reflection.RealMethodOrConstructor;
 import mockit.internal.util.ClassLoad;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 final class FakeState {
     private static final ClassLoader THIS_CL = FakeState.class.getClassLoader();

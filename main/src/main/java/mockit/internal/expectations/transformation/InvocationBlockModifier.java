@@ -22,8 +22,6 @@ import static mockit.asm.jvmConstants.Opcodes.RETURN;
 import static mockit.internal.util.TypeConversionBytecode.isBoxing;
 import static mockit.internal.util.TypeConversionBytecode.isUnboxing;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.controlFlow.Label;
 import mockit.asm.jvmConstants.JVMInstruction;
 import mockit.asm.methods.MethodWriter;
@@ -32,6 +30,7 @@ import mockit.asm.types.JavaType;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class InvocationBlockModifier extends WrappingMethodVisitor {
     private static final String CLASS_DESC = "mockit/internal/expectations/ActiveInvocations";

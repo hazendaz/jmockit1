@@ -12,13 +12,12 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import mockit.Tested;
 import mockit.internal.injection.field.FieldInjection;
 import mockit.internal.injection.full.FullInjection;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 abstract class TestedObject {
     @NonNull

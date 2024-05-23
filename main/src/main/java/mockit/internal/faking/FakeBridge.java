@@ -6,12 +6,11 @@ package mockit.internal.faking;
 
 import java.lang.reflect.Method;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.ClassLoadingBridge;
 import mockit.internal.state.TestRun;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class FakeBridge extends ClassLoadingBridge {
     @NonNull

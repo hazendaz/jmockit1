@@ -12,9 +12,8 @@ import static mockit.internal.util.Utilities.ensureThatMemberIsAccessible;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import javax.annotation.Nullable;
-
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.objenesis.instantiator.sun.SunReflectionFactoryInstantiator;
 
 public final class ConstructorReflection {

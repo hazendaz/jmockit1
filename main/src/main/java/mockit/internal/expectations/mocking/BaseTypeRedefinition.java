@@ -21,8 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.classes.ClassReader;
 import mockit.asm.classes.ClassVisitor;
 import mockit.asm.jvmConstants.ClassVersion;
@@ -37,6 +35,7 @@ import mockit.internal.util.ClassLoad;
 import mockit.internal.util.VisitInterruptedException;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 class BaseTypeRedefinition {
     private static final ClassDefinition[] CLASS_DEFINITIONS = {};

@@ -10,12 +10,11 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.jvmConstants.Access;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class ClassMetadataReader extends ObjectWithAttributes {
     private static final Charset UTF8 = Charset.forName("UTF-8");

@@ -8,11 +8,10 @@ import static mockit.internal.expectations.state.ExecutingTest.isInstanceMethodW
 
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.expectations.invocation.ExpectedInvocation;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class RecordPhase extends TestOnlyPhase {
     RecordPhase(@NonNull PhasedExecutionState executionState) {

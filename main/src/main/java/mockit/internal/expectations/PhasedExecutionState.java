@@ -7,14 +7,13 @@ package mockit.internal.expectations;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.expectations.invocation.ExpectedInvocation;
 import mockit.internal.expectations.invocation.InvocationArguments;
 import mockit.internal.state.TestRun;
 import mockit.internal.util.GeneratedClasses;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 final class PhasedExecutionState {
     @NonNull

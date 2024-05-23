@@ -4,8 +4,6 @@
  */
 package mockit.internal.state;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.expectations.RecordAndReplayExecution;
 import mockit.internal.expectations.mocking.FieldTypeRedefinitions;
 import mockit.internal.expectations.state.ExecutingTest;
@@ -15,6 +13,7 @@ import mockit.internal.injection.TestedClassInstantiations;
 import mockit.internal.util.StackTrace;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * A singleton which stores several data structures which in turn hold global state for individual test methods, test

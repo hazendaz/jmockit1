@@ -3,8 +3,6 @@ package mockit.asm.classes;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.BaseWriter;
 import mockit.asm.SignatureWriter;
 import mockit.asm.constantPool.AttributeWriter;
@@ -19,6 +17,7 @@ import mockit.internal.util.ClassLoad;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * A {@link ClassVisitor} that generates classes in bytecode form, that is, a byte array conforming to the

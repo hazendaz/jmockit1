@@ -22,7 +22,6 @@ import java.lang.reflect.TypeVariable;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.annotation.Nullable;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.enterprise.inject.Instance;
@@ -34,6 +33,7 @@ import javax.persistence.PersistenceUnit;
 import javax.servlet.Servlet;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class InjectionPoint {
     public enum KindOfInjectionPoint {

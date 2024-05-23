@@ -2,11 +2,10 @@ package mockit.asm.metadata;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.metadata.ClassMetadataReader.AnnotationInfo;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 class ObjectWithAttributes {
     @Nullable

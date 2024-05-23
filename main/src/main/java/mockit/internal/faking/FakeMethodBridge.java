@@ -6,8 +6,6 @@ package mockit.internal.faking;
 
 import java.lang.reflect.Method;
 
-import javax.annotation.Nullable;
-
 import mockit.Invocation;
 import mockit.internal.ClassLoadingBridge;
 import mockit.internal.reflection.MethodReflection;
@@ -17,6 +15,7 @@ import mockit.internal.util.DefaultValues;
 import mockit.internal.util.TypeDescriptor;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class FakeMethodBridge extends ClassLoadingBridge {
     @NonNull

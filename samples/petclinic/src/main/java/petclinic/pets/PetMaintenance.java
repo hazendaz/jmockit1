@@ -3,7 +3,7 @@ package petclinic.pets;
 import java.util.List;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
-import javax.annotation.Nullable;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.validation.ValidationException;

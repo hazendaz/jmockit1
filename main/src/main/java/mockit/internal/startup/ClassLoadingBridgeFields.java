@@ -13,8 +13,6 @@ import java.lang.instrument.Instrumentation;
 import java.security.ProtectionDomain;
 import java.security.Provider;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.classes.ClassReader;
 import mockit.asm.classes.ClassVisitor;
 import mockit.asm.classes.ClassWriter;
@@ -26,6 +24,7 @@ import mockit.internal.faking.FakeBridge;
 import mockit.internal.faking.FakeMethodBridge;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 final class ClassLoadingBridgeFields {
     private ClassLoadingBridgeFields() {

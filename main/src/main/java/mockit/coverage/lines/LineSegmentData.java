@@ -8,13 +8,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import mockit.coverage.CallPoint;
 import mockit.coverage.Configuration;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public class LineSegmentData implements Serializable {
     private static final long serialVersionUID = -6233980722802474992L;

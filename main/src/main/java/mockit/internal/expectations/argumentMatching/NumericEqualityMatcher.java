@@ -4,9 +4,8 @@
  */
 package mockit.internal.expectations.argumentMatching;
 
-import javax.annotation.Nullable;
-
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Matches a decimal argument against another within a given margin of error.

@@ -15,8 +15,6 @@ import static mockit.internal.expectations.argumentMatching.AlwaysTrueMatcher.AN
 import static mockit.internal.expectations.argumentMatching.AlwaysTrueMatcher.ANY_STRING;
 import static mockit.internal.expectations.argumentMatching.AlwaysTrueMatcher.ANY_VALUE;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
 import mockit.internal.expectations.transformation.ArgumentCapturing;
 import mockit.internal.state.TestRun;
@@ -24,6 +22,7 @@ import mockit.internal.util.ClassLoad;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 @SuppressWarnings("unused")
 public final class ActiveInvocations {

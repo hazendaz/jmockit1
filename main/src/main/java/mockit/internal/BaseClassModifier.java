@@ -24,8 +24,6 @@ import static mockit.asm.jvmConstants.Opcodes.NEWARRAY;
 import static mockit.asm.jvmConstants.Opcodes.RETURN;
 import static mockit.asm.jvmConstants.Opcodes.SIPUSH;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.annotations.AnnotationVisitor;
 import mockit.asm.classes.ClassInfo;
 import mockit.asm.classes.ClassReader;
@@ -49,6 +47,7 @@ import mockit.internal.util.TypeConversionBytecode;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public class BaseClassModifier extends WrappingClassVisitor {
     private static final int METHOD_ACCESS_MASK = 0xFFFF - Access.ABSTRACT - Access.NATIVE;

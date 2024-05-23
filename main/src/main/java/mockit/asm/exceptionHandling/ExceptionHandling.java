@@ -3,8 +3,6 @@ package mockit.asm.exceptionHandling;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.controlFlow.Edge;
 import mockit.asm.controlFlow.FrameTypeMask;
@@ -13,6 +11,7 @@ import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class ExceptionHandling {
     @NonNull

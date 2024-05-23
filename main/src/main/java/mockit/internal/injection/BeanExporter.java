@@ -4,13 +4,12 @@
  */
 package mockit.internal.injection;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.injection.InjectionPoint.KindOfInjectionPoint;
 import mockit.internal.injection.field.FieldInjection;
 import mockit.internal.injection.full.FullInjection;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class BeanExporter {
     @NonNull

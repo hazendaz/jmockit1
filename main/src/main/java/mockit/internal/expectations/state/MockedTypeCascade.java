@@ -22,8 +22,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.expectations.MockingFilters;
 import mockit.internal.expectations.mocking.CascadingTypeRedefinition;
 import mockit.internal.expectations.mocking.InstanceFactory;
@@ -33,6 +31,7 @@ import mockit.internal.state.TestRun;
 import mockit.internal.util.DefaultValues;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class MockedTypeCascade {
     @NonNull

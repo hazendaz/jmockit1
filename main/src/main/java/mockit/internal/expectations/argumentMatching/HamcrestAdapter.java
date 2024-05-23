@@ -4,11 +4,10 @@
  */
 package mockit.internal.expectations.argumentMatching;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.reflection.FieldReflection;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.StringDescription;

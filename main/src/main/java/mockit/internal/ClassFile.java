@@ -9,13 +9,12 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.classes.ClassReader;
 import mockit.internal.state.CachedClassfiles;
 import mockit.internal.state.TestRun;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class ClassFile {
     private static final Map<String, ClassReader> CLASS_FILES = new ConcurrentHashMap<>();

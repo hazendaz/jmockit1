@@ -7,11 +7,10 @@ package mockit.internal.expectations.argumentMatching;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.util.ObjectMethods;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class ArgumentMismatch {
     @NonNull

@@ -18,8 +18,6 @@ import static mockit.asm.jvmConstants.ConstantPoolTypes.PACKAGE;
 import static mockit.asm.jvmConstants.ConstantPoolTypes.STRING;
 import static mockit.asm.jvmConstants.ConstantPoolTypes.UTF8;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.constantPool.DynamicItem;
 import mockit.asm.jvmConstants.ConstantPoolTypes;
 import mockit.asm.types.JavaType;
@@ -28,6 +26,7 @@ import mockit.asm.types.ReferenceType;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public class BytecodeReader {
     /**

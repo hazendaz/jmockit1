@@ -26,8 +26,6 @@ import static mockit.asm.jvmConstants.Opcodes.INVOKEVIRTUAL;
 import static mockit.asm.jvmConstants.Opcodes.ISTORE;
 import static mockit.asm.jvmConstants.Opcodes.ISTORE_0;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.AnnotatedReader;
 import mockit.asm.annotations.AnnotationVisitor;
 import mockit.asm.classes.ClassReader;
@@ -39,6 +37,7 @@ import mockit.asm.util.MethodHandle;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 @SuppressWarnings("OverlyComplexClass")
 public final class MethodReader extends AnnotatedReader {

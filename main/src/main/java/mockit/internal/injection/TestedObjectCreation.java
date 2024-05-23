@@ -9,8 +9,6 @@ import static java.lang.reflect.Modifier.isAbstract;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Type;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.classes.ClassReader;
 import mockit.asm.classes.ClassVisitor;
 import mockit.internal.classGeneration.ImplementationClass;
@@ -21,6 +19,7 @@ import mockit.internal.injection.full.FullInjection;
 import mockit.internal.state.TestRun;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class TestedObjectCreation {
     @NonNull

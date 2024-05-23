@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.types.JavaType;
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
 import mockit.internal.expectations.state.MockedTypeCascade;
@@ -25,6 +23,7 @@ import mockit.internal.util.StackTrace;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 @SuppressWarnings("OverlyComplexClass")
 public final class ExpectedInvocation {

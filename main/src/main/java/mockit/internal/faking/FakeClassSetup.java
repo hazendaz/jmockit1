@@ -8,8 +8,6 @@ import java.lang.instrument.ClassDefinition;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
 
-import javax.annotation.Nullable;
-
 import mockit.MockUp;
 import mockit.asm.classes.ClassReader;
 import mockit.internal.BaseClassModifier;
@@ -19,6 +17,7 @@ import mockit.internal.state.CachedClassfiles;
 import mockit.internal.state.TestRun;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class FakeClassSetup {
     @NonNull

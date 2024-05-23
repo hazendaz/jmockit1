@@ -16,8 +16,6 @@ import static mockit.asm.jvmConstants.Access.SYNTHETIC;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.classes.ClassInfo;
 import mockit.asm.classes.ClassReader;
 import mockit.asm.classes.ClassWriter;
@@ -30,6 +28,7 @@ import mockit.coverage.data.FileCoverageData;
 import mockit.internal.ClassFile;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 final class CoverageModifier extends WrappingClassVisitor {
     private static final Map<String, CoverageModifier> INNER_CLASS_MODIFIERS = new HashMap<>();

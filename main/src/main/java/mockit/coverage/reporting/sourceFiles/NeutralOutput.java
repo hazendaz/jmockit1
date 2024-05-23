@@ -6,12 +6,11 @@ package mockit.coverage.reporting.sourceFiles;
 
 import java.io.PrintWriter;
 
-import javax.annotation.Nullable;
-
 import mockit.coverage.reporting.parsing.LineElement;
 import mockit.coverage.reporting.parsing.LineParser;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 final class NeutralOutput {
     @NonNull

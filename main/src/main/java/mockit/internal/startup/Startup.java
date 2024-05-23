@@ -10,13 +10,12 @@ import java.lang.instrument.ClassDefinition;
 import java.lang.instrument.Instrumentation;
 import java.lang.instrument.UnmodifiableClassException;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.ClassIdentification;
 import mockit.internal.expectations.transformation.ExpectationsTransformer;
 import mockit.internal.state.CachedClassfiles;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * This is the "agent class" that initializes the JMockit "Java agent", provided the JVM is initialized with

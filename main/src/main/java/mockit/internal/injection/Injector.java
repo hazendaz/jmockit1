@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nullable;
 import javax.persistence.Entity;
 
 import mockit.internal.injection.InjectionPoint.KindOfInjectionPoint;
@@ -34,6 +33,7 @@ import mockit.internal.reflection.FieldReflection;
 import mockit.internal.util.DefaultValues;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public class Injector {
     private static final Pattern TYPE_NAME = compile("class |interface |java\\.lang\\.");

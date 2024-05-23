@@ -9,8 +9,6 @@ import static java.lang.reflect.Modifier.isPublic;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
 
-import javax.annotation.Nullable;
-
 import mockit.MockUp;
 import mockit.asm.classes.ClassReader;
 import mockit.asm.classes.ClassVisitor;
@@ -19,6 +17,7 @@ import mockit.internal.expectations.mocking.InterfaceImplementationGenerator;
 import mockit.internal.util.Utilities;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class FakedImplementationClass<T> {
     private static final ClassLoader THIS_CL = FakedImplementationClass.class.getClassLoader();

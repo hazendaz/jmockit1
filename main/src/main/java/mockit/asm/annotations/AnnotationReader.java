@@ -2,14 +2,13 @@ package mockit.asm.annotations;
 
 import java.lang.reflect.Array;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.types.JavaType;
 import mockit.asm.types.PrimitiveType;
 import mockit.asm.util.BytecodeReader;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class AnnotationReader extends BytecodeReader {
     public AnnotationReader(@NonNull BytecodeReader br) {

@@ -18,8 +18,6 @@ import static mockit.asm.jvmConstants.ConstantPoolTypes.PACKAGE;
 import static mockit.asm.jvmConstants.ConstantPoolTypes.STRING;
 import static mockit.asm.jvmConstants.ConstantPoolTypes.UTF8;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.constantPool.ClassMemberItem;
 import mockit.asm.constantPool.DoubleItem;
 import mockit.asm.constantPool.DynamicItem;
@@ -36,6 +34,7 @@ import mockit.asm.util.MethodHandle;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Copies the constant pool data from a {@link ClassReader} into a {@link ClassWriter}.

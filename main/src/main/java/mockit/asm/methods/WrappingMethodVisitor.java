@@ -1,13 +1,12 @@
 package mockit.asm.methods;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.annotations.AnnotationVisitor;
 import mockit.asm.controlFlow.Label;
 import mockit.asm.util.MethodHandle;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Same as {@link MethodVisitor}, except it always wraps a {@link MethodWriter}.

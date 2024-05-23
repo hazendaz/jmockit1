@@ -15,8 +15,6 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.expectations.mocking.MockedBridge;
 import mockit.internal.faking.FakeBridge;
 import mockit.internal.faking.FakeMethodBridge;
@@ -25,6 +23,7 @@ import mockit.internal.util.StackTrace;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public abstract class ClassLoadingBridge implements InvocationHandler {
     private static final Object[] EMPTY_ARGS = {};

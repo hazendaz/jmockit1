@@ -7,8 +7,6 @@ package mockit.integration.junit4;
 import java.lang.annotation.Annotation;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import mockit.Expectations;
 import mockit.Invocation;
 import mockit.Mock;
@@ -18,6 +16,7 @@ import mockit.internal.faking.FakeInvocation;
 import mockit.internal.util.StackTrace;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.runners.model.FrameworkMethod;
 
 /**

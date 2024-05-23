@@ -26,12 +26,11 @@ import java.util.Optional;
 import java.util.TreeSet;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.util.AutoBoxing;
 import mockit.internal.util.MethodFormatter;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class ReturnTypeConversion {
     private static final Class<?>[] STRING = { String.class };

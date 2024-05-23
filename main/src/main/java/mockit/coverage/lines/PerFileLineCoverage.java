@@ -10,14 +10,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.annotation.Nullable;
-
 import mockit.coverage.CallPoint;
 import mockit.coverage.CoveragePercentage;
 import mockit.coverage.data.PerFileCoverage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class PerFileLineCoverage implements PerFileCoverage {
     private static final long serialVersionUID = 6318915843739466316L;

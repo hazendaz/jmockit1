@@ -27,8 +27,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.ClassFile;
 import mockit.internal.ClassIdentification;
 import mockit.internal.capturing.CaptureTransformer;
@@ -38,6 +36,7 @@ import mockit.internal.startup.Startup;
 import mockit.internal.util.ClassLoad;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Holds data about redefined/transformed classes, with methods to add/remove and query such data.

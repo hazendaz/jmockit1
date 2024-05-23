@@ -13,8 +13,6 @@ import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.classGeneration.ConcreteSubclass;
 import mockit.internal.faking.CaptureOfFakedImplementations;
 import mockit.internal.faking.FakeClassSetup;
@@ -26,6 +24,7 @@ import mockit.internal.startup.Startup;
 import mockit.internal.state.TestRun;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * A base class used in the creation of a <em>fake</em> for an <em>external</em> type, which is usually a class from

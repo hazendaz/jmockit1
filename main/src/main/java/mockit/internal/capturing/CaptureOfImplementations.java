@@ -4,8 +4,6 @@
  */
 package mockit.internal.capturing;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.classes.ClassReader;
 import mockit.internal.BaseClassModifier;
 import mockit.internal.ClassFile;
@@ -13,6 +11,7 @@ import mockit.internal.startup.Startup;
 import mockit.internal.state.TestRun;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public abstract class CaptureOfImplementations<M> {
     protected CaptureOfImplementations() {

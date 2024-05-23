@@ -6,12 +6,11 @@ package mockit.internal.expectations.argumentMatching;
 
 import java.lang.reflect.Method;
 
-import javax.annotation.Nullable;
-
 import mockit.Delegate;
 import mockit.internal.reflection.MethodReflection;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class ReflectiveMatcher implements ArgumentMatcher<ReflectiveMatcher> {
     @NonNull

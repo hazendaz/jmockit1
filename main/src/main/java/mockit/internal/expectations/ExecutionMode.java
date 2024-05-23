@@ -7,11 +7,10 @@ package mockit.internal.expectations;
 import static java.lang.reflect.Modifier.isNative;
 import static java.lang.reflect.Modifier.isStatic;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.state.TestRun;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public enum ExecutionMode {
     Regular {

@@ -7,8 +7,6 @@ package mockit.internal.expectations.invocation;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.expectations.argumentMatching.AlwaysTrueMatcher;
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
 import mockit.internal.expectations.argumentMatching.ArgumentMismatch;
@@ -18,6 +16,7 @@ import mockit.internal.expectations.argumentMatching.ReflectiveMatcher;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 abstract class ArgumentValuesAndMatchers {
     @NonNull

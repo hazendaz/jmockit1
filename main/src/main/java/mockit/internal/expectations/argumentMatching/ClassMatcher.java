@@ -7,9 +7,8 @@ package mockit.internal.expectations.argumentMatching;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class ClassMatcher implements ArgumentMatcher<ClassMatcher> {
     private static final Map<Class<?>, ClassMatcher> PRIMITIVE_MATCHERS;

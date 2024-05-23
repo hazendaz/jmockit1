@@ -6,12 +6,11 @@ package mockit.internal.expectations;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 final class VerifiedExpectation {
     @NonNull

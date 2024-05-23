@@ -14,12 +14,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.reflection.FieldReflection;
 import mockit.internal.reflection.GenericTypeReflection;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Holds state used throughout the injection process while it's in progress for a given set of tested objects.

@@ -7,13 +7,12 @@ package mockit.internal.expectations.invocation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.BaseInvocation;
 import mockit.internal.expectations.state.ExecutingTest;
 import mockit.internal.state.TestRun;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 final class DelegateInvocation extends BaseInvocation {
     @NonNull

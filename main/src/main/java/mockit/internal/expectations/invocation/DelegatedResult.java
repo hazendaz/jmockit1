@@ -11,8 +11,6 @@ import static mockit.internal.reflection.MethodReflection.invoke;
 import java.lang.reflect.Method;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javax.annotation.Nullable;
-
 import mockit.Delegate;
 import mockit.Invocation;
 import mockit.asm.types.JavaType;
@@ -23,6 +21,7 @@ import mockit.internal.util.MethodFormatter;
 import mockit.internal.util.TypeDescriptor;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 final class DelegatedResult extends InvocationResult {
     private static final Object[] NO_ARGS = {};

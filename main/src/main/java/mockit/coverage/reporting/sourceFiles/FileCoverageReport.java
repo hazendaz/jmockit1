@@ -6,8 +6,6 @@ package mockit.coverage.reporting.sourceFiles;
 
 import java.io.IOException;
 
-import javax.annotation.Nullable;
-
 import mockit.coverage.data.FileCoverageData;
 import mockit.coverage.dataItems.PerFileDataCoverage;
 import mockit.coverage.reporting.OutputFile;
@@ -19,6 +17,7 @@ import mockit.coverage.reporting.parsing.LineParser;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Generates an HTML page containing line-by-line coverage information for a single source file.

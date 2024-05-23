@@ -8,8 +8,6 @@ import static mockit.internal.util.StackTrace.filterStackTrace;
 
 import java.lang.reflect.Method;
 
-import javax.annotation.Nullable;
-
 import mockit.integration.TestRunnerDecorator;
 import mockit.internal.expectations.RecordAndReplayExecution;
 import mockit.internal.faking.FakeInvocation;
@@ -17,6 +15,7 @@ import mockit.internal.state.SavePoint;
 import mockit.internal.state.TestRun;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

@@ -6,11 +6,10 @@ package mockit.internal.expectations.mocking;
 
 import java.lang.reflect.Type;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.expectations.MockingFilters;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 class TypeRedefinition extends BaseTypeRedefinition {
     TypeRedefinition(@NonNull MockedType typeMetadata) {

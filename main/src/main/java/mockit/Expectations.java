@@ -9,12 +9,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.expectations.RecordAndReplayExecution;
 import mockit.internal.expectations.RecordPhase;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Used to <em>record</em> expectations on {@linkplain Mocked mocked} types and their instances.

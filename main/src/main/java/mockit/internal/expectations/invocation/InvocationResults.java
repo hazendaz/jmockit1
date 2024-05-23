@@ -7,8 +7,6 @@ package mockit.internal.expectations.invocation;
 import java.lang.reflect.Array;
 import java.util.Iterator;
 
-import javax.annotation.Nullable;
-
 import mockit.Delegate;
 import mockit.internal.expectations.invocation.InvocationResult.DeferredResults;
 import mockit.internal.expectations.invocation.InvocationResult.ReturnValueResult;
@@ -16,6 +14,7 @@ import mockit.internal.expectations.invocation.InvocationResult.ThrowableResult;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class InvocationResults {
     @NonNull

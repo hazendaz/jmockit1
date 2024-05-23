@@ -12,8 +12,6 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 
-import javax.annotation.Nullable;
-
 import mockit.Capturing;
 import mockit.Injectable;
 import mockit.Mocked;
@@ -31,6 +29,7 @@ import mockit.internal.util.Utilities;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 @SuppressWarnings("EqualsAndHashcode")
 public final class MockedType extends InjectionProvider {

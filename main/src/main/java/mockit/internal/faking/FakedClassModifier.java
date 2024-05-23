@@ -25,8 +25,6 @@ import static mockit.asm.jvmConstants.Opcodes.IRETURN;
 import static mockit.asm.jvmConstants.Opcodes.RETURN;
 import static mockit.asm.jvmConstants.Opcodes.SIPUSH;
 
-import javax.annotation.Nullable;
-
 import mockit.MockUp;
 import mockit.asm.classes.ClassReader;
 import mockit.asm.controlFlow.Label;
@@ -41,6 +39,7 @@ import mockit.internal.util.ClassLoad;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Responsible for generating all necessary bytecode in the redefined (real) class. Such code will redirect calls made

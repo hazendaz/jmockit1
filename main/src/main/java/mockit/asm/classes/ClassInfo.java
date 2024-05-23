@@ -1,8 +1,7 @@
 package mockit.asm.classes;
 
-import javax.annotation.Nullable;
-
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Holds additional information about a classfile: {@link #signature}, {@link #superName}, {@link #interfaces},

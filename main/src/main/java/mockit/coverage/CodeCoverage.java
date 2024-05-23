@@ -7,14 +7,13 @@ package mockit.coverage;
 import java.lang.instrument.ClassFileTransformer;
 import java.security.ProtectionDomain;
 
-import javax.annotation.Nullable;
-
 import mockit.coverage.data.CoverageData;
 import mockit.coverage.modification.ClassModification;
 import mockit.coverage.modification.ClassesNotLoaded;
 import mockit.internal.startup.Startup;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class CodeCoverage implements ClassFileTransformer {
     @NonNull

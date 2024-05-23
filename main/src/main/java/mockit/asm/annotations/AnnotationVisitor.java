@@ -2,8 +2,6 @@ package mockit.asm.annotations;
 
 import java.lang.reflect.Array;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.constantPool.Item;
 import mockit.asm.types.JavaType;
@@ -11,6 +9,7 @@ import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * A visitor to visit a Java annotation, in the following order: (<code>visit</code> | <code>visitEnum</code> |

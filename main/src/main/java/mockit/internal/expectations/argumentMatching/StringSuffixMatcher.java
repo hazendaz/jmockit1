@@ -4,9 +4,8 @@
  */
 package mockit.internal.expectations.argumentMatching;
 
-import javax.annotation.Nullable;
-
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class StringSuffixMatcher extends SubstringMatcher {
     public StringSuffixMatcher(@NonNull CharSequence substring) {

@@ -1,11 +1,10 @@
 package mockit.asm.constantPool;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.jvmConstants.ConstantPoolTypes;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * A constant pool item of a given {@linkplain ConstantPoolTypes type}.

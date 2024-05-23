@@ -20,8 +20,6 @@ import static mockit.asm.jvmConstants.Opcodes.SIPUSH;
 import static mockit.asm.jvmConstants.Opcodes.TABLESWITCH;
 import static mockit.asm.jvmConstants.Opcodes.WIDE;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.SignatureWriter;
 import mockit.asm.annotations.AnnotationVisitor;
 import mockit.asm.classes.ClassWriter;
@@ -43,6 +41,7 @@ import mockit.asm.util.MethodHandle;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * A {@link MethodVisitor} that generates methods in bytecode form. Each visit method of this class appends the bytecode

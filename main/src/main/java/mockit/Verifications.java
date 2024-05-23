@@ -6,14 +6,13 @@ package mockit;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.expectations.BaseVerificationPhase;
 import mockit.internal.expectations.RecordAndReplayExecution;
 import mockit.internal.expectations.argumentMatching.AlwaysTrueMatcher;
 import mockit.internal.state.TestRun;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Used to <em>verify</em> a set of expectations on available {@linkplain Mocked mocked} types and/or instances, against

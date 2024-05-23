@@ -12,14 +12,13 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.BaseInvocation;
 import mockit.internal.expectations.RecordAndReplayExecution;
 import mockit.internal.expectations.mocking.MockedType;
 import mockit.internal.expectations.mocking.ParameterTypeRedefinitions;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class ExecutingTest {
     @Nullable

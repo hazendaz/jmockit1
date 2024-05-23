@@ -15,8 +15,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.ClassLoadingBridge;
 import mockit.internal.reflection.GenericTypeReflection;
 import mockit.internal.reflection.GenericTypeReflection.GenericSignature;
@@ -25,6 +23,7 @@ import mockit.internal.util.TypeDescriptor;
 import mockit.internal.util.Utilities;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * A container for the fake methods "collected" from a fake class.

@@ -6,9 +6,8 @@ package mockit.internal.expectations.argumentMatching;
 
 import java.lang.reflect.Array;
 
-import javax.annotation.Nullable;
-
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public class EqualityMatcher implements ArgumentMatcher<EqualityMatcher> {
     @Nullable

@@ -9,11 +9,10 @@ import static mockit.internal.util.Utilities.getClassType;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.injection.InjectionProvider;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 final class ConstructorParameter extends InjectionProvider {
     @NonNull

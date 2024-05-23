@@ -20,8 +20,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.types.JavaType;
 import mockit.internal.injection.InjectionPoint;
 import mockit.internal.injection.InjectionPoint.KindOfInjectionPoint;
@@ -33,6 +31,7 @@ import mockit.internal.state.ParameterNames;
 import mockit.internal.util.ParameterNameExtractor;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class ConstructorSearch {
     private static final int CONSTRUCTOR_ACCESS = PUBLIC + PROTECTED + PRIVATE;

@@ -10,8 +10,6 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import javax.annotation.Nullable;
-
 import mockit.Capturing;
 import mockit.Injectable;
 import mockit.Mocked;
@@ -23,6 +21,7 @@ import mockit.internal.state.TestRun;
 import mockit.internal.util.Utilities;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;

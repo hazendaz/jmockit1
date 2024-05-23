@@ -4,11 +4,10 @@
  */
 package mockit.internal.expectations.mocking;
 
-import javax.annotation.Nullable;
-
 import mockit.internal.util.StackTrace;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.objenesis.ObjenesisHelper;
 
 /**

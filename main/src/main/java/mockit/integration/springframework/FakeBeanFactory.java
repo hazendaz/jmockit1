@@ -4,8 +4,6 @@
  */
 package mockit.integration.springframework;
 
-import javax.annotation.Nullable;
-
 import mockit.Injectable;
 import mockit.Invocation;
 import mockit.Mock;
@@ -16,6 +14,7 @@ import mockit.internal.injection.TestedClassInstantiations;
 import mockit.internal.state.TestRun;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.springframework.beans.factory.support.AbstractBeanFactory;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 

@@ -20,8 +20,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import mockit.asm.types.JavaType;
 import mockit.internal.injection.InjectionPoint.KindOfInjectionPoint;
 import mockit.internal.injection.InjectionProvider;
@@ -36,6 +34,7 @@ import mockit.internal.util.MethodFormatter;
 import mockit.internal.util.StackTrace;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class ConstructorInjection extends Injector {
     @NonNull
