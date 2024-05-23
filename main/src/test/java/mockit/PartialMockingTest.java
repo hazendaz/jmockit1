@@ -131,11 +131,6 @@ public final class PartialMockingTest {
      */
     @Test
     public void attemptToPartiallyMockAClass() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid Class");
-        thrown.expectMessage("partial mocking");
-        thrown.expectMessage("Collaborator");
-
         new Expectations(Collaborator.class) {
         };
     }

@@ -11,6 +11,7 @@ import static java.lang.reflect.Modifier.PROTECTED;
 import static java.lang.reflect.Modifier.PUBLIC;
 import static java.lang.reflect.Modifier.STATIC;
 import static java.lang.reflect.Modifier.isNative;
+import static java.lang.reflect.Modifier.isStatic;
 
 import static mockit.asm.jvmConstants.Access.ENUM;
 import static mockit.asm.jvmConstants.Access.SYNTHETIC;
@@ -57,7 +58,7 @@ final class MockedClassModifier extends BaseClassModifier {
     private String methodSignature;
     @Nullable
     private String baseClassNameForCapturedInstanceMethods;
-    @Nonnull
+    private boolean ignoreConstructors;
     private ExecutionMode executionMode;
     private boolean isProxy;
     @Nullable
@@ -70,11 +71,19 @@ final class MockedClassModifier extends BaseClassModifier {
         super(classReader);
         mockedType = typeMetadata;
         setUseClassLoadingBridge(classLoader);
-        executionMode = typeMetadata != null && typeMetadata.injectable ? ExecutionMode.PerInstance
-                : ExecutionMode.Regular;
+        executionMode = ExecutionMode.Regular;
+        useInstanceBasedMockingIfApplicable();
     }
 
-    void useDynamicMocking() {
+    private void useInstanceBasedMockingIfApplicable() {
+        if (mockedType != null && mockedType.injectable) {
+            ignoreConstructors = !mockedType.withInstancesToCapture();
+            executionMode = ExecutionMode.PerInstance;
+        }
+    }
+
+    void useDynamicMocking(boolean methodsOnly) {
+        ignoreConstructors = methodsOnly;
         executionMode = ExecutionMode.Partial;
     }
 
@@ -147,8 +156,10 @@ final class MockedClassModifier extends BaseClassModifier {
         }
 
         methodSignature = signature;
+        boolean visitingConstructor = "<init>".equals(name);
+        executionMode = determineAppropriateExecutionMode(visitingConstructor);
 
-        if ("<init>".equals(name)) {
+        if (visitingConstructor) {
             if (isConstructorNotAllowedByMockingFilters(name)) {
                 return unmodifiedBytecode(access, name, desc, signature, exceptions);
             }
@@ -182,8 +193,23 @@ final class MockedClassModifier extends BaseClassModifier {
         return cw.visitMethod(access, name, desc, signature, exceptions);
     }
 
+    @Nonnull
+    private ExecutionMode determineAppropriateExecutionMode(boolean visitingConstructor) {
+        if (executionMode == ExecutionMode.PerInstance) {
+            if (visitingConstructor) {
+                return ignoreConstructors ? ExecutionMode.Regular : ExecutionMode.Partial;
+            }
+
+            if (isStatic(methodAccess)) {
+                return ExecutionMode.Partial;
+            }
+        }
+
+        return executionMode;
+    }
+
     private boolean isConstructorNotAllowedByMockingFilters(@Nonnull String name) {
-        return isProxy || executionMode != ExecutionMode.Regular || isUnmockableInvocation(name);
+        return isProxy || ignoreConstructors || isUnmockableInvocation(name);
     }
 
     private boolean isUnmockableInvocation(@Nonnull String name) {
