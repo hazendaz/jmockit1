@@ -63,7 +63,7 @@
         <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/1.53.0/jmockit-1.53.0.jar</argLine>
 
         <!-- Override jacoco plugin to latest -->
-        <jacoco.plugin>0.8.11</jacoco.plugin>
+        <jacoco.plugin>0.8.12</jacoco.plugin>
     </properties>
 
     <profiles>
