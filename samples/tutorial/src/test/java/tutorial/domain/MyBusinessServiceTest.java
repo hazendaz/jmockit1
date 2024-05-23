@@ -16,11 +16,11 @@ import org.junit.jupiter.api.Test;
 /**
  * The Class MyBusinessServiceTest.
  */
-public final class MyBusinessServiceTest {
+class MyBusinessServiceTest {
 
     /** The data. */
     @Tested
-    final EntityX data = new EntityX(1, "abc", "someone@somewhere.com");
+    EntityX data = new EntityX(1, "abc", "someone@somewhere.com");
 
     /** The business service. */
     @Tested(fullyInitialized = true)
@@ -37,7 +37,7 @@ public final class MyBusinessServiceTest {
      *             the exception
      */
     @Test
-    public void doBusinessOperationXyz() throws Exception {
+    void doBusinessOperationXyz() throws Exception {
         EntityX existingItem = new EntityX(1, "AX5", "abc@xpta.net");
         persist(existingItem);
 
@@ -60,7 +60,7 @@ public final class MyBusinessServiceTest {
      *             the exception
      */
     @Test
-    public void doBusinessOperationXyzWithInvalidEmailAddress() throws Exception {
+    void doBusinessOperationXyzWithInvalidEmailAddress() throws Exception {
         String email = "invalid address";
         data.setCustomerEmail(email);
         new Expectations() {
