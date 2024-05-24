@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -665,9 +666,6 @@ public final class DelegateTest {
      */
     @Test
     public void delegateWithOneMethodHavingDifferentParameters(@Mocked final Collaborator collaborator) {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("delegate(");
-
         new Expectations() {
             {
                 collaborator.doSomething(true, null, "str");
@@ -678,7 +676,11 @@ public final class DelegateTest {
             }
         };
 
-        collaborator.doSomething(true, null, "str");
+        Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
+            collaborator.doSomething(true, null, "str");
+        });
+        assertEquals("Failure to invoke method: void mockit.DelegateTest$18$1.delegate(boolean,java.lang.String)",
+                throwable.getMessage());
     }
 
     /**
@@ -941,10 +943,12 @@ public final class DelegateTest {
             }
         };
 
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Value of type String incompatible with return type int");
-
-        mock.getValue();
+        Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
+            mock.getValue();
+        });
+        assertEquals(
+                "Value of type String incompatible with return type int of mockit.DelegateTest$Collaborator#getValue()",
+                throwable.getMessage());
     }
 
     /**
@@ -966,10 +970,12 @@ public final class DelegateTest {
             }
         };
 
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("void return type incompatible with return type int");
-
-        mock.getValue();
+        Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
+            mock.getValue();
+        });
+        assertEquals(
+                "void return type incompatible with return type int of mockit.DelegateTest$Collaborator#getValue()",
+                throwable.getMessage());
     }
 
     /**
