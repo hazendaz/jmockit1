@@ -10,12 +10,12 @@ import java.lang.instrument.ClassDefinition;
 import java.lang.instrument.Instrumentation;
 import java.lang.instrument.UnmodifiableClassException;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.internal.ClassIdentification;
 import mockit.internal.expectations.transformation.ExpectationsTransformer;
 import mockit.internal.state.CachedClassfiles;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * This is the "agent class" that initializes the JMockit "Java agent", provided the JVM is initialized with
@@ -43,7 +43,7 @@ public final class Startup {
      * @param inst
      *            the instrumentation service provided by the JVM
      */
-    public static void premain(@Nullable String agentArgs, @Nonnull Instrumentation inst) {
+    public static void premain(@Nullable String agentArgs, @NonNull Instrumentation inst) {
         createSyntheticFieldsInJREClassToHoldClassLoadingBridges(inst);
 
         instrumentation = inst;
@@ -59,7 +59,7 @@ public final class Startup {
         inst.addTransformer(new ExpectationsTransformer());
     }
 
-    @Nonnull
+    @NonNull
     @SuppressWarnings("ConstantConditions")
     public static Instrumentation instrumentation() {
         return instrumentation;
@@ -73,24 +73,24 @@ public final class Startup {
     }
 
     @SuppressWarnings("ConstantConditions")
-    public static void retransformClass(@Nonnull Class<?> aClass) {
+    public static void retransformClass(@NonNull Class<?> aClass) {
         try {
             instrumentation.retransformClasses(aClass);
         } catch (UnmodifiableClassException ignore) {
         }
     }
 
-    public static void redefineMethods(@Nonnull ClassIdentification classToRedefine,
-            @Nonnull byte[] modifiedClassfile) {
+    public static void redefineMethods(@NonNull ClassIdentification classToRedefine,
+            @NonNull byte[] modifiedClassfile) {
         Class<?> loadedClass = classToRedefine.getLoadedClass();
         redefineMethods(loadedClass, modifiedClassfile);
     }
 
-    public static void redefineMethods(@Nonnull Class<?> classToRedefine, @Nonnull byte[] modifiedClassfile) {
+    public static void redefineMethods(@NonNull Class<?> classToRedefine, @NonNull byte[] modifiedClassfile) {
         redefineMethods(new ClassDefinition(classToRedefine, modifiedClassfile));
     }
 
-    public static void redefineMethods(@Nonnull ClassDefinition... classDefs) {
+    public static void redefineMethods(@NonNull ClassDefinition... classDefs) {
         try {
             // noinspection ConstantConditions
             instrumentation.redefineClasses(classDefs);
@@ -108,7 +108,7 @@ public final class Startup {
         }
     }
 
-    private static void detectMissingDependenciesIfAny(@Nonnull Class<?> mockedClass) {
+    private static void detectMissingDependenciesIfAny(@NonNull Class<?> mockedClass) {
         try {
             Class.forName(mockedClass.getName(), false, mockedClass.getClassLoader());
         } catch (NoClassDefFoundError e) {
@@ -119,7 +119,7 @@ public final class Startup {
     }
 
     @Nullable
-    public static Class<?> getClassIfLoaded(@Nonnull String classDescOrName) {
+    public static Class<?> getClassIfLoaded(@NonNull String classDescOrName) {
         String className = classDescOrName.replace('/', '.');
         @SuppressWarnings("ConstantConditions")
         Class<?>[] loadedClasses = instrumentation.getAllLoadedClasses();

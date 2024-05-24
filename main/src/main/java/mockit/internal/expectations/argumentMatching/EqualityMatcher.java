@@ -6,8 +6,8 @@ package mockit.internal.expectations.argumentMatching;
 
 import java.lang.reflect.Array;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public class EqualityMatcher implements ArgumentMatcher<EqualityMatcher> {
     @Nullable
@@ -18,7 +18,7 @@ public class EqualityMatcher implements ArgumentMatcher<EqualityMatcher> {
     }
 
     @Override
-    public final boolean same(@Nonnull EqualityMatcher other) {
+    public final boolean same(@NonNull EqualityMatcher other) {
         return object == other.object;
     }
 
@@ -28,7 +28,7 @@ public class EqualityMatcher implements ArgumentMatcher<EqualityMatcher> {
     }
 
     @Override
-    public void writeMismatchPhrase(@Nonnull ArgumentMismatch argumentMismatch) {
+    public void writeMismatchPhrase(@NonNull ArgumentMismatch argumentMismatch) {
         argumentMismatch.appendFormatted(object);
     }
 
@@ -40,7 +40,7 @@ public class EqualityMatcher implements ArgumentMatcher<EqualityMatcher> {
         return o2 != null && (o1 == o2 || areEqualWhenNonNull(o1, o2));
     }
 
-    public static boolean areEqualWhenNonNull(@Nonnull Object o1, @Nonnull Object o2) {
+    public static boolean areEqualWhenNonNull(@NonNull Object o1, @NonNull Object o2) {
         if (isArray(o1)) {
             return isArray(o2) && areArraysEqual(o1, o2);
         }
@@ -48,11 +48,11 @@ public class EqualityMatcher implements ArgumentMatcher<EqualityMatcher> {
         return o1.equals(o2);
     }
 
-    private static boolean isArray(@Nonnull Object o) {
+    private static boolean isArray(@NonNull Object o) {
         return o.getClass().isArray();
     }
 
-    private static boolean areArraysEqual(@Nonnull Object array1, @Nonnull Object array2) {
+    private static boolean areArraysEqual(@NonNull Object array1, @NonNull Object array2) {
         int length1 = Array.getLength(array1);
 
         if (length1 != Array.getLength(array2)) {

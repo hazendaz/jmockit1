@@ -13,15 +13,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
 import mockit.internal.expectations.MockingFilters;
 import mockit.internal.state.TestRun;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 public final class PartialMocking extends BaseTypeRedefinition {
-    @Nonnull
+    @NonNull
     public final List<Object> targetInstances;
-    @Nonnull
+    @NonNull
     private final Map<Class<?>, byte[]> modifiedClassfiles;
 
     public PartialMocking() {
@@ -29,7 +29,7 @@ public final class PartialMocking extends BaseTypeRedefinition {
         modifiedClassfiles = new HashMap<>();
     }
 
-    public void redefineTypes(@Nonnull Object[] instancesToBePartiallyMocked) {
+    public void redefineTypes(@NonNull Object[] instancesToBePartiallyMocked) {
         for (Object instance : instancesToBePartiallyMocked) {
             redefineClassHierarchy(instance);
         }
@@ -40,7 +40,7 @@ public final class PartialMocking extends BaseTypeRedefinition {
         }
     }
 
-    private void redefineClassHierarchy(@Nonnull Object mockInstance) {
+    private void redefineClassHierarchy(@NonNull Object mockInstance) {
         if (mockInstance instanceof Class) {
             throw new IllegalArgumentException(
                     "Invalid Class argument for partial mocking (use a MockUp instead): " + mockInstance);
@@ -56,7 +56,7 @@ public final class PartialMocking extends BaseTypeRedefinition {
         TestRun.getExecutingTest().getCascadingTypes().add(false, targetClass);
     }
 
-    private void applyPartialMockingToGivenInstance(@Nonnull Object instance) {
+    private void applyPartialMockingToGivenInstance(@NonNull Object instance) {
         validateTargetClassType();
         redefineMethodsAndConstructorsInTargetType();
         targetInstances.add(instance);
@@ -72,12 +72,12 @@ public final class PartialMocking extends BaseTypeRedefinition {
     }
 
     @Override
-    void configureClassModifier(@Nonnull MockedClassModifier modifier) {
+    void configureClassModifier(@NonNull MockedClassModifier modifier) {
         modifier.useDynamicMocking();
     }
 
     @Override
-    void applyClassRedefinition(@Nonnull Class<?> realClass, @Nonnull byte[] modifiedClass) {
+    void applyClassRedefinition(@NonNull Class<?> realClass, @NonNull byte[] modifiedClass) {
         modifiedClassfiles.put(realClass, modifiedClass);
     }
 }

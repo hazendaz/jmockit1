@@ -6,26 +6,26 @@ package mockit.internal.expectations.argumentMatching;
 
 import java.lang.reflect.Method;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.Delegate;
 import mockit.internal.reflection.MethodReflection;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class ReflectiveMatcher implements ArgumentMatcher<ReflectiveMatcher> {
-    @Nonnull
+    @NonNull
     private final Delegate<?> delegate;
     @Nullable
     private Method handlerMethod;
     @Nullable
     private Object matchedValue;
 
-    public ReflectiveMatcher(@Nonnull Delegate<?> delegate) {
+    public ReflectiveMatcher(@NonNull Delegate<?> delegate) {
         this.delegate = delegate;
     }
 
     @Override
-    public boolean same(@Nonnull ReflectiveMatcher other) {
+    public boolean same(@NonNull ReflectiveMatcher other) {
         return delegate == other.delegate;
     }
 
@@ -42,7 +42,7 @@ public final class ReflectiveMatcher implements ArgumentMatcher<ReflectiveMatche
     }
 
     @Override
-    public void writeMismatchPhrase(@Nonnull ArgumentMismatch argumentMismatch) {
+    public void writeMismatchPhrase(@NonNull ArgumentMismatch argumentMismatch) {
         if (handlerMethod != null) {
             argumentMismatch.append(handlerMethod.getName()).append('(');
             argumentMismatch.appendFormatted(matchedValue);

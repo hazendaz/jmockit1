@@ -8,13 +8,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.coverage.CallPoint;
 import mockit.coverage.Configuration;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public class LineSegmentData implements Serializable {
     private static final long serialVersionUID = -6233980722802474992L;
@@ -61,7 +61,7 @@ public class LineSegmentData implements Serializable {
         return previousExecutionCount;
     }
 
-    private void addCallPoint(@Nonnull CallPoint callPoint) {
+    private void addCallPoint(@NonNull CallPoint callPoint) {
         if (callPoints == null) {
             callPoints = new ArrayList<>(MAX_CALL_POINTS);
         }
@@ -100,7 +100,7 @@ public class LineSegmentData implements Serializable {
         return unreachable || !empty && executionCount > 0;
     }
 
-    final void addExecutionCountAndCallPointsFromPreviousTestRun(@Nonnull LineSegmentData previousData) {
+    final void addExecutionCountAndCallPointsFromPreviousTestRun(@NonNull LineSegmentData previousData) {
         executionCount += previousData.executionCount;
 
         if (previousData.callPoints != null) {

@@ -4,29 +4,29 @@
  */
 package mockit.internal.injection;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.internal.injection.InjectionPoint.KindOfInjectionPoint;
 import mockit.internal.injection.field.FieldInjection;
 import mockit.internal.injection.full.FullInjection;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class BeanExporter {
-    @Nonnull
+    @NonNull
     private final InjectionState injectionState;
 
-    BeanExporter(@Nonnull InjectionState injectionState) {
+    BeanExporter(@NonNull InjectionState injectionState) {
         this.injectionState = injectionState;
     }
 
     @Nullable
-    public Object getBean(@Nonnull String name) {
+    public Object getBean(@NonNull String name) {
         InjectionPoint injectionPoint = new InjectionPoint(Object.class, name, true);
         return injectionState.getInstantiatedDependency(null, injectionPoint);
     }
 
     @Nullable
-    public <T> T getBean(@Nonnull Class<T> beanType) {
+    public <T> T getBean(@NonNull Class<T> beanType) {
         TestedClass testedClass = new TestedClass(beanType, beanType);
         String beanName = getBeanNameFromType(beanType);
 
@@ -45,8 +45,8 @@ public final class BeanExporter {
         return (T) injection.createOrReuseInstance(testedClass, injector, null, beanName);
     }
 
-    @Nonnull
-    private static String getBeanNameFromType(@Nonnull Class<?> beanType) {
+    @NonNull
+    private static String getBeanNameFromType(@NonNull Class<?> beanType) {
         String name = beanType.getSimpleName();
         return Character.toLowerCase(name.charAt(0)) + name.substring(1);
     }

@@ -13,9 +13,6 @@ import static mockit.asm.jvmConstants.Opcodes.PUTFIELD;
 import static mockit.asm.jvmConstants.Opcodes.PUTSTATIC;
 import static mockit.asm.jvmConstants.Opcodes.RETURN;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.constantPool.Item;
 import mockit.asm.constantPool.LongValueItem;
@@ -26,6 +23,9 @@ import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 /**
  * The control flow graph analysis algorithm, used to compute the maximum stack size for a method or constructor.
  * <p>
@@ -35,11 +35,11 @@ import org.checkerframework.checker.index.qual.NonNegative;
  */
 @SuppressWarnings("OverlyComplexClass")
 public final class CFGAnalysis {
-    @Nonnull
+    @NonNull
     private final ConstantPoolGeneration cp;
-    @Nonnull
+    @NonNull
     private final String classDesc;
-    @Nonnull
+    @NonNull
     private final ByteVector code;
 
     /**
@@ -53,7 +53,7 @@ public final class CFGAnalysis {
      * each other by their {@link Label#successor} field, in the order they are visited, and starting with the first
      * basic block.
      */
-    @Nonnull
+    @NonNull
     private final Label labels;
 
     /**
@@ -84,7 +84,7 @@ public final class CFGAnalysis {
     @NonNegative
     private int maxStackSize;
 
-    public CFGAnalysis(@Nonnull ConstantPoolGeneration cp, @Nonnull String classDesc, @Nonnull ByteVector code,
+    public CFGAnalysis(@NonNull ConstantPoolGeneration cp, @NonNull String classDesc, @NonNull ByteVector code,
             boolean computeFrames) {
         this.cp = cp;
         this.classDesc = classDesc;
@@ -96,7 +96,7 @@ public final class CFGAnalysis {
         updateCurrentBlockForLabelBeforeNextInstruction(labels);
     }
 
-    @Nonnull
+    @NonNull
     public Label getLabelForFirstBasicBlock() {
         return labels;
     }
@@ -165,7 +165,7 @@ public final class CFGAnalysis {
      * @param successor
      *            the successor block to be added to the current block.
      */
-    private void addSuccessor(int info, @Nonnull Label successor) {
+    private void addSuccessor(int info, @NonNull Label successor) {
         // Creates and initializes an Edge object...
         Edge edge = new Edge(info, successor);
 
@@ -196,7 +196,7 @@ public final class CFGAnalysis {
         }
     }
 
-    public void updateCurrentBlockForTypeInstruction(int opcode, @Nonnull StringItem typeItem) {
+    public void updateCurrentBlockForTypeInstruction(int opcode, @NonNull StringItem typeItem) {
         if (currentBlock != null) {
             if (computeFrames) {
                 currentBlock.frame.executeTYPE(opcode, code.getLength(), typeItem);
@@ -207,8 +207,8 @@ public final class CFGAnalysis {
         }
     }
 
-    public void updateCurrentBlockForFieldInstruction(int opcode, @Nonnull TypeOrMemberItem fieldItem,
-            @Nonnull String fieldTypeDesc) {
+    public void updateCurrentBlockForFieldInstruction(int opcode, @NonNull TypeOrMemberItem fieldItem,
+            @NonNull String fieldTypeDesc) {
         if (currentBlock != null) {
             if (computeFrames) {
                 currentBlock.frame.execute(opcode, fieldItem);
@@ -237,8 +237,8 @@ public final class CFGAnalysis {
         }
     }
 
-    public void updateCurrentBlockForInvokeInstruction(@Nonnull TypeOrMemberItem invokeItem, int opcode,
-            @Nonnull String desc) {
+    public void updateCurrentBlockForInvokeInstruction(@NonNull TypeOrMemberItem invokeItem, int opcode,
+            @NonNull String desc) {
         if (currentBlock != null) {
             if (computeFrames) {
                 currentBlock.frame.execute(opcode, invokeItem);
@@ -256,7 +256,7 @@ public final class CFGAnalysis {
     }
 
     @Nullable
-    public Label updateCurrentBlockForJumpInstruction(int opcode, @Nonnull Label label) {
+    public Label updateCurrentBlockForJumpInstruction(int opcode, @NonNull Label label) {
         Label nextInsn = null;
 
         if (currentBlock != null) {
@@ -298,7 +298,7 @@ public final class CFGAnalysis {
         }
     }
 
-    public void updateCurrentBlockForLabelBeforeNextInstruction(@Nonnull Label label) {
+    public void updateCurrentBlockForLabelBeforeNextInstruction(@NonNull Label label) {
         // Resolves previous forward references to label, if any.
         label.resolve(code);
 
@@ -360,7 +360,7 @@ public final class CFGAnalysis {
         previousBlock = label;
     }
 
-    public void updateCurrentBlockForLDCInstruction(@Nonnull Item constItem) {
+    public void updateCurrentBlockForLDCInstruction(@NonNull Item constItem) {
         if (currentBlock != null) {
             if (computeFrames) {
                 currentBlock.frame.executeLDC(constItem);
@@ -377,7 +377,7 @@ public final class CFGAnalysis {
         }
     }
 
-    public void updateCurrentBlockForSwitchInstruction(@Nonnull Label dflt, @Nonnull Label[] caseLabels) {
+    public void updateCurrentBlockForSwitchInstruction(@NonNull Label dflt, @NonNull Label[] caseLabels) {
         if (currentBlock != null) {
             if (computeFrames) {
                 currentBlock.frame.executeSWITCH();
@@ -404,13 +404,13 @@ public final class CFGAnalysis {
         }
     }
 
-    private void addSuccessorForEachCase(@Nonnull Label[] caseLabels) {
+    private void addSuccessorForEachCase(@NonNull Label[] caseLabels) {
         for (Label label : caseLabels) {
             addSuccessor(stackSize, label);
         }
     }
 
-    public void updateCurrentBlockForMULTIANEWARRAYInstruction(@Nonnull StringItem arrayTypeItem,
+    public void updateCurrentBlockForMULTIANEWARRAYInstruction(@NonNull StringItem arrayTypeItem,
             @NonNegative int dims) {
         if (currentBlock != null) {
             if (computeFrames) {
@@ -462,8 +462,8 @@ public final class CFGAnalysis {
     }
 
     @Nullable
-    private Label updateSuccessorsOfCurrentBasicBlock(@Nullable Label changed, @Nonnull Frame frame,
-            @Nonnull Label label) {
+    private Label updateSuccessorsOfCurrentBasicBlock(@Nullable Label changed, @NonNull Frame frame,
+            @NonNull Label label) {
         Edge edge = label.successors;
 
         while (edge != null) {
@@ -517,7 +517,7 @@ public final class CFGAnalysis {
     }
 
     @Nullable
-    private static Label analyzeBlockSuccessors(@Nullable Label stack, @Nonnull Label label, @NonNegative int start) {
+    private static Label analyzeBlockSuccessors(@Nullable Label stack, @NonNull Label label, @NonNegative int start) {
         Edge block = label.successors;
 
         while (block != null) {

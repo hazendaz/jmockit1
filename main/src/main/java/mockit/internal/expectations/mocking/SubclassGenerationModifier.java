@@ -6,23 +6,23 @@ package mockit.internal.expectations.mocking;
 
 import java.lang.reflect.Type;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.classes.ClassReader;
 import mockit.asm.jvmConstants.Access;
 import mockit.internal.classGeneration.BaseSubclassGenerator;
 import mockit.internal.util.ObjectMethods;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class SubclassGenerationModifier extends BaseSubclassGenerator {
-    public SubclassGenerationModifier(@Nonnull Class<?> baseClass, @Nonnull Type mockedType, @Nonnull ClassReader cr,
-            @Nonnull String subclassName, boolean copyConstructors) {
+    public SubclassGenerationModifier(@NonNull Class<?> baseClass, @NonNull Type mockedType, @NonNull ClassReader cr,
+            @NonNull String subclassName, boolean copyConstructors) {
         super(baseClass, cr, mockedType, subclassName, copyConstructors);
     }
 
     @Override
-    protected void generateMethodImplementation(@Nonnull String className, int access, @Nonnull String name,
-            @Nonnull String desc, @Nullable String signature, @Nullable String[] exceptions) {
+    protected void generateMethodImplementation(@NonNull String className, int access, @NonNull String name,
+            @NonNull String desc, @Nullable String signature, @Nullable String[] exceptions) {
         if (signature != null && mockedTypeInfo != null) {
             signature = mockedTypeInfo.genericTypeMap.resolveSignature(className, signature);
         }

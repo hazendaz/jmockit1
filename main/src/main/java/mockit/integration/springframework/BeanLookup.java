@@ -4,20 +4,20 @@
  */
 package mockit.integration.springframework;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.internal.injection.BeanExporter;
 
 import org.springframework.beans.factory.BeanNotOfRequiredTypeException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 final class BeanLookup {
     private BeanLookup() {
     }
 
-    @Nonnull
-    static Object getBean(@Nonnull BeanExporter beanExporter, @Nonnull String name) {
+    @NonNull
+    static Object getBean(@NonNull BeanExporter beanExporter, @NonNull String name) {
         Object bean = beanExporter.getBean(name);
 
         if (bean == null) {
@@ -27,9 +27,9 @@ final class BeanLookup {
         return bean;
     }
 
-    @Nonnull
+    @NonNull
     @SuppressWarnings("unchecked")
-    static <T> T getBean(@Nonnull BeanExporter beanExporter, @Nonnull String name, @Nullable Class<T> requiredType) {
+    static <T> T getBean(@NonNull BeanExporter beanExporter, @NonNull String name, @Nullable Class<T> requiredType) {
         if (requiredType == null) {
             return (T) getBean(beanExporter, name);
         }
@@ -53,8 +53,8 @@ final class BeanLookup {
         return bean;
     }
 
-    @Nonnull
-    static <T> T getBean(@Nonnull BeanExporter beanExporter, @Nonnull Class<T> requiredType) {
+    @NonNull
+    static <T> T getBean(@NonNull BeanExporter beanExporter, @NonNull Class<T> requiredType) {
         T bean = beanExporter.getBean(requiredType);
 
         if (bean == null) {

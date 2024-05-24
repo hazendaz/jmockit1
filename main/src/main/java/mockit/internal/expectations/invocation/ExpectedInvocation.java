@@ -10,9 +10,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.types.JavaType;
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
 import mockit.internal.expectations.state.MockedTypeCascade;
@@ -26,9 +23,12 @@ import mockit.internal.util.StackTrace;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 @SuppressWarnings("OverlyComplexClass")
 public final class ExpectedInvocation {
-    @Nonnull
+    @NonNull
     private static final Object UNDEFINED_DEFAULT_RETURN = new Object();
 
     @Nullable
@@ -36,24 +36,24 @@ public final class ExpectedInvocation {
     @Nullable
     public Object replacementInstance;
     public boolean matchInstance;
-    @Nonnull
+    @NonNull
     public final InvocationArguments arguments;
     @Nullable
     private final ExpectationError invocationCause;
     @Nullable
     Object defaultReturnValue;
 
-    public ExpectedInvocation(@Nullable Object mock, @Nonnull String mockedClassDesc, @Nonnull String mockNameAndDesc,
-            @Nullable String genericSignature, @Nonnull Object[] args) {
+    public ExpectedInvocation(@Nullable Object mock, @NonNull String mockedClassDesc, @NonNull String mockNameAndDesc,
+            @Nullable String genericSignature, @NonNull Object[] args) {
         instance = mock;
         arguments = new InvocationArguments(0, mockedClassDesc, mockNameAndDesc, genericSignature, args);
         invocationCause = null;
         defaultReturnValue = determineDefaultReturnValueFromMethodSignature();
     }
 
-    public ExpectedInvocation(@Nullable Object mock, int access, @Nonnull String mockedClassDesc,
-            @Nonnull String mockNameAndDesc, boolean matchInstance, @Nullable String genericSignature,
-            @Nonnull Object[] args) {
+    public ExpectedInvocation(@Nullable Object mock, int access, @NonNull String mockedClassDesc,
+            @NonNull String mockNameAndDesc, boolean matchInstance, @Nullable String genericSignature,
+            @NonNull Object[] args) {
         instance = mock;
         this.matchInstance = matchInstance;
         arguments = new InvocationArguments(access, mockedClassDesc, mockNameAndDesc, genericSignature, args);
@@ -66,7 +66,7 @@ public final class ExpectedInvocation {
         return invocationCause;
     }
 
-    @Nonnull
+    @NonNull
     private Object determineDefaultReturnValueFromMethodSignature() {
         if (instance != null) {
             Object rv = ObjectMethods.evaluateOverride(instance, getMethodNameAndDescription(), getArgumentValues());
@@ -82,22 +82,22 @@ public final class ExpectedInvocation {
     // Simple getters
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @Nonnull
+    @NonNull
     public String getClassDesc() {
         return arguments.classDesc;
     }
 
-    @Nonnull
+    @NonNull
     public String getClassName() {
         return arguments.getClassName();
     }
 
-    @Nonnull
+    @NonNull
     public String getMethodNameAndDescription() {
         return arguments.methodNameAndDesc;
     }
 
-    @Nonnull
+    @NonNull
     public Object[] getArgumentValues() {
         return arguments.getValues();
     }
@@ -106,7 +106,7 @@ public final class ExpectedInvocation {
         return arguments.isForConstructor();
     }
 
-    @Nonnull
+    @NonNull
     public String getSignatureWithResolvedReturnType() {
         String signature = arguments.genericSignature;
 
@@ -130,12 +130,12 @@ public final class ExpectedInvocation {
     // Matching based on instance or mocked type
     // ///////////////////////////////////////////////////////////////////////////////////////////
 
-    public boolean isMatch(@Nullable Object mock, @Nonnull String invokedClassDesc, @Nonnull String invokedMethod) {
+    public boolean isMatch(@Nullable Object mock, @NonNull String invokedClassDesc, @NonNull String invokedMethod) {
         return (invokedClassDesc.equals(getClassDesc()) || mock != null && TestRun.mockFixture().isCaptured(mock))
                 && (isMatchingGenericMethod(mock, invokedMethod) || isMatchingMethod(invokedMethod));
     }
 
-    private boolean isMatchingGenericMethod(@Nullable Object mock, @Nonnull String invokedMethod) {
+    private boolean isMatchingGenericMethod(@Nullable Object mock, @NonNull String invokedMethod) {
         if (mock != null && instance != null) {
             String genericSignature = arguments.genericSignature;
 
@@ -153,7 +153,7 @@ public final class ExpectedInvocation {
         return false;
     }
 
-    private boolean isMatchingMethod(@Nonnull String invokedMethod) {
+    private boolean isMatchingMethod(@NonNull String invokedMethod) {
         int returnTypeStartPos = getReturnTypePosition(invokedMethod);
 
         if (returnTypeStartPos < 0) {
@@ -169,14 +169,14 @@ public final class ExpectedInvocation {
         return isReturnTypeOfRecordedMethodAssignableToReturnTypeOfInvokedMethod(invokedMethod, returnTypeStartPos);
     }
 
-    private boolean isMatchingMethodName(@Nonnull String invokedMethod) {
+    private boolean isMatchingMethodName(@NonNull String invokedMethod) {
         int methodNameEndPos = invokedMethod.indexOf('(');
         String methodName = invokedMethod.substring(0, methodNameEndPos + 1);
         return getMethodNameAndDescription().startsWith(methodName);
     }
 
     // Returns -1 if the method names or parameters are different.
-    private int getReturnTypePosition(@Nonnull String invokedMethod) {
+    private int getReturnTypePosition(@NonNull String invokedMethod) {
         String recordedMethod = getMethodNameAndDescription();
         int i = 0;
 
@@ -195,7 +195,7 @@ public final class ExpectedInvocation {
         }
     }
 
-    private boolean haveSameReturnTypes(@Nonnull String invokedMethod, @NonNegative int returnTypeStartPos) {
+    private boolean haveSameReturnTypes(@NonNull String invokedMethod, @NonNegative int returnTypeStartPos) {
         String recordedMethod = getMethodNameAndDescription();
         int n = invokedMethod.length();
 
@@ -220,7 +220,7 @@ public final class ExpectedInvocation {
         }
     }
 
-    private boolean isReturnTypeOfRecordedMethodAssignableToReturnTypeOfInvokedMethod(@Nonnull String invokedMethod,
+    private boolean isReturnTypeOfRecordedMethodAssignableToReturnTypeOfInvokedMethod(@NonNull String invokedMethod,
             @NonNegative int returnTypeStartPos) {
         String recordedMethod = getMethodNameAndDescription();
         JavaType recordedRT = JavaType.getType(recordedMethod.substring(returnTypeStartPos));
@@ -229,12 +229,12 @@ public final class ExpectedInvocation {
         return getClassForType(invokedRT).isAssignableFrom(getClassForType(recordedRT));
     }
 
-    public boolean isMatch(@Nonnull ExpectedInvocation other) {
+    public boolean isMatch(@NonNull ExpectedInvocation other) {
         return isMatch(other.instance, other.getClassDesc(), other.getMethodNameAndDescription(), null);
     }
 
-    public boolean isMatch(@Nullable Object replayInstance, @Nonnull String invokedClassDesc,
-            @Nonnull String invokedMethod, @Nullable Map<Object, Object> replacementMap) {
+    public boolean isMatch(@Nullable Object replayInstance, @NonNull String invokedClassDesc,
+            @NonNull String invokedMethod, @Nullable Map<Object, Object> replacementMap) {
         return isMatch(replayInstance, invokedClassDesc, invokedMethod) && (arguments.isForConstructor()
                 || !matchInstance || isEquivalentInstance(replayInstance, replacementMap));
     }
@@ -248,28 +248,28 @@ public final class ExpectedInvocation {
     // Creation of Error instances for invocation mismatch reporting
     // ///////////////////////////////////////////////////////////////////////
 
-    @Nonnull
+    @NonNull
     public UnexpectedInvocation errorForUnexpectedInvocation() {
         String initialMessage = "Unexpected invocation of " + this;
         return newUnexpectedInvocationWithCause("Unexpected invocation", initialMessage);
     }
 
-    @Nonnull
-    private UnexpectedInvocation newUnexpectedInvocationWithCause(@Nonnull String titleForCause,
-            @Nonnull String initialMessage) {
+    @NonNull
+    private UnexpectedInvocation newUnexpectedInvocationWithCause(@NonNull String titleForCause,
+            @NonNull String initialMessage) {
         UnexpectedInvocation error = new UnexpectedInvocation(initialMessage);
         setErrorAsInvocationCause(titleForCause, error);
         return error;
     }
 
-    private void setErrorAsInvocationCause(@Nonnull String titleForCause, @Nonnull Throwable error) {
+    private void setErrorAsInvocationCause(@NonNull String titleForCause, @NonNull Throwable error) {
         if (invocationCause != null) {
             invocationCause.defineCause(titleForCause, error);
         }
     }
 
-    @Nonnull
-    public MissingInvocation errorForMissingInvocation(@Nonnull List<ExpectedInvocation> nonMatchingInvocations) {
+    @NonNull
+    public MissingInvocation errorForMissingInvocation(@NonNull List<ExpectedInvocation> nonMatchingInvocations) {
         StringBuilder errorMessage = new StringBuilder(200);
         errorMessage.append("Missing invocation to:\n").append(this);
         appendNonMatchingInvocations(errorMessage, nonMatchingInvocations);
@@ -277,9 +277,9 @@ public final class ExpectedInvocation {
         return newMissingInvocationWithCause("Missing invocation", errorMessage.toString());
     }
 
-    @Nonnull
+    @NonNull
     public MissingInvocation errorForMissingInvocations(@NonNegative int missingInvocations,
-            @Nonnull List<ExpectedInvocation> nonMatchingInvocations) {
+            @NonNull List<ExpectedInvocation> nonMatchingInvocations) {
         StringBuilder errorMessage = new StringBuilder(200);
         errorMessage.append("Missing ").append(missingInvocations).append(invocationsTo(missingInvocations))
                 .append(this);
@@ -288,8 +288,8 @@ public final class ExpectedInvocation {
         return newMissingInvocationWithCause("Missing invocations", errorMessage.toString());
     }
 
-    private void appendNonMatchingInvocations(@Nonnull StringBuilder errorMessage,
-            @Nonnull List<ExpectedInvocation> nonMatchingInvocations) {
+    private void appendNonMatchingInvocations(@NonNull StringBuilder errorMessage,
+            @NonNull List<ExpectedInvocation> nonMatchingInvocations) {
         if (!nonMatchingInvocations.isEmpty()) {
             errorMessage.append("\ninstead got:\n");
             String sep = "";
@@ -303,39 +303,39 @@ public final class ExpectedInvocation {
         }
     }
 
-    @Nonnull
-    private MissingInvocation newMissingInvocationWithCause(@Nonnull String titleForCause,
-            @Nonnull String initialMessage) {
+    @NonNull
+    private MissingInvocation newMissingInvocationWithCause(@NonNull String titleForCause,
+            @NonNull String initialMessage) {
         MissingInvocation error = new MissingInvocation(initialMessage);
         setErrorAsInvocationCause(titleForCause, error);
         return error;
     }
 
-    @Nonnull
+    @NonNull
     private static String invocationsTo(@NonNegative int invocations) {
         return invocations == 1 ? " invocation to:\n" : " invocations to:\n";
     }
 
-    @Nonnull
-    public UnexpectedInvocation errorForUnexpectedInvocation(@Nonnull Object[] replayArgs) {
+    @NonNull
+    public UnexpectedInvocation errorForUnexpectedInvocation(@NonNull Object[] replayArgs) {
         String message = "Unexpected invocation to:\n" + toString(replayArgs);
         return newUnexpectedInvocationWithCause("Unexpected invocation", message);
     }
 
-    @Nonnull
-    public UnexpectedInvocation errorForUnexpectedInvocations(@Nonnull Object[] replayArgs, int numUnexpected) {
+    @NonNull
+    public UnexpectedInvocation errorForUnexpectedInvocations(@NonNull Object[] replayArgs, int numUnexpected) {
         String message = numUnexpected + " unexpected" + invocationsTo(numUnexpected) + toString(replayArgs);
         String titleForCause = numUnexpected == 1 ? "Unexpected invocation" : "Unexpected invocations";
         return newUnexpectedInvocationWithCause(titleForCause, message);
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public String toString() {
         return toString((Object) null);
     }
 
-    @Nonnull
+    @NonNull
     public String toString(@Nullable Object otherInstance) {
         StringBuilder desc = new StringBuilder().append(arguments.toString());
 
@@ -346,8 +346,8 @@ public final class ExpectedInvocation {
         return desc.toString();
     }
 
-    @Nonnull
-    String toString(@Nonnull Object[] actualInvocationArguments) {
+    @NonNull
+    String toString(@NonNull Object[] actualInvocationArguments) {
         Object[] invocationArgs = arguments.getValues();
         List<ArgumentMatcher<?>> matchers = arguments.getMatchers();
         arguments.setValues(actualInvocationArguments);
@@ -358,7 +358,7 @@ public final class ExpectedInvocation {
         return description;
     }
 
-    private void printCause(@Nonnull Appendable errorMessage) {
+    private void printCause(@NonNull Appendable errorMessage) {
         if (invocationCause != null) {
             try {
                 errorMessage.append('\n');
@@ -430,7 +430,7 @@ public final class ExpectedInvocation {
         return null;
     }
 
-    public void copyDefaultReturnValue(@Nonnull ExpectedInvocation other) {
+    public void copyDefaultReturnValue(@NonNull ExpectedInvocation other) {
         defaultReturnValue = other.defaultReturnValue;
     }
 }

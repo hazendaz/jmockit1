@@ -8,13 +8,13 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.Invocation;
 import mockit.internal.reflection.MethodReflection;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Base class for encapsulating state and logic needed by both the Mocking and Faking APIs, but which should not go into
@@ -26,12 +26,12 @@ public abstract class BaseInvocation extends Invocation {
     @Nullable
     private BaseInvocation previousInvocation;
 
-    protected BaseInvocation(@Nullable Object invokedInstance, @Nonnull Object[] invokedArguments,
+    protected BaseInvocation(@Nullable Object invokedInstance, @NonNull Object[] invokedArguments,
             @NonNegative int invocationCount) {
         super(invokedInstance, invokedArguments, invocationCount);
     }
 
-    @Nonnull
+    @NonNull
     public final Member getRealMember() {
         if (realMember == null) {
             realMember = findRealMember();
@@ -40,7 +40,7 @@ public abstract class BaseInvocation extends Invocation {
         return realMember;
     }
 
-    @Nonnull
+    @NonNull
     protected abstract Member findRealMember();
 
     @Nullable
@@ -77,11 +77,11 @@ public abstract class BaseInvocation extends Invocation {
         return previousInvocation;
     }
 
-    public final void setPrevious(@Nonnull BaseInvocation previous) {
+    public final void setPrevious(@NonNull BaseInvocation previous) {
         previousInvocation = previous;
     }
 
-    public final boolean isMethodInSuperclass(@Nullable Object mock, @Nonnull String classDesc) {
+    public final boolean isMethodInSuperclass(@Nullable Object mock, @NonNull String classDesc) {
         if (mock != null && mock == getInvokedInstance() && getInvokedMember() instanceof Method) {
             Method methodToInvoke = getInvokedMember();
             String invokedClassDesc = methodToInvoke.getDeclaringClass().getName().replace('.', '/');

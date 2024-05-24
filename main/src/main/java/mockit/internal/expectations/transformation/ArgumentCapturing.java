@@ -13,17 +13,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.types.ReferenceType;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class ArgumentCapturing {
     private static final Map<Integer, String> varIndexToTypeDesc = new HashMap<>();
 
-    @Nonnull
+    @NonNull
     private final InvocationBlockModifier modifier;
     @Nullable
     private List<Capture> captures;
@@ -31,11 +31,11 @@ public final class ArgumentCapturing {
     @Nullable
     private String capturedTypeDesc;
 
-    ArgumentCapturing(@Nonnull InvocationBlockModifier modifier) {
+    ArgumentCapturing(@NonNull InvocationBlockModifier modifier) {
         this.modifier = modifier;
     }
 
-    boolean registerMatcher(boolean withCaptureMethod, @Nonnull String methodDesc,
+    boolean registerMatcher(boolean withCaptureMethod, @NonNull String methodDesc,
             @NonNegative int lastLoadedVarIndex) {
         if (withCaptureMethod && "(Ljava/lang/Object;)Ljava/util/List;".equals(methodDesc)) {
             return false;
@@ -60,13 +60,13 @@ public final class ArgumentCapturing {
         return true;
     }
 
-    void registerTypeToCaptureIfApplicable(@NonNegative int opcode, @Nonnull String typeDesc) {
+    void registerTypeToCaptureIfApplicable(@NonNegative int opcode, @NonNull String typeDesc) {
         if (opcode == CHECKCAST && parameterForCapture) {
             capturedTypeDesc = typeDesc;
         }
     }
 
-    static void registerTypeToCaptureIntoListIfApplicable(@NonNegative int varIndex, @Nonnull String signature) {
+    static void registerTypeToCaptureIntoListIfApplicable(@NonNegative int varIndex, @NonNull String signature) {
         if (signature.startsWith("Ljava/util/List<")) {
             String typeDesc = signature.substring(16, signature.length() - 2);
             int p = typeDesc.indexOf('<');
@@ -90,7 +90,7 @@ public final class ArgumentCapturing {
         }
     }
 
-    private void addCapture(@Nonnull Capture capture) {
+    private void addCapture(@NonNull Capture capture) {
         if (captures == null) {
             captures = new ArrayList<>();
         }

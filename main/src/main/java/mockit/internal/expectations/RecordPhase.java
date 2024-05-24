@@ -8,13 +8,13 @@ import static mockit.internal.expectations.state.ExecutingTest.isInstanceMethodW
 
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.internal.expectations.invocation.ExpectedInvocation;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class RecordPhase extends TestOnlyPhase {
-    RecordPhase(@Nonnull PhasedExecutionState executionState) {
+    RecordPhase(@NonNull PhasedExecutionState executionState) {
         super(executionState);
     }
 
@@ -24,7 +24,7 @@ public final class RecordPhase extends TestOnlyPhase {
         }
     }
 
-    public void addSequenceOfReturnValues(@Nonnull Object[] values) {
+    public void addSequenceOfReturnValues(@NonNull Object[] values) {
         if (currentExpectation != null) {
             currentExpectation.addSequenceOfReturnValues(values);
         }
@@ -32,9 +32,9 @@ public final class RecordPhase extends TestOnlyPhase {
 
     @Nullable
     @Override
-    Object handleInvocation(@Nullable Object mock, int mockAccess, @Nonnull String mockClassDesc,
-            @Nonnull String mockNameAndDesc, @Nullable String genericSignature, boolean withRealImpl,
-            @Nonnull Object[] args) {
+    Object handleInvocation(@Nullable Object mock, int mockAccess, @NonNull String mockClassDesc,
+            @NonNull String mockNameAndDesc, @Nullable String genericSignature, boolean withRealImpl,
+            @NonNull Object[] args) {
         mock = configureMatchingOnMockInstanceIfSpecified(mock);
 
         ExpectedInvocation invocation = new ExpectedInvocation(mock, mockAccess, mockClassDesc, mockNameAndDesc,

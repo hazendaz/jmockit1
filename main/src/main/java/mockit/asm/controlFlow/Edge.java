@@ -1,6 +1,6 @@
 package mockit.asm.controlFlow;
 
-import javax.annotation.Nonnull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * An edge in the control flow graph of a method body. See {@link Label}.
@@ -37,7 +37,7 @@ public final class Edge {
      */
     Edge next;
 
-    public Edge(int info, @Nonnull Label successor) {
+    public Edge(int info, @NonNull Label successor) {
         this.info = info;
         this.successor = successor;
     }

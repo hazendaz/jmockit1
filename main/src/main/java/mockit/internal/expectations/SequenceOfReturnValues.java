@@ -15,21 +15,21 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class SequenceOfReturnValues {
-    @Nonnull
+    @NonNull
     private final Expectation expectation;
-    @Nonnull
+    @NonNull
     private final Class<?> returnType;
     @Nullable
     private final Object firstValue;
-    @Nonnull
+    @NonNull
     private final Object[] remainingValues;
 
-    SequenceOfReturnValues(@Nonnull Expectation expectation, @Nullable Object firstValue,
-            @Nonnull Object[] remainingValues) {
+    SequenceOfReturnValues(@NonNull Expectation expectation, @Nullable Object firstValue,
+            @NonNull Object[] remainingValues) {
         this.expectation = expectation;
         returnType = expectation.getReturnType();
         this.firstValue = firstValue;
@@ -99,7 +99,7 @@ final class SequenceOfReturnValues {
         return false;
     }
 
-    private void addAllValues(@Nonnull Collection<Object> values) {
+    private void addAllValues(@NonNull Collection<Object> values) {
         values.add(firstValue);
         Collections.addAll(values, remainingValues);
     }
@@ -125,7 +125,7 @@ final class SequenceOfReturnValues {
         return false;
     }
 
-    private void addReturnValues(@Nonnull Collection<Object> values) {
+    private void addReturnValues(@NonNull Collection<Object> values) {
         addAllValues(values);
         expectation.getResults().addReturnValue(values);
     }

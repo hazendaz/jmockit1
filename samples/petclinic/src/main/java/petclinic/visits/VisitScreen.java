@@ -2,12 +2,12 @@ package petclinic.visits;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
 import petclinic.pets.Pet;
 import petclinic.pets.PetMaintenance;
 

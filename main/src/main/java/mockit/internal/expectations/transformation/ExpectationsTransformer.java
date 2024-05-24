@@ -7,9 +7,6 @@ package mockit.internal.expectations.transformation;
 import java.lang.instrument.ClassFileTransformer;
 import java.security.ProtectionDomain;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.classes.ClassReader;
 import mockit.asm.classes.ClassVisitor;
 import mockit.asm.classes.ClassWriter;
@@ -19,14 +16,17 @@ import mockit.asm.methods.MethodWriter;
 import mockit.internal.util.ClassNaming;
 import mockit.internal.util.VisitInterruptedException;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class ExpectationsTransformer implements ClassFileTransformer {
     private static final String BASE_CLASSES = "mockit/Expectations mockit/Verifications mockit/VerificationsInOrder mockit/FullVerifications";
 
     @Nullable
     @Override
-    public byte[] transform(@Nullable ClassLoader loader, @Nonnull String className,
+    public byte[] transform(@Nullable ClassLoader loader, @NonNull String className,
             @Nullable Class<?> classBeingRedefined, @Nullable ProtectionDomain protectionDomain,
-            @Nonnull byte[] classfileBuffer) {
+            @NonNull byte[] classfileBuffer) {
         if (classBeingRedefined == null && protectionDomain != null && className != null) {
             boolean anonymousClass = ClassNaming.isAnonymousClass(className);
 
@@ -45,18 +45,18 @@ public final class ExpectationsTransformer implements ClassFileTransformer {
         return null;
     }
 
-    private static boolean isJMockitClass(@Nonnull String classDesc) {
+    private static boolean isJMockitClass(@NonNull String classDesc) {
         return classDesc.startsWith("mockit/") && (classDesc.startsWith("mockit/internal/")
                 || classDesc.startsWith("mockit/coverage/") || classDesc.startsWith("mockit/integration/"));
     }
 
     @Nullable
-    private static byte[] modifyInvocationsSubclass(@Nonnull ClassReader cr, @Nonnull final String classDesc) {
+    private static byte[] modifyInvocationsSubclass(@NonNull ClassReader cr, @NonNull final String classDesc) {
         ClassWriter cw = new ClassWriter(cr);
 
         ClassVisitor modifier = new WrappingClassVisitor(cw) {
             @Override
-            public MethodVisitor visitMethod(int access, @Nonnull String name, @Nonnull String desc,
+            public MethodVisitor visitMethod(int access, @NonNull String name, @NonNull String desc,
                     @Nullable String signature, @Nullable String[] exceptions) {
                 MethodWriter mw = cw.visitMethod(access, name, desc, signature, exceptions);
 

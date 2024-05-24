@@ -1,8 +1,8 @@
 package mockit.asm.constantPool;
 
-import javax.annotation.Nonnull;
-
 import org.checkerframework.checker.index.qual.NonNegative;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 class IntValueItem extends Item {
     /**
@@ -14,7 +14,7 @@ class IntValueItem extends Item {
         super(index);
     }
 
-    IntValueItem(@NonNegative int index, @Nonnull IntValueItem item) {
+    IntValueItem(@NonNegative int index, @NonNull IntValueItem item) {
         super(index, item);
         intVal = item.intVal;
     }
@@ -25,7 +25,7 @@ class IntValueItem extends Item {
     }
 
     @Override
-    final boolean isEqualTo(@Nonnull Item item) {
+    final boolean isEqualTo(@NonNull Item item) {
         return ((IntValueItem) item).intVal == intVal;
     }
 }

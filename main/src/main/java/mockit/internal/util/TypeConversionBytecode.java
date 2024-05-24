@@ -10,8 +10,6 @@ import static mockit.asm.jvmConstants.Opcodes.INVOKESTATIC;
 import static mockit.asm.jvmConstants.Opcodes.INVOKEVIRTUAL;
 import static mockit.asm.jvmConstants.Opcodes.POP;
 
-import javax.annotation.Nonnull;
-
 import mockit.asm.methods.MethodVisitor;
 import mockit.asm.types.JavaType;
 import mockit.asm.types.PrimitiveType;
@@ -19,11 +17,13 @@ import mockit.asm.types.ReferenceType;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 public final class TypeConversionBytecode {
     private TypeConversionBytecode() {
     }
 
-    public static void generateCastToObject(@Nonnull MethodVisitor mv, @Nonnull JavaType type) {
+    public static void generateCastToObject(@NonNull MethodVisitor mv, @NonNull JavaType type) {
         if (type instanceof PrimitiveType) {
             String wrapperTypeDesc = ((PrimitiveType) type).getWrapperTypeDesc();
             String desc = '(' + type.getDescriptor() + ")L" + wrapperTypeDesc + ';';
@@ -32,7 +32,7 @@ public final class TypeConversionBytecode {
         }
     }
 
-    public static void generateCastFromObject(@Nonnull MethodVisitor mv, @Nonnull JavaType toType) {
+    public static void generateCastFromObject(@NonNull MethodVisitor mv, @NonNull JavaType toType) {
         if (toType instanceof PrimitiveType) {
             PrimitiveType primitiveType = (PrimitiveType) toType;
 
@@ -47,7 +47,7 @@ public final class TypeConversionBytecode {
         }
     }
 
-    private static void generateTypeCheck(@Nonnull MethodVisitor mv, @Nonnull JavaType toType) {
+    private static void generateTypeCheck(@NonNull MethodVisitor mv, @NonNull JavaType toType) {
         String typeDesc;
 
         if (toType instanceof ReferenceType) {
@@ -59,7 +59,7 @@ public final class TypeConversionBytecode {
         mv.visitTypeInsn(CHECKCAST, typeDesc);
     }
 
-    private static void generateUnboxing(@Nonnull MethodVisitor mv, @Nonnull PrimitiveType primitiveType) {
+    private static void generateUnboxing(@NonNull MethodVisitor mv, @NonNull PrimitiveType primitiveType) {
         String owner = primitiveType.getWrapperTypeDesc();
         String methodName = primitiveType.getClassName() + "Value";
         String methodDesc = "()" + primitiveType.getTypeCode();
@@ -67,7 +67,7 @@ public final class TypeConversionBytecode {
         mv.visitMethodInsn(INVOKEVIRTUAL, owner, methodName, methodDesc, false);
     }
 
-    public static void generateCastOrUnboxing(@Nonnull MethodVisitor mv, @Nonnull JavaType parameterType,
+    public static void generateCastOrUnboxing(@NonNull MethodVisitor mv, @NonNull JavaType parameterType,
             @NonNegative int opcode) {
         if (opcode == ASTORE) {
             generateTypeCheck(mv, parameterType);
@@ -83,15 +83,15 @@ public final class TypeConversionBytecode {
         generateUnboxing(mv, primitiveType);
     }
 
-    public static boolean isPrimitiveWrapper(@Nonnull String typeDesc) {
+    public static boolean isPrimitiveWrapper(@NonNull String typeDesc) {
         return PrimitiveType.getCorrespondingPrimitiveTypeIfWrapperType(typeDesc) != null;
     }
 
-    public static boolean isBoxing(@Nonnull String owner, @Nonnull String name, @Nonnull String desc) {
+    public static boolean isBoxing(@NonNull String owner, @NonNull String name, @NonNull String desc) {
         return desc.charAt(2) == ')' && "valueOf".equals(name) && isPrimitiveWrapper(owner);
     }
 
-    public static boolean isUnboxing(@NonNegative int opcode, @Nonnull String owner, @Nonnull String desc) {
+    public static boolean isUnboxing(@NonNegative int opcode, @NonNull String owner, @NonNull String desc) {
         return opcode == INVOKEVIRTUAL && desc.charAt(1) == ')' && isPrimitiveWrapper(owner);
     }
 }

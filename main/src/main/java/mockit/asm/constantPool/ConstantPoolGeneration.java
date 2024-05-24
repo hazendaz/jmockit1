@@ -15,9 +15,6 @@ import static mockit.asm.jvmConstants.ConstantPoolTypes.STRING;
 import static mockit.asm.jvmConstants.ConstantPoolTypes.UTF8;
 import static mockit.internal.util.ClassLoad.OBJECT;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.jvmConstants.ConstantPoolTypes;
 import mockit.asm.types.JavaType;
 import mockit.asm.types.MethodType;
@@ -29,6 +26,9 @@ import mockit.internal.util.ClassLoad;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 /**
  * Allows the constant pool for a classfile to be created from scratch, when that classfile itself is being generated or
  * modified from an existing class file.
@@ -38,13 +38,13 @@ public final class ConstantPoolGeneration {
     /**
      * The constant pool of the class file being generated/modified.
      */
-    @Nonnull
+    @NonNull
     private final ByteVector pool;
 
     /**
      * The constant pool's hash table data.
      */
-    @Nonnull
+    @NonNull
     private Item[] items;
 
     /**
@@ -59,25 +59,25 @@ public final class ConstantPoolGeneration {
     @NonNegative
     private int index;
 
-    @Nonnull
+    @NonNull
     private final StringItem reusableUTF8Item;
-    @Nonnull
+    @NonNull
     private final StringItem reusableStringItem;
-    @Nonnull
+    @NonNull
     private final NameAndTypeItem reusableNameTypeItem;
-    @Nonnull
+    @NonNull
     private final ClassMemberItem reusableClassMemberItem;
-    @Nonnull
+    @NonNull
     private final IntItem reusableIntItem;
-    @Nonnull
+    @NonNull
     private final LongItem reusableLongItem;
-    @Nonnull
+    @NonNull
     private final FloatItem reusableFloatItem;
-    @Nonnull
+    @NonNull
     private final DoubleItem reusableDoubleItem;
-    @Nonnull
+    @NonNull
     private final MethodHandleItem reusableMethodHandleItem;
-    @Nonnull
+    @NonNull
     private final DynamicItem reusableDynamicItem;
 
     /**
@@ -96,11 +96,11 @@ public final class ConstantPoolGeneration {
      */
     private short typeCount;
 
-    @Nonnull
+    @NonNull
     private final NormalTypeTableItem reusableNormalItem;
-    @Nonnull
+    @NonNull
     private final UninitializedTypeTableItem reusableUninitializedItem;
-    @Nonnull
+    @NonNull
     private final MergedTypeTableItem reusableMergedItem;
 
     @SuppressWarnings("OverlyCoupledMethod")
@@ -135,7 +135,7 @@ public final class ConstantPoolGeneration {
      * @return the index of a new or already existing UTF8 item.
      */
     @NonNegative
-    public int newUTF8(@Nonnull String value) {
+    public int newUTF8(@NonNull String value) {
         reusableUTF8Item.set(UTF8, value);
 
         StringItem result = get(reusableUTF8Item);
@@ -160,7 +160,7 @@ public final class ConstantPoolGeneration {
      * @return the index of a new or already existing class reference item.
      */
     @NonNegative
-    public int newClass(@Nonnull String internalName) {
+    public int newClass(@NonNull String internalName) {
         return newClassItem(internalName).index;
     }
 
@@ -173,8 +173,8 @@ public final class ConstantPoolGeneration {
      *
      * @return a new or already existing class reference item.
      */
-    @Nonnull
-    public StringItem newClassItem(@Nonnull String internalName) {
+    @NonNull
+    public StringItem newClassItem(@NonNull String internalName) {
         return newStringItem(CLASS, internalName);
     }
 
@@ -190,8 +190,8 @@ public final class ConstantPoolGeneration {
      *
      * @return a new or already existing string item.
      */
-    @Nonnull
-    private StringItem newStringItem(int type, @Nonnull String value) {
+    @NonNull
+    private StringItem newStringItem(int type, @NonNull String value) {
         reusableStringItem.set(type, value);
 
         StringItem result = get(reusableStringItem);
@@ -213,8 +213,8 @@ public final class ConstantPoolGeneration {
      *
      * @return a new or an already existing method type reference item.
      */
-    @Nonnull
-    public MethodHandleItem newMethodHandleItem(@Nonnull MethodHandle methodHandle) {
+    @NonNull
+    public MethodHandleItem newMethodHandleItem(@NonNull MethodHandle methodHandle) {
         reusableMethodHandleItem.set(methodHandle);
 
         MethodHandleItem result = get(reusableMethodHandleItem);
@@ -233,9 +233,9 @@ public final class ConstantPoolGeneration {
         return result;
     }
 
-    @Nonnull
-    private ClassMemberItem newClassMemberItem(int type, @Nonnull String owner, @Nonnull String name,
-            @Nonnull String desc) {
+    @NonNull
+    private ClassMemberItem newClassMemberItem(int type, @NonNull String owner, @NonNull String name,
+            @NonNull String desc) {
         reusableClassMemberItem.set(type, owner, name, desc);
 
         ClassMemberItem result = get(reusableClassMemberItem);
@@ -265,8 +265,8 @@ public final class ConstantPoolGeneration {
      *
      * @return a new or already existing field reference item
      */
-    @Nonnull
-    public ClassMemberItem newFieldItem(@Nonnull String owner, @Nonnull String name, @Nonnull String desc) {
+    @NonNull
+    public ClassMemberItem newFieldItem(@NonNull String owner, @NonNull String name, @NonNull String desc) {
         return newClassMemberItem(FIELD_REF, owner, name, desc);
     }
 
@@ -285,8 +285,8 @@ public final class ConstantPoolGeneration {
      *
      * @return a new or already existing method reference item
      */
-    @Nonnull
-    public ClassMemberItem newMethodItem(@Nonnull String owner, @Nonnull String name, @Nonnull String desc,
+    @NonNull
+    public ClassMemberItem newMethodItem(@NonNull String owner, @NonNull String name, @NonNull String desc,
             boolean itf) {
         return newClassMemberItem(itf ? IMETHOD_REF : METHOD_REF, owner, name, desc);
     }
@@ -300,7 +300,7 @@ public final class ConstantPoolGeneration {
      *
      * @return a new or already existing int item
      */
-    @Nonnull
+    @NonNull
     public IntItem newInteger(int value) {
         reusableIntItem.setValue(value);
 
@@ -325,7 +325,7 @@ public final class ConstantPoolGeneration {
      *
      * @return a new or already existing float item
      */
-    @Nonnull
+    @NonNull
     public FloatItem newFloat(float value) {
         reusableFloatItem.set(value);
 
@@ -350,7 +350,7 @@ public final class ConstantPoolGeneration {
      *
      * @return a new or already existing long item
      */
-    @Nonnull
+    @NonNull
     public LongItem newLong(long value) {
         reusableLongItem.setValue(value);
 
@@ -376,7 +376,7 @@ public final class ConstantPoolGeneration {
      *
      * @return a new or already existing double item
      */
-    @Nonnull
+    @NonNull
     public DoubleItem newDouble(double value) {
         reusableDoubleItem.set(value);
 
@@ -405,7 +405,7 @@ public final class ConstantPoolGeneration {
      * @return the index of a new or already existing name and type item
      */
     @NonNegative
-    private int newNameType(@Nonnull String name, @Nonnull String desc) {
+    private int newNameType(@NonNull String name, @NonNull String desc) {
         reusableNameTypeItem.set(name, desc);
 
         NameAndTypeItem result = get(reusableNameTypeItem);
@@ -432,8 +432,8 @@ public final class ConstantPoolGeneration {
      *
      * @return a new or already existing constant item with the given value
      */
-    @Nonnull
-    public Item newConstItem(@Nonnull Object cst) {
+    @NonNull
+    public Item newConstItem(@NonNull Object cst) {
         if (cst instanceof String) {
             return newStringItem(STRING, (String) cst);
         }
@@ -472,8 +472,8 @@ public final class ConstantPoolGeneration {
         throw new IllegalArgumentException("value " + cst);
     }
 
-    @Nonnull
-    private Item newNumberItem(@Nonnull Number cst) {
+    @NonNull
+    private Item newNumberItem(@NonNull Number cst) {
         if (cst instanceof Float) {
             return newFloat(cst.floatValue());
         }
@@ -499,7 +499,7 @@ public final class ConstantPoolGeneration {
      * @return the index of this internal name in the type table
      */
     @NonNegative
-    public int addNormalType(@Nonnull String type) {
+    public int addNormalType(@NonNull String type) {
         reusableNormalItem.set(type);
 
         TypeTableItem result = get(reusableNormalItem);
@@ -524,7 +524,7 @@ public final class ConstantPoolGeneration {
      * @return the index of this internal name in the type table
      */
     @NonNegative
-    public int addUninitializedType(@Nonnull String type, @NonNegative int offset) {
+    public int addUninitializedType(@NonNull String type, @NonNegative int offset) {
         reusableUninitializedItem.set(type, offset);
 
         TypeTableItem result = get(reusableUninitializedItem);
@@ -537,7 +537,7 @@ public final class ConstantPoolGeneration {
         return result.index;
     }
 
-    private void addToTypeTable(@Nonnull TypeTableItem newItem) {
+    private void addToTypeTable(@NonNull TypeTableItem newItem) {
         put(newItem);
 
         if (typeTable == null) {
@@ -603,8 +603,8 @@ public final class ConstantPoolGeneration {
      *
      * @return the internal name of the common super class of the two given classes
      */
-    @Nonnull
-    private static String getCommonSuperClass(@Nonnull String type1, @Nonnull String type2) {
+    @NonNull
+    private static String getCommonSuperClass(@NonNull String type1, @NonNull String type2) {
         // Reimplemented to avoid "duplicate class definition" errors.
         String class1 = type1;
         String class2 = type2;
@@ -629,13 +629,13 @@ public final class ConstantPoolGeneration {
         }
     }
 
-    @Nonnull
+    @NonNull
     public String getInternalName(@NonNegative int typeTableIndex) {
         TypeTableItem typeTableItem = typeTable[typeTableIndex]; // Normal or Uninitialized
         return typeTableItem.typeDesc;
     }
 
-    @Nonnull
+    @NonNull
     public UninitializedTypeTableItem getUninitializedItemValue(@NonNegative int typeTableIndex) {
         return (UninitializedTypeTableItem) typeTable[typeTableIndex];
     }
@@ -655,7 +655,7 @@ public final class ConstantPoolGeneration {
      *         such item
      */
     @Nullable
-    private <I extends Item> I get(@Nonnull I key) {
+    private <I extends Item> I get(@NonNull I key) {
         Item item = getItem(key.getHashCode());
         int keyType = key.getType();
 
@@ -673,7 +673,7 @@ public final class ConstantPoolGeneration {
      * @param item
      *            the item to be added to the constant pool's hash table
      */
-    private void put(@Nonnull Item item) {
+    private void put(@NonNull Item item) {
         resizeItemArrayIfNeeded();
         item.setNext(items);
     }
@@ -695,7 +695,7 @@ public final class ConstantPoolGeneration {
         }
     }
 
-    private static void put(@Nonnull Item[] newItems, @Nullable Item item) {
+    private static void put(@NonNull Item[] newItems, @Nullable Item item) {
         while (item != null) {
             Item next = item.getNext();
             item.setNext(newItems);
@@ -722,11 +722,11 @@ public final class ConstantPoolGeneration {
         }
     }
 
-    public void put(@Nonnull ByteVector out) {
+    public void put(@NonNull ByteVector out) {
         out.putShort(index).putByteVector(pool);
     }
 
-    public void copy(@Nonnull byte[] code, @NonNegative int off, @NonNegative int header, @Nonnull Item[] cpItems) {
+    public void copy(@NonNull byte[] code, @NonNegative int off, @NonNegative int header, @NonNull Item[] cpItems) {
         pool.putByteArray(code, off, header - off);
         items = cpItems;
 
@@ -736,8 +736,8 @@ public final class ConstantPoolGeneration {
         index = ll;
     }
 
-    @Nonnull
-    public DynamicItem createDynamicItem(int type, @Nonnull String name, @Nonnull String desc,
+    @NonNull
+    public DynamicItem createDynamicItem(int type, @NonNull String name, @NonNull String desc,
             @NonNegative int bsmIndex) {
         reusableDynamicItem.set(type, name, desc, bsmIndex);
 

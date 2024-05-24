@@ -7,8 +7,8 @@ package mockit.internal.injection;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Provides type, name, and value(s) for an injection point, which is either a field to be injected or a parameter in
@@ -17,32 +17,32 @@ import javax.annotation.Nullable;
 public abstract class InjectionProvider {
     public static final Object NULL = Void.class;
 
-    @Nonnull
+    @NonNull
     protected final Type declaredType;
-    @Nonnull
+    @NonNull
     protected final String name;
     @Nullable
     public InjectionProvider parent;
 
-    protected InjectionProvider(@Nonnull Type declaredType, @Nonnull String name) {
+    protected InjectionProvider(@NonNull Type declaredType, @NonNull String name) {
         this.declaredType = declaredType;
         this.name = name;
     }
 
-    @Nonnull
+    @NonNull
     public final Type getDeclaredType() {
         return declaredType;
     }
 
-    @Nonnull
+    @NonNull
     public abstract Class<?> getClassOfDeclaredType();
 
-    @Nonnull
+    @NonNull
     public final String getName() {
         return name;
     }
 
-    @Nonnull
+    @NonNull
     public Annotation[] getAnnotations() {
         throw new UnsupportedOperationException("No annotations");
     }
@@ -56,7 +56,7 @@ public abstract class InjectionProvider {
         return false;
     }
 
-    public boolean hasAnnotation(@Nonnull Class<? extends Annotation> annotationOfInterest) {
+    public boolean hasAnnotation(@NonNull Class<? extends Annotation> annotationOfInterest) {
         for (Annotation annotation : getAnnotations()) {
             if (annotationOfInterest.isInstance(annotation)) {
                 return true;

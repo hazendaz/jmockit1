@@ -1,14 +1,14 @@
 package mockit.asm.methods;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.constantPool.AttributeWriter;
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.controlFlow.Label;
 import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Writes the bytecode for the "LineNumberTable" method code attribute.
@@ -26,11 +26,11 @@ final class LineNumberTableWriter extends AttributeWriter {
     @Nullable
     private ByteVector lineNumbers;
 
-    LineNumberTableWriter(@Nonnull ConstantPoolGeneration cp) {
+    LineNumberTableWriter(@NonNull ConstantPoolGeneration cp) {
         super(cp);
     }
 
-    void addLineNumber(@NonNegative int line, @Nonnull Label start) {
+    void addLineNumber(@NonNegative int line, @NonNull Label start) {
         if (lineNumbers == null) {
             setAttribute("LineNumberTable");
             lineNumbers = new ByteVector();
@@ -52,7 +52,7 @@ final class LineNumberTableWriter extends AttributeWriter {
     }
 
     @Override
-    public void put(@Nonnull ByteVector out) {
+    public void put(@NonNull ByteVector out) {
         if (lineNumbers != null) {
             put(out, 2 + lineNumbers.getLength());
             out.putShort(lineNumberCount);

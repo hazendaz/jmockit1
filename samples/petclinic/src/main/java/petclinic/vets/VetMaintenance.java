@@ -2,10 +2,10 @@ package petclinic.vets;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import petclinic.util.Database;
 
 /**
@@ -16,7 +16,7 @@ public class VetMaintenance {
     @Inject
     private Database db;
 
-    @Nonnull
+    @NonNull
     public List<Vet> findAll() {
         return db.find("select v from Vet v order by v.lastName, v.firstName");
     }

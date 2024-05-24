@@ -1,15 +1,15 @@
 package mockit.asm.constantPool;
 
-import javax.annotation.Nonnull;
-
 import mockit.asm.types.JavaType;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 public class TypeOrMemberItem extends Item {
-    @Nonnull
+    @NonNull
     String name;
-    @Nonnull
+    @NonNull
     String desc;
     @NonNegative
     private int argSize;
@@ -19,18 +19,18 @@ public class TypeOrMemberItem extends Item {
         name = desc = "";
     }
 
-    TypeOrMemberItem(@NonNegative int index, @Nonnull TypeOrMemberItem item) {
+    TypeOrMemberItem(@NonNegative int index, @NonNull TypeOrMemberItem item) {
         super(index, item);
         name = item.name;
         desc = item.desc;
     }
 
-    @Nonnull
+    @NonNull
     public String getName() {
         return name;
     }
 
-    @Nonnull
+    @NonNull
     public String getDesc() {
         return desc;
     }
@@ -38,18 +38,18 @@ public class TypeOrMemberItem extends Item {
     /**
      * Sets the name and type descriptor of this item, and computes its hashcode.
      */
-    final void setValuesAndHashcode(@Nonnull String name, @Nonnull String desc, @NonNegative int hashCodeMultiplier) {
+    final void setValuesAndHashcode(@NonNull String name, @NonNull String desc, @NonNegative int hashCodeMultiplier) {
         this.name = name;
         this.desc = desc;
         setHashCode(hashCodeMultiplier * name.hashCode() * desc.hashCode());
     }
 
     @Override
-    boolean isEqualTo(@Nonnull Item item) {
+    boolean isEqualTo(@NonNull Item item) {
         return isEqualTo((TypeOrMemberItem) item);
     }
 
-    final boolean isEqualTo(@Nonnull TypeOrMemberItem item) {
+    final boolean isEqualTo(@NonNull TypeOrMemberItem item) {
         return item.name.equals(name) && item.desc.equals(desc);
     }
 
@@ -59,7 +59,7 @@ public class TypeOrMemberItem extends Item {
      * <code>desc</code>.
      */
     @NonNegative
-    public final int getArgSizeComputingIfNeeded(@Nonnull String methodDesc) {
+    public final int getArgSizeComputingIfNeeded(@NonNull String methodDesc) {
         int thisArgSize = argSize;
 
         if (thisArgSize == 0) {

@@ -2,9 +2,9 @@ package petclinic.visits;
 
 import java.util.Date;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import petclinic.pets.Pet;
 import petclinic.pets.PetData;
 import petclinic.util.TestDatabase;
@@ -16,8 +16,8 @@ public final class VisitData extends TestDatabase {
     @Inject
     private PetData petData;
 
-    @Nonnull
-    public Visit create(@Nonnull String description) {
+    @NonNull
+    public Visit create(@NonNull String description) {
         Pet pet = petData.findOrCreate("Test", null, "mouse");
 
         Visit visit = new Visit();
@@ -28,7 +28,7 @@ public final class VisitData extends TestDatabase {
         return visit;
     }
 
-    @Nonnull
+    @NonNull
     public Visit create() {
         return create("Testing");
     }

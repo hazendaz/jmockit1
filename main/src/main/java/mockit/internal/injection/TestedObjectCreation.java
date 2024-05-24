@@ -9,9 +9,6 @@ import static java.lang.reflect.Modifier.isAbstract;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Type;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.classes.ClassReader;
 import mockit.asm.classes.ClassVisitor;
 import mockit.internal.classGeneration.ImplementationClass;
@@ -21,16 +18,19 @@ import mockit.internal.injection.constructor.ConstructorSearch;
 import mockit.internal.injection.full.FullInjection;
 import mockit.internal.state.TestRun;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class TestedObjectCreation {
-    @Nonnull
+    @NonNull
     private final InjectionState injectionState;
     @Nullable
     private final FullInjection fullInjection;
-    @Nonnull
+    @NonNull
     final TestedClass testedClass;
 
-    TestedObjectCreation(@Nonnull InjectionState injectionState, @Nullable FullInjection fullInjection,
-            @Nonnull Type declaredType, @Nonnull Class<?> declaredClass) {
+    TestedObjectCreation(@NonNull InjectionState injectionState, @Nullable FullInjection fullInjection,
+            @NonNull Type declaredType, @NonNull Class<?> declaredClass) {
         this.injectionState = injectionState;
         this.fullInjection = fullInjection;
         Class<?> actualTestedClass = isAbstract(declaredClass.getModifiers())
@@ -38,12 +38,12 @@ public final class TestedObjectCreation {
         testedClass = new TestedClass(declaredType, actualTestedClass);
     }
 
-    @Nonnull
-    private static Class<?> generateSubclass(@Nonnull final Type testedType, @Nonnull final Class<?> abstractClass) {
+    @NonNull
+    private static Class<?> generateSubclass(@NonNull final Type testedType, @NonNull final Class<?> abstractClass) {
         Class<?> generatedSubclass = new ImplementationClass<>(abstractClass) {
-            @Nonnull
+            @NonNull
             @Override
-            protected ClassVisitor createMethodBodyGenerator(@Nonnull ClassReader cr) {
+            protected ClassVisitor createMethodBodyGenerator(@NonNull ClassReader cr) {
                 return new SubclassGenerationModifier(abstractClass, testedType, cr, generatedClassName, true);
             }
         }.generateClass();
@@ -52,8 +52,8 @@ public final class TestedObjectCreation {
         return generatedSubclass;
     }
 
-    public TestedObjectCreation(@Nonnull InjectionState injectionState, @Nullable FullInjection fullInjection,
-            @Nonnull Class<?> implementationClass) {
+    public TestedObjectCreation(@NonNull InjectionState injectionState, @Nullable FullInjection fullInjection,
+            @NonNull Class<?> implementationClass) {
         this.injectionState = injectionState;
         this.fullInjection = fullInjection;
         testedClass = new TestedClass(implementationClass, implementationClass);

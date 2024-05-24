@@ -11,34 +11,34 @@ import static mockit.internal.reflection.FieldReflection.setFieldValue;
 
 import java.lang.reflect.Field;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.Tested;
 import mockit.internal.util.TypeConversion;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 final class TestedField extends TestedObject {
-    @Nonnull
+    @NonNull
     private final Field testedField;
 
-    TestedField(@Nonnull InjectionState injectionState, @Nonnull Field field, @Nonnull Tested metadata) {
+    TestedField(@NonNull InjectionState injectionState, @NonNull Field field, @NonNull Tested metadata) {
         super(injectionState, metadata, field.getDeclaringClass(), field.getName(), field.getGenericType(),
                 field.getType());
         testedField = field;
     }
 
-    boolean isFromBaseClass(@Nonnull Class<?> testClass) {
+    boolean isFromBaseClass(@NonNull Class<?> testClass) {
         return testedField.getDeclaringClass() != testClass;
     }
 
     @Override
-    boolean alreadyInstantiated(@Nonnull Object testClassInstance) {
+    boolean alreadyInstantiated(@NonNull Object testClassInstance) {
         return isAvailableDuringSetup() && getFieldValue(testedField, testClassInstance) != null;
     }
 
     @Nullable
     @Override
-    Object getExistingTestedInstanceIfApplicable(@Nonnull Object testClassInstance) {
+    Object getExistingTestedInstanceIfApplicable(@NonNull Object testClassInstance) {
         Object testedObject = null;
 
         if (!createAutomatically) {
@@ -60,7 +60,7 @@ final class TestedField extends TestedObject {
     }
 
     @Override
-    void setInstance(@Nonnull Object testClassInstance, @Nullable Object testedInstance) {
+    void setInstance(@NonNull Object testClassInstance, @Nullable Object testedInstance) {
         setFieldValue(testedField, testClassInstance, testedInstance);
     }
 }

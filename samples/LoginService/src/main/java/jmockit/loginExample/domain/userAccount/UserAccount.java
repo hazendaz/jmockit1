@@ -1,6 +1,6 @@
 package jmockit.loginExample.domain.userAccount;
 
-import jakarta.annotation.Nonnull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class UserAccount {
     private final String id;
@@ -41,7 +41,7 @@ public final class UserAccount {
         return password.equals(candidatePassword);
     }
 
-    public static UserAccount find(@Nonnull String accountId) {
+    public static UserAccount find(@NonNull String accountId) {
         throw new UnsupportedOperationException("Not implemented");
     }
 }

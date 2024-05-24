@@ -17,8 +17,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.servlet.ServletConfig;
@@ -26,14 +24,17 @@ import javax.servlet.ServletConfig;
 import mockit.internal.reflection.MethodReflection;
 import mockit.internal.state.TestRun;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class LifecycleMethods {
-    @Nonnull
+    @NonNull
     private final List<Class<?>> classesSearched;
-    @Nonnull
+    @NonNull
     private final Map<Class<?>, Method> initializationMethods;
-    @Nonnull
+    @NonNull
     private final Map<Class<?>, Method> terminationMethods;
-    @Nonnull
+    @NonNull
     private final Map<Class<?>, Object> objectsWithTerminationMethodsToExecute;
     @Nullable
     private Object servletConfig;
@@ -45,7 +46,7 @@ public final class LifecycleMethods {
         objectsWithTerminationMethodsToExecute = new IdentityHashMap<>();
     }
 
-    public void findLifecycleMethods(@Nonnull Class<?> testedClass) {
+    public void findLifecycleMethods(@NonNull Class<?> testedClass) {
         if (testedClass.isInterface() || classesSearched.contains(testedClass)) {
             return;
         }
@@ -61,7 +62,7 @@ public final class LifecycleMethods {
         classesSearched.add(testedClass);
     }
 
-    private void findLifecycleMethodsInSingleClass(boolean isServlet, @Nonnull Class<?> classWithLifecycleMethods) {
+    private void findLifecycleMethodsInSingleClass(boolean isServlet, @NonNull Class<?> classWithLifecycleMethods) {
         Method initializationMethod = null;
         Method terminationMethod = null;
         int methodsFoundInSameClass = 0;
@@ -87,7 +88,7 @@ public final class LifecycleMethods {
         }
     }
 
-    private static boolean isInitializationMethod(@Nonnull Method method, boolean isServlet) {
+    private static boolean isInitializationMethod(@NonNull Method method, boolean isServlet) {
         if (hasLifecycleAnnotation(method, true)) {
             return true;
         }
@@ -100,7 +101,7 @@ public final class LifecycleMethods {
         return false;
     }
 
-    private static boolean hasLifecycleAnnotation(@Nonnull Method method, boolean postConstruct) {
+    private static boolean hasLifecycleAnnotation(@NonNull Method method, boolean postConstruct) {
         try {
             Class<? extends Annotation> lifecycleAnnotation = postConstruct ? PostConstruct.class : PreDestroy.class;
 
@@ -113,12 +114,12 @@ public final class LifecycleMethods {
         return false;
     }
 
-    private static boolean isTerminationMethod(@Nonnull Method method, boolean isServlet) {
+    private static boolean isTerminationMethod(@NonNull Method method, boolean isServlet) {
         return hasLifecycleAnnotation(method, false)
                 || isServlet && "destroy".equals(method.getName()) && getParameterCount(method) == 0;
     }
 
-    public void executeInitializationMethodsIfAny(@Nonnull Class<?> testedClass, @Nonnull Object testedObject) {
+    public void executeInitializationMethodsIfAny(@NonNull Class<?> testedClass, @NonNull Object testedObject) {
         Class<?> superclass = testedClass.getSuperclass();
 
         if (superclass != Object.class) {
@@ -138,7 +139,7 @@ public final class LifecycleMethods {
         }
     }
 
-    private void executeInitializationMethod(@Nonnull Object testedObject, @Nonnull Method initializationMethod) {
+    private void executeInitializationMethod(@NonNull Object testedObject, @NonNull Method initializationMethod) {
         Object[] args = NO_ARGS;
 
         if ("init".equals(initializationMethod.getName()) && getParameterCount(initializationMethod) == 1) {
@@ -164,7 +165,7 @@ public final class LifecycleMethods {
         }
     }
 
-    private void executeTerminationMethod(@Nonnull Class<?> testedClass, @Nonnull Object testedObject) {
+    private void executeTerminationMethod(@NonNull Class<?> testedClass, @NonNull Object testedObject) {
         Method terminationMethod = terminationMethods.get(testedClass);
         TestRun.exitNoMockingZone();
 
@@ -176,8 +177,8 @@ public final class LifecycleMethods {
         }
     }
 
-    void getServletConfigForInitMethodsIfAny(@Nonnull List<? extends InjectionProvider> injectables,
-            @Nonnull Object testClassInstance) {
+    void getServletConfigForInitMethodsIfAny(@NonNull List<? extends InjectionProvider> injectables,
+            @NonNull Object testClassInstance) {
         if (SERVLET_CLASS != null) {
             for (InjectionProvider injectable : injectables) {
                 if (injectable.getDeclaredType() == ServletConfig.class) {

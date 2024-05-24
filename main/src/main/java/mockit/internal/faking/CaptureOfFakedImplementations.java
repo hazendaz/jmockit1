@@ -8,31 +8,31 @@ import static mockit.internal.util.Utilities.getClassType;
 
 import java.lang.reflect.Type;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.MockUp;
 import mockit.asm.classes.ClassReader;
 import mockit.internal.BaseClassModifier;
 import mockit.internal.capturing.CaptureOfImplementations;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class CaptureOfFakedImplementations extends CaptureOfImplementations<Void> {
     private final FakeClassSetup fakeClassSetup;
 
-    public CaptureOfFakedImplementations(@Nonnull MockUp<?> fake, @Nonnull Type baseType) {
+    public CaptureOfFakedImplementations(@NonNull MockUp<?> fake, @NonNull Type baseType) {
         Class<?> baseClassType = getClassType(baseType);
         fakeClassSetup = new FakeClassSetup(baseClassType, baseType, fake, null);
     }
 
-    @Nonnull
+    @NonNull
     @Override
-    protected BaseClassModifier createModifier(@Nullable ClassLoader cl, @Nonnull ClassReader cr,
-            @Nonnull Class<?> baseType, Void typeMetadata) {
+    protected BaseClassModifier createModifier(@Nullable ClassLoader cl, @NonNull ClassReader cr,
+            @NonNull Class<?> baseType, Void typeMetadata) {
         return fakeClassSetup.createClassModifier(cr);
     }
 
     @Override
-    protected void redefineClass(@Nonnull Class<?> realClass, @Nonnull byte[] modifiedClass) {
+    protected void redefineClass(@NonNull Class<?> realClass, @NonNull byte[] modifiedClass) {
         fakeClassSetup.applyClassModifications(realClass, modifiedClass);
     }
 

@@ -4,8 +4,8 @@
  */
 package mockit.internal;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Identifies a class by its loader and name rather than by the <code>Class</code> object, which isn't available during
@@ -14,15 +14,15 @@ import javax.annotation.Nullable;
 public final class ClassIdentification {
     @Nullable
     public final ClassLoader loader;
-    @Nonnull
+    @NonNull
     public final String name;
 
-    public ClassIdentification(@Nullable ClassLoader loader, @Nonnull String name) {
+    public ClassIdentification(@Nullable ClassLoader loader, @NonNull String name) {
         this.loader = loader;
         this.name = name;
     }
 
-    @Nonnull
+    @NonNull
     public Class<?> getLoadedClass() {
         try {
             return Class.forName(name, false, loader);

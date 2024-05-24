@@ -8,29 +8,29 @@ import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.coverage.CoveragePercentage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 abstract class ListWithFilesAndPercentages {
-    @Nonnull
+    @NonNull
     protected final PrintWriter output;
-    @Nonnull
+    @NonNull
     private final String baseIndent;
     @NonNegative
     int totalItems;
     @NonNegative
     int coveredItems;
 
-    ListWithFilesAndPercentages(@Nonnull PrintWriter output, @Nonnull String baseIndent) {
+    ListWithFilesAndPercentages(@NonNull PrintWriter output, @NonNull String baseIndent) {
         this.output = output;
         this.baseIndent = baseIndent;
     }
 
-    final void writeMetricsForEachFile(@Nullable String packageName, @Nonnull List<String> fileNames) {
+    final void writeMetricsForEachFile(@Nullable String packageName, @NonNull List<String> fileNames) {
         if (fileNames.isEmpty()) {
             return;
         }
@@ -58,7 +58,7 @@ abstract class ListWithFilesAndPercentages {
         output.write(baseIndent);
     }
 
-    protected abstract void writeMetricsForFile(@Nullable String packageName, @Nonnull String fileName);
+    protected abstract void writeMetricsForFile(@Nullable String packageName, @NonNull String fileName);
 
     final void printCoveragePercentage(@NonNegative int covered, @NonNegative int total, int percentage) {
         printIndent();

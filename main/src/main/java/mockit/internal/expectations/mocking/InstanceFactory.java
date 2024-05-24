@@ -4,12 +4,12 @@
  */
 package mockit.internal.expectations.mocking;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.internal.util.StackTrace;
 
 import org.objenesis.ObjenesisHelper;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Factory for the creation of new mocked instances, and for obtaining/clearing the last instance created. There are
@@ -17,16 +17,16 @@ import org.objenesis.ObjenesisHelper;
  */
 public abstract class InstanceFactory {
 
-    @Nonnull
+    @NonNull
     private final Class<?> concreteClass;
     @Nullable
     Object lastInstance;
 
-    InstanceFactory(@Nonnull Class<?> concreteClass) {
+    InstanceFactory(@NonNull Class<?> concreteClass) {
         this.concreteClass = concreteClass;
     }
 
-    @Nonnull
+    @NonNull
     @SuppressWarnings("unchecked")
     final <T> T newUninitializedConcreteClassInstance() {
         try {
@@ -38,7 +38,7 @@ public abstract class InstanceFactory {
         }
     }
 
-    @Nonnull
+    @NonNull
     public abstract Object create();
 
     @Nullable
@@ -52,12 +52,12 @@ public abstract class InstanceFactory {
         @Nullable
         private Object emptyProxy;
 
-        InterfaceInstanceFactory(@Nonnull Object emptyProxy) {
+        InterfaceInstanceFactory(@NonNull Object emptyProxy) {
             super(emptyProxy.getClass());
             this.emptyProxy = emptyProxy;
         }
 
-        @Nonnull
+        @NonNull
         @Override
         public Object create() {
             if (emptyProxy == null) {
@@ -76,12 +76,12 @@ public abstract class InstanceFactory {
     }
 
     static final class ClassInstanceFactory extends InstanceFactory {
-        ClassInstanceFactory(@Nonnull Class<?> concreteClass) {
+        ClassInstanceFactory(@NonNull Class<?> concreteClass) {
             super(concreteClass);
         }
 
         @Override
-        @Nonnull
+        @NonNull
         public Object create() {
             lastInstance = newUninitializedConcreteClassInstance();
             return lastInstance;

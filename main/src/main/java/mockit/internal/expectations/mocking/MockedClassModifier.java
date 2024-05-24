@@ -27,9 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.classes.ClassInfo;
 import mockit.asm.classes.ClassReader;
 import mockit.asm.controlFlow.Label;
@@ -37,6 +34,9 @@ import mockit.asm.methods.MethodVisitor;
 import mockit.asm.types.JavaType;
 import mockit.internal.BaseClassModifier;
 import mockit.internal.expectations.ExecutionMode;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class MockedClassModifier extends BaseClassModifier {
     private static final int METHOD_ACCESS_MASK = PRIVATE + SYNTHETIC + ABSTRACT;
@@ -57,7 +57,7 @@ final class MockedClassModifier extends BaseClassModifier {
     private String methodSignature;
     @Nullable
     private String baseClassNameForCapturedInstanceMethods;
-    @Nonnull
+    @NonNull
     private ExecutionMode executionMode;
     private boolean isProxy;
     @Nullable
@@ -65,7 +65,7 @@ final class MockedClassModifier extends BaseClassModifier {
     @Nullable
     List<String> enumSubclasses;
 
-    MockedClassModifier(@Nullable ClassLoader classLoader, @Nonnull ClassReader classReader,
+    MockedClassModifier(@Nullable ClassLoader classLoader, @NonNull ClassReader classReader,
             @Nullable MockedType typeMetadata) {
         super(classReader);
         mockedType = typeMetadata;
@@ -78,12 +78,12 @@ final class MockedClassModifier extends BaseClassModifier {
         executionMode = ExecutionMode.Partial;
     }
 
-    void setClassNameForCapturedInstanceMethods(@Nonnull String internalClassName) {
+    void setClassNameForCapturedInstanceMethods(@NonNull String internalClassName) {
         baseClassNameForCapturedInstanceMethods = internalClassName;
     }
 
     @Override
-    public void visit(int version, int access, @Nonnull String name, @Nonnull ClassInfo additionalInfo) {
+    public void visit(int version, int access, @NonNull String name, @NonNull ClassInfo additionalInfo) {
         validateMockingOfJREClass(name);
 
         super.visit(version, access, name, additionalInfo);
@@ -101,7 +101,7 @@ final class MockedClassModifier extends BaseClassModifier {
         }
     }
 
-    private void validateMockingOfJREClass(@Nonnull String internalName) {
+    private void validateMockingOfJREClass(@NonNull String internalName) {
         if (internalName.startsWith("java/")) {
             validateAsMockable(internalName);
 
@@ -116,14 +116,14 @@ final class MockedClassModifier extends BaseClassModifier {
         }
     }
 
-    private static boolean isFullMockingDisallowed(@Nonnull String classDesc) {
+    private static boolean isFullMockingDisallowed(@NonNull String classDesc) {
         return classDesc.startsWith("java/io/") && ("java/io/FileOutputStream".equals(classDesc)
                 || "java/io/FileInputStream".equals(classDesc) || "java/io/FileWriter".equals(classDesc)
                 || "java/io/PrintWriter java/io/Writer java/io/DataInputStream".contains(classDesc));
     }
 
     @Override
-    public void visitInnerClass(@Nonnull String name, @Nullable String outerName, @Nullable String innerName,
+    public void visitInnerClass(@NonNull String name, @Nullable String outerName, @Nullable String innerName,
             int access) {
         cw.visitInnerClass(name, outerName, innerName, access);
 
@@ -140,7 +140,7 @@ final class MockedClassModifier extends BaseClassModifier {
 
     @Nullable
     @Override
-    public MethodVisitor visitMethod(final int access, @Nonnull final String name, @Nonnull final String desc,
+    public MethodVisitor visitMethod(final int access, @NonNull final String name, @NonNull final String desc,
             @Nullable final String signature, @Nullable String[] exceptions) {
         if ((access & METHOD_ACCESS_MASK) != 0) {
             return unmodifiedBytecode(access, name, desc, signature, exceptions);
@@ -176,17 +176,17 @@ final class MockedClassModifier extends BaseClassModifier {
         return copyOriginalImplementationWithInjectedInterceptionCode();
     }
 
-    @Nonnull
-    private MethodVisitor unmodifiedBytecode(int access, @Nonnull String name, @Nonnull String desc,
+    @NonNull
+    private MethodVisitor unmodifiedBytecode(int access, @NonNull String name, @NonNull String desc,
             @Nullable String signature, @Nullable String[] exceptions) {
         return cw.visitMethod(access, name, desc, signature, exceptions);
     }
 
-    private boolean isConstructorNotAllowedByMockingFilters(@Nonnull String name) {
+    private boolean isConstructorNotAllowedByMockingFilters(@NonNull String name) {
         return isProxy || executionMode != ExecutionMode.Regular || isUnmockableInvocation(name);
     }
 
-    private boolean isUnmockableInvocation(@Nonnull String name) {
+    private boolean isUnmockableInvocation(@NonNull String name) {
         if (defaultFilters == null) {
             return false;
         }
@@ -195,7 +195,7 @@ final class MockedClassModifier extends BaseClassModifier {
         return i > -1 && defaultFilters.charAt(i + name.length()) == ' ';
     }
 
-    private boolean isMethodNotToBeMocked(int access, @Nonnull String name, @Nonnull String desc) {
+    private boolean isMethodNotToBeMocked(int access, @NonNull String name, @NonNull String desc) {
         return isNative(access) && (NATIVE_UNSUPPORTED || (access & PUBLIC_OR_PROTECTED) == 0)
                 || (isProxy || executionMode == ExecutionMode.Partial) && (isMethodFromObject(name, desc)
                         || "annotationType".equals(name) && "()Ljava/lang/Class;".equals(desc));
@@ -213,7 +213,7 @@ final class MockedClassModifier extends BaseClassModifier {
         return mw;
     }
 
-    private boolean stubOutFinalizeMethod(int access, @Nonnull String name, @Nonnull String desc) {
+    private boolean stubOutFinalizeMethod(int access, @NonNull String name, @NonNull String desc) {
         if ("finalize".equals(name) && "()V".equals(desc)) {
             startModifiedMethodVersion(access, name, desc, null, null);
             generateEmptyImplementation();
@@ -223,7 +223,7 @@ final class MockedClassModifier extends BaseClassModifier {
         return false;
     }
 
-    private boolean isMethodNotAllowedByMockingFilters(int access, @Nonnull String name) {
+    private boolean isMethodNotAllowedByMockingFilters(int access, @NonNull String name) {
         return baseClassNameForCapturedInstanceMethods != null && (access & STATIC) != 0
                 || executionMode.isMethodToBeIgnored(access) || isUnmockableInvocation(name);
     }

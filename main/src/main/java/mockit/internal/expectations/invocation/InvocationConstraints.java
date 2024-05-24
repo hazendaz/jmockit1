@@ -7,10 +7,10 @@ package mockit.internal.expectations.invocation;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.checkerframework.checker.index.qual.NonNegative;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class InvocationConstraints {
     public int minInvocations;
@@ -50,7 +50,7 @@ public final class InvocationConstraints {
     }
 
     @Nullable
-    public Error verifyLowerLimit(@Nonnull ExpectedInvocation invocation, int lowerLimit) {
+    public Error verifyLowerLimit(@NonNull ExpectedInvocation invocation, int lowerLimit) {
         if (invocationCount < lowerLimit) {
             int missingInvocations = lowerLimit - invocationCount;
             return invocation.errorForMissingInvocations(missingInvocations,
@@ -61,7 +61,7 @@ public final class InvocationConstraints {
     }
 
     @Nullable
-    public Error verifyUpperLimit(@Nonnull ExpectedInvocation invocation, @Nonnull Object[] replayArgs,
+    public Error verifyUpperLimit(@NonNull ExpectedInvocation invocation, @NonNull Object[] replayArgs,
             int upperLimit) {
         if (upperLimit >= 0) {
             int unexpectedInvocations = invocationCount - upperLimit;
@@ -74,9 +74,9 @@ public final class InvocationConstraints {
         return null;
     }
 
-    @Nonnull
-    public Error errorForMissingExpectations(@Nonnull ExpectedInvocation invocation,
-            @Nonnull List<ExpectedInvocation> nonMatchingInvocations) {
+    @NonNull
+    public Error errorForMissingExpectations(@NonNull ExpectedInvocation invocation,
+            @NonNull List<ExpectedInvocation> nonMatchingInvocations) {
         return invocation.errorForMissingInvocations(minInvocations - invocationCount, nonMatchingInvocations);
     }
 }

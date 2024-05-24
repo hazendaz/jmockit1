@@ -6,9 +6,6 @@ package mockit.internal.classGeneration;
 
 import java.lang.reflect.Type;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.classes.ClassReader;
 import mockit.asm.classes.ClassVisitor;
 import mockit.internal.ClassFile;
@@ -16,31 +13,34 @@ import mockit.internal.util.ClassLoad;
 import mockit.internal.util.GeneratedClasses;
 import mockit.internal.util.Utilities;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 /**
  * Allows the creation of new implementation classes for interfaces and abstract classes.
  */
 public abstract class ImplementationClass<T> {
-    @Nonnull
+    @NonNull
     protected final Class<?> sourceClass;
-    @Nonnull
+    @NonNull
     protected String generatedClassName;
     @Nullable
     private byte[] generatedBytecode;
 
-    protected ImplementationClass(@Nonnull Type mockedType) {
+    protected ImplementationClass(@NonNull Type mockedType) {
         this(Utilities.getClassType(mockedType));
     }
 
-    protected ImplementationClass(@Nonnull Class<?> mockedClass) {
+    protected ImplementationClass(@NonNull Class<?> mockedClass) {
         this(mockedClass, GeneratedClasses.getNameForGeneratedClass(mockedClass, null));
     }
 
-    protected ImplementationClass(@Nonnull Class<?> sourceClass, @Nonnull String desiredClassName) {
+    protected ImplementationClass(@NonNull Class<?> sourceClass, @NonNull String desiredClassName) {
         this.sourceClass = sourceClass;
         generatedClassName = desiredClassName;
     }
 
-    @Nonnull
+    @NonNull
     public final Class<T> generateClass() {
         ClassReader classReader = ClassFile.createReaderOrGetFromCache(sourceClass);
 
@@ -50,11 +50,11 @@ public abstract class ImplementationClass<T> {
         return defineNewClass(modifier);
     }
 
-    @Nonnull
-    protected abstract ClassVisitor createMethodBodyGenerator(@Nonnull ClassReader cr);
+    @NonNull
+    protected abstract ClassVisitor createMethodBodyGenerator(@NonNull ClassReader cr);
 
-    @Nonnull
-    private Class<T> defineNewClass(@Nonnull ClassVisitor modifier) {
+    @NonNull
+    private Class<T> defineNewClass(@NonNull ClassVisitor modifier) {
         final ClassLoader parentLoader = ClassLoad.getClassLoaderWithAccess(sourceClass);
         final byte[] modifiedClassfile = modifier.toByteArray();
 

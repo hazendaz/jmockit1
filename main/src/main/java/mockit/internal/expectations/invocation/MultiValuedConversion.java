@@ -22,21 +22,21 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 final class MultiValuedConversion {
-    @Nonnull
+    @NonNull
     private final InvocationResults invocationResults;
-    @Nonnull
+    @NonNull
     private final Class<?> returnType;
-    @Nonnull
+    @NonNull
     private final Object valueToReturn;
 
-    MultiValuedConversion(@Nonnull InvocationResults invocationResults, @Nonnull Class<?> returnType,
-            @Nonnull Object valueToReturn) {
+    MultiValuedConversion(@NonNull InvocationResults invocationResults, @NonNull Class<?> returnType,
+            @NonNull Object valueToReturn) {
         this.invocationResults = invocationResults;
         this.returnType = returnType;
         this.valueToReturn = valueToReturn;
@@ -109,8 +109,8 @@ final class MultiValuedConversion {
         return false;
     }
 
-    @Nonnull
-    private Collection<?> addArrayElements(@Nonnull Collection<Object> values, @NonNegative int elementCount) {
+    @NonNull
+    private Collection<?> addArrayElements(@NonNull Collection<Object> values, @NonNegative int elementCount) {
         for (int i = 0; i < elementCount; i++) {
             Object element = Array.get(valueToReturn, i);
             values.add(element);
@@ -120,7 +120,7 @@ final class MultiValuedConversion {
     }
 
     @Nullable
-    private Object addArrayElements(@Nonnull Map<Object, Object> values, @NonNegative int elementPairCount) {
+    private Object addArrayElements(@NonNull Map<Object, Object> values, @NonNegative int elementPairCount) {
         for (int i = 0; i < elementPairCount; i++) {
             Object keyAndValue = Array.get(valueToReturn, i);
 

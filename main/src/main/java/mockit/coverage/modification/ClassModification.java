@@ -10,17 +10,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.classes.ClassReader;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class ClassModification {
-    @Nonnull
+    @NonNull
     private final Set<String> modifiedClasses;
-    @Nonnull
+    @NonNull
     final List<ProtectionDomain> protectionDomainsWithUniqueLocations;
-    @Nonnull
+    @NonNull
     private final ClassSelection classSelection;
 
     public ClassModification() {
@@ -33,13 +33,13 @@ public final class ClassModification {
         return !classSelection.loadedOnly;
     }
 
-    boolean isToBeConsideredForCoverage(@Nonnull String className, @Nonnull ProtectionDomain protectionDomain) {
+    boolean isToBeConsideredForCoverage(@NonNull String className, @NonNull ProtectionDomain protectionDomain) {
         return !modifiedClasses.contains(className) && classSelection.isSelected(className, protectionDomain);
     }
 
     @Nullable
-    public byte[] modifyClass(@Nonnull String className, @Nonnull ProtectionDomain protectionDomain,
-            @Nonnull byte[] originalClassfile) {
+    public byte[] modifyClass(@NonNull String className, @NonNull ProtectionDomain protectionDomain,
+            @NonNull byte[] originalClassfile) {
         if (isToBeConsideredForCoverage(className, protectionDomain)) {
             try {
                 byte[] modifiedClassfile = modifyClassForCoverage(className, originalClassfile);
@@ -55,8 +55,8 @@ public final class ClassModification {
         return null;
     }
 
-    @Nonnull
-    private static byte[] modifyClassForCoverage(@Nonnull String className, @Nonnull byte[] classBytecode) {
+    @NonNull
+    private static byte[] modifyClassForCoverage(@NonNull String className, @NonNull byte[] classBytecode) {
         byte[] modifiedBytecode = CoverageModifier.recoverModifiedByteCodeIfAvailable(className);
 
         if (modifiedBytecode != null) {
@@ -69,7 +69,7 @@ public final class ClassModification {
         return modifier.toByteArray();
     }
 
-    private void registerModifiedClass(@Nonnull String className, @Nonnull ProtectionDomain pd) {
+    private void registerModifiedClass(@NonNull String className, @NonNull ProtectionDomain pd) {
         modifiedClasses.add(className);
 
         if (pd.getClassLoader() != null && pd.getCodeSource() != null && pd.getCodeSource().getLocation() != null) {
@@ -77,7 +77,7 @@ public final class ClassModification {
         }
     }
 
-    private void addProtectionDomainIfHasUniqueNewPath(@Nonnull ProtectionDomain newPD) {
+    private void addProtectionDomainIfHasUniqueNewPath(@NonNull ProtectionDomain newPD) {
         String newPath = newPD.getCodeSource().getLocation().getPath();
 
         for (int i = protectionDomainsWithUniqueLocations.size() - 1; i >= 0; i--) {

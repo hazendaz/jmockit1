@@ -11,27 +11,27 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.types.JavaType;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class CascadingTypes {
-    @Nonnull
+    @NonNull
     private final Map<Type, MockedTypeCascade> mockedTypesToCascades;
 
     CascadingTypes() {
         mockedTypesToCascades = new ConcurrentHashMap<>(4);
     }
 
-    public void add(boolean fromMockField, @Nonnull Type mockedType) {
+    public void add(boolean fromMockField, @NonNull Type mockedType) {
         Class<?> mockedClass = getClassType(mockedType);
         String mockedTypeDesc = JavaType.getInternalName(mockedClass);
         add(mockedTypeDesc, fromMockField, mockedType);
     }
 
-    @Nonnull
-    MockedTypeCascade add(@Nonnull String mockedTypeDesc, boolean fromMockField, @Nonnull Type mockedType) {
+    @NonNull
+    MockedTypeCascade add(@NonNull String mockedTypeDesc, boolean fromMockField, @NonNull Type mockedType) {
         MockedTypeCascade cascade = mockedTypesToCascades.get(mockedType);
 
         if (cascade == null) {
@@ -42,13 +42,13 @@ public final class CascadingTypes {
         return cascade;
     }
 
-    @Nonnull
-    MockedTypeCascade getCascade(@Nonnull Type mockedType) {
+    @NonNull
+    MockedTypeCascade getCascade(@NonNull Type mockedType) {
         return mockedTypesToCascades.get(mockedType);
     }
 
     @Nullable
-    MockedTypeCascade getCascade(@Nonnull String mockedTypeDesc, @Nullable Object mockInstance) {
+    MockedTypeCascade getCascade(@NonNull String mockedTypeDesc, @Nullable Object mockInstance) {
         if (mockedTypesToCascades.isEmpty()) {
             return null;
         }
@@ -71,7 +71,7 @@ public final class CascadingTypes {
     }
 
     @Nullable
-    private MockedTypeCascade findCascadeForInstance(@Nonnull Object mockInstance) {
+    private MockedTypeCascade findCascadeForInstance(@NonNull Object mockInstance) {
         for (MockedTypeCascade cascade : mockedTypesToCascades.values()) {
             if (cascade.hasInstance(mockInstance)) {
                 return cascade;
@@ -101,7 +101,7 @@ public final class CascadingTypes {
         mockedTypesToCascades.clear();
     }
 
-    void addInstance(@Nonnull Type mockedType, @Nonnull Object cascadingInstance) {
+    void addInstance(@NonNull Type mockedType, @NonNull Object cascadingInstance) {
         MockedTypeCascade cascade = mockedTypesToCascades.get(mockedType);
 
         if (cascade != null) {

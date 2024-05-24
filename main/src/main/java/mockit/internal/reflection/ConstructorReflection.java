@@ -12,17 +12,17 @@ import static mockit.internal.util.Utilities.ensureThatMemberIsAccessible;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.objenesis.instantiator.sun.SunReflectionFactoryInstantiator;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class ConstructorReflection {
     private ConstructorReflection() {
     }
 
-    @Nonnull
-    static <T> Constructor<T> findSpecifiedConstructor(@Nonnull Class<?> theClass, @Nonnull Class<?>[] paramTypes) {
+    @NonNull
+    static <T> Constructor<T> findSpecifiedConstructor(@NonNull Class<?> theClass, @NonNull Class<?>[] paramTypes) {
         for (Constructor<?> declaredConstructor : theClass.getDeclaredConstructors()) {
             Class<?>[] declaredParameterTypes = declaredConstructor.getParameterTypes();
             int firstRealParameter = indexOfFirstRealParameter(declaredParameterTypes, paramTypes);
@@ -40,8 +40,8 @@ public final class ConstructorReflection {
                 "Specified constructor not found: " + theClass.getSimpleName() + paramTypesDesc);
     }
 
-    @Nonnull
-    public static <T> T invokeAccessible(@Nonnull Constructor<T> constructor, @Nonnull Object... initArgs) {
+    @NonNull
+    public static <T> T invokeAccessible(@NonNull Constructor<T> constructor, @NonNull Object... initArgs) {
         if (!constructor.isAccessible()) {
             constructor.setAccessible(true);
         }
@@ -63,15 +63,15 @@ public final class ConstructorReflection {
         }
     }
 
-    public static void newInstanceUsingCompatibleConstructor(@Nonnull Class<?> aClass, @Nonnull String argument)
+    public static void newInstanceUsingCompatibleConstructor(@NonNull Class<?> aClass, @NonNull String argument)
             throws ReflectiveOperationException {
         Constructor<?> constructor = aClass.getDeclaredConstructor(String.class);
         ensureThatMemberIsAccessible(constructor);
         constructor.newInstance(argument);
     }
 
-    @Nonnull
-    public static <T> T newInstanceUsingDefaultConstructor(@Nonnull Class<T> aClass) {
+    @NonNull
+    public static <T> T newInstanceUsingDefaultConstructor(@NonNull Class<T> aClass) {
         try {
             Constructor<T> constructor = aClass.getDeclaredConstructor();
             ensureThatMemberIsAccessible(constructor);
@@ -84,7 +84,7 @@ public final class ConstructorReflection {
     }
 
     @Nullable
-    public static <T> T newInstanceUsingDefaultConstructorIfAvailable(@Nonnull Class<T> aClass) {
+    public static <T> T newInstanceUsingDefaultConstructorIfAvailable(@NonNull Class<T> aClass) {
         try {
             Constructor<T> constructor = aClass.getDeclaredConstructor();
             return constructor.newInstance();
@@ -95,8 +95,8 @@ public final class ConstructorReflection {
     }
 
     @Nullable
-    public static <T> T newInstanceUsingPublicConstructorIfAvailable(@Nonnull Class<T> aClass,
-            @Nonnull Class<?>[] parameterTypes, @Nonnull Object... initArgs) {
+    public static <T> T newInstanceUsingPublicConstructorIfAvailable(@NonNull Class<T> aClass,
+            @NonNull Class<?>[] parameterTypes, @NonNull Object... initArgs) {
         Constructor<T> publicConstructor;
         try {
             publicConstructor = aClass.getConstructor(parameterTypes);
@@ -107,8 +107,8 @@ public final class ConstructorReflection {
         return invokeAccessible(publicConstructor, initArgs);
     }
 
-    @Nonnull
-    public static <T> T newInstanceUsingPublicDefaultConstructor(@Nonnull Class<T> aClass) {
+    @NonNull
+    public static <T> T newInstanceUsingPublicDefaultConstructor(@NonNull Class<T> aClass) {
         Constructor<T> publicConstructor;
         try {
             publicConstructor = aClass.getConstructor();
@@ -119,8 +119,8 @@ public final class ConstructorReflection {
         return invokeAccessible(publicConstructor);
     }
 
-    @Nonnull
-    public static <T> T newUninitializedInstance(@Nonnull Class<T> aClass) {
+    @NonNull
+    public static <T> T newUninitializedInstance(@NonNull Class<T> aClass) {
         SunReflectionFactoryInstantiator<T> ref = new SunReflectionFactoryInstantiator<>(aClass);
         return ref.newInstance();
     }

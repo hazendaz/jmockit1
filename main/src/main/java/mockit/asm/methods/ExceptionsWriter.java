@@ -1,12 +1,12 @@
 package mockit.asm.methods;
 
-import javax.annotation.Nonnull;
-
 import mockit.asm.constantPool.AttributeWriter;
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Stores the exceptions that can be thrown by a method/constructor, and writes it to the "Exceptions" attribute. For
@@ -14,10 +14,10 @@ import org.checkerframework.checker.index.qual.NonNegative;
  * exception class.
  */
 final class ExceptionsWriter extends AttributeWriter {
-    @Nonnull
+    @NonNull
     private final int[] exceptionIndices;
 
-    ExceptionsWriter(@Nonnull ConstantPoolGeneration cp, @Nonnull String[] exceptionTypeDescs) {
+    ExceptionsWriter(@NonNull ConstantPoolGeneration cp, @NonNull String[] exceptionTypeDescs) {
         super(cp, "Exceptions");
         int n = exceptionTypeDescs.length;
         exceptionIndices = new int[n];
@@ -34,7 +34,7 @@ final class ExceptionsWriter extends AttributeWriter {
     }
 
     @Override
-    public void put(@Nonnull ByteVector out) {
+    public void put(@NonNull ByteVector out) {
         int n = exceptionIndices.length;
         put(out, 2 + 2 * n);
         out.putShort(n);

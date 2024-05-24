@@ -6,29 +6,29 @@ package mockit.internal.expectations;
 
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 abstract class Phase {
-    @Nonnull
+    @NonNull
     final PhasedExecutionState executionState;
 
-    Phase(@Nonnull PhasedExecutionState executionState) {
+    Phase(@NonNull PhasedExecutionState executionState) {
         this.executionState = executionState;
     }
 
-    @Nonnull
+    @NonNull
     public final Map<Object, Object> getInstanceMap() {
         return executionState.equivalentInstances.instanceMap;
     }
 
-    @Nonnull
+    @NonNull
     final Map<Object, Object> getReplacementMap() {
         return executionState.equivalentInstances.replacementMap;
     }
 
     @Nullable
-    abstract Object handleInvocation(@Nullable Object mock, int mockAccess, @Nonnull String mockClassDesc,
-            @Nonnull String mockNameAndDesc, @Nullable String genericSignature, boolean withRealImpl,
-            @Nonnull Object[] args) throws Throwable;
+    abstract Object handleInvocation(@Nullable Object mock, int mockAccess, @NonNull String mockClassDesc,
+            @NonNull String mockNameAndDesc, @Nullable String genericSignature, boolean withRealImpl,
+            @NonNull Object[] args) throws Throwable;
 }

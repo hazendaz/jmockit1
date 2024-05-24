@@ -6,19 +6,19 @@ package mockit.internal.expectations.invocation;
 
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
 import mockit.internal.expectations.argumentMatching.EqualityMatcher;
 import mockit.internal.expectations.argumentMatching.LenientEqualityMatcher;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 final class ArgumentValuesAndMatchersWithoutVarargs extends ArgumentValuesAndMatchers {
-    ArgumentValuesAndMatchersWithoutVarargs(@Nonnull InvocationArguments signature, @Nonnull Object[] values) {
+    ArgumentValuesAndMatchersWithoutVarargs(@NonNull InvocationArguments signature, @NonNull Object[] values) {
         super(signature, values);
     }
 
     @Override
-    boolean isMatch(@Nonnull Object[] replayArgs, @Nonnull Map<Object, Object> instanceMap) {
+    boolean isMatch(@NonNull Object[] replayArgs, @NonNull Map<Object, Object> instanceMap) {
         if (matchers == null) {
             return areEqual(values, replayArgs, replayArgs.length, instanceMap);
         }
@@ -44,7 +44,7 @@ final class ArgumentValuesAndMatchersWithoutVarargs extends ArgumentValuesAndMat
     }
 
     @Override
-    boolean hasEquivalentMatchers(@Nonnull ArgumentValuesAndMatchers other) {
+    boolean hasEquivalentMatchers(@NonNull ArgumentValuesAndMatchers other) {
         @SuppressWarnings("unchecked")
         int i = indexOfFirstValueAfterEquivalentMatchers(other);
 

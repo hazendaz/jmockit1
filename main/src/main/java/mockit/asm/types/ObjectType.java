@@ -1,12 +1,12 @@
 package mockit.asm.types;
 
-import javax.annotation.Nonnull;
-
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 public final class ObjectType extends ReferenceType {
-    @Nonnull
-    public static ObjectType create(@Nonnull String internalName) {
+    @NonNull
+    public static ObjectType create(@NonNull String internalName) {
         return new ObjectType(internalName.toCharArray());
     }
 
@@ -18,28 +18,28 @@ public final class ObjectType extends ReferenceType {
      * @param off
      *            the offset of the descriptor in the buffer
      */
-    @Nonnull
-    static ObjectType create(@Nonnull char[] typeDesc, @NonNegative int off) {
+    @NonNull
+    static ObjectType create(@NonNull char[] typeDesc, @NonNegative int off) {
         int len = findTypeNameLength(typeDesc, off, 0);
         return new ObjectType(typeDesc, off + 1, len - 1);
     }
 
-    private ObjectType(@Nonnull char[] typeDesc, @NonNegative int off, @NonNegative int len) {
+    private ObjectType(@NonNull char[] typeDesc, @NonNegative int off, @NonNegative int len) {
         super(typeDesc, off, len);
     }
 
-    ObjectType(@Nonnull char[] internalName) {
+    ObjectType(@NonNull char[] internalName) {
         super(internalName);
     }
 
     @Override
-    void getDescriptor(@Nonnull StringBuilder typeDesc) {
+    void getDescriptor(@NonNull StringBuilder typeDesc) {
         typeDesc.append('L');
         super.getDescriptor(typeDesc);
         typeDesc.append(';');
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public String getClassName() {
         return getInternalName().replace('/', '.');

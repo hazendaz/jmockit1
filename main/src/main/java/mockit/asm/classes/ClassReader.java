@@ -1,8 +1,5 @@
 package mockit.asm.classes;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.AnnotatedReader;
 import mockit.asm.fields.FieldReader;
 import mockit.asm.jvmConstants.Access;
@@ -10,6 +7,9 @@ import mockit.asm.jvmConstants.ClassVersion;
 import mockit.asm.methods.MethodReader;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * A Java class parser to make a {@link ClassVisitor} visit an existing class.
@@ -27,7 +27,7 @@ public final class ClassReader extends AnnotatedReader {
 
     @NonNegative
     private final int version;
-    @Nonnull
+    @NonNull
     private final ClassInfo classInfo;
 
     private ClassVisitor cv;
@@ -45,7 +45,7 @@ public final class ClassReader extends AnnotatedReader {
     /**
      * Initializes a new class reader with the given bytecode array for a classfile.
      */
-    public ClassReader(@Nonnull byte[] code) {
+    public ClassReader(@NonNull byte[] code) {
         super(code);
         header = codeIndex; // the class header information starts just after the constant pool
         version = readShort(6);
@@ -72,7 +72,7 @@ public final class ClassReader extends AnnotatedReader {
     /**
      * Returns the internal of name of the super class. For interfaces, the super class is {@link Object}.
      */
-    @Nonnull
+    @NonNull
     public String getSuperName() {
         assert classInfo.superName != null;
         return classInfo.superName;
@@ -81,7 +81,7 @@ public final class ClassReader extends AnnotatedReader {
     /**
      * Returns the bytecode array of the Java classfile that was read.
      */
-    @Nonnull
+    @NonNull
     public byte[] getBytecode() {
         return code;
     }
@@ -129,7 +129,7 @@ public final class ClassReader extends AnnotatedReader {
 
     @Nullable
     @Override
-    protected Boolean readAttribute(@Nonnull String attributeName) {
+    protected Boolean readAttribute(@NonNull String attributeName) {
         if ("SourceFile".equals(attributeName)) {
             classInfo.sourceFileName = readNonnullUTF8();
             return true;

@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.StringReader;
 import java.nio.CharBuffer;
 
-import javax.annotation.Nonnull;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,6 +13,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * The Class FakingBaseTypesTest.
@@ -560,7 +560,7 @@ final class FakingBaseTypesTest {
         CharBuffer buf = CharBuffer.allocate(10);
         int r1 = new Readable() {
             @Override
-            public int read(@Nonnull CharBuffer cb) {
+            public int read(@NonNull CharBuffer cb) {
                 return 1;
             }
         }.read(buf);

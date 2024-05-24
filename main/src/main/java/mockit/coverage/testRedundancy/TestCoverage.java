@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.coverage.Configuration;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class TestCoverage {
     @Nullable
@@ -26,7 +26,7 @@ public final class TestCoverage {
         INSTANCE = "true".equals(Configuration.getProperty("redundancy")) ? new TestCoverage() : null;
     }
 
-    @Nonnull
+    @NonNull
     private final Map<Method, Integer> testsToItemsCovered = new LinkedHashMap<>();
     @Nullable
     private Method currentTestMethod;
@@ -49,7 +49,7 @@ public final class TestCoverage {
         }
     }
 
-    @Nonnull
+    @NonNull
     public List<Method> getRedundantTests() {
         List<Method> redundantTests = new ArrayList<>();
 

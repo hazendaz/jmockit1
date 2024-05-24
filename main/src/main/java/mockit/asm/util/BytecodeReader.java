@@ -18,9 +18,6 @@ import static mockit.asm.jvmConstants.ConstantPoolTypes.PACKAGE;
 import static mockit.asm.jvmConstants.ConstantPoolTypes.STRING;
 import static mockit.asm.jvmConstants.ConstantPoolTypes.UTF8;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.constantPool.DynamicItem;
 import mockit.asm.jvmConstants.ConstantPoolTypes;
 import mockit.asm.types.JavaType;
@@ -29,18 +26,21 @@ import mockit.asm.types.ReferenceType;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public class BytecodeReader {
     /**
      * The class to be parsed. <em>The content of this array must not be modified.</em>
      */
-    @Nonnull
+    @NonNull
     public final byte[] code;
 
     /**
      * The start index of each constant pool item in {@link #code}, plus one. The one byte offset skips the constant
      * pool item tag that indicates its type.
      */
-    @Nonnull
+    @NonNull
     public final int[] items;
 
     /**
@@ -49,13 +49,13 @@ public class BytecodeReader {
      * could be extended to all constant pool items, but its benefit would not be so great for these items (because they
      * are much less expensive to parse than CONSTANT_Utf8 items).
      */
-    @Nonnull
+    @NonNull
     private final String[] strings;
 
     /**
      * The buffer used to read strings.
      */
-    @Nonnull
+    @NonNull
     private final char[] buf;
 
     /**
@@ -64,7 +64,7 @@ public class BytecodeReader {
     @NonNegative
     public int codeIndex;
 
-    protected BytecodeReader(@Nonnull byte[] code) {
+    protected BytecodeReader(@NonNull byte[] code) {
         this.code = code;
         codeIndex = 8;
 
@@ -127,7 +127,7 @@ public class BytecodeReader {
         }
     }
 
-    protected BytecodeReader(@Nonnull BytecodeReader another) {
+    protected BytecodeReader(@NonNull BytecodeReader another) {
         code = another.code;
         items = another.items;
         strings = another.strings;
@@ -318,7 +318,7 @@ public class BytecodeReader {
      *
      * @return the string
      */
-    @Nonnull
+    @NonNull
     @SuppressWarnings("CharUsedInArithmeticContext")
     private String readUTF(@NonNegative int itemIndex) {
         int startIndex = items[itemIndex];
@@ -407,7 +407,7 @@ public class BytecodeReader {
      *
      * @return the UTF8 string found in {@link #strings} at that index
      */
-    @Nonnull
+    @NonNull
     public final String readNonnullUTF8() {
         int itemIndex = readUnsignedShort();
         return readString(itemIndex);
@@ -421,7 +421,7 @@ public class BytecodeReader {
      *
      * @return the UTF8 string found in {@link #strings} at that index
      */
-    @Nonnull
+    @NonNull
     public final String readNonnullUTF8(@NonNegative int u2CodeIndex) {
         int itemIndex = readUnsignedShort(u2CodeIndex);
         return readString(itemIndex);
@@ -435,7 +435,7 @@ public class BytecodeReader {
      *
      * @return the string
      */
-    @Nonnull
+    @NonNull
     public final String readString(@NonNegative int itemIndex) {
         String cachedString = strings[itemIndex];
 
@@ -453,13 +453,13 @@ public class BytecodeReader {
      *
      * @return the UTF8 string found in {@link #strings} at that index
      */
-    @Nonnull
+    @NonNull
     public final Object readConstItem() {
         int constIndex = readUnsignedShort();
         return readConst(constIndex);
     }
 
-    @Nonnull
+    @NonNull
     protected final Object readConstItem(@NonNegative int u2CodeIndex) {
         int itemIndex = readUnsignedShort(u2CodeIndex);
         return readConst(itemIndex);
@@ -474,7 +474,7 @@ public class BytecodeReader {
      * @return the {@link Integer}, {@link Float}, {@link Long}, {@link Double}, {@link String}, {@link JavaType} or
      *         {@link MethodHandle} corresponding to the given constant pool item
      */
-    @Nonnull
+    @NonNull
     protected final Object readConst(@NonNegative int itemIndex) {
         int constCodeIndex = items[itemIndex];
         byte itemType = code[constCodeIndex - 1];
@@ -512,19 +512,19 @@ public class BytecodeReader {
         }
     }
 
-    @Nonnull
+    @NonNull
     public final MethodHandle readMethodHandle() {
         int itemIndex = readUnsignedShort();
         return readMethodHandle(items[itemIndex]);
     }
 
-    @Nonnull
+    @NonNull
     protected final MethodHandle readMethodHandleItem(@NonNegative int bsmCodeIndex) {
         int itemIndex = readUnsignedShort(bsmCodeIndex);
         return readMethodHandle(items[itemIndex]);
     }
 
-    @Nonnull
+    @NonNull
     private MethodHandle readMethodHandle(@NonNegative int bsmCodeIndex) {
         int tag = readUnsignedByte(bsmCodeIndex);
         if (tag < MethodHandle.Tag.TAG_GETFIELD || tag > MethodHandle.Tag.TAG_INVOKEINTERFACE) {
@@ -557,13 +557,13 @@ public class BytecodeReader {
      *
      * @return the string
      */
-    @Nonnull
+    @NonNull
     public final String readNonnullClass() {
         int itemCodeIndex = readItem();
         return readNonnullUTF8(itemCodeIndex);
     }
 
-    @Nonnull
+    @NonNull
     public final String readNonnullClass(@NonNegative int u2CodeIndex) {
         int itemCodeIndex = readItem(u2CodeIndex);
         return readNonnullUTF8(itemCodeIndex);

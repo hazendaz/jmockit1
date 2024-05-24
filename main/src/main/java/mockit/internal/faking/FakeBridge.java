@@ -6,23 +6,23 @@ package mockit.internal.faking;
 
 import java.lang.reflect.Method;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.internal.ClassLoadingBridge;
 import mockit.internal.state.TestRun;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class FakeBridge extends ClassLoadingBridge {
-    @Nonnull
+    @NonNull
     public static final ClassLoadingBridge MB = new FakeBridge();
 
     private FakeBridge() {
         super("$FB");
     }
 
-    @Nonnull
+    @NonNull
     @Override
-    public Object invoke(@Nullable Object faked, Method method, @Nonnull Object[] args) {
+    public Object invoke(@Nullable Object faked, Method method, @NonNull Object[] args) {
         if (TestRun.isInsideNoMockingZone()) {
             return false;
         }

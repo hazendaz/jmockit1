@@ -4,7 +4,7 @@
  */
 package mockit.internal.expectations.invocation;
 
-import javax.annotation.Nonnull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Thrown to indicate that one or more unexpected invocations occurred during the test.
@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 public final class UnexpectedInvocation extends Error {
     private static final long serialVersionUID = 1L;
 
-    public UnexpectedInvocation(@Nonnull String detailMessage) {
+    public UnexpectedInvocation(@NonNull String detailMessage) {
         super(detailMessage);
     }
 

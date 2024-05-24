@@ -4,9 +4,6 @@
  */
 package mockit.integration.springframework;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.Injectable;
 import mockit.Invocation;
 import mockit.Mock;
@@ -18,6 +15,9 @@ import mockit.internal.state.TestRun;
 
 import org.springframework.beans.factory.support.AbstractBeanFactory;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * If applied, this fake will take over calls to {@link AbstractBeanFactory#getBean(String)} and
@@ -32,7 +32,7 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
  */
 public final class FakeBeanFactory extends MockUp<DefaultListableBeanFactory> {
     @Mock
-    public static Object getBean(@Nonnull Invocation invocation, @Nonnull String name) {
+    public static Object getBean(@NonNull Invocation invocation, @NonNull String name) {
         TestedClassInstantiations testedClasses = TestRun.getTestedClassInstantiations();
 
         if (testedClasses == null) {
@@ -44,7 +44,7 @@ public final class FakeBeanFactory extends MockUp<DefaultListableBeanFactory> {
     }
 
     @Mock
-    public static <T> T getBean(@Nonnull Invocation invocation, @Nonnull String name, @Nullable Class<T> requiredType) {
+    public static <T> T getBean(@NonNull Invocation invocation, @NonNull String name, @Nullable Class<T> requiredType) {
         TestedClassInstantiations testedClasses = TestRun.getTestedClassInstantiations();
 
         if (testedClasses == null) {
@@ -56,7 +56,7 @@ public final class FakeBeanFactory extends MockUp<DefaultListableBeanFactory> {
     }
 
     @Mock
-    public static <T> T getBean(@Nonnull Invocation invocation, @Nonnull Class<T> requiredType) {
+    public static <T> T getBean(@NonNull Invocation invocation, @NonNull Class<T> requiredType) {
         TestedClassInstantiations testedClasses = TestRun.getTestedClassInstantiations();
 
         if (testedClasses == null) {

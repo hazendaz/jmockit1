@@ -4,9 +4,6 @@
  */
 package mockit.coverage.reporting.dataCoverage;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.coverage.dataItems.FieldData;
 import mockit.coverage.dataItems.InstanceFieldData;
 import mockit.coverage.dataItems.PerFileDataCoverage;
@@ -16,10 +13,13 @@ import mockit.coverage.reporting.parsing.LineElement;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class DataCoverageOutput {
-    @Nonnull
+    @NonNull
     private final StringBuilder openingTag;
-    @Nonnull
+    @NonNull
     private final PerFileDataCoverage coverageInfo;
     @NonNegative
     private int nextField;
@@ -30,7 +30,7 @@ public final class DataCoverageOutput {
     @Nullable
     private String fieldName;
 
-    public DataCoverageOutput(@Nonnull PerFileDataCoverage coverageInfo) {
+    public DataCoverageOutput(@NonNull PerFileDataCoverage coverageInfo) {
         openingTag = new StringBuilder(50);
         this.coverageInfo = coverageInfo;
         moveToNextField();
@@ -52,7 +52,7 @@ public final class DataCoverageOutput {
         fieldName = classAndFieldNames.substring(p + 1);
     }
 
-    public void writeCoverageInfoIfLineStartsANewFieldDeclaration(@Nonnull FileParser fileParser) {
+    public void writeCoverageInfoIfLineStartsANewFieldDeclaration(@NonNull FileParser fileParser) {
         if (classAndFieldNames != null) {
             assert className != null;
 
@@ -92,7 +92,7 @@ public final class DataCoverageOutput {
         openingTag.append("'>");
     }
 
-    private void appendAccessCounts(@Nonnull FieldData fieldData) {
+    private void appendAccessCounts(@NonNull FieldData fieldData) {
         openingTag.append("Reads: ").append(fieldData.getReadCount());
         openingTag.append(" Writes: ").append(fieldData.getWriteCount());
     }

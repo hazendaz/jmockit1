@@ -17,9 +17,6 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.annotations.AnnotationVisitor;
 import mockit.asm.classes.ClassInfo;
 import mockit.asm.classes.ClassReader;
@@ -34,23 +31,26 @@ import mockit.internal.classGeneration.MockedTypeInfo;
 import mockit.internal.reflection.GenericTypeReflection;
 import mockit.internal.reflection.GenericTypeReflection.GenericSignature;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class InterfaceImplementationGenerator extends BaseClassModifier {
     private static final int CLASS_ACCESS = PUBLIC + FINAL;
     private static final EnumSet<Attribute> SIGNATURE = EnumSet.of(Attribute.Signature);
 
-    @Nonnull
+    @NonNull
     private final MockedTypeInfo mockedTypeInfo;
-    @Nonnull
+    @NonNull
     private final String implementationClassDesc;
-    @Nonnull
+    @NonNull
     private final List<String> implementedMethods;
     private String interfaceName;
     private String methodOwner;
     @Nullable
     private String[] initialSuperInterfaces;
 
-    public InterfaceImplementationGenerator(@Nonnull ClassReader cr, @Nonnull Type mockedType,
-            @Nonnull String implementationClassName) {
+    public InterfaceImplementationGenerator(@NonNull ClassReader cr, @NonNull Type mockedType,
+            @NonNull String implementationClassName) {
         super(cr);
         mockedTypeInfo = new MockedTypeInfo(mockedType);
         implementationClassDesc = implementationClassName.replace('.', '/');
@@ -58,7 +58,7 @@ public final class InterfaceImplementationGenerator extends BaseClassModifier {
     }
 
     @Override
-    public void visit(int version, int access, @Nonnull String name, @Nonnull ClassInfo additionalInfo) {
+    public void visit(int version, int access, @NonNull String name, @NonNull ClassInfo additionalInfo) {
         interfaceName = name;
         methodOwner = name;
         initialSuperInterfaces = additionalInfo.interfaces;
@@ -83,24 +83,24 @@ public final class InterfaceImplementationGenerator extends BaseClassModifier {
     }
 
     @Override
-    public AnnotationVisitor visitAnnotation(@Nonnull String desc) {
+    public AnnotationVisitor visitAnnotation(@NonNull String desc) {
         return null;
     }
 
     @Override
-    public void visitInnerClass(@Nonnull String name, String outerName, String innerName, int access) {
+    public void visitInnerClass(@NonNull String name, String outerName, String innerName, int access) {
     }
 
     @Nullable
     @Override
-    public FieldVisitor visitField(int access, @Nonnull String name, @Nonnull String desc, @Nullable String signature,
+    public FieldVisitor visitField(int access, @NonNull String name, @NonNull String desc, @Nullable String signature,
             @Nullable Object value) {
         return null;
     }
 
     @Nullable
     @Override
-    public MethodVisitor visitMethod(int access, @Nonnull String name, @Nonnull String desc, @Nullable String signature,
+    public MethodVisitor visitMethod(int access, @NonNull String name, @NonNull String desc, @Nullable String signature,
             @Nullable String[] exceptions) {
         if (!isSynthetic(access)) {
             generateMethodImplementation(access, name, desc, signature, exceptions);
@@ -109,7 +109,7 @@ public final class InterfaceImplementationGenerator extends BaseClassModifier {
         return null;
     }
 
-    private void generateMethodImplementation(int access, @Nonnull String name, @Nonnull String desc,
+    private void generateMethodImplementation(int access, @NonNull String name, @NonNull String desc,
             @Nullable String signature, @Nullable String[] exceptions) {
         if (!isStatic(access)) {
             String methodNameAndDesc = name + desc;
@@ -121,7 +121,7 @@ public final class InterfaceImplementationGenerator extends BaseClassModifier {
         }
     }
 
-    private void generateMethodBody(int access, @Nonnull String name, @Nonnull String desc, @Nullable String signature,
+    private void generateMethodBody(int access, @NonNull String name, @NonNull String desc, @Nullable String signature,
             @Nullable String[] exceptions) {
         mw = cw.visitMethod(PUBLIC, name, desc, signature, exceptions);
 
@@ -149,8 +149,8 @@ public final class InterfaceImplementationGenerator extends BaseClassModifier {
     }
 
     @Nullable
-    private String getSubInterfaceOverride(@Nonnull GenericTypeReflection genericTypeMap, @Nonnull String name,
-            @Nonnull String genericSignature) {
+    private String getSubInterfaceOverride(@NonNull GenericTypeReflection genericTypeMap, @NonNull String name,
+            @NonNull String genericSignature) {
         if (!implementedMethods.isEmpty()) {
             GenericSignature parsedSignature = genericTypeMap.parseSignature(genericSignature);
 
@@ -164,11 +164,11 @@ public final class InterfaceImplementationGenerator extends BaseClassModifier {
         return null;
     }
 
-    private static boolean sameMethodName(@Nonnull String implementedMethod, @Nonnull String name) {
+    private static boolean sameMethodName(@NonNull String implementedMethod, @NonNull String name) {
         return implementedMethod.startsWith(name) && implementedMethod.charAt(name.length()) == '(';
     }
 
-    private boolean isOverrideOfMethodFromSuperInterface(@Nonnull String name, @Nonnull String desc) {
+    private boolean isOverrideOfMethodFromSuperInterface(@NonNull String name, @NonNull String desc) {
         if (!implementedMethods.isEmpty()) {
             int p = desc.lastIndexOf(')');
             String descNoReturnType = desc.substring(0, p + 1);
@@ -192,7 +192,7 @@ public final class InterfaceImplementationGenerator extends BaseClassModifier {
         }
     }
 
-    private void generateImplementationsForInterfaceMethodsRecurringToSuperInterfaces(@Nonnull String anInterface) {
+    private void generateImplementationsForInterfaceMethodsRecurringToSuperInterfaces(@NonNull String anInterface) {
         methodOwner = anInterface;
 
         byte[] interfaceBytecode = ClassFile.getClassFile(anInterface);

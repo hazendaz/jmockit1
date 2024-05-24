@@ -8,9 +8,6 @@ import java.lang.reflect.Member;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.jvmConstants.Access;
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
 import mockit.internal.expectations.state.ExecutingTest;
@@ -18,20 +15,23 @@ import mockit.internal.reflection.RealMethodOrConstructor;
 import mockit.internal.state.TestRun;
 import mockit.internal.util.MethodFormatter;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class InvocationArguments {
-    @Nonnull
+    @NonNull
     final String classDesc;
-    @Nonnull
+    @NonNull
     final String methodNameAndDesc;
     @Nullable
     final String genericSignature;
-    @Nonnull
+    @NonNull
     private final ArgumentValuesAndMatchers valuesAndMatchers;
     @Nullable
     private Member realMethodOrConstructor;
 
-    InvocationArguments(int access, @Nonnull String classDesc, @Nonnull String methodNameAndDesc,
-            @Nullable String genericSignature, @Nonnull Object[] args) {
+    InvocationArguments(int access, @NonNull String classDesc, @NonNull String methodNameAndDesc,
+            @Nullable String genericSignature, @NonNull Object[] args) {
         this.classDesc = classDesc;
         this.methodNameAndDesc = methodNameAndDesc;
         this.genericSignature = genericSignature;
@@ -39,7 +39,7 @@ public final class InvocationArguments {
                 : new ArgumentValuesAndMatchersWithVarargs(this, args);
     }
 
-    @Nonnull
+    @NonNull
     String getClassName() {
         return classDesc.replace('/', '.');
     }
@@ -48,20 +48,20 @@ public final class InvocationArguments {
         return methodNameAndDesc.charAt(0) == '<';
     }
 
-    @Nonnull
+    @NonNull
     public Object[] getValues() {
         return valuesAndMatchers.values;
     }
 
-    void setValues(@Nonnull Object[] values) {
+    void setValues(@NonNull Object[] values) {
         valuesAndMatchers.values = values;
     }
 
-    public void setValuesWithNoMatchers(@Nonnull Object[] argsToVerify) {
+    public void setValuesWithNoMatchers(@NonNull Object[] argsToVerify) {
         valuesAndMatchers.setValuesWithNoMatchers(argsToVerify);
     }
 
-    public void setValuesAndMatchers(@Nonnull Object[] argsToVerify, @Nullable List<ArgumentMatcher<?>> matchers) {
+    public void setValuesAndMatchers(@NonNull Object[] argsToVerify, @Nullable List<ArgumentMatcher<?>> matchers) {
         valuesAndMatchers.setValuesAndMatchers(argsToVerify, matchers);
     }
 
@@ -74,13 +74,13 @@ public final class InvocationArguments {
         valuesAndMatchers.matchers = matchers;
     }
 
-    @Nonnull
-    public Object[] prepareForVerification(@Nonnull Object[] argsToVerify,
+    @NonNull
+    public Object[] prepareForVerification(@NonNull Object[] argsToVerify,
             @Nullable List<ArgumentMatcher<?>> matchers) {
         return valuesAndMatchers.prepareForVerification(argsToVerify, matchers);
     }
 
-    public boolean isMatch(@Nonnull Object[] replayArgs, @Nonnull Map<Object, Object> instanceMap) {
+    public boolean isMatch(@NonNull Object[] replayArgs, @NonNull Map<Object, Object> instanceMap) {
         TestRun.enterNoMockingZone();
         ExecutingTest executingTest = TestRun.getExecutingTest();
         boolean previousFlag = executingTest.setShouldIgnoreMockingCallbacks(true);
@@ -102,11 +102,11 @@ public final class InvocationArguments {
         return methodFormatter.toString();
     }
 
-    public boolean hasEquivalentMatchers(@Nonnull InvocationArguments other) {
+    public boolean hasEquivalentMatchers(@NonNull InvocationArguments other) {
         return valuesAndMatchers.hasEquivalentMatchers(other.valuesAndMatchers);
     }
 
-    @Nonnull
+    @NonNull
     Member getRealMethodOrConstructor() {
         if (realMethodOrConstructor == null) {
             try {

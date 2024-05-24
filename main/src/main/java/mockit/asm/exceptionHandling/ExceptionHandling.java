@@ -3,9 +3,6 @@ package mockit.asm.exceptionHandling;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.controlFlow.Edge;
 import mockit.asm.controlFlow.FrameTypeMask;
@@ -14,18 +11,21 @@ import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class ExceptionHandling {
-    @Nonnull
+    @NonNull
     private final List<ExceptionHandler> handlers;
-    @Nonnull
+    @NonNull
     private final ConstantPoolGeneration cp;
 
-    public ExceptionHandling(@Nonnull ConstantPoolGeneration cp) {
+    public ExceptionHandling(@NonNull ConstantPoolGeneration cp) {
         handlers = new ArrayList<>();
         this.cp = cp;
     }
 
-    public void addHandler(@Nonnull Label start, @Nonnull Label end, @Nonnull Label handler, @Nullable String type) {
+    public void addHandler(@NonNull Label start, @NonNull Label end, @NonNull Label handler, @Nullable String type) {
         int handlerType = type == null ? 0 : cp.newClass(type);
         handlers.add(new ExceptionHandler(start, end, handler, type, handlerType));
     }
@@ -55,8 +55,8 @@ public final class ExceptionHandling {
     }
 
     // Adds 'handler' as a successor of labels between 'start' and 'end'.
-    private static void addHandlerLabelAsSuccessor(int kindOfEdge, @Nonnull Label handler, @Nonnull Label start,
-            @Nonnull Label end) {
+    private static void addHandlerLabelAsSuccessor(int kindOfEdge, @NonNull Label handler, @NonNull Label start,
+            @NonNull Label end) {
         while (start != end) {
             Edge edge = new Edge(kindOfEdge, handler);
             // noinspection ConstantConditions
@@ -73,7 +73,7 @@ public final class ExceptionHandling {
         return 8 * handlers.size();
     }
 
-    public void put(@Nonnull ByteVector out) {
+    public void put(@NonNull ByteVector out) {
         out.putShort(handlers.size());
 
         for (ExceptionHandler exceptionHandler : handlers) {

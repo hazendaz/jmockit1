@@ -12,13 +12,13 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.internal.BaseInvocation;
 import mockit.internal.expectations.RecordAndReplayExecution;
 import mockit.internal.expectations.mocking.MockedType;
 import mockit.internal.expectations.mocking.ParameterTypeRedefinitions;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class ExecutingTest {
     @Nullable
@@ -26,22 +26,22 @@ public final class ExecutingTest {
     @Nullable
     private RecordAndReplayExecution recordAndReplayForLastTestMethod;
 
-    @Nonnull
+    @NonNull
     private final ThreadLocal<Boolean> shouldIgnoreMockingCallbacks;
-    @Nonnull
+    @NonNull
     private final ThreadLocal<BaseInvocation> proceedingInvocation;
     private boolean proceeding;
 
     @Nullable
     private ParameterTypeRedefinitions parameterTypeRedefinitions;
 
-    @Nonnull
+    @NonNull
     private final List<Object> regularMocks;
-    @Nonnull
+    @NonNull
     private final List<Object> injectableMocks;
-    @Nonnull
+    @NonNull
     private final Map<Object, Object> originalToCapturedInstance;
-    @Nonnull
+    @NonNull
     private final CascadingTypes cascadingTypes;
 
     public ExecutingTest() {
@@ -53,7 +53,7 @@ public final class ExecutingTest {
         cascadingTypes = new CascadingTypes();
     }
 
-    @Nonnull
+    @NonNull
     public RecordAndReplayExecution getOrCreateRecordAndReplay() {
         if (currentRecordAndReplay == null) {
             setRecordAndReplay(new RecordAndReplayExecution());
@@ -99,7 +99,7 @@ public final class ExecutingTest {
         proceeding = true;
     }
 
-    public void markAsProceedingIntoRealImplementation(@Nonnull BaseInvocation invocation) {
+    public void markAsProceedingIntoRealImplementation(@NonNull BaseInvocation invocation) {
         BaseInvocation previousInvocation = proceedingInvocation.get();
 
         if (previousInvocation != null) {
@@ -110,7 +110,7 @@ public final class ExecutingTest {
         proceeding = true;
     }
 
-    public boolean shouldProceedIntoRealImplementation(@Nullable Object mock, @Nonnull String classDesc) {
+    public boolean shouldProceedIntoRealImplementation(@Nullable Object mock, @NonNull String classDesc) {
         BaseInvocation pendingInvocation = proceedingInvocation.get();
 
         // noinspection SimplifiableIfStatement
@@ -127,7 +127,7 @@ public final class ExecutingTest {
         proceedingInvocation.set(previousInvocation);
     }
 
-    @Nonnull
+    @NonNull
     public RecordAndReplayExecution getRecordAndReplayForVerifications() {
         if (currentRecordAndReplay == null) {
             if (recordAndReplayForLastTestMethod != null) {
@@ -151,7 +151,7 @@ public final class ExecutingTest {
         return parameterTypeRedefinitions;
     }
 
-    public void setParameterRedefinitions(@Nonnull ParameterTypeRedefinitions redefinitions) {
+    public void setParameterRedefinitions(@NonNull ParameterTypeRedefinitions redefinitions) {
         parameterTypeRedefinitions = redefinitions;
     }
 
@@ -160,28 +160,28 @@ public final class ExecutingTest {
         injectableMocks.clear();
     }
 
-    void addInjectableMock(@Nonnull Object mock) {
+    void addInjectableMock(@NonNull Object mock) {
         if (!isInjectableMock(mock)) {
             injectableMocks.add(mock);
         }
     }
 
-    public boolean isInjectableMock(@Nonnull Object instance) {
+    public boolean isInjectableMock(@NonNull Object instance) {
         return containsReference(injectableMocks, instance);
     }
 
-    public boolean isUnmockedInstance(@Nonnull Object instance) {
+    public boolean isUnmockedInstance(@NonNull Object instance) {
         return !containsReference(regularMocks, instance) && !isInjectableMock(instance);
     }
 
-    public static boolean isInstanceMethodWithStandardBehavior(@Nullable Object mock, @Nonnull String nameAndDesc) {
+    public static boolean isInstanceMethodWithStandardBehavior(@Nullable Object mock, @NonNull String nameAndDesc) {
         return mock != null && nameAndDesc.charAt(0) != '<'
                 && ("equals(Ljava/lang/Object;)Z hashCode()I toString()Ljava/lang/String;".contains(nameAndDesc)
                         || mock instanceof Comparable<?> && nameAndDesc.startsWith("compareTo(L")
                                 && nameAndDesc.endsWith(";)I"));
     }
 
-    public void registerMock(@Nonnull MockedType mockedType, @Nonnull Object mock) {
+    public void registerMock(@NonNull MockedType mockedType, @NonNull Object mock) {
         if (mockedType.injectable) {
             addInjectableMock(mock);
         } else if (!containsReference(regularMocks, mock)) {
@@ -192,7 +192,7 @@ public final class ExecutingTest {
         cascadingTypes.addInstance(declaredType, mock);
     }
 
-    @Nonnull
+    @NonNull
     public CascadingTypes getCascadingTypes() {
         return cascadingTypes;
     }
@@ -210,12 +210,12 @@ public final class ExecutingTest {
     }
 
     public void addCapturedInstanceForInjectableMock(@Nullable Object originalInstance,
-            @Nonnull Object capturedInstance) {
+            @NonNull Object capturedInstance) {
         injectableMocks.add(capturedInstance);
         addCapturedInstance(originalInstance, capturedInstance);
     }
 
-    public void addCapturedInstance(@Nullable Object originalInstance, @Nonnull Object capturedInstance) {
+    public void addCapturedInstance(@Nullable Object originalInstance, @NonNull Object capturedInstance) {
         originalToCapturedInstance.put(capturedInstance, originalInstance);
     }
 }

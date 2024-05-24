@@ -12,9 +12,6 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.coverage.CallPoint;
 import mockit.coverage.data.CoverageData;
 import mockit.coverage.data.FileCoverageData;
@@ -27,6 +24,9 @@ import mockit.coverage.lines.PerFileLineCoverage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.junit.jupiter.api.BeforeEach;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 @SuppressWarnings("JUnitTestCaseWithNoTests")
 public class CoverageTest {
@@ -46,7 +46,7 @@ public class CoverageTest {
         }
     }
 
-    private void findFileDate(@Nonnull Class<?> testedClass) {
+    private void findFileDate(@NonNull Class<?> testedClass) {
         testedClassSimpleName = testedClass.getSimpleName();
 
         String classFilePath = testedClass.getName().replace('.', '/') + ".java";
@@ -56,7 +56,7 @@ public class CoverageTest {
         assertNotNull(fileData, "FileCoverageData not found for " + classFilePath);
     }
 
-    private void setTestedFieldToNewInstanceIfApplicable(@Nonnull Field testedField) throws Exception {
+    private void setTestedFieldToNewInstanceIfApplicable(@NonNull Field testedField) throws Exception {
         Class<?> testedClass = testedField.getType();
 
         if (!testedClass.isEnum() && !isAbstract(testedClass.getModifiers()) && !isFinal(testedField.getModifiers())) {
@@ -71,7 +71,7 @@ public class CoverageTest {
         }
     }
 
-    @Nonnull
+    @NonNull
     private FileCoverageData fileData() {
         if (fileData == null) {
             Object testedInstance;
@@ -157,7 +157,7 @@ public class CoverageTest {
     // Data Coverage assertions
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected final void assertFieldIgnored(@Nonnull String fieldName) {
+    protected final void assertFieldIgnored(@NonNull String fieldName) {
         String fieldId = testedClassSimpleName + '.' + fieldName;
         PerFileDataCoverage info = fileData().dataCoverageInfo;
         assertFalse(info.staticFieldsData.containsKey(fieldId),
@@ -166,40 +166,40 @@ public class CoverageTest {
                 "Field " + fieldName + " should not have instance coverage data");
     }
 
-    protected static void assertStaticFieldCovered(@Nonnull String fieldName) {
+    protected static void assertStaticFieldCovered(@NonNull String fieldName) {
         assertTrue(isStaticFieldCovered(fieldName), "Static field " + fieldName + " should be covered");
     }
 
-    private static boolean isStaticFieldCovered(@Nonnull String fieldName) {
+    private static boolean isStaticFieldCovered(@NonNull String fieldName) {
         String classAndFieldNames = testedClassSimpleName + '.' + fieldName;
         StaticFieldData staticFieldData = fileData.dataCoverageInfo.staticFieldsData.get(classAndFieldNames);
 
         return staticFieldData.isCovered();
     }
 
-    protected static void assertStaticFieldUncovered(@Nonnull String fieldName) {
+    protected static void assertStaticFieldUncovered(@NonNull String fieldName) {
         assertFalse(isStaticFieldCovered(fieldName), "Static field " + fieldName + " should not be covered");
     }
 
-    protected static void assertInstanceFieldCovered(@Nonnull String fieldName) {
+    protected static void assertInstanceFieldCovered(@NonNull String fieldName) {
         assertTrue(isInstanceFieldCovered(fieldName), "Instance field " + fieldName + " should be covered");
     }
 
-    private static boolean isInstanceFieldCovered(@Nonnull String fieldName) {
+    private static boolean isInstanceFieldCovered(@NonNull String fieldName) {
         return getInstanceFieldData(fieldName).isCovered();
     }
 
-    private static InstanceFieldData getInstanceFieldData(@Nonnull String fieldName) {
+    private static InstanceFieldData getInstanceFieldData(@NonNull String fieldName) {
         String classAndFieldNames = testedClassSimpleName + '.' + fieldName;
         return fileData.dataCoverageInfo.instanceFieldsData.get(classAndFieldNames);
     }
 
-    protected static void assertInstanceFieldUncovered(@Nonnull String fieldName) {
+    protected static void assertInstanceFieldUncovered(@NonNull String fieldName) {
         assertFalse(isInstanceFieldCovered(fieldName), "Instance field " + fieldName + " should not be covered");
     }
 
-    protected static void assertInstanceFieldUncovered(@Nonnull String fieldName,
-            @Nonnull Object... uncoveredInstances) {
+    protected static void assertInstanceFieldUncovered(@NonNull String fieldName,
+            @NonNull Object... uncoveredInstances) {
         String msg = "Instance field " + fieldName + " should not be covered";
         InstanceFieldData fieldData = getInstanceFieldData(fieldName);
         List<Integer> ownerInstances = fieldData.getOwnerInstancesWithUnreadAssignments();

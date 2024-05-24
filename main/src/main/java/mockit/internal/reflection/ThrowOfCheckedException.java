@@ -4,7 +4,7 @@
  */
 package mockit.internal.reflection;
 
-import javax.annotation.Nonnull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 @SuppressWarnings("UtilityClassWithoutPrivateConstructor")
 final class ThrowOfCheckedException {
@@ -15,7 +15,7 @@ final class ThrowOfCheckedException {
     }
 
     @SuppressWarnings("deprecation")
-    static synchronized void doThrow(@Nonnull Exception checkedException) {
+    static synchronized void doThrow(@NonNull Exception checkedException) {
         exceptionToThrow = checkedException;
         try {
             ThrowOfCheckedException.class.newInstance();

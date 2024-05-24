@@ -2,17 +2,17 @@ package mockit.asm.annotations;
 
 import java.lang.reflect.Array;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.types.JavaType;
 import mockit.asm.types.PrimitiveType;
 import mockit.asm.util.BytecodeReader;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class AnnotationReader extends BytecodeReader {
-    public AnnotationReader(@Nonnull BytecodeReader br) {
+    public AnnotationReader(@NonNull BytecodeReader br) {
         super(br);
     }
 
@@ -127,25 +127,25 @@ public final class AnnotationReader extends BytecodeReader {
         return readInt(valueCodeIndex);
     }
 
-    private void readEnumConstValue(@Nullable String name, @Nonnull AnnotationVisitor av) {
+    private void readEnumConstValue(@Nullable String name, @NonNull AnnotationVisitor av) {
         String enumDesc = readNonnullUTF8();
         String enumValue = readNonnullUTF8();
         av.visitEnum(name, enumDesc, enumValue);
     }
 
-    private void readClassInfo(@Nullable String name, @Nonnull AnnotationVisitor av) {
+    private void readClassInfo(@Nullable String name, @NonNull AnnotationVisitor av) {
         String typeDesc = readNonnullUTF8();
         JavaType value = JavaType.getType(typeDesc);
         av.visit(name, value);
     }
 
-    private void readNestedAnnotation(@Nullable String name, @Nonnull AnnotationVisitor av) {
+    private void readNestedAnnotation(@Nullable String name, @NonNull AnnotationVisitor av) {
         String desc = readNonnullUTF8();
         AnnotationVisitor nestedVisitor = av.visitAnnotation(name, desc);
         readAnnotationValues(true, nestedVisitor);
     }
 
-    private void readArrayValue(@Nullable String name, @Nonnull AnnotationVisitor av) {
+    private void readArrayValue(@Nullable String name, @NonNull AnnotationVisitor av) {
         int valueCount = readUnsignedShort();
 
         if (valueCount == 0) {
@@ -171,7 +171,7 @@ public final class AnnotationReader extends BytecodeReader {
         codeIndex--;
     }
 
-    private void fillArrayElements(@NonNegative int length, @NonNegative int typeCode, @Nonnull Object array) {
+    private void fillArrayElements(@NonNegative int length, @NonNegative int typeCode, @NonNull Object array) {
         for (int i = 0; i < length; i++) {
             int itemIndex = readUnsignedShort();
             int index = items[itemIndex];
@@ -181,7 +181,7 @@ public final class AnnotationReader extends BytecodeReader {
         }
     }
 
-    @Nonnull
+    @NonNull
     private Object getArrayElementValue(@NonNegative int typeCode, @NonNegative int valueCodeIndex) {
         switch (typeCode) {
             case 'Z':

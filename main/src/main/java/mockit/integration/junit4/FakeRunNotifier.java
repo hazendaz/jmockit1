@@ -4,8 +4,6 @@
  */
 package mockit.integration.junit4;
 
-import javax.annotation.Nonnull;
-
 import mockit.Invocation;
 import mockit.Mock;
 import mockit.MockUp;
@@ -18,6 +16,8 @@ import mockit.internal.state.TestRun;
 import org.junit.runner.Description;
 import org.junit.runner.Result;
 import org.junit.runner.notification.RunNotifier;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Startup fake which works in conjunction with {@link JUnit4TestRunnerDecorator} to provide JUnit 4.5+ integration.
@@ -40,7 +40,7 @@ public final class FakeRunNotifier extends MockUp<RunNotifier> {
         it.fireTestRunStarted(description);
     }
 
-    private static void prepareToProceed(@Nonnull Invocation invocation) {
+    private static void prepareToProceed(@NonNull Invocation invocation) {
         ((FakeInvocation) invocation).prepareToProceedFromNonRecursiveMock();
     }
 

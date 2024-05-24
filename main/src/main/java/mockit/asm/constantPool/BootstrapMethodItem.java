@@ -2,9 +2,9 @@ package mockit.asm.constantPool;
 
 import static mockit.asm.jvmConstants.ConstantPoolTypes.BSM;
 
-import javax.annotation.Nonnull;
-
 import org.checkerframework.checker.index.qual.NonNegative;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class BootstrapMethodItem extends Item {
     @NonNegative
@@ -27,7 +27,7 @@ public final class BootstrapMethodItem extends Item {
     }
 
     @Override
-    boolean isEqualTo(@Nonnull Item item) {
+    boolean isEqualTo(@NonNull Item item) {
         return ((BootstrapMethodItem) item).position == position;
     }
 }

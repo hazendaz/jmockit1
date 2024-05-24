@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
 
-import javax.annotation.Nonnull;
-
 import org.junit.jupiter.api.Test;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * The Class NaturalOrderingTest.
@@ -58,7 +58,7 @@ final class NaturalOrderingTest {
         }
 
         @Override
-        public int compareTo(@Nonnull String s) {
+        public int compareTo(@NonNull String s) {
             return value.compareTo(s);
         }
     }

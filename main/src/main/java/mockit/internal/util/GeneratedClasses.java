@@ -6,8 +6,8 @@ package mockit.internal.util;
 
 import java.lang.reflect.Proxy;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class GeneratedClasses {
     private static final String IMPLCLASS_PREFIX = "$Impl_";
@@ -16,8 +16,8 @@ public final class GeneratedClasses {
     private GeneratedClasses() {
     }
 
-    @Nonnull
-    public static String getNameForGeneratedClass(@Nonnull Class<?> aClass, @Nullable String suffix) {
+    @NonNull
+    public static String getNameForGeneratedClass(@NonNull Class<?> aClass, @Nullable String suffix) {
         String prefix = aClass.isInterface() ? IMPLCLASS_PREFIX : SUBCLASS_PREFIX;
         StringBuilder name = new StringBuilder(60).append(prefix).append(aClass.getSimpleName());
 
@@ -36,19 +36,19 @@ public final class GeneratedClasses {
         return name.toString();
     }
 
-    public static boolean isGeneratedImplementationClass(@Nonnull Class<?> mockedType) {
+    public static boolean isGeneratedImplementationClass(@NonNull Class<?> mockedType) {
         return isGeneratedImplementationClassName(mockedType.getName());
     }
 
-    public static boolean isGeneratedImplementationClassName(@Nonnull String className) {
+    public static boolean isGeneratedImplementationClassName(@NonNull String className) {
         return className.contains(IMPLCLASS_PREFIX);
     }
 
-    private static boolean isGeneratedSubclass(@Nonnull String className) {
+    private static boolean isGeneratedSubclass(@NonNull String className) {
         return className.contains(SUBCLASS_PREFIX);
     }
 
-    public static boolean isExternallyGeneratedSubclass(@Nonnull String className) {
+    public static boolean isExternallyGeneratedSubclass(@NonNull String className) {
         int p = className.indexOf('$') + 1;
 
         // noinspection SimplifiableIfStatement
@@ -59,12 +59,12 @@ public final class GeneratedClasses {
         return className.contains("_$$_javassist_") || className.contains("_$$_jvst") || className.contains("CGLIB$$");
     }
 
-    public static boolean isGeneratedClass(@Nonnull String className) {
+    public static boolean isGeneratedClass(@NonNull String className) {
         return isGeneratedSubclass(className) || isGeneratedImplementationClassName(className);
     }
 
-    @Nonnull
-    public static Class<?> getMockedClassOrInterfaceType(@Nonnull Class<?> aClass) {
+    @NonNull
+    public static Class<?> getMockedClassOrInterfaceType(@NonNull Class<?> aClass) {
         if (Proxy.isProxyClass(aClass) || isGeneratedImplementationClass(aClass)) {
             // Assumes that a proxy class implements a single interface.
             return aClass.getInterfaces()[0];
@@ -77,8 +77,8 @@ public final class GeneratedClasses {
         return aClass;
     }
 
-    @Nonnull
-    public static Class<?> getMockedClass(@Nonnull Object mock) {
+    @NonNull
+    public static Class<?> getMockedClass(@NonNull Object mock) {
         return getMockedClassOrInterfaceType(mock.getClass());
     }
 }

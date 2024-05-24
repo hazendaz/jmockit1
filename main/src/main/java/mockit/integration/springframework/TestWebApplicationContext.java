@@ -4,9 +4,6 @@
  */
 package mockit.integration.springframework;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.internal.injection.BeanExporter;
 import mockit.internal.injection.TestedClassInstantiations;
 import mockit.internal.state.TestRun;
@@ -14,19 +11,22 @@ import mockit.internal.state.TestRun;
 import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.web.context.support.StaticWebApplicationContext;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 /**
  * A {@link org.springframework.web.context.WebApplicationContext} implementation which exposes the
  * {@linkplain mockit.Tested @Tested} objects and their injected dependencies declared in the current test class.
  */
 public final class TestWebApplicationContext extends StaticWebApplicationContext {
     @Override
-    @Nonnull
-    public Object getBean(@Nonnull String name) {
+    @NonNull
+    public Object getBean(@NonNull String name) {
         BeanExporter beanExporter = getBeanExporter();
         return BeanLookup.getBean(beanExporter, name);
     }
 
-    @Nonnull
+    @NonNull
     private static BeanExporter getBeanExporter() {
         TestedClassInstantiations testedClasses = TestRun.getTestedClassInstantiations();
 
@@ -38,15 +38,15 @@ public final class TestWebApplicationContext extends StaticWebApplicationContext
     }
 
     @Override
-    @Nonnull
-    public <T> T getBean(@Nonnull String name, @Nullable Class<T> requiredType) {
+    @NonNull
+    public <T> T getBean(@NonNull String name, @Nullable Class<T> requiredType) {
         BeanExporter beanExporter = getBeanExporter();
         return BeanLookup.getBean(beanExporter, name, requiredType);
     }
 
     @Override
-    @Nonnull
-    public <T> T getBean(@Nonnull Class<T> requiredType) {
+    @NonNull
+    public <T> T getBean(@NonNull Class<T> requiredType) {
         BeanExporter beanExporter = getBeanExporter();
         return BeanLookup.getBean(beanExporter, requiredType);
     }

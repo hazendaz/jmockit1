@@ -7,24 +7,24 @@ package mockit.coverage;
 import java.lang.instrument.ClassFileTransformer;
 import java.security.ProtectionDomain;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.coverage.data.CoverageData;
 import mockit.coverage.modification.ClassModification;
 import mockit.coverage.modification.ClassesNotLoaded;
 import mockit.internal.startup.Startup;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class CodeCoverage implements ClassFileTransformer {
-    @Nonnull
+    @NonNull
     private final ClassModification classModification;
 
-    public static void main(@Nonnull String[] args) {
+    public static void main(@NonNull String[] args) {
         OutputFileGenerator generator = createOutputFileGenerator();
         generator.generateAggregateReportFromInputFiles(args);
     }
 
-    @Nonnull
+    @NonNull
     private static OutputFileGenerator createOutputFileGenerator() {
         OutputFileGenerator generator = new OutputFileGenerator();
         CoverageData.instance().setWithCallPoints(generator.isWithCallPoints());
@@ -68,9 +68,9 @@ public final class CodeCoverage implements ClassFileTransformer {
 
     @Nullable
     @Override
-    public byte[] transform(@Nullable ClassLoader loader, @Nonnull String internalClassName,
+    public byte[] transform(@Nullable ClassLoader loader, @NonNull String internalClassName,
             @Nullable Class<?> classBeingRedefined, @Nullable ProtectionDomain protectionDomain,
-            @Nonnull byte[] originalClassfile) {
+            @NonNull byte[] originalClassfile) {
         if (loader == null || classBeingRedefined != null || protectionDomain == null) {
             return null;
         }

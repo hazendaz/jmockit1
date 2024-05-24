@@ -10,9 +10,6 @@ import static mockit.asm.jvmConstants.Opcodes.SIPUSH;
 import static mockit.internal.util.TypeConversionBytecode.generateCastOrUnboxing;
 import static mockit.internal.util.TypeConversionBytecode.isPrimitiveWrapper;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.methods.MethodWriter;
 import mockit.asm.types.ArrayType;
 import mockit.asm.types.JavaType;
@@ -21,10 +18,13 @@ import mockit.asm.types.ReferenceType;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 final class Capture {
-    @Nonnull
+    @NonNull
     private final InvocationBlockModifier invocationBlockModifier;
-    @Nonnull
+    @NonNull
     private final MethodWriter mw;
     @NonNegative
     private final int opcode;
@@ -37,7 +37,7 @@ final class Capture {
     @NonNegative
     private boolean parameterIndexFixed;
 
-    Capture(@Nonnull InvocationBlockModifier invocationBlockModifier, @NonNegative int opcode,
+    Capture(@NonNull InvocationBlockModifier invocationBlockModifier, @NonNegative int opcode,
             @NonNegative int varIndex, @Nullable String typeToCapture, @NonNegative int parameterIndex) {
         this.invocationBlockModifier = invocationBlockModifier;
         mw = invocationBlockModifier.getMethodWriter();
@@ -47,7 +47,7 @@ final class Capture {
         this.parameterIndex = parameterIndex;
     }
 
-    Capture(@Nonnull InvocationBlockModifier invocationBlockModifier, @NonNegative int varIndex,
+    Capture(@NonNull InvocationBlockModifier invocationBlockModifier, @NonNegative int varIndex,
             @NonNegative int parameterIndex) {
         this.invocationBlockModifier = invocationBlockModifier;
         mw = invocationBlockModifier.getMethodWriter();
@@ -81,7 +81,7 @@ final class Capture {
         }
     }
 
-    @Nonnull
+    @NonNull
     private JavaType getArgumentType() {
         if (typeToCapture == null) {
             return invocationBlockModifier.argumentMatching.getParameterType(parameterIndex);
@@ -117,7 +117,7 @@ final class Capture {
         }
     }
 
-    private boolean isTypeToCaptureSameAsParameterType(@Nonnull String typeDesc) {
+    private boolean isTypeToCaptureSameAsParameterType(@NonNull String typeDesc) {
         JavaType parameterType = invocationBlockModifier.argumentMatching.getParameterType(parameterIndex);
 
         if (parameterType instanceof ReferenceType) {

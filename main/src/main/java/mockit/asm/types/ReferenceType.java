@@ -3,15 +3,15 @@ package mockit.asm.types;
 import static mockit.asm.jvmConstants.Opcodes.ACONST_NULL;
 import static mockit.asm.jvmConstants.Opcodes.ALOAD;
 
-import javax.annotation.Nonnull;
-
 import org.checkerframework.checker.index.qual.NonNegative;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 public abstract class ReferenceType extends JavaType {
     /**
      * The internal name of this Java reference type.
      */
-    @Nonnull
+    @NonNull
     final char[] typeDescChars;
 
     /**
@@ -20,13 +20,13 @@ public abstract class ReferenceType extends JavaType {
     @NonNegative
     final int off;
 
-    ReferenceType(@Nonnull char[] typeDesc) {
+    ReferenceType(@NonNull char[] typeDesc) {
         super(typeDesc.length);
         typeDescChars = typeDesc;
         off = 0;
     }
 
-    ReferenceType(@Nonnull char[] typeDesc, @NonNegative int off, @NonNegative int len) {
+    ReferenceType(@NonNull char[] typeDesc, @NonNegative int off, @NonNegative int len) {
         super(len);
         typeDescChars = typeDesc;
         this.off = off;
@@ -38,8 +38,8 @@ public abstract class ReferenceType extends JavaType {
      * @param typeDesc
      *            a type descriptor.
      */
-    @Nonnull
-    public static ReferenceType createFromTypeDescriptor(@Nonnull String typeDesc) {
+    @NonNull
+    public static ReferenceType createFromTypeDescriptor(@NonNull String typeDesc) {
         return getReferenceType(typeDesc.toCharArray(), 0);
     }
 
@@ -52,8 +52,8 @@ public abstract class ReferenceType extends JavaType {
      * @param off
      *            the offset of this descriptor in the previous buffer.
      */
-    @Nonnull
-    static ReferenceType getReferenceType(@Nonnull char[] buf, @NonNegative int off) {
+    @NonNull
+    static ReferenceType getReferenceType(@NonNull char[] buf, @NonNegative int off) {
         switch (buf[off]) {
             case '[':
                 return ArrayType.create(buf, off);
@@ -69,13 +69,13 @@ public abstract class ReferenceType extends JavaType {
     /**
      * Returns the object or array type corresponding to the given internal name.
      */
-    @Nonnull
-    public static ReferenceType createFromInternalName(@Nonnull String internalName) {
+    @NonNull
+    public static ReferenceType createFromInternalName(@NonNull String internalName) {
         char[] buf = internalName.toCharArray();
         return buf[0] == '[' ? new ArrayType(buf) : new ObjectType(buf);
     }
 
-    static int findTypeNameLength(@Nonnull char[] buf, @NonNegative int off, @NonNegative int len) {
+    static int findTypeNameLength(@NonNull char[] buf, @NonNegative int off, @NonNegative int len) {
         len++;
 
         while (buf[off + len] != ';') {
@@ -85,7 +85,7 @@ public abstract class ReferenceType extends JavaType {
         return len;
     }
 
-    static void getDescriptor(@Nonnull StringBuilder buf, @Nonnull Class<?> aClass) {
+    static void getDescriptor(@NonNull StringBuilder buf, @NonNull Class<?> aClass) {
         buf.append('L');
 
         String name = aClass.getName();
@@ -100,7 +100,7 @@ public abstract class ReferenceType extends JavaType {
     }
 
     @Override
-    void getDescriptor(@Nonnull StringBuilder typeDesc) {
+    void getDescriptor(@NonNull StringBuilder typeDesc) {
         typeDesc.append(typeDescChars, off, len);
     }
 
@@ -111,7 +111,7 @@ public abstract class ReferenceType extends JavaType {
      *
      * @return the internal name of the class corresponding to this object or array type.
      */
-    @Nonnull
+    @NonNull
     public final String getInternalName() {
         return new String(typeDescChars, off, len);
     }

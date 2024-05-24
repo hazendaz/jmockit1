@@ -2,9 +2,9 @@ package mockit.asm.constantPool;
 
 import static mockit.asm.jvmConstants.ConstantPoolTypes.DOUBLE;
 
-import javax.annotation.Nonnull;
-
 import org.checkerframework.checker.index.qual.NonNegative;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class DoubleItem extends LongValueItem {
     public DoubleItem(@NonNegative int index) {
@@ -12,7 +12,7 @@ public final class DoubleItem extends LongValueItem {
         type = DOUBLE;
     }
 
-    DoubleItem(@NonNegative int index, @Nonnull DoubleItem item) {
+    DoubleItem(@NonNegative int index, @NonNull DoubleItem item) {
         super(index, item);
     }
 

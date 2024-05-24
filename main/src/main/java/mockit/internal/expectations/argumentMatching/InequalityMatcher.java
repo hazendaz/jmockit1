@@ -4,8 +4,8 @@
  */
 package mockit.internal.expectations.argumentMatching;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class InequalityMatcher extends EqualityMatcher {
     public InequalityMatcher(@Nullable Object notEqualArg) {
@@ -18,7 +18,7 @@ public final class InequalityMatcher extends EqualityMatcher {
     }
 
     @Override
-    public void writeMismatchPhrase(@Nonnull ArgumentMismatch argumentMismatch) {
+    public void writeMismatchPhrase(@NonNull ArgumentMismatch argumentMismatch) {
         argumentMismatch.append("not ").appendFormatted(object);
     }
 }

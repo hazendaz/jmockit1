@@ -4,7 +4,7 @@
  */
 package mockit;
 
-import javax.annotation.Nonnull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Same as {@link Verifications}, but checking that <em>all</em> invocations from code under test are explicitly
@@ -48,7 +48,7 @@ public class FullVerifications extends Verifications {
      *            scope for the test; for a given mocked <em>instance</em>, all classes up to (but not including)
      *            <code>java.lang.Object</code> are considered
      */
-    protected FullVerifications(@Nonnull Object... mockedTypesAndInstancesToVerify) {
+    protected FullVerifications(@NonNull Object... mockedTypesAndInstancesToVerify) {
         super(false, mockedTypesAndInstancesToVerify);
     }
 }

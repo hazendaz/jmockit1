@@ -26,9 +26,6 @@ import static mockit.asm.jvmConstants.Opcodes.PUTSTATIC;
 import static mockit.asm.jvmConstants.Opcodes.RETURN;
 import static mockit.asm.jvmConstants.Opcodes.SIPUSH;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.annotations.AnnotationVisitor;
 import mockit.asm.controlFlow.Label;
 import mockit.asm.methods.MethodWriter;
@@ -38,22 +35,25 @@ import mockit.coverage.lines.PerFileLineCoverage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 final class MethodModifier extends WrappingMethodVisitor {
     private static final String DATA_RECORDING_CLASS = "mockit/coverage/TestRun";
 
-    @Nonnull
+    @NonNull
     private final String sourceFileName;
-    @Nonnull
+    @NonNull
     private final FileCoverageData fileData;
-    @Nonnull
+    @NonNull
     private final PerFileLineCoverage lineCoverageInfo;
-    @Nonnull
+    @NonNull
     private final CFGTracking cfgTracking;
     private boolean foundInterestingInstruction;
     @NonNegative
     int currentLine;
 
-    MethodModifier(@Nonnull MethodWriter mw, @Nonnull String sourceFileName, @Nonnull FileCoverageData fileData) {
+    MethodModifier(@NonNull MethodWriter mw, @NonNull String sourceFileName, @NonNull FileCoverageData fileData) {
         super(mw);
         this.sourceFileName = sourceFileName;
         this.fileData = fileData;
@@ -62,7 +62,7 @@ final class MethodModifier extends WrappingMethodVisitor {
     }
 
     @Override
-    public AnnotationVisitor visitAnnotation(@Nonnull String desc) {
+    public AnnotationVisitor visitAnnotation(@NonNull String desc) {
         boolean isTestMethod = desc.startsWith("Lorg/junit/") || desc.startsWith("Lorg/testng/");
 
         if (isTestMethod) {
@@ -73,7 +73,7 @@ final class MethodModifier extends WrappingMethodVisitor {
     }
 
     @Override
-    public void visitLineNumber(@NonNegative int line, @Nonnull Label start) {
+    public void visitLineNumber(@NonNegative int line, @NonNull Label start) {
         lineCoverageInfo.addLine(line);
         currentLine = line;
         cfgTracking.startNewLine();
@@ -96,13 +96,13 @@ final class MethodModifier extends WrappingMethodVisitor {
     }
 
     @Override
-    public void visitLabel(@Nonnull Label label) {
+    public void visitLabel(@NonNull Label label) {
         mw.visitLabel(label);
         cfgTracking.afterNewLabel(currentLine, label);
     }
 
     @Override
-    public void visitJumpInsn(@NonNegative int opcode, @Nonnull Label label) {
+    public void visitJumpInsn(@NonNegative int opcode, @NonNull Label label) {
         Label jumpSource = mw.getCurrentBlock();
         assert jumpSource != null;
 
@@ -162,14 +162,14 @@ final class MethodModifier extends WrappingMethodVisitor {
     }
 
     @Override
-    public void visitTypeInsn(@NonNegative int opcode, @Nonnull String typeDesc) {
+    public void visitTypeInsn(@NonNegative int opcode, @NonNull String typeDesc) {
         generateCallToRegisterBranchTargetExecutionIfPending();
         mw.visitTypeInsn(opcode, typeDesc);
     }
 
     @Override
-    public void visitFieldInsn(@NonNegative int opcode, @Nonnull String owner, @Nonnull String name,
-            @Nonnull String desc) {
+    public void visitFieldInsn(@NonNegative int opcode, @NonNull String owner, @NonNull String name,
+            @NonNull String desc) {
         // TODO: need to also process field instructions inside accessor methods (STATIC + SYNTHETIC, "access$nnn")
         boolean getField = opcode == GETSTATIC || opcode == GETFIELD;
         boolean isStatic = opcode == PUTSTATIC || opcode == GETSTATIC;
@@ -219,7 +219,7 @@ final class MethodModifier extends WrappingMethodVisitor {
     }
 
     private void generateCallToRegisterFieldCoverage(boolean getField, boolean isStatic, boolean size2,
-            @Nonnull String classAndFieldNames) {
+            @NonNull String classAndFieldNames) {
         if (!isStatic && getField) {
             if (size2) {
                 mw.visitInsn(DUP2_X1);
@@ -241,8 +241,8 @@ final class MethodModifier extends WrappingMethodVisitor {
     }
 
     @Override
-    public void visitMethodInsn(@NonNegative int opcode, @Nonnull String owner, @Nonnull String name,
-            @Nonnull String desc, boolean itf) {
+    public void visitMethodInsn(@NonNegative int opcode, @NonNull String owner, @NonNull String name,
+            @NonNull String desc, boolean itf) {
         // This is to ignore bytecode belonging to a static initialization block inserted in a regular line of code by
         // the Java
         // compiler when the class contains at least one "assert" statement.
@@ -261,7 +261,7 @@ final class MethodModifier extends WrappingMethodVisitor {
     }
 
     @Override
-    public void visitLdcInsn(@Nonnull Object cst) {
+    public void visitLdcInsn(@NonNull Object cst) {
         foundInterestingInstruction = true;
         generateCallToRegisterBranchTargetExecutionIfPending();
         mw.visitLdcInsn(cst);
@@ -274,28 +274,28 @@ final class MethodModifier extends WrappingMethodVisitor {
     }
 
     @Override
-    public void visitTryCatchBlock(@Nonnull Label start, @Nonnull Label end, @Nonnull Label handler,
+    public void visitTryCatchBlock(@NonNull Label start, @NonNull Label end, @NonNull Label handler,
             @Nullable String type) {
         generateCallToRegisterBranchTargetExecutionIfPending();
         mw.visitTryCatchBlock(start, end, handler, type);
     }
 
     @Override
-    public void visitLookupSwitchInsn(@Nonnull Label dflt, @Nonnull int[] keys, @Nonnull Label[] labels) {
+    public void visitLookupSwitchInsn(@NonNull Label dflt, @NonNull int[] keys, @NonNull Label[] labels) {
         cfgTracking.beforeLookupSwitchInstruction();
         generateCallToRegisterBranchTargetExecutionIfPending();
         mw.visitLookupSwitchInsn(dflt, keys, labels);
     }
 
     @Override
-    public void visitTableSwitchInsn(@NonNegative int min, @NonNegative int max, @Nonnull Label dflt,
-            @Nonnull Label... labels) {
+    public void visitTableSwitchInsn(@NonNegative int min, @NonNegative int max, @NonNull Label dflt,
+            @NonNull Label... labels) {
         generateCallToRegisterBranchTargetExecutionIfPending();
         mw.visitTableSwitchInsn(min, max, dflt, labels);
     }
 
     @Override
-    public void visitMultiANewArrayInsn(@Nonnull String desc, @NonNegative int dims) {
+    public void visitMultiANewArrayInsn(@NonNull String desc, @NonNegative int dims) {
         generateCallToRegisterBranchTargetExecutionIfPending();
         mw.visitMultiANewArrayInsn(desc, dims);
     }

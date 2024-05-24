@@ -12,8 +12,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.sql.DataSourceDefinition;
 import javax.annotation.sql.DataSourceDefinitions;
 import javax.sql.CommonDataSource;
@@ -21,18 +19,21 @@ import javax.sql.CommonDataSource;
 import mockit.internal.injection.InjectionPoint;
 import mockit.internal.injection.TestedClass;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 final class TestDataSource {
     @Nullable
     private final String dsName;
     private Class<? extends CommonDataSource> dsClass;
     private CommonDataSource ds;
 
-    TestDataSource(@Nonnull InjectionPoint injectionPoint) {
+    TestDataSource(@NonNull InjectionPoint injectionPoint) {
         dsName = injectionPoint.name;
     }
 
     @Nullable
-    CommonDataSource createIfDataSourceDefinitionAvailable(@Nonnull TestedClass testedClass) {
+    CommonDataSource createIfDataSourceDefinitionAvailable(@NonNull TestedClass testedClass) {
         TestedClass testedClassWithDataSource = testedClass.parent;
 
         if (testedClassWithDataSource == null || dsName == null) {
@@ -65,7 +66,7 @@ final class TestDataSource {
                 + testedClassWithDataSource.nameOfTestedClass + " or on a super/parent class");
     }
 
-    private void createFromTestedClassOrASuperclass(@Nonnull Class<?> targetClass) {
+    private void createFromTestedClassOrASuperclass(@NonNull Class<?> targetClass) {
         do {
             createDataSource(targetClass);
 
@@ -77,7 +78,7 @@ final class TestDataSource {
         } while (targetClass != null && targetClass != Object.class);
     }
 
-    private void createDataSource(@Nonnull Class<?> targetClass) {
+    private void createDataSource(@NonNull Class<?> targetClass) {
         for (Annotation annotation : targetClass.getDeclaredAnnotations()) {
             String annotationName = annotation.annotationType().getName();
 
@@ -93,7 +94,7 @@ final class TestDataSource {
         }
     }
 
-    private void createDataSource(@Nonnull DataSourceDefinitions dsDefs) {
+    private void createDataSource(@NonNull DataSourceDefinitions dsDefs) {
         for (DataSourceDefinition dsDef : dsDefs.value()) {
             createDataSource(dsDef);
 
@@ -103,7 +104,7 @@ final class TestDataSource {
         }
     }
 
-    private void createDataSource(@Nonnull DataSourceDefinition dsDef) {
+    private void createDataSource(@NonNull DataSourceDefinition dsDef) {
         String configuredDataSourceName = InjectionPoint.getNameFromJNDILookup(dsDef.name());
 
         if (configuredDataSourceName.equals(dsName)) {
@@ -112,7 +113,7 @@ final class TestDataSource {
         }
     }
 
-    private void instantiateConfiguredDataSourceClass(@Nonnull DataSourceDefinition dsDef) {
+    private void instantiateConfiguredDataSourceClass(@NonNull DataSourceDefinition dsDef) {
         String className = dsDef.className();
 
         try {
@@ -135,7 +136,7 @@ final class TestDataSource {
         }
     }
 
-    private void setDataSourcePropertiesFromConfiguredValues(@Nonnull DataSourceDefinition dsDef) {
+    private void setDataSourcePropertiesFromConfiguredValues(@NonNull DataSourceDefinition dsDef) {
         try {
             BeanInfo beanInfo = Introspector.getBeanInfo(dsClass, Object.class);
             PropertyDescriptor[] properties = beanInfo.getPropertyDescriptors();
@@ -148,7 +149,7 @@ final class TestDataSource {
         }
     }
 
-    private void setProperty(@Nonnull PropertyDescriptor[] properties, @Nonnull String name, @Nonnull String value)
+    private void setProperty(@NonNull PropertyDescriptor[] properties, @NonNull String name, @NonNull String value)
             throws InvocationTargetException, IllegalAccessException {
         for (PropertyDescriptor property : properties) {
             if (property.getName().equals(name)) {

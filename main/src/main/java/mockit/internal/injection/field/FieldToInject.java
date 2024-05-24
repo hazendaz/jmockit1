@@ -7,31 +7,31 @@ package mockit.internal.injection.field;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
-import javax.annotation.Nonnull;
-
 import mockit.internal.injection.InjectionPoint;
 import mockit.internal.injection.InjectionPoint.KindOfInjectionPoint;
 import mockit.internal.injection.InjectionProvider;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 public final class FieldToInject extends InjectionProvider {
-    @Nonnull
+    @NonNull
     private final Field targetField;
-    @Nonnull
+    @NonNull
     private final KindOfInjectionPoint kindOfInjectionPoint;
 
-    public FieldToInject(@Nonnull Field targetField) {
+    public FieldToInject(@NonNull Field targetField) {
         super(targetField.getGenericType(), targetField.getName());
         this.targetField = targetField;
         kindOfInjectionPoint = InjectionPoint.kindOfInjectionPoint(targetField);
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public Class<?> getClassOfDeclaredType() {
         return targetField.getType();
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public Annotation[] getAnnotations() {
         return targetField.getDeclaredAnnotations();

@@ -6,14 +6,14 @@ package mockit.internal.expectations.mocking;
 
 import java.lang.reflect.Type;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class CascadingTypeRedefinition extends BaseTypeRedefinition {
-    @Nonnull
+    @NonNull
     private final Type mockedType;
 
-    public CascadingTypeRedefinition(@Nonnull String cascadingMethodName, @Nonnull Type mockedType) {
+    public CascadingTypeRedefinition(@NonNull String cascadingMethodName, @NonNull Type mockedType) {
         super(new MockedType(cascadingMethodName, mockedType));
         this.mockedType = mockedType;
     }

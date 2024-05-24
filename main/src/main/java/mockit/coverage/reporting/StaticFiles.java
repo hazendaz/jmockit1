@@ -13,16 +13,16 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.security.CodeSource;
 
-import javax.annotation.Nonnull;
-
 import mockit.internal.util.Utilities;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 final class StaticFiles {
-    @Nonnull
+    @NonNull
     private final String outputDir;
     private long lastModifiedTimeOfCoverageJar;
 
-    StaticFiles(@Nonnull String outputDir) {
+    StaticFiles(@NonNull String outputDir) {
         this.outputDir = outputDir;
     }
 
@@ -44,7 +44,7 @@ final class StaticFiles {
         }
     }
 
-    private void copyFile(@Nonnull String fileName) throws IOException {
+    private void copyFile(@NonNull String fileName) throws IOException {
         File outputFile = new File(outputDir, fileName);
 
         if (outputFile.exists() && outputFile.lastModified() > getLastModifiedTimeOfCoverageJar()) {

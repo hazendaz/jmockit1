@@ -1,8 +1,8 @@
 package mockit.asm.util;
 
-import javax.annotation.Nonnull;
-
 import org.checkerframework.checker.index.qual.NonNegative;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * A dynamically extensible vector of bytes. This class is roughly equivalent to a DataOutputStream on top of a
@@ -13,7 +13,7 @@ public final class ByteVector {
     /**
      * The content of this vector.
      */
-    @Nonnull
+    @NonNull
     private byte[] data;
 
     /**
@@ -39,7 +39,7 @@ public final class ByteVector {
     /**
      * Returns the byte {@link #data}.
      */
-    @Nonnull
+    @NonNull
     public byte[] getData() {
         return data;
     }
@@ -64,7 +64,7 @@ public final class ByteVector {
      *
      * @return this byte vector
      */
-    @Nonnull
+    @NonNull
     public ByteVector putByte(int b) {
         int len = getLengthEnlargingIfNeeded(1);
         data[len] = (byte) b;
@@ -103,7 +103,7 @@ public final class ByteVector {
      *
      * @return this byte vector
      */
-    @Nonnull
+    @NonNull
     public ByteVector put11(int b1, int b2) {
         int len = getLengthEnlargingIfNeeded(2);
         byte[] bytes = data;
@@ -120,7 +120,7 @@ public final class ByteVector {
      *
      * @return this byte vector
      */
-    @Nonnull
+    @NonNull
     public ByteVector putShort(int s) {
         return put11(s >>> 8, s);
     }
@@ -130,7 +130,7 @@ public final class ByteVector {
      *
      * @return this byte vector
      */
-    @Nonnull
+    @NonNull
     public ByteVector put12(int b, int s) {
         int len = getLengthEnlargingIfNeeded(3);
         byte[] bytes = data;
@@ -149,7 +149,7 @@ public final class ByteVector {
      *
      * @return this byte vector
      */
-    @Nonnull
+    @NonNull
     public ByteVector putInt(int i) {
         int len = getLengthEnlargingIfNeeded(4);
         byte[] bytes = data;
@@ -181,7 +181,7 @@ public final class ByteVector {
      * @param utf8String
      *            a String whose UTF8 encoded length must be less than 65536
      */
-    public void putUTF8(@Nonnull String utf8String) {
+    public void putUTF8(@NonNull String utf8String) {
         int charLength = utf8String.length();
 
         if (charLength > 65535) {
@@ -226,7 +226,7 @@ public final class ByteVector {
      *            the index of the first character to encode. The previous characters are supposed to have already been
      *            encoded, using only one byte per character.
      */
-    private void encodeUTF8(@Nonnull String utf8String, @NonNegative int startIndex) {
+    private void encodeUTF8(@NonNull String utf8String, @NonNegative int startIndex) {
         int byteLength = computeByteLength(utf8String, startIndex);
 
         if (byteLength > 65535) {
@@ -248,7 +248,7 @@ public final class ByteVector {
     }
 
     @NonNegative
-    private static int computeByteLength(@Nonnull String utf8String, @NonNegative int startIndex) {
+    private static int computeByteLength(@NonNull String utf8String, @NonNegative int startIndex) {
         int byteLength = startIndex;
 
         for (int i = startIndex, n = utf8String.length(); i < n; i++) {
@@ -266,7 +266,7 @@ public final class ByteVector {
         return byteLength;
     }
 
-    private void putEncodedCharacters(@Nonnull String utf8String, @NonNegative int startIndex) {
+    private void putEncodedCharacters(@NonNull String utf8String, @NonNegative int startIndex) {
         byte[] characters = data;
         int len = length;
 
@@ -303,13 +303,13 @@ public final class ByteVector {
      * @param numBytes
      *            number of bytes of code that must be copied
      */
-    public void putByteArray(@Nonnull byte[] bytes, @NonNegative int offset, @NonNegative int numBytes) {
+    public void putByteArray(@NonNull byte[] bytes, @NonNegative int offset, @NonNegative int numBytes) {
         int len = getLengthEnlargingIfNeeded(numBytes);
         System.arraycopy(bytes, offset, data, len, numBytes);
         length += numBytes;
     }
 
-    public void putByteVector(@Nonnull ByteVector another) {
+    public void putByteVector(@NonNull ByteVector another) {
         putByteArray(another.data, 0, another.length);
     }
 

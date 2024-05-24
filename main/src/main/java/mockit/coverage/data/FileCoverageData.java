@@ -6,9 +6,6 @@ package mockit.coverage.data;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.coverage.CoveragePercentage;
 import mockit.coverage.TestRun;
 import mockit.coverage.dataItems.PerFileDataCoverage;
@@ -16,20 +13,23 @@ import mockit.coverage.lines.PerFileLineCoverage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 /**
  * Coverage data gathered for the lines, branching points, and fields of a single source file.
  */
 public final class FileCoverageData implements Serializable {
     private static final long serialVersionUID = 3508572808457541012L;
 
-    @Nonnull
+    @NonNull
     private static final PerFileLineCoverage NO_LINE_INFO = new PerFileLineCoverage();
-    @Nonnull
+    @NonNull
     private static final PerFileDataCoverage NO_DATA_INFO = new PerFileDataCoverage();
 
-    @Nonnull
+    @NonNull
     public PerFileLineCoverage lineCoverageInfo;
-    @Nonnull
+    @NonNull
     public PerFileDataCoverage dataCoverageInfo;
 
     // Used for fast indexed access.
@@ -58,7 +58,7 @@ public final class FileCoverageData implements Serializable {
         return loadedAfterTestCompletion;
     }
 
-    @Nonnull
+    @NonNull
     public PerFileLineCoverage getLineCoverageData() {
         return lineCoverageInfo;
     }
@@ -79,7 +79,7 @@ public final class FileCoverageData implements Serializable {
         return CoveragePercentage.calculate(coveredItems, totalItems);
     }
 
-    void mergeWithDataFromPreviousTestRun(@Nonnull FileCoverageData previousInfo) {
+    void mergeWithDataFromPreviousTestRun(@NonNull FileCoverageData previousInfo) {
         if (lineCoverageInfo == NO_LINE_INFO) {
             lineCoverageInfo = previousInfo.lineCoverageInfo;
         } else if (previousInfo.lineCoverageInfo != NO_LINE_INFO) {

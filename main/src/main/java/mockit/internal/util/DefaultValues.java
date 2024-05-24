@@ -35,10 +35,10 @@ import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.types.ArrayType;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Provides default values for each type, typically used for returning default values according to method return types.
@@ -186,14 +186,14 @@ public final class DefaultValues {
         }
     }
 
-    @Nonnull
-    public static String getReturnTypeDesc(@Nonnull String methodNameAndDesc) {
+    @NonNull
+    public static String getReturnTypeDesc(@NonNull String methodNameAndDesc) {
         int rightParen = methodNameAndDesc.indexOf(')') + 1;
         return methodNameAndDesc.substring(rightParen);
     }
 
     @Nullable
-    public static Object computeForType(@Nonnull String typeDesc) {
+    public static Object computeForType(@NonNull String typeDesc) {
         char typeDescChar = typeDesc.charAt(0);
 
         if (typeDescChar == 'V') {
@@ -214,8 +214,8 @@ public final class DefaultValues {
         return computeForArrayType(typeDesc);
     }
 
-    @Nonnull
-    public static Object computeForArrayType(@Nonnull String typeDesc) {
+    @NonNull
+    public static Object computeForArrayType(@NonNull String typeDesc) {
         Object emptyArray = ELEM_TYPE_TO_ONE_D_ARRAY.get(typeDesc);
 
         if (emptyArray == null) {
@@ -225,8 +225,8 @@ public final class DefaultValues {
         return emptyArray;
     }
 
-    @Nonnull
-    private static Object newEmptyArray(@Nonnull String typeDesc) {
+    @NonNull
+    private static Object newEmptyArray(@NonNull String typeDesc) {
         ArrayType type = ArrayType.create(typeDesc);
         Class<?> elementType = TypeDescriptor.getClassForType(type.getElementType());
 
@@ -234,7 +234,7 @@ public final class DefaultValues {
     }
 
     @Nullable
-    public static Object computeForType(@Nonnull Class<?> type) {
+    public static Object computeForType(@NonNull Class<?> type) {
         if (type.isArray()) {
             return Array.newInstance(type.getComponentType(), 0);
         }
@@ -246,8 +246,8 @@ public final class DefaultValues {
         return computeForWrapperType(type);
     }
 
-    @Nonnull
-    public static Object defaultValueForPrimitiveType(@Nonnull Class<?> type) {
+    @NonNull
+    public static Object defaultValueForPrimitiveType(@NonNull Class<?> type) {
         if (type == int.class) {
             return ZERO_INT;
         }
@@ -274,7 +274,7 @@ public final class DefaultValues {
 
     @Nullable
     @SuppressWarnings("unchecked")
-    public static <T> T computeForWrapperType(@Nonnull Type type) {
+    public static <T> T computeForWrapperType(@NonNull Type type) {
         if (type == Integer.class) {
             return (T) ZERO_INT;
         }
@@ -311,7 +311,7 @@ public final class DefaultValues {
     }
 
     @Nullable
-    public static Object computeForReturnType(@Nonnull String methodNameAndDesc) {
+    public static Object computeForReturnType(@NonNull String methodNameAndDesc) {
         String typeDesc = getReturnTypeDesc(methodNameAndDesc);
         return computeForType(typeDesc);
     }

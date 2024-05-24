@@ -1,11 +1,11 @@
 package mockit.asm.constantPool;
 
-import javax.annotation.Nonnull;
-
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 public final class ModuleItem extends Item {
-    @Nonnull
+    @NonNull
     @SuppressWarnings("NullableProblems")
     String strVal;
 
@@ -14,17 +14,17 @@ public final class ModuleItem extends Item {
         strVal = "";
     }
 
-    public ModuleItem(@NonNegative int index, int type, @Nonnull String strVal) {
+    public ModuleItem(@NonNegative int index, int type, @NonNull String strVal) {
         super(index);
         set(type, strVal);
     }
 
-    ModuleItem(@NonNegative int index, @Nonnull ModuleItem item) {
+    ModuleItem(@NonNegative int index, @NonNull ModuleItem item) {
         super(index, item);
         strVal = item.strVal;
     }
 
-    @Nonnull
+    @NonNull
     public String getValue() {
         return strVal;
     }
@@ -32,14 +32,14 @@ public final class ModuleItem extends Item {
     /**
      * Sets this module name value.
      */
-    void set(int type, @Nonnull String strVal) {
+    void set(int type, @NonNull String strVal) {
         this.type = type;
         this.strVal = strVal;
         setHashCode(strVal.hashCode());
     }
 
     @Override
-    boolean isEqualTo(@Nonnull Item item) {
+    boolean isEqualTo(@NonNull Item item) {
         return ((ModuleItem) item).strVal.equals(strVal);
     }
 }

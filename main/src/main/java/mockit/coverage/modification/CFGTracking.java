@@ -11,8 +11,6 @@ import static mockit.asm.jvmConstants.Opcodes.INVOKEVIRTUAL;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import mockit.asm.controlFlow.Label;
 import mockit.coverage.lines.BranchCoverageData;
 import mockit.coverage.lines.LineCoverageData;
@@ -20,14 +18,16 @@ import mockit.coverage.lines.PerFileLineCoverage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 final class CFGTracking {
-    @Nonnull
+    @NonNull
     private final PerFileLineCoverage lineCoverageInfo;
-    @Nonnull
+    @NonNull
     private final List<Label> visitedLabels;
-    @Nonnull
+    @NonNull
     private final List<Label> jumpTargetsForCurrentLine;
-    @Nonnull
+    @NonNull
     private final List<Integer> pendingBranches;
     @NonNegative
     private int lineExpectingInstructionAfterJump;
@@ -38,7 +38,7 @@ final class CFGTracking {
     @NonNegative
     private int ignoreUntilNextSwitch;
 
-    CFGTracking(@Nonnull PerFileLineCoverage lineCoverageInfo) {
+    CFGTracking(@NonNull PerFileLineCoverage lineCoverageInfo) {
         this.lineCoverageInfo = lineCoverageInfo;
         visitedLabels = new ArrayList<>();
         jumpTargetsForCurrentLine = new ArrayList<>(4);
@@ -53,7 +53,7 @@ final class CFGTracking {
         jumpTargetsForCurrentLine.clear();
     }
 
-    void afterNewLabel(@NonNegative int currentLine, @Nonnull Label label) {
+    void afterNewLabel(@NonNegative int currentLine, @NonNull Label label) {
         if (ignoreUntilNextLabel || ignoreUntilNextSwitch > 0) {
             ignoreUntilNextLabel = false;
             return;
@@ -81,8 +81,8 @@ final class CFGTracking {
         }
     }
 
-    void afterConditionalJump(@Nonnull MethodModifier methodModifier, @Nonnull Label jumpSource,
-            @Nonnull Label jumpTarget) {
+    void afterConditionalJump(@NonNull MethodModifier methodModifier, @NonNull Label jumpSource,
+            @NonNull Label jumpTarget) {
         int currentLine = methodModifier.currentLine;
 
         if (currentLine == 0 || ignoreUntilNextLabel || ignoreUntilNextSwitch > 0
@@ -111,7 +111,7 @@ final class CFGTracking {
         lineExpectingInstructionAfterJump = currentLine;
     }
 
-    void generateCallToRegisterBranchTargetExecutionIfPending(@Nonnull MethodModifier methodModifier) {
+    void generateCallToRegisterBranchTargetExecutionIfPending(@NonNull MethodModifier methodModifier) {
         if (ignoreUntilNextLabel || ignoreUntilNextSwitch > 0) {
             return;
         }
@@ -144,7 +144,7 @@ final class CFGTracking {
         ignoreUntilNextLabel = true;
     }
 
-    void beforeNoOperandInstruction(@Nonnull MethodModifier methodModifier, @NonNegative int opcode) {
+    void beforeNoOperandInstruction(@NonNull MethodModifier methodModifier, @NonNegative int opcode) {
         if ((opcode == ICONST_0 || opcode == ICONST_1) && foundPotentialBooleanExpressionValue == 0) {
             generateCallToRegisterBranchTargetExecutionIfPending(methodModifier);
             foundPotentialBooleanExpressionValue = 1;
@@ -153,7 +153,7 @@ final class CFGTracking {
         }
     }
 
-    void afterMethodInstruction(@NonNegative int opcode, @Nonnull String owner, @Nonnull String name) {
+    void afterMethodInstruction(@NonNegative int opcode, @NonNull String owner, @NonNull String name) {
         if (opcode == INVOKEVIRTUAL && "hashCode".equals(name) && "java/lang/String".equals(owner)
                 && ignoreUntilNextSwitch == 0) {
             ignoreUntilNextSwitch = 1;

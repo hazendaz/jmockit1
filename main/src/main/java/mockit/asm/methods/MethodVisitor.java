@@ -1,8 +1,5 @@
 package mockit.asm.methods;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.BaseWriter;
 import mockit.asm.annotations.AnnotationVisitor;
 import mockit.asm.constantPool.ConstantPoolGeneration;
@@ -16,6 +13,9 @@ import mockit.asm.types.ObjectType;
 import mockit.asm.util.MethodHandle;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * A visitor to visit a Java method, in the following order:<br>
@@ -32,7 +32,7 @@ public class MethodVisitor extends BaseWriter {
     protected MethodVisitor() {
     }
 
-    protected MethodVisitor(@Nonnull ConstantPoolGeneration cp, int methodAccess) {
+    protected MethodVisitor(@NonNull ConstantPoolGeneration cp, int methodAccess) {
         super(cp, methodAccess);
     }
 
@@ -48,7 +48,7 @@ public class MethodVisitor extends BaseWriter {
      *         visiting this annotation
      */
     @Nullable
-    public AnnotationVisitor visitParameterAnnotation(@NonNegative int parameter, @Nonnull String desc) {
+    public AnnotationVisitor visitParameterAnnotation(@NonNegative int parameter, @NonNull String desc) {
         return null;
     }
 
@@ -104,7 +104,7 @@ public class MethodVisitor extends BaseWriter {
      * @param typeDesc
      *            the operand of the instruction, which is the internal name of an object or array class
      */
-    public void visitTypeInsn(int opcode, @Nonnull String typeDesc) {
+    public void visitTypeInsn(int opcode, @NonNull String typeDesc) {
     }
 
     /**
@@ -120,7 +120,7 @@ public class MethodVisitor extends BaseWriter {
      * @param desc
      *            the field's descriptor (see {@link JavaType})
      */
-    public void visitFieldInsn(int opcode, @Nonnull String owner, @Nonnull String name, @Nonnull String desc) {
+    public void visitFieldInsn(int opcode, @NonNull String owner, @NonNull String name, @NonNull String desc) {
     }
 
     /**
@@ -138,7 +138,7 @@ public class MethodVisitor extends BaseWriter {
      * @param itf
      *            whether the method's owner class is an interface or not
      */
-    public void visitMethodInsn(int opcode, @Nonnull String owner, @Nonnull String name, @Nonnull String desc,
+    public void visitMethodInsn(int opcode, @NonNull String owner, @NonNull String name, @NonNull String desc,
             boolean itf) {
     }
 
@@ -156,8 +156,8 @@ public class MethodVisitor extends BaseWriter {
      *            {@link Float}, {@link Long}, {@link Double}, {@link String}, {@link JavaType}, or {@link MethodHandle}
      *            value
      */
-    public void visitInvokeDynamicInsn(@Nonnull String name, @Nonnull String desc, @Nonnull MethodHandle bsm,
-            @Nonnull Object... bsmArgs) {
+    public void visitInvokeDynamicInsn(@NonNull String name, @NonNull String desc, @NonNull MethodHandle bsm,
+            @NonNull Object... bsmArgs) {
     }
 
     /**
@@ -171,13 +171,13 @@ public class MethodVisitor extends BaseWriter {
      *            the operand of the instruction to be visited, which is a label that designates the instruction to
      *            which the jump instruction may jump
      */
-    public void visitJumpInsn(int opcode, @Nonnull Label label) {
+    public void visitJumpInsn(int opcode, @NonNull Label label) {
     }
 
     /**
      * Visits a label, which designates the instruction that will be visited just after it.
      */
-    public void visitLabel(@Nonnull Label label) {
+    public void visitLabel(@NonNull Label label) {
     }
 
     /**
@@ -188,7 +188,7 @@ public class MethodVisitor extends BaseWriter {
      *            {@link Integer}/{@link Float}/{@link Long}/{@link Double}/{@link String}, an {@link ObjectType} or
      *            {@link ArrayType} for <code>.class</code> constants, a {@link MethodType}, or a {@link MethodHandle}
      */
-    public void visitLdcInsn(@Nonnull Object cst) {
+    public void visitLdcInsn(@NonNull Object cst) {
     }
 
     /**
@@ -215,7 +215,7 @@ public class MethodVisitor extends BaseWriter {
      *            beginnings of the handler blocks; <code>labels[i]</code> is the beginning of the handler block for the
      *            <code>min + i</code> key
      */
-    public void visitTableSwitchInsn(int min, int max, @Nonnull Label dflt, @Nonnull Label... labels) {
+    public void visitTableSwitchInsn(int min, int max, @NonNull Label dflt, @NonNull Label... labels) {
     }
 
     /**
@@ -229,7 +229,7 @@ public class MethodVisitor extends BaseWriter {
      *            beginnings of the handler blocks; <code>labels[i]</code> is the beginning of the handler block for the
      *            <code>keys[i]</code>
      */
-    public void visitLookupSwitchInsn(@Nonnull Label dflt, @Nonnull int[] keys, @Nonnull Label[] labels) {
+    public void visitLookupSwitchInsn(@NonNull Label dflt, @NonNull int[] keys, @NonNull Label[] labels) {
     }
 
     /**
@@ -240,7 +240,7 @@ public class MethodVisitor extends BaseWriter {
      * @param dims
      *            number of dimensions of the array to allocate
      */
-    public void visitMultiANewArrayInsn(@Nonnull String desc, @NonNegative int dims) {
+    public void visitMultiANewArrayInsn(@NonNull String desc, @NonNegative int dims) {
     }
 
     /**
@@ -256,7 +256,7 @@ public class MethodVisitor extends BaseWriter {
      *            internal name of the type of exceptions handled by the handler, or <code>null</code> to catch any
      *            exceptions (for "finally" blocks)
      */
-    public void visitTryCatchBlock(@Nonnull Label start, @Nonnull Label end, @Nonnull Label handler,
+    public void visitTryCatchBlock(@NonNull Label start, @NonNull Label end, @NonNull Label handler,
             @Nullable String type) {
     }
 
@@ -277,8 +277,8 @@ public class MethodVisitor extends BaseWriter {
      * @param index
      *            the local variable's index
      */
-    public void visitLocalVariable(@Nonnull String name, @Nonnull String desc, @Nullable String signature,
-            @Nonnull Label start, @Nonnull Label end, @NonNegative int index) {
+    public void visitLocalVariable(@NonNull String name, @NonNull String desc, @Nullable String signature,
+            @NonNull Label start, @NonNull Label end, @NonNegative int index) {
     }
 
     /**
@@ -289,7 +289,7 @@ public class MethodVisitor extends BaseWriter {
      * @param start
      *            the first instruction corresponding to this line number
      */
-    public void visitLineNumber(@NonNegative int line, @Nonnull Label start) {
+    public void visitLineNumber(@NonNegative int line, @NonNull Label start) {
     }
 
     /**

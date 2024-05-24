@@ -22,32 +22,32 @@ import java.util.Map.Entry;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.coverage.CoveragePercentage;
 import mockit.internal.util.Utilities;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Coverage data captured for all source files exercised during a test run.
  */
 public final class CoverageData implements Serializable {
     private static final long serialVersionUID = -4860004226098360259L;
-    @Nonnull
+    @NonNull
     private static final CoverageData instance = new CoverageData();
 
-    @Nonnull
+    @NonNull
     public static CoverageData instance() {
         return instance;
     }
 
     private boolean withCallPoints;
 
-    @Nonnull
+    @NonNull
     private final Map<String, FileCoverageData> fileToFileData = new LinkedHashMap<>();
-    @Nonnull
+    @NonNull
     private final List<FileCoverageData> indexedFileData = new ArrayList<>(100);
 
     public boolean isWithCallPoints() {
@@ -58,13 +58,13 @@ public final class CoverageData implements Serializable {
         this.withCallPoints = withCallPoints;
     }
 
-    @Nonnull
+    @NonNull
     public Map<String, FileCoverageData> getFileToFileData() {
         return fileToFileData;
     }
 
-    @Nonnull
-    public FileCoverageData getOrAddFile(@Nonnull String file, @Nullable String kindOfTopLevelType) {
+    @NonNull
+    public FileCoverageData getOrAddFile(@NonNull String file, @Nullable String kindOfTopLevelType) {
         FileCoverageData fileData = fileToFileData.get(file);
 
         // For a class with nested/inner classes, a previous class in the same source file may already have been added.
@@ -80,12 +80,12 @@ public final class CoverageData implements Serializable {
         return fileData;
     }
 
-    @Nonnull
-    public FileCoverageData getFileData(@Nonnull String file) {
+    @NonNull
+    public FileCoverageData getFileData(@NonNull String file) {
         return fileToFileData.get(file);
     }
 
-    @Nonnull
+    @NonNull
     public FileCoverageData getFileData(@NonNegative int fileIndex) {
         return indexedFileData.get(fileIndex);
     }
@@ -163,7 +163,7 @@ public final class CoverageData implements Serializable {
         }
     }
 
-    private long getLastModifiedTimeForClassFile(@Nonnull String sourceFilePath) {
+    private long getLastModifiedTimeForClassFile(@NonNull String sourceFilePath) {
         String sourceFilePathNoExt = sourceFilePath.substring(0, sourceFilePath.lastIndexOf('.'));
         String className = sourceFilePathNoExt.replace('/', '.');
 
@@ -188,8 +188,8 @@ public final class CoverageData implements Serializable {
         return new File(pathToClassFile).lastModified();
     }
 
-    private static long getLastModifiedTimeFromJarEntry(@Nonnull String sourceFilePathNoExt,
-            @Nonnull String locationPath) throws IOException {
+    private static long getLastModifiedTimeFromJarEntry(@NonNull String sourceFilePathNoExt,
+            @NonNull String locationPath) throws IOException {
 
         try (JarFile jarFile = new JarFile(locationPath)) {
             JarEntry classEntry = jarFile.getJarEntry(sourceFilePathNoExt + ".class");
@@ -198,7 +198,7 @@ public final class CoverageData implements Serializable {
     }
 
     @Nullable
-    private Class<?> findCoveredClass(@Nonnull String className) {
+    private Class<?> findCoveredClass(@NonNull String className) {
         ClassLoader currentCL = getClass().getClassLoader();
         Class<?> coveredClass = loadClass(className, currentCL);
 
@@ -222,7 +222,7 @@ public final class CoverageData implements Serializable {
     }
 
     @Nullable
-    private static Class<?> loadClass(@Nonnull String className, @Nullable ClassLoader loader) {
+    private static Class<?> loadClass(@NonNull String className, @Nullable ClassLoader loader) {
         try {
             return Class.forName(className, false, loader);
         } catch (ClassNotFoundException | NoClassDefFoundError ignore) {
@@ -239,8 +239,8 @@ public final class CoverageData implements Serializable {
      *
      * @return a new object containing all coverage data resulting from a previous test run
      */
-    @Nonnull
-    public static CoverageData readDataFromFile(@Nonnull File dataFile) throws IOException {
+    @NonNull
+    public static CoverageData readDataFromFile(@NonNull File dataFile) throws IOException {
         try (ObjectInputStream input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(dataFile)))) {
             return (CoverageData) input.readObject();
         } catch (ClassNotFoundException e) {
@@ -249,14 +249,14 @@ public final class CoverageData implements Serializable {
         }
     }
 
-    public void writeDataToFile(@Nonnull File dataFile) throws IOException {
+    public void writeDataToFile(@NonNull File dataFile) throws IOException {
         try (ObjectOutputStream output = new ObjectOutputStream(
                 new BufferedOutputStream(new FileOutputStream(dataFile)))) {
             output.writeObject(this);
         }
     }
 
-    public void merge(@Nonnull CoverageData previousData) {
+    public void merge(@NonNull CoverageData previousData) {
         withCallPoints |= previousData.withCallPoints;
 
         for (Entry<String, FileCoverageData> previousFileAndFileData : previousData.fileToFileData.entrySet()) {

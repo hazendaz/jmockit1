@@ -1,13 +1,13 @@
 package mockit.asm.methods;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.annotations.AnnotationVisitor;
 import mockit.asm.controlFlow.Label;
 import mockit.asm.util.MethodHandle;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Same as {@link MethodVisitor}, except it always wraps a {@link MethodWriter}.
@@ -16,7 +16,7 @@ public class WrappingMethodVisitor extends MethodVisitor {
     /**
      * The method writer to which this visitor must delegate method calls.
      */
-    @Nonnull
+    @NonNull
     protected final MethodWriter mw;
 
     /**
@@ -25,18 +25,18 @@ public class WrappingMethodVisitor extends MethodVisitor {
      * @param mw
      *            the method visitor to which this visitor must delegate method calls
      */
-    protected WrappingMethodVisitor(@Nonnull MethodWriter mw) {
+    protected WrappingMethodVisitor(@NonNull MethodWriter mw) {
         this.mw = mw;
     }
 
     @Nullable
     @Override
-    public AnnotationVisitor visitAnnotation(@Nonnull String desc) {
+    public AnnotationVisitor visitAnnotation(@NonNull String desc) {
         return mw.visitAnnotation(desc);
     }
 
     @Override
-    public final AnnotationVisitor visitParameterAnnotation(@NonNegative int parameter, @Nonnull String desc) {
+    public final AnnotationVisitor visitParameterAnnotation(@NonNegative int parameter, @NonNull String desc) {
         return mw.visitParameterAnnotation(parameter, desc);
     }
 
@@ -56,39 +56,39 @@ public class WrappingMethodVisitor extends MethodVisitor {
     }
 
     @Override
-    public void visitTypeInsn(int opcode, @Nonnull String typeDesc) {
+    public void visitTypeInsn(int opcode, @NonNull String typeDesc) {
         mw.visitTypeInsn(opcode, typeDesc);
     }
 
     @Override
-    public void visitFieldInsn(int opcode, @Nonnull String owner, @Nonnull String name, @Nonnull String desc) {
+    public void visitFieldInsn(int opcode, @NonNull String owner, @NonNull String name, @NonNull String desc) {
         mw.visitFieldInsn(opcode, owner, name, desc);
     }
 
     @Override
-    public void visitMethodInsn(int opcode, @Nonnull String owner, @Nonnull String name, @Nonnull String desc,
+    public void visitMethodInsn(int opcode, @NonNull String owner, @NonNull String name, @NonNull String desc,
             boolean itf) {
         mw.visitMethodInsn(opcode, owner, name, desc, itf);
     }
 
     @Override
-    public final void visitInvokeDynamicInsn(@Nonnull String name, @Nonnull String desc, @Nonnull MethodHandle bsm,
-            @Nonnull Object... bsmArgs) {
+    public final void visitInvokeDynamicInsn(@NonNull String name, @NonNull String desc, @NonNull MethodHandle bsm,
+            @NonNull Object... bsmArgs) {
         mw.visitInvokeDynamicInsn(name, desc, bsm, bsmArgs);
     }
 
     @Override
-    public void visitJumpInsn(int opcode, @Nonnull Label label) {
+    public void visitJumpInsn(int opcode, @NonNull Label label) {
         mw.visitJumpInsn(opcode, label);
     }
 
     @Override
-    public void visitLabel(@Nonnull Label label) {
+    public void visitLabel(@NonNull Label label) {
         mw.visitLabel(label);
     }
 
     @Override
-    public void visitLdcInsn(@Nonnull Object cst) {
+    public void visitLdcInsn(@NonNull Object cst) {
         mw.visitLdcInsn(cst);
     }
 
@@ -98,34 +98,34 @@ public class WrappingMethodVisitor extends MethodVisitor {
     }
 
     @Override
-    public void visitTableSwitchInsn(int min, int max, @Nonnull Label dflt, @Nonnull Label... labels) {
+    public void visitTableSwitchInsn(int min, int max, @NonNull Label dflt, @NonNull Label... labels) {
         mw.visitTableSwitchInsn(min, max, dflt, labels);
     }
 
     @Override
-    public void visitLookupSwitchInsn(@Nonnull Label dflt, @Nonnull int[] keys, @Nonnull Label[] labels) {
+    public void visitLookupSwitchInsn(@NonNull Label dflt, @NonNull int[] keys, @NonNull Label[] labels) {
         mw.visitLookupSwitchInsn(dflt, keys, labels);
     }
 
     @Override
-    public void visitMultiANewArrayInsn(@Nonnull String desc, @NonNegative int dims) {
+    public void visitMultiANewArrayInsn(@NonNull String desc, @NonNegative int dims) {
         mw.visitMultiANewArrayInsn(desc, dims);
     }
 
     @Override
-    public void visitTryCatchBlock(@Nonnull Label start, @Nonnull Label end, @Nonnull Label handler,
+    public void visitTryCatchBlock(@NonNull Label start, @NonNull Label end, @NonNull Label handler,
             @Nullable String type) {
         mw.visitTryCatchBlock(start, end, handler, type);
     }
 
     @Override
-    public void visitLocalVariable(@Nonnull String name, @Nonnull String desc, String signature, @Nonnull Label start,
-            @Nonnull Label end, @NonNegative int index) {
+    public void visitLocalVariable(@NonNull String name, @NonNull String desc, String signature, @NonNull Label start,
+            @NonNull Label end, @NonNegative int index) {
         mw.visitLocalVariable(name, desc, signature, start, end, index);
     }
 
     @Override
-    public void visitLineNumber(@NonNegative int line, @Nonnull Label start) {
+    public void visitLineNumber(@NonNegative int line, @NonNull Label start) {
         mw.visitLineNumber(line, start);
     }
 

@@ -17,14 +17,14 @@ import java.nio.charset.StandardCharsets;
 import java.security.CodeSource;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Miscellaneous utility constants and methods.
  */
 public final class Utilities {
-    @Nonnull
+    @NonNull
     public static final Object[] NO_ARGS = {};
     public static final boolean JAVA8;
     public static final boolean HOTSPOT_VM;
@@ -39,7 +39,7 @@ public final class Utilities {
     private Utilities() {
     }
 
-    public static void ensureThatMemberIsAccessible(@Nonnull AccessibleObject classMember) {
+    public static void ensureThatMemberIsAccessible(@NonNull AccessibleObject classMember) {
         // noinspection deprecation
         if (!classMember.isAccessible()) {
             classMember.setAccessible(true);
@@ -64,8 +64,8 @@ public final class Utilities {
         return null;
     }
 
-    @Nonnull
-    public static Class<?> getClassType(@Nonnull Type declaredType) {
+    @NonNull
+    public static Class<?> getClassType(@NonNull Type declaredType) {
         while (true) {
             if (declaredType instanceof Class<?>) {
                 return (Class<?>) declaredType;
@@ -94,7 +94,7 @@ public final class Utilities {
         }
     }
 
-    public static boolean containsReference(@Nonnull List<?> references, @Nullable Object toBeFound) {
+    public static boolean containsReference(@NonNull List<?> references, @Nullable Object toBeFound) {
         for (Object reference : references) {
             if (reference == toBeFound) {
                 return true;
@@ -104,14 +104,14 @@ public final class Utilities {
         return false;
     }
 
-    @Nonnull
-    public static String getClassFileLocationPath(@Nonnull Class<?> aClass) {
+    @NonNull
+    public static String getClassFileLocationPath(@NonNull Class<?> aClass) {
         CodeSource codeSource = aClass.getProtectionDomain().getCodeSource();
         return getClassFileLocationPath(codeSource);
     }
 
-    @Nonnull
-    public static String getClassFileLocationPath(@Nonnull CodeSource codeSource) {
+    @NonNull
+    public static String getClassFileLocationPath(@NonNull CodeSource codeSource) {
         String locationPath = codeSource.getLocation().getPath();
         return URLDecoder.decode(locationPath, StandardCharsets.UTF_8);
     }

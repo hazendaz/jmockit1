@@ -9,20 +9,20 @@ import static mockit.internal.util.Utilities.getClassType;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.internal.injection.InjectionProvider;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 final class ConstructorParameter extends InjectionProvider {
-    @Nonnull
+    @NonNull
     private final Class<?> classOfDeclaredType;
-    @Nonnull
+    @NonNull
     private final Annotation[] annotations;
     @Nullable
     private final Object value;
 
-    ConstructorParameter(@Nonnull Type declaredType, @Nonnull Annotation[] annotations, @Nonnull String name,
+    ConstructorParameter(@NonNull Type declaredType, @NonNull Annotation[] annotations, @NonNull String name,
             @Nullable Object value) {
         super(declaredType, name);
         classOfDeclaredType = getClassType(declaredType);
@@ -30,13 +30,13 @@ final class ConstructorParameter extends InjectionProvider {
         this.value = value;
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public Class<?> getClassOfDeclaredType() {
         return classOfDeclaredType;
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public Annotation[] getAnnotations() {
         return annotations;

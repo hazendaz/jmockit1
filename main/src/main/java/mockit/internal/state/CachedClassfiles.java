@@ -10,10 +10,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.internal.startup.Startup;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Holds a map of internal class names to the corresponding class files (bytecode arrays), for the classes that have
@@ -26,10 +26,10 @@ import mockit.internal.startup.Startup;
  * modification agents such as the AspectJ load-time weaver.
  */
 public final class CachedClassfiles implements ClassFileTransformer {
-    @Nonnull
+    @NonNull
     public static final CachedClassfiles INSTANCE = new CachedClassfiles();
 
-    @Nonnull
+    @NonNull
     private final Map<ClassLoader, Map<String, byte[]>> classLoadersAndClassfiles;
     @Nullable
     private Class<?> classBeingCached;
@@ -42,7 +42,7 @@ public final class CachedClassfiles implements ClassFileTransformer {
     @Override
     public byte[] transform(@Nullable ClassLoader loader, String classDesc,
             @Nullable Class<?> classBeingRedefinedOrRetransformed, @Nullable ProtectionDomain protectionDomain,
-            @Nonnull byte[] classfileBuffer) {
+            @NonNull byte[] classfileBuffer) {
         // can be null for Java 8 lambdas
         if (classDesc != null && classBeingRedefinedOrRetransformed != null
                 && classBeingRedefinedOrRetransformed == classBeingCached) {
@@ -53,12 +53,12 @@ public final class CachedClassfiles implements ClassFileTransformer {
         return null;
     }
 
-    private void addClassfile(@Nullable ClassLoader loader, @Nonnull String classDesc, @Nonnull byte[] classfile) {
+    private void addClassfile(@Nullable ClassLoader loader, @NonNull String classDesc, @NonNull byte[] classfile) {
         Map<String, byte[]> classfiles = getClassfiles(loader);
         classfiles.put(classDesc, classfile);
     }
 
-    @Nonnull
+    @NonNull
     private Map<String, byte[]> getClassfiles(@Nullable ClassLoader loader) {
         Map<String, byte[]> classfiles = classLoadersAndClassfiles.get(loader);
 
@@ -71,7 +71,7 @@ public final class CachedClassfiles implements ClassFileTransformer {
     }
 
     @Nullable
-    private byte[] findClassfile(@Nonnull Class<?> aClass) {
+    private byte[] findClassfile(@NonNull Class<?> aClass) {
         String className = aClass.getName();
 
         // Discards an invalid numerical suffix from a synthetic Java 8 class, if detected.
@@ -85,12 +85,12 @@ public final class CachedClassfiles implements ClassFileTransformer {
     }
 
     @Nullable
-    public static synchronized byte[] getClassfile(@Nonnull String classDesc) {
+    public static synchronized byte[] getClassfile(@NonNull String classDesc) {
         return INSTANCE.findClassfile(classDesc);
     }
 
     @Nullable
-    private byte[] findClassfile(@Nonnull String classDesc) {
+    private byte[] findClassfile(@NonNull String classDesc) {
         byte[] classfile = null;
 
         for (Map<String, byte[]> classfiles : classLoadersAndClassfiles.values()) {
@@ -114,13 +114,13 @@ public final class CachedClassfiles implements ClassFileTransformer {
     }
 
     @Nullable
-    private synchronized byte[] findClassfile(@Nullable ClassLoader loader, @Nonnull String classDesc) {
+    private synchronized byte[] findClassfile(@Nullable ClassLoader loader, @NonNull String classDesc) {
         Map<String, byte[]> classfiles = getClassfiles(loader);
         return classfiles.get(classDesc);
     }
 
     @Nullable
-    public static synchronized byte[] getClassfile(@Nonnull Class<?> aClass) {
+    public static synchronized byte[] getClassfile(@NonNull Class<?> aClass) {
         byte[] cached = INSTANCE.findClassfile(aClass);
         if (cached != null) {
             return cached;
@@ -132,11 +132,11 @@ public final class CachedClassfiles implements ClassFileTransformer {
     }
 
     @Nullable
-    public static byte[] getClassfile(@Nullable ClassLoader loader, @Nonnull String internalClassName) {
+    public static byte[] getClassfile(@Nullable ClassLoader loader, @NonNull String internalClassName) {
         return INSTANCE.findClassfile(loader, internalClassName);
     }
 
-    public static void addClassfile(@Nonnull Class<?> aClass, @Nonnull byte[] classfile) {
+    public static void addClassfile(@NonNull Class<?> aClass, @NonNull byte[] classfile) {
         INSTANCE.addClassfile(aClass.getClassLoader(), aClass.getName().replace('.', '/'), classfile);
     }
 }

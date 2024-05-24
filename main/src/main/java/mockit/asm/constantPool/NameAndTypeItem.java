@@ -2,9 +2,9 @@ package mockit.asm.constantPool;
 
 import static mockit.asm.jvmConstants.ConstantPoolTypes.NAME_TYPE;
 
-import javax.annotation.Nonnull;
-
 import org.checkerframework.checker.index.qual.NonNegative;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class NameAndTypeItem extends TypeOrMemberItem {
     public NameAndTypeItem(@NonNegative int index) {
@@ -12,14 +12,14 @@ public final class NameAndTypeItem extends TypeOrMemberItem {
         type = NAME_TYPE;
     }
 
-    NameAndTypeItem(@NonNegative int index, @Nonnull NameAndTypeItem item) {
+    NameAndTypeItem(@NonNegative int index, @NonNull NameAndTypeItem item) {
         super(index, item);
     }
 
     /**
      * Sets the name and type descriptor of this item.
      */
-    public void set(@Nonnull String name, @Nonnull String desc) {
+    public void set(@NonNull String name, @NonNull String desc) {
         setValuesAndHashcode(name, desc, 1);
     }
 }

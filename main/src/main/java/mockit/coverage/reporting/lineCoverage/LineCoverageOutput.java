@@ -6,29 +6,29 @@ package mockit.coverage.reporting.lineCoverage;
 
 import java.io.PrintWriter;
 
-import javax.annotation.Nonnull;
-
 import mockit.coverage.lines.PerFileLineCoverage;
 import mockit.coverage.reporting.parsing.LineParser;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 public final class LineCoverageOutput {
-    @Nonnull
+    @NonNull
     private final PrintWriter output;
-    @Nonnull
+    @NonNull
     private final PerFileLineCoverage lineCoverageData;
-    @Nonnull
+    @NonNull
     private final LineCoverageFormatter lineCoverageFormatter;
 
-    public LineCoverageOutput(@Nonnull PrintWriter output, @Nonnull PerFileLineCoverage lineCoverageData,
+    public LineCoverageOutput(@NonNull PrintWriter output, @NonNull PerFileLineCoverage lineCoverageData,
             boolean withCallPoints) {
         this.output = output;
         this.lineCoverageData = lineCoverageData;
         lineCoverageFormatter = new LineCoverageFormatter(withCallPoints);
     }
 
-    public boolean writeLineWithCoverageInfo(@Nonnull LineParser lineParser) {
+    public boolean writeLineWithCoverageInfo(@NonNull LineParser lineParser) {
         int line = lineParser.getNumber();
 
         if (!lineCoverageData.hasLineData(line)) {
@@ -52,7 +52,7 @@ public final class LineCoverageOutput {
         output.println("</td>");
     }
 
-    private void writeExecutableCode(@Nonnull LineParser lineParser) {
+    private void writeExecutableCode(@NonNull LineParser lineParser) {
         String formattedLine = lineCoverageFormatter.format(lineParser, lineCoverageData);
         output.write("      <td>");
         output.write(formattedLine);

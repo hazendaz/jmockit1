@@ -4,11 +4,11 @@
  */
 package mockit.internal.expectations;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class FailureState {
-    @Nonnull
+    @NonNull
     private final Thread testThread;
     @Nullable
     private Error errorThrownInAnotherThread;

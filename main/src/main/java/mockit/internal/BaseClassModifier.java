@@ -24,9 +24,6 @@ import static mockit.asm.jvmConstants.Opcodes.NEWARRAY;
 import static mockit.asm.jvmConstants.Opcodes.RETURN;
 import static mockit.asm.jvmConstants.Opcodes.SIPUSH;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.annotations.AnnotationVisitor;
 import mockit.asm.classes.ClassInfo;
 import mockit.asm.classes.ClassReader;
@@ -50,14 +47,17 @@ import mockit.internal.util.TypeConversionBytecode;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public class BaseClassModifier extends WrappingClassVisitor {
     private static final int METHOD_ACCESS_MASK = 0xFFFF - Access.ABSTRACT - Access.NATIVE;
     protected static final JavaType VOID_TYPE = ObjectType.create("java/lang/Void");
 
-    @Nonnull
+    @NonNull
     protected final MethodVisitor methodAnnotationsVisitor = new MethodVisitor() {
         @Override
-        public AnnotationVisitor visitAnnotation(@Nonnull String desc) {
+        public AnnotationVisitor visitAnnotation(@NonNull String desc) {
             return mw.visitAnnotation(desc);
         }
     };
@@ -70,7 +70,7 @@ public class BaseClassModifier extends WrappingClassVisitor {
     protected String methodName;
     protected String methodDesc;
 
-    protected BaseClassModifier(@Nonnull ClassReader classReader) {
+    protected BaseClassModifier(@NonNull ClassReader classReader) {
         super(new ClassWriter(classReader));
     }
 
@@ -79,7 +79,7 @@ public class BaseClassModifier extends WrappingClassVisitor {
     }
 
     @Override
-    public void visit(int version, int access, @Nonnull String name, @Nonnull ClassInfo additionalInfo) {
+    public void visit(int version, int access, @NonNull String name, @NonNull ClassInfo additionalInfo) {
         int modifiedVersion = version;
         int originalVersion = version & 0xFFFF;
 
@@ -100,7 +100,7 @@ public class BaseClassModifier extends WrappingClassVisitor {
      * <p>
      * Removes any "abstract" or "native" modifiers for the modified version.
      */
-    protected final void startModifiedMethodVersion(int access, @Nonnull String name, @Nonnull String desc,
+    protected final void startModifiedMethodVersion(int access, @NonNull String name, @NonNull String desc,
             @Nullable String signature, @Nullable String[] exceptions) {
         mw = cw.visitMethod(access & METHOD_ACCESS_MASK, name, desc, signature, exceptions);
         methodAccess = access;
@@ -116,13 +116,13 @@ public class BaseClassModifier extends WrappingClassVisitor {
         return methodName != null;
     }
 
-    protected final void generateDirectCallToHandler(@Nonnull String className, int access, @Nonnull String name,
-            @Nonnull String desc, @Nullable String genericSignature) {
+    protected final void generateDirectCallToHandler(@NonNull String className, int access, @NonNull String name,
+            @NonNull String desc, @Nullable String genericSignature) {
         generateDirectCallToHandler(className, access, name, desc, genericSignature, ExecutionMode.Regular);
     }
 
-    protected final void generateDirectCallToHandler(@Nonnull String className, int access, @Nonnull String name,
-            @Nonnull String desc, @Nullable String genericSignature, @Nonnull ExecutionMode executionMode) {
+    protected final void generateDirectCallToHandler(@NonNull String className, int access, @NonNull String name,
+            @NonNull String desc, @Nullable String genericSignature, @NonNull ExecutionMode executionMode) {
         // First argument: the mock instance, if any.
         boolean isStatic = generateCodeToPassThisOrNullIfStaticMethod(access);
 
@@ -165,7 +165,7 @@ public class BaseClassModifier extends WrappingClassVisitor {
         }
     }
 
-    protected final void generateReturnWithObjectAtTopOfTheStack(@Nonnull String mockedMethodDesc) {
+    protected final void generateReturnWithObjectAtTopOfTheStack(@NonNull String mockedMethodDesc) {
         JavaType returnType = JavaType.getReturnType(mockedMethodDesc);
         TypeConversionBytecode.generateCastFromObject(mw, returnType);
         mw.visitInsn(returnType.getOpcode(IRETURN));
@@ -192,7 +192,7 @@ public class BaseClassModifier extends WrappingClassVisitor {
         mw.visitTypeInsn(ANEWARRAY, "java/lang/Object");
     }
 
-    protected final void generateCodeToFillArrayWithParameterValues(@Nonnull JavaType[] parameterTypes,
+    protected final void generateCodeToFillArrayWithParameterValues(@NonNull JavaType[] parameterTypes,
             @NonNegative int initialArrayIndex, @NonNegative int initialParameterIndex) {
         int i = initialArrayIndex;
         int j = initialParameterIndex;
@@ -209,7 +209,7 @@ public class BaseClassModifier extends WrappingClassVisitor {
     }
 
     protected final void generateCodeToObtainInstanceOfClassLoadingBridge(
-            @Nonnull ClassLoadingBridge classLoadingBridge) {
+            @NonNull ClassLoadingBridge classLoadingBridge) {
         String hostClassName = ClassLoadingBridge.getHostClassName();
         mw.visitFieldInsn(GETSTATIC, hostClassName, classLoadingBridge.id, "Ljava/lang/reflect/InvocationHandler;");
     }
@@ -230,7 +230,7 @@ public class BaseClassModifier extends WrappingClassVisitor {
         mw.visitInsn(AASTORE);
     }
 
-    private void pushDefaultValueForType(@Nonnull JavaType type) {
+    private void pushDefaultValueForType(@NonNull JavaType type) {
         if (type instanceof ArrayType) {
             generateCreationOfEmptyArray((ArrayType) type);
         } else {
@@ -242,7 +242,7 @@ public class BaseClassModifier extends WrappingClassVisitor {
         }
     }
 
-    private void generateCreationOfEmptyArray(@Nonnull ArrayType arrayType) {
+    private void generateCreationOfEmptyArray(@NonNull ArrayType arrayType) {
         int dimensions = arrayType.getDimensions();
 
         for (int dimension = 0; dimension < dimensions; dimension++) {
@@ -269,7 +269,7 @@ public class BaseClassModifier extends WrappingClassVisitor {
                 "(Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;", true);
     }
 
-    protected final void generateEmptyImplementation(@Nonnull String desc) {
+    protected final void generateEmptyImplementation(@NonNull String desc) {
         JavaType returnType = JavaType.getReturnType(desc);
         pushDefaultValueForType(returnType);
         mw.visitInsn(returnType.getOpcode(IRETURN));
@@ -281,7 +281,7 @@ public class BaseClassModifier extends WrappingClassVisitor {
         mw.visitMaxStack(1);
     }
 
-    @Nonnull
+    @NonNull
     protected final MethodVisitor copyOriginalImplementationWithInjectedInterceptionCode() {
         if ("<init>".equals(methodName)) {
             return new DynamicConstructorModifier();
@@ -300,8 +300,8 @@ public class BaseClassModifier extends WrappingClassVisitor {
         }
 
         @Override
-        public final void visitLocalVariable(@Nonnull String name, @Nonnull String desc, @Nullable String signature,
-                @Nonnull Label start, @Nonnull Label end, @NonNegative int index) {
+        public final void visitLocalVariable(@NonNull String name, @NonNull String desc, @Nullable String signature,
+                @NonNull Label start, @NonNull Label end, @NonNegative int index) {
             // For some reason, the start position for "this" gets displaced by bytecode inserted at the beginning,
             // in a method modified by the EMMA tool. If not treated, this causes a ClassFormatError.
             if (end.position > 0 && start.position > end.position) {
@@ -320,7 +320,7 @@ public class BaseClassModifier extends WrappingClassVisitor {
         private boolean callToAnotherConstructorAlreadyCopied;
 
         @Override
-        public void visitTypeInsn(int opcode, @Nonnull String typeDesc) {
+        public void visitTypeInsn(int opcode, @NonNull String typeDesc) {
             mw.visitTypeInsn(opcode, typeDesc);
 
             if (opcode == NEW && !callToAnotherConstructorAlreadyCopied && typeDesc.equals(classDesc)) {
@@ -329,7 +329,7 @@ public class BaseClassModifier extends WrappingClassVisitor {
         }
 
         @Override
-        public void visitMethodInsn(int opcode, @Nonnull String owner, @Nonnull String name, @Nonnull String desc,
+        public void visitMethodInsn(int opcode, @NonNull String owner, @NonNull String name, @NonNull String desc,
                 boolean itf) {
             mw.visitMethodInsn(opcode, owner, name, desc, itf);
 

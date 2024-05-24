@@ -8,9 +8,6 @@ import static mockit.internal.util.StackTrace.filterStackTrace;
 
 import java.lang.reflect.Method;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.Expectations;
 import mockit.coverage.testRedundancy.TestCoverage;
 import mockit.integration.TestRunnerDecorator;
@@ -25,6 +22,9 @@ import org.testng.ITestResult;
 import org.testng.TestException;
 import org.testng.annotations.Test;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 /**
  * Provides callbacks to be called by the TestNG 6.2+ test runner for each test execution. JMockit will then assert any
  * expectations recorded in {@link Expectations} subclasses during the test.
@@ -33,11 +33,11 @@ import org.testng.annotations.Test;
  */
 public final class TestNGRunnerDecorator extends TestRunnerDecorator
         implements IInvokedMethodListener, IExecutionListener {
-    @Nonnull
+    @NonNull
     private final ThreadLocal<SavePoint> savePoint = new ThreadLocal<>();
 
     @Override
-    public void beforeInvocation(@Nonnull IInvokedMethod invokedMethod, @Nonnull ITestResult testResult) {
+    public void beforeInvocation(@NonNull IInvokedMethod invokedMethod, @NonNull ITestResult testResult) {
         ITestNGMethod testNGMethod = testResult.getMethod();
         Class<?> testClass = testResult.getTestClass().getRealClass();
 
@@ -90,7 +90,7 @@ public final class TestNGRunnerDecorator extends TestRunnerDecorator
         }
     }
 
-    private void beforeConfigurationMethod(@Nonnull ITestNGMethod method, @Nonnull Class<?> testClass) {
+    private void beforeConfigurationMethod(@NonNull ITestNGMethod method, @NonNull Class<?> testClass) {
         TestRun.enterNoMockingZone();
 
         try {
@@ -128,7 +128,7 @@ public final class TestNGRunnerDecorator extends TestRunnerDecorator
     }
 
     @Override
-    public void afterInvocation(@Nonnull IInvokedMethod invokedMethod, @Nonnull ITestResult testResult) {
+    public void afterInvocation(@NonNull IInvokedMethod invokedMethod, @NonNull ITestResult testResult) {
         if (!invokedMethod.isTestMethod()) {
             afterConfigurationMethod(testResult);
             return;
@@ -164,7 +164,7 @@ public final class TestNGRunnerDecorator extends TestRunnerDecorator
         }
     }
 
-    private static void afterConfigurationMethod(@Nonnull ITestResult testResult) {
+    private static void afterConfigurationMethod(@NonNull ITestResult testResult) {
         TestRun.enterNoMockingZone();
 
         try {
@@ -182,8 +182,8 @@ public final class TestNGRunnerDecorator extends TestRunnerDecorator
         }
     }
 
-    private static void concludeTestExecutionWithNothingThrown(@Nonnull SavePoint testMethodSavePoint,
-            @Nonnull ITestResult testResult) {
+    private static void concludeTestExecutionWithNothingThrown(@NonNull SavePoint testMethodSavePoint,
+            @NonNull ITestResult testResult) {
         try {
             concludeTestMethodExecution(testMethodSavePoint, null, false);
         } catch (Throwable t) {
@@ -193,8 +193,8 @@ public final class TestNGRunnerDecorator extends TestRunnerDecorator
         }
     }
 
-    private static void concludeTestExecutionWithExpectedExceptionNotThrown(@Nonnull IInvokedMethod invokedMethod,
-            @Nonnull SavePoint testMethodSavePoint, @Nonnull ITestResult testResult) {
+    private static void concludeTestExecutionWithExpectedExceptionNotThrown(@NonNull IInvokedMethod invokedMethod,
+            @NonNull SavePoint testMethodSavePoint, @NonNull ITestResult testResult) {
         try {
             concludeTestMethodExecution(testMethodSavePoint, null, false);
         } catch (Throwable t) {
@@ -209,8 +209,8 @@ public final class TestNGRunnerDecorator extends TestRunnerDecorator
         }
     }
 
-    private static void concludeTestExecutionWithExpectedExceptionThrown(@Nonnull SavePoint testMethodSavePoint,
-            @Nonnull ITestResult testResult, @Nonnull Throwable thrownByTest) {
+    private static void concludeTestExecutionWithExpectedExceptionThrown(@NonNull SavePoint testMethodSavePoint,
+            @NonNull ITestResult testResult, @NonNull Throwable thrownByTest) {
         filterStackTrace(thrownByTest);
 
         try {
@@ -224,8 +224,8 @@ public final class TestNGRunnerDecorator extends TestRunnerDecorator
         }
     }
 
-    private static void concludeTestExecutionWithUnexpectedExceptionThrown(@Nonnull SavePoint testMethodSavePoint,
-            @Nonnull Throwable thrownByTest) {
+    private static void concludeTestExecutionWithUnexpectedExceptionThrown(@NonNull SavePoint testMethodSavePoint,
+            @NonNull Throwable thrownByTest) {
         filterStackTrace(thrownByTest);
 
         try {
@@ -234,7 +234,7 @@ public final class TestNGRunnerDecorator extends TestRunnerDecorator
         }
     }
 
-    private static boolean isExpectedException(@Nonnull IInvokedMethod invokedMethod, @Nonnull Throwable thrownByTest) {
+    private static boolean isExpectedException(@NonNull IInvokedMethod invokedMethod, @NonNull Throwable thrownByTest) {
         Method testMethod = invokedMethod.getTestMethod().getConstructorOrMethod().getMethod();
         Class<?>[] expectedExceptions = testMethod.getAnnotation(Test.class).expectedExceptions();
         Class<? extends Throwable> thrownExceptionType = thrownByTest.getClass();

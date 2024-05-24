@@ -6,25 +6,25 @@ package mockit.internal.expectations.argumentMatching;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class CaptureMatcher<T> implements ArgumentMatcher<CaptureMatcher<T>> {
-    @Nonnull
+    @NonNull
     private final List<T> valueHolder;
     @Nullable
     private Class<?> expectedType;
 
-    public CaptureMatcher(@Nonnull List<T> valueHolder) {
+    public CaptureMatcher(@NonNull List<T> valueHolder) {
         this.valueHolder = valueHolder;
     }
 
-    public void setExpectedType(@Nonnull Class<?> expectedType) {
+    public void setExpectedType(@NonNull Class<?> expectedType) {
         this.expectedType = expectedType;
     }
 
     @Override
-    public boolean same(@Nonnull CaptureMatcher<T> other) {
+    public boolean same(@NonNull CaptureMatcher<T> other) {
         return false;
     }
 
@@ -40,6 +40,6 @@ public final class CaptureMatcher<T> implements ArgumentMatcher<CaptureMatcher<T
     }
 
     @Override
-    public void writeMismatchPhrase(@Nonnull ArgumentMismatch argumentMismatch) {
+    public void writeMismatchPhrase(@NonNull ArgumentMismatch argumentMismatch) {
     }
 }

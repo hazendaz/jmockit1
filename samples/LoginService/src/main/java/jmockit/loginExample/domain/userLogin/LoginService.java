@@ -1,10 +1,9 @@
 package jmockit.loginExample.domain.userLogin;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 import jmockit.loginExample.domain.userAccount.UserAccount;
 
 public final class LoginService {
@@ -17,7 +16,7 @@ public final class LoginService {
     @Nullable
     private UserAccount account;
 
-    public void login(@Nonnull String accountId, @Nonnull String password)
+    public void login(@NonNull String accountId, @NonNull String password)
             throws UserAccountNotFoundException, UserAccountRevokedException, AccountLoginLimitReachedException {
         account = UserAccount.find(accountId);
 
@@ -46,7 +45,7 @@ public final class LoginService {
         loginAttemptsRemaining = MAX_LOGIN_ATTEMPTS;
     }
 
-    private void handleFailedLoginAttempt(@Nonnull String accountId) {
+    private void handleFailedLoginAttempt(@NonNull String accountId) {
         if (previousAccountId == null) {
             loginAttemptsRemaining--;
             previousAccountId = accountId;

@@ -6,13 +6,13 @@ package mockit;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.internal.expectations.BaseVerificationPhase;
 import mockit.internal.expectations.RecordAndReplayExecution;
 import mockit.internal.expectations.argumentMatching.AlwaysTrueMatcher;
 import mockit.internal.state.TestRun;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Used to <em>verify</em> a set of expectations on available {@linkplain Mocked mocked} types and/or instances, against
@@ -147,8 +147,8 @@ public class Verifications extends Invocations {
      * @see #withCapture(List)
      * @see <a href="http://jmockit.github.io/tutorial/Mocking.html#withCapture" target="tutorial">Tutorial</a>
      */
-    @Nonnull
-    protected final <T> List<T> withCapture(@Nonnull T constructorVerification) {
+    @NonNull
+    protected final <T> List<T> withCapture(@NonNull T constructorVerification) {
         return ((BaseVerificationPhase) currentPhase).getNewInstancesMatchingVerifiedConstructorInvocation();
     }
 }

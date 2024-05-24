@@ -11,12 +11,12 @@ import static mockit.asm.jvmConstants.Opcodes.ILOAD;
 import static mockit.asm.jvmConstants.Opcodes.LCONST_0;
 import static mockit.asm.jvmConstants.Opcodes.LLOAD;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.jvmConstants.ArrayElementType;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class PrimitiveType extends JavaType {
     private static final Class<?>[] TYPES = { void.class, boolean.class, char.class, byte.class, short.class, int.class,
@@ -52,7 +52,7 @@ public final class PrimitiveType extends JavaType {
     private final int loadOpcode; // the xLOAD instruction for this primitive type
     @NonNegative
     private final int constOpcode; // the xCONST_0 value for this primitive type
-    @Nonnull
+    @NonNull
     private final String wrapperTypeDesc; // internal name of the corresponding "java.lang" wrapper class
 
     private PrimitiveType(@NonNegative int index, @NonNegative int otherOffset) {
@@ -91,8 +91,8 @@ public final class PrimitiveType extends JavaType {
         }
     }
 
-    @Nonnull
-    static PrimitiveType getPrimitiveType(@Nonnull Class<?> aClass) {
+    @NonNull
+    static PrimitiveType getPrimitiveType(@NonNull Class<?> aClass) {
         for (int i = 0; i < 9; i++) {
             if (aClass == TYPES[i]) {
                 return JAVA_TYPES[i];
@@ -109,7 +109,7 @@ public final class PrimitiveType extends JavaType {
     }
 
     @Nullable
-    public static PrimitiveType getCorrespondingPrimitiveTypeIfWrapperType(@Nonnull String typeDesc) {
+    public static PrimitiveType getCorrespondingPrimitiveTypeIfWrapperType(@NonNull String typeDesc) {
         for (int i = 0; i < 9; i++) {
             if (typeDesc.equals(WRAPPER_TYPE_DESCS[i])) {
                 return JAVA_TYPES[i];
@@ -119,7 +119,7 @@ public final class PrimitiveType extends JavaType {
         return null;
     }
 
-    @Nonnull
+    @NonNull
     public static Class<?> getType(int typeCode) {
         int i = TYPE_CODES_STR.indexOf((char) typeCode);
         return TYPES[i];
@@ -128,7 +128,7 @@ public final class PrimitiveType extends JavaType {
     /**
      * Maps a <code>PrimitiveType</code> to the corresponding {@link ArrayElementType}.
      */
-    public static int getArrayElementType(@Nonnull PrimitiveType elementType) {
+    public static int getArrayElementType(@NonNull PrimitiveType elementType) {
         return ARRAY_ELEMENT_TYPES[elementType.index];
     }
 
@@ -136,22 +136,22 @@ public final class PrimitiveType extends JavaType {
         return TYPE_CODES[index];
     }
 
-    @Nonnull
+    @NonNull
     public Class<?> getType() {
         return TYPES[index];
     }
 
-    @Nonnull
+    @NonNull
     public String getWrapperTypeDesc() {
         return wrapperTypeDesc;
     }
 
     @Override
-    void getDescriptor(@Nonnull StringBuilder typeDesc) {
+    void getDescriptor(@NonNull StringBuilder typeDesc) {
         typeDesc.append(getTypeCode());
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public String getClassName() {
         return getType().getName();

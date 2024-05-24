@@ -4,9 +4,6 @@
  */
 package mockit.internal.injection;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.Tested;
 import mockit.internal.state.ParameterNames;
 import mockit.internal.util.TestMethod;
@@ -14,14 +11,17 @@ import mockit.internal.util.TypeConversion;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 final class TestedParameter extends TestedObject {
-    @Nonnull
+    @NonNull
     private final TestMethod testMethod;
     @NonNegative
     private final int parameterIndex;
 
-    TestedParameter(@Nonnull InjectionState injectionState, @Nonnull TestMethod testMethod,
-            @NonNegative int parameterIndex, @Nonnull Tested metadata) {
+    TestedParameter(@NonNull InjectionState injectionState, @NonNull TestMethod testMethod,
+            @NonNegative int parameterIndex, @NonNull Tested metadata) {
         super(injectionState, metadata, testMethod.testClass, ParameterNames.getName(testMethod, parameterIndex),
                 testMethod.getParameterType(parameterIndex), testMethod.getParameterClass(parameterIndex));
         this.testMethod = testMethod;
@@ -30,7 +30,7 @@ final class TestedParameter extends TestedObject {
 
     @Nullable
     @Override
-    Object getExistingTestedInstanceIfApplicable(@Nonnull Object testClassInstance) {
+    Object getExistingTestedInstanceIfApplicable(@NonNull Object testClassInstance) {
         Object testedObject = null;
 
         if (!createAutomatically) {
@@ -52,7 +52,7 @@ final class TestedParameter extends TestedObject {
     }
 
     @Override
-    void setInstance(@Nonnull Object testClassInstance, @Nullable Object testedInstance) {
+    void setInstance(@NonNull Object testClassInstance, @Nullable Object testedInstance) {
         testMethod.setParameterValue(parameterIndex, testedInstance);
     }
 }

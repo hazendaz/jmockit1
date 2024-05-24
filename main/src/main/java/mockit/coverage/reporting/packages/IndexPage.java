@@ -15,9 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.coverage.CoveragePercentage;
 import mockit.coverage.data.FileCoverageData;
 import mockit.coverage.reporting.OutputFile;
@@ -25,21 +22,24 @@ import mockit.coverage.testRedundancy.TestCoverage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class IndexPage extends ListWithFilesAndPercentages {
     @Nullable
     private final List<File> sourceDirs;
-    @Nonnull
+    @NonNull
     private final Map<String, List<String>> packageToFiles;
-    @Nonnull
+    @NonNull
     private final Map<String, Integer> packageToPackagePercentages;
-    @Nonnull
+    @NonNull
     private final PackageCoverageReport packageReport;
     @NonNegative
     private final int totalFileCount;
 
-    public IndexPage(@Nonnull File outputFile, @Nullable List<File> sourceDirs,
-            @Nullable Collection<String> sourceFilesNotFound, @Nonnull Map<String, List<String>> packageToFiles,
-            @Nonnull Map<String, FileCoverageData> fileToFileData) throws IOException {
+    public IndexPage(@NonNull File outputFile, @Nullable List<File> sourceDirs,
+            @Nullable Collection<String> sourceFilesNotFound, @NonNull Map<String, List<String>> packageToFiles,
+            @NonNull Map<String, FileCoverageData> fileToFileData) throws IOException {
         super(new OutputFile(outputFile), "    ");
         this.sourceDirs = sourceDirs;
         this.packageToFiles = packageToFiles;
@@ -49,7 +49,7 @@ public final class IndexPage extends ListWithFilesAndPercentages {
     }
 
     @NonNegative
-    private static int totalNumberOfSourceFilesWithCoverageData(@Nonnull Collection<FileCoverageData> fileData) {
+    private static int totalNumberOfSourceFilesWithCoverageData(@NonNull Collection<FileCoverageData> fileData) {
         return fileData.size() - Collections.frequency(fileData, null);
     }
 
@@ -88,7 +88,7 @@ public final class IndexPage extends ListWithFilesAndPercentages {
         }
     }
 
-    @Nonnull
+    @NonNull
     private String getCommaSeparatedListOfSourceDirs() {
         List<File> dirs = sourceDirs;
         assert dirs != null;
@@ -100,13 +100,13 @@ public final class IndexPage extends ListWithFilesAndPercentages {
         return commaSepDirs.substring(1, commaSepDirs.length() - 1);
     }
 
-    private static void removeRedundantSourceDirectories(@Nonnull List<File> dirs) {
+    private static void removeRedundantSourceDirectories(@NonNull List<File> dirs) {
         for (int i = 0; i < dirs.size(); i++) {
             i = removeRedundantSourceDirectory(dirs, i);
         }
     }
 
-    private static int removeRedundantSourceDirectory(@Nonnull List<File> dirs, @NonNegative int dirIndex) {
+    private static int removeRedundantSourceDirectory(@NonNull List<File> dirs, @NonNegative int dirIndex) {
         String dir1 = dirs.get(dirIndex).getPath();
         int j = dirIndex + 1;
 
@@ -167,7 +167,7 @@ public final class IndexPage extends ListWithFilesAndPercentages {
 
     @Override
     @SuppressWarnings("ParameterNameDiffersFromOverriddenParameter")
-    protected void writeMetricsForFile(String unused, @Nonnull String packageName) {
+    protected void writeMetricsForFile(String unused, @NonNull String packageName) {
         writeRowStart();
         writeTableCellWithPackageName(packageName);
         writeInternalTableForSourceFiles(packageName);
@@ -175,7 +175,7 @@ public final class IndexPage extends ListWithFilesAndPercentages {
         writeRowClose();
     }
 
-    private void writeTableCellWithPackageName(@Nonnull String packageName) {
+    private void writeTableCellWithPackageName(@NonNull String packageName) {
         printIndent();
         output.write("  <td");
 
@@ -190,7 +190,7 @@ public final class IndexPage extends ListWithFilesAndPercentages {
         output.println("</td>");
     }
 
-    private void writeInternalTableForSourceFiles(@Nonnull String packageName) {
+    private void writeInternalTableForSourceFiles(@NonNull String packageName) {
         printIndent();
         output.println("  <td>");
 
@@ -211,7 +211,7 @@ public final class IndexPage extends ListWithFilesAndPercentages {
         output.println("  </td>");
     }
 
-    private void recordCoverageInformationForPackage(@Nonnull String packageName) {
+    private void recordCoverageInformationForPackage(@NonNull String packageName) {
         int coveredInPackage = packageReport.coveredItems;
         int totalInPackage = packageReport.totalItems;
         int packagePercentage = CoveragePercentage.calculate(coveredInPackage, totalInPackage);
@@ -227,7 +227,7 @@ public final class IndexPage extends ListWithFilesAndPercentages {
         output.println(" source files)</span>");
     }
 
-    private void writeCoveragePercentageForPackage(@Nonnull String packageName) {
+    private void writeCoveragePercentageForPackage(@NonNull String packageName) {
         int filePercentage = packageToPackagePercentages.get(packageName);
         printCoveragePercentage(packageReport.coveredItems, packageReport.totalItems, filePercentage);
     }

@@ -7,30 +7,30 @@ package mockit.internal.injection;
 import java.lang.annotation.Annotation;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.Tested;
 import mockit.internal.state.TestRun;
 import mockit.internal.util.TestMethod;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class TestedParameters {
-    @Nonnull
+    @NonNull
     private final TestMethod testMethod;
-    @Nonnull
+    @NonNull
     private final InjectionState injectionState;
 
-    public TestedParameters(@Nonnull TestMethod testMethod) {
+    public TestedParameters(@NonNull TestMethod testMethod) {
         this.testMethod = testMethod;
 
         TestedClassInstantiations testedClasses = TestRun.getTestedClassInstantiations();
         injectionState = testedClasses == null ? new InjectionState() : testedClasses.injectionState;
     }
 
-    public void createTestedParameters(@Nonnull Object testClassInstance,
-            @Nonnull List<? extends InjectionProvider> injectables) {
+    public void createTestedParameters(@NonNull Object testClassInstance,
+            @NonNull List<? extends InjectionProvider> injectables) {
         injectionState.addInjectables(testClassInstance, injectables);
 
         for (int n = testMethod.getParameterCount(), i = 0; i < n; i++) {
@@ -57,7 +57,7 @@ public final class TestedParameters {
         return null;
     }
 
-    private void instantiateTestedObject(@Nonnull Object testClassInstance, @Nonnull TestedParameter testedObject) {
+    private void instantiateTestedObject(@NonNull Object testClassInstance, @NonNull TestedParameter testedObject) {
         try {
             testedObject.instantiateWithInjectableValues(testClassInstance);
         } finally {

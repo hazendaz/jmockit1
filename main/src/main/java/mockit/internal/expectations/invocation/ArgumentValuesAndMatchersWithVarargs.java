@@ -7,9 +7,6 @@ package mockit.internal.expectations.invocation;
 import java.lang.reflect.Array;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
 import mockit.internal.expectations.argumentMatching.CaptureMatcher;
 import mockit.internal.expectations.argumentMatching.EqualityMatcher;
@@ -17,13 +14,16 @@ import mockit.internal.expectations.argumentMatching.LenientEqualityMatcher;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 final class ArgumentValuesAndMatchersWithVarargs extends ArgumentValuesAndMatchers {
-    ArgumentValuesAndMatchersWithVarargs(@Nonnull InvocationArguments signature, @Nonnull Object[] values) {
+    ArgumentValuesAndMatchersWithVarargs(@NonNull InvocationArguments signature, @NonNull Object[] values) {
         super(signature, values);
     }
 
     @Override
-    boolean isMatch(@Nonnull Object[] replayArgs, @Nonnull Map<Object, Object> instanceMap) {
+    boolean isMatch(@NonNull Object[] replayArgs, @NonNull Map<Object, Object> instanceMap) {
         if (matchers == null) {
             return areEqual(replayArgs, instanceMap);
         }
@@ -59,7 +59,7 @@ final class ArgumentValuesAndMatchersWithVarargs extends ArgumentValuesAndMatche
         return true;
     }
 
-    private boolean areEqual(@Nonnull Object[] replayArgs, @Nonnull Map<Object, Object> instanceMap) {
+    private boolean areEqual(@NonNull Object[] replayArgs, @NonNull Map<Object, Object> instanceMap) {
         int argCount = replayArgs.length;
 
         if (!areEqual(values, replayArgs, argCount - 1, instanceMap)) {
@@ -75,7 +75,7 @@ final class ArgumentValuesAndMatchersWithVarargs extends ArgumentValuesAndMatche
     }
 
     @Override
-    boolean hasEquivalentMatchers(@Nonnull ArgumentValuesAndMatchers other) {
+    boolean hasEquivalentMatchers(@NonNull ArgumentValuesAndMatchers other) {
         @SuppressWarnings("unchecked")
         int i = indexOfFirstValueAfterEquivalentMatchers(other);
 
@@ -107,7 +107,7 @@ final class ArgumentValuesAndMatchersWithVarargs extends ArgumentValuesAndMatche
     private static final Object[] NULL_VARARGS = {};
 
     private final class VarargsComparison {
-        @Nonnull
+        @NonNull
         private final Object[] otherValues;
         @Nullable
         private final Object[] thisVarArgs;
@@ -115,25 +115,25 @@ final class ArgumentValuesAndMatchersWithVarargs extends ArgumentValuesAndMatche
         private final Object[] otherVarArgs;
         final int regularArgCount;
 
-        VarargsComparison(@Nonnull Object[] otherValues) {
+        VarargsComparison(@NonNull Object[] otherValues) {
             this.otherValues = otherValues;
             thisVarArgs = getVarArgs(values);
             otherVarArgs = getVarArgs(otherValues);
             regularArgCount = values.length - 1;
         }
 
-        @Nonnull
+        @NonNull
         Object[] getThisVarArgs() {
             return thisVarArgs == null ? NULL_VARARGS : thisVarArgs;
         }
 
-        @Nonnull
+        @NonNull
         Object[] getOtherVarArgs() {
             return otherVarArgs == null ? NULL_VARARGS : otherVarArgs;
         }
 
         @Nullable
-        private Object[] getVarArgs(@Nonnull Object[] args) {
+        private Object[] getVarArgs(@NonNull Object[] args) {
             Object lastArg = args[args.length - 1];
 
             if (lastArg == null) {

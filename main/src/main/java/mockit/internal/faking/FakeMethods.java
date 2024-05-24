@@ -15,9 +15,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.internal.ClassLoadingBridge;
 import mockit.internal.reflection.GenericTypeReflection;
 import mockit.internal.reflection.GenericTypeReflection.GenericSignature;
@@ -25,34 +22,37 @@ import mockit.internal.state.TestRun;
 import mockit.internal.util.TypeDescriptor;
 import mockit.internal.util.Utilities;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 /**
  * A container for the fake methods "collected" from a fake class.
  */
 final class FakeMethods {
-    @Nonnull
+    @NonNull
     private final Class<?> realClass;
     private final boolean targetTypeIsAClass;
     private final boolean reentrantRealClass;
-    @Nonnull
+    @NonNull
     private final List<FakeMethod> methods;
     @Nullable
     private FakeMethod adviceMethod;
-    @Nonnull
+    @NonNull
     private final GenericTypeReflection typeParametersToTypeArguments;
-    @Nonnull
+    @NonNull
     private String fakeClassInternalName;
     @Nullable
     private List<FakeState> fakeStates;
 
     final class FakeMethod {
         private final int access;
-        @Nonnull
+        @NonNull
         final String name;
-        @Nonnull
+        @NonNull
         final String desc;
         private final boolean isByNameOnly;
         final boolean isAdvice;
-        @Nonnull
+        @NonNull
         final String fakeDescWithoutInvocationParameter;
         private boolean hasMatchingRealMethod;
         @Nullable
@@ -60,7 +60,7 @@ final class FakeMethods {
         private int indexForFakeState;
         private boolean nativeRealMethod;
 
-        private FakeMethod(int access, @Nonnull String name, @Nonnull String desc) {
+        private FakeMethod(int access, @NonNull String name, @NonNull String desc) {
             this.access = access;
             this.name = name;
             this.desc = desc;
@@ -88,7 +88,7 @@ final class FakeMethods {
             return isByNameOnly || isAdvice;
         }
 
-        boolean isMatch(int realAccess, @Nonnull String realName, @Nonnull String realDesc,
+        boolean isMatch(int realAccess, @NonNull String realName, @NonNull String realDesc,
                 @Nullable String signature) {
             if (name.equals(realName) && hasMatchingParameters(realDesc, signature)) {
                 hasMatchingRealMethod = true;
@@ -99,7 +99,7 @@ final class FakeMethods {
             return false;
         }
 
-        private boolean hasMatchingParameters(@Nonnull String methodDesc, @Nullable String signature) {
+        private boolean hasMatchingParameters(@NonNull String methodDesc, @Nullable String signature) {
             boolean sameParametersIgnoringGenerics = fakeDescWithoutInvocationParameter.equals(methodDesc);
 
             if (sameParametersIgnoringGenerics || signature == null) {
@@ -113,11 +113,11 @@ final class FakeMethods {
             return fakeSignature.satisfiesGenericSignature(signature);
         }
 
-        boolean isMatchByName(@Nonnull String realName) {
+        boolean isMatchByName(@NonNull String realName) {
             return isByNameOnly && name.equals(realName);
         }
 
-        @Nonnull
+        @NonNull
         Class<?> getRealClass() {
             return realClass;
         }
@@ -151,7 +151,7 @@ final class FakeMethods {
         }
     }
 
-    FakeMethods(@Nonnull Class<?> realClass, @Nullable Type targetType) {
+    FakeMethods(@NonNull Class<?> realClass, @Nullable Type targetType) {
         this.realClass = realClass;
 
         if (targetType == null || realClass == targetType) {
@@ -168,13 +168,13 @@ final class FakeMethods {
         fakeClassInternalName = "";
     }
 
-    @Nonnull
+    @NonNull
     Class<?> getRealClass() {
         return realClass;
     }
 
     @Nullable
-    FakeMethod addMethod(boolean fromSuperClass, int access, @Nonnull String name, @Nonnull String desc) {
+    FakeMethod addMethod(boolean fromSuperClass, int access, @NonNull String name, @NonNull String desc) {
         if (fromSuperClass && isMethodAlreadyAdded(name, desc)) {
             return null;
         }
@@ -190,7 +190,7 @@ final class FakeMethods {
         return fakeMethod;
     }
 
-    private boolean isMethodAlreadyAdded(@Nonnull String name, @Nonnull String desc) {
+    private boolean isMethodAlreadyAdded(@NonNull String name, @NonNull String desc) {
         int p = desc.lastIndexOf(')');
         String params = desc.substring(0, p + 1);
 
@@ -203,7 +203,7 @@ final class FakeMethods {
         return false;
     }
 
-    void addFakeState(@Nonnull FakeState fakeState) {
+    void addFakeState(@NonNull FakeState fakeState) {
         if (fakeStates == null) {
             fakeStates = new ArrayList<>(4);
         }
@@ -221,7 +221,7 @@ final class FakeMethods {
      * real method is processed there should be no fake methods left unused in the container.
      */
     @Nullable
-    FakeMethod findMethod(int access, @Nonnull String name, @Nonnull String desc, @Nullable String signature) {
+    FakeMethod findMethod(int access, @NonNull String name, @NonNull String desc, @Nullable String signature) {
         FakeMethod fakeMethodMatchingByNameOnly = null;
 
         for (FakeMethod fakeMethod : methods) {
@@ -274,16 +274,16 @@ final class FakeMethods {
         return false;
     }
 
-    private static boolean isConstructorOrClassInitialization(@Nonnull String memberName) {
+    private static boolean isConstructorOrClassInitialization(@NonNull String memberName) {
         return "$init".equals(memberName) || "$clinit".equals(memberName);
     }
 
-    @Nonnull
+    @NonNull
     String getFakeClassInternalName() {
         return fakeClassInternalName;
     }
 
-    void setFakeClassInternalName(@Nonnull String fakeClassInternalName) {
+    void setFakeClassInternalName(@NonNull String fakeClassInternalName) {
         this.fakeClassInternalName = fakeClassInternalName.intern();
     }
 
@@ -301,7 +301,7 @@ final class FakeMethods {
         return false;
     }
 
-    void registerFakeStates(@Nonnull Object fake, boolean forStartupFake) {
+    void registerFakeStates(@NonNull Object fake, boolean forStartupFake) {
         if (fakeStates != null) {
             FakeStates allFakeStates = TestRun.getFakeStates();
 

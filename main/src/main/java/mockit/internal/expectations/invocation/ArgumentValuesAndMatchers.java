@@ -7,9 +7,6 @@ package mockit.internal.expectations.invocation;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.internal.expectations.argumentMatching.AlwaysTrueMatcher;
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
 import mockit.internal.expectations.argumentMatching.ArgumentMismatch;
@@ -19,32 +16,35 @@ import mockit.internal.expectations.argumentMatching.ReflectiveMatcher;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 abstract class ArgumentValuesAndMatchers {
-    @Nonnull
+    @NonNull
     final InvocationArguments signature;
-    @Nonnull
+    @NonNull
     Object[] values;
     @Nullable
     List<ArgumentMatcher<?>> matchers;
 
-    ArgumentValuesAndMatchers(@Nonnull InvocationArguments signature, @Nonnull Object[] values) {
+    ArgumentValuesAndMatchers(@NonNull InvocationArguments signature, @NonNull Object[] values) {
         this.signature = signature;
         this.values = values;
     }
 
-    final void setValuesWithNoMatchers(@Nonnull Object[] argsToVerify) {
+    final void setValuesWithNoMatchers(@NonNull Object[] argsToVerify) {
         setValuesAndMatchers(argsToVerify, null);
     }
 
-    @Nonnull
-    final Object[] prepareForVerification(@Nonnull Object[] argsToVerify,
+    @NonNull
+    final Object[] prepareForVerification(@NonNull Object[] argsToVerify,
             @Nullable List<ArgumentMatcher<?>> matchersToUse) {
         Object[] replayArgs = values;
         setValuesAndMatchers(argsToVerify, matchersToUse);
         return replayArgs;
     }
 
-    final void setValuesAndMatchers(@Nonnull Object[] argsToVerify, @Nullable List<ArgumentMatcher<?>> matchersToUse) {
+    final void setValuesAndMatchers(@NonNull Object[] argsToVerify, @Nullable List<ArgumentMatcher<?>> matchersToUse) {
         values = argsToVerify;
         matchers = matchersToUse;
     }
@@ -64,10 +64,10 @@ abstract class ArgumentValuesAndMatchers {
         return matcher;
     }
 
-    abstract boolean isMatch(@Nonnull Object[] replayArgs, @Nonnull Map<Object, Object> instanceMap);
+    abstract boolean isMatch(@NonNull Object[] replayArgs, @NonNull Map<Object, Object> instanceMap);
 
-    static boolean areEqual(@Nonnull Object[] expectedValues, @Nonnull Object[] actualValues, @NonNegative int count,
-            @Nonnull Map<Object, Object> instanceMap) {
+    static boolean areEqual(@NonNull Object[] expectedValues, @NonNull Object[] actualValues, @NonNegative int count,
+            @NonNull Map<Object, Object> instanceMap) {
         for (int i = 0; i < count; i++) {
             if (isNotEqual(expectedValues[i], actualValues[i], instanceMap)) {
                 return false;
@@ -78,15 +78,15 @@ abstract class ArgumentValuesAndMatchers {
     }
 
     private static boolean isNotEqual(@Nullable Object expected, @Nullable Object actual,
-            @Nonnull Map<Object, Object> instanceMap) {
+            @NonNull Map<Object, Object> instanceMap) {
         return actual == null == (expected != null) || actual != null && actual != expected
                 && expected != instanceMap.get(actual) && !EqualityMatcher.areEqualWhenNonNull(actual, expected);
     }
 
-    abstract boolean hasEquivalentMatchers(@Nonnull ArgumentValuesAndMatchers other);
+    abstract boolean hasEquivalentMatchers(@NonNull ArgumentValuesAndMatchers other);
 
-    private static boolean equivalentMatches(@Nonnull ArgumentMatcher<?> matcher1, @Nullable Object arg1,
-            @Nonnull ArgumentMatcher<?> matcher2, @Nullable Object arg2) {
+    private static boolean equivalentMatches(@NonNull ArgumentMatcher<?> matcher1, @Nullable Object arg1,
+            @NonNull ArgumentMatcher<?> matcher2, @Nullable Object arg2) {
         boolean matcher1MatchesArg2 = matcher1.matches(arg2);
         boolean matcher2MatchesArg1 = matcher2.matches(arg1);
 
@@ -107,7 +107,7 @@ abstract class ArgumentValuesAndMatchers {
 
     @SuppressWarnings("unchecked")
     final <M1 extends ArgumentMatcher<M1>, M2 extends ArgumentMatcher<M2>> int indexOfFirstValueAfterEquivalentMatchers(
-            @Nonnull ArgumentValuesAndMatchers other) {
+            @NonNull ArgumentValuesAndMatchers other) {
         List<ArgumentMatcher<?>> otherMatchers = other.matchers;
 
         if (hasDifferentAmountOfMatchers(otherMatchers)) {
@@ -139,15 +139,15 @@ abstract class ArgumentValuesAndMatchers {
         return otherMatchers == null || matchers == null || otherMatchers.size() != matchers.size();
     }
 
-    private boolean areNonEquivalentMatches(@Nonnull ArgumentValuesAndMatchers other,
-            @Nonnull ArgumentMatcher<?> matcher1, @Nonnull ArgumentMatcher<?> matcher2, @NonNegative int matcherIndex) {
+    private boolean areNonEquivalentMatches(@NonNull ArgumentValuesAndMatchers other,
+            @NonNull ArgumentMatcher<?> matcher1, @NonNull ArgumentMatcher<?> matcher2, @NonNegative int matcherIndex) {
         Class<?> matcherClass = matcher1.getClass();
         return matcherClass == ReflectiveMatcher.class || matcherClass == HamcrestAdapter.class
                 || !equivalentMatches(matcher1, values[matcherIndex], matcher2, other.values[matcherIndex]);
     }
 
-    @Nonnull
-    final String toString(@Nonnull List<String> parameterTypes) {
+    @NonNull
+    final String toString(@NonNull List<String> parameterTypes) {
         ArgumentMismatch desc = new ArgumentMismatch();
         int parameterCount = values.length;
 

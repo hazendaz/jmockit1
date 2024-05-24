@@ -11,14 +11,14 @@ import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.Map.Entry;
 
-import javax.annotation.Nonnull;
-
 import mockit.coverage.data.CoverageData;
 import mockit.coverage.data.FileCoverageData;
 import mockit.coverage.lines.LineCoverageData;
 import mockit.coverage.lines.PerFileLineCoverage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Generates a XML file containing the coverage data gathered by the test run. The XML schema used is the one
@@ -34,14 +34,14 @@ import org.checkerframework.checker.index.qual.NonNegative;
  * }</pre>
  */
 final class XmlFile {
-    @Nonnull
+    @NonNull
     private final String srcDir;
-    @Nonnull
+    @NonNull
     private final File outputFile;
-    @Nonnull
+    @NonNull
     private final CoverageData coverageData;
 
-    XmlFile(@Nonnull String outputDir, @Nonnull CoverageData coverageData) {
+    XmlFile(@NonNull String outputDir, @NonNull CoverageData coverageData) {
         // noinspection DynamicRegexReplaceableByCompiledPattern
         String firstSrcDir = Configuration.getProperty("srcDirs", "").split("\\s*,\\s*")[0];
         srcDir = firstSrcDir.isEmpty() ? "" : firstSrcDir + '/';
@@ -72,7 +72,7 @@ final class XmlFile {
         System.out.println("JMockit: Coverage data written to " + outputFile.getCanonicalPath());
     }
 
-    private void writeOpeningXmlElementForSourceFile(@Nonnull Writer out, @Nonnull String sourceFileName)
+    private void writeOpeningXmlElementForSourceFile(@NonNull Writer out, @NonNull String sourceFileName)
             throws IOException {
         out.write("\t<file path=\"");
         out.write(srcDir);
@@ -80,7 +80,7 @@ final class XmlFile {
         out.write("\">\n");
     }
 
-    private static void writeXmlElementsForExecutableLines(@Nonnull Writer out, @Nonnull PerFileLineCoverage lineInfo)
+    private static void writeXmlElementsForExecutableLines(@NonNull Writer out, @NonNull PerFileLineCoverage lineInfo)
             throws IOException {
         int lineCount = lineInfo.getLineCount();
 
@@ -105,7 +105,7 @@ final class XmlFile {
         }
     }
 
-    private static void writeNumber(@Nonnull Writer out, @NonNegative int value) throws IOException {
+    private static void writeNumber(@NonNull Writer out, @NonNegative int value) throws IOException {
         out.write(Integer.toString(value));
     }
 }

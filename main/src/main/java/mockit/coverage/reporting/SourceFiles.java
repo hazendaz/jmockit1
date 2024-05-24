@@ -8,14 +8,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 final class SourceFiles {
-    @Nonnull
+    @NonNull
     private final List<File> srcDirs = new ArrayList<>();
 
-    @Nonnull
-    List<File> buildListOfSourceDirectories(@Nonnull String[] sourceDirs) {
+    @NonNull
+    List<File> buildListOfSourceDirectories(@NonNull String[] sourceDirs) {
         if (sourceDirs.length > 0) {
             buildListWithSpecifiedDirectories(sourceDirs);
         } else {
@@ -25,7 +25,7 @@ final class SourceFiles {
         return srcDirs;
     }
 
-    private void buildListWithSpecifiedDirectories(@Nonnull String[] dirs) {
+    private void buildListWithSpecifiedDirectories(@NonNull String[] dirs) {
         for (String dir : dirs) {
             File srcDir = new File(dir);
 
@@ -44,7 +44,7 @@ final class SourceFiles {
         addSrcSubDirs(new File("../" + curDirName));
     }
 
-    private void addSrcSubDirs(@Nonnull File dir) {
+    private void addSrcSubDirs(@NonNull File dir) {
         File[] files = dir.listFiles();
         if (files == null) {
             return;
@@ -65,7 +65,7 @@ final class SourceFiles {
 
     private static final String IGNORED_DIRS = "bin build classes generated-sources out test tst web ";
 
-    private static boolean isDirectoryToIgnore(@Nonnull String subDirName) {
+    private static boolean isDirectoryToIgnore(@NonNull String subDirName) {
         int p = IGNORED_DIRS.indexOf(subDirName);
         return p >= 0 && IGNORED_DIRS.charAt(p + subDirName.length()) == ' ';
     }

@@ -4,15 +4,15 @@
  */
 package mockit.internal.injection.field;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.internal.injection.InjectionState;
 import mockit.internal.injection.Injector;
 import mockit.internal.injection.full.FullInjection;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class FieldInjection extends Injector {
-    public FieldInjection(@Nonnull InjectionState injectionState, @Nullable FullInjection fullInjection) {
+    public FieldInjection(@NonNull InjectionState injectionState, @Nullable FullInjection fullInjection) {
         super(injectionState, fullInjection);
     }
 }

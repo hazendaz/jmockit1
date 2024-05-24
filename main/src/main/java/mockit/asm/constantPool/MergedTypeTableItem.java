@@ -2,9 +2,9 @@ package mockit.asm.constantPool;
 
 import static mockit.asm.constantPool.TypeTableItem.SpecialType.MERGED;
 
-import javax.annotation.Nonnull;
-
 import org.checkerframework.checker.index.qual.NonNegative;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 final class MergedTypeTableItem extends TypeTableItem {
     private int type1;
@@ -16,7 +16,7 @@ final class MergedTypeTableItem extends TypeTableItem {
         type = MERGED;
     }
 
-    MergedTypeTableItem(@Nonnull MergedTypeTableItem item) {
+    MergedTypeTableItem(@NonNull MergedTypeTableItem item) {
         super(0, item);
         type1 = item.type1;
         type2 = item.type2;
@@ -38,7 +38,7 @@ final class MergedTypeTableItem extends TypeTableItem {
     }
 
     @Override
-    boolean isEqualTo(@Nonnull Item item) {
+    boolean isEqualTo(@NonNull Item item) {
         MergedTypeTableItem other = (MergedTypeTableItem) item;
         return other.type1 == type1 && other.type2 == type2;
     }

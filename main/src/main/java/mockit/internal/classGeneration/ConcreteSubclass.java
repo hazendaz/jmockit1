@@ -6,27 +6,27 @@ package mockit.internal.classGeneration;
 
 import static mockit.asm.jvmConstants.Access.PUBLIC;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.classes.ClassReader;
 import mockit.asm.classes.ClassVisitor;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Generates a concrete subclass for an {@code abstract} base class.
  */
 public final class ConcreteSubclass<T> extends ImplementationClass<T> {
-    public ConcreteSubclass(@Nonnull Class<?> baseClass) {
+    public ConcreteSubclass(@NonNull Class<?> baseClass) {
         super(baseClass);
     }
 
-    @Nonnull
+    @NonNull
     @Override
-    protected ClassVisitor createMethodBodyGenerator(@Nonnull ClassReader typeReader) {
+    protected ClassVisitor createMethodBodyGenerator(@NonNull ClassReader typeReader) {
         return new BaseSubclassGenerator(sourceClass, typeReader, null, generatedClassName, false) {
             @Override
-            protected void generateMethodImplementation(String className, int access, @Nonnull String name,
-                    @Nonnull String desc, @Nullable String signature, @Nullable String[] exceptions) {
+            protected void generateMethodImplementation(String className, int access, @NonNull String name,
+                    @NonNull String desc, @Nullable String signature, @Nullable String[] exceptions) {
                 mw = cw.visitMethod(PUBLIC, name, desc, signature, exceptions);
                 generateEmptyImplementation(desc);
             }

@@ -1,12 +1,12 @@
 package mockit.asm.types;
 
-import javax.annotation.Nonnull;
-
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 public final class ArrayType extends ReferenceType {
-    @Nonnull
-    public static ArrayType create(@Nonnull String typeDesc) {
+    @NonNull
+    public static ArrayType create(@NonNull String typeDesc) {
         return new ArrayType(typeDesc.toCharArray());
     }
 
@@ -18,8 +18,8 @@ public final class ArrayType extends ReferenceType {
      * @param off
      *            the offset of the descriptor in the buffer
      */
-    @Nonnull
-    static ArrayType create(@Nonnull char[] typeDesc, @NonNegative int off) {
+    @NonNull
+    static ArrayType create(@NonNull char[] typeDesc, @NonNegative int off) {
         int len = findNumberOfDimensions(typeDesc, off);
 
         if (typeDesc[off + len] == 'L') {
@@ -30,7 +30,7 @@ public final class ArrayType extends ReferenceType {
     }
 
     @NonNegative
-    private static int findNumberOfDimensions(@Nonnull char[] typeDesc, @NonNegative int off) {
+    private static int findNumberOfDimensions(@NonNull char[] typeDesc, @NonNegative int off) {
         int dimensions = 1;
 
         while (typeDesc[off + dimensions] == '[') {
@@ -40,11 +40,11 @@ public final class ArrayType extends ReferenceType {
         return dimensions;
     }
 
-    private ArrayType(@Nonnull char[] typeDesc, @NonNegative int off, @NonNegative int len) {
+    private ArrayType(@NonNull char[] typeDesc, @NonNegative int off, @NonNegative int len) {
         super(typeDesc, off, len);
     }
 
-    ArrayType(@Nonnull char[] typeDesc) {
+    ArrayType(@NonNull char[] typeDesc) {
         super(typeDesc);
     }
 
@@ -59,13 +59,13 @@ public final class ArrayType extends ReferenceType {
     /**
      * Returns the type of the elements of this array type.
      */
-    @Nonnull
+    @NonNull
     public JavaType getElementType() {
         int dimensions = getDimensions();
         return getType(typeDescChars, off + dimensions);
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public String getClassName() {
         String className = getElementType().getClassName();

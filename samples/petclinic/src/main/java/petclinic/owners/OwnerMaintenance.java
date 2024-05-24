@@ -2,11 +2,11 @@ package petclinic.owners;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 import petclinic.util.Database;
 
 /**
@@ -30,12 +30,12 @@ public class OwnerMaintenance {
      *
      * @return list of matching owners (empty if none found)
      */
-    @Nonnull
-    public List<Owner> findByLastName(@Nonnull String lastName) {
+    @NonNull
+    public List<Owner> findByLastName(@NonNull String lastName) {
         return db.find("select o from Owner o where o.lastName like ?1", lastName + '%');
     }
 
-    public void createOrUpdate(@Nonnull Owner newData) {
+    public void createOrUpdate(@NonNull Owner newData) {
         db.save(newData);
     }
 }

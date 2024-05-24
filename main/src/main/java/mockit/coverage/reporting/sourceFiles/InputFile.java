@@ -12,28 +12,28 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class InputFile {
-    @Nonnull
+    @NonNull
     final String filePath;
-    @Nonnull
+    @NonNull
     private final File sourceFile;
-    @Nonnull
+    @NonNull
     private final BufferedReader input;
 
     @Nullable
-    public static InputFile createIfFileExists(@Nonnull List<File> sourceDirs, @Nonnull String filePath)
+    public static InputFile createIfFileExists(@NonNull List<File> sourceDirs, @NonNull String filePath)
             throws IOException {
         File sourceFile = findSourceFile(sourceDirs, filePath);
         return sourceFile == null ? null : new InputFile(filePath, sourceFile);
     }
 
     @Nullable
-    private static File findSourceFile(@Nonnull List<File> sourceDirs, @Nonnull String filePath) {
+    private static File findSourceFile(@NonNull List<File> sourceDirs, @NonNull String filePath) {
         int p = filePath.indexOf('/');
         String topLevelPackage = p < 0 ? "" : filePath.substring(0, p);
         int n = sourceDirs.size();
@@ -53,8 +53,8 @@ public final class InputFile {
     }
 
     @Nullable
-    private static File getSourceFile(@Nonnull File sourceDir, @Nonnull final String topLevelPackage,
-            @Nonnull String filePath) {
+    private static File getSourceFile(@NonNull File sourceDir, @NonNull final String topLevelPackage,
+            @NonNull String filePath) {
         File file = new File(sourceDir, filePath);
 
         if (file.exists()) {
@@ -77,7 +77,7 @@ public final class InputFile {
         return null;
     }
 
-    private static void giveCurrentSourceDirHighestPriority(@Nonnull List<File> sourceDirs,
+    private static void giveCurrentSourceDirHighestPriority(@NonNull List<File> sourceDirs,
             @NonNegative int currentSourceDirIndex) {
         if (currentSourceDirIndex > 0) {
             File firstSourceDir = sourceDirs.get(0);
@@ -90,8 +90,8 @@ public final class InputFile {
         }
     }
 
-    private static void addRootSourceDirIfNew(@Nonnull List<File> sourceDirs, @Nonnull String filePath,
-            @Nonnull File sourceFile) {
+    private static void addRootSourceDirIfNew(@NonNull List<File> sourceDirs, @NonNull String filePath,
+            @NonNull File sourceFile) {
         String sourceFilePath = sourceFile.getPath();
         String sourceRootDir = sourceFilePath.substring(0, sourceFilePath.length() - filePath.length());
         File newSourceDir = new File(sourceRootDir);
@@ -101,18 +101,18 @@ public final class InputFile {
         }
     }
 
-    private InputFile(@Nonnull String filePath, @Nonnull File sourceFile) throws IOException {
+    private InputFile(@NonNull String filePath, @NonNull File sourceFile) throws IOException {
         this.filePath = filePath;
         this.sourceFile = sourceFile;
         input = new BufferedReader(new FileReader(sourceFile, StandardCharsets.UTF_8));
     }
 
-    @Nonnull
+    @NonNull
     String getSourceFileName() {
         return sourceFile.getName();
     }
 
-    @Nonnull
+    @NonNull
     String getSourceFilePath() {
         String path = sourceFile.getPath();
         return path.startsWith("..") ? path.substring(3) : path;

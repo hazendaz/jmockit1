@@ -4,8 +4,8 @@
  */
 package mockit.internal.expectations.argumentMatching;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class AlwaysTrueMatcher implements ArgumentMatcher<AlwaysTrueMatcher> {
     public static final ArgumentMatcher<?> ANY_STRING = new AlwaysTrueMatcher(String.class, "String");
@@ -19,18 +19,18 @@ public final class AlwaysTrueMatcher implements ArgumentMatcher<AlwaysTrueMatche
     public static final ArgumentMatcher<?> ANY_DOUBLE = new AlwaysTrueMatcher(Double.class, "double");
     public static final ArgumentMatcher<?> ANY_VALUE = new AlwaysTrueMatcher(Object.class, null);
 
-    @Nonnull
+    @NonNull
     private final Class<?> expectedType;
     @Nullable
     private final String typeName;
 
-    private AlwaysTrueMatcher(@Nonnull Class<?> expectedType, @Nullable String typeName) {
+    private AlwaysTrueMatcher(@NonNull Class<?> expectedType, @Nullable String typeName) {
         this.expectedType = expectedType;
         this.typeName = typeName;
     }
 
     @Override
-    public boolean same(@Nonnull AlwaysTrueMatcher other) {
+    public boolean same(@NonNull AlwaysTrueMatcher other) {
         return expectedType == other.expectedType;
     }
 
@@ -40,7 +40,7 @@ public final class AlwaysTrueMatcher implements ArgumentMatcher<AlwaysTrueMatche
     }
 
     @Override
-    public void writeMismatchPhrase(@Nonnull ArgumentMismatch argumentMismatch) {
+    public void writeMismatchPhrase(@NonNull ArgumentMismatch argumentMismatch) {
         String parameterTypeName = typeName != null ? typeName : argumentMismatch.getParameterType();
         argumentMismatch.append("any ").append(parameterTypeName);
     }

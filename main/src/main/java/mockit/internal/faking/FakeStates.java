@@ -12,12 +12,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.internal.util.ClassLoad;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Holds state associated with fake class containing {@linkplain mockit.Mock annotated fakes}.
@@ -29,9 +29,9 @@ public final class FakeStates {
      * For each fake instance and each <code>@Mock</code> method containing the <code>Invocation</code> parameter, a
      * runtime state will be kept here.
      */
-    @Nonnull
+    @NonNull
     private final Map<Object, List<FakeState>> fakesToFakeStates;
-    @Nonnull
+    @NonNull
     private final Map<Object, List<FakeState>> startupFakesToFakeStates;
 
     public FakeStates() {
@@ -39,15 +39,15 @@ public final class FakeStates {
         fakesToFakeStates = new IdentityHashMap<>(8);
     }
 
-    void addStartupFakeAndItsFakeStates(@Nonnull Object fake, @Nonnull List<FakeState> fakeStates) {
+    void addStartupFakeAndItsFakeStates(@NonNull Object fake, @NonNull List<FakeState> fakeStates) {
         startupFakesToFakeStates.put(fake, fakeStates);
     }
 
-    void addFakeAndItsFakeStates(@Nonnull Object fake, @Nonnull List<FakeState> fakeStates) {
+    void addFakeAndItsFakeStates(@NonNull Object fake, @NonNull List<FakeState> fakeStates) {
         fakesToFakeStates.put(fake, fakeStates);
     }
 
-    public void copyFakeStates(@Nonnull Object previousFake, @Nonnull Object newFake) {
+    public void copyFakeStates(@NonNull Object previousFake, @NonNull Object newFake) {
         List<FakeState> fakeStates = fakesToFakeStates.get(previousFake);
 
         if (fakeStates != null) {
@@ -61,7 +61,7 @@ public final class FakeStates {
         }
     }
 
-    public void removeClassState(@Nonnull Class<?> redefinedClass,
+    public void removeClassState(@NonNull Class<?> redefinedClass,
             @Nullable String internalNameForOneOrMoreFakeClasses) {
         removeFakeStates(redefinedClass);
 
@@ -78,7 +78,7 @@ public final class FakeStates {
         }
     }
 
-    private void removeFakeStates(@Nonnull Class<?> redefinedClass) {
+    private void removeFakeStates(@NonNull Class<?> redefinedClass) {
         Iterator<List<FakeState>> itr = fakesToFakeStates.values().iterator();
 
         while (itr.hasNext()) {
@@ -92,7 +92,7 @@ public final class FakeStates {
         }
     }
 
-    private void removeFakeStates(@Nonnull String fakeClassInternalName) {
+    private void removeFakeStates(@NonNull String fakeClassInternalName) {
         Class<?> fakeClass = ClassLoad.loadClass(fakeClassInternalName.replace('/', '.'));
         Iterator<Entry<Object, List<FakeState>>> itr = fakesToFakeStates.entrySet().iterator();
 
@@ -106,13 +106,13 @@ public final class FakeStates {
         }
     }
 
-    public boolean updateFakeState(@Nonnull Object fake, @NonNegative int fakeStateIndex) {
+    public boolean updateFakeState(@NonNull Object fake, @NonNegative int fakeStateIndex) {
         FakeState fakeState = getFakeState(fake, fakeStateIndex);
         return fakeState.update();
     }
 
-    @Nonnull
-    FakeState getFakeState(@Nonnull Object fake, @NonNegative int fakeStateIndex) {
+    @NonNull
+    FakeState getFakeState(@NonNull Object fake, @NonNegative int fakeStateIndex) {
         List<FakeState> fakeStates = startupFakesToFakeStates.get(fake);
 
         if (fakeStates == null) {

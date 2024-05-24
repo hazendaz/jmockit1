@@ -26,9 +26,6 @@ import static mockit.asm.jvmConstants.Opcodes.INVOKEVIRTUAL;
 import static mockit.asm.jvmConstants.Opcodes.ISTORE;
 import static mockit.asm.jvmConstants.Opcodes.ISTORE_0;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.AnnotatedReader;
 import mockit.asm.annotations.AnnotationVisitor;
 import mockit.asm.classes.ClassReader;
@@ -40,11 +37,14 @@ import mockit.asm.util.MethodHandle;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 @SuppressWarnings("OverlyComplexClass")
 public final class MethodReader extends AnnotatedReader {
-    @Nonnull
+    @NonNull
     private final ClassReader cr;
-    @Nonnull
+    @NonNull
     private final ClassVisitor cv;
 
     @Nullable
@@ -78,7 +78,7 @@ public final class MethodReader extends AnnotatedReader {
      */
     private MethodVisitor mv;
 
-    public MethodReader(@Nonnull ClassReader cr, @Nonnull ClassVisitor cv) {
+    public MethodReader(@NonNull ClassReader cr, @NonNull ClassVisitor cv) {
         super(cr);
         this.cr = cr;
         this.cv = cv;
@@ -122,7 +122,7 @@ public final class MethodReader extends AnnotatedReader {
 
     @Nullable
     @Override
-    protected Boolean readAttribute(@Nonnull String attributeName) {
+    protected Boolean readAttribute(@NonNull String attributeName) {
         switch (attributeName) {
             case "Code":
                 bodyStartCodeIndex = codeIndex;
@@ -258,7 +258,7 @@ public final class MethodReader extends AnnotatedReader {
         }
     }
 
-    @Nonnull
+    @NonNull
     private Label getOrCreateLabel(@NonNegative int offset) {
         Label label = labels[offset];
 
@@ -306,7 +306,7 @@ public final class MethodReader extends AnnotatedReader {
         }
     }
 
-    @Nonnull
+    @NonNull
     private Label readSwitchDefaultLabel(@NonNegative int offset) {
         codeIndex += 3 - (offset & 3); // skips 0 to 3 padding bytes
 
@@ -384,7 +384,7 @@ public final class MethodReader extends AnnotatedReader {
         }
     }
 
-    @Nonnull
+    @NonNull
     private Label getOrCreateDebugLabel(@NonNegative int offset) {
         Label label = labels[offset];
 
@@ -397,7 +397,7 @@ public final class MethodReader extends AnnotatedReader {
         return label;
     }
 
-    @Nonnull
+    @NonNull
     private int[] readLocalVariableTypeTable() {
         int typeTableSize = 3 * readUnsignedShort();
         int[] typeTable = new int[typeTableSize];
@@ -602,7 +602,7 @@ public final class MethodReader extends AnnotatedReader {
         }
     }
 
-    @Nonnull
+    @NonNull
     private Label[] readSwitchCaseLabels(@NonNegative int offset, @NonNegative int caseCount, @Nullable int[] keys) {
         Label[] caseLabels = new Label[caseCount];
 
@@ -705,7 +705,7 @@ public final class MethodReader extends AnnotatedReader {
     }
 
     @Nullable
-    private String getLocalVariableSignature(@Nonnull int[] typeTable, @NonNegative int start, @NonNegative int index) {
+    private String getLocalVariableSignature(@NonNull int[] typeTable, @NonNegative int start, @NonNegative int index) {
         for (int i = 0, n = typeTable.length; i < n; i += 3) {
             if (typeTable[i] == start && typeTable[i + 1] == index) {
                 return readNonnullUTF8(typeTable[i + 2]);

@@ -8,11 +8,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import javax.annotation.Nonnull;
-
 import mockit.asm.controlFlow.Label;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Coverage data gathered for a branch inside a line of source code.
@@ -21,10 +21,10 @@ public final class BranchCoverageData extends LineSegmentData {
     private static final long serialVersionUID = 1003335601845442606L;
     static final BranchCoverageData INVALID = new BranchCoverageData(new Label());
 
-    @Nonnull
+    @NonNull
     private transient Label label;
 
-    BranchCoverageData(@Nonnull Label label) {
+    BranchCoverageData(@NonNull Label label) {
         this.label = label;
     }
 
@@ -38,13 +38,13 @@ public final class BranchCoverageData extends LineSegmentData {
         return label.jumpTargetLine == 0 ? label.line : label.jumpTargetLine;
     }
 
-    private void readObject(@Nonnull ObjectInputStream in) throws IOException, ClassNotFoundException {
+    private void readObject(@NonNull ObjectInputStream in) throws IOException, ClassNotFoundException {
         label = new Label();
         label.line = in.readInt();
         in.defaultReadObject();
     }
 
-    private void writeObject(@Nonnull ObjectOutputStream out) throws IOException {
+    private void writeObject(@NonNull ObjectOutputStream out) throws IOException {
         int line = getLine();
         out.writeInt(line);
         out.defaultWriteObject();

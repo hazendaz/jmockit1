@@ -4,7 +4,7 @@
  */
 package mockit.internal.util;
 
-import javax.annotation.Nonnull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class ClassNaming {
     private ClassNaming() {
@@ -17,11 +17,11 @@ public final class ClassNaming {
      * <p>
      * This method checks only the given class name, never causing any other classes to be loaded.
      */
-    public static boolean isAnonymousClass(@Nonnull Class<?> aClass) {
+    public static boolean isAnonymousClass(@NonNull Class<?> aClass) {
         return isAnonymousClass(aClass.getName());
     }
 
-    public static boolean isAnonymousClass(@Nonnull String className) {
+    public static boolean isAnonymousClass(@NonNull String className) {
         int positionJustBefore = className.lastIndexOf('$');
 
         if (positionJustBefore <= 0) {

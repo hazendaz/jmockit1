@@ -9,11 +9,11 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.internal.util.DefaultValues;
 import mockit.internal.util.ObjectMethods;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Handles invocations to all kinds of mock implementations created for interfaces and annotation types through any of
@@ -31,8 +31,8 @@ public final class MockInvocationHandler implements InvocationHandler {
     public static final InvocationHandler INSTANCE = new MockInvocationHandler();
     private static final Class<?>[] CONSTRUCTOR_PARAMETERS_FOR_PROXY_CLASS = { InvocationHandler.class };
 
-    @Nonnull
-    public static Object newMockedInstance(@Nonnull Class<?> proxyClass) {
+    @NonNull
+    public static Object newMockedInstance(@NonNull Class<?> proxyClass) {
         Constructor<?> publicConstructor;
         try {
             publicConstructor = proxyClass.getConstructor(CONSTRUCTOR_PARAMETERS_FOR_PROXY_CLASS);
@@ -45,7 +45,7 @@ public final class MockInvocationHandler implements InvocationHandler {
 
     @Nullable
     @Override
-    public Object invoke(@Nonnull Object proxy, @Nonnull Method method, @Nullable Object[] args) {
+    public Object invoke(@NonNull Object proxy, @NonNull Method method, @Nullable Object[] args) {
         Class<?> declaringClass = method.getDeclaringClass();
         String methodName = method.getName();
 

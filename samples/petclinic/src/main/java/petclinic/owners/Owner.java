@@ -3,14 +3,14 @@ package petclinic.owners;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.validation.constraints.NotNull;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 import petclinic.pets.Pet;
 import petclinic.util.Person;
 
@@ -57,7 +57,7 @@ public class Owner extends Person {
         return pets;
     }
 
-    public void addPet(@Nonnull Pet pet) {
+    public void addPet(@NonNull Pet pet) {
         pets.add(pet);
         pet.setOwner(this);
     }
@@ -71,7 +71,7 @@ public class Owner extends Person {
      * @return the pet
      */
     @Nullable
-    public Pet getPet(@Nonnull String name) {
+    public Pet getPet(@NonNull String name) {
         return pets.stream().filter(pet -> pet.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
     }
 }

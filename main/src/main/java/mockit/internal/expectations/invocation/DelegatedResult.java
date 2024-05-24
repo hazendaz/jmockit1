@@ -11,9 +11,6 @@ import static mockit.internal.reflection.MethodReflection.invoke;
 import java.lang.reflect.Method;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.Delegate;
 import mockit.Invocation;
 import mockit.asm.types.JavaType;
@@ -23,21 +20,24 @@ import mockit.internal.state.TestRun;
 import mockit.internal.util.MethodFormatter;
 import mockit.internal.util.TypeDescriptor;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 final class DelegatedResult extends InvocationResult {
     private static final Object[] NO_ARGS = {};
 
-    @Nonnull
+    @NonNull
     private final ExpectedInvocation recordedInvocation;
-    @Nonnull
+    @NonNull
     private final Object targetObject;
-    @Nonnull
+    @NonNull
     private final Method methodToInvoke;
-    @Nonnull
+    @NonNull
     private final Class<?> targetReturnType;
     private final boolean hasInvocationParameter;
     private final int numberOfRegularParameters;
 
-    DelegatedResult(@Nonnull ExpectedInvocation recordedInvocation, @Nonnull Delegate<?> delegate) {
+    DelegatedResult(@NonNull ExpectedInvocation recordedInvocation, @NonNull Delegate<?> delegate) {
         this.recordedInvocation = recordedInvocation;
         targetObject = delegate;
         methodToInvoke = findNonPrivateHandlerMethod(delegate);
@@ -54,8 +54,8 @@ final class DelegatedResult extends InvocationResult {
 
     @Nullable
     @Override
-    Object produceResult(@Nullable Object invokedObject, @Nonnull ExpectedInvocation invocation,
-            @Nonnull InvocationConstraints constraints, @Nonnull Object[] args) {
+    Object produceResult(@Nullable Object invokedObject, @NonNull ExpectedInvocation invocation,
+            @NonNull InvocationConstraints constraints, @NonNull Object[] args) {
         Object[] delegateArgs = numberOfRegularParameters == 0 ? NO_ARGS : args;
         return hasInvocationParameter
                 ? invokeMethodWithContext(invokedObject, invocation, constraints, args, delegateArgs)
@@ -64,8 +64,8 @@ final class DelegatedResult extends InvocationResult {
 
     @Nullable
     private Object invokeMethodWithContext(@Nullable Object mockOrRealObject,
-            @Nonnull ExpectedInvocation expectedInvocation, @Nonnull InvocationConstraints constraints,
-            @Nonnull Object[] invokedArgs, @Nonnull Object[] delegateArgs) {
+            @NonNull ExpectedInvocation expectedInvocation, @NonNull InvocationConstraints constraints,
+            @NonNull Object[] invokedArgs, @NonNull Object[] delegateArgs) {
         Invocation delegateInvocation = new DelegateInvocation(mockOrRealObject, invokedArgs, expectedInvocation,
                 constraints);
         Object[] delegateArgsWithInvocation = ParameterReflection.argumentsWithExtraFirstValue(delegateArgs,
@@ -77,7 +77,7 @@ final class DelegatedResult extends InvocationResult {
     }
 
     @Nullable
-    private Object executeMethodToInvoke(@Nonnull Object[] args) {
+    private Object executeMethodToInvoke(@NonNull Object[] args) {
         ReentrantLock reentrantLock = RecordAndReplayExecution.RECORD_OR_REPLAY_LOCK;
 
         if (!reentrantLock.isHeldByCurrentThread()) {
@@ -95,7 +95,7 @@ final class DelegatedResult extends InvocationResult {
     }
 
     @Nullable
-    private Object executeTargetMethod(@Nonnull Object[] args) {
+    private Object executeTargetMethod(@NonNull Object[] args) {
         Object returnValue = invoke(targetObject, methodToInvoke, args);
         Class<?> fromReturnType = methodToInvoke.getReturnType();
 

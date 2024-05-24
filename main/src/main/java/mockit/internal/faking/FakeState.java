@@ -7,18 +7,18 @@ package mockit.internal.faking;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.internal.faking.FakeMethods.FakeMethod;
 import mockit.internal.reflection.MethodReflection;
 import mockit.internal.reflection.RealMethodOrConstructor;
 import mockit.internal.util.ClassLoad;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 final class FakeState {
     private static final ClassLoader THIS_CL = FakeState.class.getClassLoader();
 
-    @Nonnull
+    @NonNull
     final FakeMethod fakeMethod;
     @Nullable
     private Method actualFakeMethod;
@@ -33,10 +33,10 @@ final class FakeState {
     private ThreadLocal<FakeInvocation> proceedingInvocation;
 
     // Helper field just for synchronization:
-    @Nonnull
+    @NonNull
     private final Object invocationCountLock;
 
-    FakeState(@Nonnull FakeMethod fakeMethod) {
+    FakeState(@NonNull FakeMethod fakeMethod) {
         this.fakeMethod = fakeMethod;
         invocationCountLock = new Object();
 
@@ -45,7 +45,7 @@ final class FakeState {
         }
     }
 
-    FakeState(@Nonnull FakeState fakeState) {
+    FakeState(@NonNull FakeState fakeState) {
         fakeMethod = fakeState.fakeMethod;
         actualFakeMethod = fakeState.actualFakeMethod;
         realMethodOrConstructor = fakeState.realMethodOrConstructor;
@@ -56,7 +56,7 @@ final class FakeState {
         }
     }
 
-    @Nonnull
+    @NonNull
     Class<?> getRealClass() {
         return fakeMethod.getRealClass();
     }
@@ -88,16 +88,16 @@ final class FakeState {
         }
     }
 
-    @Nonnull
-    Member getRealMethodOrConstructor(@Nonnull String fakedClassDesc, @Nonnull String fakedMethodName,
-            @Nonnull String fakedMethodDesc) {
+    @NonNull
+    Member getRealMethodOrConstructor(@NonNull String fakedClassDesc, @NonNull String fakedMethodName,
+            @NonNull String fakedMethodDesc) {
         Class<?> fakedClass = ClassLoad.loadFromLoader(THIS_CL, fakedClassDesc.replace('/', '.'));
         return getRealMethodOrConstructor(fakedClass, fakedMethodName, fakedMethodDesc);
     }
 
-    @Nonnull
-    Member getRealMethodOrConstructor(@Nonnull Class<?> fakedClass, @Nonnull String fakedMethodName,
-            @Nonnull String fakedMethodDesc) {
+    @NonNull
+    Member getRealMethodOrConstructor(@NonNull Class<?> fakedClass, @NonNull String fakedMethodName,
+            @NonNull String fakedMethodDesc) {
         Member member = realMethodOrConstructor;
 
         if (member == null || !fakedClass.equals(realClass)) {
@@ -121,7 +121,7 @@ final class FakeState {
         return member;
     }
 
-    boolean shouldProceedIntoRealImplementation(@Nullable Object fake, @Nonnull String classDesc) {
+    boolean shouldProceedIntoRealImplementation(@Nullable Object fake, @NonNull String classDesc) {
         if (proceedingInvocation != null) {
             FakeInvocation pendingInvocation = proceedingInvocation.get();
 
@@ -134,7 +134,7 @@ final class FakeState {
         return false;
     }
 
-    void prepareToProceed(@Nonnull FakeInvocation invocation) {
+    void prepareToProceed(@NonNull FakeInvocation invocation) {
         if (proceedingInvocation == null) {
             throw new UnsupportedOperationException("Cannot proceed into abstract/interface method");
         }
@@ -152,7 +152,7 @@ final class FakeState {
         proceedingInvocation.set(invocation);
     }
 
-    void prepareToProceedFromNonRecursiveFake(@Nonnull FakeInvocation invocation) {
+    void prepareToProceedFromNonRecursiveFake(@NonNull FakeInvocation invocation) {
         assert proceedingInvocation != null;
         proceedingInvocation.set(invocation);
     }
@@ -164,8 +164,8 @@ final class FakeState {
         proceedingInvocation.set(previousInvocation);
     }
 
-    @Nonnull
-    Method getFakeMethod(@Nonnull Class<?> fakeClass, @Nonnull Class<?>[] parameterTypes) {
+    @NonNull
+    Method getFakeMethod(@NonNull Class<?> fakeClass, @NonNull Class<?>[] parameterTypes) {
         if (actualFakeMethod == null) {
             actualFakeMethod = MethodReflection.findCompatibleMethod(fakeClass, fakeMethod.name, parameterTypes);
         }

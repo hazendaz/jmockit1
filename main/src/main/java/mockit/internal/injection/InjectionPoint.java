@@ -22,8 +22,6 @@ import java.lang.reflect.TypeVariable;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.enterprise.inject.Instance;
@@ -33,6 +31,9 @@ import javax.inject.Provider;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 import javax.servlet.Servlet;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class InjectionPoint {
     public enum KindOfInjectionPoint {
@@ -68,7 +69,7 @@ public final class InjectionPoint {
         }
     }
 
-    @Nonnull
+    @NonNull
     public final Type type;
     @Nullable
     public final String name;
@@ -76,30 +77,30 @@ public final class InjectionPoint {
     private final String normalizedName;
     public final boolean qualified;
 
-    public InjectionPoint(@Nonnull Type type) {
+    public InjectionPoint(@NonNull Type type) {
         this(type, null, false);
     }
 
-    public InjectionPoint(@Nonnull Type type, @Nullable String name) {
+    public InjectionPoint(@NonNull Type type, @Nullable String name) {
         this(type, name, false);
     }
 
-    public InjectionPoint(@Nonnull Type type, @Nullable String name, boolean qualified) {
+    public InjectionPoint(@NonNull Type type, @Nullable String name, boolean qualified) {
         this.type = type;
         this.name = name;
         normalizedName = name == null ? null : convertToLegalJavaIdentifierIfNeeded(name);
         this.qualified = qualified;
     }
 
-    public InjectionPoint(@Nonnull Type type, @Nonnull String name, @Nullable String qualifiedName) {
+    public InjectionPoint(@NonNull Type type, @NonNull String name, @Nullable String qualifiedName) {
         this.type = type;
         this.name = qualifiedName == null ? name : qualifiedName;
         normalizedName = this.name;
         qualified = qualifiedName != null;
     }
 
-    @Nonnull
-    public static String convertToLegalJavaIdentifierIfNeeded(@Nonnull String name) {
+    @NonNull
+    public static String convertToLegalJavaIdentifierIfNeeded(@NonNull String name) {
         if (name.indexOf('-') < 0 && name.indexOf('.') < 0) {
             return name;
         }
@@ -147,12 +148,12 @@ public final class InjectionPoint {
         return thisName != null && thisName.equals(otherIP.normalizedName);
     }
 
-    static boolean isServlet(@Nonnull Class<?> aClass) {
+    static boolean isServlet(@NonNull Class<?> aClass) {
         return SERVLET_CLASS != null && Servlet.class.isAssignableFrom(aClass);
     }
 
-    @Nonnull
-    public static Object wrapInProviderIfNeeded(@Nonnull Type type, @Nonnull final Object value) {
+    @NonNull
+    public static Object wrapInProviderIfNeeded(@NonNull Type type, @NonNull final Object value) {
         if (INJECT_CLASS != null && type instanceof ParameterizedType && !(value instanceof Provider)) {
             Type parameterizedType = ((ParameterizedType) type).getRawType();
 
@@ -171,10 +172,10 @@ public final class InjectionPoint {
     }
 
     private static final class Listed implements Instance<Object> {
-        @Nonnull
+        @NonNull
         private final List<Object> instances;
 
-        Listed(@Nonnull List<Object> instances) {
+        Listed(@NonNull List<Object> instances) {
             this.instances = instances;
         }
 
@@ -218,8 +219,8 @@ public final class InjectionPoint {
         }
     }
 
-    @Nonnull
-    public static KindOfInjectionPoint kindOfInjectionPoint(@Nonnull AccessibleObject fieldOrConstructor) {
+    @NonNull
+    public static KindOfInjectionPoint kindOfInjectionPoint(@NonNull AccessibleObject fieldOrConstructor) {
         Annotation[] annotations = fieldOrConstructor.getDeclaredAnnotations();
 
         if (annotations.length == 0) {
@@ -243,15 +244,15 @@ public final class InjectionPoint {
         return KindOfInjectionPoint.NotAnnotated;
     }
 
-    private static boolean isAnnotated(@Nonnull Annotation[] declaredAnnotations,
-            @Nonnull Class<?> annotationOfInterest) {
+    private static boolean isAnnotated(@NonNull Annotation[] declaredAnnotations,
+            @NonNull Class<?> annotationOfInterest) {
         Annotation annotation = getAnnotation(declaredAnnotations, annotationOfInterest);
         return annotation != null;
     }
 
     @Nullable
-    private static Annotation getAnnotation(@Nonnull Annotation[] declaredAnnotations,
-            @Nonnull Class<?> annotationOfInterest) {
+    private static Annotation getAnnotation(@NonNull Annotation[] declaredAnnotations,
+            @NonNull Class<?> annotationOfInterest) {
         for (Annotation declaredAnnotation : declaredAnnotations) {
             if (declaredAnnotation.annotationType() == annotationOfInterest) {
                 return declaredAnnotation;
@@ -261,8 +262,8 @@ public final class InjectionPoint {
         return null;
     }
 
-    @Nonnull
-    private static KindOfInjectionPoint isAutowired(@Nonnull Annotation[] declaredAnnotations) {
+    @NonNull
+    private static KindOfInjectionPoint isAutowired(@NonNull Annotation[] declaredAnnotations) {
         for (Annotation declaredAnnotation : declaredAnnotations) {
             Class<?> annotationType = declaredAnnotation.annotationType();
 
@@ -276,14 +277,14 @@ public final class InjectionPoint {
         return KindOfInjectionPoint.NotAnnotated;
     }
 
-    private static boolean isRequired(@Nonnull Annotation[] annotations) {
+    private static boolean isRequired(@NonNull Annotation[] annotations) {
         return isAnnotated(annotations, Resource.class) || EJB_CLASS != null && isAnnotated(annotations, EJB.class)
                 || PERSISTENCE_UNIT_CLASS != null && (isAnnotated(annotations, PersistenceContext.class)
                         || isAnnotated(annotations, PersistenceUnit.class));
     }
 
-    @Nonnull
-    public static Type getTypeOfInjectionPointFromVarargsParameter(@Nonnull Type parameterType) {
+    @NonNull
+    public static Type getTypeOfInjectionPointFromVarargsParameter(@NonNull Type parameterType) {
         if (parameterType instanceof Class<?>) {
             return ((Class<?>) parameterType).getComponentType();
         }
@@ -292,7 +293,7 @@ public final class InjectionPoint {
     }
 
     @Nullable
-    public static String getQualifiedName(@Nonnull Annotation[] annotationsOnInjectionPoint) {
+    public static String getQualifiedName(@NonNull Annotation[] annotationsOnInjectionPoint) {
         for (Annotation annotation : annotationsOnInjectionPoint) {
             Class<?> annotationType = annotation.annotationType();
             String annotationName = annotationType.getName();
@@ -322,8 +323,8 @@ public final class InjectionPoint {
         return null;
     }
 
-    @Nonnull
-    public static String getNameFromJNDILookup(@Nonnull String jndiLookup) {
+    @NonNull
+    public static String getNameFromJNDILookup(@NonNull String jndiLookup) {
         int p = jndiLookup.lastIndexOf('/');
 
         if (p >= 0) {

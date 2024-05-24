@@ -8,22 +8,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.internal.state.ParameterNames;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class MethodFormatter {
     private static final Pattern CONSTRUCTOR_NAME = Pattern.compile("<init>");
     private static final Pattern JAVA_LANG_PREFIX = Pattern.compile("java/lang/");
 
-    @Nonnull
+    @NonNull
     private final StringBuilder out;
-    @Nonnull
+    @NonNull
     private final List<String> parameterTypes;
-    @Nonnull
+    @NonNull
     private final String classDesc;
-    @Nonnull
+    @NonNull
     private String methodDesc;
 
     // Auxiliary fields for handling method parameters:
@@ -39,11 +39,11 @@ public final class MethodFormatter {
         methodDesc = "";
     }
 
-    public MethodFormatter(@Nonnull String classDesc, @Nonnull String methodNameAndDesc) {
+    public MethodFormatter(@NonNull String classDesc, @NonNull String methodNameAndDesc) {
         this(classDesc, methodNameAndDesc, true);
     }
 
-    public MethodFormatter(@Nonnull String classDesc, @Nonnull String methodNameAndDesc,
+    public MethodFormatter(@NonNull String classDesc, @NonNull String methodNameAndDesc,
             boolean withParametersAppended) {
         out = new StringBuilder();
         parameterTypes = new ArrayList<>(5);
@@ -58,7 +58,7 @@ public final class MethodFormatter {
         return out.toString();
     }
 
-    @Nonnull
+    @NonNull
     public List<String> getParameterTypes() {
         return parameterTypes;
     }
@@ -90,8 +90,8 @@ public final class MethodFormatter {
         }
     }
 
-    @Nonnull
-    private static String getConstructorName(@Nonnull String className) {
+    @NonNull
+    private static String getConstructorName(@NonNull String className) {
         int p = className.lastIndexOf('.');
         String constructorName = p < 0 ? className : className.substring(p + 1);
 
@@ -105,7 +105,7 @@ public final class MethodFormatter {
         return constructorName;
     }
 
-    private void appendParameterTypesAndNames(@Nonnull String typeDescs) {
+    private void appendParameterTypesAndNames(@NonNull String typeDescs) {
         String sep = "";
 
         for (String typeDesc : typeDescs.split(";")) {
@@ -122,12 +122,12 @@ public final class MethodFormatter {
         }
     }
 
-    @Nonnull
-    private static String friendlyReferenceType(@Nonnull String typeDesc) {
+    @NonNull
+    private static String friendlyReferenceType(@NonNull String typeDesc) {
         return JAVA_LANG_PREFIX.matcher(typeDesc.substring(1)).replaceAll("").replace('/', '.');
     }
 
-    private void appendParameterType(@Nonnull String friendlyTypeDesc) {
+    private void appendParameterType(@NonNull String friendlyTypeDesc) {
         out.append(friendlyTypeDesc);
         parameterTypes.add(friendlyTypeDesc);
     }
@@ -142,7 +142,7 @@ public final class MethodFormatter {
         parameterIndex++;
     }
 
-    private void appendPrimitiveParameterTypesAndNames(@Nonnull String typeDesc) {
+    private void appendPrimitiveParameterTypesAndNames(@NonNull String typeDesc) {
         String sep = "";
 
         for (typeDescPos = 0; typeDescPos < typeDesc.length(); typeDescPos++) {
@@ -159,7 +159,7 @@ public final class MethodFormatter {
         }
     }
 
-    private void addParameterTypes(@Nonnull String typeDescs) {
+    private void addParameterTypes(@NonNull String typeDescs) {
         for (String typeDesc : typeDescs.split(";")) {
             if (typeDesc.charAt(0) == 'L') {
                 parameterTypes.add(friendlyReferenceType(typeDesc));
@@ -169,7 +169,7 @@ public final class MethodFormatter {
         }
     }
 
-    private void addPrimitiveParameterTypes(@Nonnull String typeDesc) {
+    private void addPrimitiveParameterTypes(@NonNull String typeDesc) {
         for (typeDescPos = 0; typeDescPos < typeDesc.length(); typeDescPos++) {
             typeCode = typeDesc.charAt(typeDescPos);
             advancePastArrayDimensionsIfAny(typeDesc);
@@ -179,9 +179,9 @@ public final class MethodFormatter {
         }
     }
 
-    @Nonnull
+    @NonNull
     @SuppressWarnings("OverlyComplexMethod")
-    private String getTypeNameForTypeDesc(@Nonnull String typeDesc) {
+    private String getTypeNameForTypeDesc(@NonNull String typeDesc) {
         String paramType;
 
         switch (typeCode) {
@@ -215,7 +215,7 @@ public final class MethodFormatter {
         return paramType;
     }
 
-    private void advancePastArrayDimensionsIfAny(@Nonnull String param) {
+    private void advancePastArrayDimensionsIfAny(@NonNull String param) {
         arrayDimensions = 0;
 
         while (typeCode == '[') {
@@ -225,7 +225,7 @@ public final class MethodFormatter {
         }
     }
 
-    @Nonnull
+    @NonNull
     private String getArrayBrackets() {
         @SuppressWarnings("NonConstantStringShouldBeStringBuffer")
         StringBuilder result = new StringBuilder();
@@ -238,7 +238,7 @@ public final class MethodFormatter {
         return result.toString();
     }
 
-    public void append(@Nonnull String text) {
+    public void append(@NonNull String text) {
         out.append(text);
     }
 }

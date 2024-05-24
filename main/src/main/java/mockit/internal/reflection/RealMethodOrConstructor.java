@@ -8,22 +8,22 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.internal.util.ClassLoad;
 import mockit.internal.util.TypeDescriptor;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 public final class RealMethodOrConstructor {
-    @Nonnull
+    @NonNull
     public final Member member;
 
-    public RealMethodOrConstructor(@Nonnull String className, @Nonnull String memberNameAndDesc)
+    public RealMethodOrConstructor(@NonNull String className, @NonNull String memberNameAndDesc)
             throws NoSuchMethodException {
         this(ClassLoad.loadFromLoader(RealMethodOrConstructor.class.getClassLoader(), className), memberNameAndDesc);
     }
 
-    public RealMethodOrConstructor(@Nonnull Class<?> realClass, @Nonnull String memberNameAndDesc)
+    public RealMethodOrConstructor(@NonNull Class<?> realClass, @NonNull String memberNameAndDesc)
             throws NoSuchMethodException {
         int p = memberNameAndDesc.indexOf('(');
         String memberDesc = memberNameAndDesc.substring(p);
@@ -36,7 +36,7 @@ public final class RealMethodOrConstructor {
         }
     }
 
-    public RealMethodOrConstructor(@Nonnull Class<?> realClass, @Nonnull String memberName, @Nonnull String memberDesc)
+    public RealMethodOrConstructor(@NonNull Class<?> realClass, @NonNull String memberName, @NonNull String memberDesc)
             throws NoSuchMethodException {
         if (memberName.charAt(0) == '<') {
             member = findConstructor(realClass, memberDesc);
@@ -45,15 +45,15 @@ public final class RealMethodOrConstructor {
         }
     }
 
-    @Nonnull
-    private static Constructor<?> findConstructor(@Nonnull Class<?> realClass, @Nonnull String constructorDesc) {
+    @NonNull
+    private static Constructor<?> findConstructor(@NonNull Class<?> realClass, @NonNull String constructorDesc) {
         Class<?>[] parameterTypes = TypeDescriptor.getParameterTypes(constructorDesc);
         return ConstructorReflection.findSpecifiedConstructor(realClass, parameterTypes);
     }
 
-    @Nonnull
-    private static Method findMethod(@Nonnull Class<?> realClass, @Nonnull String methodName,
-            @Nonnull String methodDesc) throws NoSuchMethodException {
+    @NonNull
+    private static Method findMethod(@NonNull Class<?> realClass, @NonNull String methodName,
+            @NonNull String methodDesc) throws NoSuchMethodException {
         Class<?>[] parameterTypes = TypeDescriptor.getParameterTypes(methodDesc);
         Class<?> ownerClass = realClass;
 
@@ -84,8 +84,8 @@ public final class RealMethodOrConstructor {
     }
 
     @Nullable
-    private static Method findInterfaceMethod(@Nonnull Class<?> aType, @Nonnull String methodName,
-            @Nonnull Class<?>[] parameterTypes) {
+    private static Method findInterfaceMethod(@NonNull Class<?> aType, @NonNull String methodName,
+            @NonNull Class<?>[] parameterTypes) {
         for (Class<?> anInterface : aType.getInterfaces()) {
             try {
                 return anInterface.getMethod(methodName, parameterTypes);
@@ -96,7 +96,7 @@ public final class RealMethodOrConstructor {
         return null;
     }
 
-    @Nonnull
+    @NonNull
     public <M extends Member> M getMember() {
         // noinspection unchecked
         return (M) member;

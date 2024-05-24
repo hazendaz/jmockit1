@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.coverage.data.CoverageData;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class CoverageCheck {
     private static final String configuration = Configuration.getProperty("check", "");
@@ -30,12 +30,12 @@ final class CoverageCheck {
 
         @Nullable
         private final String sourceFilePrefix;
-        @Nonnull
+        @NonNull
         private final String scopeDescription;
         @NonNegative
         private int minPercentage;
 
-        Threshold(@Nonnull String configurationParameter) {
+        Threshold(@NonNull String configurationParameter) {
             String[] sourceFilePrefixAndMinPercentage = PARAMETER_SEPARATORS.split(configurationParameter);
             String textualPercentage;
 
@@ -91,7 +91,7 @@ final class CoverageCheck {
         }
     }
 
-    @Nonnull
+    @NonNull
     private final List<Threshold> thresholds;
     private boolean allThresholdsSatisfied;
 

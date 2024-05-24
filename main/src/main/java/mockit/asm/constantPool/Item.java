@@ -1,11 +1,11 @@
 package mockit.asm.constantPool;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.jvmConstants.ConstantPoolTypes;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * A constant pool item of a given {@linkplain ConstantPoolTypes type}.
@@ -60,7 +60,7 @@ public abstract class Item {
      * @param item
      *            the item to be copied into this item
      */
-    Item(@NonNegative int index, @Nonnull Item item) {
+    Item(@NonNegative int index, @NonNull Item item) {
         this.index = index;
         type = item.type;
         hashCode = item.hashCode;
@@ -94,7 +94,7 @@ public abstract class Item {
         return next;
     }
 
-    public final void setNext(@Nonnull Item[] items) {
+    public final void setNext(@NonNull Item[] items) {
         int indexOfNextItem = hashCode % items.length;
         next = items[indexOfNextItem];
         items[indexOfNextItem] = this;
@@ -109,5 +109,5 @@ public abstract class Item {
      *
      * @return <code>true</code> if the given item is equal to this one, <code>false</code> otherwise
      */
-    abstract boolean isEqualTo(@Nonnull Item item);
+    abstract boolean isEqualTo(@NonNull Item item);
 }

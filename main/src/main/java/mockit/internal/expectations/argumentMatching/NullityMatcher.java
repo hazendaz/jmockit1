@@ -4,8 +4,8 @@
  */
 package mockit.internal.expectations.argumentMatching;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class NullityMatcher implements ArgumentMatcher<NullityMatcher> {
     public static final ArgumentMatcher<?> INSTANCE = new NullityMatcher();
@@ -14,7 +14,7 @@ public final class NullityMatcher implements ArgumentMatcher<NullityMatcher> {
     }
 
     @Override
-    public boolean same(@Nonnull NullityMatcher other) {
+    public boolean same(@NonNull NullityMatcher other) {
         return true;
     }
 
@@ -24,7 +24,7 @@ public final class NullityMatcher implements ArgumentMatcher<NullityMatcher> {
     }
 
     @Override
-    public void writeMismatchPhrase(@Nonnull ArgumentMismatch argumentMismatch) {
+    public void writeMismatchPhrase(@NonNull ArgumentMismatch argumentMismatch) {
         argumentMismatch.append("null");
     }
 }

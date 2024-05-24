@@ -7,8 +7,8 @@ package mockit.internal.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class AutoBoxing {
     private static final Map<Class<?>, Class<?>> PRIMITIVE_TO_WRAPPER = new HashMap<>();
@@ -37,17 +37,17 @@ public final class AutoBoxing {
     private AutoBoxing() {
     }
 
-    public static boolean isWrapperOfPrimitiveType(@Nonnull Class<?> type) {
+    public static boolean isWrapperOfPrimitiveType(@NonNull Class<?> type) {
         return WRAPPER_TO_PRIMITIVE.containsKey(type);
     }
 
     @Nullable
-    public static Class<?> getPrimitiveType(@Nonnull Class<?> wrapperType) {
+    public static Class<?> getPrimitiveType(@NonNull Class<?> wrapperType) {
         return WRAPPER_TO_PRIMITIVE.get(wrapperType);
     }
 
     @Nullable
-    public static Class<?> getWrapperType(@Nonnull Class<?> primitiveType) {
+    public static Class<?> getWrapperType(@NonNull Class<?> primitiveType) {
         return PRIMITIVE_TO_WRAPPER.get(primitiveType);
     }
 }

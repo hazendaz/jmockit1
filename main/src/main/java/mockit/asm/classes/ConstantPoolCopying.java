@@ -18,9 +18,6 @@ import static mockit.asm.jvmConstants.ConstantPoolTypes.PACKAGE;
 import static mockit.asm.jvmConstants.ConstantPoolTypes.STRING;
 import static mockit.asm.jvmConstants.ConstantPoolTypes.UTF8;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.constantPool.ClassMemberItem;
 import mockit.asm.constantPool.DoubleItem;
 import mockit.asm.constantPool.DynamicItem;
@@ -37,20 +34,23 @@ import mockit.asm.util.MethodHandle;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 /**
  * Copies the constant pool data from a {@link ClassReader} into a {@link ClassWriter}.
  */
 final class ConstantPoolCopying {
-    @Nonnull
+    @NonNull
     private final ClassReader source;
-    @Nonnull
+    @NonNull
     private final ClassWriter destination;
-    @Nonnull
+    @NonNull
     private final Item[] newItems;
     @NonNegative
     private int itemIndex;
 
-    ConstantPoolCopying(@Nonnull ClassReader source, @Nonnull ClassWriter destination) {
+    ConstantPoolCopying(@NonNull ClassReader source, @NonNull ClassWriter destination) {
         this.source = source;
         this.destination = destination;
         newItems = new Item[source.items.length];
@@ -76,7 +76,7 @@ final class ConstantPoolCopying {
         destination.getConstantPoolGeneration().copy(source.code, off, source.header, newItems);
     }
 
-    @Nonnull
+    @NonNull
     @SuppressWarnings("OverlyComplexMethod")
     private Item copyItem(int itemType) {
         switch (itemType) {
@@ -114,7 +114,7 @@ final class ConstantPoolCopying {
         }
     }
 
-    @Nonnull
+    @NonNull
     private Item copyIntItem() {
         int itemValue = source.readInt();
         IntItem item = new IntItem(itemIndex);
@@ -122,7 +122,7 @@ final class ConstantPoolCopying {
         return item;
     }
 
-    @Nonnull
+    @NonNull
     private Item copyLongItem() {
         long itemValue = source.readLong();
         LongItem item = new LongItem(itemIndex);
@@ -131,7 +131,7 @@ final class ConstantPoolCopying {
         return item;
     }
 
-    @Nonnull
+    @NonNull
     private Item copyFloatItem() {
         float itemValue = source.readFloat();
         FloatItem item = new FloatItem(itemIndex);
@@ -139,7 +139,7 @@ final class ConstantPoolCopying {
         return item;
     }
 
-    @Nonnull
+    @NonNull
     private Item copyDoubleItem() {
         double itemValue = source.readDouble();
         DoubleItem item = new DoubleItem(itemIndex);
@@ -148,19 +148,19 @@ final class ConstantPoolCopying {
         return item;
     }
 
-    @Nonnull
+    @NonNull
     private Item copyUTF8Item() {
         String strVal = source.readString(itemIndex);
         return new StringItem(itemIndex, UTF8, strVal);
     }
 
-    @Nonnull
+    @NonNull
     private Item copyNameReferenceItem(int type) {
         String strVal = source.readNonnullUTF8();
         return new StringItem(itemIndex, type, strVal);
     }
 
-    @Nonnull
+    @NonNull
     private Item copyNameAndTypeItem() {
         String name = source.readNonnullUTF8();
         String type = source.readNonnullUTF8();
@@ -170,7 +170,7 @@ final class ConstantPoolCopying {
         return item;
     }
 
-    @Nonnull
+    @NonNull
     private Item copyFieldOrMethodReferenceItem(int type) {
         String classDesc = source.readNonnullClass();
         int nameCodeIndex = source.readItem();
@@ -182,7 +182,7 @@ final class ConstantPoolCopying {
         return item;
     }
 
-    @Nonnull
+    @NonNull
     private Item copyHandleItem() {
         int tag = source.readUnsignedByte();
 
@@ -199,7 +199,7 @@ final class ConstantPoolCopying {
         return item;
     }
 
-    @Nonnull
+    @NonNull
     private Item copyDynamicItem(int type) {
         int bsmIndex = source.readUnsignedShort();
         int nameCodeIndex = source.readItem();
@@ -211,14 +211,14 @@ final class ConstantPoolCopying {
         return item;
     }
 
-    @Nonnull
+    @NonNull
     private Item copyModule() {
         int nameIndex = source.readItem();
         String name = source.readNonnullUTF8(nameIndex);
         return new ModuleItem(itemIndex, MODULE, name);
     }
 
-    @Nonnull
+    @NonNull
     private Item copyPackage() {
         int nameIndex = source.readItem();
         String name = source.readNonnullUTF8(nameIndex);

@@ -3,9 +3,6 @@ package mockit.asm.classes;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mockit.asm.BaseWriter;
 import mockit.asm.SignatureWriter;
 import mockit.asm.constantPool.AttributeWriter;
@@ -20,6 +17,9 @@ import mockit.internal.util.ClassLoad;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 /**
  * A {@link ClassVisitor} that generates classes in bytecode form, that is, a byte array conforming to the
  * <a href="https://docs.oracle.com/javase/specs/jvms/se11/html/jvms-4.html">Java class file format</a>.
@@ -32,7 +32,7 @@ public final class ClassWriter extends ClassVisitor {
     /**
      * The class bytecode from which this class writer will generate a new/modified class.
      */
-    @Nonnull
+    @NonNull
     public final byte[] code;
 
     /**
@@ -57,7 +57,7 @@ public final class ClassWriter extends ClassVisitor {
     @NonNegative
     private int superNameItemIndex;
 
-    @Nonnull
+    @NonNull
     private final List<AttributeWriter> attributeWriters;
     @Nullable
     final BootstrapMethodsWriter bootstrapMethodsWriter;
@@ -65,9 +65,9 @@ public final class ClassWriter extends ClassVisitor {
     private InterfaceWriter interfaceWriter;
     @Nullable
     private InnerClassesWriter innerClassesWriter;
-    @Nonnull
+    @NonNull
     private final List<FieldVisitor> fields;
-    @Nonnull
+    @NonNull
     private final List<MethodWriter> methods;
 
     /**
@@ -87,7 +87,7 @@ public final class ClassWriter extends ClassVisitor {
      *            the {@link ClassReader} used to read the original class; it will be used to copy the entire constant
      *            pool from the original class and also to copy other fragments of original bytecode where applicable
      */
-    public ClassWriter(@Nonnull ClassReader classReader) {
+    public ClassWriter(@NonNull ClassReader classReader) {
         code = classReader.code;
         classVersion = classReader.getVersion();
 
@@ -116,7 +116,7 @@ public final class ClassWriter extends ClassVisitor {
     }
 
     @Override
-    public void visit(int version, int access, @Nonnull String name, @Nonnull ClassInfo additionalInfo) {
+    public void visit(int version, int access, @NonNull String name, @NonNull ClassInfo additionalInfo) {
         classVersion = version;
         classOrMemberAccess = access;
         nameItemIndex = cp.newClass(name);
@@ -137,7 +137,7 @@ public final class ClassWriter extends ClassVisitor {
         }
     }
 
-    private void createInterfaceWriterIfApplicable(@Nonnull String[] interfaces) {
+    private void createInterfaceWriterIfApplicable(@NonNull String[] interfaces) {
         if (interfaces.length > 0) {
             interfaceWriter = new InterfaceWriter(cp, interfaces);
         }
@@ -164,7 +164,7 @@ public final class ClassWriter extends ClassVisitor {
     }
 
     @Override
-    public void visitInnerClass(@Nonnull String name, @Nullable String outerName, @Nullable String innerName,
+    public void visitInnerClass(@NonNull String name, @Nullable String outerName, @Nullable String innerName,
             int access) {
         if (innerClassesWriter == null) {
             innerClassesWriter = new InnerClassesWriter(cp);
@@ -174,18 +174,18 @@ public final class ClassWriter extends ClassVisitor {
         innerClassesWriter.add(name, outerName, innerName, access);
     }
 
-    @Nonnull
+    @NonNull
     @Override
-    public FieldVisitor visitField(int access, @Nonnull String name, @Nonnull String desc, @Nullable String signature,
+    public FieldVisitor visitField(int access, @NonNull String name, @NonNull String desc, @Nullable String signature,
             @Nullable Object value) {
         FieldVisitor field = new FieldVisitor(this, access, name, desc, signature, value);
         fields.add(field);
         return field;
     }
 
-    @Nonnull
+    @NonNull
     @Override
-    public MethodWriter visitMethod(int access, @Nonnull String name, @Nonnull String desc, @Nullable String signature,
+    public MethodWriter visitMethod(int access, @NonNull String name, @NonNull String desc, @Nullable String signature,
             @Nullable String[] exceptions) {
         boolean computeFrames = classVersion >= ClassVersion.V7;
         MethodWriter method = new MethodWriter(this, access, name, desc, signature, exceptions, computeFrames);
@@ -196,7 +196,7 @@ public final class ClassWriter extends ClassVisitor {
     /**
      * Returns the bytecode of the class that was built with this class writer.
      */
-    @Nonnull
+    @NonNull
     @Override
     public byte[] toByteArray() {
         cp.checkConstantPoolMaxSize();
@@ -249,7 +249,7 @@ public final class ClassWriter extends ClassVisitor {
         return size;
     }
 
-    private void putClassAttributes(@Nonnull ByteVector out) {
+    private void putClassAttributes(@NonNull ByteVector out) {
         out.putInt(0xCAFEBABE).putInt(classVersion);
         cp.put(out);
 
@@ -286,9 +286,9 @@ public final class ClassWriter extends ClassVisitor {
         return attributeCount;
     }
 
-    @Nonnull
-    public DynamicItem addInvokeDynamicReference(@Nonnull String name, @Nonnull String desc, @Nonnull MethodHandle bsm,
-            @Nonnull Object... bsmArgs) {
+    @NonNull
+    public DynamicItem addInvokeDynamicReference(@NonNull String name, @NonNull String desc, @NonNull MethodHandle bsm,
+            @NonNull Object... bsmArgs) {
         assert bootstrapMethodsWriter != null;
         return bootstrapMethodsWriter.addInvokeDynamicReference(name, desc, bsm, bsmArgs);
     }
