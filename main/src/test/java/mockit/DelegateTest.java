@@ -13,19 +13,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 /**
  * The Class DelegateTest.
  */
 @SuppressWarnings("unused")
 public final class DelegateTest {
-
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
 
     /**
      * The Class Collaborator.
@@ -383,21 +377,21 @@ public final class DelegateTest {
      */
     @Test
     public void attemptToUseConstructorDelegateWithPrivateMethodsOnly(@Mocked Collaborator mock) {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("No non-private instance method found");
+        Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
+            new Expectations() {
+                {
+                    new Collaborator();
+                    result = new Delegate<Object>() {
+                        private void delegate() {
+                        }
 
-        new Expectations() {
-            {
-                new Collaborator();
-                result = new Delegate<Object>() {
-                    private void delegate() {
-                    }
-
-                    private void anotherMethod() {
-                    }
-                };
-            }
-        };
+                        private void anotherMethod() {
+                        }
+                    };
+                }
+            };
+        });
+        assertEquals("No non-private instance method found", throwable.getMessage());
     }
 
     /**
@@ -691,24 +685,22 @@ public final class DelegateTest {
      */
     @Test
     public void delegateWithTwoNonPrivateMethods(@Mocked final Collaborator collaborator) {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("More than one candidate delegate method found: ");
-        thrown.expectMessage("someOther()");
-        thrown.expectMessage("doSomethingElse(boolean,int[],String)");
+        Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
+            new Expectations() {
+                {
+                    collaborator.doSomething(true, null, "str");
+                    result = new Delegate<Object>() {
+                        String someOther() {
+                            return "";
+                        }
 
-        new Expectations() {
-            {
-                collaborator.doSomething(true, null, "str");
-                result = new Delegate<Object>() {
-                    String someOther() {
-                        return "";
-                    }
-
-                    void doSomethingElse(boolean b, int[] i, String s) {
-                    }
-                };
-            }
-        };
+                        void doSomethingElse(boolean b, int[] i, String s) {
+                        }
+                    };
+                }
+            };
+        });
+        assertTrue(throwable.getMessage().contains("More than one candidate delegate method found"));
     }
 
     /**
