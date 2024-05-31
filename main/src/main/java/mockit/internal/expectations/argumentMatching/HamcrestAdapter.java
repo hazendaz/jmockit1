@@ -18,7 +18,7 @@ import org.hamcrest.core.IsNot;
 import org.hamcrest.core.IsSame;
 
 /**
- * Adapts the <tt>org.hamcrest.Matcher</tt> interface to {@link ArgumentMatcher}.
+ * Adapts the <code>org.hamcrest.Matcher</code> interface to {@link ArgumentMatcher}.
  */
 public final class HamcrestAdapter implements ArgumentMatcher<HamcrestAdapter> {
     @NonNull
