@@ -12,6 +12,9 @@ import static mockit.internal.reflection.MethodReflection.invokePublicIfAvailabl
 import static mockit.internal.reflection.ParameterReflection.NO_PARAMETERS;
 import static mockit.internal.util.ClassLoad.searchTypeInClasspath;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
@@ -31,9 +34,6 @@ import javax.inject.Provider;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 import javax.servlet.Servlet;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class InjectionPoint {
     public enum KindOfInjectionPoint {

@@ -4,15 +4,15 @@
  */
 package mockit;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.List;
 
 import mockit.internal.expectations.BaseVerificationPhase;
 import mockit.internal.expectations.RecordAndReplayExecution;
 import mockit.internal.expectations.argumentMatching.AlwaysTrueMatcher;
 import mockit.internal.state.TestRun;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Used to <em>verify</em> a set of expectations on available {@linkplain Mocked mocked} types and/or instances, against

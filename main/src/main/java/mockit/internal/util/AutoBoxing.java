@@ -4,11 +4,11 @@
  */
 package mockit.internal.util;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public final class AutoBoxing {
     private static final Map<Class<?>, Class<?>> PRIMITIVE_TO_WRAPPER = new HashMap<>();

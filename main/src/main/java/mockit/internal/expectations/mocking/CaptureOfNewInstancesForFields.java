@@ -4,11 +4,11 @@
  */
 package mockit.internal.expectations.mocking;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.List;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 final class CaptureOfNewInstancesForFields extends CaptureOfNewInstances {
     void resetCaptureCount(@NonNull Field mockField) {

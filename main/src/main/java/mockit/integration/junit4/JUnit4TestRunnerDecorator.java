@@ -6,6 +6,9 @@ package mockit.integration.junit4;
 
 import static mockit.internal.util.StackTrace.filterStackTrace;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Method;
 
 import mockit.integration.TestRunnerDecorator;
@@ -20,9 +23,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runners.model.FrameworkMethod;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class JUnit4TestRunnerDecorator extends TestRunnerDecorator {
     @Nullable

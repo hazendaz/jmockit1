@@ -1,14 +1,14 @@
 package mockit.asm;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.asm.annotations.AnnotationReader;
 import mockit.asm.annotations.AnnotationVisitor;
 import mockit.asm.jvmConstants.Access;
 import mockit.asm.util.BytecodeReader;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * A bytecode reader for reading common elements (signature, annotations) of a class, field, or method.

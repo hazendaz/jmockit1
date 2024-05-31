@@ -4,15 +4,15 @@
  */
 package mockit.internal.state;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import mockit.internal.util.TestMethod;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class ParameterNames {
     private static final Map<String, Map<String, String[]>> classesToMethodsToParameters = new HashMap<>();

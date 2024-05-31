@@ -15,15 +15,15 @@ import static mockit.internal.expectations.argumentMatching.AlwaysTrueMatcher.AN
 import static mockit.internal.expectations.argumentMatching.AlwaysTrueMatcher.ANY_STRING;
 import static mockit.internal.expectations.argumentMatching.AlwaysTrueMatcher.ANY_VALUE;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
 import mockit.internal.expectations.transformation.ArgumentCapturing;
 import mockit.internal.state.TestRun;
 import mockit.internal.util.ClassLoad;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 @SuppressWarnings("unused")
 public final class ActiveInvocations {

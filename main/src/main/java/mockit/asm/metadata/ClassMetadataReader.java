@@ -4,6 +4,9 @@
  */
 package mockit.asm.metadata;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,9 +16,6 @@ import java.util.List;
 import mockit.asm.jvmConstants.Access;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class ClassMetadataReader extends ObjectWithAttributes {
     private static final Charset UTF8 = Charset.forName("UTF-8");

@@ -17,6 +17,9 @@ import static mockit.internal.injection.InjectionPoint.kindOfInjectionPoint;
 import static mockit.internal.injection.InjectionPoint.wrapInProviderIfNeeded;
 import static mockit.internal.injection.InjectionProvider.NULL;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
@@ -31,9 +34,6 @@ import mockit.internal.injection.field.FieldToInject;
 import mockit.internal.injection.full.FullInjection;
 import mockit.internal.reflection.FieldReflection;
 import mockit.internal.util.DefaultValues;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public class Injector {
     private static final Pattern TYPE_NAME = compile("class |interface |java\\.lang\\.");

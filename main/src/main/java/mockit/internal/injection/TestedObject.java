@@ -7,6 +7,9 @@ package mockit.internal.injection;
 import static mockit.internal.util.AutoBoxing.isWrapperOfPrimitiveType;
 import static mockit.internal.util.DefaultValues.defaultValueForPrimitiveType;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
@@ -15,9 +18,6 @@ import java.util.List;
 import mockit.Tested;
 import mockit.internal.injection.field.FieldInjection;
 import mockit.internal.injection.full.FullInjection;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 abstract class TestedObject {
     @NonNull

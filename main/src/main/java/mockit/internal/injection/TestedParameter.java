@@ -4,15 +4,15 @@
  */
 package mockit.internal.injection;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.Tested;
 import mockit.internal.state.ParameterNames;
 import mockit.internal.util.TestMethod;
 import mockit.internal.util.TypeConversion;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class TestedParameter extends TestedObject {
     @NonNull

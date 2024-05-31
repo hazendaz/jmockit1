@@ -2,11 +2,11 @@ package mockit.asm.constantPool;
 
 import static mockit.asm.jvmConstants.ConstantPoolTypes.HANDLE_BASE;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import mockit.asm.util.MethodHandle;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class MethodHandleItem extends Item {
     private MethodHandle methodHandle;

@@ -1,5 +1,8 @@
 package mockit.asm.classes;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.asm.AnnotatedReader;
 import mockit.asm.fields.FieldReader;
 import mockit.asm.jvmConstants.Access;
@@ -7,9 +10,6 @@ import mockit.asm.jvmConstants.ClassVersion;
 import mockit.asm.methods.MethodReader;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * A Java class parser to make a {@link ClassVisitor} visit an existing class.

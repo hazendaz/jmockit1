@@ -4,15 +4,15 @@
  */
 package mockit.internal.expectations.invocation;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
 
 import mockit.internal.BaseInvocation;
 import mockit.internal.expectations.state.ExecutingTest;
 import mockit.internal.state.TestRun;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class DelegateInvocation extends BaseInvocation {
     @NonNull

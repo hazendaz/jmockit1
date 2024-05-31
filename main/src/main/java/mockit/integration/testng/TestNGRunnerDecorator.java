@@ -6,6 +6,9 @@ package mockit.integration.testng;
 
 import static mockit.internal.util.StackTrace.filterStackTrace;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Method;
 
 import mockit.Expectations;
@@ -21,9 +24,6 @@ import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
 import org.testng.TestException;
 import org.testng.annotations.Test;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Provides callbacks to be called by the TestNG 6.2+ test runner for each test execution. JMockit will then assert any

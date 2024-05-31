@@ -9,6 +9,8 @@ import static java.util.Arrays.asList;
 import static mockit.internal.util.ClassLoad.loadClassAtStartup;
 import static mockit.internal.util.ClassLoad.searchTypeInClasspath;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.lang.instrument.Instrumentation;
 import java.util.Collection;
 import java.util.Collections;
@@ -21,8 +23,6 @@ import mockit.integration.junit4.FakeFrameworkMethod;
 import mockit.integration.junit4.FakeRunNotifier;
 import mockit.internal.reflection.ConstructorReflection;
 import mockit.internal.util.StackTrace;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 final class JMockitInitialization {
     private JMockitInitialization() {

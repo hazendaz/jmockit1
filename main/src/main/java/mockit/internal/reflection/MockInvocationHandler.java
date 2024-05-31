@@ -4,6 +4,9 @@
  */
 package mockit.internal.reflection;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
@@ -11,9 +14,6 @@ import java.lang.reflect.Method;
 
 import mockit.internal.util.DefaultValues;
 import mockit.internal.util.ObjectMethods;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Handles invocations to all kinds of mock implementations created for interfaces and annotation types through any of

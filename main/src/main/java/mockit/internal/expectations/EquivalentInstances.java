@@ -4,14 +4,14 @@
  */
 package mockit.internal.expectations;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import mockit.internal.expectations.invocation.ExpectedInvocation;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class EquivalentInstances {
     @NonNull

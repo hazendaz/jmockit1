@@ -6,12 +6,12 @@ package mockit.internal.expectations;
 
 import static mockit.internal.expectations.state.ExecutingTest.isInstanceMethodWithStandardBehavior;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.Map;
 
 import mockit.internal.expectations.invocation.ExpectedInvocation;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class RecordPhase extends TestOnlyPhase {
     RecordPhase(@NonNull PhasedExecutionState executionState) {

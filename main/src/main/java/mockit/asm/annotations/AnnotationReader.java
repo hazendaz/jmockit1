@@ -1,5 +1,8 @@
 package mockit.asm.annotations;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Array;
 
 import mockit.asm.types.JavaType;
@@ -7,9 +10,6 @@ import mockit.asm.types.PrimitiveType;
 import mockit.asm.util.BytecodeReader;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class AnnotationReader extends BytecodeReader {
     public AnnotationReader(@NonNull BytecodeReader br) {

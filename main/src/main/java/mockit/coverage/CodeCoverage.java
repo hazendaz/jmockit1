@@ -4,6 +4,9 @@
  */
 package mockit.coverage;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.instrument.ClassFileTransformer;
 import java.security.ProtectionDomain;
 
@@ -11,9 +14,6 @@ import mockit.coverage.data.CoverageData;
 import mockit.coverage.modification.ClassModification;
 import mockit.coverage.modification.ClassesNotLoaded;
 import mockit.internal.startup.Startup;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class CodeCoverage implements ClassFileTransformer {
     @NonNull

@@ -4,11 +4,11 @@
  */
 package mockit.internal.expectations.argumentMatching;
 
-import java.util.IdentityHashMap;
-import java.util.Map;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
+
+import java.util.IdentityHashMap;
+import java.util.Map;
 
 public final class ClassMatcher implements ArgumentMatcher<ClassMatcher> {
     private static final Map<Class<?>, ClassMatcher> PRIMITIVE_MATCHERS;

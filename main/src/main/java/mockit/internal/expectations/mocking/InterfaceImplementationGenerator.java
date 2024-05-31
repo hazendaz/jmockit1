@@ -12,6 +12,9 @@ import static mockit.asm.jvmConstants.Access.isSynthetic;
 import static mockit.asm.jvmConstants.Opcodes.ALOAD;
 import static mockit.asm.jvmConstants.Opcodes.INVOKESPECIAL;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -30,9 +33,6 @@ import mockit.internal.ClassFile;
 import mockit.internal.classGeneration.MockedTypeInfo;
 import mockit.internal.reflection.GenericTypeReflection;
 import mockit.internal.reflection.GenericTypeReflection.GenericSignature;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class InterfaceImplementationGenerator extends BaseClassModifier {
     private static final int CLASS_ACCESS = PUBLIC + FINAL;

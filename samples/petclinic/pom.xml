@@ -6,12 +6,12 @@
     <parent>
         <groupId>com.github.hazendaz.jmockit</groupId>
         <artifactId>samples</artifactId>
-        <version>1.53.1-SNAPSHOT</version>
+        <version>1.54.1-SNAPSHOT</version>
     </parent>
 
     <groupId>com.github.hazendaz.jmockit</groupId>
     <artifactId>petclinic</artifactId>
-    <version>1.53.1-SNAPSHOT</version>
+    <version>1.54.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <description>A re-creation of the Spring PetClinic Sample Application, using Java EE 7 for UI controllers and business classes.

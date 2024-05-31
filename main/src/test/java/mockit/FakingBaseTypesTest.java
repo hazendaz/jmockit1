@@ -3,6 +3,8 @@ package mockit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.io.StringReader;
 import java.nio.CharBuffer;
 
@@ -13,8 +15,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * The Class FakingBaseTypesTest.

@@ -4,10 +4,10 @@
  */
 package mockit.internal.expectations.argumentMatching;
 
-import java.util.List;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
+
+import java.util.List;
 
 public final class CaptureMatcher<T> implements ArgumentMatcher<CaptureMatcher<T>> {
     @NonNull

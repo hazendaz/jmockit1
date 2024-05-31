@@ -14,6 +14,9 @@ import static mockit.internal.util.Utilities.NO_ARGS;
 import static mockit.internal.util.Utilities.ensureThatMemberIsAccessible;
 import static mockit.internal.util.Utilities.getClassType;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Type;
@@ -32,9 +35,6 @@ import mockit.internal.state.ParameterNames;
 import mockit.internal.state.TestRun;
 import mockit.internal.util.MethodFormatter;
 import mockit.internal.util.StackTrace;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class ConstructorInjection extends Injector {
     @NonNull

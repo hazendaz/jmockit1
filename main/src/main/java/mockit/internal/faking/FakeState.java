@@ -4,6 +4,9 @@
  */
 package mockit.internal.faking;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 
@@ -11,9 +14,6 @@ import mockit.internal.faking.FakeMethods.FakeMethod;
 import mockit.internal.reflection.MethodReflection;
 import mockit.internal.reflection.RealMethodOrConstructor;
 import mockit.internal.util.ClassLoad;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class FakeState {
     private static final ClassLoader THIS_CL = FakeState.class.getClassLoader();

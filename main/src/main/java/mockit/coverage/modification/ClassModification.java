@@ -4,6 +4,9 @@
  */
 package mockit.coverage.modification;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.security.ProtectionDomain;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -11,9 +14,6 @@ import java.util.List;
 import java.util.Set;
 
 import mockit.asm.classes.ClassReader;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class ClassModification {
     @NonNull

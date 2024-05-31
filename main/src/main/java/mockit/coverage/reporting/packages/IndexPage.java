@@ -4,6 +4,9 @@
  */
 package mockit.coverage.reporting.packages;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -21,9 +24,6 @@ import mockit.coverage.reporting.OutputFile;
 import mockit.coverage.testRedundancy.TestCoverage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class IndexPage extends ListWithFilesAndPercentages {
     @Nullable

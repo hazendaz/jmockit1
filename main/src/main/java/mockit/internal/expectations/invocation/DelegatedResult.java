@@ -8,6 +8,9 @@ import static mockit.internal.reflection.MethodReflection.JAVA_LANG;
 import static mockit.internal.reflection.MethodReflection.findNonPrivateHandlerMethod;
 import static mockit.internal.reflection.MethodReflection.invoke;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Method;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -19,9 +22,6 @@ import mockit.internal.reflection.ParameterReflection;
 import mockit.internal.state.TestRun;
 import mockit.internal.util.MethodFormatter;
 import mockit.internal.util.TypeDescriptor;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class DelegatedResult extends InvocationResult {
     private static final Object[] NO_ARGS = {};

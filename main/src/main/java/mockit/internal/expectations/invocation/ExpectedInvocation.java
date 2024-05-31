@@ -6,6 +6,9 @@ package mockit.internal.expectations.invocation;
 
 import static mockit.internal.util.TypeDescriptor.getClassForType;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +25,6 @@ import mockit.internal.util.ObjectMethods;
 import mockit.internal.util.StackTrace;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 @SuppressWarnings("OverlyComplexClass")
 public final class ExpectedInvocation {

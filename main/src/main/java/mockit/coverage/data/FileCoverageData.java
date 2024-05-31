@@ -4,6 +4,9 @@
  */
 package mockit.coverage.data;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.io.Serializable;
 
 import mockit.coverage.CoveragePercentage;
@@ -12,9 +15,6 @@ import mockit.coverage.dataItems.PerFileDataCoverage;
 import mockit.coverage.lines.PerFileLineCoverage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Coverage data gathered for the lines, branching points, and fields of a single source file.

@@ -1,8 +1,8 @@
 package mockit.asm.util;
 
-import org.checkerframework.checker.index.qual.NonNegative;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * A reference to a method.

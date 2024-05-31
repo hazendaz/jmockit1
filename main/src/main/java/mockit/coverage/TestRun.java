@@ -4,14 +4,14 @@
  */
 package mockit.coverage;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import mockit.coverage.data.CoverageData;
 import mockit.coverage.data.FileCoverageData;
 import mockit.coverage.lines.PerFileLineCoverage;
 import mockit.coverage.testRedundancy.TestCoverage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 @SuppressWarnings("unused")
 public final class TestRun {

@@ -4,6 +4,8 @@
  */
 package mockit.integration.junit4;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import mockit.Invocation;
 import mockit.Mock;
 import mockit.MockUp;
@@ -16,8 +18,6 @@ import mockit.internal.state.TestRun;
 import org.junit.runner.Description;
 import org.junit.runner.Result;
 import org.junit.runner.notification.RunNotifier;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Startup fake which works in conjunction with {@link JUnit4TestRunnerDecorator} to provide JUnit 4.5+ integration.

@@ -4,10 +4,10 @@
  */
 package mockit.internal.expectations.invocation;
 
-import java.util.Iterator;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
+
+import java.util.Iterator;
 
 class InvocationResult {
     InvocationResult next;

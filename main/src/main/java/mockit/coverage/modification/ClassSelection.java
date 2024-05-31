@@ -8,6 +8,9 @@ import static java.util.regex.Pattern.compile;
 
 import static mockit.internal.util.GeneratedClasses.isExternallyGeneratedSubclass;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.net.URL;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
@@ -15,9 +18,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import mockit.coverage.Configuration;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class ClassSelection {
     private static final String THIS_CLASS_NAME = ClassSelection.class.getName();

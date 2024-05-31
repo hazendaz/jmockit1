@@ -4,6 +4,9 @@
  */
 package mockit.internal.expectations.argumentMatching;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.internal.reflection.FieldReflection;
 
 import org.hamcrest.Description;
@@ -14,11 +17,8 @@ import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsNot;
 import org.hamcrest.core.IsSame;
 
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
-
 /**
- * Adapts the <tt>org.hamcrest.Matcher</tt> interface to {@link ArgumentMatcher}.
+ * Adapts the <code>org.hamcrest.Matcher</code> interface to {@link ArgumentMatcher}.
  */
 public final class HamcrestAdapter implements ArgumentMatcher<HamcrestAdapter> {
     @NonNull

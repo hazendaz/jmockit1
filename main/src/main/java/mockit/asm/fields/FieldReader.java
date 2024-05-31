@@ -1,13 +1,13 @@
 package mockit.asm.fields;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.asm.AnnotatedReader;
 import mockit.asm.classes.ClassReader;
 import mockit.asm.classes.ClassVisitor;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class FieldReader extends AnnotatedReader {
     @NonNull

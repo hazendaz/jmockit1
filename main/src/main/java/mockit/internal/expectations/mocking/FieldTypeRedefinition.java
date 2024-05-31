@@ -4,11 +4,11 @@
  */
 package mockit.internal.expectations.mocking;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.lang.reflect.TypeVariable;
 
 import mockit.internal.state.TestRun;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 final class FieldTypeRedefinition extends TypeRedefinition {
     private boolean usePartialMocking;

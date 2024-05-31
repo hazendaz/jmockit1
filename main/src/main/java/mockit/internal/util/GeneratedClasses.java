@@ -4,10 +4,10 @@
  */
 package mockit.internal.util;
 
-import java.lang.reflect.Proxy;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
+
+import java.lang.reflect.Proxy;
 
 public final class GeneratedClasses {
     private static final String IMPLCLASS_PREFIX = "$Impl_";

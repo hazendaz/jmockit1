@@ -9,13 +9,13 @@ import static mockit.internal.reflection.ParameterReflection.indexOfFirstRealPar
 import static mockit.internal.reflection.ParameterReflection.matchesParameterTypes;
 import static mockit.internal.util.Utilities.ensureThatMemberIsAccessible;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import org.objenesis.instantiator.sun.SunReflectionFactoryInstantiator;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class ConstructorReflection {
     private ConstructorReflection() {

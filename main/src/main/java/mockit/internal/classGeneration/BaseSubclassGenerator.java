@@ -9,6 +9,9 @@ import static java.util.Arrays.asList;
 import static mockit.asm.jvmConstants.Opcodes.ALOAD;
 import static mockit.asm.jvmConstants.Opcodes.INVOKESPECIAL;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -27,9 +30,6 @@ import mockit.asm.types.JavaType;
 import mockit.internal.BaseClassModifier;
 import mockit.internal.ClassFile;
 import mockit.internal.util.TypeDescriptor;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public class BaseSubclassGenerator extends BaseClassModifier {
     private static final int CLASS_ACCESS_MASK = 0xFFFF - Access.ABSTRACT;

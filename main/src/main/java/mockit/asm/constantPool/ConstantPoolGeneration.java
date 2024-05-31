@@ -15,6 +15,9 @@ import static mockit.asm.jvmConstants.ConstantPoolTypes.STRING;
 import static mockit.asm.jvmConstants.ConstantPoolTypes.UTF8;
 import static mockit.internal.util.ClassLoad.OBJECT;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.asm.jvmConstants.ConstantPoolTypes;
 import mockit.asm.types.JavaType;
 import mockit.asm.types.MethodType;
@@ -25,9 +28,6 @@ import mockit.asm.util.MethodHandle;
 import mockit.internal.util.ClassLoad;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Allows the constant pool for a classfile to be created from scratch, when that classfile itself is being generated or

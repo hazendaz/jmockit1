@@ -1,10 +1,10 @@
 package mockit.asm.constantPool;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import mockit.asm.types.JavaType;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 public class TypeOrMemberItem extends Item {
     @NonNull

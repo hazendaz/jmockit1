@@ -14,6 +14,9 @@ import static java.util.Collections.unmodifiableSortedSet;
 
 import static mockit.internal.util.Utilities.JAVA8;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -36,9 +39,6 @@ import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 import mockit.asm.types.ArrayType;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Provides default values for each type, typically used for returning default values according to method return types.

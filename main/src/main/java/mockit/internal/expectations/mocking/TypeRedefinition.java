@@ -4,12 +4,12 @@
  */
 package mockit.internal.expectations.mocking;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Type;
 
 import mockit.internal.expectations.MockingFilters;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 class TypeRedefinition extends BaseTypeRedefinition {
     TypeRedefinition(@NonNull MockedType typeMetadata) {

@@ -7,15 +7,15 @@ package mockit.internal.expectations.mocking;
 import static mockit.internal.expectations.RecordAndReplayExecution.RECORD_OR_REPLAY_LOCK;
 import static mockit.internal.expectations.RecordAndReplayExecution.recordOrReplay;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Method;
 
 import mockit.internal.ClassLoadingBridge;
 import mockit.internal.expectations.ExecutionMode;
 import mockit.internal.state.TestRun;
 import mockit.internal.util.ObjectMethods;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class MockedBridge extends ClassLoadingBridge {
     @NonNull

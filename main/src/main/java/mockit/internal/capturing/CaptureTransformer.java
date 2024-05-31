@@ -6,6 +6,9 @@ package mockit.internal.capturing;
 
 import static mockit.internal.capturing.CapturedType.isNotToBeCaptured;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.instrument.ClassFileTransformer;
 import java.security.ProtectionDomain;
 import java.util.Collections;
@@ -20,9 +23,6 @@ import mockit.internal.ClassFile;
 import mockit.internal.ClassIdentification;
 import mockit.internal.startup.Startup;
 import mockit.internal.state.TestRun;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class CaptureTransformer<M> implements ClassFileTransformer {
     @NonNull

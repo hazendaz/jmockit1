@@ -4,13 +4,13 @@
  */
 package mockit.internal.expectations;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import mockit.internal.expectations.invocation.ExpectedInvocation;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 class UnorderedVerificationPhase extends BaseVerificationPhase {
     @NonNull

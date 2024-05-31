@@ -4,12 +4,12 @@
  */
 package mockit.internal.expectations.mocking;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.internal.util.StackTrace;
 
 import org.objenesis.ObjenesisHelper;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Factory for the creation of new mocked instances, and for obtaining/clearing the last instance created. There are

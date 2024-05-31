@@ -4,10 +4,10 @@
  */
 package mockit.internal.expectations.argumentMatching;
 
-import java.lang.reflect.Array;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
+
+import java.lang.reflect.Array;
 
 public class EqualityMatcher implements ArgumentMatcher<EqualityMatcher> {
     @Nullable

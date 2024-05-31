@@ -4,6 +4,9 @@
  */
 package mockit.internal.expectations.invocation;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Member;
 import java.util.List;
 import java.util.Map;
@@ -14,9 +17,6 @@ import mockit.internal.expectations.state.ExecutingTest;
 import mockit.internal.reflection.RealMethodOrConstructor;
 import mockit.internal.state.TestRun;
 import mockit.internal.util.MethodFormatter;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class InvocationArguments {
     @NonNull

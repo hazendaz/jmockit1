@@ -4,9 +4,9 @@
  */
 package mockit.internal.expectations;
 
-import mockit.asm.types.JavaType;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
+
+import mockit.asm.types.JavaType;
 
 public final class MockingFilters {
     private MockingFilters() {

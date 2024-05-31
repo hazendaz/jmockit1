@@ -4,6 +4,9 @@
  */
 package mockit;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -11,9 +14,6 @@ import java.util.Optional;
 
 import mockit.internal.expectations.RecordAndReplayExecution;
 import mockit.internal.expectations.RecordPhase;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Used to <em>record</em> expectations on {@linkplain Mocked mocked} types and their instances.

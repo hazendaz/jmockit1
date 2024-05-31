@@ -8,6 +8,9 @@ import static mockit.asm.jvmConstants.Opcodes.ASTORE;
 import static mockit.asm.jvmConstants.Opcodes.CHECKCAST;
 import static mockit.asm.jvmConstants.Opcodes.ISTORE;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,9 +19,6 @@ import java.util.Map;
 import mockit.asm.types.ReferenceType;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class ArgumentCapturing {
     private static final Map<Integer, String> varIndexToTypeDesc = new HashMap<>();

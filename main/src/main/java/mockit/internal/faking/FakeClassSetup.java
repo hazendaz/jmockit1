@@ -4,6 +4,9 @@
  */
 package mockit.internal.faking;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.instrument.ClassDefinition;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
@@ -15,9 +18,6 @@ import mockit.internal.ClassFile;
 import mockit.internal.startup.Startup;
 import mockit.internal.state.CachedClassfiles;
 import mockit.internal.state.TestRun;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class FakeClassSetup {
     @NonNull

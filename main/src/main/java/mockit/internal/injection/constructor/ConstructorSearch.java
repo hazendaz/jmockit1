@@ -12,6 +12,9 @@ import static mockit.internal.injection.InjectionPoint.getQualifiedName;
 import static mockit.internal.injection.InjectionPoint.getTypeOfInjectionPointFromVarargsParameter;
 import static mockit.internal.injection.InjectionPoint.kindOfInjectionPoint;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Type;
@@ -29,9 +32,6 @@ import mockit.internal.injection.InjectionState;
 import mockit.internal.injection.TestedClass;
 import mockit.internal.state.ParameterNames;
 import mockit.internal.util.ParameterNameExtractor;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class ConstructorSearch {
     private static final int CONSTRUCTOR_ACCESS = PUBLIC + PROTECTED + PRIVATE;

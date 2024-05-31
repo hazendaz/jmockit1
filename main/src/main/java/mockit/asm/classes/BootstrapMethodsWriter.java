@@ -2,6 +2,8 @@ package mockit.asm.classes;
 
 import static mockit.asm.jvmConstants.ConstantPoolTypes.INVOKE_DYNAMIC;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import mockit.asm.constantPool.AttributeWriter;
 import mockit.asm.constantPool.BootstrapMethodItem;
 import mockit.asm.constantPool.ConstantPoolGeneration;
@@ -12,8 +14,6 @@ import mockit.asm.util.ByteVector;
 import mockit.asm.util.MethodHandle;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Generates the "BootstrapMethods" attribute in a class file being written by a {@link ClassWriter}.

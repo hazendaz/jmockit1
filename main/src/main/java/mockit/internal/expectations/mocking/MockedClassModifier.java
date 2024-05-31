@@ -22,6 +22,9 @@ import static mockit.internal.expectations.MockingFilters.validateAsMockable;
 import static mockit.internal.util.ObjectMethods.isMethodFromObject;
 import static mockit.internal.util.Utilities.HOTSPOT_VM;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,9 +37,6 @@ import mockit.asm.methods.MethodVisitor;
 import mockit.asm.types.JavaType;
 import mockit.internal.BaseClassModifier;
 import mockit.internal.expectations.ExecutionMode;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class MockedClassModifier extends BaseClassModifier {
     private static final int METHOD_ACCESS_MASK = PRIVATE + SYNTHETIC + ABSTRACT;

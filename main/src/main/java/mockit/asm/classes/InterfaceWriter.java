@@ -1,10 +1,10 @@
 package mockit.asm.classes;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import mockit.asm.constantPool.AttributeWriter;
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.util.ByteVector;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Writes out the interfaces implemented or extended by the class or interface being written.

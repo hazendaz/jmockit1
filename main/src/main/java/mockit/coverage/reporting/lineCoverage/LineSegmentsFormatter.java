@@ -6,6 +6,9 @@ package mockit.coverage.reporting.lineCoverage;
 
 import static java.lang.Character.isWhitespace;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.List;
 
 import mockit.coverage.CallPoint;
@@ -17,9 +20,6 @@ import mockit.coverage.reporting.parsing.LineElement;
 import mockit.coverage.reporting.parsing.LineParser;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class LineSegmentsFormatter {
     @Nullable

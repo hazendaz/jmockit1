@@ -6,6 +6,9 @@ package mockit.internal.expectations;
 
 import static mockit.internal.util.Utilities.NO_ARGS;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
@@ -21,9 +24,6 @@ import mockit.internal.state.TestRun;
 import mockit.internal.util.ClassNaming;
 import mockit.internal.util.DefaultValues;
 import mockit.internal.util.ObjectMethods;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class RecordAndReplayExecution {
     public static final ReentrantLock RECORD_OR_REPLAY_LOCK = new ReentrantLock();

@@ -8,6 +8,9 @@ import static java.lang.reflect.Modifier.isNative;
 
 import static mockit.internal.util.ObjectMethods.isMethodFromObject;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -21,9 +24,6 @@ import mockit.internal.reflection.GenericTypeReflection.GenericSignature;
 import mockit.internal.state.TestRun;
 import mockit.internal.util.TypeDescriptor;
 import mockit.internal.util.Utilities;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * A container for the fake methods "collected" from a fake class.

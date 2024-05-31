@@ -9,6 +9,8 @@ import static mockit.asm.jvmConstants.Access.BRIDGE;
 import static mockit.asm.jvmConstants.Access.NATIVE;
 import static mockit.asm.jvmConstants.Access.SYNTHETIC;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.util.EnumSet;
 import java.util.List;
 
@@ -21,8 +23,6 @@ import mockit.asm.types.JavaType;
 import mockit.internal.ClassFile;
 import mockit.internal.faking.FakeMethods.FakeMethod;
 import mockit.internal.util.ClassLoad;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Responsible for collecting the signatures of all methods defined in a given fake class which are explicitly annotated

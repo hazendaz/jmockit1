@@ -8,6 +8,8 @@ import static mockit.asm.jvmConstants.Opcodes.ICONST_0;
 import static mockit.asm.jvmConstants.Opcodes.ICONST_1;
 import static mockit.asm.jvmConstants.Opcodes.INVOKEVIRTUAL;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +19,6 @@ import mockit.coverage.lines.LineCoverageData;
 import mockit.coverage.lines.PerFileLineCoverage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 final class CFGTracking {
     @NonNull

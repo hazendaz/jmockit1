@@ -4,6 +4,9 @@
  */
 package mockit.coverage.reporting.sourceFiles;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.io.IOException;
 
 import mockit.coverage.data.FileCoverageData;
@@ -16,9 +19,6 @@ import mockit.coverage.reporting.parsing.LineElement;
 import mockit.coverage.reporting.parsing.LineParser;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Generates an HTML page containing line-by-line coverage information for a single source file.

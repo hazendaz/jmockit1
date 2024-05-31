@@ -8,14 +8,14 @@ import static java.lang.reflect.Modifier.isStatic;
 
 import static mockit.internal.util.Utilities.ensureThatMemberIsAccessible;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 
 import mockit.internal.util.AutoBoxing;
 import mockit.internal.util.Utilities;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class FieldReflection {
     private FieldReflection() {

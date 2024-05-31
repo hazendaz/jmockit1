@@ -4,6 +4,9 @@
  */
 package mockit.internal.injection;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.io.File;
 import java.lang.reflect.Type;
 import java.security.CodeSource;
@@ -11,9 +14,6 @@ import java.security.ProtectionDomain;
 
 import mockit.internal.reflection.GenericTypeReflection;
 import mockit.internal.util.Utilities;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class TestedClass {
     @NonNull

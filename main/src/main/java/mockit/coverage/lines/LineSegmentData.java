@@ -4,6 +4,9 @@
  */
 package mockit.coverage.lines;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +15,6 @@ import mockit.coverage.CallPoint;
 import mockit.coverage.Configuration;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public class LineSegmentData implements Serializable {
     private static final long serialVersionUID = -6233980722802474992L;

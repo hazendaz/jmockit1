@@ -6,6 +6,9 @@ package mockit.internal.faking;
 
 import static mockit.internal.util.Utilities.NO_ARGS;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
 
@@ -13,9 +16,6 @@ import mockit.internal.BaseInvocation;
 import mockit.internal.state.TestRun;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * An invocation to a {@linkplain mockit.Mock fake} method.

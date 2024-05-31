@@ -4,6 +4,9 @@
  */
 package mockit.coverage.reporting;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,9 +23,6 @@ import mockit.coverage.data.FileCoverageData;
 import mockit.coverage.reporting.packages.IndexPage;
 import mockit.coverage.reporting.sourceFiles.FileCoverageReport;
 import mockit.coverage.reporting.sourceFiles.InputFile;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class CoverageReport {
     @NonNull

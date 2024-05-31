@@ -4,13 +4,13 @@
  */
 package mockit.coverage.reporting;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.List;
 import java.util.regex.Pattern;
 
 import mockit.coverage.CallPoint;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class ListOfCallPoints {
     @NonNull

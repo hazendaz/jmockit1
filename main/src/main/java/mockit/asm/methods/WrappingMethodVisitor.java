@@ -1,13 +1,13 @@
 package mockit.asm.methods;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.asm.annotations.AnnotationVisitor;
 import mockit.asm.controlFlow.Label;
 import mockit.asm.util.MethodHandle;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Same as {@link MethodVisitor}, except it always wraps a {@link MethodWriter}.

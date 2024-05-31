@@ -4,6 +4,9 @@
  */
 package mockit.internal.state;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.instrument.ClassFileTransformer;
 import java.security.ProtectionDomain;
 import java.util.HashMap;
@@ -11,9 +14,6 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 import mockit.internal.startup.Startup;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Holds a map of internal class names to the corresponding class files (bytecode arrays), for the classes that have

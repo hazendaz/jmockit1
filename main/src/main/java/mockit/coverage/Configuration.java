@@ -4,10 +4,10 @@
  */
 package mockit.coverage;
 
-import java.io.File;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
+
+import java.io.File;
 
 public final class Configuration {
     private static final String COVERAGE_PREFIX = "coverage-";

@@ -6,6 +6,9 @@ package mockit.internal.startup;
 
 import static mockit.internal.startup.ClassLoadingBridgeFields.createSyntheticFieldsInJREClassToHoldClassLoadingBridges;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.instrument.ClassDefinition;
 import java.lang.instrument.Instrumentation;
 import java.lang.instrument.UnmodifiableClassException;
@@ -13,9 +16,6 @@ import java.lang.instrument.UnmodifiableClassException;
 import mockit.internal.ClassIdentification;
 import mockit.internal.expectations.transformation.ExpectationsTransformer;
 import mockit.internal.state.CachedClassfiles;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * This is the "agent class" that initializes the JMockit "Java agent", provided the JVM is initialized with

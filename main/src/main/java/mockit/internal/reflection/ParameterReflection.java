@@ -7,6 +7,8 @@ package mockit.internal.reflection;
 import static mockit.internal.reflection.MethodReflection.JAVA_LANG;
 import static mockit.internal.util.Utilities.JAVA8;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.lang.reflect.Method;
 
 import mockit.Invocation;
@@ -14,8 +16,6 @@ import mockit.internal.util.AutoBoxing;
 import mockit.internal.util.GeneratedClasses;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class ParameterReflection {
     @NonNull

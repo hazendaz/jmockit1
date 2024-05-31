@@ -3,9 +3,9 @@ package mockit.asm.types;
 import static mockit.asm.jvmConstants.Opcodes.ACONST_NULL;
 import static mockit.asm.jvmConstants.Opcodes.ALOAD;
 
-import org.checkerframework.checker.index.qual.NonNegative;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public abstract class ReferenceType extends JavaType {
     /**

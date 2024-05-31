@@ -10,6 +10,9 @@ import static mockit.asm.jvmConstants.Opcodes.SIPUSH;
 import static mockit.internal.util.TypeConversionBytecode.generateCastOrUnboxing;
 import static mockit.internal.util.TypeConversionBytecode.isPrimitiveWrapper;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.asm.methods.MethodWriter;
 import mockit.asm.types.ArrayType;
 import mockit.asm.types.JavaType;
@@ -17,9 +20,6 @@ import mockit.asm.types.ObjectType;
 import mockit.asm.types.ReferenceType;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class Capture {
     @NonNull

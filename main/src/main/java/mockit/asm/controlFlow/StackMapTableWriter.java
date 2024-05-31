@@ -8,6 +8,8 @@ import static mockit.asm.controlFlow.StackMapTableWriter.LocalsAndStackItemsDiff
 import static mockit.asm.controlFlow.StackMapTableWriter.LocalsAndStackItemsDiff.SAME_LOCALS_1_STACK_ITEM_FRAME;
 import static mockit.asm.controlFlow.StackMapTableWriter.LocalsAndStackItemsDiff.SAME_LOCALS_1_STACK_ITEM_FRAME_EXTENDED;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import mockit.asm.constantPool.AttributeWriter;
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.constantPool.UninitializedTypeTableItem;
@@ -16,8 +18,6 @@ import mockit.asm.types.JavaType;
 import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Writes the "StackMapTable" method attribute (or "StackMap" for classfiles older than Java 6).

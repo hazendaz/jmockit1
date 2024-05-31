@@ -4,14 +4,14 @@
  */
 package mockit.internal.injection.field;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 import mockit.internal.injection.InjectionPoint;
 import mockit.internal.injection.InjectionPoint.KindOfInjectionPoint;
 import mockit.internal.injection.InjectionProvider;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class FieldToInject extends InjectionProvider {
     @NonNull

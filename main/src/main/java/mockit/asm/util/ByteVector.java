@@ -1,8 +1,8 @@
 package mockit.asm.util;
 
-import org.checkerframework.checker.index.qual.NonNegative;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 /**
  * A dynamically extensible vector of bytes. This class is roughly equivalent to a DataOutputStream on top of a

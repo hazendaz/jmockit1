@@ -6,13 +6,13 @@ package mockit.coverage.reporting.parsing;
 
 import static java.util.Arrays.asList;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class LineElement implements Iterable<LineElement> {
     private static final List<String> CONDITIONAL_OPERATORS = asList("||", "&&", ":", "else", "?");

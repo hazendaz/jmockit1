@@ -6,14 +6,14 @@ package mockit.internal.state;
 
 import static mockit.internal.expectations.RecordAndReplayExecution.RECORD_OR_REPLAY_LOCK;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import mockit.internal.ClassIdentification;
 import mockit.internal.faking.FakeClasses;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class SavePoint {
     @NonNull

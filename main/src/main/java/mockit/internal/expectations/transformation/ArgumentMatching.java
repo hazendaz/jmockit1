@@ -7,12 +7,12 @@ package mockit.internal.expectations.transformation;
 import static mockit.asm.jvmConstants.Opcodes.GETFIELD;
 import static mockit.asm.jvmConstants.Opcodes.SIPUSH;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import mockit.asm.methods.MethodWriter;
 import mockit.asm.types.JavaType;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 final class ArgumentMatching {
     private static final JavaType[] NO_PARAMETERS = {};

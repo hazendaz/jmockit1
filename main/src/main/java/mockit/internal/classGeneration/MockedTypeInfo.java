@@ -4,13 +4,13 @@
  */
 package mockit.internal.classGeneration;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import mockit.internal.reflection.GenericTypeReflection;
 import mockit.internal.util.Utilities;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class MockedTypeInfo {
     @NonNull

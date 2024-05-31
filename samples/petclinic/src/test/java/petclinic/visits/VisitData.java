@@ -1,10 +1,11 @@
 package petclinic.visits;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.util.Date;
 
 import javax.inject.Inject;
 
-import edu.umd.cs.findbugs.annotations.NonNull;
 import petclinic.pets.Pet;
 import petclinic.pets.PetData;
 import petclinic.util.TestDatabase;

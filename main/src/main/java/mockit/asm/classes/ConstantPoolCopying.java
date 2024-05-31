@@ -18,6 +18,9 @@ import static mockit.asm.jvmConstants.ConstantPoolTypes.PACKAGE;
 import static mockit.asm.jvmConstants.ConstantPoolTypes.STRING;
 import static mockit.asm.jvmConstants.ConstantPoolTypes.UTF8;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.asm.constantPool.ClassMemberItem;
 import mockit.asm.constantPool.DoubleItem;
 import mockit.asm.constantPool.DynamicItem;
@@ -33,9 +36,6 @@ import mockit.asm.constantPool.StringItem;
 import mockit.asm.util.MethodHandle;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Copies the constant pool data from a {@link ClassReader} into a {@link ClassWriter}.

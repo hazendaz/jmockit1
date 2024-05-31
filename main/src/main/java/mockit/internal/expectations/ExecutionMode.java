@@ -7,10 +7,10 @@ package mockit.internal.expectations;
 import static java.lang.reflect.Modifier.isNative;
 import static java.lang.reflect.Modifier.isStatic;
 
-import mockit.internal.state.TestRun;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
+
+import mockit.internal.state.TestRun;
 
 public enum ExecutionMode {
     Regular {

@@ -4,6 +4,9 @@
  */
 package mockit.coverage.lines;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.HashMap;
@@ -15,9 +18,6 @@ import mockit.coverage.CoveragePercentage;
 import mockit.coverage.data.PerFileCoverage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class PerFileLineCoverage implements PerFileCoverage {
     private static final long serialVersionUID = 6318915843739466316L;

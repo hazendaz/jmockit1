@@ -4,9 +4,9 @@
  */
 package mockit.internal.util;
 
-import java.io.IOException;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
+
+import java.io.IOException;
 
 /**
  * Provides utility methods to extract and filter stack trace information.

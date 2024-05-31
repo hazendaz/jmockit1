@@ -8,6 +8,9 @@ import static java.lang.reflect.Modifier.PUBLIC;
 import static java.lang.reflect.Modifier.STATIC;
 import static java.lang.reflect.Modifier.isPublic;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.Instrumentation;
 import java.security.ProtectionDomain;
@@ -22,9 +25,6 @@ import mockit.internal.ClassLoadingBridge;
 import mockit.internal.expectations.mocking.MockedBridge;
 import mockit.internal.faking.FakeBridge;
 import mockit.internal.faking.FakeMethodBridge;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class ClassLoadingBridgeFields {
     private ClassLoadingBridgeFields() {

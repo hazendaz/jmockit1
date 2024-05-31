@@ -9,6 +9,9 @@ import static mockit.internal.injection.InjectionPoint.isServlet;
 import static mockit.internal.reflection.ParameterReflection.getParameterCount;
 import static mockit.internal.util.Utilities.NO_ARGS;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -23,9 +26,6 @@ import javax.servlet.ServletConfig;
 
 import mockit.internal.reflection.MethodReflection;
 import mockit.internal.state.TestRun;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class LifecycleMethods {
     @NonNull

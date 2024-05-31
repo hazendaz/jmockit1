@@ -6,14 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.lang.annotation.Annotation;
 
 import javax.annotation.Resource;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.junit.jupiter.api.Test;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * The Class MockedAnnotationsTest.

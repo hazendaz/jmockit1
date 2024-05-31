@@ -4,6 +4,9 @@
  */
 package mockit.coverage.reporting.lineCoverage;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.List;
 
 import mockit.coverage.CallPoint;
@@ -11,9 +14,6 @@ import mockit.coverage.lines.LineCoverageData;
 import mockit.coverage.lines.PerFileLineCoverage;
 import mockit.coverage.reporting.ListOfCallPoints;
 import mockit.coverage.reporting.parsing.LineParser;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class LineCoverageFormatter {
     @NonNull

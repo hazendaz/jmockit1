@@ -4,13 +4,13 @@
  */
 package mockit.internal.expectations.argumentMatching;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 
 import mockit.internal.util.ObjectMethods;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class ArgumentMismatch {
     @NonNull

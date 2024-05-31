@@ -4,6 +4,9 @@
  */
 package mockit.internal.state;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.internal.expectations.RecordAndReplayExecution;
 import mockit.internal.expectations.mocking.FieldTypeRedefinitions;
 import mockit.internal.expectations.state.ExecutingTest;
@@ -11,9 +14,6 @@ import mockit.internal.faking.FakeClasses;
 import mockit.internal.faking.FakeStates;
 import mockit.internal.injection.TestedClassInstantiations;
 import mockit.internal.util.StackTrace;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * A singleton which stores several data structures which in turn hold global state for individual test methods, test

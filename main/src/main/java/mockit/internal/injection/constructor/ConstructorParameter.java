@@ -6,13 +6,13 @@ package mockit.internal.injection.constructor;
 
 import static mockit.internal.util.Utilities.getClassType;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
 import mockit.internal.injection.InjectionProvider;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class ConstructorParameter extends InjectionProvider {
     @NonNull

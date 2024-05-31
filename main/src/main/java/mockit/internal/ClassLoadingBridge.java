@@ -4,6 +4,9 @@
  */
 package mockit.internal;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.lang.reflect.InvocationHandler;
@@ -22,9 +25,6 @@ import mockit.internal.util.ClassLoad;
 import mockit.internal.util.StackTrace;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public abstract class ClassLoadingBridge implements InvocationHandler {
     private static final Object[] EMPTY_ARGS = {};

@@ -4,6 +4,9 @@
  */
 package mockit.internal.faking;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Method;
 
 import mockit.Invocation;
@@ -13,9 +16,6 @@ import mockit.internal.reflection.ParameterReflection;
 import mockit.internal.state.TestRun;
 import mockit.internal.util.DefaultValues;
 import mockit.internal.util.TypeDescriptor;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class FakeMethodBridge extends ClassLoadingBridge {
     @NonNull

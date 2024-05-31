@@ -4,6 +4,9 @@
  */
 package mockit.internal;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
@@ -12,9 +15,6 @@ import mockit.Invocation;
 import mockit.internal.reflection.MethodReflection;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Base class for encapsulating state and logic needed by both the Mocking and Faking APIs, but which should not go into
