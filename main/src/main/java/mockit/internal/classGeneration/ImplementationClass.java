@@ -4,6 +4,9 @@
  */
 package mockit.internal.classGeneration;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Type;
 
 import mockit.asm.classes.ClassReader;
@@ -12,9 +15,6 @@ import mockit.internal.ClassFile;
 import mockit.internal.util.ClassLoad;
 import mockit.internal.util.GeneratedClasses;
 import mockit.internal.util.Utilities;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Allows the creation of new implementation classes for interfaces and abstract classes.

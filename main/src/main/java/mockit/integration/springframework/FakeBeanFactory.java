@@ -4,6 +4,9 @@
  */
 package mockit.integration.springframework;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.Injectable;
 import mockit.Invocation;
 import mockit.Mock;
@@ -15,9 +18,6 @@ import mockit.internal.state.TestRun;
 
 import org.springframework.beans.factory.support.AbstractBeanFactory;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * If applied, this fake will take over calls to {@link AbstractBeanFactory#getBean(String)} and

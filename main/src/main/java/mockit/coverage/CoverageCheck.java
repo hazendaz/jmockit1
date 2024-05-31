@@ -4,6 +4,9 @@
  */
 package mockit.coverage;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,9 +16,6 @@ import java.util.regex.Pattern;
 import mockit.coverage.data.CoverageData;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class CoverageCheck {
     private static final String configuration = Configuration.getProperty("check", "");

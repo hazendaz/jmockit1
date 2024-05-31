@@ -4,12 +4,12 @@
  */
 package mockit.coverage.reporting.parsing;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.coverage.reporting.parsing.LineElement.ElementType;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Parses a source line into one or more consecutive segments, identifying which ones contain Java code and which ones

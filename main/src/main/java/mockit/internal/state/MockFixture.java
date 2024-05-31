@@ -11,6 +11,9 @@ import static mockit.internal.util.GeneratedClasses.getMockedClassOrInterfaceTyp
 import static mockit.internal.util.GeneratedClasses.isGeneratedImplementationClass;
 import static mockit.internal.util.Utilities.getClassType;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.instrument.ClassDefinition;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -34,9 +37,6 @@ import mockit.internal.expectations.mocking.CaptureOfNewInstances;
 import mockit.internal.expectations.mocking.InstanceFactory;
 import mockit.internal.startup.Startup;
 import mockit.internal.util.ClassLoad;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Holds data about redefined/transformed classes, with methods to add/remove and query such data.

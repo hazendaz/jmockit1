@@ -6,11 +6,11 @@ package mockit.internal.reflection;
 
 import static mockit.internal.reflection.ParameterReflection.NO_PARAMETERS;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public final class AnnotationReflection {
     private AnnotationReflection() {

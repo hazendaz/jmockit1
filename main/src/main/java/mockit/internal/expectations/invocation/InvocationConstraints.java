@@ -4,13 +4,13 @@
  */
 package mockit.internal.expectations.invocation;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.Collections;
 import java.util.List;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class InvocationConstraints {
     public int minInvocations;

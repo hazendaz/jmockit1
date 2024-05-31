@@ -4,6 +4,9 @@
  */
 package mockit;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -32,9 +35,6 @@ import mockit.internal.util.DefaultValues;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.hamcrest.Matcher;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Provides common API for use inside {@linkplain Expectations expectation} and {@linkplain Verifications verification}

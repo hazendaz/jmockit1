@@ -1,5 +1,8 @@
 package petclinic.owners;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +12,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.validation.constraints.NotNull;
 
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 import petclinic.pets.Pet;
 import petclinic.util.Person;
 

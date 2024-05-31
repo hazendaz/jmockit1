@@ -3,11 +3,11 @@ package mockit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.util.Date;
 
 import org.junit.jupiter.api.Test;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * The Class NaturalOrderingTest.

@@ -4,6 +4,8 @@
  */
 package mockit.coverage.lines;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -11,8 +13,6 @@ import java.io.ObjectOutputStream;
 import mockit.asm.controlFlow.Label;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Coverage data gathered for a branch inside a line of source code.

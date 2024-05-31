@@ -4,6 +4,9 @@
  */
 package mockit.internal.faking;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.IdentityHashMap;
 import java.util.Iterator;
@@ -15,9 +18,6 @@ import java.util.regex.Pattern;
 import mockit.internal.util.ClassLoad;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Holds state associated with fake class containing {@linkplain mockit.Mock annotated fakes}.

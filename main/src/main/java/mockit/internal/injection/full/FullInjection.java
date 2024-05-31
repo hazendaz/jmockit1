@@ -13,6 +13,9 @@ import static mockit.internal.injection.InjectionPoint.SERVLET_CLASS;
 import static mockit.internal.reflection.ConstructorReflection.newInstanceUsingDefaultConstructorIfAvailable;
 import static mockit.internal.util.Utilities.getClassType;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -32,9 +35,6 @@ import mockit.internal.injection.InjectionState;
 import mockit.internal.injection.Injector;
 import mockit.internal.injection.TestedClass;
 import mockit.internal.injection.TestedObjectCreation;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Responsible for recursive injection of dependencies into a <code>@Tested(fullyInitialized = true)</code> object.

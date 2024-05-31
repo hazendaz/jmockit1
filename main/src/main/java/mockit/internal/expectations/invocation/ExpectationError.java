@@ -4,9 +4,9 @@
  */
 package mockit.internal.expectations.invocation;
 
-import mockit.internal.util.StackTrace;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
+
+import mockit.internal.util.StackTrace;
 
 final class ExpectationError extends AssertionError {
     private static final long serialVersionUID = 1L;

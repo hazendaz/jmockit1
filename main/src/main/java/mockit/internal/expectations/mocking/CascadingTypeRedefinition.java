@@ -4,10 +4,10 @@
  */
 package mockit.internal.expectations.mocking;
 
-import java.lang.reflect.Type;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
+
+import java.lang.reflect.Type;
 
 public final class CascadingTypeRedefinition extends BaseTypeRedefinition {
     @NonNull

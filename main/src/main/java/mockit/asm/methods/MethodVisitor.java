@@ -1,5 +1,8 @@
 package mockit.asm.methods;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.asm.BaseWriter;
 import mockit.asm.annotations.AnnotationVisitor;
 import mockit.asm.constantPool.ConstantPoolGeneration;
@@ -13,9 +16,6 @@ import mockit.asm.types.ObjectType;
 import mockit.asm.util.MethodHandle;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * A visitor to visit a Java method, in the following order:<br>

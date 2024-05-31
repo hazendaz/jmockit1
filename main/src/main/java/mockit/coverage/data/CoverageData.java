@@ -4,6 +4,9 @@
  */
 package mockit.coverage.data;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -26,9 +29,6 @@ import mockit.coverage.CoveragePercentage;
 import mockit.internal.util.Utilities;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Coverage data captured for all source files exercised during a test run.

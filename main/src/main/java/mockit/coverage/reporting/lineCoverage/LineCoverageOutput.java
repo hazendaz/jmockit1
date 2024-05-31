@@ -4,14 +4,14 @@
  */
 package mockit.coverage.reporting.lineCoverage;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.io.PrintWriter;
 
 import mockit.coverage.lines.PerFileLineCoverage;
 import mockit.coverage.reporting.parsing.LineParser;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class LineCoverageOutput {
     @NonNull

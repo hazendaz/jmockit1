@@ -4,6 +4,8 @@
  */
 package mockit.internal.util;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.util.EnumSet;
 import java.util.List;
 
@@ -12,8 +14,6 @@ import mockit.asm.metadata.ClassMetadataReader.Attribute;
 import mockit.asm.metadata.ClassMetadataReader.MethodInfo;
 import mockit.internal.ClassFile;
 import mockit.internal.state.ParameterNames;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class ParameterNameExtractor {
     private static final EnumSet<Attribute> PARAMETERS = EnumSet.of(Attribute.Parameters);

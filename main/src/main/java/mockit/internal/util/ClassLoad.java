@@ -4,13 +4,13 @@
  */
 package mockit.internal.util;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import mockit.internal.state.TestRun;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class ClassLoad {
     public static final String OBJECT = "java/lang/Object";

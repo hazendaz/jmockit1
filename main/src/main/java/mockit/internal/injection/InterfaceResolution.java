@@ -7,6 +7,9 @@ package mockit.internal.injection;
 import static mockit.internal.reflection.MethodReflection.invoke;
 import static mockit.internal.util.Utilities.getClassType;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -14,9 +17,6 @@ import java.lang.reflect.WildcardType;
 import java.util.Map.Entry;
 import java.util.NavigableMap;
 import java.util.TreeMap;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class InterfaceResolution {
     @NonNull

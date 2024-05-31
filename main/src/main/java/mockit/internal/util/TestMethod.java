@@ -4,6 +4,9 @@
  */
 package mockit.internal.util;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
@@ -11,9 +14,6 @@ import java.lang.reflect.Type;
 import mockit.asm.types.JavaType;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class TestMethod {
     @NonNull

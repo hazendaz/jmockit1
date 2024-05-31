@@ -4,14 +4,14 @@
  */
 package mockit.internal.expectations;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.internal.expectations.invocation.ExpectedInvocation;
 import mockit.internal.expectations.invocation.InvocationConstraints;
 import mockit.internal.expectations.invocation.InvocationResults;
 import mockit.internal.expectations.invocation.ReturnTypeConversion;
 import mockit.internal.util.TypeDescriptor;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class Expectation {
     @Nullable

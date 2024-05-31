@@ -4,6 +4,9 @@
  */
 package mockit.coverage.reporting.sourceFiles;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
@@ -13,9 +16,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class InputFile {
     @NonNull

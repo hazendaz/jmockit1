@@ -4,14 +4,14 @@
  */
 package mockit.coverage.dataItems;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public abstract class FieldData implements Serializable {
     private static final long serialVersionUID = 8565599590976858508L;

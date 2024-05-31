@@ -9,6 +9,9 @@ import static java.lang.reflect.Modifier.isStatic;
 
 import static mockit.internal.reflection.ParameterReflection.*;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.regex.Pattern;
@@ -16,9 +19,6 @@ import java.util.regex.Pattern;
 import mockit.Delegate;
 import mockit.internal.util.StackTrace;
 import mockit.internal.util.Utilities;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class MethodReflection {
     @NonNull

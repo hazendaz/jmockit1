@@ -6,6 +6,9 @@ package mockit.internal.expectations.state;
 
 import static mockit.internal.util.Utilities.containsReference;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.IdentityHashMap;
@@ -16,9 +19,6 @@ import mockit.internal.BaseInvocation;
 import mockit.internal.expectations.RecordAndReplayExecution;
 import mockit.internal.expectations.mocking.MockedType;
 import mockit.internal.expectations.mocking.ParameterTypeRedefinitions;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class ExecutingTest {
     @Nullable

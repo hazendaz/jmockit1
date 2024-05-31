@@ -6,12 +6,12 @@ package mockit.internal.expectations;
 
 import static mockit.internal.util.Utilities.containsReference;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.util.LinkedList;
 import java.util.List;
 
 import mockit.internal.util.GeneratedClasses;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 final class InstanceBasedMatching {
     @NonNull

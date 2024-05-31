@@ -26,6 +26,9 @@ import static mockit.asm.jvmConstants.Opcodes.PUTSTATIC;
 import static mockit.asm.jvmConstants.Opcodes.RETURN;
 import static mockit.asm.jvmConstants.Opcodes.SIPUSH;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.asm.annotations.AnnotationVisitor;
 import mockit.asm.controlFlow.Label;
 import mockit.asm.methods.MethodWriter;
@@ -34,9 +37,6 @@ import mockit.coverage.data.FileCoverageData;
 import mockit.coverage.lines.PerFileLineCoverage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class MethodModifier extends WrappingMethodVisitor {
     private static final String DATA_RECORDING_CLASS = "mockit/coverage/TestRun";

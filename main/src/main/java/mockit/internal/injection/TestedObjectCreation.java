@@ -6,6 +6,9 @@ package mockit.internal.injection;
 
 import static java.lang.reflect.Modifier.isAbstract;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Type;
 
@@ -17,9 +20,6 @@ import mockit.internal.injection.constructor.ConstructorInjection;
 import mockit.internal.injection.constructor.ConstructorSearch;
 import mockit.internal.injection.full.FullInjection;
 import mockit.internal.state.TestRun;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class TestedObjectCreation {
     @NonNull

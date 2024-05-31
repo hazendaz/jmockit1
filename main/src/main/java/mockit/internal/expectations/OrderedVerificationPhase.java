@@ -6,15 +6,15 @@ package mockit.internal.expectations;
 
 import static java.util.Collections.emptyList;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.Collections;
 import java.util.List;
 
 import mockit.internal.expectations.invocation.ExpectedInvocation;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class OrderedVerificationPhase extends BaseVerificationPhase {
     @NonNegative

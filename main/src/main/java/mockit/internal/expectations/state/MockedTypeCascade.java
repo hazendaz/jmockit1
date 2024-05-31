@@ -13,6 +13,9 @@ import static mockit.asm.types.JavaType.getInternalName;
 import static mockit.internal.util.Utilities.containsReference;
 import static mockit.internal.util.Utilities.getClassType;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -29,9 +32,6 @@ import mockit.internal.reflection.GenericTypeReflection;
 import mockit.internal.reflection.RealMethodOrConstructor;
 import mockit.internal.state.TestRun;
 import mockit.internal.util.DefaultValues;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class MockedTypeCascade {
     @NonNull

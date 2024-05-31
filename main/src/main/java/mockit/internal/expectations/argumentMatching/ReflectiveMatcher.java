@@ -4,13 +4,13 @@
  */
 package mockit.internal.expectations.argumentMatching;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Method;
 
 import mockit.Delegate;
 import mockit.internal.reflection.MethodReflection;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class ReflectiveMatcher implements ArgumentMatcher<ReflectiveMatcher> {
     @NonNull

@@ -6,6 +6,8 @@ package mockit.internal.injection;
 
 import static mockit.internal.injection.TestedObject.getTestedAnnotationIfPresent;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -19,8 +21,6 @@ import mockit.Injectable;
 import mockit.Tested;
 import mockit.asm.jvmConstants.Access;
 import mockit.internal.expectations.mocking.MockedType;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class TestedClassInstantiations {
     private static final int FIELD_ACCESS_MASK = Access.SYNTHETIC + Access.STATIC;

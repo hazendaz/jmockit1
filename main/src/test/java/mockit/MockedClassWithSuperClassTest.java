@@ -3,11 +3,11 @@ package mockit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.io.Writer;
 
 import org.junit.jupiter.api.Test;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * The Class MockedClassWithSuperClassTest.

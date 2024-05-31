@@ -1,11 +1,11 @@
 package mockit.asm.classes;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.asm.annotations.AnnotationVisitor;
 import mockit.asm.fields.FieldVisitor;
 import mockit.asm.methods.MethodVisitor;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Same as {@link ClassVisitor}, except it always wraps a {@link ClassWriter}.

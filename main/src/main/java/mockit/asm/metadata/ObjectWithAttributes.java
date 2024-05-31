@@ -1,11 +1,11 @@
 package mockit.asm.metadata;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.List;
 
 import mockit.asm.metadata.ClassMetadataReader.AnnotationInfo;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 class ObjectWithAttributes {
     @Nullable

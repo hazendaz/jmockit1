@@ -4,6 +4,9 @@
  */
 package mockit.internal.expectations.invocation;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Array;
 import java.util.Iterator;
 
@@ -13,9 +16,6 @@ import mockit.internal.expectations.invocation.InvocationResult.ReturnValueResul
 import mockit.internal.expectations.invocation.InvocationResult.ThrowableResult;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class InvocationResults {
     @NonNull

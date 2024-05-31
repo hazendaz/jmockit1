@@ -4,6 +4,9 @@
  */
 package mockit.integration.junit4;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.annotation.Annotation;
 import java.util.List;
 
@@ -16,9 +19,6 @@ import mockit.internal.faking.FakeInvocation;
 import mockit.internal.util.StackTrace;
 
 import org.junit.runners.model.FrameworkMethod;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Startup fake that modifies the JUnit 4.5+ test runner so that it calls back to JMockit immediately after every test

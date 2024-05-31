@@ -10,14 +10,14 @@ import static mockit.asm.jvmConstants.Opcodes.INVOKESTATIC;
 import static mockit.asm.jvmConstants.Opcodes.INVOKEVIRTUAL;
 import static mockit.asm.jvmConstants.Opcodes.POP;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import mockit.asm.methods.MethodVisitor;
 import mockit.asm.types.JavaType;
 import mockit.asm.types.PrimitiveType;
 import mockit.asm.types.ReferenceType;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class TypeConversionBytecode {
     private TypeConversionBytecode() {

@@ -6,6 +6,8 @@ package mockit.internal.expectations.mocking;
 
 import static java.lang.reflect.Modifier.isFinal;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,8 +19,6 @@ import mockit.asm.jvmConstants.Access;
 import mockit.internal.reflection.FieldReflection;
 import mockit.internal.state.TestRun;
 import mockit.internal.util.StackTrace;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 @SuppressWarnings("UnnecessaryFullyQualifiedName")
 public final class FieldTypeRedefinitions extends TypeRedefinitions {

@@ -4,6 +4,9 @@
  */
 package mockit.internal.expectations;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,9 +14,6 @@ import java.util.Map;
 import mockit.internal.expectations.invocation.ExpectedInvocation;
 import mockit.internal.expectations.invocation.InvocationConstraints;
 import mockit.internal.expectations.invocation.UnexpectedInvocation;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class ReplayPhase extends Phase {
     @NonNull

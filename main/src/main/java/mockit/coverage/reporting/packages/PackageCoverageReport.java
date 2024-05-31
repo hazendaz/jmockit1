@@ -4,6 +4,9 @@
  */
 package mockit.coverage.reporting.packages;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Collection;
@@ -13,9 +16,6 @@ import java.util.Map;
 import mockit.coverage.data.FileCoverageData;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class PackageCoverageReport extends ListWithFilesAndPercentages {
     @NonNull

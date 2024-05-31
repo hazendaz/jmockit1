@@ -6,9 +6,9 @@ package mockit.internal.expectations;
 
 import static mockit.internal.util.Utilities.containsReference;
 
-import java.util.List;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
+
+import java.util.List;
 
 final class PartiallyMockedInstances {
     @NonNull

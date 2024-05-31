@@ -4,10 +4,10 @@
  */
 package mockit.internal.expectations.argumentMatching;
 
-import java.util.regex.Pattern;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
+
+import java.util.regex.Pattern;
 
 public final class PatternMatcher implements ArgumentMatcher<PatternMatcher> {
     @NonNull

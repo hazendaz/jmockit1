@@ -4,13 +4,13 @@
  */
 package mockit.coverage.reporting.sourceFiles;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.io.PrintWriter;
 
 import mockit.coverage.reporting.parsing.LineElement;
 import mockit.coverage.reporting.parsing.LineParser;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class NeutralOutput {
     @NonNull

@@ -6,6 +6,8 @@ package mockit.internal.injection.full;
 
 import static java.util.Collections.enumeration;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Enumeration;
@@ -30,8 +32,6 @@ import javax.servlet.http.HttpSessionContext;
 
 import mockit.internal.injection.InjectionPoint;
 import mockit.internal.injection.InjectionState;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Detects and resolves dependencies belonging to the <code>javax.servlet</code> API, namely <code>ServletContext</code>

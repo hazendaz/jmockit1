@@ -6,6 +6,9 @@ package mockit.internal.expectations.mocking;
 
 import static java.lang.reflect.Modifier.isFinal;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -28,9 +31,6 @@ import mockit.internal.util.TypeConversion;
 import mockit.internal.util.Utilities;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 @SuppressWarnings("EqualsAndHashcode")
 public final class MockedType extends InjectionProvider {

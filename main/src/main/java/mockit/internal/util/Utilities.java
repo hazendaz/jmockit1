@@ -4,6 +4,9 @@
  */
 package mockit.internal.util;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.GenericArrayType;
@@ -16,9 +19,6 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.security.CodeSource;
 import java.util.List;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Miscellaneous utility constants and methods.

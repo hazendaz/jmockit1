@@ -4,6 +4,9 @@
  */
 package mockit.coverage.reporting.dataCoverage;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.coverage.dataItems.FieldData;
 import mockit.coverage.dataItems.InstanceFieldData;
 import mockit.coverage.dataItems.PerFileDataCoverage;
@@ -12,9 +15,6 @@ import mockit.coverage.reporting.parsing.FileParser;
 import mockit.coverage.reporting.parsing.LineElement;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class DataCoverageOutput {
     @NonNull

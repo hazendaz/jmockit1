@@ -6,12 +6,12 @@ package mockit.internal.injection;
 
 import static mockit.internal.util.Utilities.getClassType;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class MultiValuedProvider extends InjectionProvider {
     @NonNull

@@ -13,6 +13,9 @@ import static mockit.asm.jvmConstants.Access.STATIC;
 import static mockit.asm.jvmConstants.Access.SUPER;
 import static mockit.asm.jvmConstants.Access.SYNTHETIC;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,9 +29,6 @@ import mockit.asm.methods.MethodWriter;
 import mockit.coverage.data.CoverageData;
 import mockit.coverage.data.FileCoverageData;
 import mockit.internal.ClassFile;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class CoverageModifier extends WrappingClassVisitor {
     private static final Map<String, CoverageModifier> INNER_CLASS_MODIFIERS = new HashMap<>();

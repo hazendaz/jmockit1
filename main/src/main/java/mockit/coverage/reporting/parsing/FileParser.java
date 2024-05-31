@@ -4,11 +4,11 @@
  */
 package mockit.coverage.reporting.parsing;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public final class FileParser {
     private static final class PendingClass {

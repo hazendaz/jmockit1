@@ -4,10 +4,10 @@
  */
 package mockit.internal.expectations;
 
-import java.util.Map;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
+
+import java.util.Map;
 
 abstract class Phase {
     @NonNull

@@ -6,15 +6,15 @@ package mockit.internal.faking;
 
 import static mockit.internal.util.Utilities.getClassType;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Type;
 
 import mockit.MockUp;
 import mockit.asm.classes.ClassReader;
 import mockit.internal.BaseClassModifier;
 import mockit.internal.capturing.CaptureOfImplementations;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class CaptureOfFakedImplementations extends CaptureOfImplementations<Void> {
     private final FakeClassSetup fakeClassSetup;

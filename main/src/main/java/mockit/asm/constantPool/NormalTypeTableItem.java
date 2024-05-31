@@ -2,9 +2,9 @@ package mockit.asm.constantPool;
 
 import static mockit.asm.constantPool.TypeTableItem.SpecialType.NORMAL;
 
-import org.checkerframework.checker.index.qual.NonNegative;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 final class NormalTypeTableItem extends TypeTableItem {
     NormalTypeTableItem() {

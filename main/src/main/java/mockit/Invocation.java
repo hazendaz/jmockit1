@@ -4,14 +4,14 @@
  */
 package mockit;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Member;
 
 import mockit.internal.BaseInvocation;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * A context object representing the current invocation to a mocked or faked method/constructor, to be passed as the

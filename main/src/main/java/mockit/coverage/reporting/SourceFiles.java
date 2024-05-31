@@ -4,11 +4,11 @@
  */
 package mockit.coverage.reporting;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 final class SourceFiles {
     @NonNull

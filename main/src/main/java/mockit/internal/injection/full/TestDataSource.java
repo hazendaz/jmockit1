@@ -4,6 +4,9 @@
  */
 package mockit.internal.injection.full;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -18,9 +21,6 @@ import javax.sql.CommonDataSource;
 
 import mockit.internal.injection.InjectionPoint;
 import mockit.internal.injection.TestedClass;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class TestDataSource {
     @Nullable

@@ -1,5 +1,8 @@
 package mockit.asm.classes;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +19,6 @@ import mockit.asm.util.MethodHandle;
 import mockit.internal.util.ClassLoad;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * A {@link ClassVisitor} that generates classes in bytecode form, that is, a byte array conforming to the

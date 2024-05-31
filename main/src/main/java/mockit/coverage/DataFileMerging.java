@@ -4,14 +4,14 @@
  */
 package mockit.coverage;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import mockit.coverage.data.CoverageData;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 final class DataFileMerging {
     @NonNull

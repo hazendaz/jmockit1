@@ -4,6 +4,9 @@
  */
 package mockit.internal.expectations.invocation;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Array;
 import java.util.Map;
 
@@ -13,9 +16,6 @@ import mockit.internal.expectations.argumentMatching.EqualityMatcher;
 import mockit.internal.expectations.argumentMatching.LenientEqualityMatcher;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class ArgumentValuesAndMatchersWithVarargs extends ArgumentValuesAndMatchers {
     ArgumentValuesAndMatchersWithVarargs(@NonNull InvocationArguments signature, @NonNull Object[] values) {

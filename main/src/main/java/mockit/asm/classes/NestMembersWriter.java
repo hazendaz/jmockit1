@@ -1,12 +1,12 @@
 package mockit.asm.classes;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import mockit.asm.constantPool.AttributeWriter;
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 final class NestMembersWriter extends AttributeWriter {
     @NonNegative

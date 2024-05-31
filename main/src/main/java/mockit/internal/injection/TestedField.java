@@ -9,13 +9,13 @@ import static java.lang.reflect.Modifier.isFinal;
 import static mockit.internal.reflection.FieldReflection.getFieldValue;
 import static mockit.internal.reflection.FieldReflection.setFieldValue;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Field;
 
 import mockit.Tested;
 import mockit.internal.util.TypeConversion;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class TestedField extends TestedObject {
     @NonNull

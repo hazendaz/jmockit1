@@ -6,6 +6,9 @@ package mockit.integration;
 
 import static mockit.internal.reflection.ParameterReflection.getParameterCount;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
@@ -24,9 +27,6 @@ import mockit.internal.state.TestRun;
 import mockit.internal.util.ParameterNameExtractor;
 import mockit.internal.util.StackTrace;
 import mockit.internal.util.TestMethod;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Base class for "test runner decorators", which provide integration between JMockit and specific test runners from

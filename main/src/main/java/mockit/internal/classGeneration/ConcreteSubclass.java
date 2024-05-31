@@ -6,11 +6,11 @@ package mockit.internal.classGeneration;
 
 import static mockit.asm.jvmConstants.Access.PUBLIC;
 
-import mockit.asm.classes.ClassReader;
-import mockit.asm.classes.ClassVisitor;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
+
+import mockit.asm.classes.ClassReader;
+import mockit.asm.classes.ClassVisitor;
 
 /**
  * Generates a concrete subclass for an {@code abstract} base class.

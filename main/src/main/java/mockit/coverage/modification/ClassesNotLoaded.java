@@ -4,14 +4,14 @@
  */
 package mockit.coverage.modification;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.io.File;
 import java.security.ProtectionDomain;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 /**
  * Finds and loads all classes that should also be measured, but were not loaded until now.

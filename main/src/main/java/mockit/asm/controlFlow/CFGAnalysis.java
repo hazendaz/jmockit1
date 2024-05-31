@@ -13,6 +13,9 @@ import static mockit.asm.jvmConstants.Opcodes.PUTFIELD;
 import static mockit.asm.jvmConstants.Opcodes.PUTSTATIC;
 import static mockit.asm.jvmConstants.Opcodes.RETURN;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.constantPool.Item;
 import mockit.asm.constantPool.LongValueItem;
@@ -22,9 +25,6 @@ import mockit.asm.jvmConstants.JVMInstruction;
 import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * The control flow graph analysis algorithm, used to compute the maximum stack size for a method or constructor.

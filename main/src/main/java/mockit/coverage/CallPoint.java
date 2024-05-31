@@ -6,6 +6,9 @@ package mockit.coverage;
 
 import static java.lang.reflect.Modifier.isPublic;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -15,9 +18,6 @@ import java.util.Map;
 import mockit.internal.util.StackTrace;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class CallPoint implements Serializable {
     private static final long serialVersionUID = 362727169057343840L;

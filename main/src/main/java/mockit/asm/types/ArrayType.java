@@ -1,8 +1,8 @@
 package mockit.asm.types;
 
-import org.checkerframework.checker.index.qual.NonNegative;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class ArrayType extends ReferenceType {
     @NonNull

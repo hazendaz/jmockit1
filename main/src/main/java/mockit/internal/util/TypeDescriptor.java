@@ -4,11 +4,11 @@
  */
 package mockit.internal.util;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import mockit.asm.types.ArrayType;
 import mockit.asm.types.JavaType;
 import mockit.asm.types.PrimitiveType;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class TypeDescriptor {
     private static final Class<?>[] NO_PARAMETERS = {};

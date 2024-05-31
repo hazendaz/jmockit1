@@ -4,6 +4,9 @@
  */
 package mockit.coverage.testRedundancy;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -14,9 +17,6 @@ import java.util.Map.Entry;
 import mockit.coverage.Configuration;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class TestCoverage {
     @Nullable

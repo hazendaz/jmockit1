@@ -8,6 +8,8 @@ import static mockit.internal.util.AutoBoxing.isWrapperOfPrimitiveType;
 import static mockit.internal.util.GeneratedClasses.getMockedClass;
 import static mockit.internal.util.GeneratedClasses.isGeneratedImplementationClass;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,8 +17,6 @@ import java.util.Map;
 
 import mockit.internal.expectations.MockingFilters;
 import mockit.internal.state.TestRun;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
 
 public final class PartialMocking extends BaseTypeRedefinition {
     @NonNull

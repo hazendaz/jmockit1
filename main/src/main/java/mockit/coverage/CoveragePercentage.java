@@ -4,9 +4,9 @@
  */
 package mockit.coverage;
 
-import org.checkerframework.checker.index.qual.NonNegative;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class CoveragePercentage {
     private CoveragePercentage() {

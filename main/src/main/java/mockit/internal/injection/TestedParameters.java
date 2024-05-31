@@ -4,6 +4,9 @@
  */
 package mockit.internal.injection;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.annotation.Annotation;
 import java.util.List;
 
@@ -12,9 +15,6 @@ import mockit.internal.state.TestRun;
 import mockit.internal.util.TestMethod;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class TestedParameters {
     @NonNull

@@ -11,6 +11,9 @@ import static mockit.internal.reflection.MethodReflection.JAVA_LANG;
 import static mockit.internal.reflection.MethodReflection.invokePublicIfAvailable;
 import static mockit.internal.util.Utilities.JAVA8;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.io.ByteArrayInputStream;
 import java.io.StringReader;
 import java.lang.reflect.Array;
@@ -28,9 +31,6 @@ import java.util.stream.Stream;
 
 import mockit.internal.util.AutoBoxing;
 import mockit.internal.util.MethodFormatter;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class ReturnTypeConversion {
     private static final Class<?>[] STRING = { String.class };

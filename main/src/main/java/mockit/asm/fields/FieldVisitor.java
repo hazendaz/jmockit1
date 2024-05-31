@@ -1,5 +1,8 @@
 package mockit.asm.fields;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.asm.BaseWriter;
 import mockit.asm.SignatureWriter;
 import mockit.asm.classes.ClassWriter;
@@ -8,9 +11,6 @@ import mockit.asm.types.JavaType;
 import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * A visitor to visit a Java field, in the following order: ({@link #visitAnnotation})* {@link #visitEnd}.

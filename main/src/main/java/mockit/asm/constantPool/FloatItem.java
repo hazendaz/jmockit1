@@ -2,9 +2,9 @@ package mockit.asm.constantPool;
 
 import static mockit.asm.jvmConstants.ConstantPoolTypes.FLOAT;
 
-import org.checkerframework.checker.index.qual.NonNegative;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
+
+import org.checkerframework.checker.index.qual.NonNegative;
 
 public final class FloatItem extends IntValueItem {
     public FloatItem(@NonNegative int index) {

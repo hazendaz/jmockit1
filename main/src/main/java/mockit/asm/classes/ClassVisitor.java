@@ -1,14 +1,14 @@
 package mockit.asm.classes;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.asm.BaseWriter;
 import mockit.asm.fields.FieldVisitor;
 import mockit.asm.jvmConstants.Access;
 import mockit.asm.jvmConstants.Opcodes;
 import mockit.asm.methods.MethodVisitor;
 import mockit.asm.types.JavaType;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * A visitor to visit a Java class, in the following order:<br>

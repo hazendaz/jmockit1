@@ -4,14 +4,14 @@
  */
 package mockit.coverage;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.io.File;
 import java.io.IOException;
 
 import mockit.coverage.data.CoverageData;
 import mockit.coverage.reporting.CoverageReport;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 @SuppressWarnings("DynamicRegexReplaceableByCompiledPattern")
 final class OutputFileGenerator {

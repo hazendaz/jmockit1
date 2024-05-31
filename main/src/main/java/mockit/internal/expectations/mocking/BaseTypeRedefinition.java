@@ -11,6 +11,9 @@ import static mockit.internal.util.GeneratedClasses.getNameForGeneratedClass;
 import static mockit.internal.util.Utilities.JAVA8;
 import static mockit.internal.util.Utilities.getClassType;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.instrument.ClassDefinition;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
@@ -33,9 +36,6 @@ import mockit.internal.reflection.EmptyProxy.Impl;
 import mockit.internal.state.TestRun;
 import mockit.internal.util.ClassLoad;
 import mockit.internal.util.VisitInterruptedException;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 class BaseTypeRedefinition {
     private static final ClassDefinition[] CLASS_DEFINITIONS = {};

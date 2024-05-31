@@ -1,13 +1,13 @@
 package mockit.asm.classes;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.asm.constantPool.AttributeWriter;
 import mockit.asm.constantPool.ConstantPoolGeneration;
 import mockit.asm.util.ByteVector;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class InnerClassesWriter extends AttributeWriter {
     @NonNull

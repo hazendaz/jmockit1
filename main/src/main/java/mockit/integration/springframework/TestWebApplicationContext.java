@@ -4,15 +4,15 @@
  */
 package mockit.integration.springframework;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import mockit.internal.injection.BeanExporter;
 import mockit.internal.injection.TestedClassInstantiations;
 import mockit.internal.state.TestRun;
 
 import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.web.context.support.StaticWebApplicationContext;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * A {@link org.springframework.web.context.WebApplicationContext} implementation which exposes the

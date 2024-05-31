@@ -4,6 +4,9 @@
  */
 package mockit.internal;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
@@ -12,9 +15,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import mockit.asm.classes.ClassReader;
 import mockit.internal.state.CachedClassfiles;
 import mockit.internal.state.TestRun;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class ClassFile {
     private static final Map<String, ClassReader> CLASS_FILES = new ConcurrentHashMap<>();

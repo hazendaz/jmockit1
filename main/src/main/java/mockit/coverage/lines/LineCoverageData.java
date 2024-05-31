@@ -6,6 +6,9 @@ package mockit.coverage.lines;
 
 import static java.util.Collections.emptyList;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,9 +17,6 @@ import mockit.asm.controlFlow.Label;
 import mockit.coverage.CallPoint;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Coverage data gathered for a single executable line of code in a source file.

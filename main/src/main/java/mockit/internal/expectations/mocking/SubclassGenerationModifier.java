@@ -4,15 +4,15 @@
  */
 package mockit.internal.expectations.mocking;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Type;
 
 import mockit.asm.classes.ClassReader;
 import mockit.asm.jvmConstants.Access;
 import mockit.internal.classGeneration.BaseSubclassGenerator;
 import mockit.internal.util.ObjectMethods;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class SubclassGenerationModifier extends BaseSubclassGenerator {
     public SubclassGenerationModifier(@NonNull Class<?> baseClass, @NonNull Type mockedType, @NonNull ClassReader cr,

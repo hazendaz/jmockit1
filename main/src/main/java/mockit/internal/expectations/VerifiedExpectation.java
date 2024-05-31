@@ -4,14 +4,14 @@
  */
 package mockit.internal.expectations;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.util.List;
 
 import mockit.internal.expectations.argumentMatching.ArgumentMatcher;
 
 import org.checkerframework.checker.index.qual.NonNegative;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 final class VerifiedExpectation {
     @NonNull

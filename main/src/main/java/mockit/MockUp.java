@@ -8,6 +8,9 @@ import static java.lang.reflect.Modifier.isAbstract;
 
 import static mockit.internal.util.GeneratedClasses.isGeneratedImplementationClassName;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
@@ -22,9 +25,6 @@ import mockit.internal.reflection.ConstructorReflection;
 import mockit.internal.reflection.MockInvocationHandler;
 import mockit.internal.startup.Startup;
 import mockit.internal.state.TestRun;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * A base class used in the creation of a <em>fake</em> for an <em>external</em> type, which is usually a class from

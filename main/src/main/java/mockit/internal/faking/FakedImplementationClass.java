@@ -6,6 +6,9 @@ package mockit.internal.faking;
 
 import static java.lang.reflect.Modifier.isPublic;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
 
@@ -15,9 +18,6 @@ import mockit.asm.classes.ClassVisitor;
 import mockit.internal.classGeneration.ImplementationClass;
 import mockit.internal.expectations.mocking.InterfaceImplementationGenerator;
 import mockit.internal.util.Utilities;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class FakedImplementationClass<T> {
     private static final ClassLoader THIS_CL = FakedImplementationClass.class.getClassLoader();

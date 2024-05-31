@@ -6,6 +6,9 @@ package mockit.internal.injection;
 
 import static mockit.internal.injection.InjectionPoint.getQualifiedName;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.LinkedHashMap;
@@ -16,9 +19,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import mockit.internal.reflection.FieldReflection;
 import mockit.internal.reflection.GenericTypeReflection;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 /**
  * Holds state used throughout the injection process while it's in progress for a given set of tested objects.
