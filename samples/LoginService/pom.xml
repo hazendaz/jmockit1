@@ -45,7 +45,7 @@
         <dependency>
             <groupId>org.jcommander</groupId>
             <artifactId>jcommander</artifactId>
-            <version>1.83</version>
+            <version>1.84</version>
             <scope>test</scope>
         </dependency>
         <dependency>
