@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -16,12 +17,12 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLStreamHandler;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class ClassLoadingAndJREMocksTest.
  */
-public final class ClassLoadingAndJREMocksTest {
+class ClassLoadingAndJREMocksTest {
 
     /**
      * The Class Foo.
@@ -33,7 +34,7 @@ public final class ClassLoadingAndJREMocksTest {
      * Fake file.
      */
     @Test
-    public void fakeFile() {
+    void fakeFile() {
         new MockUp<File>() {
             @Mock
             void $init(String name) {
@@ -53,7 +54,7 @@ public final class ClassLoadingAndJREMocksTest {
      * Fake file safely using reentrant fake method.
      */
     @Test
-    public void fakeFileSafelyUsingReentrantFakeMethod() {
+    void fakeFileSafelyUsingReentrantFakeMethod() {
         new MockUp<File>() {
             @Mock
             boolean exists(Invocation inv) {
@@ -79,7 +80,7 @@ public final class ClassLoadingAndJREMocksTest {
      * Fake file safely using proceed.
      */
     @Test
-    public void fakeFileSafelyUsingProceed() {
+    void fakeFileSafelyUsingProceed() {
         new MockUp<File>() {
             @Mock
             boolean exists(Invocation inv) {
@@ -98,7 +99,7 @@ public final class ClassLoadingAndJREMocksTest {
      *            the mock
      */
     @Test
-    public void attemptToMockNonMockableJREClass(@Mocked Integer mock) {
+    void attemptToMockNonMockableJREClass(@Mocked Integer mock) {
         assertNull(mock);
     }
 
@@ -114,7 +115,7 @@ public final class ClassLoadingAndJREMocksTest {
      *             the exception
      */
     @Test
-    public void mockURLAndURLConnection(@Mocked URL mockUrl, @Mocked URLConnection mockConnection) throws Exception {
+    void mockURLAndURLConnection(@Mocked URL mockUrl, @Mocked URLConnection mockConnection) throws Exception {
         URLConnection conn = mockUrl.openConnection();
 
         assertSame(mockConnection, conn);
@@ -132,8 +133,7 @@ public final class ClassLoadingAndJREMocksTest {
      *             the exception
      */
     @Test
-    public void mockURLAndHttpURLConnection(@Mocked URL mockUrl, @Mocked HttpURLConnection mockConnection)
-            throws Exception {
+    void mockURLAndHttpURLConnection(@Mocked URL mockUrl, @Mocked HttpURLConnection mockConnection) throws Exception {
         HttpURLConnection conn = (HttpURLConnection) mockUrl.openConnection();
         assertSame(mockConnection, conn);
     }
@@ -148,7 +148,7 @@ public final class ClassLoadingAndJREMocksTest {
      *             the exception
      */
     @Test
-    public void mockURLAndHttpURLConnectionWithDynamicMock(@Mocked final HttpURLConnection mockHttpConnection)
+    void mockURLAndHttpURLConnectionWithDynamicMock(@Mocked final HttpURLConnection mockHttpConnection)
             throws Exception {
         final URL url = new URL("http://nowhere");
 
@@ -207,7 +207,7 @@ public final class ClassLoadingAndJREMocksTest {
      *             the exception
      */
     @Test
-    public void cascadingMockedURLWithInjectableCascadedURLConnection(@Mocked URL anyUrl,
+    void cascadingMockedURLWithInjectableCascadedURLConnection(@Mocked URL anyUrl,
             @Injectable final URLConnection cascadedUrlConnection) throws Exception {
         String testContent = recordURLConnectionToReturnContent(cascadedUrlConnection);
 
@@ -248,7 +248,7 @@ public final class ClassLoadingAndJREMocksTest {
      *             the exception
      */
     @Test
-    public void fakeURLUsingInjectableURLConnection(@Injectable final URLConnection urlConnection) throws Exception {
+    void fakeURLUsingInjectableURLConnection(@Injectable final URLConnection urlConnection) throws Exception {
         final String testContent = recordURLConnectionToReturnContent(urlConnection);
         new MockUp<URL>() {
             @Mock
@@ -272,7 +272,9 @@ public final class ClassLoadingAndJREMocksTest {
      * @param mockClass
      *            the mock class
      */
-    @Test(expected = IllegalArgumentException.class)
+    @org.junit.Test(expected = IllegalArgumentException.class)
     public void attemptToMockJREClassThatIsNeverMockable(@Mocked Class<?> mockClass) {
+        fail("Should never get here");
     }
+
 }

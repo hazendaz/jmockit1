@@ -11,15 +11,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import org.junit.runners.MethodSorters;
+import org.junit.jupiter.api.MethodOrderer.MethodName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 /**
  * The Class CascadingWithGenericsTest.
  */
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public final class CascadingWithGenericsTest {
+@TestMethodOrder(MethodName.class)
+final class CascadingWithGenericsTest {
 
     /**
      * The Class Foo.
@@ -178,7 +178,7 @@ public final class CascadingWithGenericsTest {
      *            the foo
      */
     @Test
-    public void cascadeOneLevelDuringReplay(@Mocked Foo foo) {
+    void cascadeOneLevelDuringReplay(@Mocked Foo foo) {
         assertNotNull(foo.returnTypeWithWildcard());
         assertNotNull(foo.returnTypeWithBoundedTypeVariable());
 
@@ -195,7 +195,7 @@ public final class CascadingWithGenericsTest {
      *            the mock foo
      */
     @Test
-    public void cascadeOneLevelDuringRecord(@Mocked Callable<String> action, @Mocked Foo mockFoo) {
+    void cascadeOneLevelDuringRecord(@Mocked Callable<String> action, @Mocked Foo mockFoo) {
         Foo foo = new Foo();
         Callable<?> cascaded = foo.returnTypeWithWildcard();
 
@@ -209,7 +209,7 @@ public final class CascadingWithGenericsTest {
      *            the mock foo
      */
     @Test
-    public void cascadeTwoLevelsDuringRecord(@Mocked final Foo mockFoo) {
+    void cascadeTwoLevelsDuringRecord(@Mocked final Foo mockFoo) {
         final Date now = new Date();
 
         new Expectations() {
@@ -259,7 +259,7 @@ public final class CascadingWithGenericsTest {
      *            the foo
      */
     @Test
-    public void cascadeGenericMethods(@Mocked GenericFoo<Baz, SubBar> foo) {
+    void cascadeGenericMethods(@Mocked GenericFoo<Baz, SubBar> foo) {
         Baz t = foo.returnTypeWithUnboundedTypeVariable();
         assertNotNull(t);
 
@@ -305,7 +305,7 @@ public final class CascadingWithGenericsTest {
      *            the a
      */
     @Test
-    public void cascadeOnMethodReturningAParameterizedClassWithAGenericMethod(@Injectable final A a) {
+    void cascadeOnMethodReturningAParameterizedClassWithAGenericMethod(@Injectable final A a) {
         new Expectations() {
             {
                 a.getB().getValue();
@@ -350,7 +350,7 @@ public final class CascadingWithGenericsTest {
      *            the mock
      */
     @Test
-    public void cascadeFromGenericMethodUsingTypeParameterOfSameNameAsTypeParameterFromBaseClass(@Mocked D mock) {
+    void cascadeFromGenericMethodUsingTypeParameterOfSameNameAsTypeParameterFromBaseClass(@Mocked D mock) {
         Bar cascaded = mock.doSomething();
 
         assertNotNull(cascaded);
@@ -416,7 +416,7 @@ public final class CascadingWithGenericsTest {
      *            the mock
      */
     @Test
-    public void cascadeDuringStaticInitializationOfCascadedClass(@Mocked Factory mock) {
+    void cascadeDuringStaticInitializationOfCascadedClass(@Mocked Factory mock) {
         assertNotNull(mock.staticInit());
         assertNotNull(WithStaticInit.T);
         assertNotNull(WithStaticInit.S);
@@ -429,8 +429,7 @@ public final class CascadingWithGenericsTest {
      *            the foo
      */
     @Test
-    public void cascadeFromGenericMethodWhereConcreteReturnTypeIsGivenByClassParameterButIsNotMockable(
-            @Mocked Foo foo) {
+    void cascadeFromGenericMethodWhereConcreteReturnTypeIsGivenByClassParameterButIsNotMockable(@Mocked Foo foo) {
         Integer n = foo.genericMethodWithNonMockableBoundedTypeVariableAndClassParameter(Integer.class);
 
         assertNotNull(n);
@@ -443,7 +442,7 @@ public final class CascadingWithGenericsTest {
      *            the foo
      */
     @Test
-    public void cascadeFromGenericMethodWhereConcreteReturnTypeIsGivenByClassParameter(@Mocked Foo foo) {
+    void cascadeFromGenericMethodWhereConcreteReturnTypeIsGivenByClassParameter(@Mocked Foo foo) {
         SubBar subBar = foo.genericMethodWithBoundedTypeVariableAndClassParameter(SubBar.class);
 
         assertNotNull(subBar);
@@ -461,7 +460,7 @@ public final class CascadingWithGenericsTest {
      *             the exception
      */
     @Test
-    public void cascadeFromGenericMethodWhoseReturnTypeComesFromParameterOnOwnerType(@Mocked Foo foo,
+    void cascadeFromGenericMethodWhoseReturnTypeComesFromParameterOnOwnerType(@Mocked Foo foo,
             @Mocked final Baz cascadedBaz) throws Exception {
         final Date date = new Date();
         new Expectations() {
@@ -511,7 +510,7 @@ public final class CascadingWithGenericsTest {
      *            the mock
      */
     @Test
-    public void cascadingFromGenericMethodWhoseTypeParameterExtendsAnother(@Mocked ConcreteInterface mock) {
+    void cascadingFromGenericMethodWhoseTypeParameterExtendsAnother(@Mocked ConcreteInterface mock) {
         Foo value = new Foo();
 
         Foo saved = mock.save(value);
@@ -547,7 +546,7 @@ public final class CascadingWithGenericsTest {
      *            the mock
      */
     @Test
-    public <T extends Serializable> void cascadeFromMethodReturningATypeVariable(
+    <T extends Serializable> void cascadeFromMethodReturningATypeVariable(
             @Mocked final GenericInterfaceWithBoundedTypeParameter<T> mock) {
         new Expectations() {
             {
@@ -587,7 +586,7 @@ public final class CascadingWithGenericsTest {
      *            the mock
      */
     @Test
-    public void cascadeFromMethodHavingUnusedTypeParameter(@Mocked TypeWithUnusedTypeParameterInGenericMethod mock) {
+    void cascadeFromMethodHavingUnusedTypeParameter(@Mocked TypeWithUnusedTypeParameterInGenericMethod mock) {
         Foo foo = mock.foo();
         Bar bar = foo.bar();
         assertNotNull(bar);
@@ -600,7 +599,7 @@ public final class CascadingWithGenericsTest {
      *            the mock
      */
     @Test
-    public void cascadeFromGenericMethodWhoseReturnTypeResolvesToAnotherGenericType(@Mocked B<C<?>> mock) {
+    void cascadeFromGenericMethodWhoseReturnTypeResolvesToAnotherGenericType(@Mocked B<C<?>> mock) {
         C<?> c = mock.getValue();
 
         assertNotNull(c);
@@ -643,7 +642,7 @@ public final class CascadingWithGenericsTest {
      *            the mock
      */
     @Test
-    public void cascadeFromGenericMethodDefinedTwoLevelsDeepInInheritanceHierarchy(@Mocked NonGenericInterface mock) {
+    void cascadeFromGenericMethodDefinedTwoLevelsDeepInInheritanceHierarchy(@Mocked NonGenericInterface mock) {
         Bar cascadedResult = mock.genericMethod();
 
         assertNotNull(cascadedResult);
@@ -671,7 +670,7 @@ public final class CascadingWithGenericsTest {
      *            the mock
      */
     @Test
-    public void cascadeFromGenericMethodOfNonPublicInterface(@Mocked NonPublicInterfaceWithGenericMethod mock) {
+    void cascadeFromGenericMethodOfNonPublicInterface(@Mocked NonPublicInterfaceWithGenericMethod mock) {
         Runnable result = mock.doSomething();
 
         assertNotNull(result);
@@ -701,7 +700,7 @@ public final class CascadingWithGenericsTest {
      *            the mock
      */
     @Test
-    public void cascadeFromGenericMethodWithClassParameterOfMockedInterface(@Mocked FactoryInterface mock) {
+    void cascadeFromGenericMethodWithClassParameterOfMockedInterface(@Mocked FactoryInterface mock) {
         Foo cascaded = mock.genericWithClass(Foo.class);
 
         assertNotNull(cascaded);
@@ -743,8 +742,8 @@ public final class CascadingWithGenericsTest {
      *            the mock
      */
     @Test
-    public void cascadeFromMethodReturningInnerInstanceOfGenericClass(@Mocked final Client mock) {
-        final Outer<?>.Inner innerInstance = new Outer<Object>().new Inner();
+    void cascadeFromMethodReturningInnerInstanceOfGenericClass(@Mocked final Client mock) {
+        final Outer<?>.Inner innerInstance = new Outer().new Inner();
 
         new Expectations() {
             {
@@ -786,7 +785,7 @@ public final class CascadingWithGenericsTest {
      *            the mock
      */
     @Test
-    public void cascadeFromMethodReturningInstanceOfGenericSubclassThenFromGenericMethodOfGenericBaseClass(
+    void cascadeFromMethodReturningInstanceOfGenericSubclassThenFromGenericMethodOfGenericBaseClass(
             @Mocked ClassWithMethodReturningGenericClassInstance mock) {
         SubB<C<?>> cascade1 = mock.doSomething();
         C<?> cascade2 = cascade1.getValue();
@@ -837,7 +836,7 @@ public final class CascadingWithGenericsTest {
      *            the mock
      */
     @Test
-    public void cascadeFromGenericInterfaceMethodImplementedInBaseClassOfMockedSubClass(@Mocked SubClass mock) {
+    void cascadeFromGenericInterfaceMethodImplementedInBaseClassOfMockedSubClass(@Mocked SubClass mock) {
         Bar cascaded = mock.genericMethod();
         assertNotNull(cascaded);
     }
