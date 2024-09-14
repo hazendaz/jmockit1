@@ -1,6 +1,13 @@
 package integrationTests.loops;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class WhileStatements {
+
+    /** The logger. */
+    private static final Logger logger = LoggerFactory.getLogger(WhileStatements.class);
+
     void whileBlockInSeparateLines() {
         int i = 0;
 
@@ -121,9 +128,9 @@ public class WhileStatements {
     int whileWithIfElse(int i) {
         while (i <= 2) {
             if (i % 2 == 0) {
-                System.out.println("even");
+                logger.info("even");
             } else {
-                System.out.println("odd");
+                logger.info("odd");
             }
 
             i++;
