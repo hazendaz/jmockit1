@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>RecordPhase xref</title>
 <link type="text/css" rel="stylesheet" href="../../../stylesheet.css" />
@@ -14,15 +14,15 @@
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> mockit.internal.expectations.state.ExecutingTest.isInstanceMethodWithStandardBehavior;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.util.Map;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nullable;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> mockit.internal.expectations.invocation.ExpectedInvocation;
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="RecordPhase" href="../../../mockit/internal/expectations/RecordPhase.html#RecordPhase">RecordPhase</a> <strong class="jxr_keyword">extends</strong> <a name="TestOnlyPhase" href="../../../mockit/internal/expectations/TestOnlyPhase.html#TestOnlyPhase">TestOnlyPhase</a> {
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>      <a name="RecordPhase" href="../../../mockit/internal/expectations/RecordPhase.html#RecordPhase">RecordPhase</a>(@Nonnull <a name="PhasedExecutionState" href="../../../mockit/internal/expectations/PhasedExecutionState.html#PhasedExecutionState">PhasedExecutionState</a> executionState) {
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>      <a name="RecordPhase" href="../../../mockit/internal/expectations/RecordPhase.html#RecordPhase">RecordPhase</a>(@NonNull <a name="PhasedExecutionState" href="../../../mockit/internal/expectations/PhasedExecutionState.html#PhasedExecutionState">PhasedExecutionState</a> executionState) {
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>          <strong class="jxr_keyword">super</strong>(executionState);
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>      }
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  
@@ -32,7 +32,7 @@
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>          }
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>      }
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addSequenceOfReturnValues(@Nonnull Object[] values) {
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addSequenceOfReturnValues(@NonNull Object[] values) {
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>          <strong class="jxr_keyword">if</strong> (currentExpectation != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>              currentExpectation.addSequenceOfReturnValues(values);
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>          }
@@ -40,9 +40,9 @@
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>      @Nullable
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>      @Override
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>      Object handleInvocation(@Nullable Object mock, <strong class="jxr_keyword">int</strong> mockAccess, @Nonnull String mockClassDesc,
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>              @Nonnull String mockNameAndDesc, @Nullable String genericSignature, <strong class="jxr_keyword">boolean</strong> withRealImpl,
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>              @Nonnull Object[] args) {
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>      Object handleInvocation(@Nullable Object mock, <strong class="jxr_keyword">int</strong> mockAccess, @NonNull String mockClassDesc,
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>              @NonNull String mockNameAndDesc, @Nullable String genericSignature, <strong class="jxr_keyword">boolean</strong> withRealImpl,
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>              @NonNull Object[] args) {
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>          mock = configureMatchingOnMockInstanceIfSpecified(mock);
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>          <a name="ExpectedInvocation" href="../../../mockit/internal/expectations/invocation/ExpectedInvocation.html#ExpectedInvocation">ExpectedInvocation</a> invocation = <strong class="jxr_keyword">new</strong> <a name="ExpectedInvocation" href="../../../mockit/internal/expectations/invocation/ExpectedInvocation.html#ExpectedInvocation">ExpectedInvocation</a>(mock, mockAccess, mockClassDesc, mockNameAndDesc,
@@ -92,6 +92,6 @@
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

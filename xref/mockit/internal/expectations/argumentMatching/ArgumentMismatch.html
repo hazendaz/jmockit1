@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>ArgumentMismatch xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
@@ -12,16 +12,16 @@
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">package</strong> mockit.internal.expectations.argumentMatching;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.lang.reflect.Array;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.lang.reflect.Method;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nullable;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Array;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Method;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> mockit.internal.util.ObjectMethods;
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="ArgumentMismatch" href="../../../../mockit/internal/expectations/argumentMatching/ArgumentMismatch.html#ArgumentMismatch">ArgumentMismatch</a> {
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>      @Nonnull
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>      @NonNull
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> StringBuilder out = <strong class="jxr_keyword">new</strong> StringBuilder(50);
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>      @Nullable
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>      <strong class="jxr_keyword">private</strong> String parameterType;
@@ -36,25 +36,25 @@
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>          <strong class="jxr_keyword">return</strong> out.toString();
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>      }
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>      @Nonnull
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>      @NonNull
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">public</strong> <a name="ArgumentMismatch" href="../../../../mockit/internal/expectations/argumentMatching/ArgumentMismatch.html#ArgumentMismatch">ArgumentMismatch</a> append(<strong class="jxr_keyword">char</strong> c) {
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>          out.append(c);
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>;
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>      }
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>      @Nonnull
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>      @NonNull
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>      <strong class="jxr_keyword">public</strong> <a name="ArgumentMismatch" href="../../../../mockit/internal/expectations/argumentMatching/ArgumentMismatch.html#ArgumentMismatch">ArgumentMismatch</a> append(<strong class="jxr_keyword">int</strong> i) {
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>          out.append(i);
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>;
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>      }
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>      @Nonnull
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>      @NonNull
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>      <strong class="jxr_keyword">public</strong> <a name="ArgumentMismatch" href="../../../../mockit/internal/expectations/argumentMatching/ArgumentMismatch.html#ArgumentMismatch">ArgumentMismatch</a> append(<strong class="jxr_keyword">double</strong> d) {
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>          out.append(d);
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>;
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>      }
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>      @Nonnull
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      @NonNull
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>      <strong class="jxr_keyword">public</strong> <a name="ArgumentMismatch" href="../../../../mockit/internal/expectations/argumentMatching/ArgumentMismatch.html#ArgumentMismatch">ArgumentMismatch</a> append(@Nullable CharSequence str) {
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>          out.append(str);
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>;
@@ -99,7 +99,7 @@
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>          }
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>      }
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>  
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> appendArray(@Nonnull Object array) {
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> appendArray(@NonNull Object array) {
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>          out.append('[');
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>          String separator = <span class="jxr_string">""</span>;
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>  
@@ -113,7 +113,7 @@
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>         out.append(']');
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>     }
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> 
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> appendCharacters(@Nonnull CharSequence characters) {
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> appendCharacters(@NonNull CharSequence characters) {
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>         out.append('&quot;');
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> 
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0, n = characters.length(); i &lt; n; i++) {
@@ -144,7 +144,7 @@
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>         }
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>     }
 <a class="jxr_linenumber" name="L138" href="#L138">138</a> 
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> appendArbitraryArgument(@Nonnull Object value) {
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> appendArbitraryArgument(@NonNull Object value) {
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>         Class&lt;?&gt; valueClass = value.getClass();
 <a class="jxr_linenumber" name="L141" href="#L141">141</a> 
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>         Method toStringMethod;
@@ -167,7 +167,7 @@
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>         }
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>     }
 <a class="jxr_linenumber" name="L161" href="#L161">161</a> 
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> appendFormatted(@Nonnull Object[] values) {
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> appendFormatted(@NonNull Object[] values) {
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>         String separator = <span class="jxr_string">""</span>;
 <a class="jxr_linenumber" name="L164" href="#L164">164</a> 
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>         <strong class="jxr_keyword">for</strong> (Object value : values) {
@@ -178,6 +178,6 @@
 <a class="jxr_linenumber" name="L170" href="#L170">170</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

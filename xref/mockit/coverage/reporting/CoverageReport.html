@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>CoverageReport xref</title>
 <link type="text/css" rel="stylesheet" href="../../../stylesheet.css" />
@@ -12,18 +12,18 @@
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">package</strong> mockit.coverage.reporting;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.io.File;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.io.IOException;
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.util.ArrayList;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.util.Collection;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.util.HashMap;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.util.List;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> java.util.Map.Entry;
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> java.util.Set;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nullable;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.io.File;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.io.IOException;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.util.Collection;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> java.util.HashMap;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> java.util.List;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> java.util.Map.Entry;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> java.util.Set;
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> mockit.coverage.Configuration;
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> mockit.coverage.data.CoverageData;
@@ -33,21 +33,21 @@
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> mockit.coverage.reporting.sourceFiles.InputFile;
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="CoverageReport" href="../../../mockit/coverage/reporting/CoverageReport.html#CoverageReport">CoverageReport</a> {
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>      @Nonnull
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>      @NonNull
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> String outputDir;
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> outputDirCreated;
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>      @Nullable
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> List&lt;File&gt; sourceDirs;
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>      @Nonnull
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>      @NonNull
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Map&lt;String, FileCoverageData&gt; fileToFileData;
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>      @Nonnull
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>      @NonNull
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Map&lt;String, List&lt;String&gt;&gt; packageToFiles;
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> withCallPoints;
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>      @Nullable
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Collection&lt;String&gt; sourceFilesNotFound;
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>      <strong class="jxr_keyword">public</strong> <a name="CoverageReport" href="../../../mockit/coverage/reporting/CoverageReport.html#CoverageReport">CoverageReport</a>(@Nonnull String outputDir, <strong class="jxr_keyword">boolean</strong> outputDirCreated, @Nullable String[] srcDirs,
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>              @Nonnull <a name="CoverageData" href="../../../mockit/coverage/data/CoverageData.html#CoverageData">CoverageData</a> coverageData, <strong class="jxr_keyword">boolean</strong> withCallPoints) {
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>      <strong class="jxr_keyword">public</strong> <a name="CoverageReport" href="../../../mockit/coverage/reporting/CoverageReport.html#CoverageReport">CoverageReport</a>(@NonNull String outputDir, <strong class="jxr_keyword">boolean</strong> outputDirCreated, @Nullable String[] srcDirs,
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>              @NonNull <a name="CoverageData" href="../../../mockit/coverage/data/CoverageData.html#CoverageData">CoverageData</a> coverageData, <strong class="jxr_keyword">boolean</strong> withCallPoints) {
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>          <strong class="jxr_keyword">this</strong>.outputDir = Configuration.getOrChooseOutputDirectory(outputDir, <span class="jxr_string">"coverage-report"</span>);
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>          <strong class="jxr_keyword">this</strong>.outputDirCreated = outputDirCreated;
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>          sourceDirs = srcDirs == <strong class="jxr_keyword">null</strong> ? <strong class="jxr_keyword">null</strong> : <strong class="jxr_keyword">new</strong> <a name="SourceFiles" href="../../../mockit/coverage/reporting/SourceFiles.html#SourceFiles">SourceFiles</a>().buildListOfSourceDirectories(srcDirs);
@@ -108,7 +108,7 @@
 <a class="jxr_linenumber" name="L100" href="#L100">100</a>         }
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>     }
 <a class="jxr_linenumber" name="L102" href="#L102">102</a> 
-<a class="jxr_linenumber" name="L103" href="#L103">103</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> generateFileCoverageReport(@Nonnull String sourceFile, @Nonnull <a name="FileCoverageData" href="../../../mockit/coverage/data/FileCoverageData.html#FileCoverageData">FileCoverageData</a> fileData)
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> generateFileCoverageReport(@NonNull String sourceFile, @NonNull <a name="FileCoverageData" href="../../../mockit/coverage/data/FileCoverageData.html#FileCoverageData">FileCoverageData</a> fileData)
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>             <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>         <strong class="jxr_keyword">if</strong> (sourceDirs != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>             <a name="InputFile" href="../../../mockit/coverage/reporting/sourceFiles/InputFile.html#InputFile">InputFile</a> inputFile = InputFile.createIfFileExists(sourceDirs, sourceFile);
@@ -127,7 +127,7 @@
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>         addFileToPackageFileList(sourceFile);
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>     }
 <a class="jxr_linenumber" name="L121" href="#L121">121</a> 
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addFileToPackageFileList(@Nonnull String file) {
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addFileToPackageFileList(@NonNull String file) {
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>         <strong class="jxr_keyword">int</strong> p = file.lastIndexOf('/');
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>         String filePackage = p &lt; 0 ? <span class="jxr_string">""</span> : file.substring(0, p);
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>         List&lt;String&gt; filesInPackage = packageToFiles.get(filePackage);
@@ -140,7 +140,7 @@
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>         filesInPackage.add(file.substring(p + 1));
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>     }
 <a class="jxr_linenumber" name="L134" href="#L134">134</a> 
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> deleteOutdatedHTMLFileIfExists(@Nonnull String filePath) {
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> deleteOutdatedHTMLFileIfExists(@NonNull String filePath) {
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>         <strong class="jxr_keyword">if</strong> (!outputDirCreated) {
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>             File outputFile = OutputFile.getOutputFile(outputDir, filePath);
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>             <em class="jxr_comment">// noinspection ResultOfMethodCallIgnored</em>
@@ -150,6 +150,6 @@
 <a class="jxr_linenumber" name="L142" href="#L142">142</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

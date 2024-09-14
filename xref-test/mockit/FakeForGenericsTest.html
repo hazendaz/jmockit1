@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>FakeForGenericsTest xref</title>
 <link type="text/css" rel="stylesheet" href="../stylesheet.css" />
@@ -8,20 +8,20 @@
 <div id="overview"><a href="../../testapidocs/mockit/FakeForGenericsTest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> mockit;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertEquals;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertTrue;
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.fail;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertEquals;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertTrue;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.fail;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.util.Collection;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.util.Collections;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.util.List;
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> * The Class FakeForGenericsTest.</em>
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="FakeForGenericsTest" href="../mockit/FakeForGenericsTest.html#FakeForGenericsTest">FakeForGenericsTest</a> {
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="FakeForGenericsTest" href="../mockit/FakeForGenericsTest.html#FakeForGenericsTest">FakeForGenericsTest</a> {
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment">     * The Class Collaborator.</em>
@@ -47,7 +47,7 @@
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment">     * Fake generic method.</em>
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>      @Test
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> fakeGenericMethod() {
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">void</strong> fakeGenericMethod() {
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>          <strong class="jxr_keyword">new</strong> MockUp&lt;Collaborator&gt;() {
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>              @Mock
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>              &lt;T <strong class="jxr_keyword">extends</strong> Number&gt; T genericMethod(T t) {
@@ -129,7 +129,7 @@
 <a class="jxr_linenumber" name="L121" href="#L121">121</a> <em class="jxr_javadoccomment">     * Fake generic class with unspecified type arguments.</em>
 <a class="jxr_linenumber" name="L122" href="#L122">122</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>     @Test
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> fakeGenericClassWithUnspecifiedTypeArguments() {
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>     <strong class="jxr_keyword">void</strong> fakeGenericClassWithUnspecifiedTypeArguments() {
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>         <strong class="jxr_keyword">new</strong> MockUp&lt;GenericClass&lt;?, ?&gt;&gt;() {
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>             @Mock
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>             <strong class="jxr_keyword">void</strong> aMethod(Object o) {
@@ -152,7 +152,7 @@
 <a class="jxr_linenumber" name="L144" href="#L144">144</a>         GenericClass&lt;StringBuilder, List&lt;String&gt;&gt; g = <strong class="jxr_keyword">new</strong> GenericClass&lt;&gt;();
 <a class="jxr_linenumber" name="L145" href="#L145">145</a> 
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>         g.aMethod(s);
-<a class="jxr_linenumber" name="L147" href="#L147">147</a>         <strong class="jxr_keyword">int</strong> r1 = g.anotherMethod(<strong class="jxr_keyword">new</strong> StringBuilder(<span class="jxr_string">"test"</span>), 58, Collections.&lt;String&gt;emptyList());
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>         <strong class="jxr_keyword">int</strong> r1 = g.anotherMethod(<strong class="jxr_keyword">new</strong> StringBuilder(<span class="jxr_string">"test"</span>), 58, Collections.&lt;String&gt; emptyList());
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>         <strong class="jxr_keyword">int</strong> r2 = g.anotherMethod(123, 65, <span class="jxr_string">"abc"</span>);
 <a class="jxr_linenumber" name="L149" href="#L149">149</a> 
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>         assertEquals(<span class="jxr_string">"fake"</span>, s.toString());
@@ -164,7 +164,7 @@
 <a class="jxr_linenumber" name="L156" href="#L156">156</a> <em class="jxr_javadoccomment">     * Fake both generic and non generic methods in generic class.</em>
 <a class="jxr_linenumber" name="L157" href="#L157">157</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>     @Test
-<a class="jxr_linenumber" name="L159" href="#L159">159</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> fakeBothGenericAndNonGenericMethodsInGenericClass() {
+<a class="jxr_linenumber" name="L159" href="#L159">159</a>     <strong class="jxr_keyword">void</strong> fakeBothGenericAndNonGenericMethodsInGenericClass() {
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>         <strong class="jxr_keyword">new</strong> MockUp&lt;GenericClass&lt;String, Boolean&gt;&gt;() {
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>             @Mock
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>             <strong class="jxr_keyword">int</strong> anotherMethod(Integer t, <strong class="jxr_keyword">int</strong> i, String p) {
@@ -208,7 +208,7 @@
 <a class="jxr_linenumber" name="L200" href="#L200">200</a> <em class="jxr_javadoccomment">     * Fake generic method with fake method having parameter types matching type arguments.</em>
 <a class="jxr_linenumber" name="L201" href="#L201">201</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L202" href="#L202">202</a>     @Test
-<a class="jxr_linenumber" name="L203" href="#L203">203</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> fakeGenericMethodWithFakeMethodHavingParameterTypesMatchingTypeArguments() {
+<a class="jxr_linenumber" name="L203" href="#L203">203</a>     <strong class="jxr_keyword">void</strong> fakeGenericMethodWithFakeMethodHavingParameterTypesMatchingTypeArguments() {
 <a class="jxr_linenumber" name="L204" href="#L204">204</a>         <strong class="jxr_keyword">new</strong> MockUp&lt;GenericBaseClass&lt;String, Integer&gt;&gt;() {
 <a class="jxr_linenumber" name="L205" href="#L205">205</a>             @Mock
 <a class="jxr_linenumber" name="L206" href="#L206">206</a>             Integer find(String id) {
@@ -224,7 +224,7 @@
 <a class="jxr_linenumber" name="L216" href="#L216">216</a> <em class="jxr_javadoccomment">     * Cannot call generic method when some fake method expects different types.</em>
 <a class="jxr_linenumber" name="L217" href="#L217">217</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L218" href="#L218">218</a>     @Test
-<a class="jxr_linenumber" name="L219" href="#L219">219</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> cannotCallGenericMethodWhenSomeFakeMethodExpectsDifferentTypes() {
+<a class="jxr_linenumber" name="L219" href="#L219">219</a>     <strong class="jxr_keyword">void</strong> cannotCallGenericMethodWhenSomeFakeMethodExpectsDifferentTypes() {
 <a class="jxr_linenumber" name="L220" href="#L220">220</a>         <strong class="jxr_keyword">new</strong> MockUp&lt;GenericBaseClass&lt;String, Integer&gt;&gt;() {
 <a class="jxr_linenumber" name="L221" href="#L221">221</a>             @Mock
 <a class="jxr_linenumber" name="L222" href="#L222">222</a>             Integer find(String id) {
@@ -256,7 +256,7 @@
 <a class="jxr_linenumber" name="L248" href="#L248">248</a> <em class="jxr_javadoccomment">     * Fake generic method from instantiation of non generic subclass.</em>
 <a class="jxr_linenumber" name="L249" href="#L249">249</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L250" href="#L250">250</a>     @Test
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> fakeGenericMethodFromInstantiationOfNonGenericSubclass() {
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>     <strong class="jxr_keyword">void</strong> fakeGenericMethodFromInstantiationOfNonGenericSubclass() {
 <a class="jxr_linenumber" name="L252" href="#L252">252</a>         <strong class="jxr_keyword">new</strong> MockUp&lt;NonGenericSubclass&gt;() {
 <a class="jxr_linenumber" name="L253" href="#L253">253</a>             @Mock
 <a class="jxr_linenumber" name="L254" href="#L254">254</a>             String find(Integer id) {
@@ -287,7 +287,7 @@
 <a class="jxr_linenumber" name="L279" href="#L279">279</a> <em class="jxr_javadoccomment">     * Fake generic method from instantiation of non generic subclass which extends A generic intermediate superclass.</em>
 <a class="jxr_linenumber" name="L280" href="#L280">280</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L281" href="#L281">281</a>     @Test
-<a class="jxr_linenumber" name="L282" href="#L282">282</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> fakeGenericMethodFromInstantiationOfNonGenericSubclassWhichExtendsAGenericIntermediateSuperclass() {
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>     <strong class="jxr_keyword">void</strong> fakeGenericMethodFromInstantiationOfNonGenericSubclassWhichExtendsAGenericIntermediateSuperclass() {
 <a class="jxr_linenumber" name="L283" href="#L283">283</a>         <strong class="jxr_keyword">new</strong> MockUp&lt;AnotherNonGenericSubclass&gt;() {
 <a class="jxr_linenumber" name="L284" href="#L284">284</a>             @Mock
 <a class="jxr_linenumber" name="L285" href="#L285">285</a>             String find(Integer id) {
@@ -352,7 +352,7 @@
 <a class="jxr_linenumber" name="L344" href="#L344">344</a> <em class="jxr_javadoccomment">     * Fake generic methods of non generic class.</em>
 <a class="jxr_linenumber" name="L345" href="#L345">345</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L346" href="#L346">346</a>     @Test
-<a class="jxr_linenumber" name="L347" href="#L347">347</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> fakeGenericMethodsOfNonGenericClass() {
+<a class="jxr_linenumber" name="L347" href="#L347">347</a>     <strong class="jxr_keyword">void</strong> fakeGenericMethodsOfNonGenericClass() {
 <a class="jxr_linenumber" name="L348" href="#L348">348</a>         <strong class="jxr_keyword">new</strong> MockUp&lt;NonGenericClassWithGenericMethods&gt;() {
 <a class="jxr_linenumber" name="L349" href="#L349">349</a>             @Mock
 <a class="jxr_linenumber" name="L350" href="#L350">350</a>             &lt;T&gt; T staticMethod(Class&lt;T&gt; cls, String s) {
@@ -375,6 +375,6 @@
 <a class="jxr_linenumber" name="L367" href="#L367">367</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

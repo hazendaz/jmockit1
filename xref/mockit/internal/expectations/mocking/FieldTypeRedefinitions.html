@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>FieldTypeRedefinitions xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
@@ -14,14 +14,14 @@
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> java.lang.reflect.Modifier.isFinal;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.lang.reflect.Field;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.util.HashMap;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.util.List;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> java.util.Map.Entry;
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Field;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.util.HashMap;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> java.util.List;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> java.util.Map.Entry;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> mockit.asm.jvmConstants.Access;
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> mockit.internal.reflection.FieldReflection;
@@ -32,12 +32,12 @@
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="FieldTypeRedefinitions" href="../../../../mockit/internal/expectations/mocking/FieldTypeRedefinitions.html#FieldTypeRedefinitions">FieldTypeRedefinitions</a> <strong class="jxr_keyword">extends</strong> <a name="TypeRedefinitions" href="../../../../mockit/internal/expectations/mocking/TypeRedefinitions.html#TypeRedefinitions">TypeRedefinitions</a> {
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> FIELD_ACCESS_MASK = Access.SYNTHETIC + Access.STATIC;
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>      @Nonnull
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>      @NonNull
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Map&lt;MockedType, InstanceFactory&gt; mockInstanceFactories;
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>      @Nonnull
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>      @NonNull
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> List&lt;MockedType&gt; mockFieldsNotSet;
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">public</strong> <a name="FieldTypeRedefinitions" href="../../../../mockit/internal/expectations/mocking/FieldTypeRedefinitions.html#FieldTypeRedefinitions">FieldTypeRedefinitions</a>(@Nonnull Class&lt;?&gt; testClass) {
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">public</strong> <a name="FieldTypeRedefinitions" href="../../../../mockit/internal/expectations/mocking/FieldTypeRedefinitions.html#FieldTypeRedefinitions">FieldTypeRedefinitions</a>(@NonNull Class&lt;?&gt; testClass) {
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>          mockInstanceFactories = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>          mockFieldsNotSet = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  
@@ -50,7 +50,7 @@
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>          }
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>      }
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> redefineFieldTypes(@Nonnull Class&lt;?&gt; classWithMockFields) {
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> redefineFieldTypes(@NonNull Class&lt;?&gt; classWithMockFields) {
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>          Class&lt;?&gt; superClass = classWithMockFields.getSuperclass();
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>          <strong class="jxr_keyword">if</strong> (superClass != <strong class="jxr_keyword">null</strong> &amp;&amp; superClass != Object.<strong class="jxr_keyword">class</strong> &amp;&amp; superClass != mockit.Expectations.<strong class="jxr_keyword">class</strong>) {
@@ -68,7 +68,7 @@
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>          }
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>      }
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> redefineFieldType(@Nonnull Field field, <strong class="jxr_keyword">int</strong> modifiers) {
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> redefineFieldType(@NonNull Field field, <strong class="jxr_keyword">int</strong> modifiers) {
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>          <a name="MockedType" href="../../../../mockit/internal/expectations/mocking/MockedType.html#MockedType">MockedType</a> mockedType = <strong class="jxr_keyword">new</strong> <a name="MockedType" href="../../../../mockit/internal/expectations/mocking/MockedType.html#MockedType">MockedType</a>(field);
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>          <strong class="jxr_keyword">if</strong> (mockedType.isMockableType()) {
@@ -83,7 +83,7 @@
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>          }
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>      }
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>  
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> redefineFieldType(@Nonnull <a name="MockedType" href="../../../../mockit/internal/expectations/mocking/MockedType.html#MockedType">MockedType</a> mockedType, <strong class="jxr_keyword">boolean</strong> partialMocking, <strong class="jxr_keyword">boolean</strong> needsValueToSet) {
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> redefineFieldType(@NonNull <a name="MockedType" href="../../../../mockit/internal/expectations/mocking/MockedType.html#MockedType">MockedType</a> mockedType, <strong class="jxr_keyword">boolean</strong> partialMocking, <strong class="jxr_keyword">boolean</strong> needsValueToSet) {
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>          <a name="FieldTypeRedefinition" href="../../../../mockit/internal/expectations/mocking/FieldTypeRedefinition.html#FieldTypeRedefinition">FieldTypeRedefinition</a> typeRedefinition = <strong class="jxr_keyword">new</strong> <a name="FieldTypeRedefinition" href="../../../../mockit/internal/expectations/mocking/FieldTypeRedefinition.html#FieldTypeRedefinition">FieldTypeRedefinition</a>(mockedType);
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>          <strong class="jxr_keyword">boolean</strong> redefined;
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>  
@@ -111,7 +111,7 @@
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>         }
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>     }
 <a class="jxr_linenumber" name="L105" href="#L105">105</a> 
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> registerCaptureOfNewInstances(@Nonnull <a name="MockedType" href="../../../../mockit/internal/expectations/mocking/MockedType.html#MockedType">MockedType</a> mockedType) {
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> registerCaptureOfNewInstances(@NonNull <a name="MockedType" href="../../../../mockit/internal/expectations/mocking/MockedType.html#MockedType">MockedType</a> mockedType) {
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>         <strong class="jxr_keyword">if</strong> (mockedType.getMaxInstancesToCapture() &gt; 0) {
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>             <strong class="jxr_keyword">if</strong> (captureOfNewInstances == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>                 captureOfNewInstances = <strong class="jxr_keyword">new</strong> <a name="CaptureOfNewInstancesForFields" href="../../../../mockit/internal/expectations/mocking/CaptureOfNewInstancesForFields.html#CaptureOfNewInstancesForFields">CaptureOfNewInstancesForFields</a>();
@@ -121,13 +121,13 @@
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         }
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>     }
 <a class="jxr_linenumber" name="L115" href="#L115">115</a> 
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> assignNewInstancesToMockFields(@Nonnull Object target) {
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> assignNewInstancesToMockFields(@NonNull Object target) {
 <a class="jxr_linenumber" name="L117" href="#L117">117</a>         TestRun.getExecutingTest().clearRegularAndInjectableMocks();
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>         createAndAssignNewInstances(target);
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>         obtainAndRegisterInstancesOfFieldsNotSet(target);
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>     }
 <a class="jxr_linenumber" name="L121" href="#L121">121</a> 
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> createAndAssignNewInstances(@Nonnull Object target) {
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> createAndAssignNewInstances(@NonNull Object target) {
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>         <strong class="jxr_keyword">for</strong> (Entry&lt;MockedType, InstanceFactory&gt; metadataAndFactory : mockInstanceFactories.entrySet()) {
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>             <a name="MockedType" href="../../../../mockit/internal/expectations/mocking/MockedType.html#MockedType">MockedType</a> mockedType = metadataAndFactory.getKey();
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>             <a name="InstanceFactory" href="../../../../mockit/internal/expectations/mocking/InstanceFactory.html#InstanceFactory">InstanceFactory</a> instanceFactory = metadataAndFactory.getValue();
@@ -137,9 +137,9 @@
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>         }
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>     }
 <a class="jxr_linenumber" name="L131" href="#L131">131</a> 
-<a class="jxr_linenumber" name="L132" href="#L132">132</a>     @Nonnull
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>     <strong class="jxr_keyword">private</strong> Object assignNewInstanceToMockField(@Nonnull Object target, @Nonnull <a name="MockedType" href="../../../../mockit/internal/expectations/mocking/MockedType.html#MockedType">MockedType</a> mockedType,
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>             @Nonnull <a name="InstanceFactory" href="../../../../mockit/internal/expectations/mocking/InstanceFactory.html#InstanceFactory">InstanceFactory</a> instanceFactory) {
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>     @NonNull
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>     <strong class="jxr_keyword">private</strong> Object assignNewInstanceToMockField(@NonNull Object target, @NonNull <a name="MockedType" href="../../../../mockit/internal/expectations/mocking/MockedType.html#MockedType">MockedType</a> mockedType,
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>             @NonNull <a name="InstanceFactory" href="../../../../mockit/internal/expectations/mocking/InstanceFactory.html#InstanceFactory">InstanceFactory</a> instanceFactory) {
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>         Field mockField = mockedType.field;
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>         assert mockField != <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>         Object mock = FieldReflection.getFieldValue(mockField, target);
@@ -165,7 +165,7 @@
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>         <strong class="jxr_keyword">return</strong> mock;
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>     }
 <a class="jxr_linenumber" name="L159" href="#L159">159</a> 
-<a class="jxr_linenumber" name="L160" href="#L160">160</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> obtainAndRegisterInstancesOfFieldsNotSet(@Nonnull Object target) {
+<a class="jxr_linenumber" name="L160" href="#L160">160</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> obtainAndRegisterInstancesOfFieldsNotSet(@NonNull Object target) {
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>         <strong class="jxr_keyword">for</strong> (<a name="MockedType" href="../../../../mockit/internal/expectations/mocking/MockedType.html#MockedType">MockedType</a> metadata : mockFieldsNotSet) {
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>             assert metadata.field != <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>             Object mock = FieldReflection.getFieldValue(metadata.field, target);
@@ -180,7 +180,7 @@
 <a class="jxr_linenumber" name="L172" href="#L172">172</a> <em class="jxr_javadoccomment">     * Returns true iff the mock instance concrete class is not mocked in some test, i.e. it's a class which only</em>
 <a class="jxr_linenumber" name="L173" href="#L173">173</a> <em class="jxr_javadoccomment">     * appears in the code under test.</em>
 <a class="jxr_linenumber" name="L174" href="#L174">174</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> captureNewInstanceForApplicableMockField(@Nonnull Object mock) {
+<a class="jxr_linenumber" name="L175" href="#L175">175</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> captureNewInstanceForApplicableMockField(@NonNull Object mock) {
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>         <strong class="jxr_keyword">if</strong> (captureOfNewInstances == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>             <strong class="jxr_keyword">return</strong> false;
 <a class="jxr_linenumber" name="L178" href="#L178">178</a>         }
@@ -197,6 +197,6 @@
 <a class="jxr_linenumber" name="L189" href="#L189">189</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>ListOfCallPoints xref</title>
 <link type="text/css" rel="stylesheet" href="../../../stylesheet.css" />
@@ -12,20 +12,20 @@
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">package</strong> mockit.coverage.reporting;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.util.List;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.util.regex.Pattern;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nullable;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.util.List;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.util.regex.Pattern;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> mockit.coverage.CallPoint;
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="ListOfCallPoints" href="../../../mockit/coverage/reporting/ListOfCallPoints.html#ListOfCallPoints">ListOfCallPoints</a> {
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>      @Nonnull
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>      @NonNull
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String EOL = System.lineSeparator();
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Pattern LESS_THAN_CHAR = Pattern.compile(<span class="jxr_string">"&lt;"</span>);
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>      @Nonnull
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>      @NonNull
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> StringBuilder content;
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>      <strong class="jxr_keyword">public</strong> <a name="ListOfCallPoints" href="../../../mockit/coverage/reporting/ListOfCallPoints.html#ListOfCallPoints">ListOfCallPoints</a>() {
@@ -68,14 +68,14 @@
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>          content.append(<span class="jxr_string">"&lt;/li&gt;"</span>).append(EOL).append(<span class="jxr_string">"        &lt;/ol&gt;"</span>).append(EOL).append(<span class="jxr_string">"      "</span>);
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>      }
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> appendTestMethod(@Nonnull StackTraceElement current) {
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> appendTestMethod(@NonNull StackTraceElement current) {
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>          content.append(<span class="jxr_string">"          &lt;li&gt;"</span>);
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          content.append(current.getClassName()).append('#');
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>          content.append(LESS_THAN_CHAR.matcher(current.getMethodName()).replaceFirst(<span class="jxr_string">"&amp;lt;"</span>)).append(<span class="jxr_string">": "</span>);
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          content.append(current.getLineNumber());
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>      }
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> appendRepetitionCountIfNeeded(@Nonnull <a name="CallPoint" href="../../../mockit/coverage/CallPoint.html#CallPoint">CallPoint</a> callPoint) {
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> appendRepetitionCountIfNeeded(@NonNull <a name="CallPoint" href="../../../mockit/coverage/CallPoint.html#CallPoint">CallPoint</a> callPoint) {
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>          <strong class="jxr_keyword">int</strong> repetitionCount = callPoint.getRepetitionCount();
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>          <strong class="jxr_keyword">if</strong> (repetitionCount &gt; 0) {
@@ -83,7 +83,7 @@
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>          }
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>      }
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>  
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>      @Nonnull
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>      @NonNull
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>      <strong class="jxr_keyword">public</strong> String getContents() {
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>          String result = content.toString();
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>          content.setLength(0);
@@ -92,6 +92,6 @@
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>TestedClassWithFullMixedFieldDITest xref</title>
 <link type="text/css" rel="stylesheet" href="../stylesheet.css" />
@@ -8,17 +8,17 @@
 <div id="overview"><a href="../../testapidocs/mockit/TestedClassWithFullMixedFieldDITest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> mockit;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertNotNull;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertNull;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertNotNull;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertNull;
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> javax.inject.Inject;
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> * The Class TestedClassWithFullMixedFieldDITest.</em>
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="TestedClassWithFullMixedFieldDITest" href="../mockit/TestedClassWithFullMixedFieldDITest.html#TestedClassWithFullMixedFieldDITest">TestedClassWithFullMixedFieldDITest</a> {
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="TestedClassWithFullMixedFieldDITest" href="../mockit/TestedClassWithFullMixedFieldDITest.html#TestedClassWithFullMixedFieldDITest">TestedClassWithFullMixedFieldDITest</a> {
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment">     * The Class TestedClass.</em>
@@ -54,7 +54,7 @@
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment">     *            the tested</em>
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>      @Test
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> verifyThatFieldsFromJRETypesAreNotInitialized(@Tested(fullyInitialized = <strong class="jxr_keyword">true</strong>) TestedClass tested) {
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">void</strong> verifyThatFieldsFromJRETypesAreNotInitialized(@Tested(fullyInitialized = <strong class="jxr_keyword">true</strong>) TestedClass tested) {
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>          assertNull(tested.text);
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>          assertNull(tested.dependency.value);
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>      }
@@ -79,7 +79,7 @@
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment">     *            the tested</em>
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>      @Test
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> verifyThatFieldsOfUserTypesAreInitializedEvenOnlySomeAreAnnotated(
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>      <strong class="jxr_keyword">void</strong> verifyThatFieldsOfUserTypesAreInitializedEvenOnlySomeAreAnnotated(
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>              @Tested(fullyInitialized = <strong class="jxr_keyword">true</strong>) TestedClass2 tested) {
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          assertNotNull(tested.dependency1);
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>          assertNotNull(tested.dependency2);
@@ -87,6 +87,6 @@
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

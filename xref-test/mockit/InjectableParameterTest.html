@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>InjectableParameterTest xref</title>
 <link type="text/css" rel="stylesheet" href="../stylesheet.css" />
@@ -8,20 +8,20 @@
 <div id="overview"><a href="../../testapidocs/mockit/InjectableParameterTest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> mockit;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertEquals;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertTrue;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertEquals;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertTrue;
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> java.math.BigDecimal;
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.math.BigInteger;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.util.concurrent.atomic.AtomicInteger;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.util.concurrent.atomic.AtomicLong;
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> * The Class InjectableParameterTest.</em>
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="InjectableParameterTest" href="../mockit/InjectableParameterTest.html#InjectableParameterTest">InjectableParameterTest</a> {
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="InjectableParameterTest" href="../mockit/InjectableParameterTest.html#InjectableParameterTest">InjectableParameterTest</a> {
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment">     * Injectable parameters of primitive types.</em>
@@ -46,7 +46,7 @@
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment">     *            the d</em>
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>      @Test
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> injectableParametersOfPrimitiveTypes(@Injectable(<span class="jxr_string">"123"</span>) <strong class="jxr_keyword">int</strong> i, @Injectable(<span class="jxr_string">"5"</span>) <strong class="jxr_keyword">long</strong> l,
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>      <strong class="jxr_keyword">void</strong> injectableParametersOfPrimitiveTypes(@Injectable(<span class="jxr_string">"123"</span>) <strong class="jxr_keyword">int</strong> i, @Injectable(<span class="jxr_string">"5"</span>) <strong class="jxr_keyword">long</strong> l,
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>              @Injectable(<span class="jxr_string">"-45 "</span>) <strong class="jxr_keyword">short</strong> s, @Injectable(<span class="jxr_string">" 127"</span>) byte b, @Injectable(<span class="jxr_string">"true"</span>) <strong class="jxr_keyword">boolean</strong> f1,
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>              @Injectable(<span class="jxr_string">" TRUE "</span>) <strong class="jxr_keyword">boolean</strong> f2, @Injectable(<span class="jxr_string">"A"</span>) <strong class="jxr_keyword">char</strong> c, @Injectable(<span class="jxr_string">" 1.23"</span>) <strong class="jxr_keyword">float</strong> f,
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>              @Injectable(<span class="jxr_string">"-1.23"</span>) <strong class="jxr_keyword">double</strong> d) {
@@ -84,7 +84,7 @@
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>  <em class="jxr_javadoccomment">     *            the d</em>
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>      @Test
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> injectableParametersOfWrapperTypes(@Injectable(<span class="jxr_string">"123"</span>) Integer i, @Injectable(<span class="jxr_string">"5"</span>) Long l,
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>      <strong class="jxr_keyword">void</strong> injectableParametersOfWrapperTypes(@Injectable(<span class="jxr_string">"123"</span>) Integer i, @Injectable(<span class="jxr_string">"5"</span>) Long l,
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>              @Injectable(<span class="jxr_string">"-45 "</span>) Short s, @Injectable(<span class="jxr_string">" 127"</span>) Byte b, @Injectable(<span class="jxr_string">"true"</span>) Boolean f1,
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>              @Injectable(<span class="jxr_string">" TRUE "</span>) Boolean f2, @Injectable(<span class="jxr_string">"A"</span>) Character c, @Injectable(<span class="jxr_string">" 1.23"</span>) Float f,
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>              @Injectable(<span class="jxr_string">"-1.23"</span>) Double d) {
@@ -112,7 +112,7 @@
 <a class="jxr_linenumber" name="L104" href="#L104">104</a> <em class="jxr_javadoccomment">     *            the al</em>
 <a class="jxr_linenumber" name="L105" href="#L105">105</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>     @Test
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> injectableParametersOfOtherNumberSubtypes(@Injectable(<span class="jxr_string">" 10.234"</span>) BigDecimal d,
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>     <strong class="jxr_keyword">void</strong> injectableParametersOfOtherNumberSubtypes(@Injectable(<span class="jxr_string">" 10.234"</span>) BigDecimal d,
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>             @Injectable(<span class="jxr_string">"123 "</span>) BigInteger i, @Injectable(<span class="jxr_string">" 4567 "</span>) AtomicInteger ai,
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>             @Injectable(<span class="jxr_string">" 23434"</span>) AtomicLong al) {
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>         assertEquals(10.234, d.doubleValue(), 0.0);
@@ -146,7 +146,7 @@
 <a class="jxr_linenumber" name="L138" href="#L138">138</a> <em class="jxr_javadoccomment">     *            the n</em>
 <a class="jxr_linenumber" name="L139" href="#L139">139</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>     @Test
-<a class="jxr_linenumber" name="L141" href="#L141">141</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> injectablesHavingSubtypesOfTestedFields(@Tested TestedClass tested, @Injectable(<span class="jxr_string">"test"</span>) String s,
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>     <strong class="jxr_keyword">void</strong> injectablesHavingSubtypesOfTestedFields(@Tested TestedClass tested, @Injectable(<span class="jxr_string">"test"</span>) String s,
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>             @Injectable(<span class="jxr_string">"1.2"</span>) Float cmp, @Injectable(<span class="jxr_string">"123"</span>) Integer n) {
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>         assertEquals(123, tested.n.intValue());
 <a class="jxr_linenumber" name="L144" href="#L144">144</a>         assertEquals(<span class="jxr_string">"test"</span>, tested.text);
@@ -197,7 +197,7 @@
 <a class="jxr_linenumber" name="L189" href="#L189">189</a> <em class="jxr_javadoccomment">     *            the n</em>
 <a class="jxr_linenumber" name="L190" href="#L190">190</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L191" href="#L191">191</a>     @Test
-<a class="jxr_linenumber" name="L192" href="#L192">192</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> injectablesHavingSubtypesOfTestedConstructorParameters(@Tested TestedClass2 tested,
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>     <strong class="jxr_keyword">void</strong> injectablesHavingSubtypesOfTestedConstructorParameters(@Tested TestedClass2 tested,
 <a class="jxr_linenumber" name="L193" href="#L193">193</a>             @Injectable(<span class="jxr_string">"1.2"</span>) Float cmp, @Injectable(<span class="jxr_string">"test"</span>) String s, @Injectable(<span class="jxr_string">"123"</span>) Integer n) {
 <a class="jxr_linenumber" name="L194" href="#L194">194</a>         assertEquals(123, tested.n.intValue());
 <a class="jxr_linenumber" name="L195" href="#L195">195</a>         assertEquals(<span class="jxr_string">"test"</span>, tested.text);
@@ -206,6 +206,6 @@
 <a class="jxr_linenumber" name="L198" href="#L198">198</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

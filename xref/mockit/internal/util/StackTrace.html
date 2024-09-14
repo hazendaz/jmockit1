@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>StackTrace xref</title>
 <link type="text/css" rel="stylesheet" href="../../../stylesheet.css" />
@@ -12,20 +12,20 @@
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">package</strong> mockit.internal.util;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.io.IOException;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.io.IOException;
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment"> * Provides utility methods to extract and filter stack trace information.</em>
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="StackTrace" href="../../../mockit/internal/util/StackTrace.html#StackTrace">StackTrace</a> {
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>      @Nonnull
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>      @NonNull
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Throwable throwable;
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>      @Nonnull
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>      @NonNull
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>      <strong class="jxr_keyword">private</strong> StackTraceElement[] elements;
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>      <strong class="jxr_keyword">public</strong> <a name="StackTrace" href="../../../mockit/internal/util/StackTrace.html#StackTrace">StackTrace</a>(@Nonnull Throwable throwable) {
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>      <strong class="jxr_keyword">public</strong> <a name="StackTrace" href="../../../mockit/internal/util/StackTrace.html#StackTrace">StackTrace</a>(@NonNull Throwable throwable) {
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>          <strong class="jxr_keyword">this</strong>.throwable = throwable;
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>          elements = throwable.getStackTrace();
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>      }
@@ -34,12 +34,12 @@
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>          <strong class="jxr_keyword">return</strong> elements.length;
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>      }
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>      @Nonnull
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>      @NonNull
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">public</strong> StackTraceElement getElement(<strong class="jxr_keyword">int</strong> index) {
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>          <strong class="jxr_keyword">return</strong> elements[index];
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>      }
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> filterStackTrace(@Nonnull Throwable t) {
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> filterStackTrace(@NonNull Throwable t) {
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>          <strong class="jxr_keyword">new</strong> <a name="StackTrace" href="../../../mockit/internal/util/StackTrace.html#StackTrace">StackTrace</a>(t).filter();
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>      }
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
@@ -71,7 +71,7 @@
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>          }
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      }
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> isJDKOr3rdPartyLibraryInternalMethod(@Nonnull StackTraceElement ste) {
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> isJDKOr3rdPartyLibraryInternalMethod(@NonNull StackTraceElement ste) {
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          String className = ste.getClassName();
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>          <strong class="jxr_keyword">return</strong> className.startsWith(<span class="jxr_string">"sun."</span>) &amp;&amp; !ste.isNativeMethod() || className.startsWith(<span class="jxr_string">"jdk."</span>)
@@ -80,11 +80,11 @@
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>                  || className.contains(<span class="jxr_string">".intellij."</span>) || className.contains(<span class="jxr_string">".jdt."</span>);
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>      }
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>  
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> isTestFrameworkMethod(@Nonnull String where) {
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> isTestFrameworkMethod(@NonNull String where) {
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          <strong class="jxr_keyword">return</strong> where.startsWith(<span class="jxr_string">"org.junit."</span>) || where.startsWith(<span class="jxr_string">"org.testng."</span>);
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>      }
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>  
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> isJMockitMethod(@Nonnull String where) {
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> isJMockitMethod(@NonNull String where) {
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>          <strong class="jxr_keyword">if</strong> (!where.startsWith(<span class="jxr_string">"mockit."</span>)) {
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>              <strong class="jxr_keyword">return</strong> false;
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>          }
@@ -106,7 +106,7 @@
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>          <strong class="jxr_keyword">return</strong> q &lt; where.length() &amp;&amp; where.charAt(q) != '$';
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>      }
 <a class="jxr_linenumber" name="L100" href="#L100">100</a> 
-<a class="jxr_linenumber" name="L101" href="#L101">101</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> print(@Nonnull Appendable output) {
+<a class="jxr_linenumber" name="L101" href="#L101">101</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> print(@NonNull Appendable output) {
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>         String previousFileName = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>         <strong class="jxr_keyword">int</strong> previousLineNumber = 0;
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>         String sep = <span class="jxr_string">""</span>;
@@ -128,6 +128,6 @@
 <a class="jxr_linenumber" name="L120" href="#L120">120</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

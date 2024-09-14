@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>TypeDescriptor xref</title>
 <link type="text/css" rel="stylesheet" href="../../../stylesheet.css" />
@@ -12,7 +12,7 @@
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">package</strong> mockit.internal.util;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> mockit.asm.types.ArrayType;
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> mockit.asm.types.JavaType;
@@ -24,8 +24,8 @@
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>      <strong class="jxr_keyword">private</strong> <a name="TypeDescriptor" href="../../../mockit/internal/util/TypeDescriptor.html#TypeDescriptor">TypeDescriptor</a>() {
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>      }
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>      @Nonnull
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Class&lt;?&gt;[] getParameterTypes(@Nonnull String methodDesc) {
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>      @NonNull
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Class&lt;?&gt;[] getParameterTypes(@NonNull String methodDesc) {
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>          <a name="JavaType" href="../../../mockit/asm/types/JavaType.html#JavaType">JavaType</a>[] paramTypes = JavaType.getArgumentTypes(methodDesc);
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>          <strong class="jxr_keyword">if</strong> (paramTypes.length == 0) {
@@ -41,15 +41,15 @@
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>          <strong class="jxr_keyword">return</strong> paramClasses;
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>      }
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>      @Nonnull
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Class&lt;?&gt; getReturnType(@Nonnull String methodSignature) {
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>      @NonNull
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Class&lt;?&gt; getReturnType(@NonNull String methodSignature) {
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>          String methodDesc = methodDescriptionWithoutTypeArguments(methodSignature);
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>          <a name="JavaType" href="../../../mockit/asm/types/JavaType.html#JavaType">JavaType</a> returnType = JavaType.getReturnType(methodDesc);
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>          <strong class="jxr_keyword">return</strong> getClassForType(returnType);
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>      }
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>      @Nonnull
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String methodDescriptionWithoutTypeArguments(@Nonnull String methodSignature) {
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>      @NonNull
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String methodDescriptionWithoutTypeArguments(@NonNull String methodSignature) {
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>          <strong class="jxr_keyword">while</strong> (<strong class="jxr_keyword">true</strong>) {
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>              <strong class="jxr_keyword">int</strong> p = methodSignature.indexOf('&lt;');
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  
@@ -68,8 +68,8 @@
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>          }
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>      }
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>      @Nonnull
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Class&lt;?&gt; getClassForType(@Nonnull <a name="JavaType" href="../../../mockit/asm/types/JavaType.html#JavaType">JavaType</a> type) {
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>      @NonNull
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Class&lt;?&gt; getClassForType(@NonNull <a name="JavaType" href="../../../mockit/asm/types/JavaType.html#JavaType">JavaType</a> type) {
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          <strong class="jxr_keyword">if</strong> (type instanceof <a name="PrimitiveType" href="../../../mockit/asm/types/PrimitiveType.html#PrimitiveType">PrimitiveType</a>) {
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>              <strong class="jxr_keyword">return</strong> ((<a name="PrimitiveType" href="../../../mockit/asm/types/PrimitiveType.html#PrimitiveType">PrimitiveType</a>) type).getType();
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          }
@@ -87,6 +87,6 @@
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

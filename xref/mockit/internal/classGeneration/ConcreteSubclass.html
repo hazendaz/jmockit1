@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>ConcreteSubclass xref</title>
 <link type="text/css" rel="stylesheet" href="../../../stylesheet.css" />
@@ -14,8 +14,8 @@
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> mockit.asm.jvmConstants.Access.PUBLIC;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nullable;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> mockit.asm.classes.ClassReader;
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> mockit.asm.classes.ClassVisitor;
@@ -24,17 +24,17 @@
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment"> * Generates a concrete subclass for an {@code abstract} base class.</em>
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> ConcreteSubclass&lt;T&gt; <strong class="jxr_keyword">extends</strong> ImplementationClass&lt;T&gt; {
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>      <strong class="jxr_keyword">public</strong> <a name="ConcreteSubclass" href="../../../mockit/internal/classGeneration/ConcreteSubclass.html#ConcreteSubclass">ConcreteSubclass</a>(@Nonnull Class&lt;?&gt; baseClass) {
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>      <strong class="jxr_keyword">public</strong> <a name="ConcreteSubclass" href="../../../mockit/internal/classGeneration/ConcreteSubclass.html#ConcreteSubclass">ConcreteSubclass</a>(@NonNull Class&lt;?&gt; baseClass) {
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>          <strong class="jxr_keyword">super</strong>(baseClass);
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>      }
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>      @Nonnull
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>      @NonNull
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>      @Override
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">protected</strong> <a name="ClassVisitor" href="../../../mockit/asm/classes/ClassVisitor.html#ClassVisitor">ClassVisitor</a> createMethodBodyGenerator(@Nonnull <a name="ClassReader" href="../../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a> typeReader) {
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">protected</strong> <a name="ClassVisitor" href="../../../mockit/asm/classes/ClassVisitor.html#ClassVisitor">ClassVisitor</a> createMethodBodyGenerator(@NonNull <a name="ClassReader" href="../../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a> typeReader) {
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a name="BaseSubclassGenerator" href="../../../mockit/internal/classGeneration/BaseSubclassGenerator.html#BaseSubclassGenerator">BaseSubclassGenerator</a>(sourceClass, typeReader, <strong class="jxr_keyword">null</strong>, generatedClassName, false) {
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>              @Override
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>              <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> generateMethodImplementation(String className, <strong class="jxr_keyword">int</strong> access, @Nonnull String name,
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>                      @Nonnull String desc, @Nullable String signature, @Nullable String[] exceptions) {
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>              <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> generateMethodImplementation(String className, <strong class="jxr_keyword">int</strong> access, @NonNull String name,
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>                      @NonNull String desc, @Nullable String signature, @Nullable String[] exceptions) {
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>                  mw = cw.visitMethod(PUBLIC, name, desc, signature, exceptions);
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>                  generateEmptyImplementation(desc);
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>              }
@@ -43,6 +43,6 @@
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

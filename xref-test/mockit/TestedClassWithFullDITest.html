@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>TestedClassWithFullDITest xref</title>
 <link type="text/css" rel="stylesheet" href="../stylesheet.css" />
@@ -8,31 +8,31 @@
 <div id="overview"><a href="../../testapidocs/mockit/TestedClassWithFullDITest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> mockit;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertEquals;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertNotNull;
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertNull;
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertSame;
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertTrue;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.runners.MethodSorters.NAME_ASCENDING;
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.lang.annotation.ElementType;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.lang.annotation.Retention;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.lang.annotation.RetentionPolicy;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.lang.annotation.Target;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> javax.persistence.Entity;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> javax.persistence.EntityManager;
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> javax.persistence.EntityManagerFactory;
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> javax.sql.DataSource;
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> org.junit.FixMethodOrder;
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertEquals;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertNotNull;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertNull;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertSame;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertTrue;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.lang.annotation.ElementType;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.lang.annotation.Retention;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.lang.annotation.RetentionPolicy;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.lang.annotation.Target;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> javax.persistence.Entity;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> javax.persistence.EntityManager;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> javax.persistence.EntityManagerFactory;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> javax.sql.DataSource;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.MethodOrderer.MethodName;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.TestMethodOrder;
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment"> * The Class TestedClassWithFullDITest.</em>
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  @FixMethodOrder(NAME_ASCENDING)
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="TestedClassWithFullDITest" href="../mockit/TestedClassWithFullDITest.html#TestedClassWithFullDITest">TestedClassWithFullDITest</a> {
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  @TestMethodOrder(MethodName.<strong class="jxr_keyword">class</strong>)
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="TestedClassWithFullDITest" href="../mockit/TestedClassWithFullDITest.html#TestedClassWithFullDITest">TestedClassWithFullDITest</a> {
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment">     * The Class TestedClass.</em>
@@ -139,7 +139,7 @@
 <a class="jxr_linenumber" name="L131" href="#L131">131</a> <em class="jxr_javadoccomment">     * Use fully initialized tested object with no injectable for first level dependency.</em>
 <a class="jxr_linenumber" name="L132" href="#L132">132</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>     @Test
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> useFullyInitializedTestedObjectWithNoInjectableForFirstLevelDependency() {
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>     <strong class="jxr_keyword">void</strong> useFullyInitializedTestedObjectWithNoInjectableForFirstLevelDependency() {
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>         assertNull(tested.name);
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>         assertSame(tested.commonDependency, tested.dependency2.dependency.commonDependency);
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>         assertNull(tested.notToBeInjected);
@@ -152,7 +152,7 @@
 <a class="jxr_linenumber" name="L144" href="#L144">144</a> <em class="jxr_javadoccomment">     *            the id</em>
 <a class="jxr_linenumber" name="L145" href="#L145">145</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>     @Test
-<a class="jxr_linenumber" name="L147" href="#L147">147</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> useFullyInitializedTestedObjectWithValueForFirstLevelDependency(@Injectable(<span class="jxr_string">"test"</span>) String id) {
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>     <strong class="jxr_keyword">void</strong> useFullyInitializedTestedObjectWithValueForFirstLevelDependency(@Injectable(<span class="jxr_string">"test"</span>) String id) {
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>         assertEquals(<span class="jxr_string">"test"</span>, tested.name);
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>         assertNull(tested.description);
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>         assertNull(tested.number);
@@ -188,7 +188,7 @@
 <a class="jxr_linenumber" name="L180" href="#L180">180</a> <em class="jxr_javadoccomment">     * Verify other tested objects get injected into first one.</em>
 <a class="jxr_linenumber" name="L181" href="#L181">181</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L182" href="#L182">182</a>     @Test
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> verifyOtherTestedObjectsGetInjectedIntoFirstOne() {
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>     <strong class="jxr_keyword">void</strong> verifyOtherTestedObjectsGetInjectedIntoFirstOne() {
 <a class="jxr_linenumber" name="L184" href="#L184">184</a>         assertSame(tested2, tested.subObj);
 <a class="jxr_linenumber" name="L185" href="#L185">185</a>         assertSame(tested3, tested.subObj2);
 <a class="jxr_linenumber" name="L186" href="#L186">186</a>         assertSame(tested3, tested.subObj.subObj);
@@ -226,7 +226,7 @@
 <a class="jxr_linenumber" name="L218" href="#L218">218</a> <em class="jxr_javadoccomment">     * Use tested object of subtype for abstract dependency type in another tested object.</em>
 <a class="jxr_linenumber" name="L219" href="#L219">219</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L220" href="#L220">220</a>     @Test
-<a class="jxr_linenumber" name="L221" href="#L221">221</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> useTestedObjectOfSubtypeForAbstractDependencyTypeInAnotherTestedObject() {
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>     <strong class="jxr_keyword">void</strong> useTestedObjectOfSubtypeForAbstractDependencyTypeInAnotherTestedObject() {
 <a class="jxr_linenumber" name="L222" href="#L222">222</a>         assertSame(concreteDependency, tested4.dependency);
 <a class="jxr_linenumber" name="L223" href="#L223">223</a>     }
 <a class="jxr_linenumber" name="L224" href="#L224">224</a> 
@@ -254,7 +254,7 @@
 <a class="jxr_linenumber" name="L246" href="#L246">246</a> <em class="jxr_javadoccomment">     * Instantiate class dependent on another having field of its own type.</em>
 <a class="jxr_linenumber" name="L247" href="#L247">247</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L248" href="#L248">248</a>     @Test
-<a class="jxr_linenumber" name="L249" href="#L249">249</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> instantiateClassDependentOnAnotherHavingFieldOfItsOwnType() {
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>     <strong class="jxr_keyword">void</strong> instantiateClassDependentOnAnotherHavingFieldOfItsOwnType() {
 <a class="jxr_linenumber" name="L250" href="#L250">250</a>         B b1 = a.b1;
 <a class="jxr_linenumber" name="L251" href="#L251">251</a>         assertNotNull(b1);
 <a class="jxr_linenumber" name="L252" href="#L252">252</a> 
@@ -285,7 +285,7 @@
 <a class="jxr_linenumber" name="L277" href="#L277">277</a> <em class="jxr_javadoccomment">     *            the tested 5</em>
 <a class="jxr_linenumber" name="L278" href="#L278">278</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L279" href="#L279">279</a>     @Test
-<a class="jxr_linenumber" name="L280" href="#L280">280</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> instantiateClassWithJPAEntityField(@Tested(fullyInitialized = <strong class="jxr_keyword">true</strong>) ClassWithJPAEntityField tested5) {
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>     <strong class="jxr_keyword">void</strong> instantiateClassWithJPAEntityField(@Tested(fullyInitialized = <strong class="jxr_keyword">true</strong>) ClassWithJPAEntityField tested5) {
 <a class="jxr_linenumber" name="L281" href="#L281">281</a>         assertNull(tested5.person);
 <a class="jxr_linenumber" name="L282" href="#L282">282</a>     }
 <a class="jxr_linenumber" name="L283" href="#L283">283</a> 
@@ -304,7 +304,7 @@
 <a class="jxr_linenumber" name="L296" href="#L296">296</a> <em class="jxr_javadoccomment">     *            the tested 5</em>
 <a class="jxr_linenumber" name="L297" href="#L297">297</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L298" href="#L298">298</a>     @Test
-<a class="jxr_linenumber" name="L299" href="#L299">299</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> instantiateClassWithNonAnnotatedDataSourceField(
+<a class="jxr_linenumber" name="L299" href="#L299">299</a>     <strong class="jxr_keyword">void</strong> instantiateClassWithNonAnnotatedDataSourceField(
 <a class="jxr_linenumber" name="L300" href="#L300">300</a>             @Tested(fullyInitialized = <strong class="jxr_keyword">true</strong>) ClassWithDataSourceField tested5) {
 <a class="jxr_linenumber" name="L301" href="#L301">301</a>         assertNull(tested5.ds);
 <a class="jxr_linenumber" name="L302" href="#L302">302</a>     }
@@ -326,7 +326,7 @@
 <a class="jxr_linenumber" name="L318" href="#L318">318</a> <em class="jxr_javadoccomment">     *            the tested 6</em>
 <a class="jxr_linenumber" name="L319" href="#L319">319</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L320" href="#L320">320</a>     @Test
-<a class="jxr_linenumber" name="L321" href="#L321">321</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> instantiateClassWithNonAnnotatedJPAFields(@Tested(fullyInitialized = <strong class="jxr_keyword">true</strong>) ClassWithJPAFields tested6) {
+<a class="jxr_linenumber" name="L321" href="#L321">321</a>     <strong class="jxr_keyword">void</strong> instantiateClassWithNonAnnotatedJPAFields(@Tested(fullyInitialized = <strong class="jxr_keyword">true</strong>) ClassWithJPAFields tested6) {
 <a class="jxr_linenumber" name="L322" href="#L322">322</a>         <em class="jxr_comment">// If an EntityManagerFactory was created for a previous test, then it got stored in the global dependency</em>
 <a class="jxr_linenumber" name="L323" href="#L323">323</a>         <em class="jxr_comment">// cache, which lasts</em>
 <a class="jxr_linenumber" name="L324" href="#L324">324</a>         <em class="jxr_comment">// until the end of the test run; therefore, the assertion needs to allow for that.</em>
@@ -364,7 +364,7 @@
 <a class="jxr_linenumber" name="L356" href="#L356">356</a> <em class="jxr_javadoccomment">     *            the cut</em>
 <a class="jxr_linenumber" name="L357" href="#L357">357</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L358" href="#L358">358</a>     @Test
-<a class="jxr_linenumber" name="L359" href="#L359">359</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> instantiateClassWithFieldToInjectWhoseTypeCannotBeInstantiated(
+<a class="jxr_linenumber" name="L359" href="#L359">359</a>     <strong class="jxr_keyword">void</strong> instantiateClassWithFieldToInjectWhoseTypeCannotBeInstantiated(
 <a class="jxr_linenumber" name="L360" href="#L360">360</a>             @Tested(fullyInitialized = <strong class="jxr_keyword">true</strong>) ClassWithFieldToInject cut) {
 <a class="jxr_linenumber" name="L361" href="#L361">361</a>         assertNotNull(cut);
 <a class="jxr_linenumber" name="L362" href="#L362">362</a>         assertNull(cut.dependency);
@@ -397,7 +397,7 @@
 <a class="jxr_linenumber" name="L389" href="#L389">389</a> <em class="jxr_javadoccomment">     *            the cut</em>
 <a class="jxr_linenumber" name="L390" href="#L390">390</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L391" href="#L391">391</a>     @Test
-<a class="jxr_linenumber" name="L392" href="#L392">392</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> instantiateClassWithInterfaceInConstructor(
+<a class="jxr_linenumber" name="L392" href="#L392">392</a>     <strong class="jxr_keyword">void</strong> instantiateClassWithInterfaceInConstructor(
 <a class="jxr_linenumber" name="L393" href="#L393">393</a>             @Tested(fullyInitialized = <strong class="jxr_keyword">true</strong>) ClassWithInterfaceInConstructor cut) {
 <a class="jxr_linenumber" name="L394" href="#L394">394</a>         assertNotNull(cut);
 <a class="jxr_linenumber" name="L395" href="#L395">395</a>     }
@@ -405,6 +405,6 @@
 <a class="jxr_linenumber" name="L397" href="#L397">397</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

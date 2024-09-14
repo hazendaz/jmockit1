@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>DelegateInvocation xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
@@ -12,27 +12,27 @@
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">package</strong> mockit.internal.expectations.invocation;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.lang.reflect.Constructor;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.lang.reflect.Member;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nullable;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Constructor;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Member;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> mockit.internal.BaseInvocation;
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> mockit.internal.expectations.state.ExecutingTest;
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> mockit.internal.state.TestRun;
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="DelegateInvocation" href="../../../../mockit/internal/expectations/invocation/DelegateInvocation.html#DelegateInvocation">DelegateInvocation</a> <strong class="jxr_keyword">extends</strong> <a name="BaseInvocation" href="../../../../mockit/internal/BaseInvocation.html#BaseInvocation">BaseInvocation</a> {
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>      @Nonnull
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>      @NonNull
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="InvocationArguments" href="../../../../mockit/internal/expectations/invocation/InvocationArguments.html#InvocationArguments">InvocationArguments</a> invocationArguments;
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>      <a name="DelegateInvocation" href="../../../../mockit/internal/expectations/invocation/DelegateInvocation.html#DelegateInvocation">DelegateInvocation</a>(@Nullable Object invokedInstance, @Nonnull Object[] invokedArguments,
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>              @Nonnull <a name="ExpectedInvocation" href="../../../../mockit/internal/expectations/invocation/ExpectedInvocation.html#ExpectedInvocation">ExpectedInvocation</a> expectedInvocation, @Nonnull <a name="InvocationConstraints" href="../../../../mockit/internal/expectations/invocation/InvocationConstraints.html#InvocationConstraints">InvocationConstraints</a> constraints) {
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>      <a name="DelegateInvocation" href="../../../../mockit/internal/expectations/invocation/DelegateInvocation.html#DelegateInvocation">DelegateInvocation</a>(@Nullable Object invokedInstance, @NonNull Object[] invokedArguments,
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>              @NonNull <a name="ExpectedInvocation" href="../../../../mockit/internal/expectations/invocation/ExpectedInvocation.html#ExpectedInvocation">ExpectedInvocation</a> expectedInvocation, @NonNull <a name="InvocationConstraints" href="../../../../mockit/internal/expectations/invocation/InvocationConstraints.html#InvocationConstraints">InvocationConstraints</a> constraints) {
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>          <strong class="jxr_keyword">super</strong>(invokedInstance, invokedArguments, constraints.invocationCount);
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>          invocationArguments = expectedInvocation.arguments;
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>      }
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>      @Nonnull
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>      @NonNull
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>      @Override
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>      <strong class="jxr_keyword">protected</strong> Member findRealMember() {
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>          <strong class="jxr_keyword">return</strong> invocationArguments.getRealMethodOrConstructor();
@@ -56,6 +56,6 @@
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>FakeClassInstantiationPerSetupTest xref</title>
 <link type="text/css" rel="stylesheet" href="../stylesheet.css" />
@@ -8,10 +8,10 @@
 <div id="overview"><a href="../../testapidocs/mockit/FakeClassInstantiationPerSetupTest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> mockit;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertEquals;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertNull;
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertSame;
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertTrue;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertEquals;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertNull;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertSame;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertTrue;
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.io.ByteArrayInputStream;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.io.IOException;
@@ -19,14 +19,14 @@
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.net.URL;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.util.Scanner;
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> org.junit.Before;
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> org.junit.BeforeClass;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.BeforeAll;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.BeforeEach;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> * The Class FakeClassInstantiationPerSetupTest.</em>
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="FakeClassInstantiationPerSetupTest" href="../mockit/FakeClassInstantiationPerSetupTest.html#FakeClassInstantiationPerSetupTest">FakeClassInstantiationPerSetupTest</a> {
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="FakeClassInstantiationPerSetupTest" href="../mockit/FakeClassInstantiationPerSetupTest.html#FakeClassInstantiationPerSetupTest">FakeClassInstantiationPerSetupTest</a> {
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment">     * The Class RealClass1.</em>
@@ -311,24 +311,24 @@
 <a class="jxr_linenumber" name="L303" href="#L303">303</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L304" href="#L304">304</a> <em class="jxr_javadoccomment">     * Sets the up class level fakes.</em>
 <a class="jxr_linenumber" name="L305" href="#L305">305</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L306" href="#L306">306</a>     @BeforeClass
-<a class="jxr_linenumber" name="L307" href="#L307">307</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> setUpClassLevelFakes() {
+<a class="jxr_linenumber" name="L306" href="#L306">306</a>     @BeforeAll
+<a class="jxr_linenumber" name="L307" href="#L307">307</a>     <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> setUpClassLevelFakes() {
 <a class="jxr_linenumber" name="L308" href="#L308">308</a>         <strong class="jxr_keyword">new</strong> FakeClass1();
 <a class="jxr_linenumber" name="L309" href="#L309">309</a>     }
 <a class="jxr_linenumber" name="L310" href="#L310">310</a> 
 <a class="jxr_linenumber" name="L311" href="#L311">311</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L312" href="#L312">312</a> <em class="jxr_javadoccomment">     * Sets the up additional class level fakes.</em>
 <a class="jxr_linenumber" name="L313" href="#L313">313</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L314" href="#L314">314</a>     @BeforeClass
-<a class="jxr_linenumber" name="L315" href="#L315">315</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> setUpAdditionalClassLevelFakes() {
+<a class="jxr_linenumber" name="L314" href="#L314">314</a>     @BeforeAll
+<a class="jxr_linenumber" name="L315" href="#L315">315</a>     <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> setUpAdditionalClassLevelFakes() {
 <a class="jxr_linenumber" name="L316" href="#L316">316</a>         <strong class="jxr_keyword">new</strong> FakeClass2();
 <a class="jxr_linenumber" name="L317" href="#L317">317</a>     }
 <a class="jxr_linenumber" name="L318" href="#L318">318</a> 
 <a class="jxr_linenumber" name="L319" href="#L319">319</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L320" href="#L320">320</a> <em class="jxr_javadoccomment">     * Sets the up method level fakes.</em>
 <a class="jxr_linenumber" name="L321" href="#L321">321</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L322" href="#L322">322</a>     @Before
-<a class="jxr_linenumber" name="L323" href="#L323">323</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setUpMethodLevelFakes() {
+<a class="jxr_linenumber" name="L322" href="#L322">322</a>     @BeforeEach
+<a class="jxr_linenumber" name="L323" href="#L323">323</a>     <strong class="jxr_keyword">void</strong> setUpMethodLevelFakes() {
 <a class="jxr_linenumber" name="L324" href="#L324">324</a>         FakeClass3.singleInstanceCreated = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L325" href="#L325">325</a>         <strong class="jxr_keyword">new</strong> FakeClass3();
 <a class="jxr_linenumber" name="L326" href="#L326">326</a>     }
@@ -337,7 +337,7 @@
 <a class="jxr_linenumber" name="L329" href="#L329">329</a> <em class="jxr_javadoccomment">     * Fake instance per setup in class and fixture scopes.</em>
 <a class="jxr_linenumber" name="L330" href="#L330">330</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L331" href="#L331">331</a>     @Test
-<a class="jxr_linenumber" name="L332" href="#L332">332</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> fakeInstancePerSetupInClassAndFixtureScopes() {
+<a class="jxr_linenumber" name="L332" href="#L332">332</a>     <strong class="jxr_keyword">void</strong> fakeInstancePerSetupInClassAndFixtureScopes() {
 <a class="jxr_linenumber" name="L333" href="#L333">333</a>         assertFakeClass1();
 <a class="jxr_linenumber" name="L334" href="#L334">334</a>         assertFakeClass2();
 <a class="jxr_linenumber" name="L335" href="#L335">335</a>         assertFakeClass3();
@@ -380,7 +380,7 @@
 <a class="jxr_linenumber" name="L372" href="#L372">372</a> <em class="jxr_javadoccomment">     * Fake instance per setup in all scopes.</em>
 <a class="jxr_linenumber" name="L373" href="#L373">373</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L374" href="#L374">374</a>     @Test
-<a class="jxr_linenumber" name="L375" href="#L375">375</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> fakeInstancePerSetupInAllScopes() {
+<a class="jxr_linenumber" name="L375" href="#L375">375</a>     <strong class="jxr_keyword">void</strong> fakeInstancePerSetupInAllScopes() {
 <a class="jxr_linenumber" name="L376" href="#L376">376</a>         <strong class="jxr_keyword">new</strong> FakeClass4();
 <a class="jxr_linenumber" name="L377" href="#L377">377</a> 
 <a class="jxr_linenumber" name="L378" href="#L378">378</a>         assertFakeClass1();
@@ -424,7 +424,7 @@
 <a class="jxr_linenumber" name="L416" href="#L416">416</a> <em class="jxr_javadoccomment">     *             the exception</em>
 <a class="jxr_linenumber" name="L417" href="#L417">417</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L418" href="#L418">418</a>     @Test
-<a class="jxr_linenumber" name="L419" href="#L419">419</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> reentrantFakeForJREClass() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L419" href="#L419">419</a>     <strong class="jxr_keyword">void</strong> reentrantFakeForJREClass() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L420" href="#L420">420</a>         <strong class="jxr_keyword">new</strong> FakeURL();
 <a class="jxr_linenumber" name="L421" href="#L421">421</a> 
 <a class="jxr_linenumber" name="L422" href="#L422">422</a>         InputStream response = <strong class="jxr_keyword">new</strong> URL(<span class="jxr_string">"http://test"</span>).openStream();
@@ -434,6 +434,6 @@
 <a class="jxr_linenumber" name="L426" href="#L426">426</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

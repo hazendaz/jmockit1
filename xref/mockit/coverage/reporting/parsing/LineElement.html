@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>LineElement xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
@@ -14,13 +14,13 @@
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> java.util.Arrays.asList;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.util.Iterator;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.util.List;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.util.NoSuchElementException;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.util.regex.Pattern;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nullable;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.util.Iterator;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.util.List;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> java.util.NoSuchElementException;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> java.util.regex.Pattern;
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="LineElement" href="../../../../mockit/coverage/reporting/parsing/LineElement.html#LineElement">LineElement</a> <strong class="jxr_keyword">implements</strong> Iterable&lt;LineElement&gt; {
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> List&lt;String&gt; CONDITIONAL_OPERATORS = asList(<span class="jxr_string">"||"</span>, <span class="jxr_string">"&amp;&amp;"</span>, <span class="jxr_string">":"</span>, <span class="jxr_string">"else"</span>, <span class="jxr_string">"?"</span>);
@@ -34,15 +34,15 @@
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>      enum ConditionalStatement {
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>          IF(<span class="jxr_string">"if"</span>), FOR(<span class="jxr_string">"for"</span>), WHILE(<span class="jxr_string">"while"</span>);
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>          @Nonnull
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>          @NonNull
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>          <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> String keyword;
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>          ConditionalStatement(@Nonnull String keyword) {
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>          ConditionalStatement(@NonNull String keyword) {
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>              <strong class="jxr_keyword">this</strong>.keyword = keyword;
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>          }
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>          @Nullable
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>          <strong class="jxr_keyword">static</strong> ConditionalStatement find(@Nonnull String keyword) {
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>          <strong class="jxr_keyword">static</strong> ConditionalStatement find(@NonNull String keyword) {
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>              <strong class="jxr_keyword">for</strong> (ConditionalStatement statement : values()) {
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>                  <strong class="jxr_keyword">if</strong> (statement.keyword.equals(keyword)) {
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>                      <strong class="jxr_keyword">return</strong> statement;
@@ -53,9 +53,9 @@
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>          }
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>      }
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>      @Nonnull
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>      @NonNull
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> ElementType type;
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>      @Nonnull
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>      @NonNull
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> String text;
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>      @Nullable
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>      <strong class="jxr_keyword">private</strong> String openingTag;
@@ -68,7 +68,7 @@
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>      <strong class="jxr_keyword">private</strong> ConditionalStatement conditionalStatement;
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> parenthesesBalance;
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>      <a name="LineElement" href="../../../../mockit/coverage/reporting/parsing/LineElement.html#LineElement">LineElement</a>(@Nonnull ElementType type, @Nonnull String text) {
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>      <a name="LineElement" href="../../../../mockit/coverage/reporting/parsing/LineElement.html#LineElement">LineElement</a>(@NonNull ElementType type, @NonNull String text) {
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>          <strong class="jxr_keyword">this</strong>.type = type;
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          <strong class="jxr_keyword">this</strong>.text = OPEN_TAG.matcher(text).replaceAll(<span class="jxr_string">"&amp;lt;"</span>);
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>      }
@@ -81,7 +81,7 @@
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>          <strong class="jxr_keyword">return</strong> type == ElementType.COMMENT;
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>      }
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>  
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isKeyword(@Nonnull String keyword) {
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isKeyword(@NonNull String keyword) {
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>          <strong class="jxr_keyword">return</strong> isCode() &amp;&amp; text.equals(keyword);
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>      }
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>  
@@ -89,7 +89,7 @@
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>          <strong class="jxr_keyword">return</strong> type == ElementType.SEPARATOR &amp;&amp; text.charAt(0) == '.';
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>      }
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>  
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>      @Nonnull
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>      @NonNull
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>      <strong class="jxr_keyword">public</strong> String getText() {
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>          <strong class="jxr_keyword">return</strong> text;
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>      }
@@ -116,13 +116,13 @@
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>     }
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> 
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> wrapText(@Nonnull String desiredOpeningTag, @Nonnull String desiredClosingTag) {
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> wrapText(@NonNull String desiredOpeningTag, @NonNull String desiredClosingTag) {
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>         openingTag = desiredOpeningTag;
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         closingTag = desiredClosingTag;
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>     }
 <a class="jxr_linenumber" name="L115" href="#L115">115</a> 
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>     @Nullable
-<a class="jxr_linenumber" name="L117" href="#L117">117</a>     <strong class="jxr_keyword">public</strong> <a name="LineElement" href="../../../../mockit/coverage/reporting/parsing/LineElement.html#LineElement">LineElement</a> appendUntilNextCodeElement(@Nonnull StringBuilder line) {
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>     <strong class="jxr_keyword">public</strong> <a name="LineElement" href="../../../../mockit/coverage/reporting/parsing/LineElement.html#LineElement">LineElement</a> appendUntilNextCodeElement(@NonNull StringBuilder line) {
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>         <a name="LineElement" href="../../../../mockit/coverage/reporting/parsing/LineElement.html#LineElement">LineElement</a> element = <strong class="jxr_keyword">this</strong>;
 <a class="jxr_linenumber" name="L119" href="#L119">119</a> 
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>         <strong class="jxr_keyword">while</strong> (!element.isCode()) {
@@ -139,12 +139,12 @@
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>         <strong class="jxr_keyword">return</strong> element;
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>     }
 <a class="jxr_linenumber" name="L133" href="#L133">133</a> 
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> copyConditionalTrackingState(@Nonnull <a name="LineElement" href="../../../../mockit/coverage/reporting/parsing/LineElement.html#LineElement">LineElement</a> destination) {
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> copyConditionalTrackingState(@NonNull <a name="LineElement" href="../../../../mockit/coverage/reporting/parsing/LineElement.html#LineElement">LineElement</a> destination) {
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>         destination.conditionalStatement = conditionalStatement;
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>         destination.parenthesesBalance = parenthesesBalance;
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>     }
 <a class="jxr_linenumber" name="L138" href="#L138">138</a> 
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> appendText(@Nonnull StringBuilder line) {
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> appendText(@NonNull StringBuilder line) {
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>         <strong class="jxr_keyword">if</strong> (openingTag == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L141" href="#L141">141</a>             line.append(text);
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>         } <strong class="jxr_keyword">else</strong> {
@@ -219,7 +219,7 @@
 <a class="jxr_linenumber" name="L211" href="#L211">211</a>     }
 <a class="jxr_linenumber" name="L212" href="#L212">212</a> 
 <a class="jxr_linenumber" name="L213" href="#L213">213</a>     @Nullable
-<a class="jxr_linenumber" name="L214" href="#L214">214</a>     <strong class="jxr_keyword">public</strong> <a name="LineElement" href="../../../../mockit/coverage/reporting/parsing/LineElement.html#LineElement">LineElement</a> findWord(@Nonnull String word) {
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>     <strong class="jxr_keyword">public</strong> <a name="LineElement" href="../../../../mockit/coverage/reporting/parsing/LineElement.html#LineElement">LineElement</a> findWord(@NonNull String word) {
 <a class="jxr_linenumber" name="L215" href="#L215">215</a>         <strong class="jxr_keyword">for</strong> (<a name="LineElement" href="../../../../mockit/coverage/reporting/parsing/LineElement.html#LineElement">LineElement</a> element : <strong class="jxr_keyword">this</strong>) {
 <a class="jxr_linenumber" name="L216" href="#L216">216</a>             <strong class="jxr_keyword">if</strong> (element.isCode() &amp;&amp; word.equals(element.text)) {
 <a class="jxr_linenumber" name="L217" href="#L217">217</a>                 <strong class="jxr_keyword">return</strong> element;
@@ -254,7 +254,7 @@
 <a class="jxr_linenumber" name="L246" href="#L246">246</a>         <strong class="jxr_keyword">return</strong> 0;
 <a class="jxr_linenumber" name="L247" href="#L247">247</a>     }
 <a class="jxr_linenumber" name="L248" href="#L248">248</a> 
-<a class="jxr_linenumber" name="L249" href="#L249">249</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> appendAllBefore(@Nonnull StringBuilder line, @Nullable <a name="LineElement" href="../../../../mockit/coverage/reporting/parsing/LineElement.html#LineElement">LineElement</a> elementToStopBefore) {
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> appendAllBefore(@NonNull StringBuilder line, @Nullable <a name="LineElement" href="../../../../mockit/coverage/reporting/parsing/LineElement.html#LineElement">LineElement</a> elementToStopBefore) {
 <a class="jxr_linenumber" name="L250" href="#L250">250</a>         <a name="LineElement" href="../../../../mockit/coverage/reporting/parsing/LineElement.html#LineElement">LineElement</a> elementToPrint = <strong class="jxr_keyword">this</strong>;
 <a class="jxr_linenumber" name="L251" href="#L251">251</a> 
 <a class="jxr_linenumber" name="L252" href="#L252">252</a>         <strong class="jxr_keyword">do</strong> {
@@ -263,7 +263,7 @@
 <a class="jxr_linenumber" name="L255" href="#L255">255</a>         } <strong class="jxr_keyword">while</strong> (elementToPrint != <strong class="jxr_keyword">null</strong> &amp;&amp; elementToPrint != elementToStopBefore);
 <a class="jxr_linenumber" name="L256" href="#L256">256</a>     }
 <a class="jxr_linenumber" name="L257" href="#L257">257</a> 
-<a class="jxr_linenumber" name="L258" href="#L258">258</a>     @Nonnull
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>     @NonNull
 <a class="jxr_linenumber" name="L259" href="#L259">259</a>     @Override
 <a class="jxr_linenumber" name="L260" href="#L260">260</a>     <strong class="jxr_keyword">public</strong> Iterator&lt;LineElement&gt; iterator() {
 <a class="jxr_linenumber" name="L261" href="#L261">261</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> Iterator&lt;&gt;() {
@@ -275,7 +275,7 @@
 <a class="jxr_linenumber" name="L267" href="#L267">267</a>                 <strong class="jxr_keyword">return</strong> current != <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L268" href="#L268">268</a>             }
 <a class="jxr_linenumber" name="L269" href="#L269">269</a> 
-<a class="jxr_linenumber" name="L270" href="#L270">270</a>             @Nonnull
+<a class="jxr_linenumber" name="L270" href="#L270">270</a>             @NonNull
 <a class="jxr_linenumber" name="L271" href="#L271">271</a>             @Override
 <a class="jxr_linenumber" name="L272" href="#L272">272</a>             <strong class="jxr_keyword">public</strong> <a name="LineElement" href="../../../../mockit/coverage/reporting/parsing/LineElement.html#LineElement">LineElement</a> next() {
 <a class="jxr_linenumber" name="L273" href="#L273">273</a>                 <strong class="jxr_keyword">if</strong> (current == <strong class="jxr_keyword">null</strong>) {
@@ -307,6 +307,6 @@
 <a class="jxr_linenumber" name="L299" href="#L299">299</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

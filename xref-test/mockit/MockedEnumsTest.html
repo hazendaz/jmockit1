@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>MockedEnumsTest xref</title>
 <link type="text/css" rel="stylesheet" href="../stylesheet.css" />
@@ -8,20 +8,20 @@
 <div id="overview"><a href="../../testapidocs/mockit/MockedEnumsTest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> mockit;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertEquals;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertNotNull;
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertNull;
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertSame;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertEquals;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertNotNull;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertNull;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertSame;
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.lang.annotation.RetentionPolicy;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.util.concurrent.TimeUnit;
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> * The Class MockedEnumsTest.</em>
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="MockedEnumsTest" href="../mockit/MockedEnumsTest.html#MockedEnumsTest">MockedEnumsTest</a> {
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="MockedEnumsTest" href="../mockit/MockedEnumsTest.html#MockedEnumsTest">MockedEnumsTest</a> {
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment">     * The Enum MyEnum.</em>
@@ -88,7 +88,7 @@
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>  <em class="jxr_javadoccomment">     *            the e</em>
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>      @Test
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> oneEnumBeingMockedMustNotAffectOtherEnums(@Mocked MyEnum e) {
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>      <strong class="jxr_keyword">void</strong> oneEnumBeingMockedMustNotAffectOtherEnums(@Mocked MyEnum e) {
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>          assertNotNull(RetentionPolicy.valueOf(<span class="jxr_string">"RUNTIME"</span>));
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>      }
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  
@@ -99,7 +99,7 @@
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>  <em class="jxr_javadoccomment">     *            the mock</em>
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>      @Test
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> mockEnumValues(@Mocked <strong class="jxr_keyword">final</strong> MyEnum mock) {
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>      <strong class="jxr_keyword">void</strong> mockEnumValues(@Mocked <strong class="jxr_keyword">final</strong> MyEnum mock) {
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>          <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>              {
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>                  MyEnum.values();
@@ -123,7 +123,7 @@
 <a class="jxr_linenumber" name="L115" href="#L115">115</a> <em class="jxr_javadoccomment">     *            the any enum</em>
 <a class="jxr_linenumber" name="L116" href="#L116">116</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L117" href="#L117">117</a>     @Test
-<a class="jxr_linenumber" name="L118" href="#L118">118</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> mockInstanceMethodOnAnyEnumElement(@Mocked <strong class="jxr_keyword">final</strong> MyEnum anyEnum) {
+<a class="jxr_linenumber" name="L118" href="#L118">118</a>     <strong class="jxr_keyword">void</strong> mockInstanceMethodOnAnyEnumElement(@Mocked <strong class="jxr_keyword">final</strong> MyEnum anyEnum) {
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">double</strong> f = 2.5;
 <a class="jxr_linenumber" name="L120" href="#L120">120</a> 
 <a class="jxr_linenumber" name="L121" href="#L121">121</a>         <strong class="jxr_keyword">new</strong> Expectations() {
@@ -144,7 +144,7 @@
 <a class="jxr_linenumber" name="L136" href="#L136">136</a> <em class="jxr_javadoccomment">     *            the any enum</em>
 <a class="jxr_linenumber" name="L137" href="#L137">137</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>     @Test
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> verifyInstanceMethodInvocationOnAnyEnumElement(@Mocked MyEnum anyEnum) {
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>     <strong class="jxr_keyword">void</strong> verifyInstanceMethodInvocationOnAnyEnumElement(@Mocked MyEnum anyEnum) {
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>         assertNull(MyEnum.First.getDescription());
 <a class="jxr_linenumber" name="L141" href="#L141">141</a>         assertNull(MyEnum.Second.getDescription());
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>         assertNull(anyEnum.getDescription());
@@ -166,7 +166,7 @@
 <a class="jxr_linenumber" name="L158" href="#L158">158</a> <em class="jxr_javadoccomment">     *            the mock 2</em>
 <a class="jxr_linenumber" name="L159" href="#L159">159</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>     @Test
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> mockSpecificEnumElementsByUsingTwoMockInstances(@Mocked MyEnum mock1, @Mocked MyEnum mock2) {
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>     <strong class="jxr_keyword">void</strong> mockSpecificEnumElementsByUsingTwoMockInstances(@Mocked MyEnum mock1, @Mocked MyEnum mock2) {
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>             {
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>                 MyEnum.First.getValue(anyDouble);
@@ -187,7 +187,7 @@
 <a class="jxr_linenumber" name="L179" href="#L179">179</a> <em class="jxr_javadoccomment">     *            the unused</em>
 <a class="jxr_linenumber" name="L180" href="#L180">180</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>     @Test
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> mockSpecificEnumElementsEvenWhenUsingASingleMockInstance(@Mocked MyEnum unused) {
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>     <strong class="jxr_keyword">void</strong> mockSpecificEnumElementsEvenWhenUsingASingleMockInstance(@Mocked MyEnum unused) {
 <a class="jxr_linenumber" name="L183" href="#L183">183</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L184" href="#L184">184</a>             {
 <a class="jxr_linenumber" name="L185" href="#L185">185</a>                 MyEnum.First.getValue(anyDouble);
@@ -218,7 +218,7 @@
 <a class="jxr_linenumber" name="L210" href="#L210">210</a> <em class="jxr_javadoccomment">     *             the exception</em>
 <a class="jxr_linenumber" name="L211" href="#L211">211</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L212" href="#L212">212</a>     @Test
-<a class="jxr_linenumber" name="L213" href="#L213">213</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> mockNonAbstractMethodsInEnumWithAbstractMethod(@Mocked <strong class="jxr_keyword">final</strong> TimeUnit tm) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L213" href="#L213">213</a>     <strong class="jxr_keyword">void</strong> mockNonAbstractMethodsInEnumWithAbstractMethod(@Mocked <strong class="jxr_keyword">final</strong> TimeUnit tm) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L214" href="#L214">214</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L215" href="#L215">215</a>             {
 <a class="jxr_linenumber" name="L216" href="#L216">216</a>                 tm.convert(anyLong, TimeUnit.SECONDS);
@@ -287,7 +287,7 @@
 <a class="jxr_linenumber" name="L279" href="#L279">279</a> <em class="jxr_javadoccomment">     *            the mocked enum</em>
 <a class="jxr_linenumber" name="L280" href="#L280">280</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L281" href="#L281">281</a>     @Test
-<a class="jxr_linenumber" name="L282" href="#L282">282</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> mockEnumWithValueSpecificMethods(@Mocked EnumWithValueSpecificMethods mockedEnum) {
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>     <strong class="jxr_keyword">void</strong> mockEnumWithValueSpecificMethods(@Mocked EnumWithValueSpecificMethods mockedEnum) {
 <a class="jxr_linenumber" name="L283" href="#L283">283</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L284" href="#L284">284</a>             {
 <a class="jxr_linenumber" name="L285" href="#L285">285</a>                 EnumWithValueSpecificMethods.One.getValue();
@@ -344,7 +344,7 @@
 <a class="jxr_linenumber" name="L336" href="#L336">336</a> <em class="jxr_javadoccomment">     *            the mock</em>
 <a class="jxr_linenumber" name="L337" href="#L337">337</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L338" href="#L338">338</a>     @Test
-<a class="jxr_linenumber" name="L339" href="#L339">339</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> cascadedEnum(@Mocked <strong class="jxr_keyword">final</strong> InterfaceWhichReturnsAnEnum mock) {
+<a class="jxr_linenumber" name="L339" href="#L339">339</a>     <strong class="jxr_keyword">void</strong> cascadedEnum(@Mocked <strong class="jxr_keyword">final</strong> InterfaceWhichReturnsAnEnum mock) {
 <a class="jxr_linenumber" name="L340" href="#L340">340</a>         <strong class="jxr_keyword">final</strong> Foo foo = Foo.FOO;
 <a class="jxr_linenumber" name="L341" href="#L341">341</a> 
 <a class="jxr_linenumber" name="L342" href="#L342">342</a>         <strong class="jxr_keyword">new</strong> Expectations() {
@@ -361,6 +361,6 @@
 <a class="jxr_linenumber" name="L353" href="#L353">353</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

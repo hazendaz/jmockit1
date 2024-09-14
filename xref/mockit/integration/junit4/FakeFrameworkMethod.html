@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>FakeFrameworkMethod xref</title>
 <link type="text/css" rel="stylesheet" href="../../../stylesheet.css" />
@@ -12,11 +12,11 @@
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">package</strong> mockit.integration.junit4;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.lang.annotation.Annotation;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.util.List;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nullable;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.lang.annotation.Annotation;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.util.List;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> mockit.Expectations;
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> mockit.Invocation;
@@ -36,17 +36,17 @@
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment"> * This class is not supposed to be accessed from user code. JMockit will automatically load it at startup.</em>
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="FakeFrameworkMethod" href="../../../mockit/integration/junit4/FakeFrameworkMethod.html#FakeFrameworkMethod">FakeFrameworkMethod</a> <strong class="jxr_keyword">extends</strong> MockUp&lt;FrameworkMethod&gt; {
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>      @Nonnull
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>      @NonNull
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="JUnit4TestRunnerDecorator" href="../../../mockit/integration/junit4/JUnit4TestRunnerDecorator.html#JUnit4TestRunnerDecorator">JUnit4TestRunnerDecorator</a> decorator = <strong class="jxr_keyword">new</strong> <a name="JUnit4TestRunnerDecorator" href="../../../mockit/integration/junit4/JUnit4TestRunnerDecorator.html#JUnit4TestRunnerDecorator">JUnit4TestRunnerDecorator</a>();
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>      @Nullable
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>      @Mock
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">public</strong> Object invokeExplosively(@Nonnull <a name="Invocation" href="../../../mockit/Invocation.html#Invocation">Invocation</a> invocation, Object target, Object... params) <strong class="jxr_keyword">throws</strong> Throwable {
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">public</strong> Object invokeExplosively(@NonNull <a name="Invocation" href="../../../mockit/Invocation.html#Invocation">Invocation</a> invocation, Object target, Object... params) <strong class="jxr_keyword">throws</strong> Throwable {
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>          <strong class="jxr_keyword">return</strong> decorator.invokeExplosively((<a name="FakeInvocation" href="../../../mockit/internal/faking/FakeInvocation.html#FakeInvocation">FakeInvocation</a>) invocation, target, params);
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>      }
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>      @Mock
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> validatePublicVoidNoArg(@Nonnull <a name="Invocation" href="../../../mockit/Invocation.html#Invocation">Invocation</a> invocation, <strong class="jxr_keyword">boolean</strong> isStatic,
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> validatePublicVoidNoArg(@NonNull <a name="Invocation" href="../../../mockit/Invocation.html#Invocation">Invocation</a> invocation, <strong class="jxr_keyword">boolean</strong> isStatic,
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>              List&lt;Throwable&gt; errors) {
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>          FrameworkMethod it = invocation.getInvokedInstance();
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>          assert it != <strong class="jxr_keyword">null</strong>;
@@ -69,7 +69,7 @@
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>      }
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> eachParameterContainsAKnownAnnotation(
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>              @Nonnull Annotation[][] parametersAndTheirAnnotations) {
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>              @NonNull Annotation[][] parametersAndTheirAnnotations) {
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          <strong class="jxr_keyword">if</strong> (parametersAndTheirAnnotations.length == 0) {
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>              <strong class="jxr_keyword">return</strong> false;
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          }
@@ -83,7 +83,7 @@
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>      }
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>  
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> containsAKnownAnnotation(@Nonnull Annotation[] parameterAnnotations) {
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> containsAKnownAnnotation(@NonNull Annotation[] parameterAnnotations) {
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>          <strong class="jxr_keyword">if</strong> (parameterAnnotations.length == 0) {
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>              <strong class="jxr_keyword">return</strong> false;
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>          }
@@ -103,6 +103,6 @@
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

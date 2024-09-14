@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>MultiThreadedExpectationsTest xref</title>
 <link type="text/css" rel="stylesheet" href="../stylesheet.css" />
@@ -8,23 +8,23 @@
 <div id="overview"><a href="../../testapidocs/mockit/MultiThreadedExpectationsTest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> mockit;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertEquals;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertTrue;
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.runners.MethodSorters.NAME_ASCENDING;
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.awt.Graphics2D;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.util.concurrent.Callable;
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> javax.swing.SwingUtilities;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> org.junit.FixMethodOrder;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertEquals;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertTrue;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> java.awt.Graphics2D;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.util.concurrent.Callable;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> javax.swing.SwingUtilities;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.MethodOrderer.MethodName;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.TestMethodOrder;
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment"> * The Class MultiThreadedExpectationsTest.</em>
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  @FixMethodOrder(NAME_ASCENDING)
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="MultiThreadedExpectationsTest" href="../mockit/MultiThreadedExpectationsTest.html#MultiThreadedExpectationsTest">MultiThreadedExpectationsTest</a> {
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  @TestMethodOrder(MethodName.<strong class="jxr_keyword">class</strong>)
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="MultiThreadedExpectationsTest" href="../mockit/MultiThreadedExpectationsTest.html#MultiThreadedExpectationsTest">MultiThreadedExpectationsTest</a> {
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment">     * The Class Collaborator.</em>
@@ -72,7 +72,7 @@
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment">     * Use mocked object from worker thread while verifying expectation.</em>
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>      @Test
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> useMockedObjectFromWorkerThreadWhileVerifyingExpectation() {
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>      <strong class="jxr_keyword">void</strong> useMockedObjectFromWorkerThreadWhileVerifyingExpectation() {
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>          mock.doSomething();
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>          mock.doSomething();
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>  
@@ -89,7 +89,7 @@
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">     * Use mocked object from worker thread while recording and verifying expectation.</em>
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>      @Test
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> useMockedObjectFromWorkerThreadWhileRecordingAndVerifyingExpectation() {
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>      <strong class="jxr_keyword">void</strong> useMockedObjectFromWorkerThreadWhileRecordingAndVerifyingExpectation() {
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>          <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>              {
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>                  mock.doSomething();
@@ -117,7 +117,7 @@
 <a class="jxr_linenumber" name="L109" href="#L109">109</a> <em class="jxr_javadoccomment">     *             the exception</em>
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>     @Test
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> replayRecordedExpectationFromAnotherThread() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>     <strong class="jxr_keyword">void</strong> replayRecordedExpectationFromAnotherThread() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>             {
 <a class="jxr_linenumber" name="L115" href="#L115">115</a>                 mock.doSomething();
@@ -163,7 +163,7 @@
 <a class="jxr_linenumber" name="L155" href="#L155">155</a> <em class="jxr_javadoccomment">     *            the runnable</em>
 <a class="jxr_linenumber" name="L156" href="#L156">156</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>     @Test
-<a class="jxr_linenumber" name="L158" href="#L158">158</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> verifyInvocationsReplayedInAnotherThreadWhoseClassIsNoLongerMocked(@Mocked <strong class="jxr_keyword">final</strong> Dependency dep,
+<a class="jxr_linenumber" name="L158" href="#L158">158</a>     <strong class="jxr_keyword">void</strong> verifyInvocationsReplayedInAnotherThreadWhoseClassIsNoLongerMocked(@Mocked <strong class="jxr_keyword">final</strong> Dependency dep,
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>             @Mocked <strong class="jxr_keyword">final</strong> Graphics2D g2D, @Mocked <strong class="jxr_keyword">final</strong> Runnable runnable) {
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>         <strong class="jxr_keyword">new</strong> Thread() {
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>             @Override
@@ -198,7 +198,7 @@
 <a class="jxr_linenumber" name="L190" href="#L190">190</a> <em class="jxr_javadoccomment">     *             the exception</em>
 <a class="jxr_linenumber" name="L191" href="#L191">191</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L192" href="#L192">192</a>     @Test
-<a class="jxr_linenumber" name="L193" href="#L193">193</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> invokeMethodOnMockedPublicInterfaceFromEDT(@Mocked <strong class="jxr_keyword">final</strong> APublicInterface mock2) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L193" href="#L193">193</a>     <strong class="jxr_keyword">void</strong> invokeMethodOnMockedPublicInterfaceFromEDT(@Mocked <strong class="jxr_keyword">final</strong> APublicInterface mock2) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L194" href="#L194">194</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L195" href="#L195">195</a>             {
 <a class="jxr_linenumber" name="L196" href="#L196">196</a>                 mock2.doSomething();
@@ -233,7 +233,7 @@
 <a class="jxr_linenumber" name="L225" href="#L225">225</a> <em class="jxr_javadoccomment">     *             the exception</em>
 <a class="jxr_linenumber" name="L226" href="#L226">226</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L227" href="#L227">227</a>     @Test
-<a class="jxr_linenumber" name="L228" href="#L228">228</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> invokeMethodOnMockedAbstractClassFromEDT(@Mocked <strong class="jxr_keyword">final</strong> AnAbstractClass mock2) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L228" href="#L228">228</a>     <strong class="jxr_keyword">void</strong> invokeMethodOnMockedAbstractClassFromEDT(@Mocked <strong class="jxr_keyword">final</strong> AnAbstractClass mock2) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L229" href="#L229">229</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L230" href="#L230">230</a>             {
 <a class="jxr_linenumber" name="L231" href="#L231">231</a>                 mock2.doSomething();
@@ -256,7 +256,7 @@
 <a class="jxr_linenumber" name="L248" href="#L248">248</a> <em class="jxr_javadoccomment">     *             the exception</em>
 <a class="jxr_linenumber" name="L249" href="#L249">249</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L250" href="#L250">250</a>     @Test
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> invokeMethodOnMockedGenericInterfaceFromEDT(@Mocked <strong class="jxr_keyword">final</strong> Callable&lt;Boolean&gt; mock2) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>     <strong class="jxr_keyword">void</strong> invokeMethodOnMockedGenericInterfaceFromEDT(@Mocked <strong class="jxr_keyword">final</strong> Callable&lt;Boolean&gt; mock2) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L252" href="#L252">252</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L253" href="#L253">253</a>             {
 <a class="jxr_linenumber" name="L254" href="#L254">254</a>                 mock2.call();
@@ -277,6 +277,6 @@
 <a class="jxr_linenumber" name="L269" href="#L269">269</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

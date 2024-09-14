@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>TestedClassWithGenericSubtypesTest xref</title>
 <link type="text/css" rel="stylesheet" href="../stylesheet.css" />
@@ -8,16 +8,16 @@
 <div id="overview"><a href="../../testapidocs/mockit/TestedClassWithGenericSubtypesTest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> mockit;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertNotNull;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertSame;
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertTrue;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertNotNull;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertSame;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertTrue;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * The Class TestedClassWithGenericSubtypesTest.</em>
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="TestedClassWithGenericSubtypesTest" href="../mockit/TestedClassWithGenericSubtypesTest.html#TestedClassWithGenericSubtypesTest">TestedClassWithGenericSubtypesTest</a> {
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="TestedClassWithGenericSubtypesTest" href="../mockit/TestedClassWithGenericSubtypesTest.html#TestedClassWithGenericSubtypesTest">TestedClassWithGenericSubtypesTest</a> {
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment">     * The Class GenericClass.</em>
@@ -65,7 +65,7 @@
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment">     *            the s 2</em>
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>      @Test
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> injectSubclassInstancesIntoFieldsOfBaseGenericClass(@Tested SUT1 sut, @Injectable Subclass1 s1,
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>      <strong class="jxr_keyword">void</strong> injectSubclassInstancesIntoFieldsOfBaseGenericClass(@Tested SUT1 sut, @Injectable Subclass1 s1,
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>              @Injectable Subclass2 s2) {
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>          assertSame(s1, sut.dependency1);
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>          assertSame(s2, sut.dependency2);
@@ -129,7 +129,7 @@
 <a class="jxr_linenumber" name="L121" href="#L121">121</a> <em class="jxr_javadoccomment">     *            the i 2</em>
 <a class="jxr_linenumber" name="L122" href="#L122">122</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>     @Test
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> injectImplementationInstancesIntoFieldsOfBaseGenericInterface(@Tested SUT2 sut, @Injectable Impl1 i1,
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>     <strong class="jxr_keyword">void</strong> injectImplementationInstancesIntoFieldsOfBaseGenericInterface(@Tested SUT2 sut, @Injectable Impl1 i1,
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>             @Injectable Impl2 i2) {
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>         assertSame(i1, sut.dependency1);
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>         assertSame(i2, sut.dependency2);
@@ -162,7 +162,7 @@
 <a class="jxr_linenumber" name="L154" href="#L154">154</a> <em class="jxr_javadoccomment">     *            the service 2</em>
 <a class="jxr_linenumber" name="L155" href="#L155">155</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L156" href="#L156">156</a>     @Test
-<a class="jxr_linenumber" name="L157" href="#L157">157</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> injectInstanceIntoTypeVariableOfSecondLevelClass(@Tested(fullyInitialized = <strong class="jxr_keyword">true</strong>) Service2 service2) {
+<a class="jxr_linenumber" name="L157" href="#L157">157</a>     <strong class="jxr_keyword">void</strong> injectInstanceIntoTypeVariableOfSecondLevelClass(@Tested(fullyInitialized = <strong class="jxr_keyword">true</strong>) Service2 service2) {
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>         Service1 service1 = service2.service1;
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>         assertNotNull(service1);
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>         assertTrue(service1.value instanceof Dependency);
@@ -170,6 +170,6 @@
 <a class="jxr_linenumber" name="L162" href="#L162">162</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

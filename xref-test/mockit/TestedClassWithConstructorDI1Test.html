@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>TestedClassWithConstructorDI1Test xref</title>
 <link type="text/css" rel="stylesheet" href="../stylesheet.css" />
@@ -8,22 +8,22 @@
 <div id="overview"><a href="../../testapidocs/mockit/TestedClassWithConstructorDI1Test.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> mockit;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertEquals;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertTrue;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertEquals;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertTrue;
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> java.util.Observable;
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> javax.annotation.PostConstruct;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> javax.annotation.PreDestroy;
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.junit.After;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> org.junit.Before;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.AfterEach;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.BeforeEach;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment"> * The Class TestedClassWithConstructorDI1Test.</em>
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="TestedClassWithConstructorDI1Test" href="../mockit/TestedClassWithConstructorDI1Test.html#TestedClassWithConstructorDI1Test">TestedClassWithConstructorDI1Test</a> {
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="TestedClassWithConstructorDI1Test" href="../mockit/TestedClassWithConstructorDI1Test.html#TestedClassWithConstructorDI1Test">TestedClassWithConstructorDI1Test</a> {
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment">     * The Class BaseTestedClass.</em>
@@ -179,7 +179,7 @@
 <a class="jxr_linenumber" name="L171" href="#L171">171</a> <em class="jxr_javadoccomment">     * Exercise tested object with single dependency injected through constructor.</em>
 <a class="jxr_linenumber" name="L172" href="#L172">172</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>     @Test
-<a class="jxr_linenumber" name="L174" href="#L174">174</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> exerciseTestedObjectWithSingleDependencyInjectedThroughConstructor() {
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>     <strong class="jxr_keyword">void</strong> exerciseTestedObjectWithSingleDependencyInjectedThroughConstructor() {
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>         assertTestedObjectWasInitialized();
 <a class="jxr_linenumber" name="L176" href="#L176">176</a> 
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>         <strong class="jxr_keyword">new</strong> Expectations() {
@@ -199,7 +199,7 @@
 <a class="jxr_linenumber" name="L191" href="#L191">191</a> <em class="jxr_javadoccomment">     *            the mock 2</em>
 <a class="jxr_linenumber" name="L192" href="#L192">192</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L193" href="#L193">193</a>     @Test
-<a class="jxr_linenumber" name="L194" href="#L194">194</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> exerciseTestedObjectWithTwoDependenciesInjectedThroughConstructor(@Injectable <strong class="jxr_keyword">final</strong> Runnable mock2) {
+<a class="jxr_linenumber" name="L194" href="#L194">194</a>     <strong class="jxr_keyword">void</strong> exerciseTestedObjectWithTwoDependenciesInjectedThroughConstructor(@Injectable <strong class="jxr_keyword">final</strong> Runnable mock2) {
 <a class="jxr_linenumber" name="L195" href="#L195">195</a>         assertTestedObjectWasInitialized();
 <a class="jxr_linenumber" name="L196" href="#L196">196</a> 
 <a class="jxr_linenumber" name="L197" href="#L197">197</a>         <strong class="jxr_keyword">new</strong> Expectations() {
@@ -225,84 +225,83 @@
 <a class="jxr_linenumber" name="L217" href="#L217">217</a> <em class="jxr_javadoccomment">     *            the obs</em>
 <a class="jxr_linenumber" name="L218" href="#L218">218</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L219" href="#L219">219</a>     @Test
-<a class="jxr_linenumber" name="L220" href="#L220">220</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> exerciseTestedObjectWithTwoOtherDependenciesInjectedThroughConstructor(
-<a class="jxr_linenumber" name="L221" href="#L221">221</a>             @Injectable <strong class="jxr_keyword">final</strong> Observable obs) {
-<a class="jxr_linenumber" name="L222" href="#L222">222</a>         assertTestedObjectWasInitialized();
-<a class="jxr_linenumber" name="L223" href="#L223">223</a> 
-<a class="jxr_linenumber" name="L224" href="#L224">224</a>         <strong class="jxr_keyword">new</strong> Expectations() {
-<a class="jxr_linenumber" name="L225" href="#L225">225</a>             {
-<a class="jxr_linenumber" name="L226" href="#L226">226</a>                 mock.doSomething();
-<a class="jxr_linenumber" name="L227" href="#L227">227</a>                 result = 123;
-<a class="jxr_linenumber" name="L228" href="#L228">228</a>             }
-<a class="jxr_linenumber" name="L229" href="#L229">229</a>         };
-<a class="jxr_linenumber" name="L230" href="#L230">230</a> 
-<a class="jxr_linenumber" name="L231" href="#L231">231</a>         assertTrue(tested.doSomeOperation());
-<a class="jxr_linenumber" name="L232" href="#L232">232</a> 
-<a class="jxr_linenumber" name="L233" href="#L233">233</a>         <strong class="jxr_keyword">new</strong> FullVerifications() {
-<a class="jxr_linenumber" name="L234" href="#L234">234</a>             {
-<a class="jxr_linenumber" name="L235" href="#L235">235</a>                 obs.notifyObservers();
-<a class="jxr_linenumber" name="L236" href="#L236">236</a>             }
-<a class="jxr_linenumber" name="L237" href="#L237">237</a>         };
-<a class="jxr_linenumber" name="L238" href="#L238">238</a>     }
-<a class="jxr_linenumber" name="L239" href="#L239">239</a> 
-<a class="jxr_linenumber" name="L240" href="#L240">240</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L241" href="#L241">241</a> <em class="jxr_javadoccomment">     * Exercise tested object with all dependencies injected through constructor.</em>
-<a class="jxr_linenumber" name="L242" href="#L242">242</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L243" href="#L243">243</a> <em class="jxr_javadoccomment">     * @param mock2</em>
-<a class="jxr_linenumber" name="L244" href="#L244">244</a> <em class="jxr_javadoccomment">     *            the mock 2</em>
-<a class="jxr_linenumber" name="L245" href="#L245">245</a> <em class="jxr_javadoccomment">     * @param mock3</em>
-<a class="jxr_linenumber" name="L246" href="#L246">246</a> <em class="jxr_javadoccomment">     *            the mock 3</em>
-<a class="jxr_linenumber" name="L247" href="#L247">247</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L248" href="#L248">248</a>     @Test
-<a class="jxr_linenumber" name="L249" href="#L249">249</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> exerciseTestedObjectWithAllDependenciesInjectedThroughConstructor(@Injectable <strong class="jxr_keyword">final</strong> Runnable mock2,
-<a class="jxr_linenumber" name="L250" href="#L250">250</a>             @Injectable <strong class="jxr_keyword">final</strong> Observable mock3) {
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>         assertTestedObjectWasInitialized();
-<a class="jxr_linenumber" name="L252" href="#L252">252</a> 
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>         <strong class="jxr_keyword">new</strong> Expectations() {
-<a class="jxr_linenumber" name="L254" href="#L254">254</a>             {
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>                 mock.doSomething();
-<a class="jxr_linenumber" name="L256" href="#L256">256</a>                 result = 123;
-<a class="jxr_linenumber" name="L257" href="#L257">257</a>             }
-<a class="jxr_linenumber" name="L258" href="#L258">258</a>         };
-<a class="jxr_linenumber" name="L259" href="#L259">259</a> 
-<a class="jxr_linenumber" name="L260" href="#L260">260</a>         assertTrue(tested.doSomeOperation());
-<a class="jxr_linenumber" name="L261" href="#L261">261</a> 
-<a class="jxr_linenumber" name="L262" href="#L262">262</a>         <strong class="jxr_keyword">new</strong> VerificationsInOrder() {
-<a class="jxr_linenumber" name="L263" href="#L263">263</a>             {
-<a class="jxr_linenumber" name="L264" href="#L264">264</a>                 mock2.run();
-<a class="jxr_linenumber" name="L265" href="#L265">265</a>                 mock3.notifyObservers();
-<a class="jxr_linenumber" name="L266" href="#L266">266</a>             }
-<a class="jxr_linenumber" name="L267" href="#L267">267</a>         };
-<a class="jxr_linenumber" name="L268" href="#L268">268</a>     }
-<a class="jxr_linenumber" name="L269" href="#L269">269</a> 
-<a class="jxr_linenumber" name="L270" href="#L270">270</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L271" href="#L271">271</a> <em class="jxr_javadoccomment">     * Reset counter.</em>
-<a class="jxr_linenumber" name="L272" href="#L272">272</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L273" href="#L273">273</a>     @Before
-<a class="jxr_linenumber" name="L274" href="#L274">274</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> resetCounter() {
-<a class="jxr_linenumber" name="L275" href="#L275">275</a>         BaseTestedClass.baseCounter = 0;
-<a class="jxr_linenumber" name="L276" href="#L276">276</a>         TestedClass.counter = 0;
-<a class="jxr_linenumber" name="L277" href="#L277">277</a>     }
-<a class="jxr_linenumber" name="L278" href="#L278">278</a> 
-<a class="jxr_linenumber" name="L279" href="#L279">279</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L280" href="#L280">280</a> <em class="jxr_javadoccomment">     * Assert tested object was initialized.</em>
-<a class="jxr_linenumber" name="L281" href="#L281">281</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L282" href="#L282">282</a>     <strong class="jxr_keyword">void</strong> assertTestedObjectWasInitialized() {
-<a class="jxr_linenumber" name="L283" href="#L283">283</a>         assertEquals(1, BaseTestedClass.baseCounter);
-<a class="jxr_linenumber" name="L284" href="#L284">284</a>         assertEquals(1, TestedClass.counter);
-<a class="jxr_linenumber" name="L285" href="#L285">285</a>     }
-<a class="jxr_linenumber" name="L286" href="#L286">286</a> 
-<a class="jxr_linenumber" name="L287" href="#L287">287</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L288" href="#L288">288</a> <em class="jxr_javadoccomment">     * Verify tested object after every test.</em>
-<a class="jxr_linenumber" name="L289" href="#L289">289</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L290" href="#L290">290</a>     @After
-<a class="jxr_linenumber" name="L291" href="#L291">291</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> verifyTestedObjectAfterEveryTest() {
-<a class="jxr_linenumber" name="L292" href="#L292">292</a>         assertEquals(2, BaseTestedClass.baseCounter);
-<a class="jxr_linenumber" name="L293" href="#L293">293</a>         assertEquals(2, TestedClass.counter);
-<a class="jxr_linenumber" name="L294" href="#L294">294</a>     }
-<a class="jxr_linenumber" name="L295" href="#L295">295</a> }
+<a class="jxr_linenumber" name="L220" href="#L220">220</a>     <strong class="jxr_keyword">void</strong> exerciseTestedObjectWithTwoOtherDependenciesInjectedThroughConstructor(@Injectable <strong class="jxr_keyword">final</strong> Observable obs) {
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>         assertTestedObjectWasInitialized();
+<a class="jxr_linenumber" name="L222" href="#L222">222</a> 
+<a class="jxr_linenumber" name="L223" href="#L223">223</a>         <strong class="jxr_keyword">new</strong> Expectations() {
+<a class="jxr_linenumber" name="L224" href="#L224">224</a>             {
+<a class="jxr_linenumber" name="L225" href="#L225">225</a>                 mock.doSomething();
+<a class="jxr_linenumber" name="L226" href="#L226">226</a>                 result = 123;
+<a class="jxr_linenumber" name="L227" href="#L227">227</a>             }
+<a class="jxr_linenumber" name="L228" href="#L228">228</a>         };
+<a class="jxr_linenumber" name="L229" href="#L229">229</a> 
+<a class="jxr_linenumber" name="L230" href="#L230">230</a>         assertTrue(tested.doSomeOperation());
+<a class="jxr_linenumber" name="L231" href="#L231">231</a> 
+<a class="jxr_linenumber" name="L232" href="#L232">232</a>         <strong class="jxr_keyword">new</strong> FullVerifications() {
+<a class="jxr_linenumber" name="L233" href="#L233">233</a>             {
+<a class="jxr_linenumber" name="L234" href="#L234">234</a>                 obs.notifyObservers();
+<a class="jxr_linenumber" name="L235" href="#L235">235</a>             }
+<a class="jxr_linenumber" name="L236" href="#L236">236</a>         };
+<a class="jxr_linenumber" name="L237" href="#L237">237</a>     }
+<a class="jxr_linenumber" name="L238" href="#L238">238</a> 
+<a class="jxr_linenumber" name="L239" href="#L239">239</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L240" href="#L240">240</a> <em class="jxr_javadoccomment">     * Exercise tested object with all dependencies injected through constructor.</em>
+<a class="jxr_linenumber" name="L241" href="#L241">241</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L242" href="#L242">242</a> <em class="jxr_javadoccomment">     * @param mock2</em>
+<a class="jxr_linenumber" name="L243" href="#L243">243</a> <em class="jxr_javadoccomment">     *            the mock 2</em>
+<a class="jxr_linenumber" name="L244" href="#L244">244</a> <em class="jxr_javadoccomment">     * @param mock3</em>
+<a class="jxr_linenumber" name="L245" href="#L245">245</a> <em class="jxr_javadoccomment">     *            the mock 3</em>
+<a class="jxr_linenumber" name="L246" href="#L246">246</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L247" href="#L247">247</a>     @Test
+<a class="jxr_linenumber" name="L248" href="#L248">248</a>     <strong class="jxr_keyword">void</strong> exerciseTestedObjectWithAllDependenciesInjectedThroughConstructor(@Injectable <strong class="jxr_keyword">final</strong> Runnable mock2,
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>             @Injectable <strong class="jxr_keyword">final</strong> Observable mock3) {
+<a class="jxr_linenumber" name="L250" href="#L250">250</a>         assertTestedObjectWasInitialized();
+<a class="jxr_linenumber" name="L251" href="#L251">251</a> 
+<a class="jxr_linenumber" name="L252" href="#L252">252</a>         <strong class="jxr_keyword">new</strong> Expectations() {
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>             {
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>                 mock.doSomething();
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>                 result = 123;
+<a class="jxr_linenumber" name="L256" href="#L256">256</a>             }
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>         };
+<a class="jxr_linenumber" name="L258" href="#L258">258</a> 
+<a class="jxr_linenumber" name="L259" href="#L259">259</a>         assertTrue(tested.doSomeOperation());
+<a class="jxr_linenumber" name="L260" href="#L260">260</a> 
+<a class="jxr_linenumber" name="L261" href="#L261">261</a>         <strong class="jxr_keyword">new</strong> VerificationsInOrder() {
+<a class="jxr_linenumber" name="L262" href="#L262">262</a>             {
+<a class="jxr_linenumber" name="L263" href="#L263">263</a>                 mock2.run();
+<a class="jxr_linenumber" name="L264" href="#L264">264</a>                 mock3.notifyObservers();
+<a class="jxr_linenumber" name="L265" href="#L265">265</a>             }
+<a class="jxr_linenumber" name="L266" href="#L266">266</a>         };
+<a class="jxr_linenumber" name="L267" href="#L267">267</a>     }
+<a class="jxr_linenumber" name="L268" href="#L268">268</a> 
+<a class="jxr_linenumber" name="L269" href="#L269">269</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L270" href="#L270">270</a> <em class="jxr_javadoccomment">     * Reset counter.</em>
+<a class="jxr_linenumber" name="L271" href="#L271">271</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L272" href="#L272">272</a>     @BeforeEach
+<a class="jxr_linenumber" name="L273" href="#L273">273</a>     <strong class="jxr_keyword">void</strong> resetCounter() {
+<a class="jxr_linenumber" name="L274" href="#L274">274</a>         BaseTestedClass.baseCounter = 0;
+<a class="jxr_linenumber" name="L275" href="#L275">275</a>         TestedClass.counter = 0;
+<a class="jxr_linenumber" name="L276" href="#L276">276</a>     }
+<a class="jxr_linenumber" name="L277" href="#L277">277</a> 
+<a class="jxr_linenumber" name="L278" href="#L278">278</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L279" href="#L279">279</a> <em class="jxr_javadoccomment">     * Assert tested object was initialized.</em>
+<a class="jxr_linenumber" name="L280" href="#L280">280</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L281" href="#L281">281</a>     <strong class="jxr_keyword">void</strong> assertTestedObjectWasInitialized() {
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>         assertEquals(1, BaseTestedClass.baseCounter);
+<a class="jxr_linenumber" name="L283" href="#L283">283</a>         assertEquals(1, TestedClass.counter);
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>     }
+<a class="jxr_linenumber" name="L285" href="#L285">285</a> 
+<a class="jxr_linenumber" name="L286" href="#L286">286</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L287" href="#L287">287</a> <em class="jxr_javadoccomment">     * Verify tested object after every test.</em>
+<a class="jxr_linenumber" name="L288" href="#L288">288</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L289" href="#L289">289</a>     @AfterEach
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>     <strong class="jxr_keyword">void</strong> verifyTestedObjectAfterEveryTest() {
+<a class="jxr_linenumber" name="L291" href="#L291">291</a>         assertEquals(2, BaseTestedClass.baseCounter);
+<a class="jxr_linenumber" name="L292" href="#L292">292</a>         assertEquals(2, TestedClass.counter);
+<a class="jxr_linenumber" name="L293" href="#L293">293</a>     }
+<a class="jxr_linenumber" name="L294" href="#L294">294</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>TestedParametersTest xref</title>
 <link type="text/css" rel="stylesheet" href="../stylesheet.css" />
@@ -11,22 +11,22 @@
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> java.lang.annotation.ElementType.PARAMETER;
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> java.lang.annotation.RetentionPolicy.RUNTIME;
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertEquals;
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertNotNull;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertNull;
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertSame;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertEquals;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertNotNull;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertNull;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertSame;
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.lang.annotation.Retention;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.lang.annotation.Target;
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> javax.inject.Inject;
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> * The Class TestedParametersTest.</em>
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="TestedParametersTest" href="../mockit/TestedParametersTest.html#TestedParametersTest">TestedParametersTest</a> {
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="TestedParametersTest" href="../mockit/TestedParametersTest.html#TestedParametersTest">TestedParametersTest</a> {
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment">     * The Class TestedClass.</em>
@@ -83,7 +83,7 @@
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>  <em class="jxr_javadoccomment">     *            the dep</em>
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>      @Test
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> createTestedObjectForTestMethodParameter(@Tested Dependency dep) {
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>      <strong class="jxr_keyword">void</strong> createTestedObjectForTestMethodParameter(@Tested Dependency dep) {
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>          assertNotNull(dep);
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>      }
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>  
@@ -102,7 +102,7 @@
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>  <em class="jxr_javadoccomment">     *            the dep</em>
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>      @Test
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> injectTestedObjectFromTestMethodParameterIntoFullyInitializedTestedObject(@Tested Dependency dep) {
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>      <strong class="jxr_keyword">void</strong> injectTestedObjectFromTestMethodParameterIntoFullyInitializedTestedObject(@Tested Dependency dep) {
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>          assertEquals(-1, tested2.i);
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>          assertNull(tested2.collaborator);
 <a class="jxr_linenumber" name="L100" href="#L100">100</a>         assertSame(dep, tested2.dependency);
@@ -117,7 +117,7 @@
 <a class="jxr_linenumber" name="L109" href="#L109">109</a> <em class="jxr_javadoccomment">     *            the collaborator</em>
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>     @Test
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> injectTestedParametersIntoTestedFieldsUsingConstructor(@Tested(<span class="jxr_string">"123"</span>) <strong class="jxr_keyword">int</strong> i,
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>     <strong class="jxr_keyword">void</strong> injectTestedParametersIntoTestedFieldsUsingConstructor(@Tested(<span class="jxr_string">"123"</span>) <strong class="jxr_keyword">int</strong> i,
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>             @Tested Collaborator collaborator) {
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>         assertEquals(123, i);
 <a class="jxr_linenumber" name="L115" href="#L115">115</a>         assertNotNull(collaborator);
@@ -156,7 +156,7 @@
 <a class="jxr_linenumber" name="L148" href="#L148">148</a> <em class="jxr_javadoccomment">     *            the tested</em>
 <a class="jxr_linenumber" name="L149" href="#L149">149</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>     @Test
-<a class="jxr_linenumber" name="L151" href="#L151">151</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> injectTestedParametersIntoTestedFieldsOfSupertypes(@Tested(<span class="jxr_string">"test"</span>) String s, @Tested(<span class="jxr_string">"123"</span>) Integer n,
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>     <strong class="jxr_keyword">void</strong> injectTestedParametersIntoTestedFieldsOfSupertypes(@Tested(<span class="jxr_string">"test"</span>) String s, @Tested(<span class="jxr_string">"123"</span>) Integer n,
 <a class="jxr_linenumber" name="L152" href="#L152">152</a>             @Tested(<span class="jxr_string">"5.2"</span>) Float cmp, @Tested(fullyInitialized = <strong class="jxr_keyword">true</strong>) TestedClass2 tested) {
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>         assertEquals(<span class="jxr_string">"test"</span>, tested.text);
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>         assertEquals(123, tested.n.intValue());
@@ -184,7 +184,7 @@
 <a class="jxr_linenumber" name="L176" href="#L176">176</a> <em class="jxr_javadoccomment">     *            the tested</em>
 <a class="jxr_linenumber" name="L177" href="#L177">177</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L178" href="#L178">178</a>     @Test
-<a class="jxr_linenumber" name="L179" href="#L179">179</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> injectTestedParametersWithValuesIntoFieldsOfRegularTestedObject(@Tested(<span class="jxr_string">"test"</span>) String s,
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>     <strong class="jxr_keyword">void</strong> injectTestedParametersWithValuesIntoFieldsOfRegularTestedObject(@Tested(<span class="jxr_string">"test"</span>) String s,
 <a class="jxr_linenumber" name="L180" href="#L180">180</a>             @Tested(<span class="jxr_string">"123"</span>) Integer n, @Tested TestedClass3 tested) {
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>         assertEquals(<span class="jxr_string">"test"</span>, tested.text);
 <a class="jxr_linenumber" name="L182" href="#L182">182</a>         assertEquals(123, tested.number);
@@ -226,8 +226,8 @@
 <a class="jxr_linenumber" name="L218" href="#L218">218</a> <em class="jxr_javadoccomment">     *            the tested</em>
 <a class="jxr_linenumber" name="L219" href="#L219">219</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L220" href="#L220">220</a>     @Test
-<a class="jxr_linenumber" name="L221" href="#L221">221</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> injectTestedParameterWithValueIntoRegularTestedObjectThroughConstructorParameter(
-<a class="jxr_linenumber" name="L222" href="#L222">222</a>             @Tested(<span class="jxr_string">"test"</span>) String text, @Tested(<span class="jxr_string">"1.23"</span>) Double number, @Tested TestedClass4 tested) {
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>     <strong class="jxr_keyword">void</strong> injectTestedParameterWithValueIntoRegularTestedObjectThroughConstructorParameter(@Tested(<span class="jxr_string">"test"</span>) String text,
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>             @Tested(<span class="jxr_string">"1.23"</span>) Double number, @Tested TestedClass4 tested) {
 <a class="jxr_linenumber" name="L223" href="#L223">223</a>         assertEquals(<span class="jxr_string">"test"</span>, tested.text);
 <a class="jxr_linenumber" name="L224" href="#L224">224</a>         assertEquals(1.23, tested.number);
 <a class="jxr_linenumber" name="L225" href="#L225">225</a>     }
@@ -258,7 +258,7 @@
 <a class="jxr_linenumber" name="L250" href="#L250">250</a> <em class="jxr_javadoccomment">     *            the tested</em>
 <a class="jxr_linenumber" name="L251" href="#L251">251</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L252" href="#L252">252</a>     @Test
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> injectInjectableFieldIntoTestedParameter(@Tested TestedClassWithDIAnnotatedField tested) {
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>     <strong class="jxr_keyword">void</strong> injectInjectableFieldIntoTestedParameter(@Tested TestedClassWithDIAnnotatedField tested) {
 <a class="jxr_linenumber" name="L254" href="#L254">254</a>         assertSame(anotherDep, tested.dep);
 <a class="jxr_linenumber" name="L255" href="#L255">255</a>     }
 <a class="jxr_linenumber" name="L256" href="#L256">256</a> 
@@ -278,12 +278,12 @@
 <a class="jxr_linenumber" name="L270" href="#L270">270</a> <em class="jxr_javadoccomment">     *            the col</em>
 <a class="jxr_linenumber" name="L271" href="#L271">271</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L272" href="#L272">272</a>     @Test
-<a class="jxr_linenumber" name="L273" href="#L273">273</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> injectParameterUsingTestedAsMetaAnnotation(@InjectedDependency Collaborator col) {
+<a class="jxr_linenumber" name="L273" href="#L273">273</a>     <strong class="jxr_keyword">void</strong> injectParameterUsingTestedAsMetaAnnotation(@InjectedDependency Collaborator col) {
 <a class="jxr_linenumber" name="L274" href="#L274">274</a>         assertNotNull(col);
 <a class="jxr_linenumber" name="L275" href="#L275">275</a>     }
 <a class="jxr_linenumber" name="L276" href="#L276">276</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

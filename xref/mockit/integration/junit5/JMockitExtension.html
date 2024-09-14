@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>JMockitExtension xref</title>
 <link type="text/css" rel="stylesheet" href="../../../stylesheet.css" />
@@ -14,12 +14,12 @@
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> mockit.internal.util.StackTrace.filterStackTrace;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.lang.reflect.Method;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.util.Arrays;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.util.stream.Collectors;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nullable;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Method;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.util.Arrays;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> java.util.stream.Collectors;
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> mockit.Capturing;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> mockit.Injectable;
@@ -63,7 +63,7 @@
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>              <span class="jxr_string">"No callbacks have been processed, preventing parameter population"</span>);
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>      @Override
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> beforeAll(@Nonnull ExtensionContext context) {
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> beforeAll(@NonNull ExtensionContext context) {
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>          <strong class="jxr_keyword">if</strong> (isRegularTestClass(context)) {
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>              @Nullable
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>              Class&lt;?&gt; testClass = context.getTestClass().orElse(<strong class="jxr_keyword">null</strong>);
@@ -92,13 +92,13 @@
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>          }
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>      }
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> isRegularTestClass(@Nonnull ExtensionContext context) {
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> isRegularTestClass(@NonNull ExtensionContext context) {
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>          Class&lt;?&gt; testClass = context.getTestClass().orElse(<strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>          <strong class="jxr_keyword">return</strong> testClass != <strong class="jxr_keyword">null</strong> &amp;&amp; !testClass.isAnnotationPresent(Nested.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>      }
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>  
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>      @Override
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> postProcessTestInstance(@Nonnull Object testInstance, @Nonnull ExtensionContext context) {
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> postProcessTestInstance(@NonNull Object testInstance, @NonNull ExtensionContext context) {
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>          <strong class="jxr_keyword">if</strong> (isRegularTestClass(context)) {
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>              TestRun.enterNoMockingZone();
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>  
@@ -113,7 +113,7 @@
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>     }
 <a class="jxr_linenumber" name="L106" href="#L106">106</a> 
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>     @Override
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> beforeEach(@Nonnull ExtensionContext context) {
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> beforeEach(@NonNull ExtensionContext context) {
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>         Object testInstance = context.getTestInstance().orElse(<strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>         Class&lt;?&gt; testClass = context.getTestClass().orElse(<strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>         <strong class="jxr_keyword">if</strong> (testInstance == <strong class="jxr_keyword">null</strong>) {
@@ -146,7 +146,7 @@
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>     }
 <a class="jxr_linenumber" name="L139" href="#L139">139</a> 
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>     @Override
-<a class="jxr_linenumber" name="L141" href="#L141">141</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> beforeTestExecution(@Nonnull ExtensionContext context) {
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> beforeTestExecution(@NonNull ExtensionContext context) {
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>         Class&lt;?&gt; testClass = context.getTestClass().orElse(<strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>         Method testMethod = context.getTestMethod().orElse(<strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L144" href="#L144">144</a>         Object testInstance = context.getTestInstance().orElse(<strong class="jxr_keyword">null</strong>);
@@ -173,15 +173,15 @@
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>     }
 <a class="jxr_linenumber" name="L166" href="#L166">166</a> 
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>     @Override
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> supportsParameter(@Nonnull ParameterContext parameterContext,
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>             @Nonnull ExtensionContext extensionContext) {
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> supportsParameter(@NonNull ParameterContext parameterContext,
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>             @NonNull ExtensionContext extensionContext) {
 <a class="jxr_linenumber" name="L170" href="#L170">170</a>         <strong class="jxr_keyword">return</strong> parameterContext.isAnnotated(Tested.<strong class="jxr_keyword">class</strong>) || parameterContext.isAnnotated(Mocked.<strong class="jxr_keyword">class</strong>)
 <a class="jxr_linenumber" name="L171" href="#L171">171</a>                 || parameterContext.isAnnotated(Injectable.<strong class="jxr_keyword">class</strong>) || parameterContext.isAnnotated(Capturing.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L172" href="#L172">172</a>     }
 <a class="jxr_linenumber" name="L173" href="#L173">173</a> 
 <a class="jxr_linenumber" name="L174" href="#L174">174</a>     @Override
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>     <strong class="jxr_keyword">public</strong> Object resolveParameter(@Nonnull ParameterContext parameterContext,
-<a class="jxr_linenumber" name="L176" href="#L176">176</a>             @Nonnull ExtensionContext extensionContext) {
+<a class="jxr_linenumber" name="L175" href="#L175">175</a>     <strong class="jxr_keyword">public</strong> Object resolveParameter(@NonNull ParameterContext parameterContext,
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>             @NonNull ExtensionContext extensionContext) {
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>         <strong class="jxr_keyword">int</strong> parameterIndex = parameterContext.getIndex();
 <a class="jxr_linenumber" name="L178" href="#L178">178</a>         <strong class="jxr_keyword">if</strong> (parameterValues == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L179" href="#L179">179</a>             String warning = initContext.warning;
@@ -198,14 +198,14 @@
 <a class="jxr_linenumber" name="L190" href="#L190">190</a>     }
 <a class="jxr_linenumber" name="L191" href="#L191">191</a> 
 <a class="jxr_linenumber" name="L192" href="#L192">192</a>     @Override
-<a class="jxr_linenumber" name="L193" href="#L193">193</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> handleTestExecutionException(@Nonnull ExtensionContext context, @Nonnull Throwable throwable)
+<a class="jxr_linenumber" name="L193" href="#L193">193</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> handleTestExecutionException(@NonNull ExtensionContext context, @NonNull Throwable throwable)
 <a class="jxr_linenumber" name="L194" href="#L194">194</a>             <strong class="jxr_keyword">throws</strong> Throwable {
 <a class="jxr_linenumber" name="L195" href="#L195">195</a>         thrownByTest = throwable;
 <a class="jxr_linenumber" name="L196" href="#L196">196</a>         <strong class="jxr_keyword">throw</strong> throwable;
 <a class="jxr_linenumber" name="L197" href="#L197">197</a>     }
 <a class="jxr_linenumber" name="L198" href="#L198">198</a> 
 <a class="jxr_linenumber" name="L199" href="#L199">199</a>     @Override
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterTestExecution(@Nonnull ExtensionContext context) {
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterTestExecution(@NonNull ExtensionContext context) {
 <a class="jxr_linenumber" name="L201" href="#L201">201</a>         <strong class="jxr_keyword">if</strong> (savePointForTestMethod != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L202" href="#L202">202</a>             TestRun.enterNoMockingZone();
 <a class="jxr_linenumber" name="L203" href="#L203">203</a> 
@@ -232,7 +232,7 @@
 <a class="jxr_linenumber" name="L224" href="#L224">224</a>     }
 <a class="jxr_linenumber" name="L225" href="#L225">225</a> 
 <a class="jxr_linenumber" name="L226" href="#L226">226</a>     @Override
-<a class="jxr_linenumber" name="L227" href="#L227">227</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterEach(@Nonnull ExtensionContext context) {
+<a class="jxr_linenumber" name="L227" href="#L227">227</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterEach(@NonNull ExtensionContext context) {
 <a class="jxr_linenumber" name="L228" href="#L228">228</a>         <strong class="jxr_keyword">if</strong> (savePointForTest != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L229" href="#L229">229</a>             savePointForTest.rollback();
 <a class="jxr_linenumber" name="L230" href="#L230">230</a>             savePointForTest = <strong class="jxr_keyword">null</strong>;
@@ -240,7 +240,7 @@
 <a class="jxr_linenumber" name="L232" href="#L232">232</a>     }
 <a class="jxr_linenumber" name="L233" href="#L233">233</a> 
 <a class="jxr_linenumber" name="L234" href="#L234">234</a>     @Override
-<a class="jxr_linenumber" name="L235" href="#L235">235</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterAll(@Nonnull ExtensionContext context) {
+<a class="jxr_linenumber" name="L235" href="#L235">235</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> afterAll(@NonNull ExtensionContext context) {
 <a class="jxr_linenumber" name="L236" href="#L236">236</a>         <strong class="jxr_keyword">if</strong> (savePointForTestClass != <strong class="jxr_keyword">null</strong> &amp;&amp; isRegularTestClass(context)) {
 <a class="jxr_linenumber" name="L237" href="#L237">237</a>             savePointForTestClass.rollback();
 <a class="jxr_linenumber" name="L238" href="#L238">238</a>             savePointForTestClass = <strong class="jxr_keyword">null</strong>;
@@ -297,6 +297,6 @@
 <a class="jxr_linenumber" name="L289" href="#L289">289</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

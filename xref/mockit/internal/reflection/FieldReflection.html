@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>FieldReflection xref</title>
 <link type="text/css" rel="stylesheet" href="../../../stylesheet.css" />
@@ -16,11 +16,11 @@
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> mockit.internal.util.Utilities.ensureThatMemberIsAccessible;
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Field;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Type;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nullable;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Field;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Type;
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> mockit.internal.util.AutoBoxing;
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> mockit.internal.util.Utilities;
@@ -30,7 +30,7 @@
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>      }
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>      @Nullable
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; T getFieldValue(@Nonnull Field field, @Nullable Object targetObject) {
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; T getFieldValue(@NonNull Field field, @Nullable Object targetObject) {
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>          ensureThatMemberIsAccessible(field);
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>          <strong class="jxr_keyword">if</strong> (targetObject != <strong class="jxr_keyword">null</strong> &amp;&amp; !field.getDeclaringClass().isInstance(targetObject)) {
@@ -47,19 +47,19 @@
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>      }
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>      @Nullable
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; T getField(@Nonnull Class&lt;?&gt; theClass, @Nonnull String fieldName, @Nullable Object targetObject) {
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; T getField(@NonNull Class&lt;?&gt; theClass, @NonNull String fieldName, @Nullable Object targetObject) {
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>          Field field = getDeclaredField(theClass, fieldName, targetObject != <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>          <strong class="jxr_keyword">return</strong> getFieldValue(field, targetObject);
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>      }
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>      @Nullable
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; T getField(@Nonnull Class&lt;?&gt; theClass, @Nonnull Class&lt;T&gt; fieldType,
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; T getField(@NonNull Class&lt;?&gt; theClass, @NonNull Class&lt;T&gt; fieldType,
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>              @Nullable Object targetObject) {
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>          Field field = getDeclaredField(theClass, fieldType, targetObject != <strong class="jxr_keyword">null</strong>, false);
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>          <strong class="jxr_keyword">return</strong> getFieldValue(field, targetObject);
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>      }
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> setField(@Nonnull Class&lt;?&gt; theClass, @Nullable Object targetObject, @Nullable String fieldName,
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> setField(@NonNull Class&lt;?&gt; theClass, @Nullable Object targetObject, @Nullable String fieldName,
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>              @Nullable Object fieldValue) {
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>          <strong class="jxr_keyword">boolean</strong> instanceField = targetObject != <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>          Field field;
@@ -75,8 +75,8 @@
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          setFieldValue(field, targetObject, fieldValue);
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>      }
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>      @Nonnull
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Field getDeclaredField(@Nonnull Class&lt;?&gt; theClass, @Nonnull String fieldName, <strong class="jxr_keyword">boolean</strong> instanceField) {
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>      @NonNull
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Field getDeclaredField(@NonNull Class&lt;?&gt; theClass, @NonNull String fieldName, <strong class="jxr_keyword">boolean</strong> instanceField) {
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>          <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>              <strong class="jxr_keyword">return</strong> theClass.getDeclaredField(fieldName);
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>          } <strong class="jxr_keyword">catch</strong> (NoSuchFieldException ignore) {
@@ -93,8 +93,8 @@
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>          }
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>      }
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>  
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>      @Nonnull
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Field getDeclaredField(@Nonnull Class&lt;?&gt; theClass, @Nonnull Type desiredType, <strong class="jxr_keyword">boolean</strong> instanceField,
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>      @NonNull
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Field getDeclaredField(@NonNull Class&lt;?&gt; theClass, @NonNull Type desiredType, <strong class="jxr_keyword">boolean</strong> instanceField,
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>              <strong class="jxr_keyword">boolean</strong> forAssignment) {
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>          Field found = getDeclaredFieldInSingleClass(theClass, desiredType, instanceField, forAssignment);
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>  
@@ -116,7 +116,7 @@
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>     }
 <a class="jxr_linenumber" name="L109" href="#L109">109</a> 
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>     @Nullable
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Field getDeclaredFieldInSingleClass(@Nonnull Class&lt;?&gt; theClass, @Nonnull Type desiredType,
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Field getDeclaredFieldInSingleClass(@NonNull Class&lt;?&gt; theClass, @NonNull Type desiredType,
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>             <strong class="jxr_keyword">boolean</strong> instanceField, <strong class="jxr_keyword">boolean</strong> forAssignment) {
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         Field found = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L114" href="#L114">114</a> 
@@ -140,7 +140,7 @@
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>         <strong class="jxr_keyword">return</strong> found;
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>     }
 <a class="jxr_linenumber" name="L134" href="#L134">134</a> 
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> isCompatibleFieldType(@Nonnull Type fieldType, @Nonnull Type desiredType,
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> isCompatibleFieldType(@NonNull Type fieldType, @NonNull Type desiredType,
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>             <strong class="jxr_keyword">boolean</strong> forAssignment) {
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>         Class&lt;?&gt; fieldClass = Utilities.getClassType(fieldType);
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>         Class&lt;?&gt; desiredClass = Utilities.getClassType(desiredType);
@@ -156,16 +156,16 @@
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>         <strong class="jxr_keyword">return</strong> desiredClass.isAssignableFrom(fieldClass) || fieldClass.isAssignableFrom(desiredClass);
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>     }
 <a class="jxr_linenumber" name="L150" href="#L150">150</a> 
-<a class="jxr_linenumber" name="L151" href="#L151">151</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String errorMessageForMoreThanOneFieldFound(@Nonnull Type desiredFieldType, <strong class="jxr_keyword">boolean</strong> instanceField,
-<a class="jxr_linenumber" name="L152" href="#L152">152</a>             <strong class="jxr_keyword">boolean</strong> forAssignment, @Nonnull Field firstField, @Nonnull Field secondField) {
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String errorMessageForMoreThanOneFieldFound(@NonNull Type desiredFieldType, <strong class="jxr_keyword">boolean</strong> instanceField,
+<a class="jxr_linenumber" name="L152" href="#L152">152</a>             <strong class="jxr_keyword">boolean</strong> forAssignment, @NonNull Field firstField, @NonNull Field secondField) {
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>         <strong class="jxr_keyword">return</strong> <span class="jxr_string">"More than one "</span> + (instanceField ? <span class="jxr_string">"instance"</span> : <span class="jxr_string">"static"</span>) + <span class="jxr_string">" field "</span> + (forAssignment ? <span class="jxr_string">"to"</span> : <span class="jxr_string">"from"</span>)
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>                 + <span class="jxr_string">" which a value of type "</span> + getTypeName(desiredFieldType)
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>                 + (forAssignment ? <span class="jxr_string">" can be assigned"</span> : <span class="jxr_string">" can be read"</span>) + <span class="jxr_string">" exists in "</span>
 <a class="jxr_linenumber" name="L156" href="#L156">156</a>                 + secondField.getDeclaringClass() + <span class="jxr_string">": "</span> + firstField.getName() + <span class="jxr_string">", "</span> + secondField.getName();
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>     }
 <a class="jxr_linenumber" name="L158" href="#L158">158</a> 
-<a class="jxr_linenumber" name="L159" href="#L159">159</a>     @Nonnull
-<a class="jxr_linenumber" name="L160" href="#L160">160</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String getTypeName(@Nonnull Type type) {
+<a class="jxr_linenumber" name="L159" href="#L159">159</a>     @NonNull
+<a class="jxr_linenumber" name="L160" href="#L160">160</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String getTypeName(@NonNull Type type) {
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>         Class&lt;?&gt; classType = Utilities.getClassType(type);
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>         Class&lt;?&gt; primitiveType = AutoBoxing.getPrimitiveType(classType);
 <a class="jxr_linenumber" name="L163" href="#L163">163</a> 
@@ -177,7 +177,7 @@
 <a class="jxr_linenumber" name="L169" href="#L169">169</a>         <strong class="jxr_keyword">return</strong> name.startsWith(<span class="jxr_string">"java.lang."</span>) ? name.substring(10) : name;
 <a class="jxr_linenumber" name="L170" href="#L170">170</a>     }
 <a class="jxr_linenumber" name="L171" href="#L171">171</a> 
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> setFieldValue(@Nonnull Field field, @Nullable Object targetObject, @Nullable Object value) {
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> setFieldValue(@NonNull Field field, @Nullable Object targetObject, @Nullable Object value) {
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>         ensureThatMemberIsAccessible(field);
 <a class="jxr_linenumber" name="L174" href="#L174">174</a> 
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>         <strong class="jxr_keyword">if</strong> (targetObject != <strong class="jxr_keyword">null</strong> &amp;&amp; !field.getDeclaringClass().isInstance(targetObject)) {
@@ -194,6 +194,6 @@
 <a class="jxr_linenumber" name="L186" href="#L186">186</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

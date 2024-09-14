@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>TestedClassWithFullAnnotatedDITest xref</title>
 <link type="text/css" rel="stylesheet" href="../stylesheet.css" />
@@ -8,12 +8,12 @@
 <div id="overview"><a href="../../testapidocs/mockit/TestedClassWithFullAnnotatedDITest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> mockit;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertEquals;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertFalse;
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertNotNull;
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertNull;
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertSame;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertTrue;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertEquals;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertFalse;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertNotNull;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertNull;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertSame;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertTrue;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.io.PrintWriter;
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.sql.Connection;
@@ -31,14 +31,14 @@
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> javax.sql.XAConnection;
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> javax.sql.XADataSource;
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> org.springframework.beans.factory.annotation.Autowired;
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment"> * The Class TestedClassWithFullAnnotatedDITest.</em>
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  @SuppressWarnings(<span class="jxr_string">"ParameterHidesMemberVariable"</span>)
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="TestedClassWithFullAnnotatedDITest" href="../mockit/TestedClassWithFullAnnotatedDITest.html#TestedClassWithFullAnnotatedDITest">TestedClassWithFullAnnotatedDITest</a> {
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="TestedClassWithFullAnnotatedDITest" href="../mockit/TestedClassWithFullAnnotatedDITest.html#TestedClassWithFullAnnotatedDITest">TestedClassWithFullAnnotatedDITest</a> {
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment">     * The Class DummyDataSource.</em>
@@ -322,7 +322,7 @@
 <a class="jxr_linenumber" name="L314" href="#L314">314</a> <em class="jxr_javadoccomment">     * Inject initialized dependencies for interfaces having tested objects of implementation class types.</em>
 <a class="jxr_linenumber" name="L315" href="#L315">315</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L316" href="#L316">316</a>     @Test
-<a class="jxr_linenumber" name="L317" href="#L317">317</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> injectInitializedDependenciesForInterfacesHavingTestedObjectsOfImplementationClassTypes() {
+<a class="jxr_linenumber" name="L317" href="#L317">317</a>     <strong class="jxr_keyword">void</strong> injectInitializedDependenciesForInterfacesHavingTestedObjectsOfImplementationClassTypes() {
 <a class="jxr_linenumber" name="L318" href="#L318">318</a>         assertSame(action, tested.action);
 <a class="jxr_linenumber" name="L319" href="#L319">319</a>         assertNotNull(tested.dependency1);
 <a class="jxr_linenumber" name="L320" href="#L320">320</a>         assertSame(tested.dependency1, tested.dependency2);
@@ -334,7 +334,7 @@
 <a class="jxr_linenumber" name="L326" href="#L326">326</a> <em class="jxr_javadoccomment">     * Inject logger fields with logger created with tested class name.</em>
 <a class="jxr_linenumber" name="L327" href="#L327">327</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L328" href="#L328">328</a>     @Test
-<a class="jxr_linenumber" name="L329" href="#L329">329</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> injectLoggerFieldsWithLoggerCreatedWithTestedClassName() {
+<a class="jxr_linenumber" name="L329" href="#L329">329</a>     <strong class="jxr_keyword">void</strong> injectLoggerFieldsWithLoggerCreatedWithTestedClassName() {
 <a class="jxr_linenumber" name="L330" href="#L330">330</a>         assertEquals(TestedClass.<strong class="jxr_keyword">class</strong>.getName(), tested.log1.getName());
 <a class="jxr_linenumber" name="L331" href="#L331">331</a>         assertSame(tested.log2, tested.log1);
 <a class="jxr_linenumber" name="L332" href="#L332">332</a>     }
@@ -343,7 +343,7 @@
 <a class="jxr_linenumber" name="L335" href="#L335">335</a> <em class="jxr_javadoccomment">     * Inject non annotated field from matching tested field.</em>
 <a class="jxr_linenumber" name="L336" href="#L336">336</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L337" href="#L337">337</a>     @Test
-<a class="jxr_linenumber" name="L338" href="#L338">338</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> injectNonAnnotatedFieldFromMatchingTestedField() {
+<a class="jxr_linenumber" name="L338" href="#L338">338</a>     <strong class="jxr_keyword">void</strong> injectNonAnnotatedFieldFromMatchingTestedField() {
 <a class="jxr_linenumber" name="L339" href="#L339">339</a>         assertSame(collaborator, tested.collaborator);
 <a class="jxr_linenumber" name="L340" href="#L340">340</a>     }
 <a class="jxr_linenumber" name="L341" href="#L341">341</a> 
@@ -355,7 +355,7 @@
 <a class="jxr_linenumber" name="L347" href="#L347">347</a> <em class="jxr_javadoccomment">     * Manage conversation context.</em>
 <a class="jxr_linenumber" name="L348" href="#L348">348</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L349" href="#L349">349</a>     @Test
-<a class="jxr_linenumber" name="L350" href="#L350">350</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> manageConversationContext() {
+<a class="jxr_linenumber" name="L350" href="#L350">350</a>     <strong class="jxr_keyword">void</strong> manageConversationContext() {
 <a class="jxr_linenumber" name="L351" href="#L351">351</a>         assertNotNull(conversation);
 <a class="jxr_linenumber" name="L352" href="#L352">352</a>         assertSame(tested.conversation, conversation);
 <a class="jxr_linenumber" name="L353" href="#L353">353</a>         assertTrue(conversation.isTransient());
@@ -383,7 +383,7 @@
 <a class="jxr_linenumber" name="L375" href="#L375">375</a> <em class="jxr_javadoccomment">     * Inject data source configured from single data source definition.</em>
 <a class="jxr_linenumber" name="L376" href="#L376">376</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L377" href="#L377">377</a>     @Test
-<a class="jxr_linenumber" name="L378" href="#L378">378</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> injectDataSourceConfiguredFromSingleDataSourceDefinition() {
+<a class="jxr_linenumber" name="L378" href="#L378">378</a>     <strong class="jxr_keyword">void</strong> injectDataSourceConfiguredFromSingleDataSourceDefinition() {
 <a class="jxr_linenumber" name="L379" href="#L379">379</a>         assertTrue(tested.ds instanceof DummyDataSource);
 <a class="jxr_linenumber" name="L380" href="#L380">380</a> 
 <a class="jxr_linenumber" name="L381" href="#L381">381</a>         DummyDataSource ds = (DummyDataSource) tested.ds;
@@ -400,7 +400,7 @@
 <a class="jxr_linenumber" name="L392" href="#L392">392</a> <em class="jxr_javadoccomment">     * Inject multiple data sources configured from different data source definitions.</em>
 <a class="jxr_linenumber" name="L393" href="#L393">393</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L394" href="#L394">394</a>     @Test
-<a class="jxr_linenumber" name="L395" href="#L395">395</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> injectMultipleDataSourcesConfiguredFromDifferentDataSourceDefinitions() {
+<a class="jxr_linenumber" name="L395" href="#L395">395</a>     <strong class="jxr_keyword">void</strong> injectMultipleDataSourcesConfiguredFromDifferentDataSourceDefinitions() {
 <a class="jxr_linenumber" name="L396" href="#L396">396</a>         assertTrue(tested2.ds1 instanceof DummyDataSource);
 <a class="jxr_linenumber" name="L397" href="#L397">397</a>         assertTrue(tested2.ds2 instanceof PooledDataSource);
 <a class="jxr_linenumber" name="L398" href="#L398">398</a>         assertTrue(tested2.ds3 instanceof DistributedDataSource);
@@ -409,6 +409,6 @@
 <a class="jxr_linenumber" name="L401" href="#L401">401</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

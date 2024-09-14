@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>DelegateInvocationProceedTest xref</title>
 <link type="text/css" rel="stylesheet" href="../stylesheet.css" />
@@ -10,23 +10,23 @@
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> java.util.Arrays.asList;
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertEquals;
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertNotNull;
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertNull;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertTrue;
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.fail;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertEquals;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertNotNull;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertNull;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertTrue;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.fail;
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.io.IOException;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.util.List;
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> java.util.concurrent.AbstractExecutorService;
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> * The Class DelegateInvocationProceedTest.</em>
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="DelegateInvocationProceedTest" href="../mockit/DelegateInvocationProceedTest.html#DelegateInvocationProceedTest">DelegateInvocationProceedTest</a> {
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="DelegateInvocationProceedTest" href="../mockit/DelegateInvocationProceedTest.html#DelegateInvocationProceedTest">DelegateInvocationProceedTest</a> {
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment">     * The Class BaseClassToBeMocked.</em>
@@ -155,7 +155,7 @@
 <a class="jxr_linenumber" name="L147" href="#L147">147</a> <em class="jxr_javadoccomment">     *            the mocked</em>
 <a class="jxr_linenumber" name="L148" href="#L148">148</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>     @Test
-<a class="jxr_linenumber" name="L150" href="#L150">150</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> proceedFromDelegateMethodOnRegularMockedClass(@Mocked <strong class="jxr_keyword">final</strong> ClassToBeMocked mocked) {
+<a class="jxr_linenumber" name="L150" href="#L150">150</a>     <strong class="jxr_keyword">void</strong> proceedFromDelegateMethodOnRegularMockedClass(@Mocked <strong class="jxr_keyword">final</strong> ClassToBeMocked mocked) {
 <a class="jxr_linenumber" name="L151" href="#L151">151</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L152" href="#L152">152</a>             {
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>                 mocked.methodToBeMocked();
@@ -178,7 +178,7 @@
 <a class="jxr_linenumber" name="L170" href="#L170">170</a> <em class="jxr_javadoccomment">     *            the mocked</em>
 <a class="jxr_linenumber" name="L171" href="#L171">171</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L172" href="#L172">172</a>     @Test
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> proceedFromDelegateMethodOnInjectableMockedClass(@Injectable <strong class="jxr_keyword">final</strong> ClassToBeMocked mocked) {
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>     <strong class="jxr_keyword">void</strong> proceedFromDelegateMethodOnInjectableMockedClass(@Injectable <strong class="jxr_keyword">final</strong> ClassToBeMocked mocked) {
 <a class="jxr_linenumber" name="L174" href="#L174">174</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>             {
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>                 mocked.methodToBeMocked();
@@ -201,7 +201,7 @@
 <a class="jxr_linenumber" name="L193" href="#L193">193</a> <em class="jxr_javadoccomment">     *             the exception</em>
 <a class="jxr_linenumber" name="L194" href="#L194">194</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L195" href="#L195">195</a>     @Test
-<a class="jxr_linenumber" name="L196" href="#L196">196</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> proceedFromDelegateMethodWithParameters() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L196" href="#L196">196</a>     <strong class="jxr_keyword">void</strong> proceedFromDelegateMethodWithParameters() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L197" href="#L197">197</a>         <strong class="jxr_keyword">final</strong> ClassToBeMocked mocked = <strong class="jxr_keyword">new</strong> ClassToBeMocked();
 <a class="jxr_linenumber" name="L198" href="#L198">198</a> 
 <a class="jxr_linenumber" name="L199" href="#L199">199</a>         <strong class="jxr_keyword">new</strong> Expectations(mocked) {
@@ -236,7 +236,7 @@
 <a class="jxr_linenumber" name="L228" href="#L228">228</a> <em class="jxr_javadoccomment">     * Proceed conditionally from delegate method.</em>
 <a class="jxr_linenumber" name="L229" href="#L229">229</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L230" href="#L230">230</a>     @Test
-<a class="jxr_linenumber" name="L231" href="#L231">231</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> proceedConditionallyFromDelegateMethod() {
+<a class="jxr_linenumber" name="L231" href="#L231">231</a>     <strong class="jxr_keyword">void</strong> proceedConditionallyFromDelegateMethod() {
 <a class="jxr_linenumber" name="L232" href="#L232">232</a>         <strong class="jxr_keyword">final</strong> ClassToBeMocked mocked = <strong class="jxr_keyword">new</strong> ClassToBeMocked();
 <a class="jxr_linenumber" name="L233" href="#L233">233</a> 
 <a class="jxr_linenumber" name="L234" href="#L234">234</a>         <strong class="jxr_keyword">new</strong> Expectations(mocked) {
@@ -274,7 +274,7 @@
 <a class="jxr_linenumber" name="L266" href="#L266">266</a> <em class="jxr_javadoccomment">     *             the exception</em>
 <a class="jxr_linenumber" name="L267" href="#L267">267</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L268" href="#L268">268</a>     @Test
-<a class="jxr_linenumber" name="L269" href="#L269">269</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> proceedFromDelegateMethodIntoRealMethodWithModifiedArguments() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L269" href="#L269">269</a>     <strong class="jxr_keyword">void</strong> proceedFromDelegateMethodIntoRealMethodWithModifiedArguments() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L270" href="#L270">270</a>         <strong class="jxr_keyword">final</strong> ClassToBeMocked mocked = <strong class="jxr_keyword">new</strong> ClassToBeMocked();
 <a class="jxr_linenumber" name="L271" href="#L271">271</a> 
 <a class="jxr_linenumber" name="L272" href="#L272">272</a>         <strong class="jxr_keyword">new</strong> Expectations(mocked) {
@@ -309,7 +309,7 @@
 <a class="jxr_linenumber" name="L301" href="#L301">301</a> <em class="jxr_javadoccomment">     *            the mock</em>
 <a class="jxr_linenumber" name="L302" href="#L302">302</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L303" href="#L303">303</a>     @Test
-<a class="jxr_linenumber" name="L304" href="#L304">304</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> proceedFromDelegateMethodIntoConstructor(@Mocked ClassToBeMocked mock) {
+<a class="jxr_linenumber" name="L304" href="#L304">304</a>     <strong class="jxr_keyword">void</strong> proceedFromDelegateMethodIntoConstructor(@Mocked ClassToBeMocked mock) {
 <a class="jxr_linenumber" name="L305" href="#L305">305</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L306" href="#L306">306</a>             {
 <a class="jxr_linenumber" name="L307" href="#L307">307</a>                 <strong class="jxr_keyword">new</strong> ClassToBeMocked();
@@ -334,7 +334,7 @@
 <a class="jxr_linenumber" name="L326" href="#L326">326</a> <em class="jxr_javadoccomment">     *            the mock</em>
 <a class="jxr_linenumber" name="L327" href="#L327">327</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L328" href="#L328">328</a>     @Test
-<a class="jxr_linenumber" name="L329" href="#L329">329</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> proceedConditionallyFromDelegateMethodIntoConstructor(@Mocked ClassToBeMocked mock) {
+<a class="jxr_linenumber" name="L329" href="#L329">329</a>     <strong class="jxr_keyword">void</strong> proceedConditionallyFromDelegateMethodIntoConstructor(@Mocked ClassToBeMocked mock) {
 <a class="jxr_linenumber" name="L330" href="#L330">330</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L331" href="#L331">331</a>             {
 <a class="jxr_linenumber" name="L332" href="#L332">332</a>                 <strong class="jxr_keyword">new</strong> ClassToBeMocked(anyString);
@@ -362,7 +362,7 @@
 <a class="jxr_linenumber" name="L354" href="#L354">354</a> <em class="jxr_javadoccomment">     *            the mock</em>
 <a class="jxr_linenumber" name="L355" href="#L355">355</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L356" href="#L356">356</a>     @Test
-<a class="jxr_linenumber" name="L357" href="#L357">357</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> proceedFromDelegateMethodIntoJREConstructor(@Mocked ProcessBuilder mock) {
+<a class="jxr_linenumber" name="L357" href="#L357">357</a>     <strong class="jxr_keyword">void</strong> proceedFromDelegateMethodIntoJREConstructor(@Mocked ProcessBuilder mock) {
 <a class="jxr_linenumber" name="L358" href="#L358">358</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L359" href="#L359">359</a>             {
 <a class="jxr_linenumber" name="L360" href="#L360">360</a>                 ProcessBuilder pb = <strong class="jxr_keyword">new</strong> ProcessBuilder((String[]) any);
@@ -394,7 +394,7 @@
 <a class="jxr_linenumber" name="L386" href="#L386">386</a> <em class="jxr_javadoccomment">     * Proceed from delegate method into method inherited from base class.</em>
 <a class="jxr_linenumber" name="L387" href="#L387">387</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L388" href="#L388">388</a>     @Test
-<a class="jxr_linenumber" name="L389" href="#L389">389</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> proceedFromDelegateMethodIntoMethodInheritedFromBaseClass() {
+<a class="jxr_linenumber" name="L389" href="#L389">389</a>     <strong class="jxr_keyword">void</strong> proceedFromDelegateMethodIntoMethodInheritedFromBaseClass() {
 <a class="jxr_linenumber" name="L390" href="#L390">390</a>         <strong class="jxr_keyword">final</strong> ClassToBeMocked obj = <strong class="jxr_keyword">new</strong> ClassToBeMocked();
 <a class="jxr_linenumber" name="L391" href="#L391">391</a> 
 <a class="jxr_linenumber" name="L392" href="#L392">392</a>         <strong class="jxr_keyword">new</strong> Expectations(obj) {
@@ -422,7 +422,7 @@
 <a class="jxr_linenumber" name="L414" href="#L414">414</a> <em class="jxr_javadoccomment">     *             the exception</em>
 <a class="jxr_linenumber" name="L415" href="#L415">415</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L416" href="#L416">416</a>     @Test
-<a class="jxr_linenumber" name="L417" href="#L417">417</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> proceedFromDelegateMethodIntoOverridingMethodWhichCallsSuper(@Mocked <strong class="jxr_keyword">final</strong> ClassToBeMocked mocked)
+<a class="jxr_linenumber" name="L417" href="#L417">417</a>     <strong class="jxr_keyword">void</strong> proceedFromDelegateMethodIntoOverridingMethodWhichCallsSuper(@Mocked <strong class="jxr_keyword">final</strong> ClassToBeMocked mocked)
 <a class="jxr_linenumber" name="L418" href="#L418">418</a>             <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L419" href="#L419">419</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L420" href="#L420">420</a>             {
@@ -451,7 +451,7 @@
 <a class="jxr_linenumber" name="L443" href="#L443">443</a> <em class="jxr_javadoccomment">     *             the exception</em>
 <a class="jxr_linenumber" name="L444" href="#L444">444</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L445" href="#L445">445</a>     @Test
-<a class="jxr_linenumber" name="L446" href="#L446">446</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> proceedFromDelegateMethodIntoOverridingMethodThatCallsSuperWhichAlsoHasAProceedingDelegate(
+<a class="jxr_linenumber" name="L446" href="#L446">446</a>     <strong class="jxr_keyword">void</strong> proceedFromDelegateMethodIntoOverridingMethodThatCallsSuperWhichAlsoHasAProceedingDelegate(
 <a class="jxr_linenumber" name="L447" href="#L447">447</a>             @Mocked <strong class="jxr_keyword">final</strong> BaseClassToBeMocked mockedBase, @Mocked <strong class="jxr_keyword">final</strong> ClassToBeMocked mocked) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L448" href="#L448">448</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L449" href="#L449">449</a>             {
@@ -491,7 +491,7 @@
 <a class="jxr_linenumber" name="L483" href="#L483">483</a> <em class="jxr_javadoccomment">     *             the exception</em>
 <a class="jxr_linenumber" name="L484" href="#L484">484</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L485" href="#L485">485</a>     @Test
-<a class="jxr_linenumber" name="L486" href="#L486">486</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> throwExceptionFromProceedIntoJREMethod(@Injectable <strong class="jxr_keyword">final</strong> AbstractExecutorService c1,
+<a class="jxr_linenumber" name="L486" href="#L486">486</a>     <strong class="jxr_keyword">void</strong> throwExceptionFromProceedIntoJREMethod(@Injectable <strong class="jxr_keyword">final</strong> AbstractExecutorService c1,
 <a class="jxr_linenumber" name="L487" href="#L487">487</a>             @Mocked <strong class="jxr_keyword">final</strong> ClassToBeMocked c2) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L488" href="#L488">488</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L489" href="#L489">489</a>             {
@@ -522,6 +522,6 @@
 <a class="jxr_linenumber" name="L514" href="#L514">514</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

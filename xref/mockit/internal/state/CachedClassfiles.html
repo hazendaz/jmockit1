@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>CachedClassfiles xref</title>
 <link type="text/css" rel="stylesheet" href="../../../stylesheet.css" />
@@ -12,14 +12,14 @@
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">package</strong> mockit.internal.state;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.lang.instrument.ClassFileTransformer;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.security.ProtectionDomain;
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.util.HashMap;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.util.WeakHashMap;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nullable;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.lang.instrument.ClassFileTransformer;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.security.ProtectionDomain;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.util.HashMap;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> java.util.WeakHashMap;
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> mockit.internal.startup.Startup;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
@@ -34,10 +34,10 @@
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment"> * modification agents such as the AspectJ load-time weaver.</em>
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="CachedClassfiles" href="../../../mockit/internal/state/CachedClassfiles.html#CachedClassfiles">CachedClassfiles</a> <strong class="jxr_keyword">implements</strong> ClassFileTransformer {
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>      @Nonnull
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>      @NonNull
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <a name="CachedClassfiles" href="../../../mockit/internal/state/CachedClassfiles.html#CachedClassfiles">CachedClassfiles</a> INSTANCE = <strong class="jxr_keyword">new</strong> <a name="CachedClassfiles" href="../../../mockit/internal/state/CachedClassfiles.html#CachedClassfiles">CachedClassfiles</a>();
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>      @Nonnull
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      @NonNull
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Map&lt;ClassLoader, Map&lt;String, byte[]&gt;&gt; classLoadersAndClassfiles;
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>      @Nullable
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">private</strong> Class&lt;?&gt; classBeingCached;
@@ -50,7 +50,7 @@
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>      @Override
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>      <strong class="jxr_keyword">public</strong> byte[] transform(@Nullable ClassLoader loader, String classDesc,
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>              @Nullable Class&lt;?&gt; classBeingRedefinedOrRetransformed, @Nullable ProtectionDomain protectionDomain,
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>              @Nonnull byte[] classfileBuffer) {
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>              @NonNull byte[] classfileBuffer) {
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>          <em class="jxr_comment">// can be null for Java 8 lambdas</em>
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>          <strong class="jxr_keyword">if</strong> (classDesc != <strong class="jxr_keyword">null</strong> &amp;&amp; classBeingRedefinedOrRetransformed != <strong class="jxr_keyword">null</strong>
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>                  &amp;&amp; classBeingRedefinedOrRetransformed == classBeingCached) {
@@ -61,12 +61,12 @@
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>      }
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addClassfile(@Nullable ClassLoader loader, @Nonnull String classDesc, @Nonnull byte[] classfile) {
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addClassfile(@Nullable ClassLoader loader, @NonNull String classDesc, @NonNull byte[] classfile) {
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>          Map&lt;String, byte[]&gt; classfiles = getClassfiles(loader);
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>          classfiles.put(classDesc, classfile);
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>      }
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>      @Nonnull
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>      @NonNull
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">private</strong> Map&lt;String, byte[]&gt; getClassfiles(@Nullable ClassLoader loader) {
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>          Map&lt;String, byte[]&gt; classfiles = classLoadersAndClassfiles.get(loader);
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  
@@ -79,7 +79,7 @@
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>      }
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>      @Nullable
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>      <strong class="jxr_keyword">private</strong> byte[] findClassfile(@Nonnull Class&lt;?&gt; aClass) {
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>      <strong class="jxr_keyword">private</strong> byte[] findClassfile(@NonNull Class&lt;?&gt; aClass) {
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>          String className = aClass.getName();
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>  
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>          <em class="jxr_comment">// Discards an invalid numerical suffix from a synthetic Java 8 class, if detected.</em>
@@ -93,12 +93,12 @@
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>      }
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>      @Nullable
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">synchronized</strong> byte[] getClassfile(@Nonnull String classDesc) {
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">synchronized</strong> byte[] getClassfile(@NonNull String classDesc) {
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>          <strong class="jxr_keyword">return</strong> INSTANCE.findClassfile(classDesc);
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>      }
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>  
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>      @Nullable
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>      <strong class="jxr_keyword">private</strong> byte[] findClassfile(@Nonnull String classDesc) {
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>      <strong class="jxr_keyword">private</strong> byte[] findClassfile(@NonNull String classDesc) {
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>          byte[] classfile = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>          <strong class="jxr_keyword">for</strong> (Map&lt;String, byte[]&gt; classfiles : classLoadersAndClassfiles.values()) {
@@ -122,13 +122,13 @@
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>     }
 <a class="jxr_linenumber" name="L115" href="#L115">115</a> 
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>     @Nullable
-<a class="jxr_linenumber" name="L117" href="#L117">117</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">synchronized</strong> byte[] findClassfile(@Nullable ClassLoader loader, @Nonnull String classDesc) {
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">synchronized</strong> byte[] findClassfile(@Nullable ClassLoader loader, @NonNull String classDesc) {
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>         Map&lt;String, byte[]&gt; classfiles = getClassfiles(loader);
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>         <strong class="jxr_keyword">return</strong> classfiles.get(classDesc);
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>     }
 <a class="jxr_linenumber" name="L121" href="#L121">121</a> 
 <a class="jxr_linenumber" name="L122" href="#L122">122</a>     @Nullable
-<a class="jxr_linenumber" name="L123" href="#L123">123</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">synchronized</strong> byte[] getClassfile(@Nonnull Class&lt;?&gt; aClass) {
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">synchronized</strong> byte[] getClassfile(@NonNull Class&lt;?&gt; aClass) {
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>         byte[] cached = INSTANCE.findClassfile(aClass);
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>         <strong class="jxr_keyword">if</strong> (cached != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>             <strong class="jxr_keyword">return</strong> cached;
@@ -140,16 +140,16 @@
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>     }
 <a class="jxr_linenumber" name="L133" href="#L133">133</a> 
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>     @Nullable
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> byte[] getClassfile(@Nullable ClassLoader loader, @Nonnull String internalClassName) {
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> byte[] getClassfile(@Nullable ClassLoader loader, @NonNull String internalClassName) {
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>         <strong class="jxr_keyword">return</strong> INSTANCE.findClassfile(loader, internalClassName);
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>     }
 <a class="jxr_linenumber" name="L138" href="#L138">138</a> 
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> addClassfile(@Nonnull Class&lt;?&gt; aClass, @Nonnull byte[] classfile) {
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> addClassfile(@NonNull Class&lt;?&gt; aClass, @NonNull byte[] classfile) {
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>         INSTANCE.addClassfile(aClass.getClassLoader(), aClass.getName().replace('.', '/'), classfile);
 <a class="jxr_linenumber" name="L141" href="#L141">141</a>     }
 <a class="jxr_linenumber" name="L142" href="#L142">142</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

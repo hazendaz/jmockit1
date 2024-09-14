@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>ConstructorSearch xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
@@ -20,16 +20,16 @@
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> mockit.internal.injection.InjectionPoint.getTypeOfInjectionPointFromVarargsParameter;
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> mockit.internal.injection.InjectionPoint.kindOfInjectionPoint;
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> java.lang.annotation.Annotation;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Constructor;
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Type;
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> java.util.Arrays;
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> java.util.Comparator;
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> java.util.List;
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nullable;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> java.lang.annotation.Annotation;
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Constructor;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Type;
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> java.util.Arrays;
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> java.util.Comparator;
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> java.util.List;
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> mockit.asm.types.JavaType;
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> mockit.internal.injection.InjectionPoint;
@@ -44,13 +44,13 @@
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="ConstructorSearch" href="../../../../mockit/internal/injection/constructor/ConstructorSearch.html#ConstructorSearch">ConstructorSearch</a> {
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> CONSTRUCTOR_ACCESS = PUBLIC + PROTECTED + PRIVATE;
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>      @Nonnull
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>      @NonNull
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="InjectionState" href="../../../../mockit/internal/injection/InjectionState.html#InjectionState">InjectionState</a> injectionState;
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>      @Nonnull
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>      @NonNull
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="TestedClass" href="../../../../mockit/internal/injection/TestedClass.html#TestedClass">TestedClass</a> testedClass;
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>      @Nonnull
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>      @NonNull
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> String testedClassDesc;
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>      @Nonnull
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      @NonNull
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">public</strong> List&lt;InjectionProvider&gt; parameterProviders;
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> withFullInjection;
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>      @Nullable
@@ -58,7 +58,7 @@
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>      @Nullable
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">private</strong> StringBuilder searchResults;
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>      <strong class="jxr_keyword">public</strong> <a name="ConstructorSearch" href="../../../../mockit/internal/injection/constructor/ConstructorSearch.html#ConstructorSearch">ConstructorSearch</a>(@Nonnull <a name="InjectionState" href="../../../../mockit/internal/injection/InjectionState.html#InjectionState">InjectionState</a> injectionState, @Nonnull <a name="TestedClass" href="../../../../mockit/internal/injection/TestedClass.html#TestedClass">TestedClass</a> testedClass,
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>      <strong class="jxr_keyword">public</strong> <a name="ConstructorSearch" href="../../../../mockit/internal/injection/constructor/ConstructorSearch.html#ConstructorSearch">ConstructorSearch</a>(@NonNull <a name="InjectionState" href="../../../../mockit/internal/injection/InjectionState.html#InjectionState">InjectionState</a> injectionState, @NonNull <a name="TestedClass" href="../../../../mockit/internal/injection/TestedClass.html#TestedClass">TestedClass</a> testedClass,
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>              <strong class="jxr_keyword">boolean</strong> withFullInjection) {
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>          <strong class="jxr_keyword">this</strong>.injectionState = injectionState;
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>          <strong class="jxr_keyword">this</strong>.testedClass = testedClass;
@@ -81,7 +81,7 @@
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>          <strong class="jxr_keyword">return</strong> constructor;
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>      }
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>  
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> findSingleAnnotatedConstructor(@Nonnull Constructor&lt;?&gt;[] constructors) {
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> findSingleAnnotatedConstructor(@NonNull Constructor&lt;?&gt;[] constructors) {
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>          <strong class="jxr_keyword">for</strong> (Constructor&lt;?&gt; c : constructors) {
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>              <strong class="jxr_keyword">if</strong> (kindOfInjectionPoint(c) != KindOfInjectionPoint.NotAnnotated) {
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>                  List&lt;InjectionProvider&gt; providersFound = findParameterProvidersForConstructor(c);
@@ -98,7 +98,7 @@
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>          <strong class="jxr_keyword">return</strong> false;
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>      }
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>  
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> findSatisfiedConstructorWithMostParameters(@Nonnull Constructor&lt;?&gt;[] constructors) {
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> findSatisfiedConstructorWithMostParameters(@NonNull Constructor&lt;?&gt;[] constructors) {
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>          sortConstructorsWithMostAccessibleFirst(constructors);
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>          Constructor&lt;?&gt; unresolvedConstructor = <strong class="jxr_keyword">null</strong>;
@@ -125,7 +125,7 @@
 <a class="jxr_linenumber" name="L117" href="#L117">117</a>         selectConstructorWithUnresolvedParameterIfMoreAccessible(unresolvedConstructor, incompleteProviders);
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>     }
 <a class="jxr_linenumber" name="L119" href="#L119">119</a> 
-<a class="jxr_linenumber" name="L120" href="#L120">120</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> sortConstructorsWithMostAccessibleFirst(@Nonnull Constructor&lt;?&gt;[] constructors) {
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> sortConstructorsWithMostAccessibleFirst(@NonNull Constructor&lt;?&gt;[] constructors) {
 <a class="jxr_linenumber" name="L121" href="#L121">121</a>         <strong class="jxr_keyword">if</strong> (constructors.length &gt; 1) {
 <a class="jxr_linenumber" name="L122" href="#L122">122</a>             Arrays.sort(constructors, CONSTRUCTOR_COMPARATOR);
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>         }
@@ -133,7 +133,7 @@
 <a class="jxr_linenumber" name="L125" href="#L125">125</a> 
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Comparator&lt;Constructor&lt;?&gt;&gt; CONSTRUCTOR_COMPARATOR = ConstructorSearch::compareAccessibility;
 <a class="jxr_linenumber" name="L127" href="#L127">127</a> 
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> compareAccessibility(@Nonnull Constructor&lt;?&gt; c1, @Nonnull Constructor&lt;?&gt; c2) {
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> compareAccessibility(@NonNull Constructor&lt;?&gt; c1, @NonNull Constructor&lt;?&gt; c2) {
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>         <strong class="jxr_keyword">int</strong> m1 = getModifiers(c1);
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>         <strong class="jxr_keyword">int</strong> m2 = getModifiers(c2);
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>         <strong class="jxr_keyword">if</strong> (m1 == m2) {
@@ -157,7 +157,7 @@
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>         <strong class="jxr_keyword">return</strong> 1;
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>     }
 <a class="jxr_linenumber" name="L151" href="#L151">151</a> 
-<a class="jxr_linenumber" name="L152" href="#L152">152</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> containsUnresolvedProvider(@Nonnull List&lt;InjectionProvider&gt; providersFound) {
+<a class="jxr_linenumber" name="L152" href="#L152">152</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> containsUnresolvedProvider(@NonNull List&lt;InjectionProvider&gt; providersFound) {
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>         <strong class="jxr_keyword">for</strong> (<a name="InjectionProvider" href="../../../../mockit/internal/injection/InjectionProvider.html#InjectionProvider">InjectionProvider</a> provider : providersFound) {
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>             <strong class="jxr_keyword">if</strong> (provider instanceof <a name="ConstructorParameter" href="../../../../mockit/internal/injection/constructor/ConstructorParameter.html#ConstructorParameter">ConstructorParameter</a> &amp;&amp; provider.getValue(<strong class="jxr_keyword">null</strong>) == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>                 <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
@@ -167,19 +167,19 @@
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>         <strong class="jxr_keyword">return</strong> false;
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>     }
 <a class="jxr_linenumber" name="L161" href="#L161">161</a> 
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> isLargerConstructor(@Nonnull Constructor&lt;?&gt; candidateConstructor,
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>             @Nonnull List&lt;InjectionProvider&gt; providersFound, @Nonnull Constructor&lt;?&gt; previousSatisfiableConstructor,
-<a class="jxr_linenumber" name="L164" href="#L164">164</a>             @Nonnull List&lt;InjectionProvider&gt; previousProviders) {
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> isLargerConstructor(@NonNull Constructor&lt;?&gt; candidateConstructor,
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>             @NonNull List&lt;InjectionProvider&gt; providersFound, @NonNull Constructor&lt;?&gt; previousSatisfiableConstructor,
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>             @NonNull List&lt;InjectionProvider&gt; previousProviders) {
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>         <strong class="jxr_keyword">return</strong> getModifiers(candidateConstructor) == getModifiers(previousSatisfiableConstructor)
 <a class="jxr_linenumber" name="L166" href="#L166">166</a>                 &amp;&amp; providersFound.size() &gt;= previousProviders.size();
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>     }
 <a class="jxr_linenumber" name="L168" href="#L168">168</a> 
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> getModifiers(@Nonnull Constructor&lt;?&gt; c) {
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">int</strong> getModifiers(@NonNull Constructor&lt;?&gt; c) {
 <a class="jxr_linenumber" name="L170" href="#L170">170</a>         <strong class="jxr_keyword">return</strong> CONSTRUCTOR_ACCESS &amp; c.getModifiers();
 <a class="jxr_linenumber" name="L171" href="#L171">171</a>     }
 <a class="jxr_linenumber" name="L172" href="#L172">172</a> 
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>     @Nullable
-<a class="jxr_linenumber" name="L174" href="#L174">174</a>     <strong class="jxr_keyword">private</strong> List&lt;InjectionProvider&gt; findParameterProvidersForConstructor(@Nonnull Constructor&lt;?&gt; candidate) {
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>     <strong class="jxr_keyword">private</strong> List&lt;InjectionProvider&gt; findParameterProvidersForConstructor(@NonNull Constructor&lt;?&gt; candidate) {
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>         Type[] parameterTypes = candidate.getGenericParameterTypes();
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>         Annotation[][] parameterAnnotations = candidate.getParameterAnnotations();
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>         <strong class="jxr_keyword">int</strong> n = parameterTypes.length;
@@ -227,8 +227,8 @@
 <a class="jxr_linenumber" name="L219" href="#L219">219</a>     }
 <a class="jxr_linenumber" name="L220" href="#L220">220</a> 
 <a class="jxr_linenumber" name="L221" href="#L221">221</a>     @Nullable
-<a class="jxr_linenumber" name="L222" href="#L222">222</a>     <strong class="jxr_keyword">private</strong> <a name="InjectionProvider" href="../../../../mockit/internal/injection/InjectionProvider.html#InjectionProvider">InjectionProvider</a> findOrCreateInjectionProvider(@Nonnull Type parameterType, @Nullable String parameterName,
-<a class="jxr_linenumber" name="L223" href="#L223">223</a>             @Nonnull Annotation[] parameterAnnotations) {
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>     <strong class="jxr_keyword">private</strong> <a name="InjectionProvider" href="../../../../mockit/internal/injection/InjectionProvider.html#InjectionProvider">InjectionProvider</a> findOrCreateInjectionProvider(@NonNull Type parameterType, @Nullable String parameterName,
+<a class="jxr_linenumber" name="L223" href="#L223">223</a>             @NonNull Annotation[] parameterAnnotations) {
 <a class="jxr_linenumber" name="L224" href="#L224">224</a>         String qualifiedName = getQualifiedName(parameterAnnotations);
 <a class="jxr_linenumber" name="L225" href="#L225">225</a> 
 <a class="jxr_linenumber" name="L226" href="#L226">226</a>         <strong class="jxr_keyword">if</strong> (parameterName == <strong class="jxr_keyword">null</strong> &amp;&amp; qualifiedName == <strong class="jxr_keyword">null</strong>) {
@@ -255,8 +255,8 @@
 <a class="jxr_linenumber" name="L247" href="#L247">247</a>     }
 <a class="jxr_linenumber" name="L248" href="#L248">248</a> 
 <a class="jxr_linenumber" name="L249" href="#L249">249</a>     @Nullable
-<a class="jxr_linenumber" name="L250" href="#L250">250</a>     <strong class="jxr_keyword">private</strong> <a name="InjectionProvider" href="../../../../mockit/internal/injection/InjectionProvider.html#InjectionProvider">InjectionProvider</a> hasInjectedValuesForVarargsParameter(@Nonnull Type parameterType,
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>             @Nonnull KindOfInjectionPoint kindOfInjectionPoint, @Nonnull <a name="InjectionProviders" href="../../../../mockit/internal/injection/InjectionProviders.html#InjectionProviders">InjectionProviders</a> injectionProviders) {
+<a class="jxr_linenumber" name="L250" href="#L250">250</a>     <strong class="jxr_keyword">private</strong> <a name="InjectionProvider" href="../../../../mockit/internal/injection/InjectionProvider.html#InjectionProvider">InjectionProvider</a> hasInjectedValuesForVarargsParameter(@NonNull Type parameterType,
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>             @NonNull KindOfInjectionPoint kindOfInjectionPoint, @NonNull <a name="InjectionProviders" href="../../../../mockit/internal/injection/InjectionProviders.html#InjectionProviders">InjectionProviders</a> injectionProviders) {
 <a class="jxr_linenumber" name="L252" href="#L252">252</a>         Type varargsElementType = getTypeOfInjectionPointFromVarargsParameter(parameterType);
 <a class="jxr_linenumber" name="L253" href="#L253">253</a>         injectionProviders.setTypeOfInjectionPoint(varargsElementType, kindOfInjectionPoint);
 <a class="jxr_linenumber" name="L254" href="#L254">254</a>         <strong class="jxr_keyword">return</strong> injectionProviders.findNextInjectableForInjectionPoint(testedClass);
@@ -273,7 +273,7 @@
 <a class="jxr_linenumber" name="L265" href="#L265">265</a> 
 <a class="jxr_linenumber" name="L266" href="#L266">266</a>     <em class="jxr_comment">// Methods used only when no satisfiable constructor is found //////////////////////////////////////////////////////</em>
 <a class="jxr_linenumber" name="L267" href="#L267">267</a> 
-<a class="jxr_linenumber" name="L268" href="#L268">268</a>     @Nonnull
+<a class="jxr_linenumber" name="L268" href="#L268">268</a>     @NonNull
 <a class="jxr_linenumber" name="L269" href="#L269">269</a>     <strong class="jxr_keyword">public</strong> String getDescription() {
 <a class="jxr_linenumber" name="L270" href="#L270">270</a>         searchResults = <strong class="jxr_keyword">new</strong> StringBuilder();
 <a class="jxr_linenumber" name="L271" href="#L271">271</a>         findConstructorToUse();
@@ -283,7 +283,7 @@
 <a class="jxr_linenumber" name="L275" href="#L275">275</a>     }
 <a class="jxr_linenumber" name="L276" href="#L276">276</a> 
 <a class="jxr_linenumber" name="L277" href="#L277">277</a>     @SuppressWarnings(<span class="jxr_string">"DynamicRegexReplaceableByCompiledPattern"</span>)
-<a class="jxr_linenumber" name="L278" href="#L278">278</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> printCandidateConstructorNameIfRequested(@Nonnull Constructor&lt;?&gt; candidate) {
+<a class="jxr_linenumber" name="L278" href="#L278">278</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> printCandidateConstructorNameIfRequested(@NonNull Constructor&lt;?&gt; candidate) {
 <a class="jxr_linenumber" name="L279" href="#L279">279</a>         <strong class="jxr_keyword">if</strong> (searchResults != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L280" href="#L280">280</a>             String constructorDesc = candidate.toGenericString().replace(<span class="jxr_string">"java.lang."</span>, <span class="jxr_string">""</span>).replace(<span class="jxr_string">","</span>, <span class="jxr_string">", "</span>);
 <a class="jxr_linenumber" name="L281" href="#L281">281</a>             searchResults.append(<span class="jxr_string">"\r\n  "</span>).append(constructorDesc).append(<span class="jxr_string">"\r\n"</span>);
@@ -310,6 +310,6 @@
 <a class="jxr_linenumber" name="L302" href="#L302">302</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

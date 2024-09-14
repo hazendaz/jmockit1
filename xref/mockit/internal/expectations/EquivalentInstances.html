@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>EquivalentInstances xref</title>
 <link type="text/css" rel="stylesheet" href="../../../stylesheet.css" />
@@ -12,19 +12,19 @@
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">package</strong> mockit.internal.expectations;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.util.IdentityHashMap;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.util.Map;
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.util.Map.Entry;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nullable;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.util.IdentityHashMap;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.util.Map.Entry;
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> mockit.internal.expectations.invocation.ExpectedInvocation;
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="EquivalentInstances" href="../../../mockit/internal/expectations/EquivalentInstances.html#EquivalentInstances">EquivalentInstances</a> {
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>      @Nonnull
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>      @NonNull
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>      <strong class="jxr_keyword">final</strong> Map&lt;Object, Object&gt; instanceMap;
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>      @Nonnull
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>      @NonNull
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>      <strong class="jxr_keyword">final</strong> Map&lt;Object, Object&gt; replacementMap;
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>      <a name="EquivalentInstances" href="../../../mockit/internal/expectations/EquivalentInstances.html#EquivalentInstances">EquivalentInstances</a>() {
@@ -32,7 +32,7 @@
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>          replacementMap = <strong class="jxr_keyword">new</strong> IdentityHashMap&lt;&gt;();
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>      }
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">void</strong> registerReplacementInstanceIfApplicable(@Nullable Object mock, @Nonnull <a name="ExpectedInvocation" href="../../../mockit/internal/expectations/invocation/ExpectedInvocation.html#ExpectedInvocation">ExpectedInvocation</a> invocation) {
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">void</strong> registerReplacementInstanceIfApplicable(@Nullable Object mock, @NonNull <a name="ExpectedInvocation" href="../../../mockit/internal/expectations/invocation/ExpectedInvocation.html#ExpectedInvocation">ExpectedInvocation</a> invocation) {
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>          Object replacementInstance = invocation.replacementInstance;
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>          <strong class="jxr_keyword">if</strong> (replacementInstance != <strong class="jxr_keyword">null</strong> &amp;&amp; replacementInstance != invocation.instance) {
@@ -40,24 +40,24 @@
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>          }
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>      }
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">boolean</strong> isEquivalentInstance(@Nonnull Object invocationInstance, @Nonnull Object invokedInstance) {
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">boolean</strong> isEquivalentInstance(@NonNull Object invocationInstance, @NonNull Object invokedInstance) {
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>          <strong class="jxr_keyword">return</strong> invocationInstance == invokedInstance || invocationInstance == replacementMap.get(invokedInstance)
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>                  || invocationInstance == instanceMap.get(invokedInstance)
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>                  || invokedInstance == instanceMap.get(invocationInstance);
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>      }
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>      <strong class="jxr_keyword">boolean</strong> areNonEquivalentInstances(@Nonnull Object invocationInstance, @Nonnull Object invokedInstance) {
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>      <strong class="jxr_keyword">boolean</strong> areNonEquivalentInstances(@NonNull Object invocationInstance, @NonNull Object invokedInstance) {
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>          <strong class="jxr_keyword">boolean</strong> recordedInstanceMatchingAnyInstance = !isMatchingInstance(invocationInstance);
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>          <strong class="jxr_keyword">boolean</strong> invokedInstanceMatchingSpecificInstance = isMatchingInstance(invokedInstance);
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>          <strong class="jxr_keyword">return</strong> recordedInstanceMatchingAnyInstance &amp;&amp; invokedInstanceMatchingSpecificInstance;
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>      }
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isMatchingInstance(@Nonnull Object instance) {
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isMatchingInstance(@NonNull Object instance) {
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>          <strong class="jxr_keyword">return</strong> instanceMap.containsKey(instance) || instanceMap.containsValue(instance)
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>                  || replacementMap.containsKey(instance) || replacementMap.containsValue(instance);
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>      }
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>      <strong class="jxr_keyword">boolean</strong> areMatchingInstances(<strong class="jxr_keyword">boolean</strong> matchInstance, @Nonnull Object mock1, @Nonnull Object mock2) {
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>      <strong class="jxr_keyword">boolean</strong> areMatchingInstances(<strong class="jxr_keyword">boolean</strong> matchInstance, @NonNull Object mock1, @NonNull Object mock2) {
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>          <strong class="jxr_keyword">if</strong> (matchInstance) {
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>              <strong class="jxr_keyword">return</strong> isEquivalentInstance(mock1, mock2);
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>          }
@@ -65,7 +65,7 @@
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>          <strong class="jxr_keyword">return</strong> !areInDifferentEquivalenceSets(mock1, mock2);
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>      }
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> areInDifferentEquivalenceSets(@Nonnull Object mock1, @Nonnull Object mock2) {
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> areInDifferentEquivalenceSets(@NonNull Object mock1, @NonNull Object mock2) {
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>          <strong class="jxr_keyword">if</strong> (mock1 == mock2 || instanceMap.isEmpty()) {
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>              <strong class="jxr_keyword">return</strong> false;
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>          }
@@ -85,7 +85,7 @@
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>          <strong class="jxr_keyword">return</strong> instanceMapHasMocksInSeparateEntries(mock1, mock2);
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>      }
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>  
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> instanceMapHasMocksInSeparateEntries(@Nonnull Object mock1, @Nonnull Object mock2) {
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> instanceMapHasMocksInSeparateEntries(@NonNull Object mock1, @NonNull Object mock2) {
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>          <strong class="jxr_keyword">boolean</strong> found1 = false;
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>          <strong class="jxr_keyword">boolean</strong> found2 = false;
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>  
@@ -106,23 +106,23 @@
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>          <strong class="jxr_keyword">return</strong> false;
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>      }
 <a class="jxr_linenumber" name="L100" href="#L100">100</a> 
-<a class="jxr_linenumber" name="L101" href="#L101">101</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> isInMapEntry(@Nonnull Entry&lt;Object, Object&gt; mapEntry, @Nonnull Object mock) {
+<a class="jxr_linenumber" name="L101" href="#L101">101</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> isInMapEntry(@NonNull Entry&lt;Object, Object&gt; mapEntry, @NonNull Object mock) {
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>         <strong class="jxr_keyword">return</strong> mapEntry.getKey() == mock || mapEntry.getValue() == mock;
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>     }
 <a class="jxr_linenumber" name="L104" href="#L104">104</a> 
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>     @Nullable
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>     Object getReplacementInstanceForMethodInvocation(@Nonnull Object invokedInstance,
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>             @Nonnull String methodNameAndDesc) {
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>     Object getReplacementInstanceForMethodInvocation(@NonNull Object invokedInstance,
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>             @NonNull String methodNameAndDesc) {
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>         <strong class="jxr_keyword">return</strong> methodNameAndDesc.charAt(0) == '&lt;' ? <strong class="jxr_keyword">null</strong> : replacementMap.get(invokedInstance);
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>     }
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> 
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>     <strong class="jxr_keyword">boolean</strong> isReplacementInstance(@Nonnull Object invokedInstance, @Nonnull String methodNameAndDesc) {
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>     <strong class="jxr_keyword">boolean</strong> isReplacementInstance(@NonNull Object invokedInstance, @NonNull String methodNameAndDesc) {
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>         <strong class="jxr_keyword">return</strong> methodNameAndDesc.charAt(0) != '&lt;'
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>                 &amp;&amp; (replacementMap.containsKey(invokedInstance) || replacementMap.containsValue(invokedInstance));
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>     }
 <a class="jxr_linenumber" name="L115" href="#L115">115</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

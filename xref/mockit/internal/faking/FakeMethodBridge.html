@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>FakeMethodBridge xref</title>
 <link type="text/css" rel="stylesheet" href="../../../stylesheet.css" />
@@ -12,10 +12,10 @@
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">package</strong> mockit.internal.faking;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.lang.reflect.Method;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nullable;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Method;
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> mockit.Invocation;
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> mockit.internal.ClassLoadingBridge;
@@ -26,7 +26,7 @@
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> mockit.internal.util.TypeDescriptor;
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="FakeMethodBridge" href="../../../mockit/internal/faking/FakeMethodBridge.html#FakeMethodBridge">FakeMethodBridge</a> <strong class="jxr_keyword">extends</strong> <a name="ClassLoadingBridge" href="../../../mockit/internal/ClassLoadingBridge.html#ClassLoadingBridge">ClassLoadingBridge</a> {
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>      @Nonnull
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>      @NonNull
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <a name="ClassLoadingBridge" href="../../../mockit/internal/ClassLoadingBridge.html#ClassLoadingBridge">ClassLoadingBridge</a> MB = <strong class="jxr_keyword">new</strong> <a name="FakeMethodBridge" href="../../../mockit/internal/faking/FakeMethodBridge.html#FakeMethodBridge">FakeMethodBridge</a>();
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>      <strong class="jxr_keyword">private</strong> <a name="FakeMethodBridge" href="../../../mockit/internal/faking/FakeMethodBridge.html#FakeMethodBridge">FakeMethodBridge</a>() {
@@ -35,7 +35,7 @@
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>      @Nullable
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>      @Override
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">public</strong> Object invoke(@Nullable Object fakedInstance, Method method, @Nonnull Object[] args) <strong class="jxr_keyword">throws</strong> Throwable {
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">public</strong> Object invoke(@Nullable Object fakedInstance, Method method, @NonNull Object[] args) <strong class="jxr_keyword">throws</strong> Throwable {
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>          String fakeClassDesc = (String) args[0];
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>          String fakedClassDesc = (String) args[1];
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>          String fakeDesc = (String) args[4];
@@ -54,9 +54,9 @@
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>      }
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>      @Nullable
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Object callFake(@Nullable Object fakedInstance, @Nonnull Object fake, @Nonnull String fakedClassDesc,
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>              @Nonnull String fakeOrFakedName, @Nonnull String fakeOrFakedDesc, <strong class="jxr_keyword">int</strong> fakeStateIndex,
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>              @Nonnull Object[] fakeArgs) <strong class="jxr_keyword">throws</strong> Throwable {
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Object callFake(@Nullable Object fakedInstance, @NonNull Object fake, @NonNull String fakedClassDesc,
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>              @NonNull String fakeOrFakedName, @NonNull String fakeOrFakedDesc, <strong class="jxr_keyword">int</strong> fakeStateIndex,
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>              @NonNull Object[] fakeArgs) <strong class="jxr_keyword">throws</strong> Throwable {
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>          Class&lt;?&gt; fakeClass = fake.getClass();
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>          <strong class="jxr_keyword">if</strong> (fakeStateIndex &lt; 0) {
@@ -78,27 +78,27 @@
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>      }
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>      @Nullable
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Object executeSimpleFakeMethod(@Nonnull Class&lt;?&gt; fakeClass, @Nullable Object fake,
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>              @Nonnull String fakeOrFakedName, @Nonnull String fakeOrFakedDesc, @Nonnull Object[] fakeArgs)
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Object executeSimpleFakeMethod(@NonNull Class&lt;?&gt; fakeClass, @Nullable Object fake,
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>              @NonNull String fakeOrFakedName, @NonNull String fakeOrFakedDesc, @NonNull Object[] fakeArgs)
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>              <strong class="jxr_keyword">throws</strong> Throwable {
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          Class&lt;?&gt;[] paramClasses = TypeDescriptor.getParameterTypes(fakeOrFakedDesc);
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>          <strong class="jxr_keyword">return</strong> MethodReflection.invokeWithCheckedThrows(fakeClass, fake, fakeOrFakedName, paramClasses, fakeArgs);
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>      }
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>  
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>      @Nullable
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Object executeFakeMethodWithoutInvocationArgument(@Nonnull <a name="FakeState" href="../../../mockit/internal/faking/FakeState.html#FakeState">FakeState</a> fakeState,
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>              @Nonnull Class&lt;?&gt; fakeClass, @Nullable Object fake, @Nonnull String fakeOrFakedDesc,
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>              @Nonnull Object[] fakeArgs) <strong class="jxr_keyword">throws</strong> Throwable {
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Object executeFakeMethodWithoutInvocationArgument(@NonNull <a name="FakeState" href="../../../mockit/internal/faking/FakeState.html#FakeState">FakeState</a> fakeState,
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>              @NonNull Class&lt;?&gt; fakeClass, @Nullable Object fake, @NonNull String fakeOrFakedDesc,
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>              @NonNull Object[] fakeArgs) <strong class="jxr_keyword">throws</strong> Throwable {
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>          Class&lt;?&gt;[] paramClasses = TypeDescriptor.getParameterTypes(fakeOrFakedDesc);
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>          Method fakeMethod = fakeState.getFakeMethod(fakeClass, paramClasses);
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>          <strong class="jxr_keyword">return</strong> MethodReflection.invokeWithCheckedThrows(fake, fakeMethod, fakeArgs);
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>      }
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>  
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>      @Nullable
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Object executeFakeMethodWithInvocationArgument(@Nonnull <a name="FakeState" href="../../../mockit/internal/faking/FakeState.html#FakeState">FakeState</a> fakeState,
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>              @Nonnull Class&lt;?&gt; fakeClass, @Nullable Object fake, @Nullable Object fakedInstance,
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>              @Nonnull String fakedClassDesc, @Nonnull String fakedName, @Nonnull String fakedDesc,
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>              @Nonnull Object[] fakeArgs) <strong class="jxr_keyword">throws</strong> Throwable {
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Object executeFakeMethodWithInvocationArgument(@NonNull <a name="FakeState" href="../../../mockit/internal/faking/FakeState.html#FakeState">FakeState</a> fakeState,
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>              @NonNull Class&lt;?&gt; fakeClass, @Nullable Object fake, @Nullable Object fakedInstance,
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>              @NonNull String fakedClassDesc, @NonNull String fakedName, @NonNull String fakedDesc,
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>              @NonNull Object[] fakeArgs) <strong class="jxr_keyword">throws</strong> Throwable {
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>          Class&lt;?&gt;[] paramClasses;
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>          Method fakeMethod;
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>          <a name="FakeInvocation" href="../../../mockit/internal/faking/FakeInvocation.html#FakeInvocation">FakeInvocation</a> invocation;
@@ -125,6 +125,6 @@
 <a class="jxr_linenumber" name="L117" href="#L117">117</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>VerifiedExpectation xref</title>
 <link type="text/css" rel="stylesheet" href="../../../stylesheet.css" />
@@ -12,42 +12,43 @@
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">package</strong> mockit.internal.expectations;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.util.List;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> javax.annotation.Nonnegative;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nullable;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> mockit.internal.expectations.argumentMatching.ArgumentMatcher;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="VerifiedExpectation" href="../../../mockit/internal/expectations/VerifiedExpectation.html#VerifiedExpectation">VerifiedExpectation</a> {
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>      @Nonnull
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>      <strong class="jxr_keyword">final</strong> <a name="Expectation" href="../../../mockit/internal/expectations/Expectation.html#Expectation">Expectation</a> expectation;
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>      @Nonnull
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>      <strong class="jxr_keyword">final</strong> Object[] arguments;
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>      @Nullable
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>      <strong class="jxr_keyword">final</strong> List&lt;ArgumentMatcher&lt;?&gt;&gt; argMatchers;
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> replayIndex;
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>      <a name="VerifiedExpectation" href="../../../mockit/internal/expectations/VerifiedExpectation.html#VerifiedExpectation">VerifiedExpectation</a>(@Nonnull <a name="Expectation" href="../../../mockit/internal/expectations/Expectation.html#Expectation">Expectation</a> expectation, @Nonnull Object[] arguments,
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>              @Nullable List&lt;ArgumentMatcher&lt;?&gt;&gt; argMatchers, <strong class="jxr_keyword">int</strong> replayIndex) {
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>          <strong class="jxr_keyword">this</strong>.expectation = expectation;
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>          <strong class="jxr_keyword">this</strong>.arguments = arguments;
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>          <strong class="jxr_keyword">this</strong>.argMatchers = argMatchers;
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>          <strong class="jxr_keyword">this</strong>.replayIndex = replayIndex;
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>      }
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">boolean</strong> matchesReplayIndex(@Nonnegative <strong class="jxr_keyword">int</strong> expectationIndex) {
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>          <strong class="jxr_keyword">return</strong> replayIndex &lt; 0 || replayIndex == expectationIndex;
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>      }
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>  
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>      @Nullable
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>      Object captureNewInstance() {
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>          <strong class="jxr_keyword">return</strong> expectation.invocation.instance;
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>      }
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  }
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.util.List;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> mockit.internal.expectations.argumentMatching.ArgumentMatcher;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> org.checkerframework.checker.index.qual.NonNegative;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="VerifiedExpectation" href="../../../mockit/internal/expectations/VerifiedExpectation.html#VerifiedExpectation">VerifiedExpectation</a> {
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>      @NonNull
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>      <strong class="jxr_keyword">final</strong> <a name="Expectation" href="../../../mockit/internal/expectations/Expectation.html#Expectation">Expectation</a> expectation;
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>      @NonNull
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>      <strong class="jxr_keyword">final</strong> Object[] arguments;
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>      @Nullable
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>      <strong class="jxr_keyword">final</strong> List&lt;ArgumentMatcher&lt;?&gt;&gt; argMatchers;
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> replayIndex;
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>      <a name="VerifiedExpectation" href="../../../mockit/internal/expectations/VerifiedExpectation.html#VerifiedExpectation">VerifiedExpectation</a>(@NonNull <a name="Expectation" href="../../../mockit/internal/expectations/Expectation.html#Expectation">Expectation</a> expectation, @NonNull Object[] arguments,
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>              @Nullable List&lt;ArgumentMatcher&lt;?&gt;&gt; argMatchers, <strong class="jxr_keyword">int</strong> replayIndex) {
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>          <strong class="jxr_keyword">this</strong>.expectation = expectation;
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>          <strong class="jxr_keyword">this</strong>.arguments = arguments;
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>          <strong class="jxr_keyword">this</strong>.argMatchers = argMatchers;
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>          <strong class="jxr_keyword">this</strong>.replayIndex = replayIndex;
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>      }
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>      <strong class="jxr_keyword">boolean</strong> matchesReplayIndex(@NonNegative <strong class="jxr_keyword">int</strong> expectationIndex) {
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>          <strong class="jxr_keyword">return</strong> replayIndex &lt; 0 || replayIndex == expectationIndex;
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>      }
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>      @Nullable
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>      Object captureNewInstance() {
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>          <strong class="jxr_keyword">return</strong> expectation.invocation.instance;
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>      }
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

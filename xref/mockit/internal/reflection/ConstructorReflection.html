@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>ConstructorReflection xref</title>
 <link type="text/css" rel="stylesheet" href="../../../stylesheet.css" />
@@ -17,11 +17,11 @@
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> mockit.internal.reflection.ParameterReflection.matchesParameterTypes;
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> mockit.internal.util.Utilities.ensureThatMemberIsAccessible;
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Constructor;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.InvocationTargetException;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nullable;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Constructor;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.InvocationTargetException;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> org.objenesis.instantiator.sun.SunReflectionFactoryInstantiator;
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  
@@ -29,8 +29,8 @@
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>      <strong class="jxr_keyword">private</strong> <a name="ConstructorReflection" href="../../../mockit/internal/reflection/ConstructorReflection.html#ConstructorReflection">ConstructorReflection</a>() {
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>      }
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>      @Nonnull
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">static</strong> &lt;T&gt; Constructor&lt;T&gt; findSpecifiedConstructor(@Nonnull Class&lt;?&gt; theClass, @Nonnull Class&lt;?&gt;[] paramTypes) {
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>      @NonNull
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">static</strong> &lt;T&gt; Constructor&lt;T&gt; findSpecifiedConstructor(@NonNull Class&lt;?&gt; theClass, @NonNull Class&lt;?&gt;[] paramTypes) {
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>          <strong class="jxr_keyword">for</strong> (Constructor&lt;?&gt; declaredConstructor : theClass.getDeclaredConstructors()) {
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>              Class&lt;?&gt;[] declaredParameterTypes = declaredConstructor.getParameterTypes();
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>              <strong class="jxr_keyword">int</strong> firstRealParameter = indexOfFirstRealParameter(declaredParameterTypes, paramTypes);
@@ -48,8 +48,8 @@
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>                  <span class="jxr_string">"Specified constructor not found: "</span> + theClass.getSimpleName() + paramTypesDesc);
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>      }
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>      @Nonnull
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; T invokeAccessible(@Nonnull Constructor&lt;T&gt; constructor, @Nonnull Object... initArgs) {
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>      @NonNull
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; T invokeAccessible(@NonNull Constructor&lt;T&gt; constructor, @NonNull Object... initArgs) {
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>          <strong class="jxr_keyword">if</strong> (!constructor.isAccessible()) {
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>              constructor.setAccessible(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>          }
@@ -71,15 +71,15 @@
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>          }
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      }
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> newInstanceUsingCompatibleConstructor(@Nonnull Class&lt;?&gt; aClass, @Nonnull String argument)
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> newInstanceUsingCompatibleConstructor(@NonNull Class&lt;?&gt; aClass, @NonNull String argument)
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>              <strong class="jxr_keyword">throws</strong> ReflectiveOperationException {
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>          Constructor&lt;?&gt; constructor = aClass.getDeclaredConstructor(String.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>          ensureThatMemberIsAccessible(constructor);
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>          constructor.newInstance(argument);
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>      }
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>      @Nonnull
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; T newInstanceUsingDefaultConstructor(@Nonnull Class&lt;T&gt; aClass) {
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>      @NonNull
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; T newInstanceUsingDefaultConstructor(@NonNull Class&lt;T&gt; aClass) {
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>          <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>              Constructor&lt;T&gt; constructor = aClass.getDeclaredConstructor();
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>              ensureThatMemberIsAccessible(constructor);
@@ -92,7 +92,7 @@
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>      }
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>  
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>      @Nullable
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; T newInstanceUsingDefaultConstructorIfAvailable(@Nonnull Class&lt;T&gt; aClass) {
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; T newInstanceUsingDefaultConstructorIfAvailable(@NonNull Class&lt;T&gt; aClass) {
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>          <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>              Constructor&lt;T&gt; constructor = aClass.getDeclaredConstructor();
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>              <strong class="jxr_keyword">return</strong> constructor.newInstance();
@@ -103,8 +103,8 @@
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>      }
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>  
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>      @Nullable
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; T newInstanceUsingPublicConstructorIfAvailable(@Nonnull Class&lt;T&gt; aClass,
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>              @Nonnull Class&lt;?&gt;[] parameterTypes, @Nonnull Object... initArgs) {
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; T newInstanceUsingPublicConstructorIfAvailable(@NonNull Class&lt;T&gt; aClass,
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>              @NonNull Class&lt;?&gt;[] parameterTypes, @NonNull Object... initArgs) {
 <a class="jxr_linenumber" name="L100" href="#L100">100</a>         Constructor&lt;T&gt; publicConstructor;
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>         <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>             publicConstructor = aClass.getConstructor(parameterTypes);
@@ -115,8 +115,8 @@
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>         <strong class="jxr_keyword">return</strong> invokeAccessible(publicConstructor, initArgs);
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>     }
 <a class="jxr_linenumber" name="L109" href="#L109">109</a> 
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>     @Nonnull
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; T newInstanceUsingPublicDefaultConstructor(@Nonnull Class&lt;T&gt; aClass) {
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>     @NonNull
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; T newInstanceUsingPublicDefaultConstructor(@NonNull Class&lt;T&gt; aClass) {
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>         Constructor&lt;T&gt; publicConstructor;
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>             publicConstructor = aClass.getConstructor();
@@ -127,14 +127,14 @@
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>         <strong class="jxr_keyword">return</strong> invokeAccessible(publicConstructor);
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>     }
 <a class="jxr_linenumber" name="L121" href="#L121">121</a> 
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>     @Nonnull
-<a class="jxr_linenumber" name="L123" href="#L123">123</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; T newUninitializedInstance(@Nonnull Class&lt;T&gt; aClass) {
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>     @NonNull
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T&gt; T newUninitializedInstance(@NonNull Class&lt;T&gt; aClass) {
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>         SunReflectionFactoryInstantiator&lt;T&gt; ref = <strong class="jxr_keyword">new</strong> SunReflectionFactoryInstantiator&lt;&gt;(aClass);
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>         <strong class="jxr_keyword">return</strong> ref.newInstance();
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>     }
 <a class="jxr_linenumber" name="L127" href="#L127">127</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

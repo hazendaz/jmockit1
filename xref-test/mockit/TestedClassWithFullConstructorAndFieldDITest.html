@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>TestedClassWithFullConstructorAndFieldDITest xref</title>
 <link type="text/css" rel="stylesheet" href="../stylesheet.css" />
@@ -8,16 +8,16 @@
 <div id="overview"><a href="../../testapidocs/mockit/TestedClassWithFullConstructorAndFieldDITest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> mockit;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertEquals;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertNotNull;
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertSame;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertEquals;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertNotNull;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertSame;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * The Class TestedClassWithFullConstructorAndFieldDITest.</em>
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="TestedClassWithFullConstructorAndFieldDITest" href="../mockit/TestedClassWithFullConstructorAndFieldDITest.html#TestedClassWithFullConstructorAndFieldDITest">TestedClassWithFullConstructorAndFieldDITest</a> {
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="TestedClassWithFullConstructorAndFieldDITest" href="../mockit/TestedClassWithFullConstructorAndFieldDITest.html#TestedClassWithFullConstructorAndFieldDITest">TestedClassWithFullConstructorAndFieldDITest</a> {
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment">     * The Class TestedClass.</em>
@@ -74,7 +74,7 @@
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_javadoccomment">     * injection.</em>
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>      @Test
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> verifyEachTargetFieldGetsInjectedWithFirstUnusedInjectableWhetherThroughFieldOrConstructorInjection() {
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>      <strong class="jxr_keyword">void</strong> verifyEachTargetFieldGetsInjectedWithFirstUnusedInjectableWhetherThroughFieldOrConstructorInjection() {
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>          assertEquals(<span class="jxr_string">"text"</span>, tested.value);
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>          assertEquals(<span class="jxr_string">"text"</span>, tested.dependency1.value);
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>          assertEquals(<span class="jxr_string">"text"</span>, tested.dependency2.value);
@@ -115,7 +115,7 @@
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> <em class="jxr_javadoccomment">     * Verify initialization of class with multiple constructors.</em>
 <a class="jxr_linenumber" name="L108" href="#L108">108</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>     @Test
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> verifyInitializationOfClassWithMultipleConstructors() {
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>     <strong class="jxr_keyword">void</strong> verifyInitializationOfClassWithMultipleConstructors() {
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>         assertEquals(1, tested2.value);
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>     }
 <a class="jxr_linenumber" name="L113" href="#L113">113</a> 
@@ -135,7 +135,7 @@
 <a class="jxr_linenumber" name="L127" href="#L127">127</a> <em class="jxr_javadoccomment">     * Verify initialization of class with field of another class having multiple constructors.</em>
 <a class="jxr_linenumber" name="L128" href="#L128">128</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>     @Test
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> verifyInitializationOfClassWithFieldOfAnotherClassHavingMultipleConstructors() {
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>     <strong class="jxr_keyword">void</strong> verifyInitializationOfClassWithFieldOfAnotherClassHavingMultipleConstructors() {
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>         assertNotNull(tested3.dependency);
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>         assertEquals(1, tested3.dependency.value);
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>     }
@@ -185,7 +185,7 @@
 <a class="jxr_linenumber" name="L177" href="#L177">177</a> <em class="jxr_javadoccomment">     * Verify initialization of class with multiple constructors having tested field for parameter.</em>
 <a class="jxr_linenumber" name="L178" href="#L178">178</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L179" href="#L179">179</a>     @Test
-<a class="jxr_linenumber" name="L180" href="#L180">180</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> verifyInitializationOfClassWithMultipleConstructorsHavingTestedFieldForParameter() {
+<a class="jxr_linenumber" name="L180" href="#L180">180</a>     <strong class="jxr_keyword">void</strong> verifyInitializationOfClassWithMultipleConstructorsHavingTestedFieldForParameter() {
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>         assertSame(dep, tested4.dep);
 <a class="jxr_linenumber" name="L182" href="#L182">182</a>     }
 <a class="jxr_linenumber" name="L183" href="#L183">183</a> 
@@ -224,13 +224,13 @@
 <a class="jxr_linenumber" name="L216" href="#L216">216</a> <em class="jxr_javadoccomment">     * Initialize class with constructor injected dependency having another dependency injected into field.</em>
 <a class="jxr_linenumber" name="L217" href="#L217">217</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L218" href="#L218">218</a>     @Test
-<a class="jxr_linenumber" name="L219" href="#L219">219</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> initializeClassWithConstructorInjectedDependencyHavingAnotherDependencyInjectedIntoField() {
+<a class="jxr_linenumber" name="L219" href="#L219">219</a>     <strong class="jxr_keyword">void</strong> initializeClassWithConstructorInjectedDependencyHavingAnotherDependencyInjectedIntoField() {
 <a class="jxr_linenumber" name="L220" href="#L220">220</a>         assertNotNull(tested5.dependency);
 <a class="jxr_linenumber" name="L221" href="#L221">221</a>         assertNotNull(tested5.dependency.dep);
 <a class="jxr_linenumber" name="L222" href="#L222">222</a>     }
 <a class="jxr_linenumber" name="L223" href="#L223">223</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

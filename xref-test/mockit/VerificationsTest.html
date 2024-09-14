@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>VerificationsTest xref</title>
 <link type="text/css" rel="stylesheet" href="../stylesheet.css" />
@@ -8,7 +8,7 @@
 <div id="overview"><a href="../../testapidocs/mockit/VerificationsTest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> mockit;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertEquals;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertEquals;
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> mockit.internal.expectations.invocation.MissingInvocation;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> mockit.internal.expectations.invocation.UnexpectedInvocation;
@@ -332,7 +332,7 @@
 <a class="jxr_linenumber" name="L324" href="#L324">324</a>                 String value;
 <a class="jxr_linenumber" name="L325" href="#L325">325</a>                 mock.setSomethingElse(value = withCapture());
 <a class="jxr_linenumber" name="L326" href="#L326">326</a>                 <em class="jxr_comment">// noinspection ConstantConditions</em>
-<a class="jxr_linenumber" name="L327" href="#L327">327</a>                 assertEquals(<span class="jxr_string">"not empty"</span>, 0, value.length());
+<a class="jxr_linenumber" name="L327" href="#L327">327</a>                 assertEquals(0, value.length(), <span class="jxr_string">"not empty"</span>);
 <a class="jxr_linenumber" name="L328" href="#L328">328</a>             }
 <a class="jxr_linenumber" name="L329" href="#L329">329</a>         };
 <a class="jxr_linenumber" name="L330" href="#L330">330</a>     }
@@ -404,6 +404,6 @@
 <a class="jxr_linenumber" name="L396" href="#L396">396</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

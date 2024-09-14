@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>TestedClassWithConstructorAndFieldDITest xref</title>
 <link type="text/css" rel="stylesheet" href="../stylesheet.css" />
@@ -8,13 +8,13 @@
 <div id="overview"><a href="../../testapidocs/mockit/TestedClassWithConstructorAndFieldDITest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> mockit;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertEquals;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertFalse;
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertNotNull;
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertNull;
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertSame;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertEquals;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertFalse;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertNotNull;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertNull;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertSame;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">class</strong> <a name="BaseTest" href="../mockit/TestedClassWithConstructorAndFieldDITest.html#BaseTest">BaseTest</a> {
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>      <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> Dependency {
@@ -61,7 +61,7 @@
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment"> * The Class TestedClassWithConstructorAndFieldDITest.</em>
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="TestedClassWithConstructorAndFieldDITest" href="../mockit/TestedClassWithConstructorAndFieldDITest.html#TestedClassWithConstructorAndFieldDITest">TestedClassWithConstructorAndFieldDITest</a> <strong class="jxr_keyword">extends</strong> <a name="BaseTest" href="../mockit/TestedClassWithConstructorAndFieldDITest.html#BaseTest">BaseTest</a> {
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="TestedClassWithConstructorAndFieldDITest" href="../mockit/TestedClassWithConstructorAndFieldDITest.html#TestedClassWithConstructorAndFieldDITest">TestedClassWithConstructorAndFieldDITest</a> <strong class="jxr_keyword">extends</strong> <a name="BaseTest" href="../mockit/TestedClassWithConstructorAndFieldDITest.html#BaseTest">BaseTest</a> {
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment">     * The Class AnotherTestedClass.</em>
@@ -122,7 +122,7 @@
 <a class="jxr_linenumber" name="L114" href="#L114">114</a> <em class="jxr_javadoccomment">     * Exercise tested subclass object with fields injected by type and name.</em>
 <a class="jxr_linenumber" name="L115" href="#L115">115</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>     @Test
-<a class="jxr_linenumber" name="L117" href="#L117">117</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> exerciseTestedSubclassObjectWithFieldsInjectedByTypeAndName() {
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>     <strong class="jxr_keyword">void</strong> exerciseTestedSubclassObjectWithFieldsInjectedByTypeAndName() {
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>         verifyTestedObjectFromBaseTestClass(-1);
 <a class="jxr_linenumber" name="L119" href="#L119">119</a> 
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>         assertEquals(-2, tested2.i);
@@ -150,7 +150,7 @@
 <a class="jxr_linenumber" name="L142" href="#L142">142</a> <em class="jxr_javadoccomment">     *            the dependency 3</em>
 <a class="jxr_linenumber" name="L143" href="#L143">143</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L144" href="#L144">144</a>     @Test
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> exerciseTestedSubclassObjectWithFieldsInjectedFromMockFieldsAndMockParameter(
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>     <strong class="jxr_keyword">void</strong> exerciseTestedSubclassObjectWithFieldsInjectedFromMockFieldsAndMockParameter(
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>             @Injectable Dependency dependency3) {
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>         verifyTestedObjectFromBaseTestClass(-1);
 <a class="jxr_linenumber" name="L148" href="#L148">148</a> 
@@ -171,7 +171,7 @@
 <a class="jxr_linenumber" name="L163" href="#L163">163</a> <em class="jxr_javadoccomment">     *            the dependency 1</em>
 <a class="jxr_linenumber" name="L164" href="#L164">164</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>     @Test
-<a class="jxr_linenumber" name="L166" href="#L166">166</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> exerciseTestedSubclassObjectUsingConstructorAndFieldInjection(@Injectable(<span class="jxr_string">"45"</span>) <strong class="jxr_keyword">int</strong> value,
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>     <strong class="jxr_keyword">void</strong> exerciseTestedSubclassObjectUsingConstructorAndFieldInjection(@Injectable(<span class="jxr_string">"45"</span>) <strong class="jxr_keyword">int</strong> value,
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>             @Injectable Dependency dependency1) {
 <a class="jxr_linenumber" name="L168" href="#L168">168</a>         verifyTestedObjectFromBaseTestClass(45);
 <a class="jxr_linenumber" name="L169" href="#L169">169</a> 
@@ -202,7 +202,7 @@
 <a class="jxr_linenumber" name="L194" href="#L194">194</a> <em class="jxr_javadoccomment">     *            the tested 4</em>
 <a class="jxr_linenumber" name="L195" href="#L195">195</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L196" href="#L196">196</a>     @Test
-<a class="jxr_linenumber" name="L197" href="#L197">197</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> createTestedParameterInjectingFromTestedFieldInBaseTestClass(
+<a class="jxr_linenumber" name="L197" href="#L197">197</a>     <strong class="jxr_keyword">void</strong> createTestedParameterInjectingFromTestedFieldInBaseTestClass(
 <a class="jxr_linenumber" name="L198" href="#L198">198</a>             @Tested ClassWithFieldHavingTestedFieldInBaseTestClass tested4) {
 <a class="jxr_linenumber" name="L199" href="#L199">199</a>         assertNotNull(collaborator);
 <a class="jxr_linenumber" name="L200" href="#L200">200</a>         assertSame(collaborator, tested3.collaborator);
@@ -211,6 +211,6 @@
 <a class="jxr_linenumber" name="L203" href="#L203">203</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>FileParser xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
@@ -12,26 +12,26 @@
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">package</strong> mockit.coverage.reporting.parsing;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.util.ArrayList;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.util.List;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nullable;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.util.List;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="FileParser" href="../../../../mockit/coverage/reporting/parsing/FileParser.html#FileParser">FileParser</a> {
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> PendingClass {
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>          @Nonnull
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>          @NonNull
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>          <strong class="jxr_keyword">final</strong> String className;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>          <strong class="jxr_keyword">int</strong> braceBalance;
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>          PendingClass(@Nonnull String className) {
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>          PendingClass(@NonNull String className) {
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>              <strong class="jxr_keyword">this</strong>.className = className;
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>          }
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>      }
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>      @Nonnull
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>      @NonNull
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <a name="LineParser" href="../../../../mockit/coverage/reporting/parsing/LineParser.html#LineParser">LineParser</a> lineParser = <strong class="jxr_keyword">new</strong> <a name="LineParser" href="../../../../mockit/coverage/reporting/parsing/LineParser.html#LineParser">LineParser</a>();
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>      @Nonnull
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>      @NonNull
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> List&lt;PendingClass&gt; currentClasses = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;(2);
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>      @Nullable
@@ -39,7 +39,7 @@
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> openingBraceForClassFound;
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> currentBraceBalance;
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> parseCurrentLine(@Nonnull String line) {
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> parseCurrentLine(@NonNull String line) {
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>          <strong class="jxr_keyword">if</strong> (!lineParser.parse(line)) {
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>              <strong class="jxr_keyword">return</strong> false;
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>          }
@@ -74,7 +74,7 @@
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>      }
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> registerStartOfClassDeclaration(@Nonnull <a name="LineElement" href="../../../../mockit/coverage/reporting/parsing/LineElement.html#LineElement">LineElement</a> elementWithClassName) {
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> registerStartOfClassDeclaration(@NonNull <a name="LineElement" href="../../../../mockit/coverage/reporting/parsing/LineElement.html#LineElement">LineElement</a> elementWithClassName) {
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>          String className = elementWithClassName.getText();
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>          <strong class="jxr_keyword">if</strong> (currentClass != <strong class="jxr_keyword">null</strong>) {
@@ -86,7 +86,7 @@
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>          currentBraceBalance = 0;
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>      }
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>  
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> detectPotentialEndOfClassDeclaration(@Nonnull <a name="LineElement" href="../../../../mockit/coverage/reporting/parsing/LineElement.html#LineElement">LineElement</a> firstElement) {
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> detectPotentialEndOfClassDeclaration(@NonNull <a name="LineElement" href="../../../../mockit/coverage/reporting/parsing/LineElement.html#LineElement">LineElement</a> firstElement) {
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>          <em class="jxr_comment">// TODO: how to deal with classes defined entirely in one line?</em>
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>          currentBraceBalance += firstElement.getBraceBalanceUntilEndOfLine();
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>  
@@ -115,6 +115,6 @@
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

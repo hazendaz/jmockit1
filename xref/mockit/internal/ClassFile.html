@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>ClassFile xref</title>
 <link type="text/css" rel="stylesheet" href="../../stylesheet.css" />
@@ -12,13 +12,13 @@
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">package</strong> mockit.internal;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.io.IOException;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.io.InputStream;
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.util.Map;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.util.concurrent.ConcurrentHashMap;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nullable;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.io.IOException;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.io.InputStream;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.util.concurrent.ConcurrentHashMap;
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> mockit.asm.classes.ClassReader;
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> mockit.internal.state.CachedClassfiles;
@@ -33,19 +33,19 @@
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> NotFoundException <strong class="jxr_keyword">extends</strong> RuntimeException {
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>          <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> serialVersionUID = 1L;
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>          <strong class="jxr_keyword">private</strong> NotFoundException(@Nonnull String classNameOrDesc) {
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>          <strong class="jxr_keyword">private</strong> NotFoundException(@NonNull String classNameOrDesc) {
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>              <strong class="jxr_keyword">super</strong>(<span class="jxr_string">"Unable to find class file for "</span> + classNameOrDesc.replace('/', '.'));
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>          }
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>      }
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> verifyClassFileFound(@Nullable InputStream classFile, @Nonnull String classNameOrDesc) {
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> verifyClassFileFound(@Nullable InputStream classFile, @NonNull String classNameOrDesc) {
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>          <strong class="jxr_keyword">if</strong> (classFile == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> NotFoundException(classNameOrDesc);
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>          }
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>      }
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>      @Nullable
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a name="ClassReader" href="../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a> createClassReader(@Nonnull ClassLoader cl, @Nonnull String internalClassName) {
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a name="ClassReader" href="../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a> createClassReader(@NonNull ClassLoader cl, @NonNull String internalClassName) {
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>          String classFileName = internalClassName + <span class="jxr_string">".class"</span>;
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>          InputStream classFile = cl.getResourceAsStream(classFileName);
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  
@@ -60,8 +60,8 @@
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>      }
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>      @Nonnull
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> byte[] readClass(@Nonnull InputStream is) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>      @NonNull
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> byte[] readClass(@NonNull InputStream is) <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>          <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>              byte[] bytecode = <strong class="jxr_keyword">new</strong> byte[is.available()];
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>              <strong class="jxr_keyword">int</strong> len = 0;
@@ -101,8 +101,8 @@
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>          }
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>      }
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>      @Nonnull
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a name="ClassReader" href="../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a> createReaderOrGetFromCache(@Nonnull Class&lt;?&gt; aClass) {
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>      @NonNull
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a name="ClassReader" href="../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a> createReaderOrGetFromCache(@NonNull Class&lt;?&gt; aClass) {
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>          byte[] cachedClassfile = CachedClassfiles.getClassfile(aClass);
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>  
 <a class="jxr_linenumber" name="L100" href="#L100">100</a>         <strong class="jxr_keyword">if</strong> (cachedClassfile != <strong class="jxr_keyword">null</strong>) {
@@ -119,16 +119,16 @@
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>         <strong class="jxr_keyword">return</strong> reader;
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>     }
 <a class="jxr_linenumber" name="L113" href="#L113">113</a> 
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>     @Nonnull
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a name="ClassReader" href="../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a> readFromFileSavingInCache(@Nonnull String classDesc) {
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>     @NonNull
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a name="ClassReader" href="../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a> readFromFileSavingInCache(@NonNull String classDesc) {
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>         byte[] classfileBytes = readBytesFromClassFile(classDesc);
 <a class="jxr_linenumber" name="L117" href="#L117">117</a>         <a name="ClassReader" href="../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a> cr = <strong class="jxr_keyword">new</strong> <a name="ClassReader" href="../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a>(classfileBytes);
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>         CLASS_FILES.put(classDesc, cr);
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>         <strong class="jxr_keyword">return</strong> cr;
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>     }
 <a class="jxr_linenumber" name="L121" href="#L121">121</a> 
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>     @Nonnull
-<a class="jxr_linenumber" name="L123" href="#L123">123</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a name="ClassReader" href="../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a> createReaderFromLastRedefinitionIfAny(@Nonnull Class&lt;?&gt; aClass) {
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>     @NonNull
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a name="ClassReader" href="../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a> createReaderFromLastRedefinitionIfAny(@NonNull Class&lt;?&gt; aClass) {
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>         byte[] classfile = TestRun.mockFixture().getRedefinedClassfile(aClass);
 <a class="jxr_linenumber" name="L125" href="#L125">125</a> 
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>         <strong class="jxr_keyword">if</strong> (classfile == <strong class="jxr_keyword">null</strong>) {
@@ -143,8 +143,8 @@
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>         <strong class="jxr_keyword">return</strong> readFromFileSavingInCache(classDesc);
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>     }
 <a class="jxr_linenumber" name="L137" href="#L137">137</a> 
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>     @Nonnull
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> byte[] getClassFile(@Nonnull String internalClassName) {
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>     @NonNull
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> byte[] getClassFile(@NonNull String internalClassName) {
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>         byte[] classfileBytes = CachedClassfiles.getClassfile(internalClassName);
 <a class="jxr_linenumber" name="L141" href="#L141">141</a> 
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>         <strong class="jxr_keyword">if</strong> (classfileBytes == <strong class="jxr_keyword">null</strong>) {
@@ -154,8 +154,8 @@
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>         <strong class="jxr_keyword">return</strong> classfileBytes;
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>     }
 <a class="jxr_linenumber" name="L148" href="#L148">148</a> 
-<a class="jxr_linenumber" name="L149" href="#L149">149</a>     @Nonnull
-<a class="jxr_linenumber" name="L150" href="#L150">150</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> byte[] getClassFile(@Nullable ClassLoader loader, @Nonnull String internalClassName) {
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>     @NonNull
+<a class="jxr_linenumber" name="L150" href="#L150">150</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> byte[] getClassFile(@Nullable ClassLoader loader, @NonNull String internalClassName) {
 <a class="jxr_linenumber" name="L151" href="#L151">151</a>         byte[] classfileBytes = CachedClassfiles.getClassfile(loader, internalClassName);
 <a class="jxr_linenumber" name="L152" href="#L152">152</a> 
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>         <strong class="jxr_keyword">if</strong> (classfileBytes == <strong class="jxr_keyword">null</strong>) {
@@ -165,8 +165,8 @@
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>         <strong class="jxr_keyword">return</strong> classfileBytes;
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>     }
 <a class="jxr_linenumber" name="L159" href="#L159">159</a> 
-<a class="jxr_linenumber" name="L160" href="#L160">160</a>     @Nonnull
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> byte[] getClassFile(@Nonnull Class&lt;?&gt; aClass) {
+<a class="jxr_linenumber" name="L160" href="#L160">160</a>     @NonNull
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> byte[] getClassFile(@NonNull Class&lt;?&gt; aClass) {
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>         byte[] classfileBytes = CachedClassfiles.getClassfile(aClass);
 <a class="jxr_linenumber" name="L163" href="#L163">163</a> 
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>         <strong class="jxr_keyword">if</strong> (classfileBytes == <strong class="jxr_keyword">null</strong>) {
@@ -176,8 +176,8 @@
 <a class="jxr_linenumber" name="L168" href="#L168">168</a>         <strong class="jxr_keyword">return</strong> classfileBytes;
 <a class="jxr_linenumber" name="L169" href="#L169">169</a>     }
 <a class="jxr_linenumber" name="L170" href="#L170">170</a> 
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>     @Nonnull
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> byte[] readBytesFromClassFile(@Nonnull String classDesc) {
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>     @NonNull
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> byte[] readBytesFromClassFile(@NonNull String classDesc) {
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>         <strong class="jxr_keyword">if</strong> (classDesc.startsWith(<span class="jxr_string">"java/"</span>) || classDesc.startsWith(<span class="jxr_string">"javax/"</span>)) {
 <a class="jxr_linenumber" name="L174" href="#L174">174</a>             byte[] classfile = CachedClassfiles.getClassfile(classDesc);
 <a class="jxr_linenumber" name="L175" href="#L175">175</a> 
@@ -195,15 +195,15 @@
 <a class="jxr_linenumber" name="L187" href="#L187">187</a>         }
 <a class="jxr_linenumber" name="L188" href="#L188">188</a>     }
 <a class="jxr_linenumber" name="L189" href="#L189">189</a> 
-<a class="jxr_linenumber" name="L190" href="#L190">190</a>     @Nonnull
-<a class="jxr_linenumber" name="L191" href="#L191">191</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> byte[] readBytesFromClassFile(@Nonnull Class&lt;?&gt; aClass) {
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>     @NonNull
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> byte[] readBytesFromClassFile(@NonNull Class&lt;?&gt; aClass) {
 <a class="jxr_linenumber" name="L192" href="#L192">192</a>         String classDesc = aClass.getName().replace('.', '/');
 <a class="jxr_linenumber" name="L193" href="#L193">193</a>         <strong class="jxr_keyword">return</strong> readBytesFromClassFile(classDesc);
 <a class="jxr_linenumber" name="L194" href="#L194">194</a>     }
 <a class="jxr_linenumber" name="L195" href="#L195">195</a> 
-<a class="jxr_linenumber" name="L196" href="#L196">196</a>     @Nonnull
+<a class="jxr_linenumber" name="L196" href="#L196">196</a>     @NonNull
 <a class="jxr_linenumber" name="L197" href="#L197">197</a>     @SuppressWarnings(<span class="jxr_string">"IOResourceOpenedButNotSafelyClosed"</span>)
-<a class="jxr_linenumber" name="L198" href="#L198">198</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> InputStream readClassFromClasspath(@Nonnull String classDesc) {
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> InputStream readClassFromClasspath(@NonNull String classDesc) {
 <a class="jxr_linenumber" name="L199" href="#L199">199</a>         String classFileName = classDesc + <span class="jxr_string">".class"</span>;
 <a class="jxr_linenumber" name="L200" href="#L200">200</a>         ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
 <a class="jxr_linenumber" name="L201" href="#L201">201</a>         InputStream inputStream = <strong class="jxr_keyword">null</strong>;
@@ -234,6 +234,6 @@
 <a class="jxr_linenumber" name="L226" href="#L226">226</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

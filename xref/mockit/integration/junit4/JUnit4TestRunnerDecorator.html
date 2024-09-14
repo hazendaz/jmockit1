@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>JUnit4TestRunnerDecorator xref</title>
 <link type="text/css" rel="stylesheet" href="../../../stylesheet.css" />
@@ -14,10 +14,10 @@
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> mockit.internal.util.StackTrace.filterStackTrace;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.lang.reflect.Method;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nullable;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Method;
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> mockit.integration.TestRunnerDecorator;
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> mockit.internal.expectations.RecordAndReplayExecution;
@@ -34,7 +34,7 @@
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="JUnit4TestRunnerDecorator" href="../../../mockit/integration/junit4/JUnit4TestRunnerDecorator.html#JUnit4TestRunnerDecorator">JUnit4TestRunnerDecorator</a> <strong class="jxr_keyword">extends</strong> <a name="TestRunnerDecorator" href="../../../mockit/integration/TestRunnerDecorator.html#TestRunnerDecorator">TestRunnerDecorator</a> {
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>      @Nullable
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>      Object invokeExplosively(@Nonnull <a name="FakeInvocation" href="../../../mockit/internal/faking/FakeInvocation.html#FakeInvocation">FakeInvocation</a> invocation, @Nullable Object target, Object... params)
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>      Object invokeExplosively(@NonNull <a name="FakeInvocation" href="../../../mockit/internal/faking/FakeInvocation.html#FakeInvocation">FakeInvocation</a> invocation, @Nullable Object target, Object... params)
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>              <strong class="jxr_keyword">throws</strong> Throwable {
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>          FrameworkMethod it = invocation.getInvokedInstance();
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>          assert it != <strong class="jxr_keyword">null</strong>;
@@ -92,7 +92,7 @@
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>      }
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>  
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>      @Nullable
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Object executeClassMethod(@Nonnull <a name="FakeInvocation" href="../../../mockit/internal/faking/FakeInvocation.html#FakeInvocation">FakeInvocation</a> inv, @Nonnull Object[] params) <strong class="jxr_keyword">throws</strong> Throwable {
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Object executeClassMethod(@NonNull <a name="FakeInvocation" href="../../../mockit/internal/faking/FakeInvocation.html#FakeInvocation">FakeInvocation</a> inv, @NonNull Object[] params) <strong class="jxr_keyword">throws</strong> Throwable {
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>          FrameworkMethod method = inv.getInvokedInstance();
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>          assert method != <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>          handleMockingOutsideTests(method);
@@ -103,14 +103,14 @@
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>          <strong class="jxr_keyword">return</strong> method.invokeExplosively(<strong class="jxr_keyword">null</strong>, params);
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>      }
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>  
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> prepareToExecuteSetupMethod(@Nonnull Object target) {
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> prepareToExecuteSetupMethod(@NonNull Object target) {
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>          discardTestLevelMockedTypes();
 <a class="jxr_linenumber" name="L100" href="#L100">100</a>         prepareForNextTest();
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>         shouldPrepareForNextTest = false;
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>         createInstancesForTestedFieldsBeforeSetup(target);
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>     }
 <a class="jxr_linenumber" name="L104" href="#L104">104</a> 
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> handleMockingOutsideTests(@Nonnull FrameworkMethod it) {
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> handleMockingOutsideTests(@NonNull FrameworkMethod it) {
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>         Class&lt;?&gt; testClass = it.getMethod().getDeclaringClass();
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> 
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>         TestRun.enterNoMockingZone();
@@ -131,7 +131,7 @@
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>         }
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>     }
 <a class="jxr_linenumber" name="L125" href="#L125">125</a> 
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> handleMockingOutsideTestMethods(@Nonnull Object target) {
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> handleMockingOutsideTestMethods(@NonNull Object target) {
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>         Class&lt;?&gt; testClass = target.getClass();
 <a class="jxr_linenumber" name="L128" href="#L128">128</a> 
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>         TestRun.enterNoMockingZone();
@@ -143,7 +143,7 @@
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>         }
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>     }
 <a class="jxr_linenumber" name="L137" href="#L137">137</a> 
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> executeTestMethod(@Nonnull <a name="FakeInvocation" href="../../../mockit/internal/faking/FakeInvocation.html#FakeInvocation">FakeInvocation</a> invocation, @Nonnull Object testInstance,
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> executeTestMethod(@NonNull <a name="FakeInvocation" href="../../../mockit/internal/faking/FakeInvocation.html#FakeInvocation">FakeInvocation</a> invocation, @NonNull Object testInstance,
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>             @Nullable Object... parameters) <strong class="jxr_keyword">throws</strong> Throwable {
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>         <a name="SavePoint" href="../../../mockit/internal/state/SavePoint.html#SavePoint">SavePoint</a> savePoint = <strong class="jxr_keyword">new</strong> <a name="SavePoint" href="../../../mockit/internal/state/SavePoint.html#SavePoint">SavePoint</a>();
 <a class="jxr_linenumber" name="L141" href="#L141">141</a> 
@@ -175,6 +175,6 @@
 <a class="jxr_linenumber" name="L167" href="#L167">167</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

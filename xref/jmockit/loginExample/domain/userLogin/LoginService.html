@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>LoginService xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
@@ -8,24 +8,24 @@
 <div id="overview"><a href="../../../../../apidocs/jmockit/loginExample/domain/userLogin/LoginService.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> jmockit.loginExample.domain.userLogin;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> jakarta.annotation.Nonnull;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> jakarta.annotation.Nullable;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> javax.annotation.Nonnegative;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> org.checkerframework.checker.index.qual.NonNegative;
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> jmockit.loginExample.domain.userAccount.UserAccount;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="LoginService" href="../../../../jmockit/loginExample/domain/userLogin/LoginService.html#LoginService">LoginService</a> {
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> MAX_LOGIN_ATTEMPTS = 3;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>      @Nonnegative
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>      @NonNegative
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> loginAttemptsRemaining = MAX_LOGIN_ATTEMPTS;
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>      @Nullable
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>      <strong class="jxr_keyword">private</strong> String previousAccountId;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>      @Nullable
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>      <strong class="jxr_keyword">private</strong> <a name="UserAccount" href="../../../../jmockit/loginExample/domain/userAccount/UserAccount.html#UserAccount">UserAccount</a> account;
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> login(@Nonnull String accountId, @Nonnull String password)
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> login(@NonNull String accountId, @NonNull String password)
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>              <strong class="jxr_keyword">throws</strong> UserAccountNotFoundException, UserAccountRevokedException, <a name="AccountLoginLimitReachedException" href="../../../../jmockit/loginExample/domain/userLogin/AccountLoginLimitReachedException.html#AccountLoginLimitReachedException">AccountLoginLimitReachedException</a> {
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>          account = UserAccount.find(accountId);
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  
@@ -54,7 +54,7 @@
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>          loginAttemptsRemaining = MAX_LOGIN_ATTEMPTS;
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>      }
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> handleFailedLoginAttempt(@Nonnull String accountId) {
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> handleFailedLoginAttempt(@NonNull String accountId) {
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>          <strong class="jxr_keyword">if</strong> (previousAccountId == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>              loginAttemptsRemaining--;
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>              previousAccountId = accountId;
@@ -74,6 +74,6 @@
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2011–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

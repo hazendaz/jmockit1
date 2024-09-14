@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>CaptureOfImplementations xref</title>
 <link type="text/css" rel="stylesheet" href="../../../stylesheet.css" />
@@ -12,8 +12,8 @@
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">package</strong> mockit.internal.capturing;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> javax.annotation.Nullable;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> mockit.asm.classes.ClassReader;
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> mockit.internal.BaseClassModifier;
@@ -25,14 +25,14 @@
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>      <strong class="jxr_keyword">protected</strong> <a name="CaptureOfImplementations" href="../../../mockit/internal/capturing/CaptureOfImplementations.html#CaptureOfImplementations">CaptureOfImplementations</a>() {
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>      }
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> makeSureAllSubtypesAreModified(@Nonnull Class&lt;?&gt; baseType, <strong class="jxr_keyword">boolean</strong> registerCapturedClasses,
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> makeSureAllSubtypesAreModified(@NonNull Class&lt;?&gt; baseType, <strong class="jxr_keyword">boolean</strong> registerCapturedClasses,
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>              @Nullable M typeMetadata) {
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>          <a name="CapturedType" href="../../../mockit/internal/capturing/CapturedType.html#CapturedType">CapturedType</a> captureMetadata = <strong class="jxr_keyword">new</strong> <a name="CapturedType" href="../../../mockit/internal/capturing/CapturedType.html#CapturedType">CapturedType</a>(baseType);
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>          redefineClassesAlreadyLoaded(captureMetadata, baseType, typeMetadata);
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>          createCaptureTransformer(captureMetadata, registerCapturedClasses, typeMetadata);
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>      }
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> redefineClassesAlreadyLoaded(@Nonnull <a name="CapturedType" href="../../../mockit/internal/capturing/CapturedType.html#CapturedType">CapturedType</a> captureMetadata, @Nonnull Class&lt;?&gt; baseType,
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> redefineClassesAlreadyLoaded(@NonNull <a name="CapturedType" href="../../../mockit/internal/capturing/CapturedType.html#CapturedType">CapturedType</a> captureMetadata, @NonNull Class&lt;?&gt; baseType,
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>              @Nullable M typeMetadata) {
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>          Class&lt;?&gt;[] classesLoaded = Startup.instrumentation().getAllLoadedClasses();
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  
@@ -43,7 +43,7 @@
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>          }
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>      }
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> redefineClass(@Nonnull Class&lt;?&gt; realClass, @Nonnull Class&lt;?&gt; baseType,
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> redefineClass(@NonNull Class&lt;?&gt; realClass, @NonNull Class&lt;?&gt; baseType,
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>              @Nullable M typeMetadata) {
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>          <strong class="jxr_keyword">if</strong> (!TestRun.mockFixture().containsRedefinedClass(realClass)) {
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>              <a name="ClassReader" href="../../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a> classReader;
@@ -67,13 +67,13 @@
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>          }
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>      }
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>      @Nonnull
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">abstract</strong> <a name="BaseClassModifier" href="../../../mockit/internal/BaseClassModifier.html#BaseClassModifier">BaseClassModifier</a> createModifier(@Nullable ClassLoader cl, @Nonnull <a name="ClassReader" href="../../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a> cr,
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>              @Nonnull Class&lt;?&gt; baseType, @Nullable M typeMetadata);
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      @NonNull
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">abstract</strong> <a name="BaseClassModifier" href="../../../mockit/internal/BaseClassModifier.html#BaseClassModifier">BaseClassModifier</a> createModifier(@Nullable ClassLoader cl, @NonNull <a name="ClassReader" href="../../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a> cr,
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>              @NonNull Class&lt;?&gt; baseType, @Nullable M typeMetadata);
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">void</strong> redefineClass(@Nonnull Class&lt;?&gt; realClass, @Nonnull byte[] modifiedClass);
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">void</strong> redefineClass(@NonNull Class&lt;?&gt; realClass, @NonNull byte[] modifiedClass);
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> createCaptureTransformer(@Nonnull <a name="CapturedType" href="../../../mockit/internal/capturing/CapturedType.html#CapturedType">CapturedType</a> captureMetadata, <strong class="jxr_keyword">boolean</strong> registerCapturedClasses,
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> createCaptureTransformer(@NonNull <a name="CapturedType" href="../../../mockit/internal/capturing/CapturedType.html#CapturedType">CapturedType</a> captureMetadata, <strong class="jxr_keyword">boolean</strong> registerCapturedClasses,
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>              @Nullable M typeMetadata) {
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>          CaptureTransformer&lt;M&gt; transformer = <strong class="jxr_keyword">new</strong> CaptureTransformer&lt;&gt;(captureMetadata, <strong class="jxr_keyword">this</strong>, registerCapturedClasses,
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>                  typeMetadata);
@@ -83,6 +83,6 @@
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

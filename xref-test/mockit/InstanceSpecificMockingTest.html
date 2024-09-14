@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>InstanceSpecificMockingTest xref</title>
 <link type="text/css" rel="stylesheet" href="../stylesheet.css" />
@@ -8,13 +8,13 @@
 <div id="overview"><a href="../../testapidocs/mockit/InstanceSpecificMockingTest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> mockit;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertArrayEquals;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertEquals;
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertFalse;
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertNotNull;
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertSame;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertTrue;
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.fail;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertArrayEquals;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertEquals;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertFalse;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertNotNull;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertSame;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertTrue;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.fail;
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.io.IOException;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.io.InputStream;
@@ -24,15 +24,15 @@
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> java.util.LinkedList;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> java.util.Queue;
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> org.junit.Ignore;
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Disabled;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> org.junit.runner.RunWith;
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> org.junit.runners.BlockJUnit4ClassRunner;
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment"> * The Class InstanceSpecificMockingTest.</em>
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="InstanceSpecificMockingTest" href="../mockit/InstanceSpecificMockingTest.html#InstanceSpecificMockingTest">InstanceSpecificMockingTest</a> {
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="InstanceSpecificMockingTest" href="../mockit/InstanceSpecificMockingTest.html#InstanceSpecificMockingTest">InstanceSpecificMockingTest</a> {
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment">     * The Class Collaborator.</em>
@@ -110,7 +110,7 @@
 <a class="jxr_linenumber" name="L102" href="#L102">102</a> <em class="jxr_javadoccomment">     * Exercise injected instance during replay only.</em>
 <a class="jxr_linenumber" name="L103" href="#L103">103</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>     @Test
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> exerciseInjectedInstanceDuringReplayOnly() {
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>     <strong class="jxr_keyword">void</strong> exerciseInjectedInstanceDuringReplayOnly() {
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>         assertThatPreviouslyCreatedInstanceIsNotMocked();
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> 
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>         assertEquals(0, mock.value);
@@ -143,7 +143,7 @@
 <a class="jxr_linenumber" name="L135" href="#L135">135</a> <em class="jxr_javadoccomment">     * Mock specific instance.</em>
 <a class="jxr_linenumber" name="L136" href="#L136">136</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>     @Test
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> mockSpecificInstance() {
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>     <strong class="jxr_keyword">void</strong> mockSpecificInstance() {
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>             {
 <a class="jxr_linenumber" name="L141" href="#L141">141</a>                 mock.simpleOperation(1, <span class="jxr_string">""</span>, <strong class="jxr_keyword">null</strong>);
@@ -173,7 +173,7 @@
 <a class="jxr_linenumber" name="L165" href="#L165">165</a> <em class="jxr_javadoccomment">     *            the mock 2</em>
 <a class="jxr_linenumber" name="L166" href="#L166">166</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>     @Test
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> useASecondMockInstanceOfTheSameType(@Injectable <strong class="jxr_keyword">final</strong> Collaborator mock2) {
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>     <strong class="jxr_keyword">void</strong> useASecondMockInstanceOfTheSameType(@Injectable <strong class="jxr_keyword">final</strong> Collaborator mock2) {
 <a class="jxr_linenumber" name="L169" href="#L169">169</a>         assertThatPreviouslyCreatedInstanceIsNotMocked();
 <a class="jxr_linenumber" name="L170" href="#L170">170</a> 
 <a class="jxr_linenumber" name="L171" href="#L171">171</a>         <strong class="jxr_keyword">new</strong> Expectations() {
@@ -204,7 +204,7 @@
 <a class="jxr_linenumber" name="L196" href="#L196">196</a> <em class="jxr_javadoccomment">     *            the runnable</em>
 <a class="jxr_linenumber" name="L197" href="#L197">197</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L198" href="#L198">198</a>     @Test
-<a class="jxr_linenumber" name="L199" href="#L199">199</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> allowInjectableMockOfInterfaceType(@Injectable <strong class="jxr_keyword">final</strong> Runnable runnable) {
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>     <strong class="jxr_keyword">void</strong> allowInjectableMockOfInterfaceType(@Injectable <strong class="jxr_keyword">final</strong> Runnable runnable) {
 <a class="jxr_linenumber" name="L200" href="#L200">200</a>         runnable.run();
 <a class="jxr_linenumber" name="L201" href="#L201">201</a>         runnable.run();
 <a class="jxr_linenumber" name="L202" href="#L202">202</a> 
@@ -224,7 +224,7 @@
 <a class="jxr_linenumber" name="L216" href="#L216">216</a> <em class="jxr_javadoccomment">     *            the run with</em>
 <a class="jxr_linenumber" name="L217" href="#L217">217</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L218" href="#L218">218</a>     @Test
-<a class="jxr_linenumber" name="L219" href="#L219">219</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> allowInjectableMockOfAnnotationType(@Injectable <strong class="jxr_keyword">final</strong> RunWith runWith) {
+<a class="jxr_linenumber" name="L219" href="#L219">219</a>     <strong class="jxr_keyword">void</strong> allowInjectableMockOfAnnotationType(@Injectable <strong class="jxr_keyword">final</strong> RunWith runWith) {
 <a class="jxr_linenumber" name="L220" href="#L220">220</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L221" href="#L221">221</a>             {
 <a class="jxr_linenumber" name="L222" href="#L222">222</a>                 runWith.value();
@@ -243,171 +243,175 @@
 <a class="jxr_linenumber" name="L235" href="#L235">235</a> <em class="jxr_javadoccomment">     * @param buf</em>
 <a class="jxr_linenumber" name="L236" href="#L236">236</a> <em class="jxr_javadoccomment">     *            the buf</em>
 <a class="jxr_linenumber" name="L237" href="#L237">237</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L238" href="#L238">238</a>     @Test
-<a class="jxr_linenumber" name="L239" href="#L239">239</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> mockByteBufferAsInjectable(@Injectable <strong class="jxr_keyword">final</strong> ByteBuffer buf) {
-<a class="jxr_linenumber" name="L240" href="#L240">240</a>         ByteBuffer realBuf = ByteBuffer.allocateDirect(10);
-<a class="jxr_linenumber" name="L241" href="#L241">241</a>         assertNotNull(realBuf);
-<a class="jxr_linenumber" name="L242" href="#L242">242</a>         assertEquals(10, realBuf.capacity());
-<a class="jxr_linenumber" name="L243" href="#L243">243</a> 
-<a class="jxr_linenumber" name="L244" href="#L244">244</a>         <strong class="jxr_keyword">new</strong> Expectations() {
-<a class="jxr_linenumber" name="L245" href="#L245">245</a>             {
-<a class="jxr_linenumber" name="L246" href="#L246">246</a>                 buf.isDirect();
-<a class="jxr_linenumber" name="L247" href="#L247">247</a>                 result = <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L248" href="#L248">248</a> 
-<a class="jxr_linenumber" name="L249" href="#L249">249</a>                 <em class="jxr_comment">// Calling "getBytes()" here indirectly creates a new ByteBuffer, requiring use of @Injectable.</em>
-<a class="jxr_linenumber" name="L250" href="#L250">250</a>                 buf.put(<span class="jxr_string">"Test"</span>.getBytes());
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>                 times = 1;
-<a class="jxr_linenumber" name="L252" href="#L252">252</a>             }
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>         };
-<a class="jxr_linenumber" name="L254" href="#L254">254</a> 
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>         assertTrue(buf.isDirect());
-<a class="jxr_linenumber" name="L256" href="#L256">256</a>         buf.put(<span class="jxr_string">"Test"</span>.getBytes());
-<a class="jxr_linenumber" name="L257" href="#L257">257</a>     }
-<a class="jxr_linenumber" name="L258" href="#L258">258</a> 
-<a class="jxr_linenumber" name="L259" href="#L259">259</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L260" href="#L260">260</a> <em class="jxr_javadoccomment">     * Mock byte buffer regularly.</em>
-<a class="jxr_linenumber" name="L261" href="#L261">261</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L262" href="#L262">262</a> <em class="jxr_javadoccomment">     * @param mockBuffer</em>
-<a class="jxr_linenumber" name="L263" href="#L263">263</a> <em class="jxr_javadoccomment">     *            the mock buffer</em>
-<a class="jxr_linenumber" name="L264" href="#L264">264</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L265" href="#L265">265</a>     <em class="jxr_comment">// TODO JWL 10/30/2022 Test is very flaky, ignore it</em>
-<a class="jxr_linenumber" name="L266" href="#L266">266</a>     @Ignore
-<a class="jxr_linenumber" name="L267" href="#L267">267</a>     @Test
-<a class="jxr_linenumber" name="L268" href="#L268">268</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> mockByteBufferRegularly(@Mocked ByteBuffer mockBuffer) {
-<a class="jxr_linenumber" name="L269" href="#L269">269</a>         ByteBuffer buffer = ByteBuffer.allocateDirect(10);
-<a class="jxr_linenumber" name="L270" href="#L270">270</a>         <em class="jxr_comment">// noinspection MisorderedAssertEqualsArguments</em>
-<a class="jxr_linenumber" name="L271" href="#L271">271</a>         assertSame(mockBuffer, buffer);
-<a class="jxr_linenumber" name="L272" href="#L272">272</a> 
-<a class="jxr_linenumber" name="L273" href="#L273">273</a>         <strong class="jxr_keyword">new</strong> Verifications() {
-<a class="jxr_linenumber" name="L274" href="#L274">274</a>             {
-<a class="jxr_linenumber" name="L275" href="#L275">275</a>                 ByteBuffer.allocateDirect(anyInt);
-<a class="jxr_linenumber" name="L276" href="#L276">276</a>             }
-<a class="jxr_linenumber" name="L277" href="#L277">277</a>         };
-<a class="jxr_linenumber" name="L278" href="#L278">278</a>     }
-<a class="jxr_linenumber" name="L279" href="#L279">279</a> 
-<a class="jxr_linenumber" name="L280" href="#L280">280</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L281" href="#L281">281</a> <em class="jxr_javadoccomment">     * Mock byte buffer as cascading.</em>
-<a class="jxr_linenumber" name="L282" href="#L282">282</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L283" href="#L283">283</a> <em class="jxr_javadoccomment">     * @param unused</em>
-<a class="jxr_linenumber" name="L284" href="#L284">284</a> <em class="jxr_javadoccomment">     *            the unused</em>
-<a class="jxr_linenumber" name="L285" href="#L285">285</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L286" href="#L286">286</a>     <em class="jxr_comment">// TODO JWL 10/30/2022 Test is very flaky, ignore it</em>
-<a class="jxr_linenumber" name="L287" href="#L287">287</a>     @Ignore
-<a class="jxr_linenumber" name="L288" href="#L288">288</a>     @Test
-<a class="jxr_linenumber" name="L289" href="#L289">289</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> mockByteBufferAsCascading(@Mocked ByteBuffer unused) {
-<a class="jxr_linenumber" name="L290" href="#L290">290</a>         ByteBuffer cascadedBuf = ByteBuffer.allocateDirect(10);
-<a class="jxr_linenumber" name="L291" href="#L291">291</a>         assertNotNull(cascadedBuf);
-<a class="jxr_linenumber" name="L292" href="#L292">292</a>         assertEquals(0, cascadedBuf.capacity());
-<a class="jxr_linenumber" name="L293" href="#L293">293</a>     }
-<a class="jxr_linenumber" name="L294" href="#L294">294</a> 
-<a class="jxr_linenumber" name="L295" href="#L295">295</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L296" href="#L296">296</a> <em class="jxr_javadoccomment">     * A factory for creating Buffer objects.</em>
-<a class="jxr_linenumber" name="L297" href="#L297">297</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L298" href="#L298">298</a>     <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> BufferFactory {
-<a class="jxr_linenumber" name="L299" href="#L299">299</a>         <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L300" href="#L300">300</a> <em class="jxr_javadoccomment">         * Creates a new Buffer object.</em>
-<a class="jxr_linenumber" name="L301" href="#L301">301</a> <em class="jxr_javadoccomment">         *</em>
-<a class="jxr_linenumber" name="L302" href="#L302">302</a> <em class="jxr_javadoccomment">         * @return the byte buffer</em>
-<a class="jxr_linenumber" name="L303" href="#L303">303</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L304" href="#L304">304</a>         ByteBuffer createBuffer() {
-<a class="jxr_linenumber" name="L305" href="#L305">305</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L306" href="#L306">306</a>         }
-<a class="jxr_linenumber" name="L307" href="#L307">307</a>     }
-<a class="jxr_linenumber" name="L308" href="#L308">308</a> 
-<a class="jxr_linenumber" name="L309" href="#L309">309</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L310" href="#L310">310</a> <em class="jxr_javadoccomment">     * Mock byte buffer as cascaded mock.</em>
-<a class="jxr_linenumber" name="L311" href="#L311">311</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L312" href="#L312">312</a> <em class="jxr_javadoccomment">     * @param cascadingMock</em>
-<a class="jxr_linenumber" name="L313" href="#L313">313</a> <em class="jxr_javadoccomment">     *            the cascading mock</em>
-<a class="jxr_linenumber" name="L314" href="#L314">314</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L315" href="#L315">315</a>     @Test
-<a class="jxr_linenumber" name="L316" href="#L316">316</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> mockByteBufferAsCascadedMock(@Mocked BufferFactory cascadingMock) {
-<a class="jxr_linenumber" name="L317" href="#L317">317</a>         ByteBuffer realBuf1 = ByteBuffer.allocateDirect(10);
-<a class="jxr_linenumber" name="L318" href="#L318">318</a>         assertEquals(10, realBuf1.capacity());
-<a class="jxr_linenumber" name="L319" href="#L319">319</a> 
-<a class="jxr_linenumber" name="L320" href="#L320">320</a>         ByteBuffer cascadedBuf = cascadingMock.createBuffer();
-<a class="jxr_linenumber" name="L321" href="#L321">321</a>         assertEquals(0, cascadedBuf.capacity());
-<a class="jxr_linenumber" name="L322" href="#L322">322</a> 
-<a class="jxr_linenumber" name="L323" href="#L323">323</a>         ByteBuffer realBuf2 = ByteBuffer.allocateDirect(20);
-<a class="jxr_linenumber" name="L324" href="#L324">324</a>         assertEquals(20, realBuf2.capacity());
-<a class="jxr_linenumber" name="L325" href="#L325">325</a>     }
+<a class="jxr_linenumber" name="L238" href="#L238">238</a>     <em class="jxr_comment">// TODO JWL 2/18/2024 Test not allowed on jdk21</em>
+<a class="jxr_linenumber" name="L239" href="#L239">239</a>     @Disabled
+<a class="jxr_linenumber" name="L240" href="#L240">240</a>     @Test
+<a class="jxr_linenumber" name="L241" href="#L241">241</a>     <strong class="jxr_keyword">void</strong> mockByteBufferAsInjectable(@Injectable <strong class="jxr_keyword">final</strong> ByteBuffer buf) {
+<a class="jxr_linenumber" name="L242" href="#L242">242</a>         ByteBuffer realBuf = ByteBuffer.allocateDirect(10);
+<a class="jxr_linenumber" name="L243" href="#L243">243</a>         assertNotNull(realBuf);
+<a class="jxr_linenumber" name="L244" href="#L244">244</a>         assertEquals(10, realBuf.capacity());
+<a class="jxr_linenumber" name="L245" href="#L245">245</a> 
+<a class="jxr_linenumber" name="L246" href="#L246">246</a>         <strong class="jxr_keyword">new</strong> Expectations() {
+<a class="jxr_linenumber" name="L247" href="#L247">247</a>             {
+<a class="jxr_linenumber" name="L248" href="#L248">248</a>                 buf.isDirect();
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>                 result = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L250" href="#L250">250</a> 
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>                 <em class="jxr_comment">// Calling "getBytes()" here indirectly creates a new ByteBuffer, requiring use of @Injectable.</em>
+<a class="jxr_linenumber" name="L252" href="#L252">252</a>                 buf.put(<span class="jxr_string">"Test"</span>.getBytes());
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>                 times = 1;
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>             }
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>         };
+<a class="jxr_linenumber" name="L256" href="#L256">256</a> 
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>         assertTrue(buf.isDirect());
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>         buf.put(<span class="jxr_string">"Test"</span>.getBytes());
+<a class="jxr_linenumber" name="L259" href="#L259">259</a>     }
+<a class="jxr_linenumber" name="L260" href="#L260">260</a> 
+<a class="jxr_linenumber" name="L261" href="#L261">261</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L262" href="#L262">262</a> <em class="jxr_javadoccomment">     * Mock byte buffer regularly.</em>
+<a class="jxr_linenumber" name="L263" href="#L263">263</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L264" href="#L264">264</a> <em class="jxr_javadoccomment">     * @param mockBuffer</em>
+<a class="jxr_linenumber" name="L265" href="#L265">265</a> <em class="jxr_javadoccomment">     *            the mock buffer</em>
+<a class="jxr_linenumber" name="L266" href="#L266">266</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L267" href="#L267">267</a>     <em class="jxr_comment">// TODO JWL 10/30/2022 Test is very flaky, ignore it</em>
+<a class="jxr_linenumber" name="L268" href="#L268">268</a>     @Disabled
+<a class="jxr_linenumber" name="L269" href="#L269">269</a>     @Test
+<a class="jxr_linenumber" name="L270" href="#L270">270</a>     <strong class="jxr_keyword">void</strong> mockByteBufferRegularly(@Mocked ByteBuffer mockBuffer) {
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>         ByteBuffer buffer = ByteBuffer.allocateDirect(10);
+<a class="jxr_linenumber" name="L272" href="#L272">272</a>         <em class="jxr_comment">// noinspection MisorderedAssertEqualsArguments</em>
+<a class="jxr_linenumber" name="L273" href="#L273">273</a>         assertSame(mockBuffer, buffer);
+<a class="jxr_linenumber" name="L274" href="#L274">274</a> 
+<a class="jxr_linenumber" name="L275" href="#L275">275</a>         <strong class="jxr_keyword">new</strong> Verifications() {
+<a class="jxr_linenumber" name="L276" href="#L276">276</a>             {
+<a class="jxr_linenumber" name="L277" href="#L277">277</a>                 ByteBuffer.allocateDirect(anyInt);
+<a class="jxr_linenumber" name="L278" href="#L278">278</a>             }
+<a class="jxr_linenumber" name="L279" href="#L279">279</a>         };
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>     }
+<a class="jxr_linenumber" name="L281" href="#L281">281</a> 
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L283" href="#L283">283</a> <em class="jxr_javadoccomment">     * Mock byte buffer as cascading.</em>
+<a class="jxr_linenumber" name="L284" href="#L284">284</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L285" href="#L285">285</a> <em class="jxr_javadoccomment">     * @param unused</em>
+<a class="jxr_linenumber" name="L286" href="#L286">286</a> <em class="jxr_javadoccomment">     *            the unused</em>
+<a class="jxr_linenumber" name="L287" href="#L287">287</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>     <em class="jxr_comment">// TODO JWL 10/30/2022 Test is very flaky, ignore it</em>
+<a class="jxr_linenumber" name="L289" href="#L289">289</a>     @Disabled
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>     @Test
+<a class="jxr_linenumber" name="L291" href="#L291">291</a>     <strong class="jxr_keyword">void</strong> mockByteBufferAsCascading(@Mocked ByteBuffer unused) {
+<a class="jxr_linenumber" name="L292" href="#L292">292</a>         ByteBuffer cascadedBuf = ByteBuffer.allocateDirect(10);
+<a class="jxr_linenumber" name="L293" href="#L293">293</a>         assertNotNull(cascadedBuf);
+<a class="jxr_linenumber" name="L294" href="#L294">294</a>         assertEquals(0, cascadedBuf.capacity());
+<a class="jxr_linenumber" name="L295" href="#L295">295</a>     }
+<a class="jxr_linenumber" name="L296" href="#L296">296</a> 
+<a class="jxr_linenumber" name="L297" href="#L297">297</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L298" href="#L298">298</a> <em class="jxr_javadoccomment">     * A factory for creating Buffer objects.</em>
+<a class="jxr_linenumber" name="L299" href="#L299">299</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L300" href="#L300">300</a>     <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> BufferFactory {
+<a class="jxr_linenumber" name="L301" href="#L301">301</a>         <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L302" href="#L302">302</a> <em class="jxr_javadoccomment">         * Creates a new Buffer object.</em>
+<a class="jxr_linenumber" name="L303" href="#L303">303</a> <em class="jxr_javadoccomment">         *</em>
+<a class="jxr_linenumber" name="L304" href="#L304">304</a> <em class="jxr_javadoccomment">         * @return the byte buffer</em>
+<a class="jxr_linenumber" name="L305" href="#L305">305</a> <em class="jxr_javadoccomment">         */</em>
+<a class="jxr_linenumber" name="L306" href="#L306">306</a>         ByteBuffer createBuffer() {
+<a class="jxr_linenumber" name="L307" href="#L307">307</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L308" href="#L308">308</a>         }
+<a class="jxr_linenumber" name="L309" href="#L309">309</a>     }
+<a class="jxr_linenumber" name="L310" href="#L310">310</a> 
+<a class="jxr_linenumber" name="L311" href="#L311">311</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L312" href="#L312">312</a> <em class="jxr_javadoccomment">     * Mock byte buffer as cascaded mock.</em>
+<a class="jxr_linenumber" name="L313" href="#L313">313</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L314" href="#L314">314</a> <em class="jxr_javadoccomment">     * @param cascadingMock</em>
+<a class="jxr_linenumber" name="L315" href="#L315">315</a> <em class="jxr_javadoccomment">     *            the cascading mock</em>
+<a class="jxr_linenumber" name="L316" href="#L316">316</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L317" href="#L317">317</a>     <em class="jxr_comment">// TODO JWL 2/18/2024 Test not allowed on jdk21</em>
+<a class="jxr_linenumber" name="L318" href="#L318">318</a>     @Disabled
+<a class="jxr_linenumber" name="L319" href="#L319">319</a>     @Test
+<a class="jxr_linenumber" name="L320" href="#L320">320</a>     <strong class="jxr_keyword">void</strong> mockByteBufferAsCascadedMock(@Mocked BufferFactory cascadingMock) {
+<a class="jxr_linenumber" name="L321" href="#L321">321</a>         ByteBuffer realBuf1 = ByteBuffer.allocateDirect(10);
+<a class="jxr_linenumber" name="L322" href="#L322">322</a>         assertEquals(10, realBuf1.capacity());
+<a class="jxr_linenumber" name="L323" href="#L323">323</a> 
+<a class="jxr_linenumber" name="L324" href="#L324">324</a>         ByteBuffer cascadedBuf = cascadingMock.createBuffer();
+<a class="jxr_linenumber" name="L325" href="#L325">325</a>         assertEquals(0, cascadedBuf.capacity());
 <a class="jxr_linenumber" name="L326" href="#L326">326</a> 
-<a class="jxr_linenumber" name="L327" href="#L327">327</a>     <em class="jxr_comment">// Mocking java.io.InputStream /////////////////////////////////////////////////////////////////////////////////////</em>
-<a class="jxr_linenumber" name="L328" href="#L328">328</a> 
-<a class="jxr_linenumber" name="L329" href="#L329">329</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L330" href="#L330">330</a> <em class="jxr_javadoccomment">     * The Class ConcatenatingInputStream.</em>
-<a class="jxr_linenumber" name="L331" href="#L331">331</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L332" href="#L332">332</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> ConcatenatingInputStream <strong class="jxr_keyword">extends</strong> InputStream {
-<a class="jxr_linenumber" name="L333" href="#L333">333</a> 
-<a class="jxr_linenumber" name="L334" href="#L334">334</a>         <em class="jxr_javadoccomment">/** The sequential inputs. */</em>
-<a class="jxr_linenumber" name="L335" href="#L335">335</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Queue&lt;InputStream&gt; sequentialInputs;
-<a class="jxr_linenumber" name="L336" href="#L336">336</a> 
-<a class="jxr_linenumber" name="L337" href="#L337">337</a>         <em class="jxr_javadoccomment">/** The current input. */</em>
-<a class="jxr_linenumber" name="L338" href="#L338">338</a>         <strong class="jxr_keyword">private</strong> InputStream currentInput;
-<a class="jxr_linenumber" name="L339" href="#L339">339</a> 
-<a class="jxr_linenumber" name="L340" href="#L340">340</a>         <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L341" href="#L341">341</a> <em class="jxr_javadoccomment">         * Instantiates a new concatenating input stream.</em>
-<a class="jxr_linenumber" name="L342" href="#L342">342</a> <em class="jxr_javadoccomment">         *</em>
-<a class="jxr_linenumber" name="L343" href="#L343">343</a> <em class="jxr_javadoccomment">         * @param sequentialInputs</em>
-<a class="jxr_linenumber" name="L344" href="#L344">344</a> <em class="jxr_javadoccomment">         *            the sequential inputs</em>
-<a class="jxr_linenumber" name="L345" href="#L345">345</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L346" href="#L346">346</a>         <strong class="jxr_keyword">public</strong> ConcatenatingInputStream(InputStream... sequentialInputs) {
-<a class="jxr_linenumber" name="L347" href="#L347">347</a>             <strong class="jxr_keyword">this</strong>.sequentialInputs = <strong class="jxr_keyword">new</strong> LinkedList&lt;&gt;(Arrays.asList(sequentialInputs));
-<a class="jxr_linenumber" name="L348" href="#L348">348</a>             currentInput = <strong class="jxr_keyword">this</strong>.sequentialInputs.poll();
-<a class="jxr_linenumber" name="L349" href="#L349">349</a>         }
-<a class="jxr_linenumber" name="L350" href="#L350">350</a> 
-<a class="jxr_linenumber" name="L351" href="#L351">351</a>         @Override
-<a class="jxr_linenumber" name="L352" href="#L352">352</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> read() <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L353" href="#L353">353</a>             <strong class="jxr_keyword">if</strong> (currentInput == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L354" href="#L354">354</a>                 <strong class="jxr_keyword">return</strong> -1;
-<a class="jxr_linenumber" name="L355" href="#L355">355</a>             }
-<a class="jxr_linenumber" name="L356" href="#L356">356</a> 
-<a class="jxr_linenumber" name="L357" href="#L357">357</a>             <strong class="jxr_keyword">int</strong> nextByte = currentInput.read();
-<a class="jxr_linenumber" name="L358" href="#L358">358</a> 
-<a class="jxr_linenumber" name="L359" href="#L359">359</a>             <strong class="jxr_keyword">if</strong> (nextByte &gt;= 0) {
-<a class="jxr_linenumber" name="L360" href="#L360">360</a>                 <strong class="jxr_keyword">return</strong> nextByte;
-<a class="jxr_linenumber" name="L361" href="#L361">361</a>             }
+<a class="jxr_linenumber" name="L327" href="#L327">327</a>         ByteBuffer realBuf2 = ByteBuffer.allocateDirect(20);
+<a class="jxr_linenumber" name="L328" href="#L328">328</a>         assertEquals(20, realBuf2.capacity());
+<a class="jxr_linenumber" name="L329" href="#L329">329</a>     }
+<a class="jxr_linenumber" name="L330" href="#L330">330</a> 
+<a class="jxr_linenumber" name="L331" href="#L331">331</a>     <em class="jxr_comment">// Mocking java.io.InputStream /////////////////////////////////////////////////////////////////////////////////////</em>
+<a class="jxr_linenumber" name="L332" href="#L332">332</a> 
+<a class="jxr_linenumber" name="L333" href="#L333">333</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L334" href="#L334">334</a> <em class="jxr_javadoccomment">     * The Class ConcatenatingInputStream.</em>
+<a class="jxr_linenumber" name="L335" href="#L335">335</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L336" href="#L336">336</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> ConcatenatingInputStream <strong class="jxr_keyword">extends</strong> InputStream {
+<a class="jxr_linenumber" name="L337" href="#L337">337</a> 
+<a class="jxr_linenumber" name="L338" href="#L338">338</a>         <em class="jxr_javadoccomment">/** The sequential inputs. */</em>
+<a class="jxr_linenumber" name="L339" href="#L339">339</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Queue&lt;InputStream&gt; sequentialInputs;
+<a class="jxr_linenumber" name="L340" href="#L340">340</a> 
+<a class="jxr_linenumber" name="L341" href="#L341">341</a>         <em class="jxr_javadoccomment">/** The current input. */</em>
+<a class="jxr_linenumber" name="L342" href="#L342">342</a>         <strong class="jxr_keyword">private</strong> InputStream currentInput;
+<a class="jxr_linenumber" name="L343" href="#L343">343</a> 
+<a class="jxr_linenumber" name="L344" href="#L344">344</a>         <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L345" href="#L345">345</a> <em class="jxr_javadoccomment">         * Instantiates a new concatenating input stream.</em>
+<a class="jxr_linenumber" name="L346" href="#L346">346</a> <em class="jxr_javadoccomment">         *</em>
+<a class="jxr_linenumber" name="L347" href="#L347">347</a> <em class="jxr_javadoccomment">         * @param sequentialInputs</em>
+<a class="jxr_linenumber" name="L348" href="#L348">348</a> <em class="jxr_javadoccomment">         *            the sequential inputs</em>
+<a class="jxr_linenumber" name="L349" href="#L349">349</a> <em class="jxr_javadoccomment">         */</em>
+<a class="jxr_linenumber" name="L350" href="#L350">350</a>         <strong class="jxr_keyword">public</strong> ConcatenatingInputStream(InputStream... sequentialInputs) {
+<a class="jxr_linenumber" name="L351" href="#L351">351</a>             <strong class="jxr_keyword">this</strong>.sequentialInputs = <strong class="jxr_keyword">new</strong> LinkedList&lt;&gt;(Arrays.asList(sequentialInputs));
+<a class="jxr_linenumber" name="L352" href="#L352">352</a>             currentInput = <strong class="jxr_keyword">this</strong>.sequentialInputs.poll();
+<a class="jxr_linenumber" name="L353" href="#L353">353</a>         }
+<a class="jxr_linenumber" name="L354" href="#L354">354</a> 
+<a class="jxr_linenumber" name="L355" href="#L355">355</a>         @Override
+<a class="jxr_linenumber" name="L356" href="#L356">356</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> read() <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L357" href="#L357">357</a>             <strong class="jxr_keyword">if</strong> (currentInput == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L358" href="#L358">358</a>                 <strong class="jxr_keyword">return</strong> -1;
+<a class="jxr_linenumber" name="L359" href="#L359">359</a>             }
+<a class="jxr_linenumber" name="L360" href="#L360">360</a> 
+<a class="jxr_linenumber" name="L361" href="#L361">361</a>             <strong class="jxr_keyword">int</strong> nextByte = currentInput.read();
 <a class="jxr_linenumber" name="L362" href="#L362">362</a> 
-<a class="jxr_linenumber" name="L363" href="#L363">363</a>             currentInput = sequentialInputs.poll();
-<a class="jxr_linenumber" name="L364" href="#L364">364</a>             <em class="jxr_comment">// noinspection TailRecursion</em>
-<a class="jxr_linenumber" name="L365" href="#L365">365</a>             <strong class="jxr_keyword">return</strong> read();
-<a class="jxr_linenumber" name="L366" href="#L366">366</a>         }
-<a class="jxr_linenumber" name="L367" href="#L367">367</a>     }
-<a class="jxr_linenumber" name="L368" href="#L368">368</a> 
-<a class="jxr_linenumber" name="L369" href="#L369">369</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L370" href="#L370">370</a> <em class="jxr_javadoccomment">     * Concatenate input streams.</em>
-<a class="jxr_linenumber" name="L371" href="#L371">371</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L372" href="#L372">372</a> <em class="jxr_javadoccomment">     * @param input1</em>
-<a class="jxr_linenumber" name="L373" href="#L373">373</a> <em class="jxr_javadoccomment">     *            the input 1</em>
-<a class="jxr_linenumber" name="L374" href="#L374">374</a> <em class="jxr_javadoccomment">     * @param input2</em>
-<a class="jxr_linenumber" name="L375" href="#L375">375</a> <em class="jxr_javadoccomment">     *            the input 2</em>
-<a class="jxr_linenumber" name="L376" href="#L376">376</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L377" href="#L377">377</a> <em class="jxr_javadoccomment">     * @throws Exception</em>
-<a class="jxr_linenumber" name="L378" href="#L378">378</a> <em class="jxr_javadoccomment">     *             the exception</em>
-<a class="jxr_linenumber" name="L379" href="#L379">379</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L380" href="#L380">380</a>     @Test
-<a class="jxr_linenumber" name="L381" href="#L381">381</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> concatenateInputStreams(@Injectable <strong class="jxr_keyword">final</strong> InputStream input1, @Injectable <strong class="jxr_keyword">final</strong> InputStream input2)
-<a class="jxr_linenumber" name="L382" href="#L382">382</a>             <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L383" href="#L383">383</a>         <strong class="jxr_keyword">new</strong> Expectations() {
-<a class="jxr_linenumber" name="L384" href="#L384">384</a>             {
-<a class="jxr_linenumber" name="L385" href="#L385">385</a>                 input1.read();
-<a class="jxr_linenumber" name="L386" href="#L386">386</a>                 returns(1, 2, -1);
-<a class="jxr_linenumber" name="L387" href="#L387">387</a>                 input2.read();
-<a class="jxr_linenumber" name="L388" href="#L388">388</a>                 returns(3, -1);
-<a class="jxr_linenumber" name="L389" href="#L389">389</a>             }
-<a class="jxr_linenumber" name="L390" href="#L390">390</a>         };
-<a class="jxr_linenumber" name="L391" href="#L391">391</a> 
-<a class="jxr_linenumber" name="L392" href="#L392">392</a>         InputStream concatenatedInput = <strong class="jxr_keyword">new</strong> ConcatenatingInputStream(input1, input2);
-<a class="jxr_linenumber" name="L393" href="#L393">393</a>         byte[] buf = <strong class="jxr_keyword">new</strong> byte[3];
-<a class="jxr_linenumber" name="L394" href="#L394">394</a>         concatenatedInput.read(buf);
-<a class="jxr_linenumber" name="L395" href="#L395">395</a>         concatenatedInput.close();
-<a class="jxr_linenumber" name="L396" href="#L396">396</a> 
-<a class="jxr_linenumber" name="L397" href="#L397">397</a>         byte[] expectedBytes = { 1, 2, 3 };
-<a class="jxr_linenumber" name="L398" href="#L398">398</a>         assertArrayEquals(expectedBytes, buf);
-<a class="jxr_linenumber" name="L399" href="#L399">399</a>     }
-<a class="jxr_linenumber" name="L400" href="#L400">400</a> }
+<a class="jxr_linenumber" name="L363" href="#L363">363</a>             <strong class="jxr_keyword">if</strong> (nextByte &gt;= 0) {
+<a class="jxr_linenumber" name="L364" href="#L364">364</a>                 <strong class="jxr_keyword">return</strong> nextByte;
+<a class="jxr_linenumber" name="L365" href="#L365">365</a>             }
+<a class="jxr_linenumber" name="L366" href="#L366">366</a> 
+<a class="jxr_linenumber" name="L367" href="#L367">367</a>             currentInput = sequentialInputs.poll();
+<a class="jxr_linenumber" name="L368" href="#L368">368</a>             <em class="jxr_comment">// noinspection TailRecursion</em>
+<a class="jxr_linenumber" name="L369" href="#L369">369</a>             <strong class="jxr_keyword">return</strong> read();
+<a class="jxr_linenumber" name="L370" href="#L370">370</a>         }
+<a class="jxr_linenumber" name="L371" href="#L371">371</a>     }
+<a class="jxr_linenumber" name="L372" href="#L372">372</a> 
+<a class="jxr_linenumber" name="L373" href="#L373">373</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L374" href="#L374">374</a> <em class="jxr_javadoccomment">     * Concatenate input streams.</em>
+<a class="jxr_linenumber" name="L375" href="#L375">375</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L376" href="#L376">376</a> <em class="jxr_javadoccomment">     * @param input1</em>
+<a class="jxr_linenumber" name="L377" href="#L377">377</a> <em class="jxr_javadoccomment">     *            the input 1</em>
+<a class="jxr_linenumber" name="L378" href="#L378">378</a> <em class="jxr_javadoccomment">     * @param input2</em>
+<a class="jxr_linenumber" name="L379" href="#L379">379</a> <em class="jxr_javadoccomment">     *            the input 2</em>
+<a class="jxr_linenumber" name="L380" href="#L380">380</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L381" href="#L381">381</a> <em class="jxr_javadoccomment">     * @throws Exception</em>
+<a class="jxr_linenumber" name="L382" href="#L382">382</a> <em class="jxr_javadoccomment">     *             the exception</em>
+<a class="jxr_linenumber" name="L383" href="#L383">383</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L384" href="#L384">384</a>     @Test
+<a class="jxr_linenumber" name="L385" href="#L385">385</a>     <strong class="jxr_keyword">void</strong> concatenateInputStreams(@Injectable <strong class="jxr_keyword">final</strong> InputStream input1, @Injectable <strong class="jxr_keyword">final</strong> InputStream input2)
+<a class="jxr_linenumber" name="L386" href="#L386">386</a>             <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L387" href="#L387">387</a>         <strong class="jxr_keyword">new</strong> Expectations() {
+<a class="jxr_linenumber" name="L388" href="#L388">388</a>             {
+<a class="jxr_linenumber" name="L389" href="#L389">389</a>                 input1.read();
+<a class="jxr_linenumber" name="L390" href="#L390">390</a>                 returns(1, 2, -1);
+<a class="jxr_linenumber" name="L391" href="#L391">391</a>                 input2.read();
+<a class="jxr_linenumber" name="L392" href="#L392">392</a>                 returns(3, -1);
+<a class="jxr_linenumber" name="L393" href="#L393">393</a>             }
+<a class="jxr_linenumber" name="L394" href="#L394">394</a>         };
+<a class="jxr_linenumber" name="L395" href="#L395">395</a> 
+<a class="jxr_linenumber" name="L396" href="#L396">396</a>         InputStream concatenatedInput = <strong class="jxr_keyword">new</strong> ConcatenatingInputStream(input1, input2);
+<a class="jxr_linenumber" name="L397" href="#L397">397</a>         byte[] buf = <strong class="jxr_keyword">new</strong> byte[3];
+<a class="jxr_linenumber" name="L398" href="#L398">398</a>         concatenatedInput.read(buf);
+<a class="jxr_linenumber" name="L399" href="#L399">399</a>         concatenatedInput.close();
+<a class="jxr_linenumber" name="L400" href="#L400">400</a> 
+<a class="jxr_linenumber" name="L401" href="#L401">401</a>         byte[] expectedBytes = { 1, 2, 3 };
+<a class="jxr_linenumber" name="L402" href="#L402">402</a>         assertArrayEquals(expectedBytes, buf);
+<a class="jxr_linenumber" name="L403" href="#L403">403</a>     }
+<a class="jxr_linenumber" name="L404" href="#L404">404</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

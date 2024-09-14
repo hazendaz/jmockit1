@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>MethodFormatter xref</title>
 <link type="text/css" rel="stylesheet" href="../../../stylesheet.css" />
@@ -12,12 +12,12 @@
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">package</strong> mockit.internal.util;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.util.ArrayList;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.util.List;
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.util.regex.Pattern;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nullable;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.util.List;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.util.regex.Pattern;
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> mockit.internal.state.ParameterNames;
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  
@@ -25,13 +25,13 @@
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Pattern CONSTRUCTOR_NAME = Pattern.compile(<span class="jxr_string">"&lt;init&gt;"</span>);
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Pattern JAVA_LANG_PREFIX = Pattern.compile(<span class="jxr_string">"java/lang/"</span>);
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>      @Nonnull
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>      @NonNull
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> StringBuilder out;
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>      @Nonnull
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>      @NonNull
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> List&lt;String&gt; parameterTypes;
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>      @Nonnull
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>      @NonNull
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> String classDesc;
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>      @Nonnull
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>      @NonNull
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">private</strong> String methodDesc;
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>      <em class="jxr_comment">// Auxiliary fields for handling method parameters:</em>
@@ -47,11 +47,11 @@
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>          methodDesc = <span class="jxr_string">""</span>;
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>      }
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">public</strong> <a name="MethodFormatter" href="../../../mockit/internal/util/MethodFormatter.html#MethodFormatter">MethodFormatter</a>(@Nonnull String classDesc, @Nonnull String methodNameAndDesc) {
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">public</strong> <a name="MethodFormatter" href="../../../mockit/internal/util/MethodFormatter.html#MethodFormatter">MethodFormatter</a>(@NonNull String classDesc, @NonNull String methodNameAndDesc) {
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>          <strong class="jxr_keyword">this</strong>(classDesc, methodNameAndDesc, <strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>      }
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">public</strong> <a name="MethodFormatter" href="../../../mockit/internal/util/MethodFormatter.html#MethodFormatter">MethodFormatter</a>(@Nonnull String classDesc, @Nonnull String methodNameAndDesc,
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">public</strong> <a name="MethodFormatter" href="../../../mockit/internal/util/MethodFormatter.html#MethodFormatter">MethodFormatter</a>(@NonNull String classDesc, @NonNull String methodNameAndDesc,
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>              <strong class="jxr_keyword">boolean</strong> withParametersAppended) {
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>          out = <strong class="jxr_keyword">new</strong> StringBuilder();
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>          parameterTypes = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;(5);
@@ -66,7 +66,7 @@
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>          <strong class="jxr_keyword">return</strong> out.toString();
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>      }
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>      @Nonnull
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>      @NonNull
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">public</strong> List&lt;String&gt; getParameterTypes() {
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>          <strong class="jxr_keyword">return</strong> parameterTypes;
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      }
@@ -98,8 +98,8 @@
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>          }
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>      }
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>  
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>      @Nonnull
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String getConstructorName(@Nonnull String className) {
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>      @NonNull
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String getConstructorName(@NonNull String className) {
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>          <strong class="jxr_keyword">int</strong> p = className.lastIndexOf('.');
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>          String constructorName = p &lt; 0 ? className : className.substring(p + 1);
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>  
@@ -113,7 +113,7 @@
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>         <strong class="jxr_keyword">return</strong> constructorName;
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>     }
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> 
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> appendParameterTypesAndNames(@Nonnull String typeDescs) {
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> appendParameterTypesAndNames(@NonNull String typeDescs) {
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>         String sep = <span class="jxr_string">""</span>;
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> 
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>         <strong class="jxr_keyword">for</strong> (String typeDesc : typeDescs.split(<span class="jxr_string">";"</span>)) {
@@ -130,12 +130,12 @@
 <a class="jxr_linenumber" name="L122" href="#L122">122</a>         }
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>     }
 <a class="jxr_linenumber" name="L124" href="#L124">124</a> 
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>     @Nonnull
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String friendlyReferenceType(@Nonnull String typeDesc) {
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>     @NonNull
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String friendlyReferenceType(@NonNull String typeDesc) {
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>         <strong class="jxr_keyword">return</strong> JAVA_LANG_PREFIX.matcher(typeDesc.substring(1)).replaceAll(<span class="jxr_string">""</span>).replace('/', '.');
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>     }
 <a class="jxr_linenumber" name="L129" href="#L129">129</a> 
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> appendParameterType(@Nonnull String friendlyTypeDesc) {
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> appendParameterType(@NonNull String friendlyTypeDesc) {
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>         out.append(friendlyTypeDesc);
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>         parameterTypes.add(friendlyTypeDesc);
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>     }
@@ -150,7 +150,7 @@
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>         parameterIndex++;
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>     }
 <a class="jxr_linenumber" name="L144" href="#L144">144</a> 
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> appendPrimitiveParameterTypesAndNames(@Nonnull String typeDesc) {
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> appendPrimitiveParameterTypesAndNames(@NonNull String typeDesc) {
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>         String sep = <span class="jxr_string">""</span>;
 <a class="jxr_linenumber" name="L147" href="#L147">147</a> 
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>         <strong class="jxr_keyword">for</strong> (typeDescPos = 0; typeDescPos &lt; typeDesc.length(); typeDescPos++) {
@@ -167,7 +167,7 @@
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>         }
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>     }
 <a class="jxr_linenumber" name="L161" href="#L161">161</a> 
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addParameterTypes(@Nonnull String typeDescs) {
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addParameterTypes(@NonNull String typeDescs) {
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>         <strong class="jxr_keyword">for</strong> (String typeDesc : typeDescs.split(<span class="jxr_string">";"</span>)) {
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>             <strong class="jxr_keyword">if</strong> (typeDesc.charAt(0) == 'L') {
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>                 parameterTypes.add(friendlyReferenceType(typeDesc));
@@ -177,7 +177,7 @@
 <a class="jxr_linenumber" name="L169" href="#L169">169</a>         }
 <a class="jxr_linenumber" name="L170" href="#L170">170</a>     }
 <a class="jxr_linenumber" name="L171" href="#L171">171</a> 
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addPrimitiveParameterTypes(@Nonnull String typeDesc) {
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addPrimitiveParameterTypes(@NonNull String typeDesc) {
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>         <strong class="jxr_keyword">for</strong> (typeDescPos = 0; typeDescPos &lt; typeDesc.length(); typeDescPos++) {
 <a class="jxr_linenumber" name="L174" href="#L174">174</a>             typeCode = typeDesc.charAt(typeDescPos);
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>             advancePastArrayDimensionsIfAny(typeDesc);
@@ -187,9 +187,9 @@
 <a class="jxr_linenumber" name="L179" href="#L179">179</a>         }
 <a class="jxr_linenumber" name="L180" href="#L180">180</a>     }
 <a class="jxr_linenumber" name="L181" href="#L181">181</a> 
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>     @Nonnull
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>     @NonNull
 <a class="jxr_linenumber" name="L183" href="#L183">183</a>     @SuppressWarnings(<span class="jxr_string">"OverlyComplexMethod"</span>)
-<a class="jxr_linenumber" name="L184" href="#L184">184</a>     <strong class="jxr_keyword">private</strong> String getTypeNameForTypeDesc(@Nonnull String typeDesc) {
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>     <strong class="jxr_keyword">private</strong> String getTypeNameForTypeDesc(@NonNull String typeDesc) {
 <a class="jxr_linenumber" name="L185" href="#L185">185</a>         String paramType;
 <a class="jxr_linenumber" name="L186" href="#L186">186</a> 
 <a class="jxr_linenumber" name="L187" href="#L187">187</a>         <strong class="jxr_keyword">switch</strong> (typeCode) {
@@ -223,7 +223,7 @@
 <a class="jxr_linenumber" name="L215" href="#L215">215</a>         <strong class="jxr_keyword">return</strong> paramType;
 <a class="jxr_linenumber" name="L216" href="#L216">216</a>     }
 <a class="jxr_linenumber" name="L217" href="#L217">217</a> 
-<a class="jxr_linenumber" name="L218" href="#L218">218</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> advancePastArrayDimensionsIfAny(@Nonnull String param) {
+<a class="jxr_linenumber" name="L218" href="#L218">218</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> advancePastArrayDimensionsIfAny(@NonNull String param) {
 <a class="jxr_linenumber" name="L219" href="#L219">219</a>         arrayDimensions = 0;
 <a class="jxr_linenumber" name="L220" href="#L220">220</a> 
 <a class="jxr_linenumber" name="L221" href="#L221">221</a>         <strong class="jxr_keyword">while</strong> (typeCode == '[') {
@@ -233,7 +233,7 @@
 <a class="jxr_linenumber" name="L225" href="#L225">225</a>         }
 <a class="jxr_linenumber" name="L226" href="#L226">226</a>     }
 <a class="jxr_linenumber" name="L227" href="#L227">227</a> 
-<a class="jxr_linenumber" name="L228" href="#L228">228</a>     @Nonnull
+<a class="jxr_linenumber" name="L228" href="#L228">228</a>     @NonNull
 <a class="jxr_linenumber" name="L229" href="#L229">229</a>     <strong class="jxr_keyword">private</strong> String getArrayBrackets() {
 <a class="jxr_linenumber" name="L230" href="#L230">230</a>         @SuppressWarnings(<span class="jxr_string">"NonConstantStringShouldBeStringBuffer"</span>)
 <a class="jxr_linenumber" name="L231" href="#L231">231</a>         StringBuilder result = <strong class="jxr_keyword">new</strong> StringBuilder();
@@ -246,12 +246,12 @@
 <a class="jxr_linenumber" name="L238" href="#L238">238</a>         <strong class="jxr_keyword">return</strong> result.toString();
 <a class="jxr_linenumber" name="L239" href="#L239">239</a>     }
 <a class="jxr_linenumber" name="L240" href="#L240">240</a> 
-<a class="jxr_linenumber" name="L241" href="#L241">241</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> append(@Nonnull String text) {
+<a class="jxr_linenumber" name="L241" href="#L241">241</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> append(@NonNull String text) {
 <a class="jxr_linenumber" name="L242" href="#L242">242</a>         out.append(text);
 <a class="jxr_linenumber" name="L243" href="#L243">243</a>     }
 <a class="jxr_linenumber" name="L244" href="#L244">244</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

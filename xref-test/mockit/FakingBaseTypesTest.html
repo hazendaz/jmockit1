@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>FakingBaseTypesTest xref</title>
 <link type="text/css" rel="stylesheet" href="../stylesheet.css" />
@@ -8,27 +8,27 @@
 <div id="overview"><a href="../../testapidocs/mockit/FakingBaseTypesTest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> mockit;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertEquals;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertTrue;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertEquals;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertTrue;
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> java.io.StringReader;
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.nio.CharBuffer;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.io.StringReader;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.nio.CharBuffer;
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.junit.After;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> org.junit.AfterClass;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> org.junit.Before;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> org.junit.BeforeClass;
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> org.junit.FixMethodOrder;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> org.junit.Test;
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> org.junit.runners.MethodSorters;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.AfterAll;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.AfterEach;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.BeforeAll;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.BeforeEach;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.MethodOrderer.MethodName;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.TestMethodOrder;
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> * The Class FakingBaseTypesTest.</em>
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="FakingBaseTypesTest" href="../mockit/FakingBaseTypesTest.html#FakingBaseTypesTest">FakingBaseTypesTest</a> {
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  @TestMethodOrder(MethodName.<strong class="jxr_keyword">class</strong>)
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="FakingBaseTypesTest" href="../mockit/FakingBaseTypesTest.html#FakingBaseTypesTest">FakingBaseTypesTest</a> {
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment">     * The Class BeforeClassBaseAction.</em>
@@ -60,8 +60,8 @@
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_javadoccomment">     * @param &lt;T&gt;</em>
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment">     *            the generic type</em>
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>      @BeforeClass
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> &lt;T <strong class="jxr_keyword">extends</strong> BeforeClassBaseAction&gt; <strong class="jxr_keyword">void</strong> applyFakeForAllTests() {
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>      @BeforeAll
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>      <strong class="jxr_keyword">static</strong> &lt;T <strong class="jxr_keyword">extends</strong> BeforeClassBaseAction&gt; <strong class="jxr_keyword">void</strong> applyFakeForAllTests() {
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>          <strong class="jxr_keyword">new</strong> MockUp&lt;T&gt;() {
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>              @Mock
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>              <strong class="jxr_keyword">int</strong> perform() {
@@ -73,8 +73,8 @@
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_javadoccomment">     * Verify fake for all tests is in effect.</em>
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>      @AfterClass
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> verifyFakeForAllTestsIsInEffect() {
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>      @AfterAll
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>      <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> verifyFakeForAllTestsIsInEffect() {
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>          <strong class="jxr_keyword">int</strong> i1 = <strong class="jxr_keyword">new</strong> BeforeClassAction().perform();
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>          <strong class="jxr_keyword">int</strong> i2 = <strong class="jxr_keyword">new</strong> BeforeClassBaseAction().perform();
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  
@@ -111,8 +111,8 @@
 <a class="jxr_linenumber" name="L103" href="#L103">103</a> <em class="jxr_javadoccomment">     * @param &lt;T&gt;</em>
 <a class="jxr_linenumber" name="L104" href="#L104">104</a> <em class="jxr_javadoccomment">     *            the generic type</em>
 <a class="jxr_linenumber" name="L105" href="#L105">105</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>     @Before
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>     <strong class="jxr_keyword">public</strong> &lt;T <strong class="jxr_keyword">extends</strong> IBeforeAction&gt; <strong class="jxr_keyword">void</strong> applyFakeForEachTest() {
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>     @BeforeEach
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>     &lt;T <strong class="jxr_keyword">extends</strong> IBeforeAction&gt; <strong class="jxr_keyword">void</strong> applyFakeForEachTest() {
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>         <strong class="jxr_keyword">new</strong> MockUp&lt;T&gt;() {
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>             @Mock
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>             <strong class="jxr_keyword">int</strong> perform() {
@@ -124,8 +124,8 @@
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L117" href="#L117">117</a> <em class="jxr_javadoccomment">     * Verify fake for each test is in effect.</em>
 <a class="jxr_linenumber" name="L118" href="#L118">118</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L119" href="#L119">119</a>     @After
-<a class="jxr_linenumber" name="L120" href="#L120">120</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> verifyFakeForEachTestIsInEffect() {
+<a class="jxr_linenumber" name="L119" href="#L119">119</a>     @AfterEach
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>     <strong class="jxr_keyword">void</strong> verifyFakeForEachTestIsInEffect() {
 <a class="jxr_linenumber" name="L121" href="#L121">121</a>         <strong class="jxr_keyword">int</strong> i = <strong class="jxr_keyword">new</strong> BeforeAction().perform();
 <a class="jxr_linenumber" name="L122" href="#L122">122</a>         assertEquals(56, i);
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>     }
@@ -193,7 +193,7 @@
 <a class="jxr_linenumber" name="L185" href="#L185">185</a> <em class="jxr_javadoccomment">     *            the generic type</em>
 <a class="jxr_linenumber" name="L186" href="#L186">186</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L187" href="#L187">187</a>     @Test
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>     <strong class="jxr_keyword">public</strong> &lt;T <strong class="jxr_keyword">extends</strong> IAction&gt; <strong class="jxr_keyword">void</strong> test3_fakeInterfaceImplementationClassesUsingAnonymousFake() {
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>     &lt;T <strong class="jxr_keyword">extends</strong> IAction&gt; <strong class="jxr_keyword">void</strong> test3_fakeInterfaceImplementationClassesUsingAnonymousFake() {
 <a class="jxr_linenumber" name="L189" href="#L189">189</a>         actionI = <strong class="jxr_keyword">new</strong> ActionImpl1();
 <a class="jxr_linenumber" name="L190" href="#L190">190</a> 
 <a class="jxr_linenumber" name="L191" href="#L191">191</a>         <strong class="jxr_keyword">new</strong> MockUp&lt;T&gt;() {
@@ -249,7 +249,7 @@
 <a class="jxr_linenumber" name="L241" href="#L241">241</a> <em class="jxr_javadoccomment">     * Fake all classes implementing an interface using named fake with invocation parameter.</em>
 <a class="jxr_linenumber" name="L242" href="#L242">242</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L243" href="#L243">243</a>     @Test
-<a class="jxr_linenumber" name="L244" href="#L244">244</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> fakeAllClassesImplementingAnInterfaceUsingNamedFakeWithInvocationParameter() {
+<a class="jxr_linenumber" name="L244" href="#L244">244</a>     <strong class="jxr_keyword">void</strong> fakeAllClassesImplementingAnInterfaceUsingNamedFakeWithInvocationParameter() {
 <a class="jxr_linenumber" name="L245" href="#L245">245</a>         TestInterface impl1 = <strong class="jxr_keyword">new</strong> TestInterface() {
 <a class="jxr_linenumber" name="L246" href="#L246">246</a>             @Override
 <a class="jxr_linenumber" name="L247" href="#L247">247</a>             <strong class="jxr_keyword">public</strong> String getData() {
@@ -365,7 +365,7 @@
 <a class="jxr_linenumber" name="L357" href="#L357">357</a> <em class="jxr_javadoccomment">     *            the generic type</em>
 <a class="jxr_linenumber" name="L358" href="#L358">358</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L359" href="#L359">359</a>     @Test
-<a class="jxr_linenumber" name="L360" href="#L360">360</a>     <strong class="jxr_keyword">public</strong> &lt;T <strong class="jxr_keyword">extends</strong> BaseAction&gt; <strong class="jxr_keyword">void</strong> test4_fakeConcreteSubclassesUsingAnonymousFake() {
+<a class="jxr_linenumber" name="L360" href="#L360">360</a>     &lt;T <strong class="jxr_keyword">extends</strong> BaseAction&gt; <strong class="jxr_keyword">void</strong> test4_fakeConcreteSubclassesUsingAnonymousFake() {
 <a class="jxr_linenumber" name="L361" href="#L361">361</a>         actionB = <strong class="jxr_keyword">new</strong> ConcreteAction1();
 <a class="jxr_linenumber" name="L362" href="#L362">362</a> 
 <a class="jxr_linenumber" name="L363" href="#L363">363</a>         <strong class="jxr_keyword">new</strong> MockUp&lt;T&gt;() {
@@ -398,8 +398,8 @@
 <a class="jxr_linenumber" name="L390" href="#L390">390</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L391" href="#L391">391</a> <em class="jxr_javadoccomment">     * Check implementation classes are no longer faked.</em>
 <a class="jxr_linenumber" name="L392" href="#L392">392</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L393" href="#L393">393</a>     @After
-<a class="jxr_linenumber" name="L394" href="#L394">394</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> checkImplementationClassesAreNoLongerFaked() {
+<a class="jxr_linenumber" name="L393" href="#L393">393</a>     @AfterEach
+<a class="jxr_linenumber" name="L394" href="#L394">394</a>     <strong class="jxr_keyword">void</strong> checkImplementationClassesAreNoLongerFaked() {
 <a class="jxr_linenumber" name="L395" href="#L395">395</a>         <strong class="jxr_keyword">if</strong> (actionI != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L396" href="#L396">396</a>             assertEquals(-1, actionI.perform(0));
 <a class="jxr_linenumber" name="L397" href="#L397">397</a>         }
@@ -440,7 +440,7 @@
 <a class="jxr_linenumber" name="L432" href="#L432">432</a> <em class="jxr_javadoccomment">     * Test 5 fake interface implementation classes using named fake.</em>
 <a class="jxr_linenumber" name="L433" href="#L433">433</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L434" href="#L434">434</a>     @Test
-<a class="jxr_linenumber" name="L435" href="#L435">435</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> test5_fakeInterfaceImplementationClassesUsingNamedFake() {
+<a class="jxr_linenumber" name="L435" href="#L435">435</a>     <strong class="jxr_keyword">void</strong> test5_fakeInterfaceImplementationClassesUsingNamedFake() {
 <a class="jxr_linenumber" name="L436" href="#L436">436</a>         <strong class="jxr_keyword">new</strong> FakeInterface();
 <a class="jxr_linenumber" name="L437" href="#L437">437</a> 
 <a class="jxr_linenumber" name="L438" href="#L438">438</a>         actionI = <strong class="jxr_keyword">new</strong> ActionImpl1();
@@ -474,7 +474,7 @@
 <a class="jxr_linenumber" name="L466" href="#L466">466</a> <em class="jxr_javadoccomment">     * Test 6 fake concrete subclasses using named fake.</em>
 <a class="jxr_linenumber" name="L467" href="#L467">467</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L468" href="#L468">468</a>     @Test
-<a class="jxr_linenumber" name="L469" href="#L469">469</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> test6_fakeConcreteSubclassesUsingNamedFake() {
+<a class="jxr_linenumber" name="L469" href="#L469">469</a>     <strong class="jxr_keyword">void</strong> test6_fakeConcreteSubclassesUsingNamedFake() {
 <a class="jxr_linenumber" name="L470" href="#L470">470</a>         <strong class="jxr_keyword">new</strong> FakeBaseClass();
 <a class="jxr_linenumber" name="L471" href="#L471">471</a> 
 <a class="jxr_linenumber" name="L472" href="#L472">472</a>         actionB = <strong class="jxr_keyword">new</strong> ConcreteAction1();
@@ -508,7 +508,7 @@
 <a class="jxr_linenumber" name="L500" href="#L500">500</a> <em class="jxr_javadoccomment">     *            the generic type</em>
 <a class="jxr_linenumber" name="L501" href="#L501">501</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L502" href="#L502">502</a>     @Test
-<a class="jxr_linenumber" name="L503" href="#L503">503</a>     <strong class="jxr_keyword">public</strong> &lt;M <strong class="jxr_keyword">extends</strong> GenericIAction&lt;Number&gt;&gt; <strong class="jxr_keyword">void</strong> test7_fakeImplementationsOfGenericInterface() {
+<a class="jxr_linenumber" name="L503" href="#L503">503</a>     &lt;M <strong class="jxr_keyword">extends</strong> GenericIAction&lt;Number&gt;&gt; <strong class="jxr_keyword">void</strong> test7_fakeImplementationsOfGenericInterface() {
 <a class="jxr_linenumber" name="L504" href="#L504">504</a>         GenericIAction&lt;Number&gt; actionNumber = <strong class="jxr_keyword">new</strong> GenericIAction&lt;Number&gt;() {
 <a class="jxr_linenumber" name="L505" href="#L505">505</a>             @Override
 <a class="jxr_linenumber" name="L506" href="#L506">506</a>             <strong class="jxr_keyword">public</strong> Number perform(Number n) {
@@ -557,7 +557,7 @@
 <a class="jxr_linenumber" name="L549" href="#L549">549</a> <em class="jxr_javadoccomment">     *             the exception</em>
 <a class="jxr_linenumber" name="L550" href="#L550">550</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L551" href="#L551">551</a>     @Test
-<a class="jxr_linenumber" name="L552" href="#L552">552</a>     <strong class="jxr_keyword">public</strong> &lt;R <strong class="jxr_keyword">extends</strong> Readable&gt; <strong class="jxr_keyword">void</strong> test8_excludeJREClassesFromFakingForSafety() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L552" href="#L552">552</a>     &lt;R <strong class="jxr_keyword">extends</strong> Readable&gt; <strong class="jxr_keyword">void</strong> test8_excludeJREClassesFromFakingForSafety() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L553" href="#L553">553</a>         <strong class="jxr_keyword">new</strong> MockUp&lt;R&gt;() {
 <a class="jxr_linenumber" name="L554" href="#L554">554</a>             @Mock
 <a class="jxr_linenumber" name="L555" href="#L555">555</a>             <strong class="jxr_keyword">int</strong> read(CharBuffer cb) {
@@ -568,7 +568,7 @@
 <a class="jxr_linenumber" name="L560" href="#L560">560</a>         CharBuffer buf = CharBuffer.allocate(10);
 <a class="jxr_linenumber" name="L561" href="#L561">561</a>         <strong class="jxr_keyword">int</strong> r1 = <strong class="jxr_keyword">new</strong> Readable() {
 <a class="jxr_linenumber" name="L562" href="#L562">562</a>             @Override
-<a class="jxr_linenumber" name="L563" href="#L563">563</a>             <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> read(@Nonnull CharBuffer cb) {
+<a class="jxr_linenumber" name="L563" href="#L563">563</a>             <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> read(@NonNull CharBuffer cb) {
 <a class="jxr_linenumber" name="L564" href="#L564">564</a>                 <strong class="jxr_keyword">return</strong> 1;
 <a class="jxr_linenumber" name="L565" href="#L565">565</a>             }
 <a class="jxr_linenumber" name="L566" href="#L566">566</a>         }.read(buf);
@@ -580,6 +580,6 @@
 <a class="jxr_linenumber" name="L572" href="#L572">572</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

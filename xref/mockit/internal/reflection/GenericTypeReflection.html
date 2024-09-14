@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>GenericTypeReflection xref</title>
 <link type="text/css" rel="stylesheet" href="../../../stylesheet.css" />
@@ -12,43 +12,43 @@
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">package</strong> mockit.internal.reflection;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.lang.reflect.GenericArrayType;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.lang.reflect.GenericDeclaration;
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.lang.reflect.Member;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.ParameterizedType;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Type;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.TypeVariable;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.WildcardType;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> java.util.Collections;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> java.util.HashMap;
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> java.util.List;
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> java.util.Map.Entry;
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nullable;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.GenericArrayType;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.GenericDeclaration;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Member;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.ParameterizedType;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Type;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.TypeVariable;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.WildcardType;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> java.util.Collections;
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> java.util.HashMap;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> java.util.List;
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> java.util.Map.Entry;
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  @SuppressWarnings(<span class="jxr_string">"OverlyComplexClass"</span>)
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="GenericTypeReflection" href="../../../mockit/internal/reflection/GenericTypeReflection.html#GenericTypeReflection">GenericTypeReflection</a> {
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>      @Nonnull
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>      @NonNull
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Map&lt;String, Type&gt; typeParametersToTypeArguments;
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>      @Nonnull
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>      @NonNull
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Map&lt;String, String&gt; typeParametersToTypeArgumentNames;
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> withSignatures;
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">public</strong> <a name="GenericTypeReflection" href="../../../mockit/internal/reflection/GenericTypeReflection.html#GenericTypeReflection">GenericTypeReflection</a>(@Nonnull Class&lt;?&gt; ownerClass, @Nullable Type genericType) {
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">public</strong> <a name="GenericTypeReflection" href="../../../mockit/internal/reflection/GenericTypeReflection.html#GenericTypeReflection">GenericTypeReflection</a>(@NonNull Class&lt;?&gt; ownerClass, @Nullable Type genericType) {
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>          <strong class="jxr_keyword">this</strong>(ownerClass, genericType, <strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>      }
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">public</strong> <a name="GenericTypeReflection" href="../../../mockit/internal/reflection/GenericTypeReflection.html#GenericTypeReflection">GenericTypeReflection</a>(@Nonnull Class&lt;?&gt; ownerClass, @Nullable Type genericType, <strong class="jxr_keyword">boolean</strong> withSignatures) {
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">public</strong> <a name="GenericTypeReflection" href="../../../mockit/internal/reflection/GenericTypeReflection.html#GenericTypeReflection">GenericTypeReflection</a>(@NonNull Class&lt;?&gt; ownerClass, @Nullable Type genericType, <strong class="jxr_keyword">boolean</strong> withSignatures) {
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>          typeParametersToTypeArguments = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;(4);
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>          typeParametersToTypeArgumentNames = withSignatures ? <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;(4) : Collections.&lt;String, String&gt;emptyMap();
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>          typeParametersToTypeArgumentNames = withSignatures ? <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;(4) : Collections.&lt;String, String&gt; emptyMap();
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>          <strong class="jxr_keyword">this</strong>.withSignatures = withSignatures;
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>          discoverTypeMappings(ownerClass, genericType);
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>      }
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> discoverTypeMappings(@Nonnull Class&lt;?&gt; rawType, @Nullable Type genericType) {
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> discoverTypeMappings(@NonNull Class&lt;?&gt; rawType, @Nullable Type genericType) {
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>          <strong class="jxr_keyword">if</strong> (genericType instanceof ParameterizedType) {
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>              addMappingsFromTypeParametersToTypeArguments(rawType, (ParameterizedType) genericType);
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>          }
@@ -56,7 +56,7 @@
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>          addGenericTypeMappingsForSuperTypes(rawType);
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>      }
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addGenericTypeMappingsForSuperTypes(@Nonnull Class&lt;?&gt; rawType) {
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addGenericTypeMappingsForSuperTypes(@NonNull Class&lt;?&gt; rawType) {
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>          Type superType = rawType;
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>          <strong class="jxr_keyword">while</strong> (superType != <strong class="jxr_keyword">null</strong> &amp;&amp; superType != Object.<strong class="jxr_keyword">class</strong>) {
@@ -72,8 +72,8 @@
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>          }
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      }
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>      @Nonnull
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">private</strong> Class&lt;?&gt; addGenericTypeMappingsIfParameterized(@Nonnull Type superType) {
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>      @NonNull
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">private</strong> Class&lt;?&gt; addGenericTypeMappingsIfParameterized(@NonNull Type superType) {
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>          <strong class="jxr_keyword">if</strong> (superType instanceof ParameterizedType) {
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>              ParameterizedType genericSuperType = (ParameterizedType) superType;
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>              Class&lt;?&gt; rawType = (Class&lt;?&gt;) genericSuperType.getRawType();
@@ -84,15 +84,15 @@
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          <strong class="jxr_keyword">return</strong> (Class&lt;?&gt;) superType;
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>      }
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>  
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addGenericTypeMappingsForInterfaces(@Nonnull Class&lt;?&gt; classOrInterface) {
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addGenericTypeMappingsForInterfaces(@NonNull Class&lt;?&gt; classOrInterface) {
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>          <strong class="jxr_keyword">for</strong> (Type implementedInterface : classOrInterface.getGenericInterfaces()) {
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>              Class&lt;?&gt; implementedType = addGenericTypeMappingsIfParameterized(implementedInterface);
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>              addGenericTypeMappingsForInterfaces(implementedType);
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>          }
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>      }
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>  
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addMappingsFromTypeParametersToTypeArguments(@Nonnull Class&lt;?&gt; rawType,
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>              @Nonnull ParameterizedType genericType) {
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addMappingsFromTypeParametersToTypeArguments(@NonNull Class&lt;?&gt; rawType,
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>              @NonNull ParameterizedType genericType) {
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>          String ownerTypeDesc = getOwnerClassDesc(rawType);
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>          TypeVariable&lt;?&gt;[] typeParameters = rawType.getTypeParameters();
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>          Type[] typeArguments = genericType.getActualTypeArguments();
@@ -129,8 +129,8 @@
 <a class="jxr_linenumber" name="L121" href="#L121">121</a>         }
 <a class="jxr_linenumber" name="L122" href="#L122">122</a>     }
 <a class="jxr_linenumber" name="L123" href="#L123">123</a> 
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addMappingForClassType(@Nonnull String ownerTypeDesc, @Nonnull String typeName,
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>             @Nonnull Type typeArg) {
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addMappingForClassType(@NonNull String ownerTypeDesc, @NonNull String typeName,
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>             @NonNull Type typeArg) {
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>         String mappedTypeArgName = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L127" href="#L127">127</a> 
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>         <strong class="jxr_keyword">if</strong> (withSignatures) {
@@ -142,8 +142,8 @@
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>         addTypeMapping(ownerTypeDesc, typeName, typeArg, mappedTypeArgName);
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>     }
 <a class="jxr_linenumber" name="L136" href="#L136">136</a> 
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addMappingForTypeVariable(@Nonnull String ownerTypeDesc, @Nonnull String typeName,
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>             @Nonnull Type typeArg) {
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addMappingForTypeVariable(@NonNull String ownerTypeDesc, @NonNull String typeName,
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>             @NonNull Type typeArg) {
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>         @Nullable
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>         String mappedTypeArgName = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L141" href="#L141">141</a> 
@@ -157,14 +157,14 @@
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>         addTypeMapping(ownerTypeDesc, typeName, typeArg, mappedTypeArgName);
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>     }
 <a class="jxr_linenumber" name="L151" href="#L151">151</a> 
-<a class="jxr_linenumber" name="L152" href="#L152">152</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addMappingForParameterizedType(@Nonnull String ownerTypeDesc, @Nonnull String typeName,
-<a class="jxr_linenumber" name="L153" href="#L153">153</a>             @Nonnull Type typeArg) {
+<a class="jxr_linenumber" name="L152" href="#L152">152</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addMappingForParameterizedType(@NonNull String ownerTypeDesc, @NonNull String typeName,
+<a class="jxr_linenumber" name="L153" href="#L153">153</a>             @NonNull Type typeArg) {
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>         String mappedTypeArgName = getMappedTypeArgName(typeArg);
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>         addTypeMapping(ownerTypeDesc, typeName, typeArg, mappedTypeArgName);
 <a class="jxr_linenumber" name="L156" href="#L156">156</a>     }
 <a class="jxr_linenumber" name="L157" href="#L157">157</a> 
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>     @Nullable
-<a class="jxr_linenumber" name="L159" href="#L159">159</a>     <strong class="jxr_keyword">private</strong> String getMappedTypeArgName(@Nonnull Type typeArg) {
+<a class="jxr_linenumber" name="L159" href="#L159">159</a>     <strong class="jxr_keyword">private</strong> String getMappedTypeArgName(@NonNull Type typeArg) {
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>         <strong class="jxr_keyword">if</strong> (withSignatures) {
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>             Class&lt;?&gt; classType = getClassType(typeArg);
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>             <strong class="jxr_keyword">return</strong> 'L' + getOwnerClassDesc(classType);
@@ -173,8 +173,8 @@
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L166" href="#L166">166</a>     }
 <a class="jxr_linenumber" name="L167" href="#L167">167</a> 
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addMappingForArrayType(@Nonnull String ownerTypeDesc, @Nonnull String typeName,
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>             @Nonnull Type typeArg) {
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addMappingForArrayType(@NonNull String ownerTypeDesc, @NonNull String typeName,
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>             @NonNull Type typeArg) {
 <a class="jxr_linenumber" name="L170" href="#L170">170</a>         String mappedTypeArgName = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L171" href="#L171">171</a> 
 <a class="jxr_linenumber" name="L172" href="#L172">172</a>         <strong class="jxr_keyword">if</strong> (withSignatures) {
@@ -184,19 +184,19 @@
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>         addTypeMapping(ownerTypeDesc, typeName, typeArg, mappedTypeArgName);
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>     }
 <a class="jxr_linenumber" name="L178" href="#L178">178</a> 
-<a class="jxr_linenumber" name="L179" href="#L179">179</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addMappingForFirstTypeBound(@Nonnull String ownerTypeDesc, @Nonnull TypeVariable&lt;?&gt; typeParam) {
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addMappingForFirstTypeBound(@NonNull String ownerTypeDesc, @NonNull TypeVariable&lt;?&gt; typeParam) {
 <a class="jxr_linenumber" name="L180" href="#L180">180</a>         Type typeArg = typeParam.getBounds()[0];
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>         String mappedTypeArgName = getMappedTypeArgName(typeArg);
 <a class="jxr_linenumber" name="L182" href="#L182">182</a>         addTypeMapping(ownerTypeDesc, typeParam.getName(), typeArg, mappedTypeArgName);
 <a class="jxr_linenumber" name="L183" href="#L183">183</a>     }
 <a class="jxr_linenumber" name="L184" href="#L184">184</a> 
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>     @Nonnull
-<a class="jxr_linenumber" name="L186" href="#L186">186</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String getOwnerClassDesc(@Nonnull Class&lt;?&gt; rawType) {
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>     @NonNull
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String getOwnerClassDesc(@NonNull Class&lt;?&gt; rawType) {
 <a class="jxr_linenumber" name="L187" href="#L187">187</a>         <strong class="jxr_keyword">return</strong> rawType.getName().replace('.', '/');
 <a class="jxr_linenumber" name="L188" href="#L188">188</a>     }
 <a class="jxr_linenumber" name="L189" href="#L189">189</a> 
-<a class="jxr_linenumber" name="L190" href="#L190">190</a>     @Nonnull
-<a class="jxr_linenumber" name="L191" href="#L191">191</a>     <strong class="jxr_keyword">private</strong> Class&lt;?&gt; getClassType(@Nonnull Type type) {
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>     @NonNull
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>     <strong class="jxr_keyword">private</strong> Class&lt;?&gt; getClassType(@NonNull Type type) {
 <a class="jxr_linenumber" name="L192" href="#L192">192</a>         <strong class="jxr_keyword">if</strong> (type instanceof ParameterizedType) {
 <a class="jxr_linenumber" name="L193" href="#L193">193</a>             ParameterizedType parameterizedType = (ParameterizedType) type;
 <a class="jxr_linenumber" name="L194" href="#L194">194</a>             <strong class="jxr_keyword">return</strong> (Class&lt;?&gt;) parameterizedType.getRawType();
@@ -219,8 +219,8 @@
 <a class="jxr_linenumber" name="L211" href="#L211">211</a>         <strong class="jxr_keyword">return</strong> (Class&lt;?&gt;) type;
 <a class="jxr_linenumber" name="L212" href="#L212">212</a>     }
 <a class="jxr_linenumber" name="L213" href="#L213">213</a> 
-<a class="jxr_linenumber" name="L214" href="#L214">214</a>     @Nonnull
-<a class="jxr_linenumber" name="L215" href="#L215">215</a>     <strong class="jxr_keyword">private</strong> String getMappedTypeArgName(@Nonnull GenericArrayType arrayType) {
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>     @NonNull
+<a class="jxr_linenumber" name="L215" href="#L215">215</a>     <strong class="jxr_keyword">private</strong> String getMappedTypeArgName(@NonNull GenericArrayType arrayType) {
 <a class="jxr_linenumber" name="L216" href="#L216">216</a>         StringBuilder argName = <strong class="jxr_keyword">new</strong> StringBuilder(20);
 <a class="jxr_linenumber" name="L217" href="#L217">217</a>         argName.append('[');
 <a class="jxr_linenumber" name="L218" href="#L218">218</a> 
@@ -238,7 +238,7 @@
 <a class="jxr_linenumber" name="L230" href="#L230">230</a>         }
 <a class="jxr_linenumber" name="L231" href="#L231">231</a>     }
 <a class="jxr_linenumber" name="L232" href="#L232">232</a> 
-<a class="jxr_linenumber" name="L233" href="#L233">233</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addTypeMapping(@Nonnull String ownerTypeDesc, @Nonnull String typeVarName, @Nonnull Type mappedTypeArg,
+<a class="jxr_linenumber" name="L233" href="#L233">233</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addTypeMapping(@NonNull String ownerTypeDesc, @NonNull String typeVarName, @NonNull Type mappedTypeArg,
 <a class="jxr_linenumber" name="L234" href="#L234">234</a>             @Nullable String mappedTypeArgName) {
 <a class="jxr_linenumber" name="L235" href="#L235">235</a>         typeParametersToTypeArguments.put(ownerTypeDesc + ':' + typeVarName, mappedTypeArg);
 <a class="jxr_linenumber" name="L236" href="#L236">236</a> 
@@ -247,8 +247,8 @@
 <a class="jxr_linenumber" name="L239" href="#L239">239</a>         }
 <a class="jxr_linenumber" name="L240" href="#L240">240</a>     }
 <a class="jxr_linenumber" name="L241" href="#L241">241</a> 
-<a class="jxr_linenumber" name="L242" href="#L242">242</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addTypeMapping(@Nonnull String ownerTypeDesc, @Nonnull String typeVarName,
-<a class="jxr_linenumber" name="L243" href="#L243">243</a>             @Nonnull String mappedTypeArgName) {
+<a class="jxr_linenumber" name="L242" href="#L242">242</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addTypeMapping(@NonNull String ownerTypeDesc, @NonNull String typeVarName,
+<a class="jxr_linenumber" name="L243" href="#L243">243</a>             @NonNull String mappedTypeArgName) {
 <a class="jxr_linenumber" name="L244" href="#L244">244</a>         String typeMappingKey = ownerTypeDesc + <span class="jxr_string">":T"</span> + typeVarName;
 <a class="jxr_linenumber" name="L245" href="#L245">245</a>         typeParametersToTypeArgumentNames.put(typeMappingKey, mappedTypeArgName);
 <a class="jxr_linenumber" name="L246" href="#L246">246</a>     }
@@ -259,7 +259,7 @@
 <a class="jxr_linenumber" name="L251" href="#L251">251</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> lengthOfParameterTypeDescs;
 <a class="jxr_linenumber" name="L252" href="#L252">252</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> currentPos;
 <a class="jxr_linenumber" name="L253" href="#L253">253</a> 
-<a class="jxr_linenumber" name="L254" href="#L254">254</a>         GenericSignature(@Nonnull String signature) {
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>         GenericSignature(@NonNull String signature) {
 <a class="jxr_linenumber" name="L255" href="#L255">255</a>             <strong class="jxr_keyword">int</strong> p = signature.indexOf('(');
 <a class="jxr_linenumber" name="L256" href="#L256">256</a>             <strong class="jxr_keyword">int</strong> q = signature.lastIndexOf(')');
 <a class="jxr_linenumber" name="L257" href="#L257">257</a>             parameterTypeDescs = signature.substring(p + 1, q);
@@ -354,12 +354,12 @@
 <a class="jxr_linenumber" name="L346" href="#L346">346</a>             } <strong class="jxr_keyword">while</strong> (angleBracketDepth &gt; 0);
 <a class="jxr_linenumber" name="L347" href="#L347">347</a>         }
 <a class="jxr_linenumber" name="L348" href="#L348">348</a> 
-<a class="jxr_linenumber" name="L349" href="#L349">349</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> satisfiesGenericSignature(@Nonnull String otherSignature) {
+<a class="jxr_linenumber" name="L349" href="#L349">349</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> satisfiesGenericSignature(@NonNull String otherSignature) {
 <a class="jxr_linenumber" name="L350" href="#L350">350</a>             GenericSignature other = <strong class="jxr_keyword">new</strong> GenericSignature(otherSignature);
 <a class="jxr_linenumber" name="L351" href="#L351">351</a>             <strong class="jxr_keyword">return</strong> areMatchingSignatures(other);
 <a class="jxr_linenumber" name="L352" href="#L352">352</a>         }
 <a class="jxr_linenumber" name="L353" href="#L353">353</a> 
-<a class="jxr_linenumber" name="L354" href="#L354">354</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> areMatchingSignatures(@Nonnull GenericSignature other) {
+<a class="jxr_linenumber" name="L354" href="#L354">354</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> areMatchingSignatures(@NonNull GenericSignature other) {
 <a class="jxr_linenumber" name="L355" href="#L355">355</a>             <strong class="jxr_keyword">int</strong> n = parameters.size();
 <a class="jxr_linenumber" name="L356" href="#L356">356</a> 
 <a class="jxr_linenumber" name="L357" href="#L357">357</a>             <strong class="jxr_keyword">if</strong> (n != other.parameters.size()) {
@@ -379,7 +379,7 @@
 <a class="jxr_linenumber" name="L371" href="#L371">371</a>         }
 <a class="jxr_linenumber" name="L372" href="#L372">372</a> 
 <a class="jxr_linenumber" name="L373" href="#L373">373</a>         @SuppressWarnings(<span class="jxr_string">"MethodWithMultipleLoops"</span>)
-<a class="jxr_linenumber" name="L374" href="#L374">374</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> areParametersOfSameType(@Nonnull String param1, @Nonnull String param2) {
+<a class="jxr_linenumber" name="L374" href="#L374">374</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> areParametersOfSameType(@NonNull String param1, @NonNull String param2) {
 <a class="jxr_linenumber" name="L375" href="#L375">375</a>             <strong class="jxr_keyword">if</strong> (param1.equals(param2)) {
 <a class="jxr_linenumber" name="L376" href="#L376">376</a>                 <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
 <a class="jxr_linenumber" name="L377" href="#L377">377</a>             }
@@ -411,19 +411,19 @@
 <a class="jxr_linenumber" name="L403" href="#L403">403</a>             <strong class="jxr_keyword">return</strong> typeVarName2.equals(typeArg1);
 <a class="jxr_linenumber" name="L404" href="#L404">404</a>         }
 <a class="jxr_linenumber" name="L405" href="#L405">405</a> 
-<a class="jxr_linenumber" name="L406" href="#L406">406</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> satisfiesSignature(@Nonnull String otherSignature) {
+<a class="jxr_linenumber" name="L406" href="#L406">406</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> satisfiesSignature(@NonNull String otherSignature) {
 <a class="jxr_linenumber" name="L407" href="#L407">407</a>             GenericSignature other = <strong class="jxr_keyword">new</strong> GenericSignature(otherSignature);
 <a class="jxr_linenumber" name="L408" href="#L408">408</a>             <strong class="jxr_keyword">return</strong> other.areMatchingSignatures(<strong class="jxr_keyword">this</strong>);
 <a class="jxr_linenumber" name="L409" href="#L409">409</a>         }
 <a class="jxr_linenumber" name="L410" href="#L410">410</a>     }
 <a class="jxr_linenumber" name="L411" href="#L411">411</a> 
-<a class="jxr_linenumber" name="L412" href="#L412">412</a>     @Nonnull
-<a class="jxr_linenumber" name="L413" href="#L413">413</a>     <strong class="jxr_keyword">public</strong> GenericSignature parseSignature(@Nonnull String genericSignature) {
+<a class="jxr_linenumber" name="L412" href="#L412">412</a>     @NonNull
+<a class="jxr_linenumber" name="L413" href="#L413">413</a>     <strong class="jxr_keyword">public</strong> GenericSignature parseSignature(@NonNull String genericSignature) {
 <a class="jxr_linenumber" name="L414" href="#L414">414</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> GenericSignature(genericSignature);
 <a class="jxr_linenumber" name="L415" href="#L415">415</a>     }
 <a class="jxr_linenumber" name="L416" href="#L416">416</a> 
-<a class="jxr_linenumber" name="L417" href="#L417">417</a>     @Nonnull
-<a class="jxr_linenumber" name="L418" href="#L418">418</a>     <strong class="jxr_keyword">public</strong> String resolveSignature(@Nonnull String ownerTypeDesc, @Nonnull String genericSignature) {
+<a class="jxr_linenumber" name="L417" href="#L417">417</a>     @NonNull
+<a class="jxr_linenumber" name="L418" href="#L418">418</a>     <strong class="jxr_keyword">public</strong> String resolveSignature(@NonNull String ownerTypeDesc, @NonNull String genericSignature) {
 <a class="jxr_linenumber" name="L419" href="#L419">419</a>         addTypeArgumentsIfAvailable(ownerTypeDesc, genericSignature);
 <a class="jxr_linenumber" name="L420" href="#L420">420</a> 
 <a class="jxr_linenumber" name="L421" href="#L421">421</a>         <strong class="jxr_keyword">int</strong> p = genericSignature.lastIndexOf(')') + 1;
@@ -436,7 +436,7 @@
 <a class="jxr_linenumber" name="L428" href="#L428">428</a>         <strong class="jxr_keyword">return</strong> finalSignature.toString();
 <a class="jxr_linenumber" name="L429" href="#L429">429</a>     }
 <a class="jxr_linenumber" name="L430" href="#L430">430</a> 
-<a class="jxr_linenumber" name="L431" href="#L431">431</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addTypeArgumentsIfAvailable(@Nonnull String ownerTypeDesc, @Nonnull String signature) {
+<a class="jxr_linenumber" name="L431" href="#L431">431</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addTypeArgumentsIfAvailable(@NonNull String ownerTypeDesc, @NonNull String signature) {
 <a class="jxr_linenumber" name="L432" href="#L432">432</a>         <strong class="jxr_keyword">int</strong> firstParen = signature.indexOf('(');
 <a class="jxr_linenumber" name="L433" href="#L433">433</a>         <strong class="jxr_keyword">if</strong> (firstParen == 0) {
 <a class="jxr_linenumber" name="L434" href="#L434">434</a>             <strong class="jxr_keyword">return</strong>;
@@ -470,8 +470,8 @@
 <a class="jxr_linenumber" name="L462" href="#L462">462</a>         }
 <a class="jxr_linenumber" name="L463" href="#L463">463</a>     }
 <a class="jxr_linenumber" name="L464" href="#L464">464</a> 
-<a class="jxr_linenumber" name="L465" href="#L465">465</a>     @Nonnull
-<a class="jxr_linenumber" name="L466" href="#L466">466</a>     <strong class="jxr_keyword">private</strong> String replaceTypeParametersWithActualTypes(@Nonnull String ownerTypeDesc, @Nonnull String typeDesc) {
+<a class="jxr_linenumber" name="L465" href="#L465">465</a>     @NonNull
+<a class="jxr_linenumber" name="L466" href="#L466">466</a>     <strong class="jxr_keyword">private</strong> String replaceTypeParametersWithActualTypes(@NonNull String ownerTypeDesc, @NonNull String typeDesc) {
 <a class="jxr_linenumber" name="L467" href="#L467">467</a>         <strong class="jxr_keyword">if</strong> (typeDesc.charAt(0) == 'T' &amp;&amp; !typeParametersToTypeArgumentNames.isEmpty()) {
 <a class="jxr_linenumber" name="L468" href="#L468">468</a>             <strong class="jxr_keyword">return</strong> replaceTypeParameters(ownerTypeDesc, typeDesc);
 <a class="jxr_linenumber" name="L469" href="#L469">469</a>         }
@@ -494,8 +494,8 @@
 <a class="jxr_linenumber" name="L486" href="#L486">486</a>         <strong class="jxr_keyword">return</strong> resolvedTypeDesc;
 <a class="jxr_linenumber" name="L487" href="#L487">487</a>     }
 <a class="jxr_linenumber" name="L488" href="#L488">488</a> 
-<a class="jxr_linenumber" name="L489" href="#L489">489</a>     @Nonnull
-<a class="jxr_linenumber" name="L490" href="#L490">490</a>     <strong class="jxr_keyword">private</strong> String replaceTypeParameters(@Nonnull String ownerTypeDesc, @Nonnull String typeDesc) {
+<a class="jxr_linenumber" name="L489" href="#L489">489</a>     @NonNull
+<a class="jxr_linenumber" name="L490" href="#L490">490</a>     <strong class="jxr_keyword">private</strong> String replaceTypeParameters(@NonNull String ownerTypeDesc, @NonNull String typeDesc) {
 <a class="jxr_linenumber" name="L491" href="#L491">491</a>         String typeParameter = typeDesc.substring(0, typeDesc.length() - 1);
 <a class="jxr_linenumber" name="L492" href="#L492">492</a> 
 <a class="jxr_linenumber" name="L493" href="#L493">493</a>         <strong class="jxr_keyword">while</strong> (<strong class="jxr_keyword">true</strong>) {
@@ -514,8 +514,8 @@
 <a class="jxr_linenumber" name="L506" href="#L506">506</a>         }
 <a class="jxr_linenumber" name="L507" href="#L507">507</a>     }
 <a class="jxr_linenumber" name="L508" href="#L508">508</a> 
-<a class="jxr_linenumber" name="L509" href="#L509">509</a>     @Nonnull
-<a class="jxr_linenumber" name="L510" href="#L510">510</a>     <strong class="jxr_keyword">public</strong> Type resolveTypeVariable(@Nonnull TypeVariable&lt;?&gt; typeVariable) {
+<a class="jxr_linenumber" name="L509" href="#L509">509</a>     @NonNull
+<a class="jxr_linenumber" name="L510" href="#L510">510</a>     <strong class="jxr_keyword">public</strong> Type resolveTypeVariable(@NonNull TypeVariable&lt;?&gt; typeVariable) {
 <a class="jxr_linenumber" name="L511" href="#L511">511</a>         String typeVarKey = getTypeVariableKey(typeVariable);
 <a class="jxr_linenumber" name="L512" href="#L512">512</a>         @Nullable
 <a class="jxr_linenumber" name="L513" href="#L513">513</a>         Type typeArgument = typeParametersToTypeArguments.get(typeVarKey);
@@ -531,20 +531,20 @@
 <a class="jxr_linenumber" name="L523" href="#L523">523</a>         <strong class="jxr_keyword">return</strong> typeArgument;
 <a class="jxr_linenumber" name="L524" href="#L524">524</a>     }
 <a class="jxr_linenumber" name="L525" href="#L525">525</a> 
-<a class="jxr_linenumber" name="L526" href="#L526">526</a>     @Nonnull
-<a class="jxr_linenumber" name="L527" href="#L527">527</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String getTypeVariableKey(@Nonnull TypeVariable&lt;?&gt; typeVariable) {
+<a class="jxr_linenumber" name="L526" href="#L526">526</a>     @NonNull
+<a class="jxr_linenumber" name="L527" href="#L527">527</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String getTypeVariableKey(@NonNull TypeVariable&lt;?&gt; typeVariable) {
 <a class="jxr_linenumber" name="L528" href="#L528">528</a>         String ownerClassDesc = getOwnerClassDesc(typeVariable);
 <a class="jxr_linenumber" name="L529" href="#L529">529</a>         <strong class="jxr_keyword">return</strong> ownerClassDesc + ':' + typeVariable.getName();
 <a class="jxr_linenumber" name="L530" href="#L530">530</a>     }
 <a class="jxr_linenumber" name="L531" href="#L531">531</a> 
-<a class="jxr_linenumber" name="L532" href="#L532">532</a>     @Nonnull
-<a class="jxr_linenumber" name="L533" href="#L533">533</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String getOwnerClassDesc(@Nonnull TypeVariable&lt;?&gt; typeVariable) {
+<a class="jxr_linenumber" name="L532" href="#L532">532</a>     @NonNull
+<a class="jxr_linenumber" name="L533" href="#L533">533</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String getOwnerClassDesc(@NonNull TypeVariable&lt;?&gt; typeVariable) {
 <a class="jxr_linenumber" name="L534" href="#L534">534</a>         GenericDeclaration owner = typeVariable.getGenericDeclaration();
 <a class="jxr_linenumber" name="L535" href="#L535">535</a>         Class&lt;?&gt; ownerClass = owner instanceof Member ? ((Member) owner).getDeclaringClass() : (Class&lt;?&gt;) owner;
 <a class="jxr_linenumber" name="L536" href="#L536">536</a>         <strong class="jxr_keyword">return</strong> getOwnerClassDesc(ownerClass);
 <a class="jxr_linenumber" name="L537" href="#L537">537</a>     }
 <a class="jxr_linenumber" name="L538" href="#L538">538</a> 
-<a class="jxr_linenumber" name="L539" href="#L539">539</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> areMatchingTypes(@Nonnull Type declarationType, @Nonnull Type realizationType) {
+<a class="jxr_linenumber" name="L539" href="#L539">539</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> areMatchingTypes(@NonNull Type declarationType, @NonNull Type realizationType) {
 <a class="jxr_linenumber" name="L540" href="#L540">540</a>         <strong class="jxr_keyword">if</strong> (declarationType.equals(realizationType)) {
 <a class="jxr_linenumber" name="L541" href="#L541">541</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
 <a class="jxr_linenumber" name="L542" href="#L542">542</a>         }
@@ -575,7 +575,7 @@
 <a class="jxr_linenumber" name="L567" href="#L567">567</a>     }
 <a class="jxr_linenumber" name="L568" href="#L568">568</a> 
 <a class="jxr_linenumber" name="L569" href="#L569">569</a>     @Nullable
-<a class="jxr_linenumber" name="L570" href="#L570">570</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> ParameterizedType getParameterizedType(@Nonnull Type realizationType) {
+<a class="jxr_linenumber" name="L570" href="#L570">570</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> ParameterizedType getParameterizedType(@NonNull Type realizationType) {
 <a class="jxr_linenumber" name="L571" href="#L571">571</a>         <strong class="jxr_keyword">if</strong> (realizationType instanceof ParameterizedType) {
 <a class="jxr_linenumber" name="L572" href="#L572">572</a>             <strong class="jxr_keyword">return</strong> (ParameterizedType) realizationType;
 <a class="jxr_linenumber" name="L573" href="#L573">573</a>         }
@@ -588,7 +588,7 @@
 <a class="jxr_linenumber" name="L580" href="#L580">580</a>     }
 <a class="jxr_linenumber" name="L581" href="#L581">581</a> 
 <a class="jxr_linenumber" name="L582" href="#L582">582</a>     @Nullable
-<a class="jxr_linenumber" name="L583" href="#L583">583</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> ParameterizedType findRealizationSupertype(@Nonnull Class&lt;?&gt; realizationType) {
+<a class="jxr_linenumber" name="L583" href="#L583">583</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> ParameterizedType findRealizationSupertype(@NonNull Class&lt;?&gt; realizationType) {
 <a class="jxr_linenumber" name="L584" href="#L584">584</a>         Type realizationSuperclass = realizationType.getGenericSuperclass();
 <a class="jxr_linenumber" name="L585" href="#L585">585</a>         ParameterizedType parameterizedRealizationType = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L586" href="#L586">586</a> 
@@ -606,7 +606,7 @@
 <a class="jxr_linenumber" name="L598" href="#L598">598</a>         <strong class="jxr_keyword">return</strong> parameterizedRealizationType;
 <a class="jxr_linenumber" name="L599" href="#L599">599</a>     }
 <a class="jxr_linenumber" name="L600" href="#L600">600</a> 
-<a class="jxr_linenumber" name="L601" href="#L601">601</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> areMatchingTypes(@Nonnull TypeVariable&lt;?&gt; declarationType, @Nonnull Type realizationType) {
+<a class="jxr_linenumber" name="L601" href="#L601">601</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> areMatchingTypes(@NonNull TypeVariable&lt;?&gt; declarationType, @NonNull Type realizationType) {
 <a class="jxr_linenumber" name="L602" href="#L602">602</a>         String typeVarKey = getTypeVariableKey(declarationType);
 <a class="jxr_linenumber" name="L603" href="#L603">603</a>         @Nullable
 <a class="jxr_linenumber" name="L604" href="#L604">604</a>         Type resolvedType = typeParametersToTypeArguments.get(typeVarKey);
@@ -615,14 +615,14 @@
 <a class="jxr_linenumber" name="L607" href="#L607">607</a>                 || typeSatisfiesResolvedTypeVariable(resolvedType, realizationType));
 <a class="jxr_linenumber" name="L608" href="#L608">608</a>     }
 <a class="jxr_linenumber" name="L609" href="#L609">609</a> 
-<a class="jxr_linenumber" name="L610" href="#L610">610</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> areMatchingTypes(@Nonnull ParameterizedType declarationType,
-<a class="jxr_linenumber" name="L611" href="#L611">611</a>             @Nonnull ParameterizedType realizationType) {
+<a class="jxr_linenumber" name="L610" href="#L610">610</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> areMatchingTypes(@NonNull ParameterizedType declarationType,
+<a class="jxr_linenumber" name="L611" href="#L611">611</a>             @NonNull ParameterizedType realizationType) {
 <a class="jxr_linenumber" name="L612" href="#L612">612</a>         <strong class="jxr_keyword">return</strong> declarationType.getRawType().equals(realizationType.getRawType())
 <a class="jxr_linenumber" name="L613" href="#L613">613</a>                 &amp;&amp; haveMatchingActualTypeArguments(declarationType, realizationType);
 <a class="jxr_linenumber" name="L614" href="#L614">614</a>     }
 <a class="jxr_linenumber" name="L615" href="#L615">615</a> 
-<a class="jxr_linenumber" name="L616" href="#L616">616</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> haveMatchingActualTypeArguments(@Nonnull ParameterizedType declarationType,
-<a class="jxr_linenumber" name="L617" href="#L617">617</a>             @Nonnull ParameterizedType realizationType) {
+<a class="jxr_linenumber" name="L616" href="#L616">616</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> haveMatchingActualTypeArguments(@NonNull ParameterizedType declarationType,
+<a class="jxr_linenumber" name="L617" href="#L617">617</a>             @NonNull ParameterizedType realizationType) {
 <a class="jxr_linenumber" name="L618" href="#L618">618</a>         Type[] declaredTypeArguments = declarationType.getActualTypeArguments();
 <a class="jxr_linenumber" name="L619" href="#L619">619</a>         Type[] concreteTypeArguments = realizationType.getActualTypeArguments();
 <a class="jxr_linenumber" name="L620" href="#L620">620</a> 
@@ -645,7 +645,7 @@
 <a class="jxr_linenumber" name="L637" href="#L637">637</a>     }
 <a class="jxr_linenumber" name="L638" href="#L638">638</a> 
 <a class="jxr_linenumber" name="L639" href="#L639">639</a>     @SuppressWarnings(<span class="jxr_string">"RedundantIfStatement"</span>)
-<a class="jxr_linenumber" name="L640" href="#L640">640</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> areMatchingTypeArguments(@Nonnull TypeVariable&lt;?&gt; declaredType, @Nonnull Type concreteType) {
+<a class="jxr_linenumber" name="L640" href="#L640">640</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> areMatchingTypeArguments(@NonNull TypeVariable&lt;?&gt; declaredType, @NonNull Type concreteType) {
 <a class="jxr_linenumber" name="L641" href="#L641">641</a>         String typeVarKey = getTypeVariableKey(declaredType);
 <a class="jxr_linenumber" name="L642" href="#L642">642</a>         @Nullable
 <a class="jxr_linenumber" name="L643" href="#L643">643</a>         Type resolvedType = typeParametersToTypeArguments.get(typeVarKey);
@@ -667,17 +667,17 @@
 <a class="jxr_linenumber" name="L659" href="#L659">659</a>         <strong class="jxr_keyword">return</strong> false;
 <a class="jxr_linenumber" name="L660" href="#L660">660</a>     }
 <a class="jxr_linenumber" name="L661" href="#L661">661</a> 
-<a class="jxr_linenumber" name="L662" href="#L662">662</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> typeSatisfiesResolvedTypeVariable(@Nonnull Type resolvedType, @Nonnull Type realizationType) {
+<a class="jxr_linenumber" name="L662" href="#L662">662</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> typeSatisfiesResolvedTypeVariable(@NonNull Type resolvedType, @NonNull Type realizationType) {
 <a class="jxr_linenumber" name="L663" href="#L663">663</a>         Class&lt;?&gt; realizationClass = getClassType(realizationType);
 <a class="jxr_linenumber" name="L664" href="#L664">664</a>         <strong class="jxr_keyword">return</strong> typeSatisfiesResolvedTypeVariable(resolvedType, realizationClass);
 <a class="jxr_linenumber" name="L665" href="#L665">665</a>     }
 <a class="jxr_linenumber" name="L666" href="#L666">666</a> 
-<a class="jxr_linenumber" name="L667" href="#L667">667</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> typeSatisfiesResolvedTypeVariable(@Nonnull Type resolvedType, @Nonnull Class&lt;?&gt; realizationType) {
+<a class="jxr_linenumber" name="L667" href="#L667">667</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> typeSatisfiesResolvedTypeVariable(@NonNull Type resolvedType, @NonNull Class&lt;?&gt; realizationType) {
 <a class="jxr_linenumber" name="L668" href="#L668">668</a>         Class&lt;?&gt; resolvedClass = getClassType(resolvedType);
 <a class="jxr_linenumber" name="L669" href="#L669">669</a>         <strong class="jxr_keyword">return</strong> resolvedClass.isAssignableFrom(realizationType);
 <a class="jxr_linenumber" name="L670" href="#L670">670</a>     }
 <a class="jxr_linenumber" name="L671" href="#L671">671</a> 
-<a class="jxr_linenumber" name="L672" href="#L672">672</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> typeSatisfiesUpperBounds(@Nonnull Type type, @Nonnull Type[] upperBounds) {
+<a class="jxr_linenumber" name="L672" href="#L672">672</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> typeSatisfiesUpperBounds(@NonNull Type type, @NonNull Type[] upperBounds) {
 <a class="jxr_linenumber" name="L673" href="#L673">673</a>         Class&lt;?&gt; classType = getClassType(type);
 <a class="jxr_linenumber" name="L674" href="#L674">674</a> 
 <a class="jxr_linenumber" name="L675" href="#L675">675</a>         <strong class="jxr_keyword">for</strong> (Type upperBound : upperBounds) {
@@ -693,6 +693,6 @@
 <a class="jxr_linenumber" name="L685" href="#L685">685</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

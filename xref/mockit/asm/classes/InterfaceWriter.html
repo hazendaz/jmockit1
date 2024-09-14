@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>InterfaceWriter xref</title>
 <link type="text/css" rel="stylesheet" href="../../../stylesheet.css" />
@@ -8,7 +8,7 @@
 <div id="overview"><a href="../../../../apidocs/mockit/asm/classes/InterfaceWriter.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> mockit.asm.classes;
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> mockit.asm.constantPool.AttributeWriter;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> mockit.asm.constantPool.ConstantPoolGeneration;
@@ -18,10 +18,10 @@
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * Writes out the interfaces implemented or extended by the class or interface being written.</em>
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="InterfaceWriter" href="../../../mockit/asm/classes/InterfaceWriter.html#InterfaceWriter">InterfaceWriter</a> <strong class="jxr_keyword">extends</strong> <a name="AttributeWriter" href="../../../mockit/asm/constantPool/AttributeWriter.html#AttributeWriter">AttributeWriter</a> {
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>      @Nonnull
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>      @NonNull
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong>[] interfaceItemIndices;
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>      <a name="InterfaceWriter" href="../../../mockit/asm/classes/InterfaceWriter.html#InterfaceWriter">InterfaceWriter</a>(@Nonnull ConstantPoolGeneration cp, @Nonnull String[] interfaceNames) {
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>      <a name="InterfaceWriter" href="../../../mockit/asm/classes/InterfaceWriter.html#InterfaceWriter">InterfaceWriter</a>(@NonNull ConstantPoolGeneration cp, @NonNull String[] interfaceNames) {
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>          <strong class="jxr_keyword">super</strong>(cp);
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>          <strong class="jxr_keyword">int</strong> n = interfaceNames.length;
@@ -40,7 +40,7 @@
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>      }
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>      @Override
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> put(@Nonnull ByteVector out) {
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> put(@NonNull ByteVector out) {
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>          out.putShort(interfaceItemIndices.length);
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> interfaceItemIndex : interfaceItemIndices) {
@@ -50,6 +50,6 @@
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

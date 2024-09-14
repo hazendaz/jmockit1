@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>ReturnTypeConversion xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
@@ -19,23 +19,23 @@
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> mockit.internal.reflection.MethodReflection.invokePublicIfAvailable;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> mockit.internal.util.Utilities.JAVA8;
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> java.io.ByteArrayInputStream;
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> java.io.StringReader;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Array;
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> java.nio.CharBuffer;
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> java.util.Collection;
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> java.util.HashSet;
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> java.util.Iterator;
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> java.util.LinkedList;
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> java.util.List;
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> java.util.ListIterator;
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> java.util.Optional;
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> java.util.TreeSet;
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> java.util.stream.Stream;
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nonnull;
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> javax.annotation.Nullable;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> java.io.ByteArrayInputStream;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> java.io.StringReader;
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Array;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> java.nio.CharBuffer;
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> java.util.Collection;
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> java.util.HashSet;
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> java.util.Iterator;
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> java.util.LinkedList;
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> java.util.List;
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> java.util.ListIterator;
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> java.util.Optional;
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> java.util.TreeSet;
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> java.util.stream.Stream;
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> mockit.internal.util.AutoBoxing;
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">import</strong> mockit.internal.util.MethodFormatter;
@@ -43,31 +43,31 @@
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="ReturnTypeConversion" href="../../../../mockit/internal/expectations/invocation/ReturnTypeConversion.html#ReturnTypeConversion">ReturnTypeConversion</a> {
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Class&lt;?&gt;[] STRING = { String.<strong class="jxr_keyword">class</strong> };
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>      @Nonnull
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>      @NonNull
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">private</strong> <a name="ExpectedInvocation" href="../../../../mockit/internal/expectations/invocation/ExpectedInvocation.html#ExpectedInvocation">ExpectedInvocation</a> invocation;
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>      @Nullable
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="InvocationResults" href="../../../../mockit/internal/expectations/invocation/InvocationResults.html#InvocationResults">InvocationResults</a> invocationResults;
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>      @Nonnull
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>      @NonNull
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Class&lt;?&gt; returnType;
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>      @Nonnull
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>      @NonNull
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Object valueToReturn;
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">public</strong> <a name="ReturnTypeConversion" href="../../../../mockit/internal/expectations/invocation/ReturnTypeConversion.html#ReturnTypeConversion">ReturnTypeConversion</a>(@Nonnull <a name="ExpectedInvocation" href="../../../../mockit/internal/expectations/invocation/ExpectedInvocation.html#ExpectedInvocation">ExpectedInvocation</a> invocation, @Nonnull <a name="InvocationResults" href="../../../../mockit/internal/expectations/invocation/InvocationResults.html#InvocationResults">InvocationResults</a> invocationResults,
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>              @Nonnull Class&lt;?&gt; returnType, @Nonnull Object value) {
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">public</strong> <a name="ReturnTypeConversion" href="../../../../mockit/internal/expectations/invocation/ReturnTypeConversion.html#ReturnTypeConversion">ReturnTypeConversion</a>(@NonNull <a name="ExpectedInvocation" href="../../../../mockit/internal/expectations/invocation/ExpectedInvocation.html#ExpectedInvocation">ExpectedInvocation</a> invocation, @NonNull <a name="InvocationResults" href="../../../../mockit/internal/expectations/invocation/InvocationResults.html#InvocationResults">InvocationResults</a> invocationResults,
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>              @NonNull Class&lt;?&gt; returnType, @NonNull Object value) {
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>          <strong class="jxr_keyword">this</strong>.invocation = invocation;
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>          <strong class="jxr_keyword">this</strong>.invocationResults = invocationResults;
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>          <strong class="jxr_keyword">this</strong>.returnType = returnType;
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>          valueToReturn = value;
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>      }
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <a name="ReturnTypeConversion" href="../../../../mockit/internal/expectations/invocation/ReturnTypeConversion.html#ReturnTypeConversion">ReturnTypeConversion</a>(@Nonnull <a name="ExpectedInvocation" href="../../../../mockit/internal/expectations/invocation/ExpectedInvocation.html#ExpectedInvocation">ExpectedInvocation</a> invocation, @Nonnull Class&lt;?&gt; returnType, @Nonnull Object value) {
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <a name="ReturnTypeConversion" href="../../../../mockit/internal/expectations/invocation/ReturnTypeConversion.html#ReturnTypeConversion">ReturnTypeConversion</a>(@NonNull <a name="ExpectedInvocation" href="../../../../mockit/internal/expectations/invocation/ExpectedInvocation.html#ExpectedInvocation">ExpectedInvocation</a> invocation, @NonNull Class&lt;?&gt; returnType, @NonNull Object value) {
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>          <strong class="jxr_keyword">this</strong>.invocation = invocation;
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>          invocationResults = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>          <strong class="jxr_keyword">this</strong>.returnType = returnType;
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>          valueToReturn = value;
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>      }
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>      @Nonnull
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      @NonNull
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>      Object getConvertedValue() {
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>          Class&lt;?&gt; wrapperType = getWrapperType();
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          Class&lt;?&gt; valueType = valueToReturn.getClass();
@@ -111,12 +111,12 @@
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>         }
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>     }
 <a class="jxr_linenumber" name="L105" href="#L105">105</a> 
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addReturnValue(@Nonnull Object returnValue) {
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addReturnValue(@NonNull Object returnValue) {
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>         assert invocationResults != <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>         invocationResults.addReturnValueResult(returnValue);
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>     }
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> 
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addPrimitiveValueConvertingAsNeeded(@Nonnull Class&lt;?&gt; targetType) {
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addPrimitiveValueConvertingAsNeeded(@NonNull Class&lt;?&gt; targetType) {
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>         Object convertedValue = getPrimitiveValueConvertingAsNeeded(targetType);
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         addReturnValue(convertedValue);
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>     }
@@ -141,7 +141,7 @@
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>         }
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>     }
 <a class="jxr_linenumber" name="L135" href="#L135">135</a> 
-<a class="jxr_linenumber" name="L136" href="#L136">136</a>     @Nonnull
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>     @NonNull
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>     <strong class="jxr_keyword">private</strong> IllegalArgumentException newIncompatibleTypesException() {
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>         String valueTypeName = JAVA_LANG.matcher(valueToReturn.getClass().getName()).replaceAll(<span class="jxr_string">""</span>);
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>         String returnTypeName = JAVA_LANG.matcher(returnType.getName()).replaceAll(<span class="jxr_string">""</span>);
@@ -167,8 +167,8 @@
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>         addReturnValue(iterator);
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>     }
 <a class="jxr_linenumber" name="L161" href="#L161">161</a> 
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addCharSequence(@Nonnull CharSequence textualValue) {
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>         @Nonnull
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addCharSequence(@NonNull CharSequence textualValue) {
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>         @NonNull
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>         Object convertedValue = textualValue;
 <a class="jxr_linenumber" name="L165" href="#L165">165</a> 
 <a class="jxr_linenumber" name="L166" href="#L166">166</a>         <strong class="jxr_keyword">if</strong> (returnType.isAssignableFrom(ByteArrayInputStream.<strong class="jxr_keyword">class</strong>)) {
@@ -258,8 +258,8 @@
 <a class="jxr_linenumber" name="L250" href="#L250">250</a>         <strong class="jxr_keyword">throw</strong> newIncompatibleTypesException();
 <a class="jxr_linenumber" name="L251" href="#L251">251</a>     }
 <a class="jxr_linenumber" name="L252" href="#L252">252</a> 
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>     @Nonnull
-<a class="jxr_linenumber" name="L254" href="#L254">254</a>     <strong class="jxr_keyword">private</strong> Object getPrimitiveValueConvertingAsNeeded(@Nonnull Class&lt;?&gt; targetType) {
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>     @NonNull
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>     <strong class="jxr_keyword">private</strong> Object getPrimitiveValueConvertingAsNeeded(@NonNull Class&lt;?&gt; targetType) {
 <a class="jxr_linenumber" name="L255" href="#L255">255</a>         Object convertedValue = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L256" href="#L256">256</a> 
 <a class="jxr_linenumber" name="L257" href="#L257">257</a>         <strong class="jxr_keyword">if</strong> (valueToReturn instanceof Number) {
@@ -276,7 +276,7 @@
 <a class="jxr_linenumber" name="L268" href="#L268">268</a>     }
 <a class="jxr_linenumber" name="L269" href="#L269">269</a> 
 <a class="jxr_linenumber" name="L270" href="#L270">270</a>     @Nullable
-<a class="jxr_linenumber" name="L271" href="#L271">271</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Object convertFromNumber(@Nonnull Class&lt;?&gt; targetType, @Nonnull Number number) {
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Object convertFromNumber(@NonNull Class&lt;?&gt; targetType, @NonNull Number number) {
 <a class="jxr_linenumber" name="L272" href="#L272">272</a>         <strong class="jxr_keyword">if</strong> (targetType == Integer.<strong class="jxr_keyword">class</strong>) {
 <a class="jxr_linenumber" name="L273" href="#L273">273</a>             <strong class="jxr_keyword">return</strong> number.intValue();
 <a class="jxr_linenumber" name="L274" href="#L274">274</a>         }
@@ -309,7 +309,7 @@
 <a class="jxr_linenumber" name="L301" href="#L301">301</a>     }
 <a class="jxr_linenumber" name="L302" href="#L302">302</a> 
 <a class="jxr_linenumber" name="L303" href="#L303">303</a>     @Nullable
-<a class="jxr_linenumber" name="L304" href="#L304">304</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Object convertFromChar(@Nonnull Class&lt;?&gt; targetType, <strong class="jxr_keyword">char</strong> c) {
+<a class="jxr_linenumber" name="L304" href="#L304">304</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Object convertFromChar(@NonNull Class&lt;?&gt; targetType, <strong class="jxr_keyword">char</strong> c) {
 <a class="jxr_linenumber" name="L305" href="#L305">305</a>         <strong class="jxr_keyword">if</strong> (targetType == Integer.<strong class="jxr_keyword">class</strong>) {
 <a class="jxr_linenumber" name="L306" href="#L306">306</a>             <strong class="jxr_keyword">return</strong> (<strong class="jxr_keyword">int</strong>) c;
 <a class="jxr_linenumber" name="L307" href="#L307">307</a>         }
@@ -340,6 +340,6 @@
 <a class="jxr_linenumber" name="L332" href="#L332">332</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2011&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
+<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>
