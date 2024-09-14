@@ -50,13 +50,15 @@
     <properties>
         <!-- Automatic Module Name -->
         <module.name>com.github.hazendaz.jmockit</module.name>
+
+        <junit.version>5.11.0</junit.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>
-            <version>5.11.0</version>
+            <version>${junit.version}</version>
             <optional>true</optional>
             <exclusions>
                 <exclusion>
@@ -68,7 +70,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.11.0</version>
+            <version>${junit.version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>
