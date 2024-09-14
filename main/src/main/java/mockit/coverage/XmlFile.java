@@ -19,6 +19,8 @@ import mockit.coverage.lines.LineCoverageData;
 import mockit.coverage.lines.PerFileLineCoverage;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Generates a XML file containing the coverage data gathered by the test run. The XML schema used is the one
@@ -34,6 +36,10 @@ import org.checkerframework.checker.index.qual.NonNegative;
  * }</pre>
  */
 final class XmlFile {
+
+    /** The logger. */
+    private static final Logger logger = LoggerFactory.getLogger(XmlFile.class);
+
     @NonNull
     private final String srcDir;
     @NonNull
@@ -69,7 +75,7 @@ final class XmlFile {
             out.write("</coverage>\n");
         }
 
-        System.out.println("JMockit: Coverage data written to " + outputFile.getCanonicalPath());
+        logger.info("JMockit: Coverage data written to {}", outputFile.getCanonicalPath());
     }
 
     private void writeOpeningXmlElementForSourceFile(@NonNull Writer out, @NonNull String sourceFileName)

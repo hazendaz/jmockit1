@@ -12,8 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class MockUpForSingleInterfaceInstanceTest {
+
+    /** The logger. */
+    private static final Logger logger = LoggerFactory.getLogger(MockUpForSingleInterfaceInstanceTest.class);
+
     public interface APublicInterface {
         int getNumericValue();
 
@@ -111,7 +117,7 @@ public final class MockUpForSingleInterfaceInstanceTest {
 
         for (int i = 0; i < n; i++) {
             if (Thread.interrupted()) {
-                System.out.println("a) Interrupted at i = " + i);
+                logger.info("a) Interrupted at i = {}", i);
                 return;
             }
 
@@ -129,7 +135,7 @@ public final class MockUpForSingleInterfaceInstanceTest {
 
         for (int i = 0; i < n; i++) {
             if (Thread.interrupted()) {
-                System.out.println("b) Interrupted at i = " + i);
+                logger.info("b) Interrupted at i = {}", i);
                 return;
             }
 

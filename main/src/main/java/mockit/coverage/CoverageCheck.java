@@ -16,8 +16,14 @@ import java.util.regex.Pattern;
 import mockit.coverage.data.CoverageData;
 
 import org.checkerframework.checker.index.qual.NonNegative;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class CoverageCheck {
+
+    /** The logger. */
+    private static final Logger logger = LoggerFactory.getLogger(CoverageCheck.class);
+
     private static final String configuration = Configuration.getProperty("check", "");
 
     @Nullable
@@ -82,8 +88,7 @@ final class CoverageCheck {
 
         private boolean verifyMinimum(@NonNegative int percentage) {
             if (percentage < minPercentage) {
-                System.out.println("JMockit: coverage too low" + scopeDescription + ": " + percentage + "% < "
-                        + minPercentage + '%');
+                logger.info("JMockit: coverage too low {}: {}% < {}%", scopeDescription, percentage, minPercentage);
                 return false;
             }
 

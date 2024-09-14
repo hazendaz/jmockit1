@@ -24,7 +24,14 @@ import mockit.coverage.reporting.packages.IndexPage;
 import mockit.coverage.reporting.sourceFiles.FileCoverageReport;
 import mockit.coverage.reporting.sourceFiles.InputFile;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public final class CoverageReport {
+
+    /** The logger. */
+    private static final Logger logger = LoggerFactory.getLogger(CoverageReport.class);
+
     @NonNull
     private final String outputDir;
     private boolean outputDirCreated;
@@ -61,7 +68,7 @@ public final class CoverageReport {
         boolean withSourceFilePages = sourceDirs != null;
 
         if (withSourceFilePages && sourceDirs.size() > 1) {
-            System.out.println("JMockit: Coverage source dirs: " + sourceDirs);
+            logger.info("JMockit: Coverage source dirs: {}", sourceDirs);
         }
 
         generateFileCoverageReportsWhileBuildingPackageLists();
@@ -69,7 +76,7 @@ public final class CoverageReport {
         new StaticFiles(outputDir).copyToOutputDir(withSourceFilePages);
         new IndexPage(outputFile, sourceDirs, sourceFilesNotFound, packageToFiles, fileToFileData).generate();
 
-        System.out.println("JMockit: Coverage report written to " + outputFile.getParentFile().getCanonicalPath());
+        logger.info("JMockit: Coverage report written to {}", outputFile.getParentFile().getCanonicalPath());
     }
 
     private void createReportOutputDirIfNotExists() {
@@ -84,8 +91,7 @@ public final class CoverageReport {
         File outputFile = new File(outputDir, "index.html");
 
         if (outputFile.exists() && !outputFile.canWrite()) {
-            System.out
-                    .println("JMockit: " + outputFile.getCanonicalPath() + " is read-only; report generation canceled");
+            logger.info("JMockit: {} is read-only; report generation canceled", outputFile.getCanonicalPath());
             return null;
         }
 
