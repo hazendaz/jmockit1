@@ -1,9 +1,15 @@
 package integrationTests;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * The Class ClassInRegularPackage.
  */
 public class ClassInRegularPackage {
+
+    /** The logger. */
+    private static final Logger logger = LoggerFactory.getLogger(ClassInRegularPackage.class);
 
     /** The Constant CONSTANT. */
     public static final int CONSTANT = 123;
@@ -25,7 +31,7 @@ public class ClassInRegularPackage {
         };
 
         static {
-            System.out.println("test");
+            logger.info("test");
         }
     }
 

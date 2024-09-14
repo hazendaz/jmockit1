@@ -1,9 +1,15 @@
 package integrationTests;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * The Class ClassWithNestedClasses.
  */
 public class ClassWithNestedClasses {
+
+    /** The logger. */
+    private static final Logger logger = LoggerFactory.getLogger(ClassWithNestedClasses.class);
 
     /**
      * The Class NestedClass.
@@ -32,7 +38,7 @@ public class ClassWithNestedClasses {
              *            the text
              */
             void print(String text) {
-                System.out.println(text);
+                logger.info(text);
             }
         }
 
@@ -48,7 +54,7 @@ public class ClassWithNestedClasses {
              *            the text
              */
             void print(String text) {
-                System.out.println(text + ": " + i);
+                logger.info("{}: {}", text, i);
             }
         }
     }
@@ -60,8 +66,8 @@ public class ClassWithNestedClasses {
         new NestedClass.DeeplyNestedClass().print("test");
 
         // Just so we have two paths:
-        if (System.out != null) {
-            System.out.println("Test");
+        if (logger != null) {
+            logger.info("Test");
         }
     }
 
