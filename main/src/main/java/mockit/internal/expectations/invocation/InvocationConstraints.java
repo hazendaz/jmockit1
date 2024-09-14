@@ -54,7 +54,7 @@ public final class InvocationConstraints {
         if (invocationCount < lowerLimit) {
             int missingInvocations = lowerLimit - invocationCount;
             return invocation.errorForMissingInvocations(missingInvocations,
-                    Collections.<ExpectedInvocation>emptyList());
+                    Collections.<ExpectedInvocation> emptyList());
         }
 
         return null;

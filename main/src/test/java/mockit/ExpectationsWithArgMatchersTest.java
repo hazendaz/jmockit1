@@ -358,7 +358,7 @@ public final class ExpectationsWithArgMatchersTest {
     public void expectInvocationsWithHamcrestMatcher() {
         new Expectations() {
             {
-                mock.setTextualValues(this.<Collection<String>>withArgThat(hasItem("B")));
+                mock.setTextualValues(this.<Collection<String>> withArgThat(hasItem("B")));
             }
         };
 

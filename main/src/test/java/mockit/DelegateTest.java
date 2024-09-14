@@ -523,7 +523,7 @@ public final class DelegateTest {
     public void delegateForMethodWithCompatibleButDistinctParameterType(@Mocked final Collaborator collaborator) {
         new Expectations() {
             {
-                collaborator.addElements(this.<List<String>>withNotNull());
+                collaborator.addElements(this.<List<String>> withNotNull());
                 result = new Delegate<Object>() {
                     void delegate(Collection<String> elements) {
                         elements.add("test");

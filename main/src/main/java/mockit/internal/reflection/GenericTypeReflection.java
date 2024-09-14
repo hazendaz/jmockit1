@@ -35,7 +35,7 @@ public final class GenericTypeReflection {
 
     public GenericTypeReflection(@NonNull Class<?> ownerClass, @Nullable Type genericType, boolean withSignatures) {
         typeParametersToTypeArguments = new HashMap<>(4);
-        typeParametersToTypeArgumentNames = withSignatures ? new HashMap<>(4) : Collections.<String, String>emptyMap();
+        typeParametersToTypeArgumentNames = withSignatures ? new HashMap<>(4) : Collections.<String, String> emptyMap();
         this.withSignatures = withSignatures;
         discoverTypeMappings(ownerClass, genericType);
     }

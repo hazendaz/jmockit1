@@ -73,7 +73,8 @@ final class DelegatedResult extends InvocationResult {
         Object result = executeMethodToInvoke(delegateArgsWithInvocation);
 
         return expectedInvocation.isConstructor() && TestRun.getExecutingTest().isProceedingIntoRealImplementation()
-                ? Void.class : result;
+                ? Void.class
+                : result;
     }
 
     @Nullable

@@ -91,7 +91,7 @@ public final class JREMockingTest {
         new MockUp<Calendar>() {
             @Mock
             Calendar getInstance(Invocation inv, TimeZone tz) {
-                return tz == tzCST ? calCST : inv.<Calendar>proceed();
+                return tz == tzCST ? calCST : inv.<Calendar> proceed();
             }
         };
 

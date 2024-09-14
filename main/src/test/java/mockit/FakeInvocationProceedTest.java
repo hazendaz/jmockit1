@@ -169,7 +169,7 @@ public final class FakeInvocationProceedTest {
             @Mock
             private int methodToBeFaked(Invocation inv, int i, Object... args) {
                 args[2] = "mock";
-                return inv.<Integer>proceed();
+                return inv.<Integer> proceed();
             }
         };
 
@@ -222,7 +222,7 @@ public final class FakeInvocationProceedTest {
             @Mock
             boolean staticMethodToBeFaked(Invocation inv) throws Exception {
                 if (inv.getInvocationIndex() == 0) {
-                    return inv.<Boolean>proceed();
+                    return inv.<Boolean> proceed();
                 }
 
                 throw new InterruptedException("fake");
@@ -248,7 +248,7 @@ public final class FakeInvocationProceedTest {
         class FakeWhichModifiesArguments extends MockUp<ClassToBeFaked> {
             @Mock
             final int methodToBeFaked(Invocation invocation, int i) {
-                return invocation.<Integer>proceed(i + 2);
+                return invocation.<Integer> proceed(i + 2);
             }
         }
 
@@ -256,7 +256,7 @@ public final class FakeInvocationProceedTest {
             @Mock
             synchronized int methodToBeFaked(Invocation inv, int i, Object... args) {
                 Object[] newArgs = { 2, "3" };
-                return inv.<Integer>proceed(1, newArgs);
+                return inv.<Integer> proceed(1, newArgs);
             }
         };
 
@@ -292,7 +292,7 @@ public final class FakeInvocationProceedTest {
         new MockUp<ClassToBeFaked>() {
             @Mock
             void $init(Invocation inv) {
-                assertNotNull(inv.<ClassToBeFaked>getInvokedInstance());
+                assertNotNull(inv.<ClassToBeFaked> getInvokedInstance());
                 inv.proceed();
             }
         };

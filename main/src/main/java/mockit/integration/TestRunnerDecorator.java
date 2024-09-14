@@ -198,7 +198,7 @@ public class TestRunnerDecorator {
 
             try {
                 testedClasses.assignNewInstancesToTestedFields(testClassInstance, true,
-                        Collections.<InjectionProvider>emptyList());
+                        Collections.<InjectionProvider> emptyList());
             } finally {
                 TestRun.exitNoMockingZone();
             }

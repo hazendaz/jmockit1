@@ -46,7 +46,7 @@ public final class CaptureTransformer<M> implements ClassFileTransformer {
         capturedTypeDesc = JavaType.getInternalName(capturedType.baseType);
         this.captureOfImplementations = captureOfImplementations;
         transformedClasses = registerTransformedClasses ? new HashMap<>(2)
-                : Collections.<ClassIdentification, byte[]>emptyMap();
+                : Collections.<ClassIdentification, byte[]> emptyMap();
         superTypesSearched = new HashMap<>();
         this.typeMetadata = typeMetadata;
     }
@@ -151,7 +151,7 @@ public final class CaptureTransformer<M> implements ClassFileTransformer {
         ClassIdentification classId = new ClassIdentification(loader, className);
         byte[] originalBytecode = cr.getBytecode();
 
-        if (transformedClasses == Collections.<ClassIdentification, byte[]>emptyMap()) {
+        if (transformedClasses == Collections.<ClassIdentification, byte[]> emptyMap()) {
             TestRun.mockFixture().addTransformedClass(classId, originalBytecode);
         } else {
             transformedClasses.put(classId, originalBytecode);

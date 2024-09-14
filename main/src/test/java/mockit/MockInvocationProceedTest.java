@@ -92,7 +92,7 @@ public final class MockInvocationProceedTest {
             @Mock
             private int methodToBeMocked(Invocation inv, int i, Object... args) {
                 args[2] = "mock";
-                return inv.<Integer>proceed();
+                return inv.<Integer> proceed();
             }
         };
 
@@ -136,7 +136,7 @@ public final class MockInvocationProceedTest {
             @Mock
             boolean staticMethodToBeMocked(Invocation inv) throws Exception {
                 if (inv.getInvocationIndex() == 0) {
-                    return inv.<Boolean>proceed();
+                    return inv.<Boolean> proceed();
                 }
 
                 throw new InterruptedException("fake");
@@ -175,7 +175,7 @@ public final class MockInvocationProceedTest {
         new MockUp<ClassToBeMocked>() {
             @Mock
             void $init(Invocation inv) {
-                assertNotNull(inv.<ClassToBeMocked>getInvokedInstance());
+                assertNotNull(inv.<ClassToBeMocked> getInvokedInstance());
                 inv.proceed();
             }
         };

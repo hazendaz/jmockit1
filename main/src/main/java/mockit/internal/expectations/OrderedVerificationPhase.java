@@ -130,7 +130,7 @@ final class OrderedVerificationPhase extends BaseVerificationPhase {
         int n = minInvocations - invocationCount;
 
         if (n > 0) {
-            throw invocation.errorForMissingInvocations(n, Collections.<ExpectedInvocation>emptyList());
+            throw invocation.errorForMissingInvocations(n, Collections.<ExpectedInvocation> emptyList());
         }
 
         verifyMaxInvocations(verifying, maxInvocations);

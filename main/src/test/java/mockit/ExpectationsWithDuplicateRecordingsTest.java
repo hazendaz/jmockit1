@@ -290,9 +290,9 @@ final class ExpectationsWithDuplicateRecordingsTest {
     void recordSameMethodWithOpposingMatchers() {
         new Expectations() {
             {
-                mock.doSomething(this.<String>withNull());
+                mock.doSomething(this.<String> withNull());
                 result = "null";
-                mock.doSomething(this.<String>withNotNull());
+                mock.doSomething(this.<String> withNotNull());
                 result = "non-null";
             }
         };

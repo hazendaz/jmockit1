@@ -53,7 +53,7 @@ public final class LineCoverageData extends LineSegmentData {
     }
 
     private boolean noBranchesYet() {
-        return branches == Collections.<BranchCoverageData>emptyList();
+        return branches == Collections.<BranchCoverageData> emptyList();
     }
 
     @NonNull

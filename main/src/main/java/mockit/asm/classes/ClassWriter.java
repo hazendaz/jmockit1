@@ -94,7 +94,8 @@ public final class ClassWriter extends ClassVisitor {
         cp = new ConstantPoolGeneration();
 
         bootstrapMethodsWriter = classReader.positionAtBootstrapMethodsAttribute()
-                ? new BootstrapMethodsWriter(cp, classReader) : null;
+                ? new BootstrapMethodsWriter(cp, classReader)
+                : null;
         new ConstantPoolCopying(classReader, this).copyPool(bootstrapMethodsWriter);
 
         attributeWriters = new ArrayList<>(5);

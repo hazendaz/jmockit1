@@ -83,7 +83,7 @@ final class DeencapsulationTest {
     void getInstanceFieldByName() {
         anInstance.setIntField(3);
         anInstance.setStringField("test");
-        anInstance.setListField(Collections.<String>emptyList());
+        anInstance.setListField(Collections.<String> emptyList());
 
         Integer intValue = Deencapsulation.getField(anInstance, "intField");
         String stringValue = Deencapsulation.getField(anInstance, "stringField");

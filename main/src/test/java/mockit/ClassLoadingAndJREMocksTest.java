@@ -58,7 +58,7 @@ public final class ClassLoadingAndJREMocksTest {
             @Mock
             boolean exists(Invocation inv) {
                 File it = inv.getInvokedInstance();
-                return "testFile".equals(it.getName()) || inv.<Boolean>proceed();
+                return "testFile".equals(it.getName()) || inv.<Boolean> proceed();
             }
         };
 
@@ -84,7 +84,7 @@ public final class ClassLoadingAndJREMocksTest {
             @Mock
             boolean exists(Invocation inv) {
                 File it = inv.getInvokedInstance();
-                return "testFile".equals(it.getName()) || inv.<Boolean>proceed();
+                return "testFile".equals(it.getName()) || inv.<Boolean> proceed();
             }
         };
 

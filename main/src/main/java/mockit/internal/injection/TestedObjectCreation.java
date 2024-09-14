@@ -34,7 +34,8 @@ public final class TestedObjectCreation {
         this.injectionState = injectionState;
         this.fullInjection = fullInjection;
         Class<?> actualTestedClass = isAbstract(declaredClass.getModifiers())
-                ? generateSubclass(declaredType, declaredClass) : declaredClass;
+                ? generateSubclass(declaredType, declaredClass)
+                : declaredClass;
         testedClass = new TestedClass(declaredType, actualTestedClass);
     }
 
