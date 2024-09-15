@@ -13,8 +13,15 @@ import java.io.IOException;
 import mockit.coverage.data.CoverageData;
 import mockit.coverage.reporting.CoverageReport;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @SuppressWarnings("DynamicRegexReplaceableByCompiledPattern")
 final class OutputFileGenerator {
+
+    /** The logger. */
+    private static final Logger logger = LoggerFactory.getLogger(CoverageReport.class);
+
     private static final String[] ALL_SOURCE_DIRS = {};
 
     @NonNull
@@ -72,18 +79,19 @@ final class OutputFileGenerator {
         CoverageData coverageData = CoverageData.instance();
 
         if (coverageData.isEmpty()) {
-            System.out.print("JMockit: No classes were instrumented for coverage; please make sure that ");
+            logger.info("JMockit: No classes were instrumented for coverage; please make sure that ");
 
             String classesRegexp = Configuration.getProperty("classes");
 
             if (classesRegexp == null) {
-                System.out.print("classes exercised by tests are in a directory included in the runtime classpath");
+                logger.info("classes exercised by tests are in a directory included in the runtime classpath");
             } else {
-                System.out.print("classes selected for coverage through the regular expression \"" + classesRegexp
-                        + "\" are available from the runtime classpath");
+                logger.info(
+                        "classes selected for coverage through the regular expression '{}' are available from the runtime classpath",
+                        classesRegexp);
             }
 
-            System.out.println(", and that they have been compiled with debug information.");
+            logger.info(", and that they have been compiled with debug information.");
             return;
         }
 

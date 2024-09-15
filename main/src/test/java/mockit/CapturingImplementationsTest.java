@@ -26,11 +26,16 @@ import mockit.internal.ClassFile;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Class CapturingImplementationsTest.
  */
 final class CapturingImplementationsTest {
+
+    /** The logger. */
+    private static final Logger logger = LoggerFactory.getLogger(CapturingImplementationsTest.class);
 
     /**
      * The Interface ServiceToBeStubbedOut.
@@ -467,7 +472,7 @@ final class CapturingImplementationsTest {
          *            the t
          */
         void doSomething(T t) {
-            System.out.println("test");
+            logger.info("test");
         }
 
         /**

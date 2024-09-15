@@ -19,11 +19,16 @@ import mockit.Mocked;
 import mockit.Verifications;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Class JUnit4Test.
  */
 public final class JUnit4Test {
+
+    /** The logger. */
+    private static final Logger logger = LoggerFactory.getLogger(JUnit4Test.class);
 
     /** The mock. */
     @Mocked
@@ -81,8 +86,8 @@ public final class JUnit4Test {
          *            the str
          */
         void doSomething(int i, long l, Short s, byte b, char c, double d, float f, String str) {
-            System.out.println(i + l + s + b + d + f);
-            System.out.println(c + str);
+            logger.info("{}", i + l + s + b + d + f);
+            logger.info("{}", c + str);
         }
 
         /**

@@ -11,7 +11,14 @@ import java.io.IOException;
 
 import mockit.coverage.data.CoverageData;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 final class AccretionFile {
+
+    /** The logger. */
+    private static final Logger logger = LoggerFactory.getLogger(AccretionFile.class);
+
     @NonNull
     private final File outputFile;
     @NonNull
@@ -34,6 +41,6 @@ final class AccretionFile {
 
     void generate() throws IOException {
         newData.writeDataToFile(outputFile);
-        System.out.println("JMockit: Coverage data written to " + outputFile.getCanonicalPath());
+        logger.info("JMockit: Coverage data written to {}", outputFile.getCanonicalPath());
     }
 }
