@@ -7,6 +7,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
 
 /**
  * The Class AssertionErrorMessagesTest.
