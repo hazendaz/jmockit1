@@ -13,13 +13,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
  * The Class DelegateTest.
  */
 @SuppressWarnings("unused")
-final class DelegateTest {
+class DelegateTest {
 
     /**
      * The Class Collaborator.
@@ -375,23 +376,24 @@ final class DelegateTest {
      *            the mock
      */
     @Test
-    void attemptToUseConstructorDelegateWithPrivateMethodsOnly(@Mocked Collaborator mock) {
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+    void attemptToUseConstructorDelegateWithPrivateMethodsOnly() {
+        new Expectations() {
+            {
+                new Collaborator();
+                result = new Delegate<Object>() {
+                    private void delegate() {
+                    }
 
-            new Expectations() {
-                {
-                    new Collaborator();
-                    result = new Delegate<Object>() {
-                        private void delegate() {
-                        }
+                    private void anotherMethod() {
+                    }
+                };
+            }
+        };
 
-                        private void anotherMethod() {
-                        }
-                    };
-                }
-            };
+        Throwable exceptions = assertThrows(IllegalArgumentException.class, () -> {
+            // Do nothing
         });
-        assertTrue(exception.getMessage().contains("No non-private instance method found"));
+        assertTrue(exceptions.getMessage().contains("No non-private instance method found"));
     }
 
     /**
@@ -684,23 +686,26 @@ final class DelegateTest {
      */
     @Test
     void delegateWithTwoNonPrivateMethods(@Mocked final Collaborator collaborator) {
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+        new Expectations() {
+            {
+                collaborator.doSomething(true, null, "str");
+                result = new Delegate<Object>() {
+                    String someOther() {
+                        return "";
+                    }
 
-            new Expectations() {
-                {
-                    collaborator.doSomething(true, null, "str");
-                    result = new Delegate<Object>() {
-                        String someOther() {
-                            return "";
-                        }
+                    void doSomethingElse(boolean b, int[] i, String s) {
+                    }
+                };
+            }
+        };
 
-                        void doSomethingElse(boolean b, int[] i, String s) {
-                        }
-                    };
-                }
-            };
+        Throwable exceptions = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            // Do Nothing
         });
-        assertTrue(exception.getMessage().contains("doSomethingElse(boolean,int[],String)"));
+        assertTrue(exceptions.getMessage().contains("More than one candidate delegate method found: "));
+        assertTrue(exceptions.getMessage().contains("someOther()"));
+        assertTrue(exceptions.getMessage().contains("doSomethingElse(boolean,int[],String)"));
     }
 
     /**

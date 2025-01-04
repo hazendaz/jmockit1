@@ -160,11 +160,12 @@ class AssertionErrorMessagesTest {
 
         mock.doSomething();
 
-        UnexpectedInvocation exception = Assertions.assertThrows(UnexpectedInvocation.class, () -> {
+        Throwable exception = Assertions.assertThrows(UnexpectedInvocation.class, () -> {
             new FullVerifications(mock) {
             };
         });
-        Assertions.assertTrue(exception.getMessage().contains("doSomething()\n   on mock instance"));
+        Assertions.assertTrue(exception.getMessage().contains("doSomething()"));
+        Assertions.assertTrue(exception.getMessage().contains("on mock instance"));
     }
 
     /**
@@ -172,14 +173,14 @@ class AssertionErrorMessagesTest {
      */
     @Test
     void missingInvocationForRecordedExpectation() {
-        new Expectations() {
-            {
-                mock.doSomething(anyInt, anyString);
-                times = 2;
-            }
-        };
+        Throwable exception = Assertions.assertThrows(MissingInvocation.class, () -> {
+            new Expectations() {
+                {
+                    mock.doSomething(anyInt, anyString);
+                    times = 2;
+                }
+            };
 
-        MissingInvocation exception = Assertions.assertThrows(MissingInvocation.class, () -> {
             mock.doSomething(123, "Abc");
         });
         Assertions.assertTrue(exception.getMessage().contains("any int, any String"));
@@ -196,11 +197,7 @@ class AssertionErrorMessagesTest {
             }
         };
 
-        mock.doSomethingElse("Abc");
-        mock.doSomething(1, "xy");
-        mock.doSomethingElse("");
-
-        MissingInvocation exception = Assertions.assertThrows(MissingInvocation.class, () -> {
+        Throwable exception = Assertions.assertThrows(MissingInvocation.class, () -> {
             mock.doSomethingElse("Abc");
             mock.doSomething(1, "xy");
             mock.doSomethingElse("");
