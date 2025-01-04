@@ -9,20 +9,15 @@ import java.lang.reflect.Method;
 import mockit.internal.expectations.invocation.MissingInvocation;
 import mockit.internal.expectations.invocation.UnexpectedInvocation;
 
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class ExpectationsTest.
  */
 @SuppressWarnings({ "unused", "ParameterHidesMemberVariable" })
 public final class ExpectationsTest {
-
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
 
     /**
      * The Class Dependency.
@@ -48,7 +43,7 @@ public final class ExpectationsTest {
          * @param value
          *            the new something
          */
-        @Ignore("test")
+        @Disabled("test")
         public void setSomething(@Deprecated int value) {
         }
 
@@ -212,45 +207,51 @@ public final class ExpectationsTest {
     /**
      * Record invocation with exact expected number of invocations but fail to satisfy.
      */
-    @Test(expected = MissingInvocation.class)
+    @Test
     public void recordInvocationWithExactExpectedNumberOfInvocationsButFailToSatisfy() {
-        new Expectations() {
-            {
-                mock.editABunchMoreStuff();
-                times = 1;
-            }
-        };
+        Assertions.assertThrows(MissingInvocation.class, () -> {
+            new Expectations() {
+                {
+                    mock.editABunchMoreStuff();
+                    times = 1;
+                }
+            };
+        });
     }
 
     /**
      * Record invocation with minimum expected number of invocations but fail to satisfy.
      */
-    @Test(expected = MissingInvocation.class)
+    @Test
     public void recordInvocationWithMinimumExpectedNumberOfInvocationsButFailToSatisfy() {
-        new Expectations() {
-            {
-                mock.editABunchMoreStuff();
-                minTimes = 2;
-            }
-        };
+        Assertions.assertThrows(MissingInvocation.class, () -> {
+            new Expectations() {
+                {
+                    mock.editABunchMoreStuff();
+                    minTimes = 2;
+                }
+            };
 
-        mock.editABunchMoreStuff();
+            mock.editABunchMoreStuff();
+        });
     }
 
     /**
      * Record invocation with maximum expected number of invocations but fail to satisfy.
      */
-    @Test(expected = UnexpectedInvocation.class)
+    @Test
     public void recordInvocationWithMaximumExpectedNumberOfInvocationsButFailToSatisfy() {
-        new Expectations() {
-            {
-                mock.editABunchMoreStuff();
-                maxTimes = 1;
-            }
-        };
+        Assertions.assertThrows(UnexpectedInvocation.class, () -> {
+            new Expectations() {
+                {
+                    mock.editABunchMoreStuff();
+                    maxTimes = 1;
+                }
+            };
 
-        mock.editABunchMoreStuff();
-        mock.editABunchMoreStuff();
+            mock.editABunchMoreStuff();
+            mock.editABunchMoreStuff();
+        });
     }
 
     /**
@@ -276,16 +277,18 @@ public final class ExpectationsTest {
     /**
      * Record invocations with min invocation count larger than will occur.
      */
-    @Test(expected = MissingInvocation.class)
+    @Test
     public void recordInvocationsWithMinInvocationCountLargerThanWillOccur() {
-        new Expectations() {
-            {
-                mock.save();
-                minTimes = 2;
-            }
-        };
+        Assertions.assertThrows(MissingInvocation.class, () -> {
+            new Expectations() {
+                {
+                    mock.save();
+                    minTimes = 2;
+                }
+            };
 
-        mock.save();
+            mock.save();
+        });
     }
 
     /**
@@ -328,7 +331,7 @@ public final class ExpectationsTest {
     /**
      * Record with max invocation count followed by return value but replay one time beyond max.
      */
-    @Test(expected = UnexpectedInvocation.class)
+    @Test
     public void recordWithMaxInvocationCountFollowedByReturnValueButReplayOneTimeBeyondMax() {
         new Expectations() {
             {
@@ -338,8 +341,10 @@ public final class ExpectationsTest {
             }
         };
 
-        Dependency.staticMethod(null, null);
-        Dependency.staticMethod(null, null);
+        Assertions.assertThrows(UnexpectedInvocation.class, () -> {
+            Dependency.staticMethod(null, null);
+            Dependency.staticMethod(null, null);
+        });
     }
 
     /**
@@ -392,9 +397,9 @@ public final class ExpectationsTest {
         assertTrue(mockedClass.getDeclaredConstructor().isAnnotationPresent(Deprecated.class));
 
         Method mockedMethod = mockedClass.getDeclaredMethod("setSomething", int.class);
-        Ignore ignore = mockedMethod.getAnnotation(Ignore.class);
-        assertNotNull(ignore);
-        assertEquals("test", ignore.value());
+        Disabled disabled = mockedMethod.getAnnotation(Disabled.class);
+        assertNotNull(disabled);
+        assertEquals("test", disabled.value());
         assertTrue(mockedMethod.getParameterAnnotations()[0][0] instanceof Deprecated);
     }
 
@@ -461,18 +466,19 @@ public final class ExpectationsTest {
      */
     @Test
     public void expectOnlyOneInvocationButExerciseOthersDuringReplay(@Mocked final Collaborator mock) {
-        thrown.expect(UnexpectedInvocation.class);
         new Expectations() {
             {
                 mock.provideSomeService();
             }
         };
 
-        mock.provideSomeService();
-        mock.setValue(1);
+        Assertions.assertThrows(UnexpectedInvocation.class, () -> {
+            mock.provideSomeService();
+            mock.setValue(1);
 
-        new FullVerifications() {
-        };
+            new FullVerifications() {
+            };
+        });
     }
 
     /**
@@ -483,7 +489,6 @@ public final class ExpectationsTest {
      */
     @Test
     public void expectNothingOnMockedTypeButExerciseItDuringReplay(@Mocked final Collaborator mock) {
-        thrown.expect(UnexpectedInvocation.class);
         new Expectations() {
             {
                 mock.setValue(anyInt);
@@ -491,10 +496,12 @@ public final class ExpectationsTest {
             }
         };
 
-        mock.setValue(2);
+        Assertions.assertThrows(UnexpectedInvocation.class, () -> {
+            mock.setValue(2);
 
-        new FullVerifications() {
-        };
+            new FullVerifications() {
+            };
+        });
     }
 
     /**
@@ -505,17 +512,18 @@ public final class ExpectationsTest {
      */
     @Test
     public void replayWithUnexpectedStaticMethodInvocation(@Mocked final Collaborator mock) {
-        thrown.expect(UnexpectedInvocation.class);
         new Expectations() {
             {
                 mock.getValue();
             }
         };
 
-        Collaborator.doInternal();
+        Assertions.assertThrows(UnexpectedInvocation.class, () -> {
+            Collaborator.doInternal();
 
-        new FullVerifications() {
-        };
+            new FullVerifications() {
+            };
+        });
     }
 
     /**
@@ -541,14 +549,15 @@ public final class ExpectationsTest {
                 mock.getValue();
             }
         };
-        thrown.expect(UnexpectedInvocation.class);
 
-        mock.getValue();
-        t.start();
-        t.join();
+        Assertions.assertThrows(UnexpectedInvocation.class, () -> {
+            mock.getValue();
+            t.start();
+            t.join();
 
-        new FullVerifications() {
-        };
+            new FullVerifications() {
+            };
+        });
     }
 
     /**
@@ -572,9 +581,10 @@ public final class ExpectationsTest {
         String another = "another";
         mock.doSomething(another);
 
-        thrown.expect(UnexpectedInvocation.class);
-        thrown.expectMessage(another);
-        new FullVerifications() {
-        };
+        Throwable exceptions = Assertions.assertThrows(UnexpectedInvocation.class, () -> {
+            new FullVerifications() {
+            };
+        });
+        assertTrue(exceptions.getMessage().contains("doSomething(\"another\")"));
     }
 }

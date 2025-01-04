@@ -3,20 +3,13 @@ package mockit;
 import mockit.internal.expectations.invocation.MissingInvocation;
 import mockit.internal.expectations.invocation.UnexpectedInvocation;
 
-import org.junit.Rule;
-import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.rules.ExpectedException;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class AssertionErrorMessagesTest.
  */
 public final class AssertionErrorMessagesTest {
-
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
 
     /**
      * The Class Collaborator.
@@ -161,10 +154,12 @@ public final class AssertionErrorMessagesTest {
 
         mock.doSomething();
 
-        thrown.expect(UnexpectedInvocation.class);
-        thrown.expectMessage("doSomething()\n   on mock instance");
-        new FullVerifications(mock) {
-        };
+        Throwable exception = Assertions.assertThrows(UnexpectedInvocation.class, () -> {
+            new FullVerifications(mock) {
+            };
+        });
+        Assertions.assertTrue(exception.getMessage().contains("doSomething()"));
+        Assertions.assertTrue(exception.getMessage().contains("on mock instance"));
     }
 
     /**
@@ -172,17 +167,17 @@ public final class AssertionErrorMessagesTest {
      */
     @Test
     public void missingInvocationForRecordedExpectation() {
-        new Expectations() {
-            {
-                mock.doSomething(anyInt, anyString);
-                times = 2;
-            }
-        };
+        Throwable exception = Assertions.assertThrows(MissingInvocation.class, () -> {
+            new Expectations() {
+                {
+                    mock.doSomething(anyInt, anyString);
+                    times = 2;
+                }
+            };
 
-        thrown.expect(MissingInvocation.class);
-        thrown.expectMessage("any int, any String");
-
-        mock.doSomething(123, "Abc");
+            mock.doSomething(123, "Abc");
+        });
+        Assertions.assertTrue(exception.getMessage().contains("any int, any String"));
     }
 
     /**
@@ -196,15 +191,15 @@ public final class AssertionErrorMessagesTest {
             }
         };
 
-        thrown.expect(MissingInvocation.class);
-        thrown.expectMessage("doSomethingElse(\"test\")");
-        thrown.expectMessage("instead got:");
-        thrown.expectMessage("doSomethingElse(\"Abc\")");
-        thrown.expectMessage("doSomethingElse(\"\")");
-
-        mock.doSomethingElse("Abc");
-        mock.doSomething(1, "xy");
-        mock.doSomethingElse("");
+        Throwable exception = Assertions.assertThrows(MissingInvocation.class, () -> {
+            mock.doSomethingElse("Abc");
+            mock.doSomething(1, "xy");
+            mock.doSomethingElse("");
+        });
+        Assertions.assertTrue(exception.getMessage().contains("doSomethingElse(\"test\")"));
+        Assertions.assertTrue(exception.getMessage().contains("instead got:"));
+        Assertions.assertTrue(exception.getMessage().contains("doSomethingElse(\"Abc\")"));
+        Assertions.assertTrue(exception.getMessage().contains("doSomethingElse(\"\")"));
     }
 
     /**
