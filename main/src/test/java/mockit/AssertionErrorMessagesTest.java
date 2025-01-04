@@ -5,6 +5,7 @@ import mockit.internal.expectations.invocation.UnexpectedInvocation;
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.rules.ExpectedException;
 
 /**
@@ -64,12 +65,10 @@ public final class AssertionErrorMessagesTest {
             }
         };
 
-        thrown.expect(UnexpectedInvocation.class);
-        thrown.expectMessage("Unexpected invocation to");
-        thrown.expectMessage("doSomething(2, \"xyz\")");
-
         mock.doSomething(1, "Abc");
-        mock.doSomething(2, "xyz");
+        Throwable exception = Assertions.assertThrows(UnexpectedInvocation.class, () -> mock.doSomething(2, "xyz"));
+        Assertions.assertTrue(exception.getMessage().contains("Unexpected invocation to"));
+        Assertions.assertTrue(exception.getMessage().contains("doSomething(2, \"xyz\""));
     }
 
     /**
@@ -81,16 +80,16 @@ public final class AssertionErrorMessagesTest {
         mock.doSomething(2, "xyz");
         mock.doSomethingElse("test");
 
-        thrown.expect(UnexpectedInvocation.class);
-        thrown.expectMessage("doSomething(2, \"xyz\"");
-
-        new VerificationsInOrder() {
-            {
-                mock.doSomething(anyInt, anyString);
-                times = 1;
-                mock.doSomethingElse(anyString);
-            }
-        };
+        Throwable exception = Assertions.assertThrows(UnexpectedInvocation.class, () -> {
+            new VerificationsInOrder() {
+                {
+                    mock.doSomething(anyInt, anyString);
+                    times = 1;
+                    mock.doSomethingElse(anyString);
+                }
+            };
+        });
+        Assertions.assertTrue(exception.getMessage().contains("doSomething(2, \"xyz\""));
     }
 
     /**
@@ -105,10 +104,8 @@ public final class AssertionErrorMessagesTest {
             }
         };
 
-        thrown.expect(UnexpectedInvocation.class);
-        thrown.expectMessage("1, \"Abc\"");
-
-        mock.doSomething(1, "Abc");
+        Throwable exception = Assertions.assertThrows(UnexpectedInvocation.class, () -> mock.doSomething(1, "Abc"));
+        Assertions.assertTrue(exception.getMessage().contains("1, \"Abc\""));
     }
 
     /**
@@ -119,15 +116,15 @@ public final class AssertionErrorMessagesTest {
         mock.doSomething(123, "Test");
         mock.doSomethingElse("abc");
 
-        thrown.expect(UnexpectedInvocation.class);
-        thrown.expectMessage("123, \"Test\"");
-
-        new Verifications() {
-            {
-                mock.doSomething(123, anyString);
-                times = 0;
-            }
-        };
+        Throwable exception = Assertions.assertThrows(UnexpectedInvocation.class, () -> {
+            new Verifications() {
+                {
+                    mock.doSomething(123, anyString);
+                    times = 0;
+                }
+            };
+        });
+        Assertions.assertTrue(exception.getMessage().contains("123, \"Test\""));
     }
 
     /**
@@ -138,16 +135,16 @@ public final class AssertionErrorMessagesTest {
         mock.doSomethingElse("test");
         mock.doSomething(123, "Test");
 
-        thrown.expect(UnexpectedInvocation.class);
-        thrown.expectMessage("123, \"Test\"");
-
-        new VerificationsInOrder() {
-            {
-                mock.doSomethingElse(anyString);
-                mock.doSomething(anyInt, anyString);
-                times = 0;
-            }
-        };
+        Throwable exception = Assertions.assertThrows(UnexpectedInvocation.class, () -> {
+            new VerificationsInOrder() {
+                {
+                    mock.doSomethingElse(anyString);
+                    mock.doSomething(anyInt, anyString);
+                    times = 0;
+                }
+            };
+        });
+        Assertions.assertTrue(exception.getMessage().contains("123, \"Test\""));
     }
 
     /**
@@ -214,14 +211,14 @@ public final class AssertionErrorMessagesTest {
      */
     @Test
     public void missingInvocationForVerifiedExpectation() {
-        thrown.expect(MissingInvocation.class);
-        thrown.expectMessage("123, any String");
-
-        new Verifications() {
-            {
-                mock.doSomething(123, anyString);
-            }
-        };
+        Throwable exception = Assertions.assertThrows(MissingInvocation.class, () -> {
+            new Verifications() {
+                {
+                    mock.doSomething(123, anyString);
+                }
+            };
+        });
+        Assertions.assertTrue(exception.getMessage().contains("123, any String"));
     }
 
     /**
@@ -233,17 +230,17 @@ public final class AssertionErrorMessagesTest {
         mock.doSomething(1, "xy");
         mock.doSomethingElse("");
 
-        thrown.expect(MissingInvocation.class);
-        thrown.expectMessage("doSomethingElse(\"test\")");
-        thrown.expectMessage("instead got:");
-        thrown.expectMessage("doSomethingElse(\"Abc\")");
-        thrown.expectMessage("doSomethingElse(\"\")");
-
-        new Verifications() {
-            {
-                mock.doSomethingElse("test");
-            }
-        };
+        Throwable exception = Assertions.assertThrows(MissingInvocation.class, () -> {
+            new Verifications() {
+                {
+                    mock.doSomethingElse("test");
+                }
+            };
+        });
+        Assertions.assertTrue(exception.getMessage().contains("doSomethingElse(\"test\")"));
+        Assertions.assertTrue(exception.getMessage().contains("instead got:"));
+        Assertions.assertTrue(exception.getMessage().contains("doSomethingElse(\"Abc\")"));
+        Assertions.assertTrue(exception.getMessage().contains("doSomethingElse(\"\")"));
     }
 
     /**
@@ -253,15 +250,15 @@ public final class AssertionErrorMessagesTest {
     public void missingInvocationForExpectationVerifiedInOrder() {
         mock.doSomething(123, "Test");
 
-        thrown.expect(MissingInvocation.class);
-        thrown.expectMessage("any int, any String");
-
-        new VerificationsInOrder() {
-            {
-                mock.doSomething(anyInt, anyString);
-                minTimes = 3;
-            }
-        };
+        Throwable exception = Assertions.assertThrows(MissingInvocation.class, () -> {
+            new VerificationsInOrder() {
+                {
+                    mock.doSomething(anyInt, anyString);
+                    minTimes = 3;
+                }
+            };
+        });
+        Assertions.assertTrue(exception.getMessage().contains("any int, any String"));
     }
 
     /**
@@ -271,15 +268,15 @@ public final class AssertionErrorMessagesTest {
     public void missingInvocationForFullyVerifiedExpectations() {
         mock.doSomething(123, "Abc");
 
-        thrown.expect(MissingInvocation.class);
-        thrown.expectMessage("any int, any String");
-
-        new FullVerifications() {
-            {
-                mock.doSomething(anyInt, anyString);
-                times = 2;
-            }
-        };
+        Throwable exception = Assertions.assertThrows(MissingInvocation.class, () -> {
+            new FullVerifications() {
+                {
+                    mock.doSomething(anyInt, anyString);
+                    times = 2;
+                }
+            };
+        });
+        Assertions.assertTrue(exception.getMessage().contains("any int, any String"));
     }
 
     /**
@@ -289,13 +286,13 @@ public final class AssertionErrorMessagesTest {
     public void missingInvocationForExpectationUsingMatcherForDifferentParameterType() {
         mock.doSomething(5, "");
 
-        thrown.expect(MissingInvocation.class);
-        thrown.expectMessage("any char");
-
-        new Verifications() {
-            {
-                mock.doSomething(anyChar, "");
-            }
-        };
+        Throwable exception = Assertions.assertThrows(MissingInvocation.class, () -> {
+            new Verifications() {
+                {
+                    mock.doSomething(anyChar, "");
+                }
+            };
+        });
+        Assertions.assertTrue(exception.getMessage().contains("any char"));
     }
 }
