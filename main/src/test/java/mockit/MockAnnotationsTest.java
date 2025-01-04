@@ -26,15 +26,12 @@ import javax.security.auth.callback.NameCallback;
 import mockit.internal.expectations.invocation.MissingInvocation;
 import mockit.internal.expectations.invocation.UnexpectedInvocation;
 
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("JUnitTestMethodWithNoAssertions")
 public final class MockAnnotationsTest {
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
 
     final CodeUnderTest codeUnderTest = new CodeUnderTest();
     boolean mockExecuted;
@@ -119,12 +116,10 @@ public final class MockAnnotationsTest {
     }
 
     // TODO 12/2/2023 yukkes Mocked method must be checked if it exists in the calling class.
-    @Ignore("Mocked method must be checked if it exists in the calling class.")
+    @Disabled("Mocked method must be checked if it exists in the calling class.")
     @Test
     public void attemptToSetUpMockForClassLackingAMatchingRealMethod() {
-        thrown.expect(IllegalArgumentException.class);
-
-        new MockForClassWithoutRealMethod();
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new MockForClassWithoutRealMethod());
     }
 
     static final class MockForClassWithoutRealMethod extends MockUp<Collaborator> {
@@ -235,12 +230,10 @@ public final class MockAnnotationsTest {
     }
 
     // TODO 12/2/2023 yukkes Determination of the number of method calls is not yet implemented.
-    @Ignore("Determination of the number of method calls is not yet implemented.")
+    @Disabled("Determination of the number of method calls is not yet implemented.")
     @Test
     public void setUpMockWithMinInvocationsExpectationButFailIt() {
-        thrown.expect(MissingInvocation.class);
-
-        new MockCollaboratorWithMinInvocationsExpectation();
+        Assertions.assertThrows(MissingInvocation.class, () -> new MockCollaboratorWithMinInvocationsExpectation());
     }
 
     static class MockCollaboratorWithMinInvocationsExpectation extends MockUp<Collaborator> {
@@ -251,14 +244,12 @@ public final class MockAnnotationsTest {
     }
 
     // TODO 12/2/2023 yukkes Determination of the number of method calls is not yet implemented.
-    @Ignore("Determination of the number of method calls is not yet implemented.")
+    @Disabled("Determination of the number of method calls is not yet implemented.")
     @Test
     public void setUpMockWithMaxInvocationsExpectationButFailIt() {
-        thrown.expect(UnexpectedInvocation.class);
-
         new MockCollaboratorWithMaxInvocationsExpectation();
 
-        new Collaborator().setValue(23);
+        Assertions.assertThrows(UnexpectedInvocation.class, () -> new Collaborator().setValue(23));
     }
 
     static class MockCollaboratorWithMaxInvocationsExpectation extends MockUp<Collaborator> {
@@ -269,15 +260,15 @@ public final class MockAnnotationsTest {
     }
 
     // TODO 12/2/2023 yukkes Determination of the number of method calls is not yet implemented.
-    @Ignore("Determination of the number of method calls is not yet implemented.")
+    @Disabled("Determination of the number of method calls is not yet implemented.")
     @Test
     public void setUpMockWithInvocationsExpectationButFailIt() {
-        thrown.expect(UnexpectedInvocation.class);
-
         new MockCollaboratorWithInvocationsExpectation();
 
-        codeUnderTest.doSomething();
-        codeUnderTest.doSomething();
+        Assertions.assertThrows(UnexpectedInvocation.class, () -> {
+            codeUnderTest.doSomething();
+            codeUnderTest.doSomething();
+        });
     }
 
     static class MockCollaboratorWithInvocationsExpectation extends MockUp<Collaborator> {
@@ -290,11 +281,9 @@ public final class MockAnnotationsTest {
 
     @Test
     public void setUpReentrantMock() {
-        thrown.expect(RuntimeException.class);
-
         new MockCollaboratorWithReentrantMock();
 
-        codeUnderTest.doSomething();
+        Assertions.assertThrows(RuntimeException.class, () -> codeUnderTest.doSomething());
     }
 
     static class MockCollaboratorWithReentrantMock extends MockUp<Collaborator> {
@@ -403,13 +392,13 @@ public final class MockAnnotationsTest {
     @Test
     public void mockNativeMethodInClassWithRegisterNatives() {
         // Native methods annotated with IntrinsicCandidate cannot be mocked.
-        thrown.expect(UnsupportedOperationException.class);
+        Assertions.assertThrows(UnsupportedOperationException.class, () -> {
+            MockSystem mockUp = new MockSystem();
+            assertEquals(0, System.nanoTime());
 
-        MockSystem mockUp = new MockSystem();
-        assertEquals(0, System.nanoTime());
-
-        mockUp.onTearDown();
-        assertTrue(System.nanoTime() > 0);
+            mockUp.onTearDown();
+            assertTrue(System.nanoTime() > 0);
+        });
     }
 
     static class MockSystem extends MockUp<System> {
@@ -422,14 +411,13 @@ public final class MockAnnotationsTest {
     @Test
     public void mockNativeMethodInClassWithoutRegisterNatives() throws Exception {
         // Native methods annotated with IntrinsicCandidate cannot be mocked.
-        // thrown.expect(MissingInvocation.class);
-        thrown.expect(UnsupportedOperationException.class);
+        Assertions.assertThrows(UnsupportedOperationException.class, () -> {
+            MockFloat mockUp = new MockFloat();
+            assertEquals(0.0, Float.intBitsToFloat(2243019), 0.0);
 
-        MockFloat mockUp = new MockFloat();
-        assertEquals(0.0, Float.intBitsToFloat(2243019), 0.0);
-
-        mockUp.onTearDown();
-        assertTrue(Float.intBitsToFloat(2243019) > 0);
+            mockUp.onTearDown();
+            assertTrue(Float.intBitsToFloat(2243019) > 0);
+        });
     }
 
     static class MockFloat extends MockUp<Float> {
@@ -624,9 +612,6 @@ public final class MockAnnotationsTest {
 
     @Test
     public void attemptToProceedIntoInterfaceImplementation() {
-        thrown.expect(UnsupportedOperationException.class);
-        thrown.expectMessage("abstract/interface method");
-
         interfaceInstance = new MockUp<AnotherInterface>() {
             @Mock
             int doSomething(Invocation inv) {
@@ -634,7 +619,9 @@ public final class MockAnnotationsTest {
             }
         }.getMockInstance();
 
-        interfaceInstance.doSomething();
+        Throwable exception = Assertions.assertThrows(UnsupportedOperationException.class,
+                () -> interfaceInstance.doSomething());
+        assertEquals("Cannot proceed into abstract/interface method", exception.getMessage());
     }
 
     @Test
