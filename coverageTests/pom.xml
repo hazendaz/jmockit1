@@ -6,19 +6,19 @@
     <parent>
         <groupId>com.github.hazendaz.jmockit</groupId>
         <artifactId>jmockit-parent</artifactId>
-        <version>1.55.0</version>
+        <version>2.0.0</version>
     </parent>
 
     <groupId>com.github.hazendaz.jmockit</groupId>
     <artifactId>coverage-tests</artifactId>
-    <version>1.55.0</version>
+    <version>2.0.0</version>
 
     <name>JMockit Coverage Tests</name>
 
     <scm>
         <connection>scm:git:https://github.com/hazendaz/jmockit1</connection>
         <developerConnection>scm:git:ssh://git@github.com/hazendaz/jmockit1.git</developerConnection>
-        <tag>jmockit-parent-1.55.0</tag>
+        <tag>jmockit-parent-2.0.0</tag>
         <url>https://github.com/hazendaz/jmockit1</url>
     </scm>
 

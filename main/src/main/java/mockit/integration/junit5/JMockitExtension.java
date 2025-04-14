@@ -167,6 +167,9 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
     @Override
     public boolean supportsParameter(@NonNull ParameterContext parameterContext,
             @NonNull ExtensionContext extensionContext) {
+        if (System.getenv("CUSTOM_JMOCKIT_EXTENSION_ENABLED") != null) {
+            return false;
+        }
         return parameterContext.isAnnotated(Tested.class) || parameterContext.isAnnotated(Mocked.class)
                 || parameterContext.isAnnotated(Injectable.class) || parameterContext.isAnnotated(Capturing.class);
     }
