@@ -316,7 +316,7 @@
 <a class="jxr_linenumber" name="L308" href="#L308">308</a>         <strong class="jxr_keyword">new</strong> Expectations() {
 <a class="jxr_linenumber" name="L309" href="#L309">309</a>             {
 <a class="jxr_linenumber" name="L310" href="#L310">310</a>                 mockConsumer.accept(anyString);
-<a class="jxr_linenumber" name="L311" href="#L311">311</a>                 result = <strong class="jxr_keyword">new</strong> Delegate() {
+<a class="jxr_linenumber" name="L311" href="#L311">311</a>                 result = <strong class="jxr_keyword">new</strong> Delegate&lt;Object&gt;() {
 <a class="jxr_linenumber" name="L312" href="#L312">312</a>                     @Mock
 <a class="jxr_linenumber" name="L313" href="#L313">313</a>                     <strong class="jxr_keyword">void</strong> delegate(String s) {
 <a class="jxr_linenumber" name="L314" href="#L314">314</a>                         concatenated.append(s).append(' ');
@@ -421,6 +421,6 @@
 <a class="jxr_linenumber" name="L413" href="#L413">413</a> }
 </pre>
 <hr/>
-<div id="footer">© 2011–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
+<div id="footer">© 2011–2025 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

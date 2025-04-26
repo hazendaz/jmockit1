@@ -18,11 +18,11 @@
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.io.InputStream;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.net.URL;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.util.Enumeration;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> java.util.EventListener;
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> java.util.HashMap;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> java.util.Random;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.security.SecureRandom;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> java.util.Enumeration;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> java.util.EventListener;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> java.util.HashMap;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> java.util.Set;
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> javax.servlet.Filter;
@@ -370,7 +370,7 @@
 <a class="jxr_linenumber" name="L362" href="#L362">362</a>     @NonNull
 <a class="jxr_linenumber" name="L363" href="#L363">363</a>     <strong class="jxr_keyword">private</strong> HttpSession createAndRegisterHttpSession() {
 <a class="jxr_linenumber" name="L364" href="#L364">364</a>         HttpSession session = <strong class="jxr_keyword">new</strong> HttpSession() {
-<a class="jxr_linenumber" name="L365" href="#L365">365</a>             <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> String id = String.valueOf(Math.abs(<strong class="jxr_keyword">new</strong> Random().nextInt()));
+<a class="jxr_linenumber" name="L365" href="#L365">365</a>             <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> String id = String.valueOf(<strong class="jxr_keyword">new</strong> SecureRandom().nextInt(Integer.MAX_VALUE));
 <a class="jxr_linenumber" name="L366" href="#L366">366</a>             <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> creationTime = System.currentTimeMillis();
 <a class="jxr_linenumber" name="L367" href="#L367">367</a>             <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Map&lt;String, Object&gt; attrs = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
 <a class="jxr_linenumber" name="L368" href="#L368">368</a>             <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> maxInactiveInterval;
@@ -490,6 +490,6 @@
 <a class="jxr_linenumber" name="L482" href="#L482">482</a> }
 </pre>
 <hr/>
-<div id="footer">© 2006–2024 <a href="https://github.com/hazendaz/">hazendaz</a></div>
+<div id="footer">© 2006–2025 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>
