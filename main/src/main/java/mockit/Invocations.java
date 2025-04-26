@@ -105,8 +105,7 @@ class Invocations {
      * @see <a href="http://jmockit.github.io/tutorial/Mocking.html#matcherFields" target="tutorial">Tutorial</a>
      */
     // This is intentional: the empty string causes the compiler to not generate a field read, while the null reference
-    // is inconvenient with
-    // the invoke(...) methods:
+    // is inconvenient with the invoke(...) methods:
     @NonNull
     protected final String anyString = new String();
 
