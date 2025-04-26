@@ -246,7 +246,7 @@
                     <doctitle>JMockit Toolkit API Documentation</doctitle>
                     <sourceFileExcludes>mockit/asm/**,mockit/coverage/**,mockit/integration/**,mockit/internal/**</sourceFileExcludes>
                     <links>
-                        <link>https://docs.oracle.com/javase/11/docs/api/</link>
+                        <link>https://docs.oracle.com/en/java/javase/11/docs/api/</link>
                     </links>
                 </configuration>
                 <executions>
