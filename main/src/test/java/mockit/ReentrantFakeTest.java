@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
+import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
@@ -413,7 +414,7 @@ final class ReentrantFakeTest {
             }
         };
 
-        assertTrue(new File("noFile").exists());
+        assertTrue(Path.of("noFile").toFile().exists());
     }
 
     /**
