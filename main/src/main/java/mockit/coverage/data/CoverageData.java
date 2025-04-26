@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -251,8 +252,8 @@ public final class CoverageData implements Serializable {
     }
 
     public void writeDataToFile(@NonNull File dataFile) throws IOException {
-        try (ObjectOutputStream output = new ObjectOutputStream(
-                new BufferedOutputStream(Files.newOutputStream(dataFile.toPath())))) {
+        try (OutputStream outputStream = Files.newOutputStream(dataFile.toPath());
+                ObjectOutputStream output = new ObjectOutputStream(new BufferedOutputStream(outputStream))) {
             output.writeObject(this);
         }
     }
