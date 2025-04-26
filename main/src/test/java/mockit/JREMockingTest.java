@@ -66,14 +66,14 @@ public final class JREMockingTest {
     public void mockingFileAndRecordingExpectationToMatchOnSpecificConstructorCall(@Mocked File anyFile) {
         new Expectations() {
             {
-                new File("a.txt").exists();
+                Path.of("a.txt").toFile().exists();
                 result = true;
             }
         };
 
-        boolean aExists = new File("a.txt").exists();
+        boolean aExists = Path.of("a.txt").toFile().exists();
         // noinspection TooBroadScope
-        boolean bExists = new File("b.txt").exists();
+        boolean bExists = Path.of("b.txt").toFile().exists();
 
         assertTrue(aExists);
         assertFalse(bExists);
