@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.nio.file.Path;
 import java.time.Duration;
 import java.util.Calendar;
 import java.util.Date;
@@ -51,7 +52,7 @@ public final class JREMockingTest {
             }
         };
 
-        File f = new File("...");
+        File f = Path.of("...").toFile();
         assertTrue(f.exists());
     }
 
@@ -65,14 +66,14 @@ public final class JREMockingTest {
     public void mockingFileAndRecordingExpectationToMatchOnSpecificConstructorCall(@Mocked File anyFile) {
         new Expectations() {
             {
-                new File("a.txt").exists();
+                Path.of("a.txt").toFile().exists();
                 result = true;
             }
         };
 
-        boolean aExists = new File("a.txt").exists();
+        boolean aExists = Path.of("a.txt").toFile().exists();
         // noinspection TooBroadScope
-        boolean bExists = new File("b.txt").exists();
+        boolean bExists = Path.of("b.txt").toFile().exists();
 
         assertTrue(aExists);
         assertFalse(bExists);

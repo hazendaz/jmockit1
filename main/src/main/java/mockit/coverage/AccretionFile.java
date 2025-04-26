@@ -8,6 +8,7 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import mockit.coverage.data.CoverageData;
 
@@ -26,7 +27,7 @@ final class AccretionFile {
 
     AccretionFile(@NonNull String outputDir, @NonNull CoverageData newData) {
         String parentDir = Configuration.getOrChooseOutputDirectory(outputDir);
-        outputFile = new File(parentDir, "coverage.ser");
+        outputFile = Path.of(parentDir, "coverage.ser").toFile();
 
         newData.fillLastModifiedTimesForAllClassFiles();
         this.newData = newData;

@@ -16,6 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLStreamHandler;
+import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
 
@@ -47,7 +48,7 @@ class ClassLoadingAndJREMocksTest {
         };
 
         new Foo(); // causes a class load
-        assertTrue(new File("filePath").exists());
+        assertTrue(Path.of("filePath").toFile().exists());
     }
 
     /**
@@ -70,10 +71,10 @@ class ClassLoadingAndJREMocksTest {
      * Check for the existence of several files.
      */
     void checkForTheExistenceOfSeveralFiles() {
-        assertFalse(new File("someOtherFile").exists());
-        assertTrue(new File("testFile").exists());
-        assertFalse(new File("yet/another/file").exists());
-        assertTrue(new File("testFile").exists());
+        assertFalse(Path.of("someOtherFile").toFile().exists());
+        assertTrue(Path.of("testFile").toFile().exists());
+        assertFalse(Path.of("yet/another/file").toFile().exists());
+        assertTrue(Path.of("testFile").toFile().exists());
     }
 
     /**

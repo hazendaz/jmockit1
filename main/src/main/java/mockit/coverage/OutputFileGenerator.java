@@ -9,6 +9,7 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import mockit.coverage.data.CoverageData;
 import mockit.coverage.reporting.CoverageReport;
@@ -122,7 +123,7 @@ final class OutputFileGenerator {
             return false;
         }
 
-        File outDir = new File(outputDir);
+        File outDir = Path.of(outputDir).toFile();
         return outDir.mkdirs();
     }
 

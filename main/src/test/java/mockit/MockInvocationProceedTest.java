@@ -14,10 +14,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public final class MockInvocationProceedTest {
 
@@ -212,8 +213,8 @@ public final class MockInvocationProceedTest {
             }
         };
 
-        assertEquals("proceed", new File("proceed").getPath());
-        assertNull(new File("do not proceed").getPath());
+        assertEquals("proceed", Path.of("proceed").toFile().toString());
+        assertNull(Path.of("do not proceed").toFile().toString());
     }
 
     @Test

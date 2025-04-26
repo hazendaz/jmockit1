@@ -9,8 +9,8 @@ import java.util.Date;
 
 import mockit.internal.util.ObjectMethods;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class ObjectOverridesTest.
@@ -106,8 +106,8 @@ public final class ObjectOverridesTest {
     /**
      * Call object methods in mock before every test.
      */
-    @Before
-    public void callObjectMethodsInMockBeforeEveryTest() {
+    @BeforeEach
+    void callObjectMethodsInMockBeforeEveryTest() {
         assertEquals(System.identityHashCode(a), a.hashCode());
         assertEquals(b, b);
     }
@@ -120,7 +120,7 @@ public final class ObjectOverridesTest {
      */
     @Test
     @SuppressWarnings("FinalizeCalledExplicitly")
-    public void verifyStandardBehaviorOfOverriddenObjectMethodsInMockedClass() throws Throwable {
+    void verifyStandardBehaviorOfOverriddenObjectMethodsInMockedClass() throws Throwable {
         assertDefaultEqualsBehavior(a, b);
         assertDefaultEqualsBehavior(b, a);
 
@@ -139,7 +139,7 @@ public final class ObjectOverridesTest {
      */
     @Test
     @SuppressWarnings({ "SimplifiableJUnitAssertion", "EqualsBetweenInconvertibleTypes" })
-    public void mockOverrideOfEqualsMethod() {
+    void mockOverrideOfEqualsMethod() {
         new Expectations() {
             {
                 a.equals(null);
@@ -165,7 +165,7 @@ public final class ObjectOverridesTest {
      * Mock override of hash code method.
      */
     @Test
-    public void mockOverrideOfHashCodeMethod() {
+    void mockOverrideOfHashCodeMethod() {
         assertTrue(a.hashCode() != b.hashCode());
 
         new Expectations() {
@@ -186,7 +186,7 @@ public final class ObjectOverridesTest {
      * Mock override of to string method.
      */
     @Test
-    public void mockOverrideOfToStringMethod() {
+    void mockOverrideOfToStringMethod() {
         // noinspection SimplifiableJUnitAssertion
         assertFalse(a.toString().equals(b.toString()));
 
@@ -213,7 +213,7 @@ public final class ObjectOverridesTest {
      * Mock override of clone method.
      */
     @Test
-    public void mockOverrideOfCloneMethod() {
+    void mockOverrideOfCloneMethod() {
         new Expectations() {
             {
                 a.clone();
@@ -228,7 +228,7 @@ public final class ObjectOverridesTest {
      * Record expectations on overridden object method as always non strict.
      */
     @Test
-    public void recordExpectationsOnOverriddenObjectMethodAsAlwaysNonStrict() {
+    void recordExpectationsOnOverriddenObjectMethodAsAlwaysNonStrict() {
         new Expectations() {
             {
                 a.doSomething();
@@ -271,7 +271,7 @@ public final class ObjectOverridesTest {
      * Partially mock instances of class with equals override whose instance gets passed in recorded expectation.
      */
     @Test
-    public void partiallyMockInstancesOfClassWithEqualsOverrideWhoseInstanceGetsPassedInRecordedExpectation() {
+    void partiallyMockInstancesOfClassWithEqualsOverrideWhoseInstanceGetsPassedInRecordedExpectation() {
         final Object o1 = new ClassWithEqualsOverride(123);
         Object o2 = new ClassWithEqualsOverride(123);
 
@@ -288,7 +288,7 @@ public final class ObjectOverridesTest {
      * Partially mock instances of JRE class with equals override whose instance gets passed in recorded expectation.
      */
     @Test
-    public void partiallyMockInstancesOfJREClassWithEqualsOverrideWhoseInstanceGetsPassedInRecordedExpectation() {
+    void partiallyMockInstancesOfJREClassWithEqualsOverrideWhoseInstanceGetsPassedInRecordedExpectation() {
         final Object o1 = new Date(123);
         Object o2 = new Date(123);
 

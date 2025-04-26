@@ -10,12 +10,12 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -185,7 +185,7 @@ public final class CoverageData implements Serializable {
 
         String pathToClassFile = locationPath + sourceFilePathNoExt + ".class";
 
-        return new File(pathToClassFile).lastModified();
+        return Path.of(pathToClassFile).toFile().lastModified();
     }
 
     private static long getLastModifiedTimeFromJarEntry(@NonNull String sourceFilePathNoExt,
@@ -241,7 +241,8 @@ public final class CoverageData implements Serializable {
      */
     @NonNull
     public static CoverageData readDataFromFile(@NonNull File dataFile) throws IOException {
-        try (ObjectInputStream input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(dataFile)))) {
+        try (ObjectInputStream input = new ObjectInputStream(
+                new BufferedInputStream(Files.newInputStream(dataFile.toPath())))) {
             return (CoverageData) input.readObject();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(
@@ -251,7 +252,7 @@ public final class CoverageData implements Serializable {
 
     public void writeDataToFile(@NonNull File dataFile) throws IOException {
         try (ObjectOutputStream output = new ObjectOutputStream(
-                new BufferedOutputStream(new FileOutputStream(dataFile)))) {
+                new BufferedOutputStream(Files.newOutputStream(dataFile.toPath())))) {
             output.writeObject(this);
         }
     }

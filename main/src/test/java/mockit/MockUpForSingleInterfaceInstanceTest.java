@@ -11,11 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public final class MockUpForSingleInterfaceInstanceTest {
+class MockUpForSingleInterfaceInstanceTest {
 
     /** The logger. */
     private static final Logger logger = LoggerFactory.getLogger(MockUpForSingleInterfaceInstanceTest.class);
@@ -29,7 +30,7 @@ public final class MockUpForSingleInterfaceInstanceTest {
     }
 
     @Test
-    public void multipleMockUpInstancesForAPublicInterfaceWithASingleMockInstanceEach() {
+    void multipleMockUpInstancesForAPublicInterfaceWithASingleMockInstanceEach() {
         final class AnInterfaceMockUp extends MockUp<APublicInterface> {
             private final int number;
             private final String text;
@@ -68,7 +69,7 @@ public final class MockUpForSingleInterfaceInstanceTest {
     }
 
     @Test
-    public void multipleMockUpInstancesForPublicInterfacePassingInterfaceToMockUpConstructor() {
+    void multipleMockUpInstancesForPublicInterfacePassingInterfaceToMockUpConstructor() {
         final class AnInterfaceMockUp extends MockUp<APublicInterface> {
             private final int number;
 
@@ -95,9 +96,10 @@ public final class MockUpForSingleInterfaceInstanceTest {
         assertEquals(2, mock2.getNumericValue());
     }
 
-    @Test(timeout = 500)
+    @Test
+    @Timeout(500)
     @SuppressWarnings("MethodWithMultipleLoops")
-    public void instantiateSameMockUpForPublicInterfaceManyTimesButApplyOnlyOnce() {
+    void instantiateSameMockUpForPublicInterfaceManyTimesButApplyOnlyOnce() {
         class InterfaceMockUp extends MockUp<APublicInterface> {
             final int value;
 
@@ -149,7 +151,7 @@ public final class MockUpForSingleInterfaceInstanceTest {
     }
 
     @Test
-    public void multipleMockUpInstancesForANonPublicInterfaceWithASingleMockInstanceEach() {
+    void multipleMockUpInstancesForANonPublicInterfaceWithASingleMockInstanceEach() {
         class AnotherInterfaceMockUp extends MockUp<ANonPublicInterface> implements ANonPublicInterface {
             private final int value;
 
@@ -177,7 +179,7 @@ public final class MockUpForSingleInterfaceInstanceTest {
     }
 
     @Test
-    public void applyDifferentMockUpsToSameInterface() {
+    void applyDifferentMockUpsToSameInterface() {
         APublicInterface mock1 = new MockUp<APublicInterface>() {
             @Mock
             String getTextValue() {
@@ -200,7 +202,7 @@ public final class MockUpForSingleInterfaceInstanceTest {
     }
 
     @Test
-    public void applyMockUpWithGivenInterfaceInstance() {
+    void applyMockUpWithGivenInterfaceInstance() {
         APublicInterface realInstance = new APublicInterface() {
             @Override
             public int getNumericValue() {

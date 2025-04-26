@@ -10,10 +10,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
@@ -591,17 +594,19 @@ final class TestedClassWithFullStandardDITest {
      *
      * @throws IOException
      *             Signals that an I/O exception has occurred.
+     * @throws URISyntaxException
+     *             the URI syntax exception
      */
-    static void createTemporaryPersistenceXmlFileWithDefaultPersistenceUnit() throws IOException {
-        String rootOfClasspath = TestedClass.class.getProtectionDomain().getCodeSource().getLocation().getFile();
-        File tempFolder = new File(rootOfClasspath + "META-INF");
+    static void createTemporaryPersistenceXmlFileWithDefaultPersistenceUnit() throws IOException, URISyntaxException {
+        URI rootOfClasspath = TestedClass.class.getProtectionDomain().getCodeSource().getLocation().toURI();
+        File tempFolder = Path.of(rootOfClasspath).resolve("META-INF").toFile();
         if (tempFolder.mkdir()) {
             tempFolder.deleteOnExit();
         }
 
-        persistenceXmlFile = new File(tempFolder, "persistence.xml");
+        persistenceXmlFile = tempFolder.toPath().resolve("persistence.xml").toFile();
 
-        Writer xmlWriter = new FileWriter(persistenceXmlFile, StandardCharsets.UTF_8);
+        Writer xmlWriter = Files.newBufferedWriter(persistenceXmlFile.toPath(), StandardCharsets.UTF_8);
         xmlWriter.write("<persistence><persistence-unit name='default'/></persistence>");
         xmlWriter.close();
     }

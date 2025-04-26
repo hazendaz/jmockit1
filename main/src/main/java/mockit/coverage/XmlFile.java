@@ -7,10 +7,11 @@ package mockit.coverage;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Map.Entry;
 
 import mockit.coverage.data.CoverageData;
@@ -53,12 +54,12 @@ final class XmlFile {
         srcDir = firstSrcDir.isEmpty() ? "" : firstSrcDir + '/';
 
         String parentDir = Configuration.getOrChooseOutputDirectory(outputDir);
-        outputFile = new File(parentDir, "coverage.xml");
+        outputFile = Path.of(parentDir, "coverage.xml").toFile();
         this.coverageData = coverageData;
     }
 
     void generate() throws IOException {
-        try (Writer out = new FileWriter(outputFile, StandardCharsets.UTF_8)) {
+        try (Writer out = Files.newBufferedWriter(outputFile.toPath(), StandardCharsets.UTF_8)) {
             out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
             out.write("<coverage version=\"1\">\n");
 

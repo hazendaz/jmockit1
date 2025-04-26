@@ -7,7 +7,8 @@ package mockit.coverage;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
-import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public final class Configuration {
     private static final String COVERAGE_PREFIX = "coverage-";
@@ -34,7 +35,7 @@ public final class Configuration {
     }
 
     private static boolean isTargetSubDirectoryAvailable() {
-        return System.getProperty("basedir") != null || new File("target").exists();
+        return System.getProperty("basedir") != null || Files.exists(Path.of("target"));
     }
 
     @NonNull

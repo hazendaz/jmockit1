@@ -7,8 +7,10 @@ package mockit.internal.injection;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
-import java.io.File;
 import java.lang.reflect.Type;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
 
@@ -46,8 +48,17 @@ public final class TestedClass {
         reflection = new GenericTypeReflection(declaredClass, declaredType, false);
         protectionDomainOfTestedClass = declaredClass.getProtectionDomain();
         CodeSource codeSource = protectionDomainOfTestedClass.getCodeSource();
-        codeLocationParentPath = codeSource == null || codeSource.getLocation() == null ? null
-                : new File(codeSource.getLocation().getPath()).getParent();
+        if (codeSource == null || codeSource.getLocation() == null) {
+            codeLocationParentPath = null;
+        } else {
+            URI location;
+            try {
+                location = codeSource.getLocation().toURI();
+            } catch (URISyntaxException e) {
+                location = null;
+            }
+            codeLocationParentPath = Path.of(location).getParent().toString();
+        }
         nameOfTestedClass = declaredClass.getName();
         this.parent = parent;
     }
@@ -79,11 +90,15 @@ public final class TestedClass {
         }
 
         if (codeLocationParentPath != null) {
-            String anotherClassPath = anotherCodeSource.getLocation().getPath();
-            String anotherClassParentPath = new File(anotherClassPath).getParent();
+            try {
+                URI anotherClassPath = anotherCodeSource.getLocation().toURI();
+                String anotherClassParentPath = Path.of(anotherClassPath).getParent().toString();
 
-            if (anotherClassParentPath.equals(codeLocationParentPath)) {
-                return true;
+                if (anotherClassParentPath.equals(codeLocationParentPath)) {
+                    return true;
+                }
+            } catch (URISyntaxException e) {
+                return false;
             }
         }
 
