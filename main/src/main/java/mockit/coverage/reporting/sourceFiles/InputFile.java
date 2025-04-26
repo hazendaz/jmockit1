@@ -10,9 +10,10 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 import org.checkerframework.checker.index.qual.NonNegative;
@@ -55,7 +56,7 @@ public final class InputFile {
     @Nullable
     private static File getSourceFile(@NonNull File sourceDir, @NonNull final String topLevelPackage,
             @NonNull String filePath) {
-        File file = new File(sourceDir, filePath);
+        File file = sourceDir.toPath().resolve(filePath).toFile();
 
         if (file.exists()) {
             return file;
@@ -94,7 +95,7 @@ public final class InputFile {
             @NonNull File sourceFile) {
         String sourceFilePath = sourceFile.getPath();
         String sourceRootDir = sourceFilePath.substring(0, sourceFilePath.length() - filePath.length());
-        File newSourceDir = new File(sourceRootDir);
+        File newSourceDir = Path.of(sourceRootDir).toFile();
 
         if (!sourceDirs.contains(newSourceDir)) {
             sourceDirs.add(0, newSourceDir);
@@ -104,7 +105,7 @@ public final class InputFile {
     private InputFile(@NonNull String filePath, @NonNull File sourceFile) throws IOException {
         this.filePath = filePath;
         this.sourceFile = sourceFile;
-        input = new BufferedReader(new FileReader(sourceFile, StandardCharsets.UTF_8));
+        input = Files.newBufferedReader(sourceFile.toPath(), StandardCharsets.UTF_8);
     }
 
     @NonNull
