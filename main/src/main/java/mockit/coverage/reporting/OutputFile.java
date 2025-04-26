@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.util.regex.Pattern;
 
 public final class OutputFile extends PrintWriter {
@@ -48,7 +49,7 @@ public final class OutputFile extends PrintWriter {
     static File getOutputFile(@NonNull String outputDir, @NonNull String sourceFilePath) {
         int p = sourceFilePath.lastIndexOf('.');
         String outputFileName = sourceFilePath.substring(0, p) + ".html";
-        return new File(outputDir, outputFileName);
+        return Path.of(outputDir, outputFileName).toFile();
     }
 
     @NonNull

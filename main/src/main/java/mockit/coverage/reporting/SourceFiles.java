@@ -7,6 +7,7 @@ package mockit.coverage.reporting;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ final class SourceFiles {
 
     private void buildListWithSpecifiedDirectories(@NonNull String[] dirs) {
         for (String dir : dirs) {
-            File srcDir = new File(dir);
+            File srcDir = Path.of(dir).toFile();
 
             if (srcDir.isDirectory()) {
                 srcDirs.add(srcDir);
@@ -40,8 +41,8 @@ final class SourceFiles {
     }
 
     private void buildListWithAllSrcSubDirectories() {
-        String curDirName = new File(System.getProperty("user.dir")).getName();
-        addSrcSubDirs(new File("../" + curDirName));
+        String curDirName = Path.of(System.getProperty("user.dir")).toFile().getName();
+        addSrcSubDirs(Path.of("../" + curDirName).toFile());
     }
 
     private void addSrcSubDirs(@NonNull File dir) {
