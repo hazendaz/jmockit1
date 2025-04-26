@@ -253,7 +253,8 @@ public final class CoverageData implements Serializable {
 
     public void writeDataToFile(@NonNull File dataFile) throws IOException {
         try (OutputStream outputStream = Files.newOutputStream(dataFile.toPath());
-                ObjectOutputStream output = new ObjectOutputStream(new BufferedOutputStream(outputStream))) {
+                BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream);
+                ObjectOutputStream output = new ObjectOutputStream(bufferedOutputStream)) {
             output.writeObject(this);
         }
     }
