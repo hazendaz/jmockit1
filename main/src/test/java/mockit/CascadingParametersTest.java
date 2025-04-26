@@ -21,6 +21,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.nio.channels.SocketChannel;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -539,7 +540,7 @@ final class CascadingParametersTest {
             }
         };
 
-        Process process = new ProcessBuilder("test").directory(new File("myDir")).start();
+        Process process = new ProcessBuilder("test").directory(Path.of("myDir").toFile()).start();
         process.getOutputStream().write(5);
         process.getOutputStream().flush();
         assertEquals(1, process.exitValue());
@@ -573,7 +574,7 @@ final class CascadingParametersTest {
     void createOSProcessToCopyTempFiles(@Mocked final ProcessBuilder pb) throws Exception {
         // Code under test creates a new process to execute an OS-specific command.
         String cmdLine = "copy /Y *.txt D:\\TEMP";
-        File wrkDir = new File("C:\\TEMP");
+        File wrkDir = Path.of("C:\\TEMP").toFile();
         Process copy = new ProcessBuilder().command(cmdLine).directory(wrkDir).start();
         int exit = copy.waitFor();
 
