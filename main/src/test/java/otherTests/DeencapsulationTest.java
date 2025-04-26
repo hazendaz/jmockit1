@@ -19,7 +19,8 @@ import org.junit.jupiter.api.Test;
 final class DeencapsulationTest {
 
     static final class Subclass extends BaseClass {
-        final int INITIAL_VALUE = new SecureRandom().nextInt();
+        private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+        final int INITIAL_VALUE = SECURE_RANDOM.nextInt();
         final int initialValue = -1;
 
         @SuppressWarnings("unused")
