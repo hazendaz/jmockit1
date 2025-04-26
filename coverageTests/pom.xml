@@ -27,7 +27,7 @@
         <module.name>com.github.hazendaz.jmockit.coverage.tests</module.name>
 
         <!-- Surefire Argline -->
-        <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/1.55.0/jmockit-1.55.0.jar=coverage</argLine>
+        <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/1.55.0/jmockit-1.55.0.jar=coverage --add-opens java.base/java.lang=ALL-UNNAMED</argLine>
 
         <slf4j.version>2.0.17</slf4j.version>
     </properties>
@@ -59,31 +59,22 @@
         </dependency>
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>jdk17on</id>
-            <activation>
-                <jdk>[17,)</jdk>
-            </activation>
-            <properties>
-                <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/1.55.0/jmockit-1.55.0.jar=coverage --add-opens java.base/java.lang=ALL-UNNAMED</argLine>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <configuration>
-                            <additionalOptions combine.children="append">
-                                <option>--add-modules</option>
-                                <option>java.desktop</option>
-                                <option>--add-modules</option>
-                                <option>java.sql</option>
-                            </additionalOptions>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <configuration>
+                        <additionalOptions combine.children="append">
+                            <option>--add-modules</option>
+                            <option>java.desktop</option>
+                            <option>--add-modules</option>
+                            <option>java.sql</option>
+                        </additionalOptions>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
