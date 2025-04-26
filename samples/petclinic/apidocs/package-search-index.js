@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"petclinic"},{"l":"petclinic.owners"},{"l":"petclinic.pets"},{"l":"petclinic.util"},{"l":"petclinic.vets"},{"l":"petclinic.visits"}];updateSearchResults();

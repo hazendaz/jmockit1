@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"jmockit.loginExample.domain.userAccount"},{"l":"jmockit.loginExample.domain.userLogin"}];updateSearchResults();

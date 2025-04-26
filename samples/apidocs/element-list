@@ -1,0 +1,11 @@
+java8testing
+jmockit.loginExample.domain.userAccount
+jmockit.loginExample.domain.userLogin
+petclinic
+petclinic.owners
+petclinic.pets
+petclinic.util
+petclinic.vets
+petclinic.visits
+tutorial.domain
+tutorial.persistence

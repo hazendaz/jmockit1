@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>MyBusinessService xref</title>
+<link type="text/css" rel="stylesheet" href="../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../apidocs/tutorial/domain/MyBusinessService.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> tutorial.domain;
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> tutorial.persistence.Database.find;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> tutorial.persistence.Database.persist;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> java.math.BigDecimal;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.util.List;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> org.apache.commons.mail.Email;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.mail.EmailException;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.mail.SimpleEmail;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> * This class makes use of several idioms which would prevent unit testing with more "conventional" mocking tools. Its</em>
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> * usage is as simple as it gets: &lt;code&gt;new MyBusinessService(data).doBusinessOperationXyz()&lt;/code&gt;. No need to make</em>
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment"> * such classes stateless, or worse, &lt;em&gt;singletons&lt;/em&gt;; instead, it's designed as a proper object.</em>
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment"> * One of those "untestable" idioms is the use of a &lt;em&gt;static persistence facade&lt;/em&gt; (the</em>
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> * {@linkplain tutorial.persistence.Database Database} class) for high-level database operations in the context of a</em>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> * thread-bound work unit. Since all interaction with the facade is through &lt;code&gt;static&lt;/code&gt; methods, client classes</em>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> * cannot be unit tested with a tool which only supports &lt;em&gt;mock objects&lt;/em&gt;. With JMockit, though, writing such a</em>
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment"> * test is just as easy as any other (even easier, in fact, given that &lt;code&gt;static&lt;/code&gt; methods don't require an</em>
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> * instance of the mocked class at all).</em>
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment"> * Another idiom which runs against limitations of other mocking tools is the direct instantiation and use of external</em>
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment"> * dependencies, such as the &lt;a href="<a href="http://commons.apache.org/email" target="alexandria_uri">http://commons.apache.org/email</a>"&gt;Apache Commons Email&lt;/a&gt; API, used here to send</em>
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment"> * notification e-mails. As demonstrated here, sending an e-mail is simply a matter of instantiating the appropriate</em>
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment"> * &lt;code&gt;Email&lt;/code&gt; subclass, setting the necessary properties, and calling the &lt;code&gt;send()&lt;/code&gt; method. It is</em>
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment"> * certainly not a good use case for &lt;em&gt;Dependency Injection&lt;/em&gt; (DI).</em>
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment"> * Finally, consider that application-specific classes like this one are inherently non-reusable in different</em>
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment"> * contexts/applications; as such, they can and should be made &lt;code&gt;final&lt;/code&gt; to reflect the fact that they are not</em>
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment"> * supposed to be extended through inheritance. In the case of reusable &lt;em&gt;base&lt;/em&gt; classes, which are specifically</em>
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment"> * designed to be extended through inheritance, the judicious use of &lt;code&gt;final&lt;/code&gt; for &lt;code&gt;public&lt;/code&gt; and</em>
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment"> * &lt;code&gt;protected&lt;/code&gt; methods is important. (The description of the &lt;em&gt;Template Method&lt;/em&gt; pattern in the "GoF"</em>
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment"> * book explains why a properly designed template method should be non-overridable.) Unfortunately, the practice of</em>
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment"> * &lt;em&gt;designing for extension&lt;/em&gt; conflicts with the particular implementation approach employed by other mocking</em>
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment"> * tools, which dynamically generate a subclass overriding all non-&lt;code&gt;final&lt;/code&gt; methods in the mocked class in</em>
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment"> * order to provide mocked behavior. For JMockit, on the other hand, whether a method or class to be mocked is</em>
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment"> * &lt;code&gt;final&lt;/code&gt; or not is irrelevant, as a radically different mocking approach is employed: class</em>
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment"> * &lt;em&gt;redefinition&lt;/em&gt; as provided by</em>
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment"> * {@link java.lang.instrument.Instrumentation#redefineClasses(java.lang.instrument.ClassDefinition...)}.</em>
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="MyBusinessService" href="../../tutorial/domain/MyBusinessService.html#MyBusinessService">MyBusinessService</a> {
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="EntityX" href="../../tutorial/domain/EntityX.html#EntityX">EntityX</a> data;
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">public</strong> <a name="MyBusinessService" href="../../tutorial/domain/MyBusinessService.html#MyBusinessService">MyBusinessService</a>(<a name="EntityX" href="../../tutorial/domain/EntityX.html#EntityX">EntityX</a> data) {
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>          <strong class="jxr_keyword">this</strong>.data = data;
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      }
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>  
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <em class="jxr_comment">// This method can easily be made transactional, so that any exception thrown during its execution causes a rollback</em>
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>      <em class="jxr_comment">// somewhere up in the call stack (assuming a transaction gets started in the first place).</em>
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> doBusinessOperationXyz() <strong class="jxr_keyword">throws</strong> EmailException {
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>          <em class="jxr_comment">// Locate existing persistent entities of the same entity type (note that the query string is a DSL for querying</em>
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>          <em class="jxr_comment">// persistent domain entities, written in terms of the domain, not in terms of relational tables and columns):</em>
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>          List&lt;EntityX&gt; items = find(<span class="jxr_string">"select item from EntityX item where item.someProperty=?1"</span>, data.getSomeProperty());
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>          <em class="jxr_comment">// Compute or obtain from another service a total value for the new persistent entity:</em>
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>          BigDecimal total = <strong class="jxr_keyword">new</strong> BigDecimal(<span class="jxr_string">"12.30"</span>);
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>          data.setTotal(total);
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>          <em class="jxr_comment">// Persist the entity (no DAO required for such a common, high-level, operation):</em>
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>          persist(data);
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>          sendNotificationEmail(items);
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      }
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>  
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> sendNotificationEmail(List&lt;EntityX&gt; items) <strong class="jxr_keyword">throws</strong> EmailException {
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>          Email email = <strong class="jxr_keyword">new</strong> SimpleEmail();
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>          email.setSubject(<span class="jxr_string">"Notification about processing of ..."</span>);
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>          email.addTo(data.getCustomerEmail());
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>  
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>          <em class="jxr_comment">// Other e-mail parameters, such as the host name of the mail server, have defaults defined through external</em>
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>          <em class="jxr_comment">// configuration.</em>
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>  
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>          String message = buildNotificationMessage(items);
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>          email.setMsg(message);
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>  
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>          email.send();
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>      }
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>  
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String buildNotificationMessage(List&lt;EntityX&gt; items) {
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>          StringBuilder message = <strong class="jxr_keyword">new</strong> StringBuilder();
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>  
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>          <strong class="jxr_keyword">for</strong> (<a name="EntityX" href="../../tutorial/domain/EntityX.html#EntityX">EntityX</a> item : items) {
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>              message.append(item.getSomeProperty()).append(<span class="jxr_string">" Total: "</span>).append(item.getTotal());
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>          }
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>  
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>          <strong class="jxr_keyword">return</strong> message.toString();
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>      }
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>  }
+</pre>
+<hr/>
+<div id="footer">© 2011–2025 <a href="https://github.com/hazendaz/">hazendaz</a></div>
+</body>
+</html>

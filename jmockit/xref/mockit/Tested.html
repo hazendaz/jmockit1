@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>Tested xref</title>
+<link type="text/css" rel="stylesheet" href="../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../apidocs/mockit/Tested.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright (c) 2006 JMockit developers</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> * This file is subject to the terms of the MIT license (see LICENSE.txt).</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> */</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">package</strong> mockit;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> java.lang.annotation.ElementType.ANNOTATION_TYPE;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> java.lang.annotation.ElementType.FIELD;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> java.lang.annotation.ElementType.METHOD;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> java.lang.annotation.ElementType.PARAMETER;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> java.lang.annotation.RetentionPolicy.RUNTIME;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.lang.annotation.ElementType;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> java.lang.annotation.Retention;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> java.lang.annotation.RetentionPolicy;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> java.lang.annotation.Target;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> * Indicates a class to be tested, with optional automatic instantiation and/or automatic injection of dependencies.</em>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> * This annotation is applicable to instance fields of a test class, and to test method parameters; alternatively, it</em>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> * can be used as a meta-annotation on a user-defined annotation which, in turn, needs to have</em>
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment"> * {@linkplain RetentionPolicy#RUNTIME runtime} {@linkplain Retention retention} and be {@linkplain Target applicable}</em>
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> * to {@linkplain ElementType#FIELD fields} and/or {@linkplain ElementType#PARAMETER parameters}.</em>
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment"> * Every non-&lt;code&gt;final&lt;/code&gt; tested field and every tested parameter is eligible for automatic instantiation and</em>
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment"> * initialization. By default, automatic instantiation occurs just before a test method is executed. This default can be</em>
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment"> * changed by specifying the {@link #availableDuringSetup} optional attribute as &lt;code&gt;true&lt;/code&gt; in a tested field</em>
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment"> * declaration (it is ignored if applied to a tested parameter).</em>
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment"> * Whenever automatic creation occurs, a suitable instance of the tested class is created, initialized, and assigned to</em>
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment"> * the tested field or passed as argument to the tested parameter. Available {@linkplain Injectable injectables} and</em>
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment"> * other &lt;code&gt;@Tested&lt;/code&gt; values are used, either as argument values for the chosen constructor of the tested class,</em>
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment"> * or as values to set into injected fields of the newly-created tested object. For a given tested object, only</em>
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment"> * &lt;em&gt;preceding&lt;/em&gt; tested objects (if any) are regarded as available for injection; other such objects declared after</em>
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment"> * the one being created are disregarded. &lt;code&gt;@Tested&lt;/code&gt; parameters precede any &lt;code&gt;@Tested&lt;/code&gt; fields.</em>
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment"> * For &lt;em&gt;constructor injection&lt;/em&gt;, all constructor parameters (if any) must be satisfied with available</em>
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment"> * tested/injectable values. If the tested class has a constructor annotated with the standard CDI annotation</em>
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment"> * "&lt;code&gt;@Inject&lt;/code&gt;", then it is the one to be used; otherwise, if there are multiple satisfiable constructors then</em>
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment"> * the one with the most parameters &lt;em&gt;and&lt;/em&gt; the widest accessibility (ie, first &lt;code&gt;public&lt;/code&gt;, then</em>
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment"> * &lt;code&gt;protected&lt;/code&gt;, then &lt;em&gt;package-private&lt;/em&gt;, and finally &lt;code&gt;private&lt;/code&gt;) is chosen. The matching</em>
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment"> * between injectable values and constructor parameters is done by &lt;em&gt;type&lt;/em&gt; when there is only one parameter of a</em>
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment"> * given type; otherwise, by type &lt;em&gt;and name&lt;/em&gt;.</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment"> * &lt;em&gt;Field injection&lt;/em&gt; is performed on all tested objects, even when it was not instantiated automatically. Only</em>
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment"> * non-&lt;code&gt;final&lt;/code&gt; fields are considered, between those declared in the tested class itself or in one of its</em>
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment"> * super-classes; at this time constructor injection already occurred, so only fields which remain uninitialized are</em>
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_javadoccomment"> * targeted. For each such &lt;em&gt;target&lt;/em&gt; field, the value of a still unused injectable of a matching type is assigned,</em>
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  <em class="jxr_javadoccomment"> * if any is available. When a tested object has multiple target fields of a matching type, not just the type but also</em>
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>  <em class="jxr_javadoccomment"> * the &lt;em&gt;name&lt;/em&gt; of each field will be used when looking for available injectables. Finally, if there is no matching</em>
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  <em class="jxr_javadoccomment"> * and available injectable value for a given target field, it is left unassigned, unless the target field is for a</em>
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_javadoccomment"> * &lt;em&gt;required&lt;/em&gt; dependency; note that all fields marked with a DI annotation (such as &lt;code&gt;@Inject&lt;/code&gt;,</em>
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment"> * &lt;code&gt;@Autowired&lt;/code&gt;, etc.) indicate required dependencies by default (the use of</em>
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment"> * "&lt;code&gt;@Autowired(required = false)&lt;/code&gt;" is respected, if present).</em>
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment"> * Tested fields/parameters whose declared type is primitive, a primitive wrapper, numeric, or an enum can use the</em>
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment"> * {@link #value} attribute to specify an initial value from a string.</em>
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment"> * Custom names specified in field annotations from Java EE (&lt;code&gt;@Resource(name)&lt;/code&gt;, &lt;code&gt;@Named&lt;/code&gt;) or the</em>
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment"> * Spring framework (&lt;code&gt;@Qualifier&lt;/code&gt;) are used when looking for a matching &lt;code&gt;@Injectable&lt;/code&gt; or</em>
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment"> * &lt;code&gt;@Tested&lt;/code&gt; value. When such a name contains a &lt;code&gt;-&lt;/code&gt; (dash) or &lt;code&gt;.&lt;/code&gt; (dot) character, the</em>
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment"> * corresponding camel-cased name is used instead.</em>
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment"> * Whenever constructor or field injection is used, the value of each injectable goes into &lt;em&gt;at most one&lt;/em&gt; matching</em>
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_javadoccomment"> * constructor parameter or instance field of a tested class.</em>
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>  <em class="jxr_javadoccomment"> * The tested class can be &lt;code&gt;abstract&lt;/code&gt;. In this case, if the tested field is left null then a subclass</em>
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_javadoccomment"> * implementing all abstract methods is automatically generated and instantiated. The abstract method implementations</em>
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>  <em class="jxr_javadoccomment"> * are automatically &lt;em&gt;mocked&lt;/em&gt; so that expectations can be recorded or verified on them.</em>
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment"> * When the {@link #fullyInitialized} attribute is &lt;code&gt;true&lt;/code&gt;, all eligible fields in the tested object will get</em>
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>  <em class="jxr_javadoccomment"> * initialized with a suitable instance, which itself is recursively initialized in the same way.</em>
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>  <em class="jxr_javadoccomment"> * Finally, if the {@link #global} attribute is &lt;code&gt;true&lt;/code&gt;, then a single &lt;em&gt;global&lt;/em&gt; instance will be</em>
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>  <em class="jxr_javadoccomment"> * created during the test run, for the name of the annotated field/parameter. This is useful for the creation of</em>
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>  <em class="jxr_javadoccomment"> * scenario-oriented tests, where each test in a test class exercises a step in the scenario, with all of them accessing</em>
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>  <em class="jxr_javadoccomment"> * the same state in one (or more) global tested objects.</em>
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>  <em class="jxr_javadoccomment"> * @see &lt;a href="<a href="http://jmockit.github.io/tutorial/Mocking.html" target="alexandria_uri">http://jmockit.github.io/tutorial/Mocking.html</a>#tested" target="tutorial"&gt;Tutorial&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>  @Retention(RUNTIME)
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>  @Target({ FIELD, PARAMETER, ANNOTATION_TYPE, METHOD })
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>  <strong class="jxr_keyword">public</strong> @<strong class="jxr_keyword">interface</strong> Tested {
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>  
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>  <em class="jxr_javadoccomment">     * Specifies a literal value when the type of the tested field/parameter is &lt;code&gt;String&lt;/code&gt;, a primitive or</em>
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>  <em class="jxr_javadoccomment">     * wrapper type, a number type, or an enum type. For a primitive/wrapper/number type, the value provided must be</em>
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>  <em class="jxr_javadoccomment">     * convertible to it. For an enum type, the given textual value must equal the name of one of the possible enum</em>
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>  <em class="jxr_javadoccomment">     * values.</em>
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>  <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>  <em class="jxr_javadoccomment">     * @return the string</em>
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>      String value() <strong class="jxr_keyword">default</strong> <span class="jxr_string">""</span>;
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>  
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>  <em class="jxr_javadoccomment">     * Indicates that each non-&lt;code&gt;final&lt;/code&gt; field of the tested object that is eligible for injection should be</em>
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>  <em class="jxr_javadoccomment">     * assigned a value, which can be an available {@linkplain Injectable @Injectable} or &lt;code&gt;@Tested&lt;/code&gt; value of</em>
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>  <em class="jxr_javadoccomment">     * a type assignable to the field type, or a real (unmocked) instance of the field type.</em>
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>  <em class="jxr_javadoccomment">     * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L100" href="#L100">100</a> <em class="jxr_javadoccomment">     * Non-eligible fields are those that have already being assigned from a constructor, or that have a primitive,</em>
+<a class="jxr_linenumber" name="L101" href="#L101">101</a> <em class="jxr_javadoccomment">     * array, annotation, or JRE type (with the exception of the types described below, which are given special</em>
+<a class="jxr_linenumber" name="L102" href="#L102">102</a> <em class="jxr_javadoccomment">     * treatment). Also non-eligible are any &lt;code&gt;static&lt;/code&gt; or &lt;code&gt;volatile&lt;/code&gt; fields, unless annotated with</em>
+<a class="jxr_linenumber" name="L103" href="#L103">103</a> <em class="jxr_javadoccomment">     * an &lt;em&gt;injection annotation&lt;/em&gt; (one of &lt;code&gt;@Inject&lt;/code&gt;, &lt;code&gt;@Resource&lt;/code&gt;, &lt;code&gt;@Autowired&lt;/code&gt;,</em>
+<a class="jxr_linenumber" name="L104" href="#L104">104</a> <em class="jxr_javadoccomment">     * &lt;code&gt;@EJB&lt;/code&gt;, &lt;code&gt;@PersistenceContext&lt;/code&gt;, or &lt;code&gt;@PersistenceUnit&lt;/code&gt;).</em>
+<a class="jxr_linenumber" name="L105" href="#L105">105</a> <em class="jxr_javadoccomment">     * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L106" href="#L106">106</a> <em class="jxr_javadoccomment">     * For each field of a reference type that would otherwise remain &lt;code&gt;null&lt;/code&gt;, an attempt is made to</em>
+<a class="jxr_linenumber" name="L107" href="#L107">107</a> <em class="jxr_javadoccomment">     * automatically create and recursively initialize a suitable real instance. For this attempt to succeed, the type</em>
+<a class="jxr_linenumber" name="L108" href="#L108">108</a> <em class="jxr_javadoccomment">     * of the field must either be a concrete class having a constructor that can be satisfied by available</em>
+<a class="jxr_linenumber" name="L109" href="#L109">109</a> <em class="jxr_javadoccomment">     * tested/injectable values and/or by recursively created dependencies, or a known interface (see below) for which a</em>
+<a class="jxr_linenumber" name="L110" href="#L110">110</a> <em class="jxr_javadoccomment">     * real instance can be created.</em>
+<a class="jxr_linenumber" name="L111" href="#L111">111</a> <em class="jxr_javadoccomment">     * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L112" href="#L112">112</a> <em class="jxr_javadoccomment">     * Constructor injection is also supported. In this case, the same rules used for injected fields apply to the</em>
+<a class="jxr_linenumber" name="L113" href="#L113">113</a> <em class="jxr_javadoccomment">     * parameters of the constructor that gets chosen for automatic instantiation.</em>
+<a class="jxr_linenumber" name="L114" href="#L114">114</a> <em class="jxr_javadoccomment">     * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L115" href="#L115">115</a> <em class="jxr_javadoccomment">     * Currently, the following standard types (some of which are Java EE interfaces) have special support:</em>
+<a class="jxr_linenumber" name="L116" href="#L116">116</a> <em class="jxr_javadoccomment">     * &lt;ul&gt;</em>
+<a class="jxr_linenumber" name="L117" href="#L117">117</a> <em class="jxr_javadoccomment">     * &lt;li&gt;{@link java.util.logging.Logger}: a logger is automatically</em>
+<a class="jxr_linenumber" name="L118" href="#L118">118</a> <em class="jxr_javadoccomment">     * {@linkplain java.util.logging.Logger#getLogger(String) created} with the name of the tested class.&lt;/li&gt;</em>
+<a class="jxr_linenumber" name="L119" href="#L119">119</a> <em class="jxr_javadoccomment">     * &lt;li&gt;{@link javax.sql.DataSource}: a JDBC data source is created and configured according to a matching</em>
+<a class="jxr_linenumber" name="L120" href="#L120">120</a> <em class="jxr_javadoccomment">     * {@link javax.annotation.sql.DataSourceDefinition @DataSourceDefinition} in the tested class.&lt;/li&gt;</em>
+<a class="jxr_linenumber" name="L121" href="#L121">121</a> <em class="jxr_javadoccomment">     * &lt;li&gt;{@link javax.inject.Provider Provider&amp;lt;T&gt;}: a provider which produces an instance of type &lt;code&gt;T&lt;/code&gt; is</em>
+<a class="jxr_linenumber" name="L122" href="#L122">122</a> <em class="jxr_javadoccomment">     * injected.&lt;/li&gt;</em>
+<a class="jxr_linenumber" name="L123" href="#L123">123</a> <em class="jxr_javadoccomment">     * &lt;li&gt;JPA interfaces {@link javax.persistence.EntityManagerFactory} and {@link javax.persistence.EntityManager}:</em>
+<a class="jxr_linenumber" name="L124" href="#L124">124</a> <em class="jxr_javadoccomment">     * created through calls to {@link javax.persistence.Persistence#createEntityManagerFactory(String)} and</em>
+<a class="jxr_linenumber" name="L125" href="#L125">125</a> <em class="jxr_javadoccomment">     * {@link javax.persistence.EntityManagerFactory#createEntityManager()}, provided a suitable</em>
+<a class="jxr_linenumber" name="L126" href="#L126">126</a> <em class="jxr_javadoccomment">     * &lt;code&gt;META-INF/persistence.xml&lt;/code&gt; file is available in the runtime classpath.&lt;/li&gt;</em>
+<a class="jxr_linenumber" name="L127" href="#L127">127</a> <em class="jxr_javadoccomment">     * &lt;li&gt;Servlet interfaces {@link javax.servlet.ServletContext} and {@link javax.servlet.http.HttpSession}: objects</em>
+<a class="jxr_linenumber" name="L128" href="#L128">128</a> <em class="jxr_javadoccomment">     * that emulate the servlet context and HTTP session are automatically created for use in tests.&lt;/li&gt;</em>
+<a class="jxr_linenumber" name="L129" href="#L129">129</a> <em class="jxr_javadoccomment">     * &lt;li&gt;{@link javax.enterprise.context.Conversation}: an object that emulates a web application's conversation</em>
+<a class="jxr_linenumber" name="L130" href="#L130">130</a> <em class="jxr_javadoccomment">     * context is created.&lt;/li&gt;</em>
+<a class="jxr_linenumber" name="L131" href="#L131">131</a> <em class="jxr_javadoccomment">     * &lt;/ul&gt;</em>
+<a class="jxr_linenumber" name="L132" href="#L132">132</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L133" href="#L133">133</a> <em class="jxr_javadoccomment">     * @return true, if successful</em>
+<a class="jxr_linenumber" name="L134" href="#L134">134</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>     <strong class="jxr_keyword">boolean</strong> fullyInitialized() <strong class="jxr_keyword">default</strong> false;
+<a class="jxr_linenumber" name="L136" href="#L136">136</a> 
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L138" href="#L138">138</a> <em class="jxr_javadoccomment">     * Indicates whether the tested class gets instantiated and initialized &lt;em&gt;before&lt;/em&gt; the execution of test setup</em>
+<a class="jxr_linenumber" name="L139" href="#L139">139</a> <em class="jxr_javadoccomment">     * methods (ie, those annotated as &lt;code&gt;@Before&lt;/code&gt; or &lt;code&gt;@BeforeMethod&lt;/code&gt;), or &lt;em&gt;after&lt;/em&gt; them.</em>
+<a class="jxr_linenumber" name="L140" href="#L140">140</a> <em class="jxr_javadoccomment">     * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L141" href="#L141">141</a> <em class="jxr_javadoccomment">     * Typically, the early creation of tested objects is useful in a test setup method, which can use them for the</em>
+<a class="jxr_linenumber" name="L142" href="#L142">142</a> <em class="jxr_javadoccomment">     * initialization of other objects. Another potential use is to affect the initialization of other tested objects in</em>
+<a class="jxr_linenumber" name="L143" href="#L143">143</a> <em class="jxr_javadoccomment">     * the same test class, during their creation &lt;em&gt;after&lt;/em&gt; setup. Finally, objects made available during setup are</em>
+<a class="jxr_linenumber" name="L144" href="#L144">144</a> <em class="jxr_javadoccomment">     * also available during the execution of any tear-down methods.</em>
+<a class="jxr_linenumber" name="L145" href="#L145">145</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L146" href="#L146">146</a> <em class="jxr_javadoccomment">     * @return true, if successful</em>
+<a class="jxr_linenumber" name="L147" href="#L147">147</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>     <strong class="jxr_keyword">boolean</strong> availableDuringSetup() <strong class="jxr_keyword">default</strong> false;
+<a class="jxr_linenumber" name="L149" href="#L149">149</a> 
+<a class="jxr_linenumber" name="L150" href="#L150">150</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L151" href="#L151">151</a> <em class="jxr_javadoccomment">     * Indicates whether a single &lt;em&gt;named&lt;/em&gt; instance of the tested class is to be created and used for the whole</em>
+<a class="jxr_linenumber" name="L152" href="#L152">152</a> <em class="jxr_javadoccomment">     * test run. The name is the same as the annotated field or test method parameter.</em>
+<a class="jxr_linenumber" name="L153" href="#L153">153</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L154" href="#L154">154</a> <em class="jxr_javadoccomment">     * @return true, if successful</em>
+<a class="jxr_linenumber" name="L155" href="#L155">155</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L156" href="#L156">156</a>     <strong class="jxr_keyword">boolean</strong> global() <strong class="jxr_keyword">default</strong> false;
+<a class="jxr_linenumber" name="L157" href="#L157">157</a> }
+</pre>
+<hr/>
+<div id="footer">© 2006–2025 <a href="https://github.com/hazendaz/">hazendaz</a></div>
+</body>
+</html>

@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"java8testing"},{"l":"jmockit.loginExample.domain.userLogin"},{"l":"petclinic.owners"},{"l":"petclinic.pets"},{"l":"petclinic.util"},{"l":"petclinic.vets"},{"l":"petclinic.visits"},{"l":"tutorial.domain"}];updateSearchResults();

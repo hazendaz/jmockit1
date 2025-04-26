@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>ConstantPoolTypes xref</title>
+<link type="text/css" rel="stylesheet" href="../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../apidocs/mockit/asm/jvmConstants/ConstantPoolTypes.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> mockit.asm.jvmConstants;
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * Constants for &lt;a href="<a href="https://docs.oracle.com/javase/specs/jvms/se12/html/jvms-4.html" target="alexandria_uri">https://docs.oracle.com/javase/specs/jvms/se12/html/jvms-4.html</a>#jvms-4.4-140"&gt;types of</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> * items&lt;/a&gt; in the constant pool of a class.</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">interface</strong> <a name="ConstantPoolTypes" href="../../../mockit/asm/jvmConstants/ConstantPoolTypes.html#ConstantPoolTypes">ConstantPoolTypes</a> {
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>       <strong class="jxr_keyword">int</strong> UTF8 = 1; <em class="jxr_comment">// CONSTANT_Utf8</em>
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>       <strong class="jxr_keyword">int</strong> INTEGER = 3; <em class="jxr_comment">// CONSTANT_Integer</em>
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>      <strong class="jxr_keyword">int</strong> FLOAT = 4; <em class="jxr_comment">// CONSTANT_Float</em>
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>      <strong class="jxr_keyword">int</strong> LONG = 5; <em class="jxr_comment">// CONSTANT_Long</em>
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>      <strong class="jxr_keyword">int</strong> DOUBLE = 6; <em class="jxr_comment">// CONSTANT_Double</em>
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>      <strong class="jxr_keyword">int</strong> CLASS = 7; <em class="jxr_comment">// CONSTANT_Class</em>
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>      <strong class="jxr_keyword">int</strong> STRING = 8; <em class="jxr_comment">// CONSTANT_String</em>
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>      <strong class="jxr_keyword">int</strong> FIELD_REF = 9; <em class="jxr_comment">// CONSTANT_Fieldref</em>
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>      <strong class="jxr_keyword">int</strong> METHOD_REF = 10; <em class="jxr_comment">// CONSTANT_Methodref</em>
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>      <strong class="jxr_keyword">int</strong> IMETHOD_REF = 11; <em class="jxr_comment">// CONSTANT_InterfaceMethodref</em>
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>      <strong class="jxr_keyword">int</strong> NAME_TYPE = 12; <em class="jxr_comment">// CONSTANT_NameAndType</em>
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>      <strong class="jxr_keyword">int</strong> METHOD_HANDLE = 15; <em class="jxr_comment">// CONSTANT_MethodHandle</em>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>      <strong class="jxr_keyword">int</strong> METHOD_TYPE = 16; <em class="jxr_comment">// CONSTANT_MethodType</em>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>      <strong class="jxr_keyword">int</strong> DYNAMIC = 17; <em class="jxr_comment">// CONSTANT_Dynamic</em>
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>      <strong class="jxr_keyword">int</strong> INVOKE_DYNAMIC = 18; <em class="jxr_comment">// CONSTANT_InvokeDynamic</em>
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>      <strong class="jxr_keyword">int</strong> MODULE = 19; <em class="jxr_comment">// CONSTANT_Module</em>
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>      <strong class="jxr_keyword">int</strong> PACKAGE = 20; <em class="jxr_comment">// CONSTANT_Package</em>
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment">     * The base value for all CONSTANT_MethodHandle constant pool items. Internally, there are 9 variations of</em>
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment">     * CONSTANT_MethodHandle items, which are stored into 9 different items, of types 21 to 29.</em>
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">int</strong> HANDLE_BASE = 20;
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment">     * The type of BootstrapMethod items. These items are stored in a special class attribute named "BootstrapMethods"</em>
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment">     * and not in the constant pool.</em>
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">int</strong> BSM = 33;
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  }
+</pre>
+<hr/>
+<div id="footer">© 2006–2025 <a href="https://github.com/hazendaz/">hazendaz</a></div>
+</body>
+</html>

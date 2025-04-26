@@ -1,0 +1,7 @@
+mockit
+mockit.integration
+mockit.integration.junit4
+mockit.integration.springframework
+otherTests
+otherTests.multicast
+otherTests.testng

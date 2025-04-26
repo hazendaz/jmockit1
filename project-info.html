@@ -10,7 +10,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content="Apache Maven Doxia Site Renderer 2.0.0" />
-    <title>Project Information – petclinic</title>
+    <title>Project Information – jmockit-parent</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-2.1.0.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -34,12 +34,13 @@
               <ul class="dropdown-menu">
                   <li><a href="ci-management.html">CI Management</a></li>
                   <li><a href="dependencies.html">Dependencies</a></li>
+                  <li><a href="dependency-convergence.html">Dependency Convergence</a></li>
                   <li><a href="dependency-info.html">Maven Coordinates</a></li>
-                  <li><a href="dependency-management.html">Dependency Management</a></li>
                   <li><a href="distribution-management.html">Distribution Management</a></li>
                   <li><a href="index.html">About</a></li>
                   <li><a href="issue-management.html">Issue Management</a></li>
                   <li><a href="licenses.html">Licenses</a></li>
+                  <li><a href="modules.html">Project Modules</a></li>
                   <li><a href="plugin-management.html">Plugin Management</a></li>
                   <li><a href="plugins.html">Plugins</a></li>
                   <li><a href="scm.html">Source Code Management</a></li>
@@ -54,7 +55,7 @@
                   <li><a href="dev-activity.html">Developer Activity</a></li>
                   <li><a href="file-activity.html">File Activity</a></li>
                   <li><a href="github-changes.html">GitHub Report</a></li>
-                  <li><a href="checkstyle.html">Checkstyle</a></li>
+                  <li><a href="checkstyle-aggregate.html">Checkstyle</a></li>
                   <li><a href="apidocs/index.html">Javadoc</a></li>
                   <li><a href="testapidocs/index.html">Test Javadoc</a></li>
                   <li><a href="xref/index.html">Source Xref</a></li>
@@ -62,11 +63,13 @@
                   <li><a href="cpd.html">CPD</a></li>
                   <li><a href="pmd.html">PMD</a></li>
                   <li><a href="surefire.html">Surefire</a></li>
-                  <li><a href="spotbugs.html">SpotBugs</a></li>
+                  <li><a href="dependency-updates-aggregate-report.html">Dependency Updates Aggregate Report</a></li>
                   <li><a href="dependency-updates-report.html">Dependency Updates Report</a></li>
+                  <li><a href="parent-updates-report.html">Parent Updates Report</a></li>
+                  <li><a href="plugin-updates-aggregate-report.html">Plugin Updates Aggregate Report</a></li>
                   <li><a href="plugin-updates-report.html">Plugin Updates Report</a></li>
+                  <li><a href="property-updates-aggregate-report.html">Property Updates Aggregate Report</a></li>
                   <li><a href="property-updates-report.html">Property Updates Report</a></li>
-                  <li><a href="taglist.html">Tag List</a></li>
                   <li><a href="dependency-check-report.html">dependency-check:aggregate</a></li>
               </ul>
             </li>
@@ -77,7 +80,7 @@
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown">External Links <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-    <li><a href="../../../..">Hazendaz</a></li>
+    <li><a href="../..">Hazendaz</a></li>
                 </ul>
               </li>
             </ul>
@@ -87,8 +90,8 @@
     <div class="container-fluid container-fluid-top">
       <header>
         <div id="banner">
-          <div class="pull-left"><div id="bannerLeft"><h1><a href="../../../.."><img src="images/hazendaz-banner.jpg" /></a></h1></div></div>
-          <div class="pull-right"><div id="bannerRight"><h1><a href="../../../.."><img src="images/hazendaz.png" /></a></h1></div></div>
+          <div class="pull-left"><div id="bannerLeft"><h1><a href="../.."><img src="images/hazendaz-banner.jpg" /></a></h1></div></div>
+          <div class="pull-right"><div id="bannerRight"><h1><a href="../.."><img src="images/hazendaz.png" /></a></h1></div></div>
           <div class="clear"><hr/></div>
         </div>
 
@@ -109,12 +112,13 @@
      <ul class="nav nav-list">
       <li><a href="ci-management.html">CI Management</a></li>
       <li><a href="dependencies.html">Dependencies</a></li>
+      <li><a href="dependency-convergence.html">Dependency Convergence</a></li>
       <li><a href="dependency-info.html">Maven Coordinates</a></li>
-      <li><a href="dependency-management.html">Dependency Management</a></li>
       <li><a href="distribution-management.html">Distribution Management</a></li>
       <li><a href="index.html">About</a></li>
       <li><a href="issue-management.html">Issue Management</a></li>
       <li><a href="licenses.html">Licenses</a></li>
+      <li><a href="modules.html">Project Modules</a></li>
       <li><a href="plugin-management.html">Plugin Management</a></li>
       <li><a href="plugins.html">Plugins</a></li>
       <li><a href="scm.html">Source Code Management</a></li>
@@ -148,18 +152,17 @@
 <td><a href="dependencies.html">Dependencies</a></td>
 <td>This document lists the project's dependencies and provides information on each dependency.</td></tr>
 <tr class="b">
+<td><a href="dependency-convergence.html">Dependency Convergence</a></td>
+<td>This document presents the convergence of dependency versions across the entire project, and its sub modules.</td></tr>
+<tr class="a">
 <td><a href="dependency-info.html">Maven Coordinates</a></td>
 <td>This document describes how to include this project as a dependency using various dependency management tools.</td></tr>
-<tr class="a">
-<td><a href="dependency-management.html">Dependency Management</a></td>
-<td>This document lists the dependencies that are defined through dependencyManagement.</td></tr>
 <tr class="b">
 <td><a href="distribution-management.html">Distribution Management</a></td>
 <td>This document provides informations on the distribution management of this project.</td></tr>
 <tr class="a">
 <td><a href="index.html">About</a></td>
-<td>A re-creation of the Spring PetClinic Sample Application, using Java EE 7 for UI controllers and business classes.
-      JMockit is used for integration testing, instead of the Spring Test Context.</td></tr>
+<td>Parent POM for JMOCKIT</td></tr>
 <tr class="b">
 <td><a href="issue-management.html">Issue Management</a></td>
 <td>This document provides information on the issue management system used in this project.</td></tr>
@@ -167,18 +170,21 @@
 <td><a href="licenses.html">Licenses</a></td>
 <td>This document lists the project license(s).</td></tr>
 <tr class="b">
+<td><a href="modules.html">Project Modules</a></td>
+<td>This document lists the modules (sub-projects) of this project.</td></tr>
+<tr class="a">
 <td><a href="plugin-management.html">Plugin Management</a></td>
 <td>This document lists the plugins that are defined through pluginManagement.</td></tr>
-<tr class="a">
+<tr class="b">
 <td><a href="plugins.html">Plugins</a></td>
 <td>This document lists the build plugins and the report plugins used by this project.</td></tr>
-<tr class="b">
+<tr class="a">
 <td><a href="scm.html">Source Code Management</a></td>
 <td>This document lists ways to access the online source repository.</td></tr>
-<tr class="a">
+<tr class="b">
 <td><a href="summary.html">Summary</a></td>
 <td>This document lists other related information of this project</td></tr>
-<tr class="b">
+<tr class="a">
 <td><a href="team.html">Team</a></td>
 <td>This document provides information on the members of this project. These are the individuals who have contributed to the project in one form or another.</td></tr></table></section></section>        </main>
       </div>

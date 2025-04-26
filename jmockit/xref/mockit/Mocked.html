@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>Mocked xref</title>
+<link type="text/css" rel="stylesheet" href="../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../apidocs/mockit/Mocked.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright (c) 2006 JMockit developers</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> * This file is subject to the terms of the MIT license (see LICENSE.txt).</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> */</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">package</strong> mockit;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> java.lang.annotation.ElementType.FIELD;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> java.lang.annotation.ElementType.PARAMETER;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> java.lang.annotation.RetentionPolicy.RUNTIME;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.lang.annotation.Retention;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.lang.annotation.Target;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> * Indicates an instance field of a test class as being a &lt;em&gt;mock field&lt;/em&gt;, or a parameter of a test method as a</em>
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment"> * &lt;em&gt;mock parameter&lt;/em&gt;; in either case, the declared type of the field/parameter is a &lt;em&gt;mocked type&lt;/em&gt;, whose</em>
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> * instances are &lt;em&gt;mocked instances&lt;/em&gt;.</em>
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> * Mocked types can also be introduced by other annotations: {@linkplain Injectable @Injectable},</em>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> * {@link Capturing @Capturing}. Their effect is to &lt;em&gt;constrain&lt;/em&gt; or &lt;em&gt;extend&lt;/em&gt; the mocking capabilities here</em>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> * specified.</em>
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> * Any type can be mocked, except for primitive and array types. A mocked instance of that type is automatically created</em>
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment"> * and assigned to the mock field/parameter, for use when {@linkplain Expectations recording} and/or</em>
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment"> * {@linkplain Verifications verifying} expectations. For a mock &lt;em&gt;field&lt;/em&gt;, the test itself can provide the</em>
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment"> * instance by declaring the field as &lt;code&gt;final&lt;/code&gt; and assigning it the desired instance (or &lt;code&gt;null&lt;/code&gt;).</em>
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment"> * The effect of declaring a &lt;code&gt;@Mocked&lt;/code&gt; type, &lt;em&gt;by default&lt;/em&gt;, is that all new instances of that type, as</em>
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment"> * well as those previously created, will also be mocked instances; this will last for the duration of each test where</em>
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment"> * the associated mock field/parameter is in scope. All non-&lt;code&gt;private&lt;/code&gt; methods of the mocked type will be</em>
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment"> * mocked.</em>
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment"> * When the mocked type is a class, all super-classes up to but not including &lt;code&gt;java.lang.Object&lt;/code&gt; are also</em>
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment"> * mocked. Additionally, &lt;em&gt;static methods&lt;/em&gt; and &lt;em&gt;constructors&lt;/em&gt; are mocked as well, just like instance</em>
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment"> * methods; &lt;em&gt;native&lt;/em&gt; methods are also mocked, provided they are &lt;code&gt;public&lt;/code&gt; or &lt;code&gt;protected&lt;/code&gt;.</em>
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment"> * While a method or constructor is mocked, an invocation does not result in the execution of the original code, but in</em>
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment"> * a (generated) call into JMockit, which then responds with either a default or a &lt;em&gt;recorded&lt;/em&gt;</em>
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment"> * {@linkplain Expectations#result result} (or with a {@linkplain Expectations#times constraint} violation, if the</em>
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment"> * invocation is deemed to be unexpected).</em>
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment"> * Mocking will automatically &lt;em&gt;cascade&lt;/em&gt; into the return types of all non-&lt;code&gt;void&lt;/code&gt; methods belonging to</em>
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment"> * the mocked type, except for non-eligible ones (primitive wrappers, &lt;code&gt;String&lt;/code&gt;, and collections/maps). When</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment"> * needed, such cascaded returns can be overridden by explicitly recording a return value for the mocked method. If</em>
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment"> * there is a mock field/parameter with the same type (or a subtype) of some cascaded type, then the original instance</em>
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment"> * from that mock field/parameter will be used as the cascaded instance, rather than a new one being created; this</em>
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment"> * applies to all cascading levels, and even to the type of the mock field/parameter itself (ie, if a method in</em>
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_javadoccomment"> * class/interface "&lt;code&gt;A&lt;/code&gt;" has return type &lt;code&gt;A&lt;/code&gt;, then it will return itself by default). Finally,</em>
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  <em class="jxr_javadoccomment"> * when new cascaded instances are created, {@linkplain Injectable @Injectable} semantics apply.</em>
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  <em class="jxr_javadoccomment"> * Static &lt;em&gt;class initializers&lt;/em&gt; (including assignments to &lt;em&gt;static&lt;/em&gt; fields) of a mocked class are not</em>
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_javadoccomment"> * affected, unless {@linkplain #stubOutClassInitialization specified otherwise}.</em>
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment"> * @see &lt;a href="<a href="http://jmockit.github.io/tutorial/Mocking.html" target="alexandria_uri">http://jmockit.github.io/tutorial/Mocking.html</a>#mocked" target="tutorial"&gt;Tutorial&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  @Retention(RUNTIME)
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  @Target({ FIELD, PARAMETER })
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <strong class="jxr_keyword">public</strong> @<strong class="jxr_keyword">interface</strong> Mocked {
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment">     * Indicates whether &lt;em&gt;static initialization code&lt;/em&gt; in the mocked class should be stubbed out or not. Static</em>
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment">     * initialization includes the execution of assignments to static fields of the class and the execution of static</em>
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment">     * initialization blocks, if any. (Note that &lt;em&gt;static final&lt;/em&gt; fields initialized with &lt;em&gt;compile-time&lt;/em&gt;</em>
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment">     * constants are not assigned at runtime, remaining unaffected whether the class is stubbed out or not.)</em>
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_javadoccomment">     * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_javadoccomment">     * By default, static initialization code in a mocked class is &lt;em&gt;not&lt;/em&gt; stubbed out. The JVM will only perform</em>
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>  <em class="jxr_javadoccomment">     * static initialization of a class &lt;em&gt;once&lt;/em&gt;, so stubbing out the initialization code can have unexpected</em>
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_javadoccomment">     * consequences. Stubbing out the static initialization of a class is an unsafe operation, which can cause other</em>
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>  <em class="jxr_javadoccomment">     * tests, executed later in the same test run, to unexpectedly fail; instead of resorting to stubbing out a class's</em>
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>  <em class="jxr_javadoccomment">     * static initializer, the root cause for wanting to stub it out should be eliminated. Caveat Emptor.</em>
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>  <em class="jxr_javadoccomment">     * @return true, if successful</em>
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>      <strong class="jxr_keyword">boolean</strong> stubOutClassInitialization() <strong class="jxr_keyword">default</strong> false;
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>  }
+</pre>
+<hr/>
+<div id="footer">© 2006–2025 <a href="https://github.com/hazendaz/">hazendaz</a></div>
+</body>
+</html>
