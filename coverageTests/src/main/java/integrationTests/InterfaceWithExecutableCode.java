@@ -8,7 +8,8 @@ import java.security.SecureRandom;
 public interface InterfaceWithExecutableCode {
 
     /** The n. */
-    int N = 1 + new SecureRandom().nextInt(10);
+    SecureRandom RANDOM = new SecureRandom();
+    int N = 1 + RANDOM.nextInt(10);
 
     /**
      * Do something.
