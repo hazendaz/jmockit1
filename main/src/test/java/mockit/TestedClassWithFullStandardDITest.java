@@ -599,7 +599,7 @@ final class TestedClassWithFullStandardDITest {
             tempFolder.deleteOnExit();
         }
 
-        persistenceXmlFile = new File(tempFolder, "persistence.xml");
+        persistenceXmlFile = tempFolder.toPath().resolve("persistence.xml").toFile();
 
         Writer xmlWriter = new FileWriter(persistenceXmlFile, StandardCharsets.UTF_8);
         xmlWriter.write("<persistence><persistence-unit name='default'/></persistence>");
