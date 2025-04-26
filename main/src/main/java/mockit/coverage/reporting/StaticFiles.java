@@ -9,10 +9,11 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.CodeSource;
 
 import mockit.internal.util.Utilities;
@@ -45,13 +46,13 @@ final class StaticFiles {
     }
 
     private void copyFile(@NonNull String fileName) throws IOException {
-        File outputFile = new File(outputDir, fileName);
+        File outputFile = Path.of(outputDir, fileName).toFile();
 
         if (outputFile.exists() && outputFile.lastModified() > getLastModifiedTimeOfCoverageJar()) {
             return;
         }
 
-        try (OutputStream output = new BufferedOutputStream(new FileOutputStream(outputFile));
+        try (OutputStream output = new BufferedOutputStream(Files.newOutputStream(outputFile.toPath()));
                 InputStream input = new BufferedInputStream(StaticFiles.class.getResourceAsStream(fileName))) {
             int b;
 
@@ -69,7 +70,7 @@ final class StaticFiles {
                 lastModifiedTimeOfCoverageJar = -1;
             } else {
                 String pathToThisJar = Utilities.getClassFileLocationPath(codeSource);
-                lastModifiedTimeOfCoverageJar = new File(pathToThisJar).lastModified();
+                lastModifiedTimeOfCoverageJar = Path.of(pathToThisJar).toFile().lastModified();
             }
         }
 
