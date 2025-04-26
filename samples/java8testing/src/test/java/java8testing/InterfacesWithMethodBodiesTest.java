@@ -308,7 +308,7 @@ final class InterfacesWithMethodBodiesTest {
         new Expectations() {
             {
                 mockConsumer.accept(anyString);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     void delegate(String s) {
                         concatenated.append(s).append(' ');

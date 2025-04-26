@@ -145,7 +145,7 @@ public final class JUnit4Test {
                 result = "test";
 
                 anotherMock.getModifiedValue("Delegate");
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     String delegate(Invocation inv, String s) {
                         assertNotNull(inv.getInvokedMember());
