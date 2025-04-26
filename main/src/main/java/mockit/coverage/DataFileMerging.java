@@ -8,6 +8,7 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,10 +28,10 @@ final class DataFileMerging {
 
     private void addInputFileToList(@NonNull String path) {
         if (!path.isEmpty()) {
-            File inputFile = new File(path);
+            File inputFile = Path.of(path).toFile();
 
             if (inputFile.isDirectory()) {
-                inputFile = new File(inputFile, "coverage.ser");
+                inputFile = inputFile.toPath().resolve("coverage.ser").toFile();
             }
 
             inputFiles.add(inputFile);

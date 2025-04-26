@@ -9,6 +9,7 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -81,14 +82,14 @@ public final class CoverageReport {
 
     private void createReportOutputDirIfNotExists() {
         if (!outputDirCreated) {
-            File outDir = new File(outputDir);
+            File outDir = Path.of(outputDir).toFile();
             outputDirCreated = outDir.mkdirs();
         }
     }
 
     @Nullable
     private File createOutputFileForIndexPage() throws IOException {
-        File outputFile = new File(outputDir, "index.html");
+        File outputFile = Path.of(outputDir, "index.html").toFile();
 
         if (outputFile.exists() && !outputFile.canWrite()) {
             logger.info("JMockit: {} is read-only; report generation canceled", outputFile.getCanonicalPath());
