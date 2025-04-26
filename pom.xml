@@ -12,7 +12,7 @@
 
     <groupId>com.github.hazendaz.jmockit</groupId>
     <artifactId>jmockit-parent</artifactId>
-    <version>1.55.1-SNAPSHOT</version>
+    <version>1.56.0</version>
     <packaging>pom</packaging>
 
     <name>jmockit-parent</name>
@@ -34,7 +34,7 @@
     <scm>
         <connection>scm:git:https://github.com/hazendaz/jmockit1</connection>
         <developerConnection>scm:git:ssh://git@github.com/hazendaz/jmockit1.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>jmockit-parent-1.56.0</tag>
         <url>https://github.com/hazendaz/jmockit1</url>
     </scm>
 
@@ -53,7 +53,7 @@
         <javadoc.java.release.version>11</javadoc.java.release.version>
 
         <!-- Reproducible Builds -->
-        <project.build.outputTimestamp>1729525454</project.build.outputTimestamp>
+        <project.build.outputTimestamp>1745704420</project.build.outputTimestamp>
 
         <!-- Automatic Module Name -->
         <module.name>com.github.hazendaz.jmockit.parent</module.name>
