@@ -131,11 +131,19 @@
             <version>2.2.3</version>
             <optional>true</optional>
         </dependency>
+        <!-- Intentially dropped back to javax to allow spring variation usage. -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <optional>true</optional>
+        </dependency>
+        <!-- Allow usage of spring 6 in build. -->
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
-            <version>4.0.4</version>
-            <optional>true</optional>
+            <version>6.0.0</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -154,13 +162,13 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>5.3.39</version>
+            <version>6.2.6</version>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>5.3.39</version>
+            <version>6.2.6</version>
             <optional>true</optional>
         </dependency>
 
@@ -193,6 +201,9 @@
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <configuration>
                         <rules>
+                            <enforceBytecodeVersion>
+                                <ignoreOptionals>true</ignoreOptionals>
+                            </enforceBytecodeVersion>
                             <restrictImports>
                                 <includeTestCode>true</includeTestCode>
                                 <groups>

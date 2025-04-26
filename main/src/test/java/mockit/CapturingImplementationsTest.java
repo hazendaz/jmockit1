@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import jakarta.faces.event.ActionEvent;
 import jakarta.faces.event.ActionListener;
+import jakarta.servlet.ServletContextListener;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
@@ -17,7 +18,6 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import javax.servlet.ServletContextListener;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
