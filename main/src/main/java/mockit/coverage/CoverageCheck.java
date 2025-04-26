@@ -9,6 +9,7 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -127,7 +128,7 @@ final class CoverageCheck {
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void createOrDeleteIndicatorFile() {
         String parentDir = Configuration.getOrChooseOutputDirectory("");
-        File indicatorFile = new File(parentDir, "coverage.check.failed");
+        File indicatorFile = Path.of(parentDir, "coverage.check.failed").toFile();
 
         if (indicatorFile.exists()) {
             if (allThresholdsSatisfied) {
