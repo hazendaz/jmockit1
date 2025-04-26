@@ -131,6 +131,7 @@
             <version>2.2.3</version>
             <optional>true</optional>
         </dependency>
+
         <!-- Intentially dropped back to javax to allow spring variation usage. -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -138,6 +139,7 @@
             <version>4.0.1</version>
             <optional>true</optional>
         </dependency>
+
         <!-- Allow usage of spring 6 in build. -->
         <dependency>
             <groupId>jakarta.servlet</groupId>
@@ -208,6 +210,7 @@
                                 <includeTestCode>true</includeTestCode>
                                 <groups>
                                     <group>
+                                        <!-- Overriding parent to allow java util logging. -->
                                         <reason>Don't allow obsolete logging</reason>
                                         <bannedImports>
                                             <bannedImport>org.apache.commons.logging.**</bannedImport>
@@ -217,6 +220,16 @@
                                 </groups>
                             </restrictImports>
                         </rules>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <configuration>
+                        <additionalOptions combine.children="append">
+                            <option>--add-modules</option>
+                            <option>java.sql</option>
+                        </additionalOptions>
                     </configuration>
                 </plugin>
             </plugins>
@@ -306,26 +319,4 @@
         </plugins>
     </build>
 
-    <profiles>
-        <profile>
-            <id>jdk17on</id>
-            <activation>
-                <jdk>[17,)</jdk>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <configuration>
-                            <additionalOptions combine.children="append">
-                                <option>--add-modules</option>
-                                <option>java.sql</option>
-                            </additionalOptions>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>

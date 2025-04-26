@@ -50,7 +50,7 @@ final class ReentrantDelegateTest {
         new Expectations() {
             {
                 RealClass.nonRecursiveStaticMethod(anyInt);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     int delegate(int i) {
                         if (i > 1) {
@@ -77,7 +77,7 @@ final class ReentrantDelegateTest {
         new Expectations() {
             {
                 rc.nonRecursiveMethod(anyInt);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     int delegate(Invocation inv, int i) {
                         if (i > 1) {
@@ -105,7 +105,7 @@ final class ReentrantDelegateTest {
         new Expectations() {
             {
                 rc.nonRecursiveMethod(anyInt);
-                result = new Delegate() {
+                result = new Delegate<Object>() {
                     @Mock
                     int nonRecursiveMethod(Invocation inv, int i) {
                         if (i > 1) {
