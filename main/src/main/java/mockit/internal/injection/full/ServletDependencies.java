@@ -362,7 +362,7 @@ final class ServletDependencies {
     @NonNull
     private HttpSession createAndRegisterHttpSession() {
         HttpSession session = new HttpSession() {
-            private final String id = String.valueOf(Math.abs(new SecureRandom().nextInt()));
+            private final String id = String.valueOf(new SecureRandom().nextInt(Integer.MAX_VALUE));
             private final long creationTime = System.currentTimeMillis();
             private final Map<String, Object> attrs = new HashMap<>();
             private int maxInactiveInterval;
