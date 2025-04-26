@@ -6,12 +6,12 @@
     <parent>
         <groupId>com.github.hazendaz.jmockit</groupId>
         <artifactId>jmockit-parent</artifactId>
-        <version>1.55.1-SNAPSHOT</version>
+        <version>1.56.1-SNAPSHOT</version>
     </parent>
 
     <groupId>com.github.hazendaz.jmockit</groupId>
     <artifactId>samples</artifactId>
-    <version>1.55.1-SNAPSHOT</version>
+    <version>1.56.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>The JMockit Testing Toolkit Samples</name>

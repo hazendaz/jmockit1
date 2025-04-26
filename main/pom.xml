@@ -6,12 +6,12 @@
     <parent>
         <groupId>com.github.hazendaz.jmockit</groupId>
         <artifactId>jmockit-parent</artifactId>
-        <version>1.55.1-SNAPSHOT</version>
+        <version>1.56.1-SNAPSHOT</version>
     </parent>
 
     <groupId>com.github.hazendaz.jmockit</groupId>
     <artifactId>jmockit</artifactId>
-    <version>1.55.1-SNAPSHOT</version>
+    <version>1.56.1-SNAPSHOT</version>
 
     <name>jmockit</name>
     <description>JMockit is a Java toolkit for automated developer testing.
