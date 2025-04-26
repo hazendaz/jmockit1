@@ -10,10 +10,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Map;
 
@@ -601,7 +601,7 @@ final class TestedClassWithFullStandardDITest {
 
         persistenceXmlFile = tempFolder.toPath().resolve("persistence.xml").toFile();
 
-        Writer xmlWriter = new FileWriter(persistenceXmlFile, StandardCharsets.UTF_8);
+        Writer xmlWriter = Files.newBufferedWriter(persistenceXmlFile.toPath(), StandardCharsets.UTF_8);
         xmlWriter.write("<persistence><persistence-unit name='default'/></persistence>");
         xmlWriter.close();
     }
