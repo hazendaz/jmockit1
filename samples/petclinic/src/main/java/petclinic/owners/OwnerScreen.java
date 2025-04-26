@@ -2,9 +2,10 @@ package petclinic.owners;
 
 import edu.umd.cs.findbugs.annotations.Nullable;
 
+import jakarta.faces.view.ViewScoped;
+
 import java.util.List;
 
-import jakarta.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
