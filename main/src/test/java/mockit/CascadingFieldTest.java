@@ -710,13 +710,13 @@ final class CascadingFieldTest {
     /**
      * The Class Derived1.
      */
-    class Derived1 extends Base<Long> {
+    static class Derived1 extends Base<Long> {
     }
 
     /**
      * The Class Derived2.
      */
-    class Derived2 extends Base<Long> {
+    static class Derived2 extends Base<Long> {
     }
 
     /**
