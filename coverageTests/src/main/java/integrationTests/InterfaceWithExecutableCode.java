@@ -1,6 +1,6 @@
 package integrationTests;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 /**
  * The Interface InterfaceWithExecutableCode.
@@ -8,7 +8,7 @@ import java.util.Random;
 public interface InterfaceWithExecutableCode {
 
     /** The n. */
-    int N = 1 + new Random().nextInt(10);
+    int N = 1 + new SecureRandom().nextInt(10);
 
     /**
      * Do something.

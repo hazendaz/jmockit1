@@ -5,11 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
 import mockit.Deencapsulation;
@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 final class DeencapsulationTest {
 
     static final class Subclass extends BaseClass {
-        final int INITIAL_VALUE = new Random().nextInt();
+        final int INITIAL_VALUE = new SecureRandom().nextInt();
         final int initialValue = -1;
 
         @SuppressWarnings("unused")
