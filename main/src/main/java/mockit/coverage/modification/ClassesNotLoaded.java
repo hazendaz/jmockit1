@@ -7,6 +7,9 @@ package mockit.coverage.modification;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
 import java.security.ProtectionDomain;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,11 +34,17 @@ public final class ClassesNotLoaded {
                 classModification.protectionDomainsWithUniqueLocations);
 
         for (ProtectionDomain pd : protectionDomainsSoFar) {
-            File classPathEntry = new File(pd.getCodeSource().getLocation().getPath());
+            URI location;
+            try {
+                location = pd.getCodeSource().getLocation().toURI();
+                File classPathEntry = Path.of(location).toFile();
 
-            if (!classPathEntry.getPath().endsWith(".jar")) {
-                firstPosAfterParentDir = classPathEntry.getPath().length() + 1;
-                loadAdditionalClasses(classPathEntry, pd);
+                if (!classPathEntry.getPath().endsWith(".jar")) {
+                    firstPosAfterParentDir = classPathEntry.getPath().length() + 1;
+                    loadAdditionalClasses(classPathEntry, pd);
+                }
+            } catch (URISyntaxException e) {
+                // Do nothing at this point
             }
         }
     }
