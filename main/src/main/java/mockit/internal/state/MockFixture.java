@@ -414,6 +414,19 @@ public final class MockFixture {
 
     // The following methods are only used by the Mocking API.
 
+    @Nullable
+    public CaptureOfNewInstances findCaptureOfImplementations(@NonNull Class<?> capturedType) {
+        for (CaptureTransformer<?> captureTransformer : captureTransformers) {
+            CaptureOfNewInstances capture = captureTransformer.getCaptureOfImplementationsIfApplicable(capturedType);
+
+            if (capture != null) {
+                return capture;
+            }
+        }
+
+        return null;
+    }
+
     public boolean isCaptured(@NonNull Object mockedInstance) {
         if (!captureTransformers.isEmpty()) {
             Class<?> mockedClass = getMockedClass(mockedInstance);

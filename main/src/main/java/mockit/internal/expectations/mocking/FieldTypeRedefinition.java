@@ -25,7 +25,7 @@ final class FieldTypeRedefinition extends TypeRedefinition {
     @Override
     void configureClassModifier(@NonNull MockedClassModifier modifier) {
         if (usePartialMocking) {
-            modifier.useDynamicMocking();
+            modifier.useDynamicMocking(true);
         }
     }
 

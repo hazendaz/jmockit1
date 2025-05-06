@@ -116,6 +116,26 @@ public class BaseClassModifier extends WrappingClassVisitor {
         return methodName != null;
     }
 
+    protected final void generateCallToSuperConstructor() {
+        if (superClassName != null) {
+            mw.visitVarInsn(ALOAD, 0);
+
+            String constructorDesc;
+
+            if ("java/lang/Object".equals(superClassName)) {
+                constructorDesc = "()V";
+            } else {
+                constructorDesc = SuperConstructorCollector.INSTANCE.findConstructor(classDesc, superClassName);
+
+                for (JavaType paramType : JavaType.getArgumentTypes(constructorDesc)) {
+                    pushDefaultValueForType(paramType);
+                }
+            }
+
+            mw.visitMethodInsn(INVOKESPECIAL, superClassName, "<init>", constructorDesc, false);
+        }
+    }
+
     protected final void generateDirectCallToHandler(@NonNull String className, int access, @NonNull String name,
             @NonNull String desc, @Nullable String genericSignature) {
         generateDirectCallToHandler(className, access, name, desc, genericSignature, ExecutionMode.Regular);
@@ -279,6 +299,20 @@ public class BaseClassModifier extends WrappingClassVisitor {
     protected final void generateEmptyImplementation() {
         mw.visitInsn(RETURN);
         mw.visitMaxStack(1);
+    }
+
+    @NonNull
+    protected final MethodVisitor copyOriginalImplementationCode(boolean disregardCallToSuper) {
+        if (disregardCallToSuper) {
+            return new DynamicConstructorModifier();
+        }
+
+        if (isNative(methodAccess)) {
+            generateEmptyImplementation(methodDesc);
+            return methodAnnotationsVisitor;
+        }
+
+        return new DynamicModifier();
     }
 
     @NonNull

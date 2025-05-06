@@ -11,6 +11,7 @@ import static java.lang.reflect.Modifier.PROTECTED;
 import static java.lang.reflect.Modifier.PUBLIC;
 import static java.lang.reflect.Modifier.STATIC;
 import static java.lang.reflect.Modifier.isNative;
+import static java.lang.reflect.Modifier.isStatic;
 
 import static mockit.asm.jvmConstants.Access.ENUM;
 import static mockit.asm.jvmConstants.Access.SYNTHETIC;
@@ -53,6 +54,7 @@ final class MockedClassModifier extends BaseClassModifier {
 
     @Nullable
     private final MockedType mockedType;
+    private final boolean classFromNonBootstrapClassLoader;
     private String className;
     private String methodSignature;
     @Nullable
@@ -64,22 +66,32 @@ final class MockedClassModifier extends BaseClassModifier {
     private String defaultFilters;
     @Nullable
     List<String> enumSubclasses;
+    private boolean ignoreConstructors;
 
     MockedClassModifier(@Nullable ClassLoader classLoader, @NonNull ClassReader classReader,
             @Nullable MockedType typeMetadata) {
         super(classReader);
         mockedType = typeMetadata;
+        classFromNonBootstrapClassLoader = classLoader != null;
         setUseClassLoadingBridge(classLoader);
-        executionMode = typeMetadata != null && typeMetadata.injectable ? ExecutionMode.PerInstance
-                : ExecutionMode.Regular;
+        executionMode = ExecutionMode.Regular;
+        useInstanceBasedMockingIfApplicable();
     }
 
-    void useDynamicMocking() {
-        executionMode = ExecutionMode.Partial;
+    private void useInstanceBasedMockingIfApplicable() {
+        if (mockedType != null && mockedType.injectable) {
+            ignoreConstructors = !mockedType.withInstancesToCapture();
+            executionMode = ExecutionMode.PerInstance;
+        }
     }
 
     void setClassNameForCapturedInstanceMethods(@NonNull String internalClassName) {
         baseClassNameForCapturedInstanceMethods = internalClassName;
+    }
+
+    void useDynamicMocking(boolean methodsOnly) {
+        ignoreConstructors = methodsOnly;
+        executionMode = ExecutionMode.Partial;
     }
 
     @Override
@@ -91,6 +103,7 @@ final class MockedClassModifier extends BaseClassModifier {
 
         if (isProxy) {
             className = additionalInfo.interfaces[0];
+            defaultFilters = null;
         } else {
             className = name;
             defaultFilters = FILTERS.get(name);
@@ -148,32 +161,62 @@ final class MockedClassModifier extends BaseClassModifier {
 
         methodSignature = signature;
 
-        if ("<init>".equals(name)) {
+        boolean visitingConstructor = "<init>".equals(name);
+        ExecutionMode actualExecutionMode = determineAppropriateExecutionMode(visitingConstructor);
+        String internalClassName = className;
+
+        if (visitingConstructor) {
             if (isConstructorNotAllowedByMockingFilters(name)) {
                 return unmodifiedBytecode(access, name, desc, signature, exceptions);
             }
+            startModifiedMethodVersion(access, name, desc, signature, exceptions);
+            generateCallToSuperConstructor();
         } else {
+            if (isMethodNotToBeMocked(access, name, desc)) {
+                return unmodifiedBytecode(access, name, desc, signature, exceptions);
+            }
+
             if (stubOutFinalizeMethod(access, name, desc)) {
                 return null;
             }
 
-            if ("<clinit>".equals(name)) {
-                return stubOutClassInitializationIfApplicable(access);
-            }
-
-            if (isMethodNotToBeMocked(access, name, desc) || isMethodNotAllowedByMockingFilters(access, name)) {
+            if (isMethodNotAllowedByMockingFilters(access, name)) {
                 return unmodifiedBytecode(access, name, desc, signature, exceptions);
             }
+
+            startModifiedMethodVersion(access, name, desc, signature, exceptions);
+
+            if (baseClassNameForCapturedInstanceMethods != null) {
+                internalClassName = baseClassNameForCapturedInstanceMethods;
+            }
         }
 
-        startModifiedMethodVersion(access, name, desc, signature, exceptions);
-
-        if (isNative(methodAccess)) {
-            generateEmptyImplementation(methodDesc);
-            return methodAnnotationsVisitor;
+        if (useClassLoadingBridge) {
+            return generateCallToHandlerThroughMockingBridge(signature, internalClassName, visitingConstructor,
+                    actualExecutionMode);
         }
 
-        return copyOriginalImplementationWithInjectedInterceptionCode();
+        generateDirectCallToHandler(internalClassName, access, name, desc, signature, actualExecutionMode);
+        generateDecisionBetweenReturningOrContinuingToRealImplementation();
+
+        // Constructors of non-JRE classes can't be modified (unless running with "-noverify") in a way that
+        // "super(...)/this(...)" get called twice, so we disregard such calls when copying the original bytecode.
+        return copyOriginalImplementationCode(visitingConstructor);
+    }
+
+    @NonNull
+    private ExecutionMode determineAppropriateExecutionMode(boolean visitingConstructor) {
+        if (executionMode == ExecutionMode.PerInstance) {
+            if (visitingConstructor) {
+                return ignoreConstructors ? ExecutionMode.Regular : ExecutionMode.Partial;
+            }
+
+            if (isStatic(methodAccess)) {
+                return ExecutionMode.Partial;
+            }
+        }
+
+        return executionMode;
     }
 
     @NonNull
@@ -267,6 +310,42 @@ final class MockedClassModifier extends BaseClassModifier {
 
         generateCodeToFillArrayWithParameterValues(argTypes, i, isStatic ? 0 : 1);
         generateCallToInvocationHandler();
+    }
+
+    @NonNull
+    private MethodVisitor generateCallToHandlerThroughMockingBridge(@Nullable String genericSignature,
+            @NonNull String internalClassName, boolean visitingConstructor,
+            @NonNull ExecutionMode actualExecutionMode) {
+        generateCodeToObtainInstanceOfClassLoadingBridge(MockedBridge.MB);
+
+        // First and second "invoke" arguments:
+        boolean isStatic = generateCodeToPassThisOrNullIfStaticMethod();
+        mw.visitInsn(ACONST_NULL);
+
+        // Create array for call arguments (third "invoke" argument):
+        JavaType[] argTypes = JavaType.getArgumentTypes(methodDesc);
+        generateCodeToCreateArrayOfObject(6 + argTypes.length);
+
+        int i = 0;
+        generateCodeToFillArrayElement(i++, methodAccess);
+        generateCodeToFillArrayElement(i++, internalClassName);
+        generateCodeToFillArrayElement(i++, methodName);
+        generateCodeToFillArrayElement(i++, methodDesc);
+        generateCodeToFillArrayElement(i++, genericSignature);
+        generateCodeToFillArrayElement(i++, actualExecutionMode.ordinal());
+
+        generateCodeToFillArrayWithParameterValues(argTypes, i, isStatic ? 0 : 1);
+        generateCallToInvocationHandler();
+
+        generateDecisionBetweenReturningOrContinuingToRealImplementation();
+
+        // Copies the entire original implementation even for a constructor, in which
+        // case the complete bytecode inside
+        // the constructor fails the strict verification activated by "-Xfuture".
+        // However, this is necessary to allow the
+        // full execution of a bootstrap class constructor when the call was not meant
+        // to be mocked.
+        return copyOriginalImplementationCode(visitingConstructor && classFromNonBootstrapClassLoader);
     }
 
     private void generateDecisionBetweenReturningOrContinuingToRealImplementation() {

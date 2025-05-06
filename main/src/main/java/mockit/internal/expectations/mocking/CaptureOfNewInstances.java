@@ -19,6 +19,7 @@ import java.util.Map;
 import mockit.asm.classes.ClassReader;
 import mockit.asm.types.JavaType;
 import mockit.internal.BaseClassModifier;
+import mockit.internal.ClassFile;
 import mockit.internal.capturing.CaptureOfImplementations;
 import mockit.internal.startup.Startup;
 import mockit.internal.state.MockFixture;
@@ -65,9 +66,47 @@ public class CaptureOfNewInstances extends CaptureOfImplementations<MockedType> 
 
     @NonNull
     private final Map<Class<?>, List<Capture>> baseTypeToCaptures;
+    @NonNull
+    private final List<Class<?>> partiallyMockedBaseTypes;
 
     CaptureOfNewInstances() {
         baseTypeToCaptures = new HashMap<>();
+        partiallyMockedBaseTypes = new ArrayList<>();
+    }
+
+    void useDynamicMocking(@NonNull Class<?> baseType) {
+        partiallyMockedBaseTypes.add(baseType);
+
+        List<Class<?>> mockedClasses = TestRun.mockFixture().getMockedClasses();
+
+        for (Class<?> mockedClass : mockedClasses) {
+            if (baseType.isAssignableFrom(mockedClass)) {
+                if (mockedClass != baseType || !baseType.isInterface()) {
+                    redefineClassForDynamicPartialMocking(baseType, mockedClass);
+                }
+            }
+        }
+    }
+
+    private static void redefineClassForDynamicPartialMocking(@NonNull Class<?> baseType,
+            @NonNull Class<?> mockedClass) {
+        ClassReader classReader = ClassFile.createReaderOrGetFromCache(mockedClass);
+
+        MockedClassModifier modifier = newModifier(mockedClass.getClassLoader(), classReader, baseType, null);
+        modifier.useDynamicMocking(true);
+        classReader.accept(modifier);
+        byte[] modifiedClassfile = modifier.toByteArray();
+
+        Startup.redefineMethods(mockedClass, modifiedClassfile);
+    }
+
+    @NonNull
+    private static MockedClassModifier newModifier(@Nullable ClassLoader cl, @NonNull ClassReader cr,
+            @NonNull Class<?> baseType, @Nullable MockedType typeMetadata) {
+        MockedClassModifier modifier = new MockedClassModifier(cl, cr, typeMetadata);
+        String baseTypeDesc = JavaType.getInternalName(baseType);
+        modifier.setClassNameForCapturedInstanceMethods(baseTypeDesc);
+        return modifier;
     }
 
     @NonNull
@@ -79,9 +118,12 @@ public class CaptureOfNewInstances extends CaptureOfImplementations<MockedType> 
     @Override
     protected BaseClassModifier createModifier(@Nullable ClassLoader cl, @NonNull ClassReader cr,
             @NonNull Class<?> baseType, @Nullable MockedType typeMetadata) {
-        MockedClassModifier modifier = new MockedClassModifier(cl, cr, typeMetadata);
-        String baseTypeDesc = JavaType.getInternalName(baseType);
-        modifier.setClassNameForCapturedInstanceMethods(baseTypeDesc);
+        MockedClassModifier modifier = newModifier(cl, cr, baseType, typeMetadata);
+
+        if (partiallyMockedBaseTypes.contains(baseType)) {
+            modifier.useDynamicMocking(true);
+        }
+
         return modifier;
     }
 
@@ -184,5 +226,6 @@ public class CaptureOfNewInstances extends CaptureOfImplementations<MockedType> 
 
     public void cleanUp() {
         baseTypeToCaptures.clear();
+        partiallyMockedBaseTypes.clear();
     }
 }
