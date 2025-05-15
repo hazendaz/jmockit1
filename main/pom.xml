@@ -164,13 +164,13 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>6.2.6</version>
+            <version>6.2.7</version>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>6.2.6</version>
+            <version>6.2.7</version>
             <optional>true</optional>
         </dependency>
 
