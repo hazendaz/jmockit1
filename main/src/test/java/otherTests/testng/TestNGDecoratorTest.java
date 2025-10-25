@@ -3,8 +3,6 @@ package otherTests.testng;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertSame;
 
-import java.applet.Applet;
-
 import javax.naming.Reference;
 
 import mockit.Mock;
@@ -24,24 +22,24 @@ public final class TestNGDecoratorTest extends BaseTestNGDecoratorTest {
 
     @Test
     public void applyAndUseSomeFakes() {
-        assertEquals(new Applet().getAppletInfo(), "TEST1");
+        assertEquals(new SimpleComponent().getInfo(), "TEST1");
         assertEquals(new Reference("REAL2").getClassName(), "REAL2");
 
         new FakeClass2();
 
         assertEquals(new Reference("").getClassName(), "TEST2");
-        assertEquals(new Applet().getAppletInfo(), "TEST1");
+        assertEquals(new SimpleComponent().getInfo(), "TEST1");
     }
 
     @Test
     public void applyAndUseFakesAgain() {
-        assertEquals(new Applet().getAppletInfo(), "TEST1");
+        assertEquals(new SimpleComponent().getInfo(), "TEST1");
         assertEquals(new Reference("REAL2").getClassName(), "REAL2");
 
         new FakeClass2();
 
         assertEquals(new Reference("").getClassName(), "TEST2");
-        assertEquals(new Applet().getAppletInfo(), "TEST1");
+        assertEquals(new SimpleComponent().getInfo(), "TEST1");
     }
 
     @AfterMethod

@@ -3,8 +3,6 @@ package otherTests.testng;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;
 
-import java.applet.Applet;
-
 import mockit.Mock;
 import mockit.MockUp;
 
@@ -21,22 +19,29 @@ public class BaseTestNGDecoratorTest implements IHookable {
         callBack.runTestMethod(testResult);
     }
 
-    public static class FakeClass1 extends MockUp<Applet> {
+    // Lightweight test-only class to be mocked.
+    public static class SimpleComponent {
+        public String getInfo() {
+            return null;
+        }
+    }
+
+    public static class FakeClass1 extends MockUp<SimpleComponent> {
         @Mock
-        public String getAppletInfo() {
+        public String getInfo() {
             return "TEST1";
         }
     }
 
     @BeforeMethod
     public final void beforeBase() {
-        assertNull(new Applet().getAppletInfo());
+        assertNull(new SimpleComponent().getInfo());
         new FakeClass1();
-        assertEquals(new Applet().getAppletInfo(), "TEST1");
+        assertEquals(new SimpleComponent().getInfo(), "TEST1");
     }
 
     @AfterMethod
     public final void afterBase() {
-        assertEquals(new Applet().getAppletInfo(), "TEST1");
+        assertEquals(new SimpleComponent().getInfo(), "TEST1");
     }
 }

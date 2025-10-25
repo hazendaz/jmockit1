@@ -2,7 +2,6 @@ package mockit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.applet.Applet;
 import java.awt.Component;
 
 import org.junit.jupiter.api.Test;
@@ -12,12 +11,19 @@ import org.junit.jupiter.api.Test;
  */
 final class MisusedFakingAPITest {
 
+    // Lightweight test-only class to be mocked.
+    public static class SimpleComponent {
+        public int getComponentCount() {
+            return 0;
+        }
+    }
+
     /**
      * Fake same method twice with reentrant fakes from two different fake classes.
      */
     @Test
     void fakeSameMethodTwiceWithReentrantFakesFromTwoDifferentFakeClasses() {
-        new MockUp<Applet>() {
+        new MockUp<SimpleComponent>() {
             @Mock
             int getComponentCount(Invocation inv) {
                 int i = inv.proceed();
@@ -25,10 +31,10 @@ final class MisusedFakingAPITest {
             }
         };
 
-        int i = new Applet().getComponentCount();
+        int i = new SimpleComponent().getComponentCount();
         assertEquals(1, i);
 
-        new MockUp<Applet>() {
+        new MockUp<SimpleComponent>() {
             @Mock
             int getComponentCount(Invocation inv) {
                 int j = inv.proceed();
@@ -37,25 +43,25 @@ final class MisusedFakingAPITest {
         };
 
         // Should return 3, but returns 5. Chaining mock methods is not supported.
-        int j = new Applet().getComponentCount();
+        int j = new SimpleComponent().getComponentCount();
         assertEquals(5, j);
     }
 
     /**
-     * The Class AppletFake.
+     * The Class SimpleComponentFake.
      */
-    static final class AppletFake extends MockUp<Applet> {
+    static final class SimpleComponentFake extends MockUp<SimpleComponent> {
 
         /** The component count. */
         final int componentCount;
 
         /**
-         * Instantiates a new applet fake.
+         * Instantiates a new simple component fake.
          *
          * @param componentCount
          *            the component count
          */
-        AppletFake(int componentCount) {
+        SimpleComponentFake(int componentCount) {
             this.componentCount = componentCount;
         }
 
@@ -78,10 +84,10 @@ final class MisusedFakingAPITest {
      */
     @Test
     void applyTheSameFakeForAClassTwice() {
-        new AppletFake(1);
-        new AppletFake(2); // second application overrides the previous one
+        new SimpleComponentFake(1);
+        new SimpleComponentFake(2); // second application overrides the previous one
 
-        assertEquals(2, new Applet().getComponentCount());
+        assertEquals(2, new SimpleComponent().getComponentCount());
     }
 
     /**

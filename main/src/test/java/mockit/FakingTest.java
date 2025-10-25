@@ -253,10 +253,10 @@ final class FakingTest {
     void publicNamedFakeWithNoInvocationParameter() {
         PublicNamedFakeWithNoInvocationParameters fake = new PublicNamedFakeWithNoInvocationParameters();
 
-        Panel applet = new Panel();
+        Panel panel = new Panel();
         assertTrue(fake.executed);
 
-        String name = applet.getName();
+        String name = panel.getName();
         assertEquals("test", name);
     }
 
