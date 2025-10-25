@@ -4,23 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
  * The Class TestedFieldWithFailedConstructorDITest.
  */
-final class TestedFieldWithFailedConstructorDITest {
-
-    /**
-     * Configure expected exception.
-     */
-    @BeforeEach
-    void configureExpectedException() {
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-        });
-        assertTrue(exception.getMessage().contains("ClassWithOneParameter(Integer value)"));
-    }
+class TestedFieldWithFailedConstructorDITest {
 
     /**
      * The Class ClassWithOneParameter.
@@ -57,6 +46,19 @@ final class TestedFieldWithFailedConstructorDITest {
      */
     @Test
     void attemptToUseTestedObjectWhoseCreationFailedDueToInjectableWithoutAValue(@Injectable String s) {
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            // Access the @Tested field to trigger initialization (and the expected failure)
+            ClassWithOneParameter t = tested;
+            if (t == null) {
+                // no-op to avoid unused warning
+            }
+        });
+
+        // Verify the exception message is similar to what the original test expected
+        assertTrue(e.getMessage().contains("No injectable value available for parameter \"value\" in constructor "));
+        assertTrue(e.getMessage().contains("ClassWithOneParameter(Integer value)"));
+
+        // The injectable method parameter should still be provided by JMockit
         assertEquals("", s);
     }
 }

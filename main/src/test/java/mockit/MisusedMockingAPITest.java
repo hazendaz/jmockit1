@@ -1,18 +1,12 @@
 package mockit;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
  * The Class MisusedMockingAPITest.
  */
-final class MisusedMockingAPITest {
+class MisusedMockingAPITest {
 
     /**
      * The Class Blah.
@@ -75,7 +69,7 @@ final class MisusedMockingAPITest {
      */
     @Test
     void recordExpectationAfterInvokingSameMethodInReplayPhase() {
-        assertEquals(0, mock.value());
+        Assertions.assertEquals(0, mock.value());
 
         new Expectations() {
             {
@@ -84,7 +78,7 @@ final class MisusedMockingAPITest {
             }
         };
 
-        assertEquals(1, mock.value());
+        Assertions.assertEquals(1, mock.value());
     }
 
     // Duplicate/pointless recordings
@@ -104,8 +98,8 @@ final class MisusedMockingAPITest {
             }
         };
 
-        assertEquals(2, mock.value());
-        assertEquals(2, mock.value());
+        Assertions.assertEquals(2, mock.value());
+        Assertions.assertEquals(2, mock.value());
     }
 
     /**
@@ -142,7 +136,7 @@ final class MisusedMockingAPITest {
             }
         }; // overrides the previous expectation
 
-        assertEquals(2, mock.value());
+        Assertions.assertEquals(2, mock.value());
     }
 
     /**
@@ -150,18 +144,19 @@ final class MisusedMockingAPITest {
      */
     @Test
     void recordMockInstanceForConstructorExpectation() {
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+        new Expectations() {
+            {
+                new Blah();
+                result = mock;
+            }
+        };
 
-            new Expectations() {
-                {
-                    new Blah();
-                    result = mock;
-                }
-            };
-
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
             new Blah();
         });
-        assertTrue(exception.getMessage().contains(" constructor"));
+        Assertions.assertTrue(exception.getMessage().contains("Invalid assignment"));
+        Assertions.assertTrue(exception.getMessage().contains("result "));
+        Assertions.assertTrue(exception.getMessage().contains(" constructor"));
     }
 
     // Order-related recordings
@@ -186,8 +181,8 @@ final class MisusedMockingAPITest {
             }
         };
 
-        assertEquals(45, mock2.value());
-        assertEquals(123, mock.value());
+        Assertions.assertEquals(45, mock2.value());
+        Assertions.assertEquals(123, mock.value());
         new Blah();
     }
 
@@ -246,7 +241,7 @@ final class MisusedMockingAPITest {
     void ambiguousCascadingWhenMultipleValidCandidatesAreAvailable(@Injectable Runnable r1, @Injectable Runnable r2) {
         Runnable cascaded = mock.getSomethingElse(); // which one to return: r1 or r2?
 
-        assertSame(r2, cascaded); // currently, last mock to be declared wins
+        Assertions.assertSame(r2, cascaded); // currently, last mock to be declared wins
     }
 
     // @Tested/@Injectable usage
@@ -277,7 +272,7 @@ final class MisusedMockingAPITest {
      */
     @Test
     void checkStaticInjectableIsNotUsed() {
-        assertNotSame(mockAction, tested.action);
+        Assertions.assertNotSame(mockAction, tested.action);
     }
 
     // Other cases
@@ -299,8 +294,8 @@ final class MisusedMockingAPITest {
      */
     @Test
     void attemptingToMockAllInstancesOfExceptionSubclass(@Mocked CustomException anyCustomException) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            fail("Shouldn't get here");
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            // The method body is empty, but the parameter injection should trigger the exception
         });
     }
 }

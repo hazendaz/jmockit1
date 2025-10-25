@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 /**
  * The Class TestedClassWithConstructorDI4Test.
  */
-final class TestedClassWithConstructorDI4Test {
+class TestedClassWithConstructorDI4Test {
 
     /**
      * The Class GenericClass.
