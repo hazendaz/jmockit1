@@ -15,7 +15,7 @@ See site pages [here](https://hazendaz.github.io/jmockit1/)
 
 How to build the project:
 * use JDK 11 or newer
-* use Maven 3.9.6 or newer; the following are the top-level modules:
+* use Maven 3.9.11 or newer; the following are the top-level modules:
     1. main/pom.xml: builds jmockit-1.n.jar, running JUnit 4/5 and TestNG test suites
     2. coverageTests/pom.xml: runs JUnit 5 tests for the coverage tool
     3. samples/pom.xml: various sample test suites (tutorial, LoginService, java8testing) using JUnit 5 or TestNG 7
@@ -35,5 +35,5 @@ This fork is the new home for jmockit continuation.  All pull requests are welco
 
 Considerations
 
-  - Testing confirmed to work from jdk 11 through jdk 25
+  - Testing confirmed to work from jdk 11 through jdk 26
   - New launcher pom in root to build entire project and entire project with demos are distributed to maven central now.
