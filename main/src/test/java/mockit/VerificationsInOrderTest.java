@@ -1,26 +1,23 @@
 package mockit;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import mockit.internal.expectations.invocation.MissingInvocation;
 import mockit.internal.expectations.invocation.UnexpectedInvocation;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class VerificationsInOrderTest.
  */
 public final class VerificationsInOrderTest {
 
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
-
     /**
      * The Class Dependency.
      */
     @SuppressWarnings("unused")
-    public static class Dependency {
+    private static class Dependency {
 
         /**
          * Sets the something.
@@ -96,7 +93,7 @@ public final class VerificationsInOrderTest {
     /**
      * Exercise code under test.
      */
-    void exerciseCodeUnderTest() {
+    private void exerciseCodeUnderTest() {
         mock.prepare();
         mock.setSomething(123);
         mock.setSomethingElse("anotherValue");
@@ -110,7 +107,7 @@ public final class VerificationsInOrderTest {
      * Verify simple invocations.
      */
     @Test
-    public void verifySimpleInvocations() {
+    void verifySimpleInvocations() {
         exerciseCodeUnderTest();
 
         new VerificationsInOrder() {
@@ -126,65 +123,67 @@ public final class VerificationsInOrderTest {
      * Verify unrecorded invocation that should happen but does not.
      */
     @Test
-    public void verifyUnrecordedInvocationThatShouldHappenButDoesNot() {
-        thrown.expect(MissingInvocation.class);
+    void verifyUnrecordedInvocationThatShouldHappenButDoesNot() {
+        MissingInvocation e = assertThrows(MissingInvocation.class, () -> {
+            mock.setSomething(1);
 
-        mock.setSomething(1);
-
-        new VerificationsInOrder() {
-            {
-                mock.notifyBeforeSave();
-            }
-        };
+            new VerificationsInOrder() {
+                {
+                    mock.notifyBeforeSave();
+                }
+            };
+        });
     }
 
     /**
      * Verify unrecorded invocation that should happen exactly once but does not.
      */
     @Test
-    public void verifyUnrecordedInvocationThatShouldHappenExactlyOnceButDoesNot() {
-        thrown.expect(MissingInvocation.class);
-        thrown.expectMessage("2");
+    void verifyUnrecordedInvocationThatShouldHappenExactlyOnceButDoesNot() {
+        MissingInvocation e = assertThrows(MissingInvocation.class, () -> {
+            mock.setSomething(1);
 
-        mock.setSomething(1);
-
-        new VerificationsInOrder() {
-            {
-                mock.setSomething(2);
-                times = 1;
-            }
-        };
+            new VerificationsInOrder() {
+                {
+                    mock.setSomething(2);
+                    times = 1;
+                }
+            };
+        });
+        assertTrue(e.getMessage().contains("2"));
     }
 
     /**
      * Verify recorded invocation that should happen but does not.
      */
     @Test
-    public void verifyRecordedInvocationThatShouldHappenButDoesNot() {
-        thrown.expect(MissingInvocation.class);
-
+    void verifyRecordedInvocationThatShouldHappenButDoesNot() {
         new Expectations() {
             {
                 mock.setSomething(1);
                 mock.notifyBeforeSave();
+                // Prevent failure here, let the verification fail instead:
+                minTimes = 0;
             }
         };
 
         mock.setSomething(1);
 
-        new VerificationsInOrder() {
-            {
-                mock.setSomething(1);
-                mock.notifyBeforeSave();
-            }
-        };
+        MissingInvocation e = assertThrows(MissingInvocation.class, () -> {
+            new VerificationsInOrder() {
+                {
+                    mock.setSomething(1);
+                    mock.notifyBeforeSave();
+                }
+            };
+        });
     }
 
     /**
      * Verify all invocations with some of them recorded.
      */
     @Test
-    public void verifyAllInvocationsWithSomeOfThemRecorded() {
+    void verifyAllInvocationsWithSomeOfThemRecorded() {
         new Expectations() {
             {
                 mock.prepare();
@@ -215,7 +214,7 @@ public final class VerificationsInOrderTest {
      * Verify invocations with exact invocation counts having recorded matching expectation with argument matcher.
      */
     @Test
-    public void verifyInvocationsWithExactInvocationCountsHavingRecordedMatchingExpectationWithArgumentMatcher() {
+    void verifyInvocationsWithExactInvocationCountsHavingRecordedMatchingExpectationWithArgumentMatcher() {
         new Expectations() {
             {
                 mock.setSomething(anyInt);
@@ -239,7 +238,7 @@ public final class VerificationsInOrderTest {
      * Verify invocation that is allowed to happen any number of times and happens once.
      */
     @Test
-    public void verifyInvocationThatIsAllowedToHappenAnyNumberOfTimesAndHappensOnce() {
+    void verifyInvocationThatIsAllowedToHappenAnyNumberOfTimesAndHappensOnce() {
         mock.prepare();
         mock.setSomething(123);
         mock.save();
@@ -257,26 +256,26 @@ public final class VerificationsInOrderTest {
      * Verify simple invocations when out of order.
      */
     @Test
-    public void verifySimpleInvocationsWhenOutOfOrder() {
-        thrown.expect(MissingInvocation.class);
-        thrown.expectMessage("123");
+    void verifySimpleInvocationsWhenOutOfOrder() {
+        MissingInvocation e = assertThrows(MissingInvocation.class, () -> {
+            mock.setSomething(123);
+            mock.prepare();
 
-        mock.setSomething(123);
-        mock.prepare();
-
-        new VerificationsInOrder() {
-            {
-                mock.prepare();
-                mock.setSomething(123);
-            }
-        };
+            new VerificationsInOrder() {
+                {
+                    mock.prepare();
+                    mock.setSomething(123);
+                }
+            };
+        });
+        assertTrue(e.getMessage().contains("123"));
     }
 
     /**
      * Verify repeating invocation.
      */
     @Test
-    public void verifyRepeatingInvocation() {
+    void verifyRepeatingInvocation() {
         mock.setSomething(123);
         mock.setSomething(123);
 
@@ -292,25 +291,25 @@ public final class VerificationsInOrderTest {
      * Verify repeating invocation that occurs one time more than expected.
      */
     @Test
-    public void verifyRepeatingInvocationThatOccursOneTimeMoreThanExpected() {
-        thrown.expect(UnexpectedInvocation.class);
+    void verifyRepeatingInvocationThatOccursOneTimeMoreThanExpected() {
+        UnexpectedInvocation e = assertThrows(UnexpectedInvocation.class, () -> {
+            mock.setSomething(123);
+            mock.setSomething(123);
 
-        mock.setSomething(123);
-        mock.setSomething(123);
-
-        new VerificationsInOrder() {
-            {
-                mock.setSomething(123);
-                maxTimes = 1;
-            }
-        };
+            new VerificationsInOrder() {
+                {
+                    mock.setSomething(123);
+                    maxTimes = 1;
+                }
+            };
+        });
     }
 
     /**
      * Verify repeating invocation using matcher.
      */
     @Test
-    public void verifyRepeatingInvocationUsingMatcher() {
+    void verifyRepeatingInvocationUsingMatcher() {
         mock.setSomething(123);
         mock.setSomething(45);
 
@@ -326,27 +325,27 @@ public final class VerificationsInOrderTest {
      * Verify invocation not expected to occur but which does.
      */
     @Test
-    public void verifyInvocationNotExpectedToOccurButWhichDoes() {
-        thrown.expect(UnexpectedInvocation.class);
-        thrown.expectMessage("123");
+    void verifyInvocationNotExpectedToOccurButWhichDoes() {
+        UnexpectedInvocation e = assertThrows(UnexpectedInvocation.class, () -> {
+            mock.prepare();
+            mock.setSomething(123);
 
-        mock.prepare();
-        mock.setSomething(123);
-
-        new VerificationsInOrder() {
-            {
-                mock.prepare();
-                mock.setSomething(anyInt);
-                maxTimes = 0;
-            }
-        };
+            new VerificationsInOrder() {
+                {
+                    mock.prepare();
+                    mock.setSomething(anyInt);
+                    maxTimes = 0;
+                }
+            };
+        });
+        assertTrue(e.getMessage().contains("123"));
     }
 
     /**
      * Verify with argument matcher.
      */
     @Test
-    public void verifyWithArgumentMatcher() {
+    void verifyWithArgumentMatcher() {
         exerciseCodeUnderTest();
 
         new VerificationsInOrder() {
@@ -361,7 +360,7 @@ public final class VerificationsInOrderTest {
      * Verify with individual invocation counts for non consecutive invocations.
      */
     @Test
-    public void verifyWithIndividualInvocationCountsForNonConsecutiveInvocations() {
+    void verifyWithIndividualInvocationCountsForNonConsecutiveInvocations() {
         exerciseCodeUnderTest();
 
         new VerificationsInOrder() {
@@ -381,7 +380,7 @@ public final class VerificationsInOrderTest {
      *            the wh
      */
     @Test
-    public void verifyUsingInvocationCountConstraintAndArgumentMatcherOnObjectWithMockedHashCode(
+    void verifyUsingInvocationCountConstraintAndArgumentMatcherOnObjectWithMockedHashCode(
             @Mocked ClassWithHashCode wh) {
         mock.doSomething(null);
         mock.doSomething(wh);
@@ -399,50 +398,49 @@ public final class VerificationsInOrderTest {
      * Verify with argument matchers when out of order.
      */
     @Test
-    public void verifyWithArgumentMatchersWhenOutOfOrder() {
-        thrown.expect(MissingInvocation.class);
-        thrown.expectMessage("any String");
+    void verifyWithArgumentMatchersWhenOutOfOrder() {
+        MissingInvocation e = assertThrows(MissingInvocation.class, () -> {
+            mock.setSomething(123);
+            mock.setSomethingElse("anotherValue");
+            mock.setSomething(45);
 
-        mock.setSomething(123);
-        mock.setSomethingElse("anotherValue");
-        mock.setSomething(45);
-
-        new VerificationsInOrder() {
-            {
-                mock.setSomething(anyInt);
-                mock.setSomething(anyInt);
-                mock.setSomethingElse(anyString);
-            }
-        };
+            new VerificationsInOrder() {
+                {
+                    mock.setSomething(anyInt);
+                    mock.setSomething(anyInt);
+                    mock.setSomethingElse(anyString);
+                }
+            };
+        });
+        assertTrue(e.getMessage().contains("any String"));
     }
 
     /**
      * Verify with argument matcher and individual invocation count when out of order.
      */
     @Test
-    public void verifyWithArgumentMatcherAndIndividualInvocationCountWhenOutOfOrder() {
-        thrown.expect(MissingInvocation.class);
-        thrown.expectMessage("Missing 1 invocation");
-        thrown.expectMessage("any int");
+    void verifyWithArgumentMatcherAndIndividualInvocationCountWhenOutOfOrder() {
+        MissingInvocation e = assertThrows(MissingInvocation.class, () -> {
+            mock.setSomething(123);
+            mock.prepare();
+            mock.setSomething(45);
 
-        mock.setSomething(123);
-        mock.prepare();
-        mock.setSomething(45);
-
-        new VerificationsInOrder() {
-            {
-                mock.prepare();
-                mock.setSomething(anyInt);
-                times = 2;
-            }
-        };
+            new VerificationsInOrder() {
+                {
+                    mock.prepare();
+                    mock.setSomething(anyInt);
+                    times = 2;
+                }
+            };
+        });
+        assertTrue(e.getMessage().contains("Missing 1 invocation") && e.getMessage().contains("any int"));
     }
 
     /**
      * Verify two independent sequences of invocations which occur separately.
      */
     @Test
-    public void verifyTwoIndependentSequencesOfInvocationsWhichOccurSeparately() {
+    void verifyTwoIndependentSequencesOfInvocationsWhichOccurSeparately() {
         // First sequence:
         mock.setSomething(1);
         mock.setSomething(2);
@@ -472,7 +470,7 @@ public final class VerificationsInOrderTest {
      * Verify two independent sequences of invocations which are mixed together.
      */
     @Test
-    public void verifyTwoIndependentSequencesOfInvocationsWhichAreMixedTogether() {
+    void verifyTwoIndependentSequencesOfInvocationsWhichAreMixedTogether() {
         mock.setSomething(1); // first sequence
         mock.setSomething(10); // second sequence
         mock.setSomething(2); // first sequence
@@ -499,7 +497,7 @@ public final class VerificationsInOrderTest {
      * Verify second sequence of invocations with times constraint after verifying last invocation of first sequence.
      */
     @Test
-    public void verifySecondSequenceOfInvocationsWithTimesConstraintAfterVerifyingLastInvocationOfFirstSequence() {
+    void verifySecondSequenceOfInvocationsWithTimesConstraintAfterVerifyingLastInvocationOfFirstSequence() {
         mock.setSomething(1); // first sequence
         mock.setSomething(3); // second sequence
         mock.setSomething(4); // second sequence
