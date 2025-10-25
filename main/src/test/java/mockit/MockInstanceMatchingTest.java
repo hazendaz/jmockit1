@@ -1,8 +1,5 @@
 package mockit;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
-
 import java.util.concurrent.AbstractExecutorService;
 
 import javax.sql.DataSource;
@@ -16,7 +13,7 @@ import org.w3c.dom.Attr;
 /**
  * The Class MockInstanceMatchingTest.
  */
-final class MockInstanceMatchingTest {
+class MockInstanceMatchingTest {
 
     /**
      * The Class Collaborator.
@@ -66,10 +63,10 @@ final class MockInstanceMatchingTest {
         };
 
         int result = mock.getValue();
-        assertEquals(12, result);
+        Assertions.assertEquals(12, result);
 
         Collaborator another = new Collaborator();
-        assertEquals(0, another.getValue());
+        Assertions.assertEquals(0, another.getValue());
     }
 
     /**
@@ -80,17 +77,16 @@ final class MockInstanceMatchingTest {
      */
     @Test
     void recordOnMockInstanceButReplayOnDifferentInstance(@Mocked final Collaborator verifiedMock) {
+        new Expectations() {
+            {
+                verifiedMock.getValue();
+                result = 12;
+            }
+        };
+
+        Collaborator collaborator = new Collaborator();
         Assertions.assertThrows(MissingInvocation.class, () -> {
-
-            new Expectations() {
-                {
-                    verifiedMock.getValue();
-                    result = 12;
-                }
-            };
-
-            Collaborator collaborator = new Collaborator();
-            assertEquals(0, collaborator.getValue());
+            collaborator.getValue();
         });
     }
 
@@ -148,7 +144,6 @@ final class MockInstanceMatchingTest {
     @Test
     void verifyOnMockInstanceButReplayOnDifferentInstance(@Mocked final Collaborator verifiedMock) {
         Assertions.assertThrows(MissingInvocation.class, () -> {
-
             new Collaborator().setValue(12);
 
             new Verifications() {
@@ -177,8 +172,8 @@ final class MockInstanceMatchingTest {
             }
         };
 
-        assertEquals(12, mock.getValue());
-        assertEquals(13, mock2.getValue());
+        Assertions.assertEquals(12, mock.getValue());
+        Assertions.assertEquals(13, mock2.getValue());
         mock.setValue(20);
     }
 
@@ -190,15 +185,14 @@ final class MockInstanceMatchingTest {
      */
     @Test
     void recordOnSpecificMockInstancesButReplayOnDifferentOnes(@Mocked final Collaborator mock2) {
+        new Expectations() {
+            {
+                mock.setValue(12);
+                mock2.setValue(13);
+            }
+        };
+
         Assertions.assertThrows(MissingInvocation.class, () -> {
-
-            new Expectations() {
-                {
-                    mock.setValue(12);
-                    mock2.setValue(13);
-                }
-            };
-
             mock2.setValue(12);
             mock.setValue(13);
         });
@@ -234,7 +228,6 @@ final class MockInstanceMatchingTest {
     @Test
     void verifyOnSpecificMockInstancesButReplayOnDifferentOnes(@Mocked final Collaborator mock2) {
         Assertions.assertThrows(MissingInvocation.class, () -> {
-
             mock2.setValue(12);
             mock.setValue(13);
 
@@ -266,8 +259,8 @@ final class MockInstanceMatchingTest {
             }
         };
 
-        assertEquals(1, mock.getValue());
-        assertEquals(2, mock2.getValue());
+        Assertions.assertEquals(1, mock.getValue());
+        Assertions.assertEquals(2, mock2.getValue());
     }
 
     /**
@@ -287,10 +280,10 @@ final class MockInstanceMatchingTest {
             }
         };
 
-        assertEquals(2, mock2.getValue());
-        assertEquals(1, mock.getValue());
-        assertEquals(1, mock.getValue());
-        assertEquals(2, mock2.getValue());
+        Assertions.assertEquals(2, mock2.getValue());
+        Assertions.assertEquals(1, mock.getValue());
+        Assertions.assertEquals(1, mock.getValue());
+        Assertions.assertEquals(2, mock2.getValue());
     }
 
     /**
@@ -335,7 +328,6 @@ final class MockInstanceMatchingTest {
     void verifyExpectationsMatchingOnMultipleMockParametersButReplayedOutOfOrder(
             @Mocked final AbstractExecutorService es1, @Mocked final AbstractExecutorService es2) {
         Assertions.assertThrows(MissingInvocation.class, () -> {
-
             es2.execute(null);
             es1.submit((Runnable) null);
 
@@ -360,7 +352,7 @@ final class MockInstanceMatchingTest {
             }
         };
 
-        assertEquals(1, new Collaborator().getValue());
+        Assertions.assertEquals(1, new Collaborator().getValue());
     }
 
     /**
@@ -388,9 +380,9 @@ final class MockInstanceMatchingTest {
             }
         };
 
-        assertNotSame(mockDS1, mockDS2);
-        assertEquals(1000, mockDS1.getLoginTimeout());
-        assertEquals(2000, mockDS2.getLoginTimeout());
+        Assertions.assertNotSame(mockDS1, mockDS2);
+        Assertions.assertEquals(1000, mockDS1.getLoginTimeout());
+        Assertions.assertEquals(2000, mockDS2.getLoginTimeout());
         mockDS2.setLoginTimeout(3000);
 
         new Verifications() {

@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 /**
  * The Class AssertionErrorMessagesTest.
  */
-final class AssertionErrorMessagesTest {
+class AssertionErrorMessagesTest {
 
     /**
      * The Class Collaborator.
@@ -155,12 +155,13 @@ final class AssertionErrorMessagesTest {
             }
         };
 
-        Throwable exception = assertThrows(UnexpectedInvocation.class, () -> {
-            mock.doSomething();
+        mock.doSomething();
+
+        UnexpectedInvocation exception = Assertions.assertThrows(UnexpectedInvocation.class, () -> {
             new FullVerifications(mock) {
             };
         });
-        assertTrue(exception.getMessage().contains("doSomething()\n   on mock instance"));
+        Assertions.assertTrue(exception.getMessage().contains("doSomething()\n   on mock instance"));
     }
 
     /**
@@ -175,10 +176,10 @@ final class AssertionErrorMessagesTest {
             }
         };
 
-        Throwable exception = assertThrows(MissingInvocation.class, () -> {
+        MissingInvocation exception = Assertions.assertThrows(MissingInvocation.class, () -> {
             mock.doSomething(123, "Abc");
         });
-        assertTrue(exception.getMessage().contains("any int, any String"));
+        Assertions.assertTrue(exception.getMessage().contains("any int, any String"));
     }
 
     /**
@@ -192,15 +193,19 @@ final class AssertionErrorMessagesTest {
             }
         };
 
-        Throwable exception = assertThrows(MissingInvocation.class, () -> {
+        mock.doSomethingElse("Abc");
+        mock.doSomething(1, "xy");
+        mock.doSomethingElse("");
+
+        MissingInvocation exception = Assertions.assertThrows(MissingInvocation.class, () -> {
             mock.doSomethingElse("Abc");
             mock.doSomething(1, "xy");
             mock.doSomethingElse("");
         });
-        assertTrue(exception.getMessage().contains("doSomethingElse(\"\")"));
-        assertTrue(exception.getMessage().contains("instead got:"));
-        assertTrue(exception.getMessage().contains("doSomethingElse(\"Abc\")"));
-        assertTrue(exception.getMessage().contains("doSomethingElse(\"\")"));
+        Assertions.assertTrue(exception.getMessage().contains("doSomethingElse(\"test\")"));
+        Assertions.assertTrue(exception.getMessage().contains("instead got:"));
+        Assertions.assertTrue(exception.getMessage().contains("doSomethingElse(\"Abc\")"));
+        Assertions.assertTrue(exception.getMessage().contains("doSomethingElse(\"\")"));
     }
 
     /**

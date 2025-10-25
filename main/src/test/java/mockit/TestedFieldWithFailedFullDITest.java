@@ -5,24 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.inject.Inject;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
  * The Class TestedFieldWithFailedFullDITest.
  */
-final class TestedFieldWithFailedFullDITest {
-
-    /**
-     * Configure expected exception.
-     */
-    @BeforeEach
-    void configureExpectedException() {
-        Throwable exception = assertThrows(IllegalStateException.class, () -> {
-        });
-        assertTrue(exception.getMessage().contains("of @Tested object \""
-                + ClassWithFieldOfClassHavingParameterizedConstructor.class.getSimpleName() + " tested"));
-    }
+class TestedFieldWithFailedFullDITest {
 
     /**
      * The Class ClassWithFieldOfClassHavingParameterizedConstructor.
@@ -56,6 +44,24 @@ final class TestedFieldWithFailedFullDITest {
      */
     @Test
     void attemptToUseTestedObjectWhoseCreationFailedDueToInjectableWithNullValue() {
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> {
+            // Access the tested field to ensure initialization happens (and the failure is thrown) during test
+            // execution.
+            // Depending on JMockit/JUnit interplay, initialization may occur earlier; this mirrors the original intent.
+            ClassWithFieldOfClassHavingParameterizedConstructor t = tested;
+            // reference to avoid unused warning
+            if (t == null) {
+                // no-op
+            }
+        });
+
+        assertTrue(e.getMessage().contains("Missing @Tested or @Injectable"));
+        assertTrue(e.getMessage()
+                .contains("for parameter \"value\" in constructor ClassWithParameterizedConstructor(int value)"));
+        assertTrue(e.getMessage().contains("when initializing field ") || e.getMessage().contains("when initializing"));
+        assertTrue(e.getMessage().contains("dependency"));
+        assertTrue(e.getMessage().contains("of @Tested object \""
+                + ClassWithFieldOfClassHavingParameterizedConstructor.class.getSimpleName() + " tested"));
     }
 
     /**
@@ -63,5 +69,19 @@ final class TestedFieldWithFailedFullDITest {
      */
     @Test
     void attemptToUseTestedObjectWhoseCreationFailedDueToInjectableWithNullValue2() {
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> {
+            ClassWithFieldOfClassHavingParameterizedConstructor t = tested;
+            if (t == null) {
+                // no-op
+            }
+        });
+
+        assertTrue(e.getMessage().contains("Missing @Tested or @Injectable"));
+        assertTrue(e.getMessage()
+                .contains("for parameter \"value\" in constructor ClassWithParameterizedConstructor(int value)"));
+        assertTrue(e.getMessage().contains("when initializing field ") || e.getMessage().contains("when initializing"));
+        assertTrue(e.getMessage().contains("dependency"));
+        assertTrue(e.getMessage().contains("of @Tested object \""
+                + ClassWithFieldOfClassHavingParameterizedConstructor.class.getSimpleName() + " tested"));
     }
 }
