@@ -153,9 +153,9 @@ public final class CallPoint implements Serializable {
     }
 
     private static boolean isClassInExcludedPackage(@NonNull String className) {
-        return className.startsWith("java.") || className.startsWith("javax.") || className.startsWith("sun.")
-                || className.startsWith("org.junit.") || className.startsWith("org.testng.")
-                || className.startsWith("mockit.");
+        return className.startsWith("jakarta.") || className.startsWith("java.") || className.startsWith("javax.")
+                || className.startsWith("sun.") || className.startsWith("org.junit.")
+                || className.startsWith("org.testng.") || className.startsWith("mockit.");
     }
 
     @Nullable

@@ -53,6 +53,9 @@
 
         <junit.version>5.14.0</junit.version>
         <slf4j.version>2.0.17</slf4j.version>
+
+        <!-- Set legacy mode false -->
+        <javadoc.legacy.mode>false</javadoc.legacy.mode>
     </properties>
 
     <dependencyManagement>
