@@ -1,13 +1,9 @@
 integrationTests
-integrationTests.data
-integrationTests.loops
-integrationTests.otherControlStructures
 java8testing
 jmockit.loginExample.domain.userLogin
 mockit
 mockit.integration
 mockit.integration.junit4
-mockit.integration.springframework
 otherTests
 otherTests.multicast
 otherTests.testng

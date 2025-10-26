@@ -54,7 +54,6 @@ mockit.internal.reflection
 mockit.internal.startup
 mockit.internal.state
 mockit.internal.util
-petclinic
 petclinic.owners
 petclinic.pets
 petclinic.util
