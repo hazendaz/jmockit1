@@ -4,7 +4,8 @@
  */
 package mockit.internal.injection;
 
-import static mockit.internal.injection.InjectionPoint.INJECT_CLASS;
+import static mockit.internal.injection.InjectionPoint.JAKARTA_INJECT_CLASS;
+import static mockit.internal.injection.InjectionPoint.JAVAX_INJECT_CLASS;
 import static mockit.internal.util.Utilities.getClassType;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
@@ -15,8 +16,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import javax.inject.Provider;
 
 import mockit.internal.injection.InjectionPoint.KindOfInjectionPoint;
 import mockit.internal.reflection.GenericTypeReflection;
@@ -121,7 +120,10 @@ public final class InjectionProviders {
 
             if (kindOfInjectionPoint == KindOfInjectionPoint.Required
                     && Iterable.class.isAssignableFrom(classOfInjectionPoint)
-                    || INJECT_CLASS != null && Provider.class.isAssignableFrom(classOfInjectionPoint)) {
+                    || (JAKARTA_INJECT_CLASS != null
+                            && jakarta.inject.Provider.class.isAssignableFrom(classOfInjectionPoint)
+                            || JAVAX_INJECT_CLASS != null
+                                    && javax.inject.Provider.class.isAssignableFrom(classOfInjectionPoint))) {
                 Type providedType = parameterizedType.getActualTypeArguments()[0];
 
                 if (providedType.equals(injectableType)) {

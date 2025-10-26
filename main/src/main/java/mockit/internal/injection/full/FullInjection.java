@@ -6,10 +6,16 @@ package mockit.internal.injection.full;
 
 import static java.lang.reflect.Modifier.isStatic;
 
-import static mockit.internal.injection.InjectionPoint.CONVERSATION_CLASS;
-import static mockit.internal.injection.InjectionPoint.INJECT_CLASS;
-import static mockit.internal.injection.InjectionPoint.PERSISTENCE_UNIT_CLASS;
-import static mockit.internal.injection.InjectionPoint.SERVLET_CLASS;
+import static mockit.internal.injection.InjectionPoint.JAKARTA_CONVERSATION_CLASS;
+import static mockit.internal.injection.InjectionPoint.JAKARTA_INJECT_CLASS;
+import static mockit.internal.injection.InjectionPoint.JAKARTA_PERSISTENCE_UNIT_CLASS;
+import static mockit.internal.injection.InjectionPoint.JAKARTA_RESOURCE_CLASS;
+import static mockit.internal.injection.InjectionPoint.JAKARTA_SERVLET_CLASS;
+import static mockit.internal.injection.InjectionPoint.JAVAX_CONVERSATION_CLASS;
+import static mockit.internal.injection.InjectionPoint.JAVAX_INJECT_CLASS;
+import static mockit.internal.injection.InjectionPoint.JAVAX_PERSISTENCE_UNIT_CLASS;
+import static mockit.internal.injection.InjectionPoint.JAVAX_RESOURCE_CLASS;
+import static mockit.internal.injection.InjectionPoint.JAVAX_SERVLET_CLASS;
 import static mockit.internal.reflection.ConstructorReflection.newInstanceUsingDefaultConstructorIfAvailable;
 import static mockit.internal.util.Utilities.getClassType;
 
@@ -22,10 +28,6 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.logging.Logger;
 
-import javax.annotation.Resource;
-import javax.enterprise.context.Conversation;
-import javax.inject.Provider;
-import javax.inject.Singleton;
 import javax.sql.CommonDataSource;
 
 import mockit.asm.jvmConstants.Access;
@@ -44,16 +46,26 @@ public final class FullInjection {
 
     @NonNull
     private final InjectionState injectionState;
+
     @NonNull
     private final String testedClassName;
+
     @NonNull
     private final String testedName;
+
     @Nullable
-    private final ServletDependencies servletDependencies;
+    private final ServletJakartaDependencies servletJakartaDependencies;
     @Nullable
-    private final JPADependencies jpaDependencies;
+    private final ServletJavaxDependencies servletJavaxDependencies;
+
+    @Nullable
+    private final JPAJakartaDependencies jpaJakartaDependencies;
+    @Nullable
+    private final JPAJavaxDependencies jpaJavaxDependencies;
+
     @Nullable
     private Class<?> dependencyClass;
+
     @Nullable
     private InjectionProvider parentInjectionProvider;
 
@@ -62,8 +74,12 @@ public final class FullInjection {
         this.injectionState = injectionState;
         testedClassName = testedClass.getSimpleName();
         this.testedName = testedName;
-        servletDependencies = SERVLET_CLASS == null ? null : new ServletDependencies(injectionState);
-        jpaDependencies = PERSISTENCE_UNIT_CLASS == null ? null : new JPADependencies(injectionState);
+        servletJakartaDependencies = JAKARTA_SERVLET_CLASS == null ? null
+                : new ServletJakartaDependencies(injectionState);
+        servletJavaxDependencies = JAVAX_SERVLET_CLASS == null ? null : new ServletJavaxDependencies(injectionState);
+        jpaJakartaDependencies = JAKARTA_PERSISTENCE_UNIT_CLASS == null ? null
+                : new JPAJakartaDependencies(injectionState);
+        jpaJavaxDependencies = JAVAX_PERSISTENCE_UNIT_CLASS == null ? null : new JPAJavaxDependencies(injectionState);
     }
 
     @Nullable
@@ -120,9 +136,19 @@ public final class FullInjection {
             return new InjectionPoint(dependencyClass, qualifiedName, true);
         }
 
-        if (jpaDependencies != null && JPADependencies.isApplicable(dependencyClass)) {
+        if (jpaJakartaDependencies != null && JPAJakartaDependencies.isApplicable(dependencyClass)) {
             for (Annotation annotation : injectionProvider.getAnnotations()) {
-                InjectionPoint injectionPoint = jpaDependencies.getInjectionPointIfAvailable(annotation);
+                InjectionPoint injectionPoint = jpaJakartaDependencies.getInjectionPointIfAvailable(annotation);
+
+                if (injectionPoint != null) {
+                    return injectionPoint;
+                }
+            }
+        }
+
+        if (jpaJavaxDependencies != null && JPAJavaxDependencies.isApplicable(dependencyClass)) {
+            for (Annotation annotation : injectionProvider.getAnnotations()) {
+                InjectionPoint injectionPoint = jpaJavaxDependencies.getInjectionPointIfAvailable(annotation);
 
                 if (injectionPoint != null) {
                     return injectionPoint;
@@ -197,15 +223,27 @@ public final class FullInjection {
 
         if (CommonDataSource.class.isAssignableFrom(typeToInject)) {
             dependency = createAndRegisterDataSource(testedClass, injectionPoint, injectionProvider);
-        } else if (INJECT_CLASS != null && typeToInject == Provider.class) {
+        } else if (JAKARTA_INJECT_CLASS != null && typeToInject == jakarta.inject.Provider.class) {
             assert injectionProvider != null;
-            dependency = createProviderInstance(injectionProvider);
-        } else if (CONVERSATION_CLASS != null && typeToInject == Conversation.class) {
-            dependency = createAndRegisterConversationInstance();
-        } else if (servletDependencies != null && ServletDependencies.isApplicable(typeToInject)) {
-            dependency = servletDependencies.createAndRegisterDependency(typeToInject);
-        } else if (jpaDependencies != null && JPADependencies.isApplicable(typeToInject)) {
-            dependency = jpaDependencies.createAndRegisterDependency(typeToInject, injectionPoint, injectionProvider);
+            dependency = createProviderJakartaInstance(injectionProvider);
+        } else if (JAVAX_INJECT_CLASS != null && typeToInject == javax.inject.Provider.class) {
+            assert injectionProvider != null;
+            dependency = createProviderJavaxInstance(injectionProvider);
+        } else if (JAKARTA_CONVERSATION_CLASS != null
+                && typeToInject == jakarta.enterprise.context.Conversation.class) {
+            dependency = createAndRegisterConversationJakartaInstance();
+        } else if (JAVAX_CONVERSATION_CLASS != null && typeToInject == javax.enterprise.context.Conversation.class) {
+            dependency = createAndRegisterConversationJavaxInstance();
+        } else if (servletJakartaDependencies != null && ServletJakartaDependencies.isApplicable(typeToInject)) {
+            dependency = servletJakartaDependencies.createAndRegisterDependency(typeToInject);
+        } else if (servletJavaxDependencies != null && ServletJavaxDependencies.isApplicable(typeToInject)) {
+            dependency = servletJavaxDependencies.createAndRegisterDependency(typeToInject);
+        } else if (jpaJakartaDependencies != null && JPAJavaxDependencies.isApplicable(typeToInject)) {
+            dependency = jpaJakartaDependencies.createAndRegisterDependency(typeToInject, injectionPoint,
+                    injectionProvider);
+        } else if (jpaJavaxDependencies != null && JPAJavaxDependencies.isApplicable(typeToInject)) {
+            dependency = jpaJavaxDependencies.createAndRegisterDependency(typeToInject, injectionPoint,
+                    injectionProvider);
         }
 
         return dependency;
@@ -214,27 +252,33 @@ public final class FullInjection {
     @Nullable
     private Object createAndRegisterDataSource(@NonNull TestedClass testedClass, @NonNull InjectionPoint injectionPoint,
             @Nullable InjectionProvider injectionProvider) {
-        if (injectionProvider == null || !injectionProvider.hasAnnotation(Resource.class)) {
+        if (injectionProvider == null) {
             return null;
         }
 
-        TestDataSource dsCreation = new TestDataSource(injectionPoint);
-        CommonDataSource dataSource = dsCreation.createIfDataSourceDefinitionAvailable(testedClass);
+        // Check annotation is present (both jars)
+        if ((JAKARTA_RESOURCE_CLASS != null && injectionProvider.hasAnnotation(jakarta.annotation.Resource.class)
+                || JAVAX_RESOURCE_CLASS != null && injectionProvider.hasAnnotation(javax.annotation.Resource.class))) {
+            TestDataSource dsCreation = new TestDataSource(injectionPoint);
+            CommonDataSource dataSource = dsCreation.createIfDataSourceDefinitionAvailable(testedClass);
 
-        if (dataSource != null) {
-            injectionState.saveInstantiatedDependency(injectionPoint, dataSource);
+            if (dataSource != null) {
+                injectionState.saveInstantiatedDependency(injectionPoint, dataSource);
+            }
+
+            return dataSource;
         }
 
-        return dataSource;
+        return null;
     }
 
     @NonNull
-    private Object createProviderInstance(@NonNull InjectionProvider injectionProvider) {
+    private Object createProviderJakartaInstance(@NonNull InjectionProvider injectionProvider) {
         ParameterizedType genericType = (ParameterizedType) injectionProvider.getDeclaredType();
         final Class<?> providedClass = (Class<?>) genericType.getActualTypeArguments()[0];
 
-        if (providedClass.isAnnotationPresent(Singleton.class)) {
-            return new Provider<Object>() {
+        if (providedClass.isAnnotationPresent(jakarta.inject.Singleton.class)) {
+            return new jakarta.inject.Provider<Object>() {
                 private Object dependency;
 
                 @Override
@@ -248,7 +292,30 @@ public final class FullInjection {
             };
         }
 
-        return (Provider<Object>) () -> createNewInstance(providedClass, false);
+        return (jakarta.inject.Provider<Object>) () -> createNewInstance(providedClass, false);
+    }
+
+    @NonNull
+    private Object createProviderJavaxInstance(@NonNull InjectionProvider injectionProvider) {
+        ParameterizedType genericType = (ParameterizedType) injectionProvider.getDeclaredType();
+        final Class<?> providedClass = (Class<?>) genericType.getActualTypeArguments()[0];
+
+        if (providedClass.isAnnotationPresent(javax.inject.Singleton.class)) {
+            return new javax.inject.Provider<Object>() {
+                private Object dependency;
+
+                @Override
+                public synchronized Object get() {
+                    if (dependency == null) {
+                        dependency = createNewInstance(providedClass, true);
+                    }
+
+                    return dependency;
+                }
+            };
+        }
+
+        return (javax.inject.Provider<Object>) () -> createNewInstance(providedClass, false);
     }
 
     @Nullable
@@ -265,10 +332,19 @@ public final class FullInjection {
     }
 
     @NonNull
-    private Object createAndRegisterConversationInstance() {
-        Conversation conversation = new TestConversation();
+    private Object createAndRegisterConversationJakartaInstance() {
+        jakarta.enterprise.context.Conversation conversation = new TestConversationJakarta();
 
-        InjectionPoint injectionPoint = new InjectionPoint(Conversation.class);
+        InjectionPoint injectionPoint = new InjectionPoint(jakarta.enterprise.context.Conversation.class);
+        injectionState.saveInstantiatedDependency(injectionPoint, conversation);
+        return conversation;
+    }
+
+    @NonNull
+    private Object createAndRegisterConversationJavaxInstance() {
+        javax.enterprise.context.Conversation conversation = new TestConversationJavax();
+
+        InjectionPoint injectionPoint = new InjectionPoint(javax.enterprise.context.Conversation.class);
         injectionState.saveInstantiatedDependency(injectionPoint, conversation);
         return conversation;
     }

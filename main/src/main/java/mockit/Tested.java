@@ -116,18 +116,33 @@ public @interface Tested {
      * <ul>
      * <li>{@link java.util.logging.Logger}: a logger is automatically
      * {@linkplain java.util.logging.Logger#getLogger(String) created} with the name of the tested class.</li>
-     * <li>{@link javax.sql.DataSource}: a JDBC data source is created and configured according to a matching
+     * <li>Javax {@link javax.sql.DataSource}: a JDBC data source is created and configured according to a matching
      * {@link javax.annotation.sql.DataSourceDefinition @DataSourceDefinition} in the tested class.</li>
-     * <li>{@link javax.inject.Provider Provider&lt;T>}: a provider which produces an instance of type <code>T</code> is
-     * injected.</li>
-     * <li>JPA interfaces {@link javax.persistence.EntityManagerFactory} and {@link javax.persistence.EntityManager}:
-     * created through calls to {@link javax.persistence.Persistence#createEntityManagerFactory(String)} and
+     * <li>Jakarta {@link javax.sql.DataSource}: a JDBC data source is created and configured according to a matching
+     * {@link jakarta.annotation.sql.DataSourceDefinition @DataSourceDefinition} in the tested class.</li>
+     * <li>Javax {@link javax.inject.Provider Provider&lt;T>}: a provider which produces an instance of type
+     * <code>T</code> is injected.</li>
+     * <li>Jakarta {@link javax.inject.Provider Provider&lt;T>}: a provider which produces an instance of type
+     * <code>T</code> is injected.</li>
+     * <li>Javax JPA interfaces {@link javax.persistence.EntityManagerFactory} and
+     * {@link javax.persistence.EntityManager}: created through calls to
+     * {@link javax.persistence.Persistence#createEntityManagerFactory(String)} and
      * {@link javax.persistence.EntityManagerFactory#createEntityManager()}, provided a suitable
      * <code>META-INF/persistence.xml</code> file is available in the runtime classpath.</li>
-     * <li>Servlet interfaces {@link javax.servlet.ServletContext} and {@link javax.servlet.http.HttpSession}: objects
-     * that emulate the servlet context and HTTP session are automatically created for use in tests.</li>
-     * <li>{@link javax.enterprise.context.Conversation}: an object that emulates a web application's conversation
+     * <li>Jakarta JPA interfaces {@link jakarta.persistence.EntityManagerFactory} and
+     * {@link jakarta.persistence.EntityManager}: created through calls to
+     * {@link jakarta.persistence.Persistence#createEntityManagerFactory(String)} and
+     * {@link jakarta.persistence.EntityManagerFactory#createEntityManager()}, provided a suitable
+     * <code>META-INF/persistence.xml</code> file is available in the runtime classpath.</li>
+     * <li>Javax Servlet interfaces {@link javax.servlet.ServletContext} and {@link javax.servlet.http.HttpSession}:
+     * objects that emulate the servlet context and HTTP session are automatically created for use in tests.</li>
+     * <li>Jakarta Servlet interfaces {@link jakarta.servlet.ServletContext} and
+     * {@link jakarta.servlet.http.HttpSession}: objects that emulate the servlet context and HTTP session are
+     * automatically created for use in tests.</li>
+     * <li>Javax {@link javax.enterprise.context.Conversation}: an object that emulates a web application's conversation
      * context is created.</li>
+     * <li>Jakarta {@link jakarta.enterprise.context.Conversation}: an object that emulates a web application's
+     * conversation context is created.</li>
      * </ul>
      *
      * @return true, if successful

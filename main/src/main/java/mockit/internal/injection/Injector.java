@@ -9,10 +9,12 @@ import static java.lang.reflect.Modifier.isStatic;
 import static java.lang.reflect.Modifier.isVolatile;
 import static java.util.regex.Pattern.compile;
 
-import static mockit.internal.injection.InjectionPoint.PERSISTENCE_UNIT_CLASS;
+import static mockit.internal.injection.InjectionPoint.JAKARTA_PERSISTENCE_UNIT_CLASS;
+import static mockit.internal.injection.InjectionPoint.JAVAX_PERSISTENCE_UNIT_CLASS;
 import static mockit.internal.injection.InjectionPoint.convertToLegalJavaIdentifierIfNeeded;
 import static mockit.internal.injection.InjectionPoint.getQualifiedName;
-import static mockit.internal.injection.InjectionPoint.isServlet;
+import static mockit.internal.injection.InjectionPoint.isJakartaServlet;
+import static mockit.internal.injection.InjectionPoint.isJavaxServlet;
 import static mockit.internal.injection.InjectionPoint.kindOfInjectionPoint;
 import static mockit.internal.injection.InjectionPoint.wrapInProviderIfNeeded;
 import static mockit.internal.injection.InjectionProvider.NULL;
@@ -26,8 +28,6 @@ import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-
-import javax.persistence.Entity;
 
 import mockit.internal.injection.InjectionPoint.KindOfInjectionPoint;
 import mockit.internal.injection.field.FieldToInject;
@@ -57,7 +57,8 @@ public class Injector {
         do {
             addEligibleFields(targetFields, classWithFields);
             classWithFields = classWithFields.getSuperclass();
-        } while (testedClass.isClassFromSameModuleOrSystemAsTestedClass(classWithFields) || isServlet(classWithFields));
+        } while (testedClass.isClassFromSameModuleOrSystemAsTestedClass(classWithFields)
+                || isJakartaServlet(classWithFields) || isJavaxServlet(classWithFields));
 
         return targetFields;
     }
@@ -83,8 +84,13 @@ public class Injector {
             return true;
         }
 
-        // noinspection SimplifiableIfStatement
-        if (PERSISTENCE_UNIT_CLASS != null && field.getType().isAnnotationPresent(Entity.class)) {
+        if (JAKARTA_PERSISTENCE_UNIT_CLASS != null
+                && field.getType().isAnnotationPresent(jakarta.persistence.Entity.class)) {
+            return false;
+        }
+
+        if (JAVAX_PERSISTENCE_UNIT_CLASS != null
+                && field.getType().isAnnotationPresent(javax.persistence.Entity.class)) {
             return false;
         }
 
