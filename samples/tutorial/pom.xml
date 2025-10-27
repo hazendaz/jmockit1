@@ -40,6 +40,12 @@
             <artifactId>commons-email</artifactId>
             <version>1.6.0</version>
             <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sun.activation</groupId>
+                    <artifactId>jakarta.activation</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Testing code -->
@@ -58,14 +64,6 @@
             <groupId>com.github.hazendaz.jmockit</groupId>
             <artifactId>jmockit</artifactId>
             <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Jmockito still internally using javax namespace -->
-        <dependency>
-            <groupId>jakarta.annotation</groupId>
-            <artifactId>jakarta.annotation-api</artifactId>
-            <version>1.3.5</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
