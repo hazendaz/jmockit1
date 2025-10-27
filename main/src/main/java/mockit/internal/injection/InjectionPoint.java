@@ -202,34 +202,34 @@ public final class InjectionPoint {
 
     @NonNull
     public static Object wrapInProviderIfNeeded(@NonNull Type type, @NonNull final Object value) {
-        if (!(type instanceof ParameterizedType)) {
-            return value;
-        }
-
-        Type rawType = ((ParameterizedType) type).getRawType();
-
-        if (JAKARTA_INJECT_CLASS != null && rawType == jakarta.inject.Provider.class
+        if (JAKARTA_INJECT_CLASS != null && type instanceof ParameterizedType
                 && !(value instanceof jakarta.inject.Provider)) {
-            return (jakarta.inject.Provider<Object>) () -> value;
+            Type parameterizedType = ((ParameterizedType) type).getRawType();
+
+            if (parameterizedType == jakarta.inject.Provider.class) {
+                return (jakarta.inject.Provider<Object>) () -> value;
+            }
+
+            if (JAKARTA_INSTANCE_CLASS != null && parameterizedType == jakarta.enterprise.inject.Instance.class) {
+                @SuppressWarnings("unchecked")
+                List<Object> values = (List<Object>) value;
+                return new ListedJakarta(values);
+            }
         }
 
-        if (JAKARTA_INSTANCE_CLASS != null && rawType == jakarta.enterprise.inject.Instance.class
-                && !(value instanceof jakarta.enterprise.inject.Instance)) {
-            @SuppressWarnings("unchecked")
-            List<Object> values = (List<Object>) value;
-            return new ListedJakarta(values);
-        }
-
-        if (JAVAX_INJECT_CLASS != null && rawType == javax.inject.Provider.class
+        if (JAVAX_INJECT_CLASS != null && type instanceof ParameterizedType
                 && !(value instanceof javax.inject.Provider)) {
-            return (javax.inject.Provider<Object>) () -> value;
-        }
+            Type parameterizedType = ((ParameterizedType) type).getRawType();
 
-        if (JAVAX_INSTANCE_CLASS != null && rawType == javax.enterprise.inject.Instance.class
-                && !(value instanceof javax.enterprise.inject.Instance)) {
-            @SuppressWarnings("unchecked")
-            List<Object> values = (List<Object>) value;
-            return new ListedJavax(values);
+            if (parameterizedType == javax.inject.Provider.class) {
+                return (javax.inject.Provider<Object>) () -> value;
+            }
+
+            if (JAVAX_INSTANCE_CLASS != null && parameterizedType == javax.enterprise.inject.Instance.class) {
+                @SuppressWarnings("unchecked")
+                List<Object> values = (List<Object>) value;
+                return new ListedJavax(values);
+            }
         }
 
         return value;
