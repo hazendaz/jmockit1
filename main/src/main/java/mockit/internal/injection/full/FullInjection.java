@@ -238,7 +238,7 @@ public final class FullInjection {
             dependency = servletJakartaDependencies.createAndRegisterDependency(typeToInject);
         } else if (servletJavaxDependencies != null && ServletJavaxDependencies.isApplicable(typeToInject)) {
             dependency = servletJavaxDependencies.createAndRegisterDependency(typeToInject);
-        } else if (jpaJakartaDependencies != null && JPAJavaxDependencies.isApplicable(typeToInject)) {
+        } else if (jpaJakartaDependencies != null && JPAJakartaDependencies.isApplicable(typeToInject)) {
             dependency = jpaJakartaDependencies.createAndRegisterDependency(typeToInject, injectionPoint,
                     injectionProvider);
         } else if (jpaJavaxDependencies != null && JPAJavaxDependencies.isApplicable(typeToInject)) {
@@ -257,8 +257,8 @@ public final class FullInjection {
         }
 
         // Check annotation is present (both jars)
-        if ((JAKARTA_RESOURCE_CLASS != null && injectionProvider.hasAnnotation(jakarta.annotation.Resource.class)
-                || JAVAX_RESOURCE_CLASS != null && injectionProvider.hasAnnotation(javax.annotation.Resource.class))) {
+        if ((JAKARTA_RESOURCE_CLASS != null && injectionProvider.hasAnnotation(jakarta.annotation.Resource.class))
+                || (JAVAX_RESOURCE_CLASS != null && injectionProvider.hasAnnotation(javax.annotation.Resource.class))) {
             TestDataSource dsCreation = new TestDataSource(injectionPoint);
             CommonDataSource dataSource = dsCreation.createIfDataSourceDefinitionAvailable(testedClass);
 
