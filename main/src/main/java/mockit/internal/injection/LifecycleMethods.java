@@ -215,23 +215,17 @@ public final class LifecycleMethods {
 
     void getServletConfigForInitMethodsIfAny(@NonNull List<? extends InjectionProvider> injectables,
             @NonNull Object testClassInstance) {
-        // Try Jakarta first
-        if (JAKARTA_SERVLET_CLASS != null) {
-            for (InjectionProvider injectable : injectables) {
-                if (injectable.getDeclaredType() == jakarta.servlet.ServletConfig.class) {
-                    servletConfig = injectable.getValue(testClassInstance);
-                    break;
-                }
+        for (InjectionProvider injectable : injectables) {
+            // Try Jakarta first
+            if (JAKARTA_SERVLET_CLASS != null && injectable.getDeclaredType() == jakarta.servlet.ServletConfig.class) {
+                servletConfig = injectable.getValue(testClassInstance);
+                break;
             }
-        }
 
-        // Then try Javax
-        if (JAVAX_SERVLET_CLASS != null) {
-            for (InjectionProvider injectable : injectables) {
-                if (injectable.getDeclaredType() == javax.servlet.ServletConfig.class) {
-                    servletConfig = injectable.getValue(testClassInstance);
-                    break;
-                }
+            // Then try Javax
+            if (JAVAX_SERVLET_CLASS != null && injectable.getDeclaredType() == javax.servlet.ServletConfig.class) {
+                servletConfig = injectable.getValue(testClassInstance);
+                break;
             }
         }
     }
