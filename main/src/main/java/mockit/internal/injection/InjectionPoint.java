@@ -220,10 +220,11 @@ public final class InjectionPoint {
             return new ListedJakarta(values);
         }
 
-        if (JAKARTA_INJECT_CLASS != null && rawType == javax.inject.Provider.class
+        if (JAVAX_INJECT_CLASS != null && rawType == javax.inject.Provider.class
                 && !(value instanceof javax.inject.Provider)) {
             return (javax.inject.Provider<Object>) () -> value;
         }
+
         if (JAVAX_INSTANCE_CLASS != null && rawType == javax.enterprise.inject.Instance.class
                 && !(value instanceof javax.enterprise.inject.Instance)) {
             @SuppressWarnings("unchecked")
@@ -462,7 +463,7 @@ public final class InjectionPoint {
 
     private static boolean isRequiredJakarta(@NonNull Annotation[] annotations) {
         return isAnnotated(annotations, jakarta.annotation.Resource.class)
-                || JAVAX_EJB_CLASS != null && isAnnotated(annotations, jakarta.ejb.EJB.class)
+                || JAKARTA_EJB_CLASS != null && isAnnotated(annotations, jakarta.ejb.EJB.class)
                 || JAKARTA_PERSISTENCE_UNIT_CLASS != null
                         && (isAnnotated(annotations, jakarta.persistence.PersistenceContext.class)
                                 || isAnnotated(annotations, jakarta.persistence.PersistenceUnit.class));
