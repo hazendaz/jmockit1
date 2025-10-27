@@ -462,7 +462,7 @@ public final class InjectionPoint {
     }
 
     private static boolean isRequiredJakarta(@NonNull Annotation[] annotations) {
-        return isAnnotated(annotations, jakarta.annotation.Resource.class)
+        return JAKARTA_RESOURCE_CLASS != null && isAnnotated(annotations, jakarta.annotation.Resource.class)
                 || JAKARTA_EJB_CLASS != null && isAnnotated(annotations, jakarta.ejb.EJB.class)
                 || JAKARTA_PERSISTENCE_UNIT_CLASS != null
                         && (isAnnotated(annotations, jakarta.persistence.PersistenceContext.class)
@@ -470,7 +470,7 @@ public final class InjectionPoint {
     }
 
     private static boolean isRequiredJavax(@NonNull Annotation[] annotations) {
-        return isAnnotated(annotations, javax.annotation.Resource.class)
+        return JAVAX_RESOURCE_CLASS != null && isAnnotated(annotations, javax.annotation.Resource.class)
                 || JAVAX_EJB_CLASS != null && isAnnotated(annotations, javax.ejb.EJB.class)
                 || JAVAX_PERSISTENCE_UNIT_CLASS != null
                         && (isAnnotated(annotations, javax.persistence.PersistenceContext.class)
