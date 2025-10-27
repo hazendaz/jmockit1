@@ -170,7 +170,7 @@ public final class ClassFile {
 
     @NonNull
     public static byte[] readBytesFromClassFile(@NonNull String classDesc) {
-        if (classDesc.startsWith("java/") || classDesc.startsWith("javax/")) {
+        if (classDesc.startsWith("java/") || classDesc.startsWith("javax/") || classDesc.startsWith("jakarta/")) {
             byte[] classfile = CachedClassfiles.getClassfile(classDesc);
 
             if (classfile != null) {
