@@ -4,8 +4,12 @@
  */
 package mockit.internal.injection;
 
-import static mockit.internal.injection.InjectionPoint.SERVLET_CLASS;
-import static mockit.internal.injection.InjectionPoint.isServlet;
+import static mockit.internal.injection.InjectionPoint.JAKARTA_POST_CONSTRUCT_CLASS;
+import static mockit.internal.injection.InjectionPoint.JAKARTA_SERVLET_CLASS;
+import static mockit.internal.injection.InjectionPoint.JAVAX_POST_CONSTRUCT_CLASS;
+import static mockit.internal.injection.InjectionPoint.JAVAX_SERVLET_CLASS;
+import static mockit.internal.injection.InjectionPoint.isJakartaServlet;
+import static mockit.internal.injection.InjectionPoint.isJavaxServlet;
 import static mockit.internal.reflection.ParameterReflection.getParameterCount;
 import static mockit.internal.util.Utilities.NO_ARGS;
 
@@ -20,22 +24,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.servlet.ServletConfig;
-
 import mockit.internal.reflection.MethodReflection;
 import mockit.internal.state.TestRun;
 
 public final class LifecycleMethods {
+
     @NonNull
     private final List<Class<?>> classesSearched;
+
     @NonNull
     private final Map<Class<?>, Method> initializationMethods;
+
     @NonNull
     private final Map<Class<?>, Method> terminationMethods;
+
     @NonNull
     private final Map<Class<?>, Object> objectsWithTerminationMethodsToExecute;
+
     @Nullable
     private Object servletConfig;
 
@@ -51,7 +56,10 @@ public final class LifecycleMethods {
             return;
         }
 
-        boolean isServlet = isServlet(testedClass);
+        boolean isServlet = isJakartaServlet(testedClass);
+        if (!isServlet) {
+            isServlet = isJavaxServlet(testedClass);
+        }
         Class<?> classWithLifecycleMethods = testedClass;
 
         do {
@@ -89,21 +97,49 @@ public final class LifecycleMethods {
     }
 
     private static boolean isInitializationMethod(@NonNull Method method, boolean isServlet) {
-        if (hasLifecycleAnnotation(method, true)) {
+        if (hasLifecycleAnnotationJakarta(method, true) || hasLifecycleAnnotationJavax(method, true)) {
             return true;
         }
 
         if (isServlet && "init".equals(method.getName())) {
             Class<?>[] parameterTypes = method.getParameterTypes();
-            return parameterTypes.length == 1 && parameterTypes[0] == ServletConfig.class;
+
+            if (parameterTypes.length != 1) {
+                return false;
+            }
+            return (JAKARTA_SERVLET_CLASS != null && parameterTypes[0] == jakarta.servlet.ServletConfig.class)
+                    || (JAVAX_SERVLET_CLASS != null && parameterTypes[0] == javax.servlet.ServletConfig.class);
         }
 
         return false;
     }
 
-    private static boolean hasLifecycleAnnotation(@NonNull Method method, boolean postConstruct) {
+    private static boolean hasLifecycleAnnotationJakarta(@NonNull Method method, boolean postConstruct) {
+        if (JAKARTA_POST_CONSTRUCT_CLASS == null) {
+            return false;
+        }
+
         try {
-            Class<? extends Annotation> lifecycleAnnotation = postConstruct ? PostConstruct.class : PreDestroy.class;
+            Class<? extends Annotation> lifecycleAnnotation = postConstruct ? jakarta.annotation.PostConstruct.class
+                    : jakarta.annotation.PreDestroy.class;
+
+            if (method.isAnnotationPresent(lifecycleAnnotation)) {
+                return true;
+            }
+        } catch (NoClassDefFoundError ignore) {
+            /* can occur on JDK 9 */ }
+
+        return false;
+    }
+
+    private static boolean hasLifecycleAnnotationJavax(@NonNull Method method, boolean postConstruct) {
+        if (JAVAX_POST_CONSTRUCT_CLASS == null) {
+            return false;
+        }
+
+        try {
+            Class<? extends Annotation> lifecycleAnnotation = postConstruct ? javax.annotation.PostConstruct.class
+                    : javax.annotation.PreDestroy.class;
 
             if (method.isAnnotationPresent(lifecycleAnnotation)) {
                 return true;
@@ -115,7 +151,7 @@ public final class LifecycleMethods {
     }
 
     private static boolean isTerminationMethod(@NonNull Method method, boolean isServlet) {
-        return hasLifecycleAnnotation(method, false)
+        return hasLifecycleAnnotationJakarta(method, false) || hasLifecycleAnnotationJavax(method, false)
                 || isServlet && "destroy".equals(method.getName()) && getParameterCount(method) == 0;
     }
 
@@ -179,13 +215,19 @@ public final class LifecycleMethods {
 
     void getServletConfigForInitMethodsIfAny(@NonNull List<? extends InjectionProvider> injectables,
             @NonNull Object testClassInstance) {
-        if (SERVLET_CLASS != null) {
-            for (InjectionProvider injectable : injectables) {
-                if (injectable.getDeclaredType() == ServletConfig.class) {
-                    servletConfig = injectable.getValue(testClassInstance);
-                    break;
-                }
+        for (InjectionProvider injectable : injectables) {
+            // Try Jakarta first
+            if (JAKARTA_SERVLET_CLASS != null && injectable.getDeclaredType() == jakarta.servlet.ServletConfig.class) {
+                servletConfig = injectable.getValue(testClassInstance);
+                break;
+            }
+
+            // Then try Javax
+            if (JAVAX_SERVLET_CLASS != null && injectable.getDeclaredType() == javax.servlet.ServletConfig.class) {
+                servletConfig = injectable.getValue(testClassInstance);
+                break;
             }
         }
     }
+
 }

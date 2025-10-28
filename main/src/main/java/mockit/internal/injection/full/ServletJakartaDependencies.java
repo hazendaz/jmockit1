@@ -8,6 +8,18 @@ import static java.util.Collections.enumeration;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
 
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterRegistration;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.Servlet;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletRegistration;
+import jakarta.servlet.ServletRegistration.Dynamic;
+import jakarta.servlet.SessionCookieConfig;
+import jakarta.servlet.SessionTrackingMode;
+import jakarta.servlet.descriptor.JspConfigDescriptor;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.InputStream;
 import java.net.URL;
 import java.security.SecureRandom;
@@ -17,27 +29,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterRegistration;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.Servlet;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletRegistration;
-import javax.servlet.ServletRegistration.Dynamic;
-import javax.servlet.SessionCookieConfig;
-import javax.servlet.SessionTrackingMode;
-import javax.servlet.descriptor.JspConfigDescriptor;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionContext;
-
 import mockit.internal.injection.InjectionPoint;
 import mockit.internal.injection.InjectionState;
 
 /**
- * Detects and resolves dependencies belonging to the <code>javax.servlet</code> API, namely <code>ServletContext</code>
- * and <code>HttpSession</code>.
+ * Detects and resolves dependencies belonging to the <code>jakarta.servlet</code> API, namely
+ * <code>ServletContext</code> and <code>HttpSession</code>.
  */
-final class ServletDependencies {
+final class ServletJakartaDependencies {
     static boolean isApplicable(@NonNull Class<?> dependencyType) {
         return dependencyType == HttpSession.class || dependencyType == ServletContext.class;
     }
@@ -45,7 +44,7 @@ final class ServletDependencies {
     @NonNull
     private final InjectionState injectionState;
 
-    ServletDependencies(@NonNull InjectionState injectionState) {
+    ServletJakartaDependencies(@NonNull InjectionState injectionState) {
         this.injectionState = injectionState;
     }
 
@@ -144,28 +143,8 @@ final class ServletDependencies {
                 return getClass().getClassLoader();
             }
 
-            // Deprecated/logging methods: do nothing.
-            @Override
-            public Servlet getServlet(String name) {
-                return null;
-            }
-
-            @Override
-            public Enumeration<Servlet> getServlets() {
-                return null;
-            }
-
-            @Override
-            public Enumeration<String> getServletNames() {
-                return null;
-            }
-
             @Override
             public void log(String msg) {
-            }
-
-            @Override
-            public void log(Exception exception, String msg) {
             }
 
             @Override
@@ -449,30 +428,6 @@ final class ServletDependencies {
                 return context;
             }
 
-            // Deprecated methods: do nothing.
-            @Override
-            public Object getValue(String name) {
-                return null;
-            }
-
-            @Override
-            public void putValue(String name, Object value) {
-            }
-
-            @Override
-            public void removeValue(String name) {
-            }
-
-            @Override
-            public String[] getValueNames() {
-                return null;
-            }
-
-            @SuppressWarnings("deprecation")
-            @Override
-            public HttpSessionContext getSessionContext() {
-                return null;
-            }
         };
 
         InjectionPoint injectionPoint = new InjectionPoint(HttpSession.class);

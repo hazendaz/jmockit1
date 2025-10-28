@@ -120,7 +120,8 @@ public final class CaptureTransformer<M> implements ClassFileTransformer {
 
         if (interfaces != null && interfaces.length > 0) {
             for (String itf : interfaces) {
-                if (!itf.startsWith("java/") && !itf.startsWith("javax/") && searchSuperType(loader, itf)) {
+                if (!itf.startsWith("java/") && !itf.startsWith("javax/") && !itf.startsWith("jakarta/")
+                        && searchSuperType(loader, itf)) {
                     return true;
                 }
             }

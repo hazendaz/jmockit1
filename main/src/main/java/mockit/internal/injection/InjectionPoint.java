@@ -22,18 +22,9 @@ import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.annotation.Resource;
-import javax.ejb.EJB;
-import javax.enterprise.inject.Instance;
-import javax.enterprise.util.TypeLiteral;
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
-import javax.servlet.Servlet;
 
 public final class InjectionPoint {
     public enum KindOfInjectionPoint {
@@ -41,40 +32,93 @@ public final class InjectionPoint {
     }
 
     @Nullable
-    public static final Class<? extends Annotation> INJECT_CLASS;
+    public static final Class<?> JAKARTA_CONVERSATION_CLASS;
     @Nullable
-    private static final Class<? extends Annotation> INSTANCE_CLASS;
+    public static final Class<?> JAVAX_CONVERSATION_CLASS;
+
     @Nullable
-    private static final Class<? extends Annotation> EJB_CLASS;
+    private static final Class<? extends Annotation> JAKARTA_EJB_CLASS;
     @Nullable
-    public static final Class<? extends Annotation> PERSISTENCE_UNIT_CLASS;
+    private static final Class<? extends Annotation> JAVAX_EJB_CLASS;
+
     @Nullable
-    public static final Class<?> SERVLET_CLASS;
+    public static final Class<? extends Annotation> JAKARTA_INJECT_CLASS;
     @Nullable
-    public static final Class<?> CONVERSATION_CLASS;
+    public static final Class<? extends Annotation> JAVAX_INJECT_CLASS;
+
+    @Nullable
+    private static final Class<? extends Annotation> JAKARTA_INSTANCE_CLASS;
+    @Nullable
+    private static final Class<? extends Annotation> JAVAX_INSTANCE_CLASS;
+
+    @Nullable
+    public static final Class<? extends Annotation> JAKARTA_PERSISTENCE_UNIT_CLASS;
+    @Nullable
+    public static final Class<? extends Annotation> JAVAX_PERSISTENCE_UNIT_CLASS;
+
+    @Nullable
+    public static final Class<? extends Annotation> JAKARTA_POST_CONSTRUCT_CLASS;
+    @Nullable
+    public static final Class<? extends Annotation> JAVAX_POST_CONSTRUCT_CLASS;
+
+    @Nullable
+    public static final Class<?> JAKARTA_RESOURCE_CLASS;
+    @Nullable
+    public static final Class<?> JAVAX_RESOURCE_CLASS;
+
+    @Nullable
+    public static final Class<?> JAKARTA_SERVLET_CLASS;
+    @Nullable
+    public static final Class<?> JAVAX_SERVLET_CLASS;
 
     static {
-        INJECT_CLASS = searchTypeInClasspath("javax.inject.Inject");
-        INSTANCE_CLASS = searchTypeInClasspath("javax.enterprise.inject.Instance");
-        EJB_CLASS = searchTypeInClasspath("javax.ejb.EJB");
-        SERVLET_CLASS = searchTypeInClasspath("javax.servlet.Servlet");
-        CONVERSATION_CLASS = searchTypeInClasspath("javax.enterprise.context.Conversation");
+        JAKARTA_CONVERSATION_CLASS = searchTypeInClasspath("jakarta.enterprise.context.Conversation");
+        JAVAX_CONVERSATION_CLASS = searchTypeInClasspath("javax.enterprise.context.Conversation");
 
-        Class<? extends Annotation> entity = searchTypeInClasspath("javax.persistence.Entity");
+        JAKARTA_EJB_CLASS = searchTypeInClasspath("jakarta.ejb.EJB");
+        JAVAX_EJB_CLASS = searchTypeInClasspath("javax.ejb.EJB");
+
+        JAKARTA_INJECT_CLASS = searchTypeInClasspath("jakarta.inject.Inject");
+        JAVAX_INJECT_CLASS = searchTypeInClasspath("javax.inject.Inject");
+
+        JAKARTA_INSTANCE_CLASS = searchTypeInClasspath("jakarta.enterprise.inject.Instance");
+        JAVAX_INSTANCE_CLASS = searchTypeInClasspath("javax.enterprise.inject.Instance");
+
+        JAKARTA_POST_CONSTRUCT_CLASS = searchTypeInClasspath("jakarta.annotation.PostConstruct");
+        JAVAX_POST_CONSTRUCT_CLASS = searchTypeInClasspath("javax.annotation.PostConstruct");
+
+        JAKARTA_RESOURCE_CLASS = searchTypeInClasspath("jakarta.annotation.Resource");
+        JAVAX_RESOURCE_CLASS = searchTypeInClasspath("javax.annotation.Resource");
+
+        JAKARTA_SERVLET_CLASS = searchTypeInClasspath("jakarta.servlet.Servlet");
+        JAVAX_SERVLET_CLASS = searchTypeInClasspath("javax.servlet.Servlet");
+
+        Class<? extends Annotation> entity = searchTypeInClasspath("jakarta.persistence.Entity");
 
         if (entity == null) {
-            PERSISTENCE_UNIT_CLASS = null;
+            JAKARTA_PERSISTENCE_UNIT_CLASS = null;
         } else {
-            PERSISTENCE_UNIT_CLASS = searchTypeInClasspath("javax.persistence.PersistenceUnit");
+            JAKARTA_PERSISTENCE_UNIT_CLASS = searchTypeInClasspath("jakarta.persistence.PersistenceUnit");
+        }
+
+        entity = searchTypeInClasspath("javax.persistence.Entity");
+
+        if (entity == null) {
+            JAVAX_PERSISTENCE_UNIT_CLASS = null;
+        } else {
+            JAVAX_PERSISTENCE_UNIT_CLASS = searchTypeInClasspath("javax.persistence.PersistenceUnit");
         }
     }
 
     @NonNull
     public final Type type;
+
     @Nullable
     public final String name;
+
     @Nullable
     private final String normalizedName;
+
     public final boolean qualified;
 
     public InjectionPoint(@NonNull Type type) {
@@ -148,49 +192,185 @@ public final class InjectionPoint {
         return thisName != null && thisName.equals(otherIP.normalizedName);
     }
 
-    static boolean isServlet(@NonNull Class<?> aClass) {
-        return SERVLET_CLASS != null && Servlet.class.isAssignableFrom(aClass);
+    static boolean isJakartaServlet(@NonNull Class<?> aClass) {
+        return JAKARTA_SERVLET_CLASS != null && jakarta.servlet.Servlet.class.isAssignableFrom(aClass);
+    }
+
+    static boolean isJavaxServlet(@NonNull Class<?> aClass) {
+        return JAVAX_SERVLET_CLASS != null && javax.servlet.Servlet.class.isAssignableFrom(aClass);
     }
 
     @NonNull
     public static Object wrapInProviderIfNeeded(@NonNull Type type, @NonNull final Object value) {
-        if (INJECT_CLASS != null && type instanceof ParameterizedType && !(value instanceof Provider)) {
+        if (JAKARTA_INJECT_CLASS != null && type instanceof ParameterizedType
+                && !(value instanceof jakarta.inject.Provider)) {
             Type parameterizedType = ((ParameterizedType) type).getRawType();
 
-            if (parameterizedType == Provider.class) {
-                return (Provider<Object>) () -> value;
+            if (parameterizedType == jakarta.inject.Provider.class) {
+                return (jakarta.inject.Provider<Object>) () -> value;
             }
 
-            if (INSTANCE_CLASS != null && parameterizedType == Instance.class) {
+            if (JAKARTA_INSTANCE_CLASS != null && parameterizedType == jakarta.enterprise.inject.Instance.class) {
                 @SuppressWarnings("unchecked")
                 List<Object> values = (List<Object>) value;
-                return new Listed(values);
+                return new ListedJakarta(values);
+            }
+        }
+
+        if (JAVAX_INJECT_CLASS != null && type instanceof ParameterizedType
+                && !(value instanceof javax.inject.Provider)) {
+            Type parameterizedType = ((ParameterizedType) type).getRawType();
+
+            if (parameterizedType == javax.inject.Provider.class) {
+                return (javax.inject.Provider<Object>) () -> value;
+            }
+
+            if (JAVAX_INSTANCE_CLASS != null && parameterizedType == javax.enterprise.inject.Instance.class) {
+                @SuppressWarnings("unchecked")
+                List<Object> values = (List<Object>) value;
+                return new ListedJavax(values);
             }
         }
 
         return value;
     }
 
-    private static final class Listed implements Instance<Object> {
+    private static final class ListedJakarta implements jakarta.enterprise.inject.Instance<Object> {
         @NonNull
         private final List<Object> instances;
 
-        Listed(@NonNull List<Object> instances) {
+        ListedJakarta(@NonNull List<Object> instances) {
             this.instances = instances;
         }
 
         @Override
-        public Instance<Object> select(Annotation... annotations) {
+        public jakarta.enterprise.inject.Instance<Object> select(Annotation... annotations) {
             return null;
         }
 
         @Override
-        public <U> Instance<U> select(Class<U> uClass, Annotation... annotations) {
+        public <U> jakarta.enterprise.inject.Instance<U> select(Class<U> uClass, Annotation... annotations) {
             return null;
         }
 
         @Override
-        public <U> Instance<U> select(TypeLiteral<U> tl, Annotation... annotations) {
+        public <U> jakarta.enterprise.inject.Instance<U> select(jakarta.enterprise.util.TypeLiteral<U> tl,
+                Annotation... annotations) {
+            return null;
+        }
+
+        @Override
+        public boolean isUnsatisfied() {
+            return false;
+        }
+
+        @Override
+        public boolean isAmbiguous() {
+            return false;
+        }
+
+        @Override
+        public void destroy(Object instance) {
+        }
+
+        @Override
+        public Iterator<Object> iterator() {
+            return instances.iterator();
+        }
+
+        @Override
+        public Object get() {
+            throw new RuntimeException("Unexpected");
+        }
+
+        @Override
+        public Iterable<? extends jakarta.enterprise.inject.Instance.Handle<Object>> handles() {
+            class SimpleHandle implements jakarta.enterprise.inject.Instance.Handle<Object> {
+                private final Object instance;
+
+                SimpleHandle(Object instance) {
+                    this.instance = instance;
+                }
+
+                @Override
+                public Object get() {
+                    return instance;
+                }
+
+                @Override
+                public void destroy() {
+                    // No-op
+                }
+
+                @Override
+                public void close() {
+                    // No-op
+                }
+
+                @Override
+                public jakarta.enterprise.inject.spi.Bean<Object> getBean() {
+                    return null;
+                }
+            }
+            List<SimpleHandle> handleList = new ArrayList<>();
+            for (Object obj : instances) {
+                handleList.add(new SimpleHandle(obj));
+            }
+            return handleList;
+        }
+
+        @Override
+        public jakarta.enterprise.inject.Instance.Handle<Object> getHandle() {
+            if (instances.isEmpty()) {
+                throw new RuntimeException("No instance available");
+            }
+            return new jakarta.enterprise.inject.Instance.Handle<Object>() {
+                private final Object instance = instances.get(0);
+
+                @Override
+                public Object get() {
+                    return instance;
+                }
+
+                @Override
+                public void destroy() {
+                    // No-op
+                }
+
+                @Override
+                public void close() {
+                    // No-op
+                }
+
+                @Override
+                public jakarta.enterprise.inject.spi.Bean<Object> getBean() {
+                    return null;
+                }
+            };
+        }
+    }
+
+    private static final class ListedJavax implements javax.enterprise.inject.Instance<Object> {
+        @NonNull
+        private final List<Object> instances;
+
+        ListedJavax(@NonNull List<Object> instances) {
+            this.instances = instances;
+        }
+
+        @Override
+        public javax.enterprise.inject.Instance<Object> select(Annotation... annotations) {
+            return null;
+        }
+
+        @Override
+        public <U> javax.enterprise.inject.Instance<U> select(Class<U> uClass, Annotation... annotations) {
+            return null;
+        }
+
+        @Override
+        public <U> javax.enterprise.inject.Instance<U> select(javax.enterprise.util.TypeLiteral<U> tl,
+                Annotation... annotations) {
             return null;
         }
 
@@ -227,7 +407,11 @@ public final class InjectionPoint {
             return KindOfInjectionPoint.NotAnnotated;
         }
 
-        if (INJECT_CLASS != null && isAnnotated(annotations, Inject.class)) {
+        if (JAKARTA_INJECT_CLASS != null && isAnnotated(annotations, jakarta.inject.Inject.class)) {
+            return KindOfInjectionPoint.Required;
+        }
+
+        if (JAVAX_INJECT_CLASS != null && isAnnotated(annotations, javax.inject.Inject.class)) {
             return KindOfInjectionPoint.Required;
         }
 
@@ -237,7 +421,7 @@ public final class InjectionPoint {
             return kind;
         }
 
-        if (isRequired(annotations)) {
+        if (isRequiredJakarta(annotations) || isRequiredJavax(annotations)) {
             return KindOfInjectionPoint.Required;
         }
 
@@ -277,10 +461,20 @@ public final class InjectionPoint {
         return KindOfInjectionPoint.NotAnnotated;
     }
 
-    private static boolean isRequired(@NonNull Annotation[] annotations) {
-        return isAnnotated(annotations, Resource.class) || EJB_CLASS != null && isAnnotated(annotations, EJB.class)
-                || PERSISTENCE_UNIT_CLASS != null && (isAnnotated(annotations, PersistenceContext.class)
-                        || isAnnotated(annotations, PersistenceUnit.class));
+    private static boolean isRequiredJakarta(@NonNull Annotation[] annotations) {
+        return JAKARTA_RESOURCE_CLASS != null && isAnnotated(annotations, jakarta.annotation.Resource.class)
+                || JAKARTA_EJB_CLASS != null && isAnnotated(annotations, jakarta.ejb.EJB.class)
+                || JAKARTA_PERSISTENCE_UNIT_CLASS != null
+                        && (isAnnotated(annotations, jakarta.persistence.PersistenceContext.class)
+                                || isAnnotated(annotations, jakarta.persistence.PersistenceUnit.class));
+    }
+
+    private static boolean isRequiredJavax(@NonNull Annotation[] annotations) {
+        return JAVAX_RESOURCE_CLASS != null && isAnnotated(annotations, javax.annotation.Resource.class)
+                || JAVAX_EJB_CLASS != null && isAnnotated(annotations, javax.ejb.EJB.class)
+                || JAVAX_PERSISTENCE_UNIT_CLASS != null
+                        && (isAnnotated(annotations, javax.persistence.PersistenceContext.class)
+                                || isAnnotated(annotations, javax.persistence.PersistenceUnit.class));
     }
 
     @NonNull
@@ -298,7 +492,8 @@ public final class InjectionPoint {
             Class<?> annotationType = annotation.annotationType();
             String annotationName = annotationType.getName();
 
-            if ("javax.annotation.Resource javax.ejb.EJB".contains(annotationName)) {
+            if ("jakarta.annotation.Resource jakarta.ejb.EJB".contains(annotationName)
+                    || "javax.annotation.Resource javax.ejb.EJB".contains(annotationName)) {
                 String name = readAnnotationAttribute(annotation, "name");
 
                 if (name.isEmpty()) {
@@ -315,7 +510,8 @@ public final class InjectionPoint {
                 return name;
             }
 
-            if ("javax.inject.Named".equals(annotationName) || annotationName.endsWith(".Qualifier")) {
+            if ("jakarta.inject.Named".equals(annotationName) || "javax.inject.Named".equals(annotationName)
+                    || annotationName.endsWith(".Qualifier")) {
                 return readAnnotationAttribute(annotation, "value");
             }
         }

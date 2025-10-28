@@ -32,7 +32,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * Detects and resolves dependencies belonging to the <code>javax.persistence</code> API, namely
  * <code>EntityManagerFactory</code> and <code>EntityManager</code>.
  */
-final class JPADependencies {
+final class JPAJavaxDependencies {
     static boolean isApplicable(@NonNull Class<?> dependencyType) {
         return dependencyType == EntityManager.class || dependencyType == EntityManagerFactory.class;
     }
@@ -42,7 +42,7 @@ final class JPADependencies {
     @Nullable
     private String defaultPersistenceUnitName;
 
-    JPADependencies(@NonNull InjectionState injectionState) {
+    JPAJavaxDependencies(@NonNull InjectionState injectionState) {
         this.injectionState = injectionState;
     }
 

@@ -15,8 +15,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import javax.annotation.sql.DataSourceDefinition;
-import javax.annotation.sql.DataSourceDefinitions;
 import javax.sql.CommonDataSource;
 
 import mockit.internal.injection.InjectionPoint;
@@ -82,10 +80,14 @@ final class TestDataSource {
         for (Annotation annotation : targetClass.getDeclaredAnnotations()) {
             String annotationName = annotation.annotationType().getName();
 
-            if ("javax.annotation.sql.DataSourceDefinitions".equals(annotationName)) {
-                createDataSource((DataSourceDefinitions) annotation);
+            if ("jakarta.annotation.sql.DataSourceDefinitions".equals(annotationName)) {
+                createDataSourceJakarta((jakarta.annotation.sql.DataSourceDefinitions) annotation);
+            } else if ("jakarta.annotation.sql.DataSourceDefinition".equals(annotationName)) {
+                createDataSourceJakarta((jakarta.annotation.sql.DataSourceDefinition) annotation);
+            } else if ("javax.annotation.sql.DataSourceDefinitions".equals(annotationName)) {
+                createDataSourceJavax((javax.annotation.sql.DataSourceDefinitions) annotation);
             } else if ("javax.annotation.sql.DataSourceDefinition".equals(annotationName)) {
-                createDataSource((DataSourceDefinition) annotation);
+                createDataSourceJavax((javax.annotation.sql.DataSourceDefinition) annotation);
             }
 
             if (ds != null) {
@@ -94,9 +96,9 @@ final class TestDataSource {
         }
     }
 
-    private void createDataSource(@NonNull DataSourceDefinitions dsDefs) {
-        for (DataSourceDefinition dsDef : dsDefs.value()) {
-            createDataSource(dsDef);
+    private void createDataSourceJakarta(@NonNull jakarta.annotation.sql.DataSourceDefinitions dsDefs) {
+        for (jakarta.annotation.sql.DataSourceDefinition dsDef : dsDefs.value()) {
+            createDataSourceJakarta(dsDef);
 
             if (ds != null) {
                 return;
@@ -104,16 +106,17 @@ final class TestDataSource {
         }
     }
 
-    private void createDataSource(@NonNull DataSourceDefinition dsDef) {
+    private void createDataSourceJakarta(@NonNull jakarta.annotation.sql.DataSourceDefinition dsDef) {
         String configuredDataSourceName = InjectionPoint.getNameFromJNDILookup(dsDef.name());
 
         if (configuredDataSourceName.equals(dsName)) {
-            instantiateConfiguredDataSourceClass(dsDef);
-            setDataSourcePropertiesFromConfiguredValues(dsDef);
+            instantiateConfiguredDataSourceClassJakarta(dsDef);
+            setDataSourcePropertiesFromConfiguredValuesJakarta(dsDef);
         }
     }
 
-    private void instantiateConfiguredDataSourceClass(@NonNull DataSourceDefinition dsDef) {
+    private void instantiateConfiguredDataSourceClassJakarta(
+            @NonNull jakarta.annotation.sql.DataSourceDefinition dsDef) {
         String className = dsDef.className();
 
         try {
@@ -136,7 +139,64 @@ final class TestDataSource {
         }
     }
 
-    private void setDataSourcePropertiesFromConfiguredValues(@NonNull DataSourceDefinition dsDef) {
+    private void setDataSourcePropertiesFromConfiguredValuesJakarta(
+            @NonNull jakarta.annotation.sql.DataSourceDefinition dsDef) {
+        try {
+            BeanInfo beanInfo = Introspector.getBeanInfo(dsClass, Object.class);
+            PropertyDescriptor[] properties = beanInfo.getPropertyDescriptors();
+
+            setProperty(properties, "url", dsDef.url());
+            setProperty(properties, "user", dsDef.user());
+            setProperty(properties, "password", dsDef.password());
+        } catch (IntrospectionException | IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void createDataSourceJavax(@NonNull javax.annotation.sql.DataSourceDefinitions dsDefs) {
+        for (javax.annotation.sql.DataSourceDefinition dsDef : dsDefs.value()) {
+            createDataSourceJavax(dsDef);
+
+            if (ds != null) {
+                return;
+            }
+        }
+    }
+
+    private void createDataSourceJavax(@NonNull javax.annotation.sql.DataSourceDefinition dsDef) {
+        String configuredDataSourceName = InjectionPoint.getNameFromJNDILookup(dsDef.name());
+
+        if (configuredDataSourceName.equals(dsName)) {
+            instantiateConfiguredDataSourceClassJavax(dsDef);
+            setDataSourcePropertiesFromConfiguredValuesJavax(dsDef);
+        }
+    }
+
+    private void instantiateConfiguredDataSourceClassJavax(@NonNull javax.annotation.sql.DataSourceDefinition dsDef) {
+        String className = dsDef.className();
+
+        try {
+            // noinspection unchecked
+            dsClass = (Class<? extends CommonDataSource>) Class.forName(className);
+            // noinspection ClassNewInstance
+            ds = dsClass.getDeclaredConstructor().newInstance();
+        } catch (ClassNotFoundException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e.getCause());
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        } catch (SecurityException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void setDataSourcePropertiesFromConfiguredValuesJavax(
+            @NonNull javax.annotation.sql.DataSourceDefinition dsDef) {
         try {
             BeanInfo beanInfo = Introspector.getBeanInfo(dsClass, Object.class);
             PropertyDescriptor[] properties = beanInfo.getPropertyDescriptors();
