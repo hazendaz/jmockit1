@@ -323,15 +323,15 @@ final class FullVerificationsTest {
      */
     @Test
     void verifyRecordedInvocationThatShouldHappenButDoesNot() {
-        Assertions.assertThrows(MissingInvocation.class, () -> {
-            new Expectations() {
-                {
-                    mock.notifyBeforeSave();
-                }
-            };
+        new Expectations() {
+            {
+                mock.notifyBeforeSave();
+            }
+        };
 
             mock.setSomething(1);
 
+        Assertions.assertThrows(MissingInvocation.class, () -> {
             new FullVerifications() {
                 {
                     mock.notifyBeforeSave();
@@ -345,10 +345,10 @@ final class FullVerificationsTest {
      */
     @Test
     void verifyAllInvocationsWithExtraVerification() {
-        Throwable exception = Assertions.assertThrows(MissingInvocation.class, () -> {
-            mock.prepare();
-            mock.setSomething(123);
+        mock.prepare();
+        mock.setSomething(123);
 
+        Throwable exception = Assertions.assertThrows(MissingInvocation.class, () -> {
             new FullVerifications() {
                 {
                     mock.prepare();

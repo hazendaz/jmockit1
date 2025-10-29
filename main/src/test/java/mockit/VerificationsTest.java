@@ -8,6 +8,7 @@ import mockit.integration.junit5.JMockitExtension;
 import mockit.internal.expectations.invocation.MissingInvocation;
 import mockit.internal.expectations.invocation.UnexpectedInvocation;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -210,8 +211,8 @@ class VerificationsTest {
                 }
             };
         });
-        assertTrue(e.getMessage().contains("Missing 2 invocations"));
-        assertTrue(e.getMessage().contains("any int"));
+        Assertions.assertTrue(exception.getMessage().contains("Missing 2 invocations"));
+        Assertions.assertTrue(exception.getMessage().contains("any int"));
     }
 
     /**
@@ -232,8 +233,8 @@ class VerificationsTest {
                 }
             };
         });
-        assertTrue(e.getMessage().contains("1 unexpected invocation"));
-        assertTrue(e.getMessage().contains("5"));
+        Assertions.assertTrue(exception.getMessage().contains("1 unexpected invocation"));
+        Assertions.assertTrue(exception.getMessage().contains("5"));
     }
 
     /**
@@ -252,8 +253,8 @@ class VerificationsTest {
                 }
             };
         });
-        assertTrue(e.getMessage().contains("2 unexpected invocations"));
-        assertTrue(e.getMessage().contains("123"));
+        Assertions.assertTrue(exception.getMessage().contains("2 unexpected invocations"));
+        Assertions.assertTrue(exception.getMessage().contains("123"));
     }
 
     /**
@@ -327,7 +328,7 @@ class VerificationsTest {
                 }
             };
         });
-        assertTrue(exception.getMessage().contains("not empty"));
+        Assertions.assertTrue(exception.getMessage().contains("not empty"));
     }
 
     /**
@@ -350,7 +351,7 @@ class VerificationsTest {
                 }
             };
         });
-        assertTrue(exception.getMessage().contains("isEmpty(\"test\")"));
+        Assertions.assertTrue(exception.getMessage().contains("isEmpty(\"test\")"));
     }
 
     /**
@@ -373,7 +374,7 @@ class VerificationsTest {
                 }
             };
         });
-        assertTrue(exception.getMessage().contains("45"));
+        Assertions.assertTrue(exception.getMessage().contains("45"));
     }
 
     /**
