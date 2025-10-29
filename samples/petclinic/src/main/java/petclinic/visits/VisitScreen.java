@@ -3,12 +3,11 @@ package petclinic.visits;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
 import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.transaction.Transactional;
 
 import petclinic.pets.Pet;
 import petclinic.pets.PetMaintenance;

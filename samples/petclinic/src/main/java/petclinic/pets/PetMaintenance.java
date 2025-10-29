@@ -3,11 +3,11 @@ package petclinic.pets;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
-import java.util.List;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
+import jakarta.validation.ValidationException;
 
-import javax.inject.Inject;
-import javax.transaction.Transactional;
-import javax.validation.ValidationException;
+import java.util.List;
 
 import petclinic.owners.Owner;
 import petclinic.util.Database;
