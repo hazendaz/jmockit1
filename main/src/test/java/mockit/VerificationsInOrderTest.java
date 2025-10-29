@@ -148,7 +148,7 @@ class VerificationsInOrderTest {
                 }
             };
         });
-        assertTrue(exception.getMessage().contains("2"));
+        Assertions.assertTrue(exception.getMessage().contains("2"));
     }
 
     /**
@@ -430,7 +430,8 @@ class VerificationsInOrderTest {
                 }
             };
         });
-        assertTrue(exception.getMessage().contains("Missing 1 invocation") && exception.getMessage().contains("any int"));
+        Assertions.assertTrue(
+                exception.getMessage().contains("Missing 1 invocation") && exception.getMessage().contains("any int"));
     }
 
     /**
