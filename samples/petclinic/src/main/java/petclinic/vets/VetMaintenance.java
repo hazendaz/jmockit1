@@ -2,10 +2,10 @@ package petclinic.vets;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
 
-import java.util.List;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
-import javax.inject.Inject;
-import javax.transaction.Transactional;
+import java.util.List;
 
 import petclinic.util.Database;
 

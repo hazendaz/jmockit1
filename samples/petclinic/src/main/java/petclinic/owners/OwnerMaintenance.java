@@ -3,10 +3,10 @@ package petclinic.owners;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
-import java.util.List;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
-import javax.inject.Inject;
-import javax.transaction.Transactional;
+import java.util.List;
 
 import petclinic.util.Database;
 
