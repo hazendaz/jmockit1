@@ -16,6 +16,7 @@ import org.checkerframework.checker.index.qual.NonNegative;
 public abstract class AnnotatedReader extends BytecodeReader {
     @NonNull
     private final AnnotationReader annotationReader = new AnnotationReader(this);
+
     @NonNegative
     private int annotationsCodeIndex;
 

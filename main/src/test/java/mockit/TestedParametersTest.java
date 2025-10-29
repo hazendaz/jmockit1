@@ -8,10 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import jakarta.inject.Inject;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-
-import javax.inject.Inject;
 
 import org.junit.jupiter.api.Test;
 

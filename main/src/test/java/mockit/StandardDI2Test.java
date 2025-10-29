@@ -2,7 +2,7 @@ package mockit;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.junit.Test;
 
