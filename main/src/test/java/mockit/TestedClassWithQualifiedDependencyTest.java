@@ -4,11 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import jakarta.annotation.Resource;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+
 import java.io.Serializable;
 
-import javax.annotation.Resource;
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.sql.DataSource;
 
 import org.junit.jupiter.api.BeforeEach;

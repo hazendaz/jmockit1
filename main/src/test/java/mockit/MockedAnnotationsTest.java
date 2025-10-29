@@ -8,9 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
 
-import java.lang.annotation.Annotation;
+import jakarta.annotation.Resource;
 
-import javax.annotation.Resource;
+import java.lang.annotation.Annotation;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.junit.jupiter.api.Test;

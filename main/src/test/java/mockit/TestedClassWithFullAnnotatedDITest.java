@@ -7,16 +7,17 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import jakarta.annotation.Resource;
+import jakarta.annotation.sql.DataSourceDefinition;
+import jakarta.annotation.sql.DataSourceDefinitions;
+import jakarta.ejb.EJB;
+import jakarta.enterprise.context.Conversation;
+import jakarta.inject.Inject;
+
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.logging.Logger;
 
-import javax.annotation.Resource;
-import javax.annotation.sql.DataSourceDefinition;
-import javax.annotation.sql.DataSourceDefinitions;
-import javax.ejb.EJB;
-import javax.enterprise.context.Conversation;
-import javax.inject.Inject;
 import javax.sql.ConnectionPoolDataSource;
 import javax.sql.DataSource;
 import javax.sql.PooledConnection;
