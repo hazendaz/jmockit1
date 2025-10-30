@@ -80,7 +80,11 @@ final class JPAJavaxDependencies {
 
         if (xmlFile != null) {
             try {
-                SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+                SAXParserFactory factory = SAXParserFactory.newInstance();
+                factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+                factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+                factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+                SAXParser parser = factory.newSAXParser();
                 parser.parse(xmlFile, new DefaultHandler() {
                     @Override
                     public void startElement(String uri, String localName, String qName, Attributes attributes) {
