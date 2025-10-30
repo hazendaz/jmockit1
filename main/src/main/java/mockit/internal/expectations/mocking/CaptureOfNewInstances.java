@@ -102,13 +102,7 @@ public class CaptureOfNewInstances extends CaptureOfImplementations<MockedType> 
             makeSureAllSubtypesAreModified(typeMetadata);
         }
 
-        List<Capture> captures = baseTypeToCaptures.get(baseType);
-
-        if (captures == null) {
-            captures = new ArrayList<>();
-            baseTypeToCaptures.put(baseType, captures);
-        }
-
+        List<Capture> captures = baseTypeToCaptures.computeIfAbsent(baseType, k -> new ArrayList<>());
         captures.add(new Capture(typeMetadata, mockInstance));
     }
 

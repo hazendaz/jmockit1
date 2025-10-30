@@ -32,14 +32,8 @@ public final class CascadingTypes {
 
     @NonNull
     MockedTypeCascade add(@NonNull String mockedTypeDesc, boolean fromMockField, @NonNull Type mockedType) {
-        MockedTypeCascade cascade = mockedTypesToCascades.get(mockedType);
-
-        if (cascade == null) {
-            cascade = new MockedTypeCascade(fromMockField, mockedType, mockedTypeDesc);
-            mockedTypesToCascades.put(mockedType, cascade);
-        }
-
-        return cascade;
+        return mockedTypesToCascades.computeIfAbsent(mockedType,
+                k -> new MockedTypeCascade(fromMockField, mockedType, mockedTypeDesc));
     }
 
     @NonNull

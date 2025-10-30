@@ -131,15 +131,10 @@ public final class CaptureTransformer<M> implements ClassFileTransformer {
     }
 
     private boolean searchSuperType(@Nullable ClassLoader loader, @NonNull String superName) {
-        Boolean extendsCapturedType = superTypesSearched.get(superName);
-
-        if (extendsCapturedType == null) {
-            byte[] classfileBytes = ClassFile.getClassFile(loader, superName);
-            extendsCapturedType = isClassToBeCaptured(loader, classfileBytes);
-            superTypesSearched.put(superName, extendsCapturedType);
-        }
-
-        return extendsCapturedType;
+        return superTypesSearched.computeIfAbsent(superName, name -> {
+            byte[] classfileBytes = ClassFile.getClassFile(loader, name);
+            return isClassToBeCaptured(loader, classfileBytes);
+        });
     }
 
     @NonNull
