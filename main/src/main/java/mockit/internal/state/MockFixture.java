@@ -461,10 +461,8 @@ public final class MockFixture {
             try {
                 registerNatives.setAccessible(true);
                 registerNatives.invoke(null);
-            } catch (IllegalAccessException ignore) {
+            } catch (IllegalAccessException | InvocationTargetException ignore) {
             } // won't happen
-            catch (InvocationTargetException ignore) {
-            } // shouldn't happen either
         }
 
         // OK, although another solution will be required for this particular class if it requires
