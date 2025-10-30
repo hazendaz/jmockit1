@@ -447,7 +447,7 @@ public final class ConstantPoolGeneration {
         }
 
         if (cst instanceof Boolean) {
-            int val = (Boolean) cst ? 1 : 0;
+            int val = (boolean) cst ? 1 : 0;
             return newInteger(val);
         }
 
