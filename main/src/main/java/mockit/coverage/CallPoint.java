@@ -4,8 +4,6 @@
  */
 package mockit.coverage;
 
-import static java.lang.reflect.Modifier.isPublic;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
@@ -24,7 +22,6 @@ public final class CallPoint implements Serializable {
     private static final Map<StackTraceElement, Boolean> steCache = new HashMap<>();
     private static final Class<? extends Annotation> testAnnotation;
     private static final boolean checkTestAnnotationOnClass;
-    private static final boolean checkIfTestCaseSubclass;
 
     static {
         Class<?> annotation = getJUnitAnnotationIfAvailable();
@@ -38,7 +35,6 @@ public final class CallPoint implements Serializable {
         // noinspection unchecked
         testAnnotation = (Class<? extends Annotation>) annotation;
         checkTestAnnotationOnClass = checkOnClassAlso;
-        checkIfTestCaseSubclass = checkForJUnit3Availability();
     }
 
     @Nullable
@@ -67,15 +63,6 @@ public final class CallPoint implements Serializable {
             } catch (ClassNotFoundException ignored) {
                 return null;
             }
-        }
-    }
-
-    private static boolean checkForJUnit3Availability() {
-        try {
-            Class.forName("junit.framework.TestCase");
-            return true;
-        } catch (ClassNotFoundException ignore) {
-            return false;
         }
     }
 
@@ -174,8 +161,7 @@ public final class CallPoint implements Serializable {
 
         Method method = findMethod(testClass, methodName);
 
-        return method != null && (containsATestFrameworkAnnotation(method.getDeclaredAnnotations())
-                || checkIfTestCaseSubclass && isJUnit3xTestMethod(testClass, method));
+        return method != null && (containsATestFrameworkAnnotation(method.getDeclaredAnnotations()));
     }
 
     @Nullable
@@ -204,21 +190,4 @@ public final class CallPoint implements Serializable {
         return false;
     }
 
-    private static boolean isJUnit3xTestMethod(@NonNull Class<?> aClass, @NonNull Method method) {
-        if (!isPublic(method.getModifiers()) || !method.getName().startsWith("test")) {
-            return false;
-        }
-
-        Class<?> superClass = aClass.getSuperclass();
-
-        while (superClass != Object.class) {
-            if ("junit.framework.TestCase".equals(superClass.getName())) {
-                return true;
-            }
-
-            superClass = superClass.getSuperclass();
-        }
-
-        return false;
-    }
 }
