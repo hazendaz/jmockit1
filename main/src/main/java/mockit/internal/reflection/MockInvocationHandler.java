@@ -51,8 +51,7 @@ public final class MockInvocationHandler implements InvocationHandler {
 
         if (declaringClass == Object.class) {
             if ("equals".equals(methodName)) {
-                assert args != null;
-                return proxy == args[0];
+                return args != null && args.length > 0 && proxy == args[0];
             }
             if ("hashCode".equals(methodName)) {
                 return System.identityHashCode(proxy);
