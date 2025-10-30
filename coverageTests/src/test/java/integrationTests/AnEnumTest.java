@@ -9,7 +9,7 @@ class AnEnumTest extends CoverageTest {
 
     @Test
     void useAnEnum() {
-        tested = AnEnum.OneValue;
+        tested = AnEnum.ONE_VALUE;
 
         assertEquals(100, fileData.lineCoverageInfo.getCoveragePercentage());
     }

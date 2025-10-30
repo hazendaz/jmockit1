@@ -8,13 +8,13 @@ import org.junit.jupiter.api.Test;
 class ClassInRegularPackageTest {
     @Test
     void firstTest() {
-        ClassInRegularPackage.NestedEnum value = ClassInRegularPackage.NestedEnum.First;
+        ClassInRegularPackage.NestedEnum value = ClassInRegularPackage.NestedEnum.FIRST;
         ClassInRegularPackage obj = new ClassInRegularPackage();
         assertTrue(obj.doSomething(value));
     }
 
     @Test
     void secondTest() {
-        assertFalse(new ClassInRegularPackage().doSomething(ClassInRegularPackage.NestedEnum.Second));
+        assertFalse(new ClassInRegularPackage().doSomething(ClassInRegularPackage.NestedEnum.SECOND));
     }
 }

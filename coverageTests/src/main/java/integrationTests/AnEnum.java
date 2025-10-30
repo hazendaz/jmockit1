@@ -6,8 +6,8 @@ package integrationTests;
 public enum AnEnum {
 
     /** The One value. */
-    OneValue,
+    ONE_VALUE,
 
     /** The Another value. */
-    AnotherValue
+    ANOTHER_VALUE
 }

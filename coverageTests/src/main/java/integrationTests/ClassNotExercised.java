@@ -26,6 +26,6 @@ public final class ClassNotExercised {
             logger.info(s);
         }
 
-        return s.length() > 0;
+        return !s.isEmpty();
     }
 }

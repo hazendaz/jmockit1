@@ -20,10 +20,10 @@ public class ClassInRegularPackage {
     public enum NestedEnum {
 
         /** The First. */
-        First,
+        FIRST,
 
         /** The Second. */
-        Second() {
+        SECOND() {
             @Override
             public String toString() {
                 return "2nd";
@@ -45,10 +45,10 @@ public class ClassInRegularPackage {
      */
     public boolean doSomething(NestedEnum value) {
         switch (value) {
-            case First:
+            case FIRST:
                 return true;
 
-            case Second:
+            case SECOND:
                 value.toString();
                 break;
         }

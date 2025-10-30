@@ -36,7 +36,7 @@ public class CoverageTest {
     private static String testedClassSimpleName;
 
     @BeforeEach
-    public final void findCoverageData() throws Exception {
+    protected final void findCoverageData() throws Exception {
         Field testedField = getClass().getDeclaredField("tested");
         Class<?> testedClass = testedField.getType();
 
