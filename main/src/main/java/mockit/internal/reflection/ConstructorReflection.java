@@ -74,10 +74,10 @@ public final class ConstructorReflection {
             Constructor<T> constructor = aClass.getDeclaredConstructor();
             ensureThatMemberIsAccessible(constructor);
             return constructor.newInstance();
-        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException
-                | InvocationTargetException e) {
-            Throwable cause = e instanceof InvocationTargetException ? e.getTargetException() : e;
-            throw new RuntimeException(cause);
+        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e.getTargetException());
         }
     }
 
