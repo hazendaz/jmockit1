@@ -41,10 +41,8 @@ public final class AnnotationReflection {
         try {
             Method publicMethod = annotationInstance.getClass().getMethod(attributeName, NO_PARAMETERS);
             return (String) publicMethod.invoke(annotationInstance);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e.getCause());
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException(e instanceof InvocationTargetException ? e.getCause() : e);
         }
     }
 }

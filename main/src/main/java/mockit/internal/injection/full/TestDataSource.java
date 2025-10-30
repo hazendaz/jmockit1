@@ -124,18 +124,10 @@ final class TestDataSource {
             dsClass = (Class<? extends CommonDataSource>) Class.forName(className);
             // noinspection ClassNewInstance
             ds = dsClass.getDeclaredConstructor().newInstance();
-        } catch (ClassNotFoundException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e.getCause());
-        } catch (IllegalArgumentException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        } catch (SecurityException e) {
-            throw new RuntimeException(e);
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException |
+                 IllegalArgumentException | InvocationTargetException | NoSuchMethodException |
+                 SecurityException e) {
+            throw new RuntimeException(e instanceof InstantiationException ? e.getCause() : e);
         }
     }
 
@@ -180,18 +172,10 @@ final class TestDataSource {
             dsClass = (Class<? extends CommonDataSource>) Class.forName(className);
             // noinspection ClassNewInstance
             ds = dsClass.getDeclaredConstructor().newInstance();
-        } catch (ClassNotFoundException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e.getCause());
-        } catch (IllegalArgumentException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        } catch (SecurityException e) {
-            throw new RuntimeException(e);
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException |
+                 IllegalArgumentException | InvocationTargetException | NoSuchMethodException |
+                 SecurityException e) {
+            throw new RuntimeException(e instanceof InstantiationException ? e.getCause() : e);
         }
     }
 
