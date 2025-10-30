@@ -101,8 +101,14 @@ public final class IndexPage extends ListWithFilesAndPercentages {
     }
 
     private static void removeRedundantSourceDirectories(@NonNull List<File> dirs) {
-        for (int i = 0; i < dirs.size(); i++) {
-            i = removeRedundantSourceDirectory(dirs, i);
+        int i = 0;
+        while (i < dirs.size()) {
+            int newIndex = removeRedundantSourceDirectory(dirs, i);
+            if (newIndex == i) {
+                i++;
+            } else {
+                i = newIndex;
+            }
         }
     }
 
