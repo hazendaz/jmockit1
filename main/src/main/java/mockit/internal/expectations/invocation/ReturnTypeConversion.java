@@ -215,7 +215,6 @@ public final class ReturnTypeConversion {
         return false;
     }
 
-    @SuppressWarnings("Since15")
     private boolean addJava8ObjectIfApplicable() {
         if (returnType == Optional.class) {
             addReturnValue(Optional.of(valueToReturn));

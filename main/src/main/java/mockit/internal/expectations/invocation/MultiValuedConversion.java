@@ -56,7 +56,6 @@ final class MultiValuedConversion {
         }
     }
 
-    @SuppressWarnings("Since15")
     private void addMultiValuedResult(boolean valueIsArray) {
         if (valueIsArray) {
             invocationResults.addResults(valueToReturn);
@@ -77,7 +76,6 @@ final class MultiValuedConversion {
                 && !returnType.isAssignableFrom(valueToReturn.getClass());
     }
 
-    @SuppressWarnings("Since15")
     private boolean addCollectionOrMapWithElementsFromArray() {
         @NonNegative
         int n = Array.getLength(valueToReturn);
