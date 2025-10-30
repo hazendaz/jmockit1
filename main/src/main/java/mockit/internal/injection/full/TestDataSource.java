@@ -124,9 +124,8 @@ final class TestDataSource {
             dsClass = (Class<? extends CommonDataSource>) Class.forName(className);
             // noinspection ClassNewInstance
             ds = dsClass.getDeclaredConstructor().newInstance();
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException |
-                 IllegalArgumentException | InvocationTargetException | NoSuchMethodException |
-                 SecurityException e) {
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | IllegalArgumentException
+                | InvocationTargetException | NoSuchMethodException | SecurityException e) {
             throw new RuntimeException(e instanceof InstantiationException ? e.getCause() : e);
         }
     }
@@ -172,9 +171,8 @@ final class TestDataSource {
             dsClass = (Class<? extends CommonDataSource>) Class.forName(className);
             // noinspection ClassNewInstance
             ds = dsClass.getDeclaredConstructor().newInstance();
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException |
-                 IllegalArgumentException | InvocationTargetException | NoSuchMethodException |
-                 SecurityException e) {
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | IllegalArgumentException
+                | InvocationTargetException | NoSuchMethodException | SecurityException e) {
             throw new RuntimeException(e instanceof InstantiationException ? e.getCause() : e);
         }
     }
