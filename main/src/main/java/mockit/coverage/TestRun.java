@@ -6,6 +6,8 @@ package mockit.coverage;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 import mockit.coverage.data.CoverageData;
 import mockit.coverage.data.FileCoverageData;
 import mockit.coverage.lines.PerFileLineCoverage;
@@ -15,7 +17,7 @@ import org.checkerframework.checker.index.qual.NonNegative;
 
 @SuppressWarnings("unused")
 public final class TestRun {
-    private static final Object LOCK = new Object();
+    private static final ReentrantLock LOCK = new ReentrantLock();
     private static boolean terminated;
 
     private TestRun() {
@@ -26,7 +28,8 @@ public final class TestRun {
             return;
         }
 
-        synchronized (LOCK) {
+        LOCK.lock();
+        try {
             CoverageData coverageData = CoverageData.instance();
             PerFileLineCoverage fileData = coverageData.getFileData(fileIndex).lineCoverageInfo;
             CallPoint callPoint = null;
@@ -37,6 +40,8 @@ public final class TestRun {
 
             int previousExecutionCount = fileData.registerExecution(line, callPoint);
             recordNewLineOrSegmentAsCoveredIfApplicable(previousExecutionCount);
+        } finally {
+            LOCK.unlock();
         }
     }
 
@@ -53,7 +58,8 @@ public final class TestRun {
             return;
         }
 
-        synchronized (LOCK) {
+        LOCK.lock();
+        try {
             CoverageData coverageData = CoverageData.instance();
             PerFileLineCoverage fileData = coverageData.getFileData(fileIndex).lineCoverageInfo;
 
@@ -67,6 +73,8 @@ public final class TestRun {
                 int previousExecutionCount = fileData.registerExecution(line, branchIndex, callPoint);
                 recordNewLineOrSegmentAsCoveredIfApplicable(previousExecutionCount);
             }
+        } finally {
+            LOCK.unlock();
         }
     }
 
@@ -75,10 +83,13 @@ public final class TestRun {
             return;
         }
 
-        synchronized (LOCK) {
+        LOCK.lock();
+        try {
             CoverageData coverageData = CoverageData.instance();
             FileCoverageData fileData = coverageData.getFileData(file);
             fileData.dataCoverageInfo.registerAssignmentToStaticField(classAndFieldNames);
+        } finally {
+            LOCK.unlock();
         }
     }
 
@@ -87,10 +98,13 @@ public final class TestRun {
             return;
         }
 
-        synchronized (LOCK) {
+        LOCK.lock();
+        try {
             CoverageData coverageData = CoverageData.instance();
             FileCoverageData fileData = coverageData.getFileData(file);
             fileData.dataCoverageInfo.registerReadOfStaticField(classAndFieldNames);
+        } finally {
+            LOCK.unlock();
         }
     }
 
@@ -100,10 +114,13 @@ public final class TestRun {
             return;
         }
 
-        synchronized (LOCK) {
+        LOCK.lock();
+        try {
             CoverageData coverageData = CoverageData.instance();
             FileCoverageData fileData = coverageData.getFileData(file);
             fileData.dataCoverageInfo.registerAssignmentToInstanceField(instance, classAndFieldNames);
+        } finally {
+            LOCK.unlock();
         }
     }
 
@@ -112,10 +129,13 @@ public final class TestRun {
             return;
         }
 
-        synchronized (LOCK) {
+        LOCK.lock();
+        try {
             CoverageData coverageData = CoverageData.instance();
             FileCoverageData fileData = coverageData.getFileData(file);
             fileData.dataCoverageInfo.registerReadOfInstanceField(instance, classAndFieldNames);
+        } finally {
+            LOCK.unlock();
         }
     }
 
