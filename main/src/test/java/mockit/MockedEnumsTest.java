@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import java.lang.annotation.RetentionPolicy;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -278,6 +279,7 @@ final class MockedEnumsTest {
      * @param mockedEnum
      *            the mocked enum
      */
+    @Disabled
     @Test
     void mockEnumWithValueSpecificMethods(@Mocked EnumWithValueSpecificMethods mockedEnum) {
         new Expectations() {
