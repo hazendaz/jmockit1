@@ -22,4 +22,8 @@ public interface ClassVersion {
     int V20 = 64;
     int V21 = 65;
     int V22 = 66;
+    int V23 = 67;
+    int V24 = 68;
+    int V25 = 69;
+    int V26 = 70;
 }
