@@ -129,13 +129,7 @@ public final class CoverageReport {
     private void addFileToPackageFileList(@NonNull String file) {
         int p = file.lastIndexOf('/');
         String filePackage = p < 0 ? "" : file.substring(0, p);
-        List<String> filesInPackage = packageToFiles.get(filePackage);
-
-        if (filesInPackage == null) {
-            filesInPackage = new ArrayList<>();
-            packageToFiles.put(filePackage, filesInPackage);
-        }
-
+        List<String> filesInPackage = packageToFiles.computeIfAbsent(filePackage, k -> new ArrayList<>());
         filesInPackage.add(file.substring(p + 1));
     }
 

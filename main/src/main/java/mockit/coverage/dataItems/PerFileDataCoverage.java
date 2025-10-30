@@ -180,10 +180,7 @@ public final class PerFileDataCoverage implements PerFileCoverage {
             @NonNull Map<String, FI> currentInfo, @NonNull Map<String, FI> previousInfo) {
         for (Entry<String, FI> nameAndInfo : previousInfo.entrySet()) {
             String fieldName = nameAndInfo.getKey();
-
-            if (!currentInfo.containsKey(fieldName)) {
-                currentInfo.put(fieldName, previousInfo.get(fieldName));
-            }
+            currentInfo.putIfAbsent(fieldName, previousInfo.get(fieldName));
         }
     }
 }

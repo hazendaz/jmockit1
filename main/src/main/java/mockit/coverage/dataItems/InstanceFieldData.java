@@ -44,14 +44,7 @@ public final class InstanceFieldData extends FieldData {
     @NonNull
     private List<Integer> getDataForRunningTest() {
         int testId = TestRun.getTestId();
-        List<Integer> fieldData = testIdsToAssignments.get(testId);
-
-        if (fieldData == null) {
-            fieldData = new LinkedList<>();
-            testIdsToAssignments.put(testId, fieldData);
-        }
-
-        return fieldData;
+        return testIdsToAssignments.computeIfAbsent(testId, k -> new LinkedList<>());
     }
 
     @Override
