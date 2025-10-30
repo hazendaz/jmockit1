@@ -55,9 +55,9 @@
 
     <properties>
         <!-- Maven compiler options -->
-        <java.version>11</java.version>
-        <java.release.version>11</java.release.version>
-        <javadoc.java.release.version>11</javadoc.java.release.version>
+        <java.version>25</java.version>
+        <java.release.version>25</java.release.version>
+        <javadoc.java.release.version>25</javadoc.java.release.version>
 
         <!-- Jacoco minimum code coverage -->
         <jacoco.minimum.coverage>0.65</jacoco.minimum.coverage>

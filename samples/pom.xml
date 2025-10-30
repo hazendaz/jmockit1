@@ -40,9 +40,9 @@
 
     <properties>
         <!-- Maven compiler options -->
-        <java.version>17</java.version>
-        <java.release.version>17</java.release.version>
-        <javadoc.java.release.version>17</javadoc.java.release.version>
+        <java.version>25</java.version>
+        <java.release.version>25</java.release.version>
+        <javadoc.java.release.version>25</javadoc.java.release.version>
 
         <!-- Automatic Module Name -->
         <module.name>com.github.hazendaz.jmockit.samples</module.name>

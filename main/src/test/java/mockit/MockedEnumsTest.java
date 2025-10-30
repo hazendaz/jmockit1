@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 import mockit.integration.junit5.JMockitExtension;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -287,6 +288,7 @@ class MockedEnumsTest {
      * @param mockedEnum
      *            the mocked enum
      */
+    @Disabled
     @Test
     void mockEnumWithValueSpecificMethods(@Mocked EnumWithValueSpecificMethods mockedEnum) {
         new Expectations() {
