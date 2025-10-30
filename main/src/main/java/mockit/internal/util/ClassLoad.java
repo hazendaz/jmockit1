@@ -142,18 +142,11 @@ public final class ClassLoad {
     @NonNull
     public static String getSuperClass(@NonNull String classInternalName) {
         String classDesc = classInternalName.intern();
-        String superName = SUPER_CLASSES.get(classDesc);
-
-        if (superName == null) {
-            Class<?> theClass = loadByInternalName(classDesc);
+        String superName = SUPER_CLASSES.computeIfAbsent(classDesc, key -> {
+            Class<?> theClass = loadByInternalName(key);
             Class<?> superClass = theClass.getSuperclass();
-
-            if (superClass != null) {
-                superName = superClass.getName().replace('.', '/').intern();
-                SUPER_CLASSES.put(classDesc, superName);
-            }
-        }
-
+            return superClass != null ? superClass.getName().replace('.', '/').intern() : null;
+        });
         return superName == null ? OBJECT : superName;
     }
 

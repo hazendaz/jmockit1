@@ -60,14 +60,7 @@ public final class CachedClassfiles implements ClassFileTransformer {
 
     @NonNull
     private Map<String, byte[]> getClassfiles(@Nullable ClassLoader loader) {
-        Map<String, byte[]> classfiles = classLoadersAndClassfiles.get(loader);
-
-        if (classfiles == null) {
-            classfiles = new HashMap<>(100);
-            classLoadersAndClassfiles.put(loader, classfiles);
-        }
-
-        return classfiles;
+        return classLoadersAndClassfiles.computeIfAbsent(loader, k -> new HashMap<>(100));
     }
 
     @Nullable
