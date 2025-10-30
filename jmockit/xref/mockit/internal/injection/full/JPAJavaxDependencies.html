@@ -1,11 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-<title>JPADependencies xref</title>
+<title>JPAJavaxDependencies xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
 </head>
 <body>
-<div id="overview"><a href="../../../../../apidocs/mockit/internal/injection/full/JPADependencies.html">View Javadoc</a></div><pre>
+<div id="overview"><a href="../../../../../apidocs/mockit/internal/injection/full/JPAJavaxDependencies.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright (c) 2006 JMockit developers</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> * This file is subject to the terms of the MIT license (see LICENSE.txt).</em>
@@ -40,7 +40,7 @@
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment"> * Detects and resolves dependencies belonging to the &lt;code&gt;javax.persistence&lt;/code&gt; API, namely</em>
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment"> * &lt;code&gt;EntityManagerFactory&lt;/code&gt; and &lt;code&gt;EntityManager&lt;/code&gt;.</em>
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="JPADependencies" href="../../../../mockit/internal/injection/full/JPADependencies.html#JPADependencies">JPADependencies</a> {
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="JPAJavaxDependencies" href="../../../../mockit/internal/injection/full/JPAJavaxDependencies.html#JPAJavaxDependencies">JPAJavaxDependencies</a> {
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> isApplicable(@NonNull Class&lt;?&gt; dependencyType) {
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>          <strong class="jxr_keyword">return</strong> dependencyType == EntityManager.<strong class="jxr_keyword">class</strong> || dependencyType == EntityManagerFactory.<strong class="jxr_keyword">class</strong>;
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>      }
@@ -50,7 +50,7 @@
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>      @Nullable
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>      <strong class="jxr_keyword">private</strong> String defaultPersistenceUnitName;
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <a name="JPADependencies" href="../../../../mockit/internal/injection/full/JPADependencies.html#JPADependencies">JPADependencies</a>(@NonNull <a name="InjectionState" href="../../../../mockit/internal/injection/InjectionState.html#InjectionState">InjectionState</a> injectionState) {
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <a name="JPAJavaxDependencies" href="../../../../mockit/internal/injection/full/JPAJavaxDependencies.html#JPAJavaxDependencies">JPAJavaxDependencies</a>(@NonNull <a name="InjectionState" href="../../../../mockit/internal/injection/InjectionState.html#InjectionState">InjectionState</a> injectionState) {
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>          <strong class="jxr_keyword">this</strong>.injectionState = injectionState;
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>      }
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  
@@ -159,6 +159,6 @@
 <a class="jxr_linenumber" name="L151" href="#L151">151</a> }
 </pre>
 <hr/>
-<div id="footer">© 2011–2025 <a href="https://github.com/hazendaz/">hazendaz</a></div>
+<div id="footer">© 2006–2025 <a href="https://github.com/hazendaz/">hazendaz</a></div>
 </body>
 </html>

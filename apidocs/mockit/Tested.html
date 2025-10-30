@@ -247,18 +247,33 @@ loadScripts(document, 'script');</script>
  <ul>
  <li><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Logger.html" title="class or interface in java.util.logging" class="external-link"><code>Logger</code></a>: a logger is automatically
  <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Logger.html#getLogger(java.lang.String)" title="class or interface in java.util.logging" class="external-link">created</a> with the name of the tested class.</li>
- <li><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.sql/javax/sql/DataSource.html" title="class or interface in javax.sql" class="external-link"><code>DataSource</code></a>: a JDBC data source is created and configured according to a matching
+ <li>Javax <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.sql/javax/sql/DataSource.html" title="class or interface in javax.sql" class="external-link"><code>DataSource</code></a>: a JDBC data source is created and configured according to a matching
  <code>@DataSourceDefinition</code> in the tested class.</li>
- <li><code>Provider&lt;T&gt;</code>: a provider which produces an instance of type <code>T</code> is
- injected.</li>
- <li>JPA interfaces <code>EntityManagerFactory</code> and <code>EntityManager</code>:
- created through calls to <code>Persistence.createEntityManagerFactory(String)</code> and
+ <li>Jakarta <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.sql/javax/sql/DataSource.html" title="class or interface in javax.sql" class="external-link"><code>DataSource</code></a>: a JDBC data source is created and configured according to a matching
+ <code>@DataSourceDefinition</code> in the tested class.</li>
+ <li>Javax <code>Provider&lt;T&gt;</code>: a provider which produces an instance of type
+ <code>T</code> is injected.</li>
+ <li>Jakarta <code>Provider&lt;T&gt;</code>: a provider which produces an instance of type
+ <code>T</code> is injected.</li>
+ <li>Javax JPA interfaces <code>EntityManagerFactory</code> and
+ <code>EntityManager</code>: created through calls to
+ <code>Persistence.createEntityManagerFactory(String)</code> and
  <code>EntityManagerFactory.createEntityManager()</code>, provided a suitable
  <code>META-INF/persistence.xml</code> file is available in the runtime classpath.</li>
- <li>Servlet interfaces <code>ServletContext</code> and <code>HttpSession</code>: objects
- that emulate the servlet context and HTTP session are automatically created for use in tests.</li>
- <li><code>Conversation</code>: an object that emulates a web application's conversation
+ <li>Jakarta JPA interfaces <code>EntityManagerFactory</code> and
+ <code>EntityManager</code>: created through calls to
+ <code>Persistence.createEntityManagerFactory(String)</code> and
+ <code>EntityManagerFactory.createEntityManager()</code>, provided a suitable
+ <code>META-INF/persistence.xml</code> file is available in the runtime classpath.</li>
+ <li>Javax Servlet interfaces <code>ServletContext</code> and <code>HttpSession</code>:
+ objects that emulate the servlet context and HTTP session are automatically created for use in tests.</li>
+ <li>Jakarta Servlet interfaces <code>ServletContext</code> and
+ <code>HttpSession</code>: objects that emulate the servlet context and HTTP session are
+ automatically created for use in tests.</li>
+ <li>Javax <code>Conversation</code>: an object that emulates a web application's conversation
  context is created.</li>
+ <li>Jakarta <code>Conversation</code>: an object that emulates a web application's
+ conversation context is created.</li>
  </ul></div>
 <dl class="notes">
 <dt>Returns:</dt>
