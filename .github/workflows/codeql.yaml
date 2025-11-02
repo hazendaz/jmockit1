@@ -2,16 +2,21 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ master ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ master ]
   schedule:
-    - cron: "43 10 * * 2"
+    - cron: '43 10 * * 2'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   analyze:
     name: Analyze
-    runs-on: ubuntu-latest
+    runs-on: 'ubuntu-latest'
+    timeout-minutes: 30
     permissions:
       actions: read
       contents: read
@@ -20,7 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ javascript, java ]
+        language: [ javascript, java, kotlin ]
 
     steps:
       - name: Checkout
@@ -30,8 +35,8 @@ jobs:
         uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5
         with:
           cache: maven
-          java-version: 21
           distribution: 'temurin'
+          java-version: 25
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@0499de31b99561a6d14a36a5f662c2a54f91beee # v4

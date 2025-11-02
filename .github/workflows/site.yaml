@@ -8,10 +8,15 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     if: github.repository_owner == 'hazendaz' && ! contains(toJSON(github.event.head_commit.message), '[maven-release-plugin]')
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
       - name: Setup Java
@@ -19,9 +24,9 @@ jobs:
         with:
           cache: maven
           distribution: temurin
-          java-version: 21
+          java-version: 25
       - name: Build site
-        run: ./mvnw site site:stage -DskipTests -Dlicense.skip=true -B -V --no-transfer-progress --settings ./.mvn/settings.xml
+        run: ./mvnw site site:stage --batch-mode --no-transfer-progress --settings ./.mvn/settings.xml --show-version -Dlicense.skip=true -DskipTests
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NVD_API_KEY: ${{ secrets.NVD_API_KEY }}

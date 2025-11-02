@@ -4,9 +4,14 @@ on: [workflow_dispatch, push, pull_request]
 
 permissions: read-all
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
     strategy:
       matrix:
         cache: [maven]
@@ -14,7 +19,7 @@ jobs:
         java: [21, 25, 26-ea]
         os: [macos-latest, ubuntu-latest, windows-latest]
       fail-fast: false
-      max-parallel: 4
+      max-parallel: 6
     name: Test JDK ${{ matrix.java }}, ${{ matrix.os }}
 
     steps:
@@ -26,8 +31,8 @@ jobs:
           distribution: ${{ matrix.distribution }}
           java-version: ${{ matrix.java }}
       - name: Run tests using install (Linux)
-        run: xvfb-run -a ./mvnw install -B -V --no-transfer-progress -D"license.skip=true"
+        run: xvfb-run -a ./mvnw install --batch-mode --no-transfer-progress --show-version -D"license.skip=true"
         if: ${{ matrix.os == 'ubuntu-latest' }}
       - name: Run tests using install (Windows/Mac)
-        run: ./mvnw install -B -V --no-transfer-progress -D"license.skip=true"
+        run: ./mvnw install --batch-mode --no-transfer-progress --show-version -D"license.skip=true"
         if: ${{ matrix.os != 'ubuntu-latest' }}
