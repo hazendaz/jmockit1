@@ -23,7 +23,8 @@ jobs:
           java-version: 25
       - name: Run the build
         uses: GabrielBB/xvfb-action@5bcda06da84ba084708898801da79736b88e00a9 # v1
-        run: xvfb-run --auto-servernum ./mvnw test --batch-mode --no-transfer-progress --quiet --show-version -Dlicense.skip=true
+        with:
+          run: xvfb-run --auto-servernum ./mvnw test --batch-mode --no-transfer-progress --quiet --show-version -Dlicense.skip=true
       - name: Report Coverage to Coveralls for Pull Requests
         if: github.event_name == 'pull_request'
         run: ./mvnw jacoco:report coveralls:report --batch-mode --no-transfer-progress -DpullRequest=${PR_NUMBER} -DrepoToken=${GITHUB_TOKEN} -DserviceName=github
