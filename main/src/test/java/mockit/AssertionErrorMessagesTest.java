@@ -26,6 +26,7 @@ public final class AssertionErrorMessagesTest {
          * Do something.
          */
         void doSomething() {
+            // do nothing
         }
 
         /**
@@ -37,6 +38,7 @@ public final class AssertionErrorMessagesTest {
          *            the s
          */
         void doSomething(@SuppressWarnings("unused") int i, @SuppressWarnings("unused") String s) {
+            // do nothing
         }
 
         /**
@@ -46,6 +48,7 @@ public final class AssertionErrorMessagesTest {
          *            the s
          */
         void doSomethingElse(@SuppressWarnings("unused") String s) {
+            // do nothing
         }
     }
 
