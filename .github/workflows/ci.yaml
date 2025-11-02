@@ -31,6 +31,6 @@ jobs:
           distribution: ${{ matrix.distribution }}
           java-version: ${{ matrix.java }}
       - name: Run tests using install (Linux)
-        uses: GabrielBB/xvfb-action@5bcda06da84ba084708898801da79736b88e00a9 # v1
+        uses: GabrielBB/xvfb-action@86d97bde4a65fe9b290c0b3fb92c2c4ed0e5302d # v1
         with:
           run: ./mvnw install --batch-mode --no-transfer-progress --show-version -D"license.skip=true"
