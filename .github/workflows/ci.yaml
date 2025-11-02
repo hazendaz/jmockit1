@@ -31,7 +31,7 @@ jobs:
           distribution: ${{ matrix.distribution }}
           java-version: ${{ matrix.java }}
       - name: Run tests using install (Linux)
-        run: xvfb-run -a ./mvnw install --batch-mode --no-transfer-progress --show-version -D"license.skip=true"
+        run: xvfb-run --auto-servernum ./mvnw install --batch-mode --no-transfer-progress --show-version -D"license.skip=true"
         if: ${{ matrix.os == 'ubuntu-latest' }}
       - name: Run tests using install (Windows/Mac)
         run: ./mvnw install --batch-mode --no-transfer-progress --show-version -D"license.skip=true"

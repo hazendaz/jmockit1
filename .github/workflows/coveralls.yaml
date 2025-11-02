@@ -22,7 +22,7 @@ jobs:
           distribution: temurin
           java-version: 25
       - name: Run the build
-        run: xvfb-run -a ./mvnw test --batch-mode --no-transfer-progress --quiet --show-version -Dlicense.skip=true
+        run: xvfb-run --auto-servernum ./mvnw test --batch-mode --no-transfer-progress --quiet --show-version -Dlicense.skip=true
       - name: Report Coverage to Coveralls for Pull Requests
         if: github.event_name == 'pull_request'
         run: ./mvnw jacoco:report coveralls:report --batch-mode --no-transfer-progress -DpullRequest=${PR_NUMBER} -DrepoToken=${GITHUB_TOKEN} -DserviceName=github
