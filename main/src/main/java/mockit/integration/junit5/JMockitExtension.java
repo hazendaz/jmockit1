@@ -55,31 +55,33 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
 
     @Override
     public void beforeAll(@NonNull ExtensionContext context) {
-        if (isRegularTestClass(context)) {
-            @Nullable
-            Class<?> testClass = context.getTestClass().orElse(null);
-            savePointForTestClass = new SavePoint();
-            TestRun.setCurrentTestClass(testClass);
+        if (!isRegularTestClass(context)) {
+            return;
+        }
 
-            if (testClass == null) {
-                initContext = new ParamValueInitContext(null, null, null,
-                        "@BeforeAll setup failed to acquire 'Class' of test");
-                return;
-            }
+        @Nullable
+        Class<?> testClass = context.getTestClass().orElse(null);
+        savePointForTestClass = new SavePoint();
+        TestRun.setCurrentTestClass(testClass);
 
-            // @BeforeAll can be used on instance methods depending on @TestInstance(PER_CLASS) usage
-            Object testInstance = context.getTestInstance().orElse(null);
-            Method beforeAllMethod = Utilities.getAnnotatedDeclaredMethod(testClass, BeforeAll.class);
-            if (testInstance == null) {
-                initContext = new ParamValueInitContext(null, testClass, beforeAllMethod,
-                        "@BeforeAll setup failed to acquire instance of test class");
-                return;
-            }
+        if (testClass == null) {
+            initContext = new ParamValueInitContext(null, null, null,
+                    "@BeforeAll setup failed to acquire 'Class' of test");
+            return;
+        }
 
-            if (beforeAllMethod != null) {
-                initContext = new ParamValueInitContext(testInstance, testClass, beforeAllMethod, null);
-                parameterValues = createInstancesForAnnotatedParameters(testInstance, beforeAllMethod, null);
-            }
+        // @BeforeAll can be used on instance methods depending on @TestInstance(PER_CLASS) usage
+        Object testInstance = context.getTestInstance().orElse(null);
+        Method beforeAllMethod = Utilities.getAnnotatedDeclaredMethod(testClass, BeforeAll.class);
+        if (testInstance == null) {
+            initContext = new ParamValueInitContext(null, testClass, beforeAllMethod,
+                    "@BeforeAll setup failed to acquire instance of test class");
+            return;
+        }
+
+        if (beforeAllMethod != null) {
+            initContext = new ParamValueInitContext(testInstance, testClass, beforeAllMethod, null);
+            parameterValues = createInstancesForAnnotatedParameters(testInstance, beforeAllMethod, null);
         }
     }
 
@@ -90,17 +92,19 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
 
     @Override
     public void postProcessTestInstance(@NonNull Object testInstance, @NonNull ExtensionContext context) {
-        if (isRegularTestClass(context)) {
-            TestRun.enterNoMockingZone();
-
-            try {
-                handleMockFieldsForWholeTestClass(testInstance);
-            } finally {
-                TestRun.exitNoMockingZone();
-            }
-
-            TestRun.setRunningIndividualTest(testInstance);
+        if (!isRegularTestClass(context)) {
+            return;
         }
+
+        TestRun.enterNoMockingZone();
+
+        try {
+            handleMockFieldsForWholeTestClass(testInstance);
+        } finally {
+            TestRun.exitNoMockingZone();
+        }
+
+        TestRun.setRunningIndividualTest(testInstance);
     }
 
     @Override
@@ -197,28 +201,30 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
 
     @Override
     public void afterTestExecution(@NonNull ExtensionContext context) {
-        if (savePointForTestMethod != null) {
-            TestRun.enterNoMockingZone();
+        if (savePointForTestMethod == null) {
+            return;
+        }
 
-            try {
-                savePointForTestMethod.rollback();
-                savePointForTestMethod = null;
+        TestRun.enterNoMockingZone();
 
-                if (thrownByTest != null) {
-                    filterStackTrace(thrownByTest);
-                }
+        try {
+            savePointForTestMethod.rollback();
+            savePointForTestMethod = null;
 
-                Error expectationsFailure = RecordAndReplayExecution.endCurrentReplayIfAny();
-                clearTestedObjectsIfAny();
-
-                if (expectationsFailure != null) {
-                    filterStackTrace(expectationsFailure);
-                    throw expectationsFailure;
-                }
-            } finally {
-                TestRun.finishCurrentTestExecution();
-                TestRun.exitNoMockingZone();
+            if (thrownByTest != null) {
+                filterStackTrace(thrownByTest);
             }
+
+            Error expectationsFailure = RecordAndReplayExecution.endCurrentReplayIfAny();
+            clearTestedObjectsIfAny();
+
+            if (expectationsFailure != null) {
+                filterStackTrace(expectationsFailure);
+                throw expectationsFailure;
+            }
+        } finally {
+            TestRun.finishCurrentTestExecution();
+            TestRun.exitNoMockingZone();
         }
     }
 
