@@ -28,11 +28,8 @@ public final class FieldTypeRedefinitions extends TypeRedefinitions {
     private final Map<MockedType, InstanceFactory> mockInstanceFactories;
     @NonNull
     private final List<MockedType> mockFieldsNotSet;
-    @NonNull
-    private final Class<?> testClass;
 
     public FieldTypeRedefinitions(@NonNull Class<?> testClass) {
-        this.testClass = testClass;
         mockInstanceFactories = new HashMap<>();
         mockFieldsNotSet = new ArrayList<>();
 
@@ -117,11 +114,6 @@ public final class FieldTypeRedefinitions extends TypeRedefinitions {
     }
 
     public void assignNewInstancesToMockFields(@NonNull Object target) {
-        // Ensure target is an instance of the test class for which this FieldTypeRedefinitions was created
-        if (target == null || !testClass.isInstance(target)) {
-            // Skip assignment if target is not the expected test class instance
-            return;
-        }
         TestRun.getExecutingTest().clearRegularAndInjectableMocks();
         createAndAssignNewInstances(target);
         obtainAndRegisterInstancesOfFieldsNotSet(target);
