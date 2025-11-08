@@ -76,7 +76,7 @@ public final class InvocationBlockModifier extends WrappingMethodVisitor {
         boolean getField = opcode == GETFIELD;
 
         if ((getField || opcode == PUTFIELD) && blockOwner.equals(owner)) {
-            if (name.indexOf('$') > 0) {
+            if (name.indexOf('$') >= 1) {
                 // Nothing to do.
             } else if (getField && ArgumentMatching.isAnyField(name)) {
                 argumentMatching.generateCodeToAddArgumentMatcherForAnyField(owner, name, desc);
