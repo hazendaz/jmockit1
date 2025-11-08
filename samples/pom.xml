@@ -6,12 +6,12 @@
     <parent>
         <groupId>com.github.hazendaz.jmockit</groupId>
         <artifactId>jmockit-parent</artifactId>
-        <version>1.56.1-SNAPSHOT</version>
+        <version>2.0.0</version>
     </parent>
 
     <groupId>com.github.hazendaz.jmockit</groupId>
     <artifactId>samples</artifactId>
-    <version>1.56.1-SNAPSHOT</version>
+    <version>2.0.0</version>
     <packaging>pom</packaging>
 
     <name>The JMockit Testing Toolkit Samples</name>
@@ -27,7 +27,7 @@
     <scm>
         <connection>scm:git:https://github.com/hazendaz/jmockit1</connection>
         <developerConnection>scm:git:ssh://git@github.com/hazendaz/jmockit1.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>jmockit-parent-2.0.0</tag>
         <url>https://github.com/hazendaz/jmockit1</url>
     </scm>
 
