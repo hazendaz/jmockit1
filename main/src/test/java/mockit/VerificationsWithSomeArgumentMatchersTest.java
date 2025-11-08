@@ -3,15 +3,18 @@ package mockit;
 import java.util.Date;
 import java.util.List;
 
+import mockit.integration.junit5.JMockitExtension;
 import mockit.internal.expectations.invocation.MissingInvocation;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class VerificationsWithSomeArgumentMatchersTest.
  */
-final class VerificationsWithSomeArgumentMatchersTest {
+@ExtendWith(JMockitExtension.class)
+class VerificationsWithSomeArgumentMatchersTest {
 
     /**
      * The Class Collaborator.

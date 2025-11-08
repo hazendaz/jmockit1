@@ -13,12 +13,16 @@ import jakarta.inject.Inject;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class TestedParametersTest.
  */
-final class TestedParametersTest {
+@ExtendWith(JMockitExtension.class)
+class TestedParametersTest {
 
     /**
      * The Class TestedClass.

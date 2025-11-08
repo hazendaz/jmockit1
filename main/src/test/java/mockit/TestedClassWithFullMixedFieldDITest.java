@@ -5,12 +5,16 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import jakarta.inject.Inject;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class TestedClassWithFullMixedFieldDITest.
  */
-final class TestedClassWithFullMixedFieldDITest {
+@ExtendWith(JMockitExtension.class)
+class TestedClassWithFullMixedFieldDITest {
 
     /**
      * The Class TestedClass.

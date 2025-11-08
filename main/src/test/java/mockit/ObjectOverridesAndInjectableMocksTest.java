@@ -4,13 +4,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class ObjectOverridesAndInjectableMocksTest.
  */
+@ExtendWith(JMockitExtension.class)
 @SuppressWarnings({ "ObjectEqualsNull", "SimplifiableJUnitAssertion" })
-final class ObjectOverridesAndInjectableMocksTest {
+class ObjectOverridesAndInjectableMocksTest {
 
     /** The a. */
     @Injectable

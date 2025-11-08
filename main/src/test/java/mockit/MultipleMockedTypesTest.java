@@ -7,12 +7,16 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.Callable;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class MultipleMockedTypesTest.
  */
-final class MultipleMockedTypesTest {
+@ExtendWith(JMockitExtension.class)
+class MultipleMockedTypesTest {
 
     /**
      * The Class FirstDependency.

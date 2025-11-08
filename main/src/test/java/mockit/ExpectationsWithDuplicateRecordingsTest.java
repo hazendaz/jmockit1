@@ -5,12 +5,16 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class ExpectationsWithDuplicateRecordingsTest.
  */
-final class ExpectationsWithDuplicateRecordingsTest {
+@ExtendWith(JMockitExtension.class)
+class ExpectationsWithDuplicateRecordingsTest {
 
     /**
      * The Class Blah.

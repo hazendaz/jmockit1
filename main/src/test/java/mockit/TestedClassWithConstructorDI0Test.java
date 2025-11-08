@@ -6,13 +6,17 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class TestedClassWithConstructorDI0Test.
  */
+@ExtendWith(JMockitExtension.class)
 @SuppressWarnings({ "UnusedParameters", "ClassWithTooManyFields" })
-final class TestedClassWithConstructorDI0Test {
+class TestedClassWithConstructorDI0Test {
 
     /**
      * The Class TestedClassWithConstructorHavingPrimitiveParameter.

@@ -9,12 +9,16 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.Callable;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class DelegateInvocationTest.
  */
-final class DelegateInvocationTest {
+@ExtendWith(JMockitExtension.class)
+class DelegateInvocationTest {
 
     /**
      * The Class Collaborator.

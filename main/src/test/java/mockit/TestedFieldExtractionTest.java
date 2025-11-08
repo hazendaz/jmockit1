@@ -13,12 +13,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class TestedFieldExtractionTest.
  */
-final class TestedFieldExtractionTest {
+@ExtendWith(JMockitExtension.class)
+class TestedFieldExtractionTest {
 
     /**
      * The Class Dependency.

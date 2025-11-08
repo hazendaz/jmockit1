@@ -9,12 +9,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class ExpectationsUsingMockedTest.
  */
-final class ExpectationsUsingMockedTest {
+@ExtendWith(JMockitExtension.class)
+class ExpectationsUsingMockedTest {
 
     /**
      * The Interface Dependency.

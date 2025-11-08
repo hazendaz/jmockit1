@@ -7,12 +7,16 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 
 import java.io.Writer;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class MockedClassWithSuperClassTest.
  */
-final class MockedClassWithSuperClassTest {
+@ExtendWith(JMockitExtension.class)
+class MockedClassWithSuperClassTest {
 
     /**
      * The Class SubclassOfJREClass.

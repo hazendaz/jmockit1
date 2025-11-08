@@ -8,12 +8,16 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class MockingNewInstancesWithVaryingBehaviorTest.
  */
-final class MockingNewInstancesWithVaryingBehaviorTest {
+@ExtendWith(JMockitExtension.class)
+class MockingNewInstancesWithVaryingBehaviorTest {
 
     /** The Constant DATE_FORMAT. */
     static final String DATE_FORMAT = "yyyy-MM-dd";

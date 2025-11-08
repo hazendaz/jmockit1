@@ -16,15 +16,19 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
 
 /**
  * The Class InstanceSpecificMockingTest.
  */
-final class InstanceSpecificMockingTest {
+@ExtendWith(JMockitExtension.class)
+class InstanceSpecificMockingTest {
 
     /**
      * The Class Collaborator.

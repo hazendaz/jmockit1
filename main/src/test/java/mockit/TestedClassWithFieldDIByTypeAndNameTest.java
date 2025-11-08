@@ -2,12 +2,16 @@ package mockit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class TestedClassWithFieldDIByTypeAndNameTest.
  */
-final class TestedClassWithFieldDIByTypeAndNameTest {
+@ExtendWith(JMockitExtension.class)
+class TestedClassWithFieldDIByTypeAndNameTest {
 
     /**
      * The Class TestedClass.

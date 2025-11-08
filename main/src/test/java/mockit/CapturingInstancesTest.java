@@ -7,12 +7,16 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import java.util.Observable;
 import java.util.concurrent.Callable;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class CapturingInstancesTest.
  */
-final class CapturingInstancesTest {
+@ExtendWith(JMockitExtension.class)
+class CapturingInstancesTest {
 
     /**
      * The Interface Service1.

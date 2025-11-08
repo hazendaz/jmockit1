@@ -12,13 +12,17 @@ import jakarta.annotation.Resource;
 
 import java.lang.annotation.Annotation;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class MockedAnnotationsTest.
  */
-final class MockedAnnotationsTest {
+@ExtendWith(JMockitExtension.class)
+class MockedAnnotationsTest {
 
     /**
      * The Interface MyAnnotation.

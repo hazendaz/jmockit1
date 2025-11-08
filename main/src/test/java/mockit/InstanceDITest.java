@@ -13,12 +13,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class InstanceDITest.
  */
-final class InstanceDITest {
+@ExtendWith(JMockitExtension.class)
+class InstanceDITest {
 
     /**
      * The Class Collaborator.

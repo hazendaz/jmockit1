@@ -7,12 +7,16 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 
 import java.util.Date;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class NaturalOrderingTest.
  */
-final class NaturalOrderingTest {
+@ExtendWith(JMockitExtension.class)
+class NaturalOrderingTest {
 
     /**
      * Verify standard comparable behavior in mocked class.

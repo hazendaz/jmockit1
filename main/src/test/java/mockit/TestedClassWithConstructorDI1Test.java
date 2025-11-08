@@ -8,14 +8,18 @@ import jakarta.annotation.PreDestroy;
 
 import java.util.Observable;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class TestedClassWithConstructorDI1Test.
  */
-final class TestedClassWithConstructorDI1Test {
+@ExtendWith(JMockitExtension.class)
+class TestedClassWithConstructorDI1Test {
 
     /**
      * The Class BaseTestedClass.

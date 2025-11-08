@@ -11,14 +11,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import mockit.integration.junit5.JMockitExtension;
 import mockit.internal.expectations.invocation.MissingInvocation;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class ExpectationsWithSomeArgMatchersRecordedTest.
  */
-final class ExpectationsWithSomeArgMatchersRecordedTest {
+@ExtendWith(JMockitExtension.class)
+class ExpectationsWithSomeArgMatchersRecordedTest {
 
     /**
      * The Class Dependency.

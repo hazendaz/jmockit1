@@ -17,13 +17,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class StandardDITest.
  */
-final class StandardDITest {
+@ExtendWith(JMockitExtension.class)
+class StandardDITest {
 
     /**
      * The Class TestedClass.

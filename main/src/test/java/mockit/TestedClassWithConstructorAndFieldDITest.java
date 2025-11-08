@@ -6,7 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 class BaseTest {
     static class Dependency {
@@ -53,7 +56,8 @@ class BaseTest {
 /**
  * The Class TestedClassWithConstructorAndFieldDITest.
  */
-final class TestedClassWithConstructorAndFieldDITest extends BaseTest {
+@ExtendWith(JMockitExtension.class)
+class TestedClassWithConstructorAndFieldDITest extends BaseTest {
 
     /**
      * The Class AnotherTestedClass.

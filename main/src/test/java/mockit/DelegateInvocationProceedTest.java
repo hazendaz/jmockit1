@@ -13,12 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.AbstractExecutorService;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class DelegateInvocationProceedTest.
  */
-final class DelegateInvocationProceedTest {
+@ExtendWith(JMockitExtension.class)
+class DelegateInvocationProceedTest {
 
     /**
      * The Class BaseClassToBeMocked.

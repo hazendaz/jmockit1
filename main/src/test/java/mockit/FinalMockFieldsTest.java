@@ -3,13 +3,17 @@ package mockit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class FinalMockFieldsTest.
  */
-final class FinalMockFieldsTest {
+@ExtendWith(JMockitExtension.class)
+class FinalMockFieldsTest {
 
     /**
      * The Class Collaborator.

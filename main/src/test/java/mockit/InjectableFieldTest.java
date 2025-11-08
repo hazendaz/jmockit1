@@ -8,13 +8,17 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class InjectableFieldTest.
  */
-final class InjectableFieldTest {
+@ExtendWith(JMockitExtension.class)
+class InjectableFieldTest {
 
     /**
      * The Class Base.

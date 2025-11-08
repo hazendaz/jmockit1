@@ -11,15 +11,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class CascadingWithGenericsTest.
  */
+@ExtendWith(JMockitExtension.class)
 @TestMethodOrder(MethodName.class)
-final class CascadingWithGenericsTest {
+class CascadingWithGenericsTest {
 
     /**
      * The Class Foo.

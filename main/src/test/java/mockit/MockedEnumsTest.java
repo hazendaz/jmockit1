@@ -8,12 +8,16 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import java.lang.annotation.RetentionPolicy;
 import java.util.concurrent.TimeUnit;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class MockedEnumsTest.
  */
-final class MockedEnumsTest {
+@ExtendWith(JMockitExtension.class)
+class MockedEnumsTest {
 
     /**
      * The Enum MyEnum.

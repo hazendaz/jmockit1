@@ -17,15 +17,19 @@ import java.lang.annotation.Target;
 
 import javax.sql.DataSource;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class TestedClassWithFullDITest.
  */
+@ExtendWith(JMockitExtension.class)
 @TestMethodOrder(MethodName.class)
-final class TestedClassWithFullDITest {
+class TestedClassWithFullDITest {
 
     /**
      * The Class TestedClass.

@@ -12,9 +12,13 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
+import mockit.integration.junit5.JMockitExtension;
 
-public final class MockUpForGenericsTest {
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+@ExtendWith(JMockitExtension.class)
+class MockUpForGenericsTest {
     // Mock-ups for generic classes/methods ////////////////////////////////////////////////////////////////////////////
 
     public static final class Collaborator {

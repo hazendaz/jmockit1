@@ -11,16 +11,20 @@ import jakarta.servlet.ServletResponse;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class TestedClassWithConstructorDI2Test.
  */
 // TODO JWL 2/18/2024 Test not allowed on jdk21
 @Disabled
+@ExtendWith(JMockitExtension.class)
 final class TestedClassWithConstructorDI2Test {
 
     /**

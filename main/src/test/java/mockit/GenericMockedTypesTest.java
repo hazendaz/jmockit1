@@ -14,12 +14,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class GenericMockedTypesTest.
  */
-final class GenericMockedTypesTest {
+@ExtendWith(JMockitExtension.class)
+class GenericMockedTypesTest {
 
     /** The mock 2. */
     @Mocked

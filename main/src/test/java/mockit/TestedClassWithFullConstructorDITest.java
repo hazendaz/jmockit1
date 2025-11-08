@@ -9,13 +9,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  * The Class TestedClassWithFullConstructorDITest.
  */
-final class TestedClassWithFullConstructorDITest {
+@ExtendWith(JMockitExtension.class)
+class TestedClassWithFullConstructorDITest {
 
     /**
      * The Interface Dependency.

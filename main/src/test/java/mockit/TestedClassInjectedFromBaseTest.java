@@ -2,7 +2,10 @@ package mockit;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 class BaseTestClass {
     static final class Dependency {
@@ -15,7 +18,8 @@ class BaseTestClass {
 /**
  * The Class TestedClassInjectedFromBaseTest.
  */
-final class TestedClassInjectedFromBaseTest extends BaseTestClass {
+@ExtendWith(JMockitExtension.class)
+class TestedClassInjectedFromBaseTest extends BaseTestClass {
 
     /**
      * The Class TestedClass.

@@ -2,12 +2,16 @@ package mockit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class ReentrantDelegateTest.
  */
-final class ReentrantDelegateTest {
+@ExtendWith(JMockitExtension.class)
+class ReentrantDelegateTest {
 
     /**
      * The Class RealClass.

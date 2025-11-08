@@ -4,12 +4,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class TestedClassWithFullConstructorAndFieldDITest.
  */
-final class TestedClassWithFullConstructorAndFieldDITest {
+@ExtendWith(JMockitExtension.class)
+class TestedClassWithFullConstructorAndFieldDITest {
 
     /**
      * The Class TestedClass.

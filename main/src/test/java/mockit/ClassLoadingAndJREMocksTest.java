@@ -18,11 +18,15 @@ import java.net.URLConnection;
 import java.net.URLStreamHandler;
 import java.nio.file.Path;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class ClassLoadingAndJREMocksTest.
  */
+@ExtendWith(JMockitExtension.class)
 class ClassLoadingAndJREMocksTest {
 
     /**

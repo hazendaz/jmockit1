@@ -6,12 +6,16 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class CovariantReturnTypesTest.
  */
-final class CovariantReturnTypesTest {
+@ExtendWith(JMockitExtension.class)
+class CovariantReturnTypesTest {
 
     /**
      * The Class SuperClass.

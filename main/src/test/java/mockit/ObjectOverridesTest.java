@@ -7,15 +7,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
 
+import mockit.integration.junit5.JMockitExtension;
 import mockit.internal.util.ObjectMethods;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class ObjectOverridesTest.
  */
-public final class ObjectOverridesTest {
+@ExtendWith(JMockitExtension.class)
+class ObjectOverridesTest {
 
     /**
      * Verify standard behavior of overridable object methods in mocked interface.

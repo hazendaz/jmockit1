@@ -12,10 +12,13 @@ import mockit.Injectable;
 import mockit.Mocked;
 import mockit.Tested;
 import mockit.VerificationsInOrder;
+import mockit.integration.junit5.JMockitExtension;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-final class MessageTest {
+@ExtendWith(JMockitExtension.class)
+class MessageTest {
     // A general-purpose utility class that waits for background task completion.
     abstract static class TaskExecution implements Runnable {
         {

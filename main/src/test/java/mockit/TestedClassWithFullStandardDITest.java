@@ -61,18 +61,22 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class TestedClassWithFullStandardDITest.
  */
+@ExtendWith(JMockitExtension.class)
 @TestMethodOrder(MethodName.class)
-final class TestedClassWithFullStandardDITest {
+class TestedClassWithFullStandardDITest {
 
     /**
      * The Class TestedClass.

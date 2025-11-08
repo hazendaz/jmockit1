@@ -5,12 +5,16 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class TestedAbstractClassTest.
  */
-final class TestedAbstractClassTest {
+@ExtendWith(JMockitExtension.class)
+class TestedAbstractClassTest {
 
     /**
      * The Class AbstractClass.

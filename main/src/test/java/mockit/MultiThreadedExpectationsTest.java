@@ -8,15 +8,19 @@ import java.util.concurrent.Callable;
 
 import javax.swing.SwingUtilities;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class MultiThreadedExpectationsTest.
  */
+@ExtendWith(JMockitExtension.class)
 @TestMethodOrder(MethodName.class)
-final class MultiThreadedExpectationsTest {
+class MultiThreadedExpectationsTest {
 
     /**
      * The Class Collaborator.

@@ -24,14 +24,18 @@ import javax.sql.PooledConnection;
 import javax.sql.XAConnection;
 import javax.sql.XADataSource;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * The Class TestedClassWithFullAnnotatedDITest.
  */
+@ExtendWith(JMockitExtension.class)
 @SuppressWarnings("ParameterHidesMemberVariable")
-final class TestedClassWithFullAnnotatedDITest {
+class TestedClassWithFullAnnotatedDITest {
 
     /**
      * The Class DummyDataSource.

@@ -12,15 +12,19 @@ import java.io.Serializable;
 
 import javax.sql.DataSource;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  * The Class TestedClassWithQualifiedDependencyTest.
  */
-final class TestedClassWithQualifiedDependencyTest {
+@ExtendWith(JMockitExtension.class)
+class TestedClassWithQualifiedDependencyTest {
 
     /**
      * The Class TestedClass.

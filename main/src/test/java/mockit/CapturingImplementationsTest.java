@@ -21,18 +21,21 @@ import java.util.concurrent.Executors;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import mockit.integration.junit5.JMockitExtension;
 import mockit.internal.ClassFile;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * The Class CapturingImplementationsTest.
  */
-final class CapturingImplementationsTest {
+@ExtendWith(JMockitExtension.class)
+class CapturingImplementationsTest {
 
     /** The logger. */
     private static final Logger logger = LoggerFactory.getLogger(CapturingImplementationsTest.class);

@@ -5,8 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.Serializable;
 
 import mockit.MockingMultipleInterfacesTest.Dependency;
+import mockit.integration.junit5.JMockitExtension;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class MockingMultipleInterfacesTest.
@@ -14,7 +16,8 @@ import org.junit.jupiter.api.Test;
  * @param <MultiMock>
  *            the generic type
  */
-final class MockingMultipleInterfacesTest<MultiMock extends Dependency & Runnable> {
+@ExtendWith(JMockitExtension.class)
+class MockingMultipleInterfacesTest<MultiMock extends Dependency & Runnable> {
 
     /**
      * The Interface Dependency.

@@ -20,12 +20,16 @@ import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.concurrent.Callable;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class ExpectationsWithValuesToReturnTest.
  */
-final class ExpectationsWithValuesToReturnTest {
+@ExtendWith(JMockitExtension.class)
+class ExpectationsWithValuesToReturnTest {
 
     /**
      * The Class Collaborator.

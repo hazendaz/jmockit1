@@ -12,12 +12,16 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class IterableDITest.
  */
-final class IterableDITest {
+@ExtendWith(JMockitExtension.class)
+class IterableDITest {
 
     /**
      * The Class Collaborator.

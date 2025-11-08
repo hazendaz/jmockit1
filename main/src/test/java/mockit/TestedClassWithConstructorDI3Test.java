@@ -3,12 +3,16 @@ package mockit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class TestedClassWithConstructorDI3Test.
  */
-final class TestedClassWithConstructorDI3Test {
+@ExtendWith(JMockitExtension.class)
+class TestedClassWithConstructorDI3Test {
 
     /**
      * The Class TestedClass.

@@ -6,15 +6,18 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.Callable;
 
+import mockit.integration.junit5.JMockitExtension;
 import mockit.internal.expectations.invocation.MissingInvocation;
 import mockit.internal.expectations.invocation.UnexpectedInvocation;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class RestrictedFullVerificationsTest.
  */
-final class RestrictedFullVerificationsTest {
+@ExtendWith(JMockitExtension.class)
+class RestrictedFullVerificationsTest {
 
     /**
      * The Class Dependency.

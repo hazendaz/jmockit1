@@ -11,13 +11,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class TestedClassWithConstructorAndFieldDI2Test.
  */
-final class TestedClassWithConstructorAndFieldDI2Test {
+@ExtendWith(JMockitExtension.class)
+class TestedClassWithConstructorAndFieldDI2Test {
 
     /**
      * The Class TestedClass.

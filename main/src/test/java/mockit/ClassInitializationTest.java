@@ -4,13 +4,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class ClassInitializationTest.
  */
-final class ClassInitializationTest {
+@ExtendWith(JMockitExtension.class)
+class ClassInitializationTest {
 
     static final class ClassWhichFailsAtInitialization {
         static {

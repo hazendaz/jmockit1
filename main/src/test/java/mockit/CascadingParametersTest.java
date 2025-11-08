@@ -29,19 +29,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
 
+import mockit.integration.junit5.JMockitExtension;
 import mockit.internal.expectations.invocation.MissingInvocation;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class CascadingParametersTest.
  */
+@ExtendWith(JMockitExtension.class)
 @SuppressWarnings("ConstantConditions")
 @TestMethodOrder(MethodName.class)
-final class CascadingParametersTest {
+class CascadingParametersTest {
 
     /**
      * The Class Foo.

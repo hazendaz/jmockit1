@@ -16,15 +16,18 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import mockit.integration.junit5.JMockitExtension;
 import mockit.internal.expectations.invocation.MissingInvocation;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class WithCaptureTest.
  */
+@ExtendWith(JMockitExtension.class)
 @SuppressWarnings("ConstantConditions")
-final class WithCaptureTest {
+class WithCaptureTest {
 
     /**
      * The Class Person.

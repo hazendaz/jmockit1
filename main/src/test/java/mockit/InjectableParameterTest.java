@@ -8,12 +8,16 @@ import java.math.BigInteger;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
+import mockit.integration.junit5.JMockitExtension;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class InjectableParameterTest.
  */
-final class InjectableParameterTest {
+@ExtendWith(JMockitExtension.class)
+class InjectableParameterTest {
 
     /**
      * Injectable parameters of primitive types.
