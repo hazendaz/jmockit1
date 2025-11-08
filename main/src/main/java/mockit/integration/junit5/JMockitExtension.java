@@ -261,18 +261,15 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
         }
 
         boolean isBeforeAllMethod() {
-            return method.getDeclaredAnnotation(BeforeAll.class) != null;
+            return method != null && method.getDeclaredAnnotation(BeforeAll.class) != null;
         }
 
         boolean isBeforeEachMethod() {
-            return method.getDeclaredAnnotation(BeforeEach.class) != null;
+            return method != null && method.getDeclaredAnnotation(BeforeEach.class) != null;
         }
 
         String displayClass() {
-            if (clazz == null) {
-                return "<no class reference>";
-            }
-            return clazz.getName();
+            return clazz == null ? "<no class reference>" : clazz.getName();
         }
 
         String displayMethod() {
@@ -287,8 +284,8 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
 
         @Override
         public String toString() {
-            return "ParamContext{" + "hasInstance=" + (instance == null ? "false" : "true") + ", class=" + clazz
-                    + ", method=" + method + '}';
+            return "ParamContext{hasInstance=" + (instance == null ? "false" : "true") + ", class=" + clazz
+                    + ", method=" + method + ", warning=" + warning + "}";
         }
     }
 }
