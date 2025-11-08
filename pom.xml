@@ -59,7 +59,7 @@
         <module.name>com.github.hazendaz.jmockit.parent</module.name>
 
         <!-- Surefire Argline -->
-        <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/1.56.0/jmockit-1.56.0.jar --add-opens java.base/java.lang=ALL-UNNAMED</argLine>
+        <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/2.0.0/jmockit-2.0.0.jar</argLine>
 
         <!-- Disable topSiteURL -->
         <topSiteURL />
@@ -83,5 +83,30 @@
             </exclusions>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.github.hazendaz.jmockit</groupId>
+                        <artifactId>jmockit</artifactId>
+                        <version>2.0.0</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>seed-jmockit-agent</id>
+                        <goals>
+                            <goal>resources</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
