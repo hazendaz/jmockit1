@@ -9,6 +9,7 @@ import static java.util.Collections.enumeration;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.net.URL;
 import java.security.SecureRandom;
 import java.util.Enumeration;
@@ -38,6 +39,9 @@ import mockit.internal.injection.InjectionState;
  * and <code>HttpSession</code>.
  */
 final class ServletJavaxDependencies {
+    // Use a single SecureRandom instance for all sessions
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+
     static boolean isApplicable(@NonNull Class<?> dependencyType) {
         return dependencyType == HttpSession.class || dependencyType == ServletContext.class;
     }
@@ -362,7 +366,8 @@ final class ServletJavaxDependencies {
     @NonNull
     private HttpSession createAndRegisterHttpSession() {
         HttpSession session = new HttpSession() {
-            private final String id = String.valueOf(new SecureRandom().nextInt(Integer.MAX_VALUE));
+            // Generate a secure random session ID (32 hex chars)
+            private final String id = new BigInteger(130, SECURE_RANDOM).toString(32);
             private final long creationTime = System.currentTimeMillis();
             private final Map<String, Object> attrs = new HashMap<>();
             private int maxInactiveInterval;
