@@ -31,8 +31,7 @@ public final class MethodReflection {
     public static <T> T invoke(@NonNull Class<?> theClass, @Nullable Object targetInstance, @NonNull String methodName,
             @NonNull Class<?>[] paramTypes, @NonNull Object... methodArgs) {
         Method method = findSpecifiedMethod(theClass, methodName, paramTypes);
-        T result = invoke(targetInstance, method, methodArgs);
-        return result;
+        return invoke(targetInstance, method, methodArgs);
     }
 
     @NonNull
@@ -85,8 +84,7 @@ public final class MethodReflection {
             return null;
         }
 
-        T result = invoke(targetInstance, publicMethod, methodArgs);
-        return result;
+        return invoke(targetInstance, publicMethod, methodArgs);
     }
 
     @Nullable
@@ -94,8 +92,7 @@ public final class MethodReflection {
             @NonNull String methodName, @NonNull Class<?>[] paramTypes, @NonNull Object... methodArgs)
             throws Throwable {
         Method method = findSpecifiedMethod(theClass, methodName, paramTypes);
-        T result = invokeWithCheckedThrows(targetInstance, method, methodArgs);
-        return result;
+        return invokeWithCheckedThrows(targetInstance, method, methodArgs);
     }
 
     @Nullable
