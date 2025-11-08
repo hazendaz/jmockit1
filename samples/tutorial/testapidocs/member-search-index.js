@@ -1,1 +1,1 @@
-memberSearchIndex = [{"p":"tutorial.domain","c":"MyBusinessServiceTest","l":"MyBusinessServiceTest()","u":"%3Cinit%3E()"}];updateSearchResults();
+memberSearchIndex = [{"p":"tutorial.domain","c":"MyBusinessServiceTest","l":"MyBusinessServiceTest()","u":"%3Cinit%3E()","k":"3"}];updateSearchResults();

@@ -1,4 +1,4 @@
-integrationTests
+integration.tests
 java8testing
 jmockit.loginExample.domain.userLogin
 mockit

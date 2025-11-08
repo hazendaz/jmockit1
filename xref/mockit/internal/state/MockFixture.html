@@ -469,20 +469,18 @@
 <a class="jxr_linenumber" name="L461" href="#L461">461</a>             <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L462" href="#L462">462</a>                 registerNatives.setAccessible(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L463" href="#L463">463</a>                 registerNatives.invoke(<strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L464" href="#L464">464</a>             } <strong class="jxr_keyword">catch</strong> (IllegalAccessException ignore) {
+<a class="jxr_linenumber" name="L464" href="#L464">464</a>             } <strong class="jxr_keyword">catch</strong> (IllegalAccessException | InvocationTargetException ignore) {
 <a class="jxr_linenumber" name="L465" href="#L465">465</a>             } <em class="jxr_comment">// won't happen</em>
-<a class="jxr_linenumber" name="L466" href="#L466">466</a>             <strong class="jxr_keyword">catch</strong> (InvocationTargetException ignore) {
-<a class="jxr_linenumber" name="L467" href="#L467">467</a>             } <em class="jxr_comment">// shouldn't happen either</em>
-<a class="jxr_linenumber" name="L468" href="#L468">468</a>         }
-<a class="jxr_linenumber" name="L469" href="#L469">469</a> 
-<a class="jxr_linenumber" name="L470" href="#L470">470</a>         <em class="jxr_comment">// OK, although another solution will be required for this particular class if it requires</em>
-<a class="jxr_linenumber" name="L471" href="#L471">471</a>         <em class="jxr_comment">// natives to be explicitly registered again (not all do, such as java.lang.Float).</em>
-<a class="jxr_linenumber" name="L472" href="#L472">472</a>     }
-<a class="jxr_linenumber" name="L473" href="#L473">473</a> 
-<a class="jxr_linenumber" name="L474" href="#L474">474</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addRedefinedClassWithNativeMethods(@NonNull String redefinedClassInternalName) {
-<a class="jxr_linenumber" name="L475" href="#L475">475</a>         redefinedClassesWithNativeMethods.add(redefinedClassInternalName.replace('/', '.'));
-<a class="jxr_linenumber" name="L476" href="#L476">476</a>     }
-<a class="jxr_linenumber" name="L477" href="#L477">477</a> }
+<a class="jxr_linenumber" name="L466" href="#L466">466</a>         }
+<a class="jxr_linenumber" name="L467" href="#L467">467</a> 
+<a class="jxr_linenumber" name="L468" href="#L468">468</a>         <em class="jxr_comment">// OK, although another solution will be required for this particular class if it requires</em>
+<a class="jxr_linenumber" name="L469" href="#L469">469</a>         <em class="jxr_comment">// natives to be explicitly registered again (not all do, such as java.lang.Float).</em>
+<a class="jxr_linenumber" name="L470" href="#L470">470</a>     }
+<a class="jxr_linenumber" name="L471" href="#L471">471</a> 
+<a class="jxr_linenumber" name="L472" href="#L472">472</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addRedefinedClassWithNativeMethods(@NonNull String redefinedClassInternalName) {
+<a class="jxr_linenumber" name="L473" href="#L473">473</a>         redefinedClassesWithNativeMethods.add(redefinedClassInternalName.replace('/', '.'));
+<a class="jxr_linenumber" name="L474" href="#L474">474</a>     }
+<a class="jxr_linenumber" name="L475" href="#L475">475</a> }
 </pre>
 <hr/>
 <div id="footer">© 2011–2025 <a href="https://github.com/hazendaz/">hazendaz</a></div>

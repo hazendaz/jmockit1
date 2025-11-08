@@ -1,5 +1,5 @@
 unnamed package
-integrationTests
-integrationTests.data
-integrationTests.loops
-integrationTests.otherControlStructures
+integration.tests
+integration.tests.data
+integration.tests.loops
+integration.tests.other.control.structures

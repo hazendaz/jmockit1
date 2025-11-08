@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"jmockit.loginExample.domain.userLogin","l":"LoginServiceIntegrationTest"},{"p":"jmockit.loginExample.domain.userLogin","l":"LoginServiceNGTest"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html","k":"18"},{"p":"jmockit.loginExample.domain.userLogin","l":"LoginServiceIntegrationTest"},{"p":"jmockit.loginExample.domain.userLogin","l":"LoginServiceNGTest"}];updateSearchResults();

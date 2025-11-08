@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"integrationTests"},{"l":"integrationTests.data"},{"l":"integrationTests.loops"},{"l":"integrationTests.otherControlStructures"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"l":"integration.tests"},{"l":"integration.tests.data"},{"l":"integration.tests.loops"},{"l":"integration.tests.other.control.structures"}];updateSearchResults();
