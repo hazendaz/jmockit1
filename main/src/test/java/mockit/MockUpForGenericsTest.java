@@ -28,7 +28,7 @@ class MockUpForGenericsTest {
     }
 
     @Test
-    public void mockGenericMethod() {
+    void mockGenericMethod() {
         new MockUp<Collaborator>() {
             @Mock
             <T extends Number> T genericMethod(T t) {
@@ -68,7 +68,7 @@ class MockUpForGenericsTest {
     }
 
     @Test
-    public void mockGenericClassWithUnspecifiedTypeArguments() {
+    void mockGenericClassWithUnspecifiedTypeArguments() {
         new MockUp<GenericClass<?, ?>>() {
             @Mock
             void aMethod(Object o) {
@@ -100,7 +100,7 @@ class MockUpForGenericsTest {
     }
 
     @Test
-    public void mockBothGenericAndNonGenericMethodsInGenericClass() {
+    void mockBothGenericAndNonGenericMethodsInGenericClass() {
         new MockUp<GenericClass<String, Boolean>>() {
             @Mock
             int anotherMethod(Integer t, int i, String p) {
@@ -125,7 +125,7 @@ class MockUpForGenericsTest {
     }
 
     @Test
-    public void mockGenericMethodWithMockMethodHavingParameterTypesMatchingTypeArguments() {
+    void mockGenericMethodWithMockMethodHavingParameterTypesMatchingTypeArguments() {
         new MockUp<GenericBaseClass<String, Integer>>() {
             @Mock
             Integer find(String id) {
@@ -138,7 +138,7 @@ class MockUpForGenericsTest {
     }
 
     @Test
-    public void cannotCallGenericMethodWhenSomeMockMethodExpectsDifferentTypes() {
+    void cannotCallGenericMethodWhenSomeMockMethodExpectsDifferentTypes() {
         new MockUp<GenericBaseClass<String, Integer>>() {
             @Mock
             Integer find(String id) {
@@ -161,7 +161,7 @@ class MockUpForGenericsTest {
     }
 
     @Test
-    public void mockGenericMethodFromInstantiationOfNonGenericSubclass() {
+    void mockGenericMethodFromInstantiationOfNonGenericSubclass() {
         new MockUp<NonGenericSubclass>() {
             @Mock
             String find(Integer id) {
@@ -180,7 +180,7 @@ class MockUpForGenericsTest {
     }
 
     @Test
-    public void mockGenericMethodFromInstantiationOfNonGenericSubclassWhichExtendsAGenericIntermediateSuperclass() {
+    void mockGenericMethodFromInstantiationOfNonGenericSubclassWhichExtendsAGenericIntermediateSuperclass() {
         new MockUp<AnotherNonGenericSubclass>() {
             @Mock
             String find(Integer id) {
@@ -208,7 +208,7 @@ class MockUpForGenericsTest {
     }
 
     @Test
-    public void mockGenericMethodsOfNonGenericClass() {
+    void mockGenericMethodsOfNonGenericClass() {
         new MockUp<NonGenericClassWithGenericMethods>() {
             @Mock
             <T> T staticMethod(Class<T> cls, String s) {
@@ -236,7 +236,7 @@ class MockUpForGenericsTest {
     }
 
     @Test
-    public void mockGenericInterfaceMethodWithMockMethodHavingParameterOfTypeObject() {
+    void mockGenericInterfaceMethodWithMockMethodHavingParameterOfTypeObject() {
         GenericInterface<Boolean> mock = new MockUp<GenericInterface<Boolean>>() {
             @Mock
             void method(Object b) {
@@ -251,7 +251,7 @@ class MockUpForGenericsTest {
     }
 
     @Test
-    public void mockMethodOfSubInterfaceWithGenericTypeArgument() {
+    void mockMethodOfSubInterfaceWithGenericTypeArgument() {
         NonGenericSubInterface mock = new MockUp<NonGenericSubInterface>() {
             @Mock
             void method(Long l) {
@@ -263,7 +263,7 @@ class MockUpForGenericsTest {
     }
 
     @Test
-    public void mockGenericInterfaceMethod() {
+    void mockGenericInterfaceMethod() {
         Comparable<Integer> cmp = new MockUp<Comparable<Integer>>() {
             @Mock
             int compareTo(Integer i) {

@@ -957,7 +957,7 @@ class WithCaptureTest {
     @Test
     void captureArgumentsIntoAListOfASubtypeOfTheCapturedParameterType() {
         dao.doSomethingElse(1);
-        dao.doSomethingElse(2.0);
+        dao.doSomethingElse(2.0d);
         dao.doSomethingElse(3);
 
         final List<Integer> expectedValues = asList(1, 3);

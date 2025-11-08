@@ -52,8 +52,7 @@ class CapturingImplementationsTest {
         int doSomething();
     }
 
-    /** The unused. */
-    // Just to cause any implementing classes to be stubbed out.
+    /** The unused just to cause any implementing classes to be stubbed out. */
     @Capturing
     ServiceToBeStubbedOut unused;
 

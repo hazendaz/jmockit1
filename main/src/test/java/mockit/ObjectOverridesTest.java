@@ -29,8 +29,7 @@ class ObjectOverridesTest {
      *            the r 2
      */
     @Test
-    public void verifyStandardBehaviorOfOverridableObjectMethodsInMockedInterface(@Mocked Runnable r1,
-            @Mocked Runnable r2) {
+    void verifyStandardBehaviorOfOverridableObjectMethodsInMockedInterface(@Mocked Runnable r1, @Mocked Runnable r2) {
         assertDefaultEqualsBehavior(r1, r2);
         assertDefaultEqualsBehavior(r2, r1);
 
