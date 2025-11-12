@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2006 JMockit developers
- * This file is subject to the terms of the MIT license (see LICENSE.txt).
+ * MIT License
+ * Copyright (c) 2006-2025 JMockit developers
+ * See LICENSE file for full license text.
  */
-
 /**
  * Provides the classes and annotations used when writing tests with the JMockit APIs.
  * <p>

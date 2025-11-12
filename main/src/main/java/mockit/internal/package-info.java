@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2006 JMockit developers
- * This file is subject to the terms of the MIT license (see LICENSE.txt).
+ * MIT License
+ * Copyright (c) 2006-2025 JMockit developers
+ * See LICENSE file for full license text.
  */
-
 /**
  * Contains the classes that implement the internal mechanisms of the toolkit, and as such are not intended for direct
  * use in client code.

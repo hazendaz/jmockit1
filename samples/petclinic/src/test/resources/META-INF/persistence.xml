@@ -1,4 +1,11 @@
 <!--
+
+    MIT License
+    Copyright (c) 2006-2025 JMockit developers
+    See LICENSE file for full license text.
+
+-->
+<!--
    JPA persistence configuration specific to the integration testing environment.
    This file goes into the "src/test" directory so that, when running tests, it overrides the "production" configuration file that would
    normally exist in the "src/main" directory.

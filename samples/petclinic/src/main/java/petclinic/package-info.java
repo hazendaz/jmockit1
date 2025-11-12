@@ -1,3 +1,8 @@
+/*
+ * MIT License
+ * Copyright (c) 2006-2025 JMockit developers
+ * See LICENSE file for full license text.
+ */
 /**
  * A re-creation of the Spring PetClinic Sample Application, using Java EE 7 for UI controllers and business classes.
  * JMockit is used for integration testing, instead of the Spring Test Context.

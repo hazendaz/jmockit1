@@ -1,3 +1,8 @@
+/*
+ * MIT License
+ * Copyright (c) 2006-2025 JMockit developers
+ * See LICENSE file for full license text.
+ */
 package java8testing;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
