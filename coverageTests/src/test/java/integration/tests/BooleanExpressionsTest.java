@@ -22,7 +22,7 @@ class BooleanExpressionsTest extends CoverageTest {
         // which demonstrates that a more sophisticated metric than branch coverage is needed.
         assertTrue(tested.eval1(true, false, 1));
 
-        // assertLine(7, 3, 3, 1, 1, 1);
+        // assertLine(12, 3, 3, 1, 1, 1);
     }
 
     @Test // includes executions from the previous test
@@ -30,7 +30,7 @@ class BooleanExpressionsTest extends CoverageTest {
         assertTrue(tested.eval1(true, true, 0));
         assertFalse(tested.eval1(true, false, 0));
 
-        // assertLine(7, 3, 3, 3, 3, 2);
+        // assertLine(12, 3, 3, 3, 3, 2);
     }
 
     @Test
@@ -40,7 +40,7 @@ class BooleanExpressionsTest extends CoverageTest {
         assertFalse(tested.eval2(true, false, 0));
         assertFalse(tested.eval2(false, true, 0));
 
-        // assertLine(12, 3, 3, 4, 3, 2);
+        // assertLine(17, 3, 3, 4, 3, 2);
     }
 
     @Test
@@ -50,7 +50,7 @@ class BooleanExpressionsTest extends CoverageTest {
         assertTrue(tested.eval3(true, false, true));
         assertFalse(tested.eval3(true, false, false));
 
-        // assertLine(17, 3, 3, 4, 3, 2);
+        // assertLine(22, 3, 3, 4, 3, 2);
     }
 
     @Test
@@ -62,7 +62,7 @@ class BooleanExpressionsTest extends CoverageTest {
         assertTrue(tested.eval4(true, false, false));
         assertTrue(tested.eval4(true, false, true));
 
-        // assertLine(22, 3, 2, 6, 2, 0);
+        // assertLine(27, 3, 2, 6, 2, 0);
     }
 
     @Test
@@ -70,7 +70,7 @@ class BooleanExpressionsTest extends CoverageTest {
         assertFalse(tested.eval5(false, true, true));
         assertTrue(tested.eval5(false, false, false));
 
-        // assertLine(30, 1, 1, 1);
+        // assertLine(35, 1, 1, 1);
     }
 
     @Test
@@ -85,14 +85,14 @@ class BooleanExpressionsTest extends CoverageTest {
         assertTrue(tested.simplyReturnsInput(true));
         assertFalse(tested.simplyReturnsInput(false));
 
-        assertLine(137, 1, 1, 2);
+        assertLine(142, 1, 1, 2);
     }
 
     @Test
     void methodWhichReturnsNegatedBoolean() {
         assertTrue(tested.returnsNegatedInput(false));
 
-        // assertLine(58, 1, 1, 1);
+        // assertLine(63, 1, 1, 1);
     }
 
     @Test
@@ -108,11 +108,11 @@ class BooleanExpressionsTest extends CoverageTest {
         assertTrue(tested.returnsResultPreviouslyComputedFromInput(true, 1));
         assertTrue(tested.returnsResultPreviouslyComputedFromInput(true, -1));
 
-        assertLines(185, 195, 6);
-        assertLine(185, 3, 3, 4, 2, 2);
-        assertLine(188, 1, 1, 4, 3);
-        assertLine(191, 1, 1, 1);
-        assertLine(192, 1, 1, 1);
-        assertLine(195, 1, 1, 4);
+        assertLines(190, 200, 6);
+        assertLine(190, 3, 3, 4, 2, 2);
+        assertLine(193, 1, 1, 4, 3);
+        assertLine(196, 1, 1, 1);
+        assertLine(197, 1, 1, 1);
+        assertLine(200, 1, 1, 4);
     }
 }

@@ -16,7 +16,7 @@ class InterfaceWithExecutableCodeTest extends CoverageTest {
     void exerciseExecutableLineInInterface() {
         assertTrue(InterfaceWithExecutableCode.N > 0);
 
-        assertLines(11, 11, 1);
-        assertLine(11, 1, 1, 1);
+        assertLines(16, 16, 1);
+        assertLine(16, 1, 1, 1);
     }
 }

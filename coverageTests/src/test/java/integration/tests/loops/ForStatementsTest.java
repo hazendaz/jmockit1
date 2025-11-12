@@ -25,10 +25,10 @@ class ForStatementsTest extends CoverageTest {
         tested.forInSeparateLines();
         tested.forInSeparateLines();
 
-        assertLines(9, 12, 3);
-        assertLine(9, 2, 2, 6); // TODO: should have 3 segments
-        assertLine(10, 1, 1, 4);
-        assertLine(12, 1, 1, 2);
+        assertLines(14, 17, 3);
+        assertLine(14, 2, 2, 6); // TODO: should have 3 segments
+        assertLine(15, 1, 1, 4);
+        assertLine(17, 1, 1, 2);
     }
 
     @Test
@@ -36,9 +36,9 @@ class ForStatementsTest extends CoverageTest {
         tested.forInSingleLine(1);
         tested.forInSingleLine(2);
 
-        assertLines(15, 18, 2);
-        assertLine(16, 2, 2, 3); // TODO: should have 5 segments
-        assertLine(18, 1, 1, 2);
+        assertLines(20, 23, 2);
+        assertLine(21, 2, 2, 3); // TODO: should have 5 segments
+        assertLine(23, 1, 1, 2);
     }
 
     @Test
@@ -46,11 +46,11 @@ class ForStatementsTest extends CoverageTest {
         int sum = tested.forEachArrayElement(1, 2, 3);
         assertEquals(6, sum);
 
-        assertLines(21, 28, 4);
-        assertLine(21, 1, 1, 1);
-        assertLine(23, 2, 2, 4);
-        assertLine(24, 1, 1, 3);
-        assertLine(27, 1, 1, 1);
+        assertLines(26, 32, 4);
+        assertLine(26, 1, 1, 1);
+        assertLine(28, 2, 2, 4);
+        assertLine(29, 1, 1, 3);
+        assertLine(32, 1, 1, 1);
     }
 
     @Test
@@ -58,11 +58,11 @@ class ForStatementsTest extends CoverageTest {
         String result = tested.forEachCollectionElement(asList("a", "b", "c"));
         assertEquals("abc", result);
 
-        assertLines(31, 38, 5);
-        assertLine(31, 1, 1, 1);
-        assertLine(33, 2, 2, 1);
-        assertLine(34, 1, 1, 3);
-        assertLine(37, 1, 1, 1);
+        assertLines(36, 42, 5);
+        assertLine(36, 1, 1, 1);
+        assertLine(38, 2, 2, 1);
+        assertLine(39, 1, 1, 3);
+        assertLine(42, 1, 1, 1);
     }
 
     @Test
@@ -70,12 +70,12 @@ class ForStatementsTest extends CoverageTest {
         List<? extends Number> numbers = new ArrayList<Number>(asList(1, 0L, 2.0));
         tested.forUsingIterator(numbers);
 
-        assertLines(41, 48, 6);
-        assertLine(41, 2, 2, 1);
-        assertLine(42, 1, 1, 3);
-        assertLine(44, 3, 3, 3);
-        assertLine(45, 1, 1, 1);
-        assertLine(48, 1, 1, 1);
+        assertLines(46, 53, 6);
+        assertLine(46, 2, 2, 1);
+        assertLine(47, 1, 1, 3);
+        assertLine(49, 3, 3, 3);
+        assertLine(50, 1, 1, 1);
+        assertLine(53, 1, 1, 1);
     }
 
     @Disabled("for issue #254")
