@@ -7,52 +7,53 @@
 <body>
 <div id="overview"><a href="../../apidocs/mockit/Injectable.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright (c) 2006 JMockit developers</em>
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> * This file is subject to the terms of the MIT license (see LICENSE.txt).</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> */</em>
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">package</strong> mockit;
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> java.lang.annotation.ElementType.FIELD;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> java.lang.annotation.ElementType.PARAMETER;
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> java.lang.annotation.RetentionPolicy.RUNTIME;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.lang.annotation.Retention;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.lang.annotation.Target;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> * Indicates that the value of a mock field or mock parameter will be an isolated {@linkplain Mocked mocked} instance,</em>
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment"> * intended to be passed or &lt;em&gt;injected&lt;/em&gt; into the code under test. Such instances can be said to be proper &lt;em&gt;mock</em>
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> * objects&lt;/em&gt;, in contrast to the mocked instances of a regular &lt;code&gt;@Mocked&lt;/code&gt; type.</em>
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> * When the type of the injectable is &lt;code&gt;String&lt;/code&gt;, a primitive wrapper, a {@linkplain Number number type}, or an</em>
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> * enum, it is &lt;em&gt;not&lt;/em&gt; mocked. A non-empty {@link #value} must then be provided, except in the first case where the</em>
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> * empty string is used by default.</em>
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> * For the duration of each test where the mock field/parameter is in scope, &lt;em&gt;only one&lt;/em&gt; injectable instance is</em>
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment"> * mocked; other instances of the same mocked type are not affected. For an injectable mocked &lt;em&gt;class&lt;/em&gt;, &lt;em&gt;static</em>
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment"> * methods&lt;/em&gt; and &lt;em&gt;constructors&lt;/em&gt; are &lt;em&gt;not&lt;/em&gt; mocked; only &lt;em&gt;non-native&lt;/em&gt; instance methods are.</em>
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment"> * When used in combination with {@linkplain Tested @Tested}, the values of injectable fields and parameters will be</em>
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment"> * used for automatic injection into the tested object. Additionally, this annotation can be applied to non-mocked</em>
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment"> * fields of primitive or array types, which will also be used for injection.</em>
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment"> * @see #value</em>
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment"> * @see &lt;a href="<a href="http://jmockit.github.io/tutorial/Mocking.html" target="alexandria_uri">http://jmockit.github.io/tutorial/Mocking.html</a>#injectable" target="tutorial"&gt;Tutorial&lt;/a&gt;</em>
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  @Retention(RUNTIME)
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>  @Target({ FIELD, PARAMETER })
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">public</strong> @<strong class="jxr_keyword">interface</strong> Injectable {
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>      <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment">     * Specifies a literal value when the type of the injectable mock field/parameter is &lt;code&gt;String&lt;/code&gt;, a</em>
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment">     * primitive or wrapper type, a number type, or an enum type. For a primitive/wrapper/number type, the value</em>
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment">     * provided must be convertible to it. For an enum type, the given textual value must equal the name of one of the</em>
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment">     * possible enum values.</em>
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment">     * @return the string</em>
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>      String value() <strong class="jxr_keyword">default</strong> <span class="jxr_string">""</span>;
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>  }
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * MIT License</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> * Copyright (c) 2006-2025 JMockit developers</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * See LICENSE file for full license text.</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> */</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">package</strong> mockit;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> java.lang.annotation.ElementType.FIELD;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> java.lang.annotation.ElementType.PARAMETER;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> java.lang.annotation.RetentionPolicy.RUNTIME;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.lang.annotation.Retention;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.lang.annotation.Target;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment"> * Indicates that the value of a mock field or mock parameter will be an isolated {@linkplain Mocked mocked} instance,</em>
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> * intended to be passed or &lt;em&gt;injected&lt;/em&gt; into the code under test. Such instances can be said to be proper &lt;em&gt;mock</em>
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment"> * objects&lt;/em&gt;, in contrast to the mocked instances of a regular &lt;code&gt;@Mocked&lt;/code&gt; type.</em>
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> * When the type of the injectable is &lt;code&gt;String&lt;/code&gt;, a primitive wrapper, a {@linkplain Number number type}, or an</em>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> * enum, it is &lt;em&gt;not&lt;/em&gt; mocked. A non-empty {@link #value} must then be provided, except in the first case where the</em>
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment"> * empty string is used by default.</em>
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment"> * For the duration of each test where the mock field/parameter is in scope, &lt;em&gt;only one&lt;/em&gt; injectable instance is</em>
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment"> * mocked; other instances of the same mocked type are not affected. For an injectable mocked &lt;em&gt;class&lt;/em&gt;, &lt;em&gt;static</em>
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment"> * methods&lt;/em&gt; and &lt;em&gt;constructors&lt;/em&gt; are &lt;em&gt;not&lt;/em&gt; mocked; only &lt;em&gt;non-native&lt;/em&gt; instance methods are.</em>
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;</em>
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment"> * When used in combination with {@linkplain Tested @Tested}, the values of injectable fields and parameters will be</em>
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment"> * used for automatic injection into the tested object. Additionally, this annotation can be applied to non-mocked</em>
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment"> * fields of primitive or array types, which will also be used for injection.</em>
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment"> * @see #value</em>
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment"> * @see &lt;a href="<a href="http://jmockit.github.io/tutorial/Mocking.html" target="alexandria_uri">http://jmockit.github.io/tutorial/Mocking.html</a>#injectable" target="tutorial"&gt;Tutorial&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  @Retention(RUNTIME)
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  @Target({ FIELD, PARAMETER })
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">public</strong> @<strong class="jxr_keyword">interface</strong> Injectable {
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment">     * Specifies a literal value when the type of the injectable mock field/parameter is &lt;code&gt;String&lt;/code&gt;, a</em>
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment">     * primitive or wrapper type, a number type, or an enum type. For a primitive/wrapper/number type, the value</em>
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment">     * provided must be convertible to it. For an enum type, the given textual value must equal the name of one of the</em>
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment">     * possible enum values.</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment">     * @return the string</em>
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      String value() <strong class="jxr_keyword">default</strong> <span class="jxr_string">""</span>;
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  }
 </pre>
 <hr/>
 <div id="footer">© 2006–2025 <a href="https://github.com/hazendaz/">hazendaz</a></div>

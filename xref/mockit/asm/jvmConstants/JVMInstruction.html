@@ -6,83 +6,88 @@
 </head>
 <body>
 <div id="overview"><a href="../../../../apidocs/mockit/asm/jvmConstants/JVMInstruction.html">View Javadoc</a></div><pre>
-<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> mockit.asm.jvmConstants;
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * Constant data about all &lt;a href="<a href="https://docs.oracle.com/javase/specs/jvms/se11/html/jvms-6.html" target="alexandria_uri">https://docs.oracle.com/javase/specs/jvms/se11/html/jvms-6.html</a>"&gt;JVM bytecode</em>
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> * instructions&lt;/a&gt;: {@link #SIZE}, {@link #TYPE}.</em>
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="JVMInstruction" href="../../../mockit/asm/jvmConstants/JVMInstruction.html#JVMInstruction">JVMInstruction</a> {
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>       <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment">     * The stack size variation corresponding to each JVM instruction. Said variation equals the size of the values</em>
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment">     * produced by an instruction, minus the size of the values consumed by the instruction.</em>
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong>[] SIZE;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>      <strong class="jxr_keyword">static</strong> {
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>          String s = <span class="jxr_string">"EFFFFFFFFGGFFFGGFFFEEFGFGFEEEEEEEEEEEEEEEEEEEEDEDEDDDDD"</span>
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>                  + <span class="jxr_string">"CDCDEEEEEEEEEEEEEEEEEEEEBABABBBBDCFFFGGGEDCDCDCDCDCDCDCDCD"</span>
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>                  + <span class="jxr_string">"CDCEEEEDDDDDDDCDCDCEFEFDDEEFFDEDEEEBDDBBDDDDDDCCCCCCCCEFED"</span> + <span class="jxr_string">"DDCDCDEEEEEEEEEEFEEEEEEDDEEDDEE"</span>;
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>          <strong class="jxr_keyword">int</strong> n = s.length();
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>          <strong class="jxr_keyword">int</strong>[] sizes = <strong class="jxr_keyword">new</strong> <strong class="jxr_keyword">int</strong>[n];
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; n; i++) {
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>              <em class="jxr_comment">// noinspection CharUsedInArithmeticContext</em>
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>              sizes[i] = s.charAt(i) - 'E';
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>          }
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * MIT License</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> * Copyright (c) 2006-2025 JMockit developers</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * See LICENSE file for full license text.</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> */</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">package</strong> mockit.asm.jvmConstants;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> * Constant data about all &lt;a href="<a href="https://docs.oracle.com/javase/specs/jvms/se11/html/jvms-6.html" target="alexandria_uri">https://docs.oracle.com/javase/specs/jvms/se11/html/jvms-6.html</a>"&gt;JVM bytecode</em>
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * instructions&lt;/a&gt;: {@link #SIZE}, {@link #TYPE}.</em>
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="JVMInstruction" href="../../../mockit/asm/jvmConstants/JVMInstruction.html#JVMInstruction">JVMInstruction</a> {
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment">     * The stack size variation corresponding to each JVM instruction. Said variation equals the size of the values</em>
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment">     * produced by an instruction, minus the size of the values consumed by the instruction.</em>
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong>[] SIZE;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>      <strong class="jxr_keyword">static</strong> {
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>          String s = <span class="jxr_string">"EFFFFFFFFGGFFFGGFFFEEFGFGFEEEEEEEEEEEEEEEEEEEEDEDEDDDDD"</span>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>                  + <span class="jxr_string">"CDCDEEEEEEEEEEEEEEEEEEEEBABABBBBDCFFFGGGEDCDCDCDCDCDCDCDCD"</span>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>                  + <span class="jxr_string">"CDCEEEEDDDDDDDCDCDCEFEFDDEEFFDEDEEEBDDBBDDDDDDCCCCCCCCEFED"</span> + <span class="jxr_string">"DDCDCDEEEEEEEEEEFEEEEEEDDEEDDEE"</span>;
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>          <strong class="jxr_keyword">int</strong> n = s.length();
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>          <strong class="jxr_keyword">int</strong>[] sizes = <strong class="jxr_keyword">new</strong> <strong class="jxr_keyword">int</strong>[n];
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>          SIZE = sizes;
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>      }
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>      <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment">     * Constants that subdivide the 220 {@linkplain Opcodes instruction opcodes} in 18 types of instructions. Such types</em>
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment">     * vary in the number and size of arguments the instruction takes (no argument, a signed byte, a signed short), on</em>
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment">     * whether it takes a local variable index, a jump target label, etc. Some types contain a single instruction, such</em>
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment">     * as LDC and IINC.</em>
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">interface</strong> InstructionType {
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>          <strong class="jxr_keyword">int</strong> NOARG = 0; <em class="jxr_comment">// instructions without any argument</em>
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>          <strong class="jxr_keyword">int</strong> SBYTE = 1; <em class="jxr_comment">// instructions with a signed byte argument</em>
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>          <strong class="jxr_keyword">int</strong> SHORT = 2; <em class="jxr_comment">// instructions with a signed short argument</em>
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>          <strong class="jxr_keyword">int</strong> VAR = 3; <em class="jxr_comment">// instructions with a local variable index argument</em>
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>          <strong class="jxr_keyword">int</strong> IMPLVAR = 4; <em class="jxr_comment">// instructions with an implicit local variable index argument</em>
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>          <strong class="jxr_keyword">int</strong> TYPE_INSN = 5; <em class="jxr_comment">// instructions with a type descriptor argument</em>
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>          <strong class="jxr_keyword">int</strong> FIELDORMETH = 6; <em class="jxr_comment">// field and method invocations instructions</em>
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>          <strong class="jxr_keyword">int</strong> ITFMETH = 7; <em class="jxr_comment">// INVOKEINTERFACE/INVOKEDYNAMIC instruction</em>
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>          <strong class="jxr_keyword">int</strong> INDYMETH = 8; <em class="jxr_comment">// INVOKEDYNAMIC instruction</em>
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>          <strong class="jxr_keyword">int</strong> LABEL = 9; <em class="jxr_comment">// instructions with a 2 bytes bytecode offset label</em>
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>          <strong class="jxr_keyword">int</strong> LABELW = 10; <em class="jxr_comment">// instructions with a 4 bytes bytecode offset label</em>
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>          <strong class="jxr_keyword">int</strong> LDC_INSN = 11; <em class="jxr_comment">// the LDC instruction</em>
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>          <strong class="jxr_keyword">int</strong> LDCW_INSN = 12; <em class="jxr_comment">// the LDC_W and LDC2_W instructions</em>
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>          <strong class="jxr_keyword">int</strong> IINC_INSN = 13; <em class="jxr_comment">// the IINC instruction</em>
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>          <strong class="jxr_keyword">int</strong> TABL_INSN = 14; <em class="jxr_comment">// the TABLESWITCH instruction</em>
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>          <strong class="jxr_keyword">int</strong> LOOK_INSN = 15; <em class="jxr_comment">// the LOOKUPSWITCH instruction</em>
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>          <strong class="jxr_keyword">int</strong> MANA_INSN = 16; <em class="jxr_comment">// the MULTIANEWARRAY instruction</em>
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>          <strong class="jxr_keyword">int</strong> WIDE_INSN = 17; <em class="jxr_comment">// the WIDE instruction</em>
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>      }
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>  
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment">     * The {@linkplain InstructionType instruction types} of all JVM opcodes, one value for each instruction opcode.</em>
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> byte[] TYPE;
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>      <strong class="jxr_keyword">static</strong> {
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>          String s = <span class="jxr_string">"AAAAAAAAAAAAAAAABCLMMDDDDDEEEEEEEEEEEEEEEEEEEEAAAAAAAADD"</span>
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>                  + <span class="jxr_string">"DDDEEEEEEEEEEEEEEEEEEEEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"</span>
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>                  + <span class="jxr_string">"AAAAAAAAAAAAAAAAANAAAAAAAAAAAAAAAAAAAAJJJJJJJJJJJJJJJJDOPAA"</span>
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>                  + <span class="jxr_string">"AAAAGGGGGGGHIFBFAAFFAARQJJKKJJJJJJJJJJJJJJJJJJ"</span>;
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>          <strong class="jxr_keyword">int</strong> n = s.length();
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>          byte[] types = <strong class="jxr_keyword">new</strong> byte[n];
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>  
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; n; i++) {
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>              <em class="jxr_comment">// noinspection NumericCastThatLosesPrecision,CharUsedInArithmeticContext</em>
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>              types[i] = (byte) (s.charAt(i) - 'A');
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>          }
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; n; i++) {
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>              <em class="jxr_comment">// noinspection CharUsedInArithmeticContext</em>
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>              sizes[i] = s.charAt(i) - 'E';
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>          }
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>          SIZE = sizes;
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>      }
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment">     * Constants that subdivide the 220 {@linkplain Opcodes instruction opcodes} in 18 types of instructions. Such types</em>
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment">     * vary in the number and size of arguments the instruction takes (no argument, a signed byte, a signed short), on</em>
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment">     * whether it takes a local variable index, a jump target label, etc. Some types contain a single instruction, such</em>
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment">     * as LDC and IINC.</em>
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">interface</strong> InstructionType {
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>          <strong class="jxr_keyword">int</strong> NOARG = 0; <em class="jxr_comment">// instructions without any argument</em>
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>          <strong class="jxr_keyword">int</strong> SBYTE = 1; <em class="jxr_comment">// instructions with a signed byte argument</em>
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>          <strong class="jxr_keyword">int</strong> SHORT = 2; <em class="jxr_comment">// instructions with a signed short argument</em>
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>          <strong class="jxr_keyword">int</strong> VAR = 3; <em class="jxr_comment">// instructions with a local variable index argument</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>          <strong class="jxr_keyword">int</strong> IMPLVAR = 4; <em class="jxr_comment">// instructions with an implicit local variable index argument</em>
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>          <strong class="jxr_keyword">int</strong> TYPE_INSN = 5; <em class="jxr_comment">// instructions with a type descriptor argument</em>
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>          <strong class="jxr_keyword">int</strong> FIELDORMETH = 6; <em class="jxr_comment">// field and method invocations instructions</em>
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>          <strong class="jxr_keyword">int</strong> ITFMETH = 7; <em class="jxr_comment">// INVOKEINTERFACE/INVOKEDYNAMIC instruction</em>
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>          <strong class="jxr_keyword">int</strong> INDYMETH = 8; <em class="jxr_comment">// INVOKEDYNAMIC instruction</em>
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>          <strong class="jxr_keyword">int</strong> LABEL = 9; <em class="jxr_comment">// instructions with a 2 bytes bytecode offset label</em>
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>          <strong class="jxr_keyword">int</strong> LABELW = 10; <em class="jxr_comment">// instructions with a 4 bytes bytecode offset label</em>
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>          <strong class="jxr_keyword">int</strong> LDC_INSN = 11; <em class="jxr_comment">// the LDC instruction</em>
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>          <strong class="jxr_keyword">int</strong> LDCW_INSN = 12; <em class="jxr_comment">// the LDC_W and LDC2_W instructions</em>
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>          <strong class="jxr_keyword">int</strong> IINC_INSN = 13; <em class="jxr_comment">// the IINC instruction</em>
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>          <strong class="jxr_keyword">int</strong> TABL_INSN = 14; <em class="jxr_comment">// the TABLESWITCH instruction</em>
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>          <strong class="jxr_keyword">int</strong> LOOK_INSN = 15; <em class="jxr_comment">// the LOOKUPSWITCH instruction</em>
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>          <strong class="jxr_keyword">int</strong> MANA_INSN = 16; <em class="jxr_comment">// the MULTIANEWARRAY instruction</em>
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>          <strong class="jxr_keyword">int</strong> WIDE_INSN = 17; <em class="jxr_comment">// the WIDE instruction</em>
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>      }
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment">     * The {@linkplain InstructionType instruction types} of all JVM opcodes, one value for each instruction opcode.</em>
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> byte[] TYPE;
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>      <strong class="jxr_keyword">static</strong> {
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>          String s = <span class="jxr_string">"AAAAAAAAAAAAAAAABCLMMDDDDDEEEEEEEEEEEEEEEEEEEEAAAAAAAADD"</span>
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>                  + <span class="jxr_string">"DDDEEEEEEEEEEEEEEEEEEEEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"</span>
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>                  + <span class="jxr_string">"AAAAAAAAAAAAAAAAANAAAAAAAAAAAAAAAAAAAAJJJJJJJJJJJJJJJJDOPAA"</span>
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>                  + <span class="jxr_string">"AAAAGGGGGGGHIFBFAAFFAARQJJKKJJJJJJJJJJJJJJJJJJ"</span>;
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>          <strong class="jxr_keyword">int</strong> n = s.length();
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>          byte[] types = <strong class="jxr_keyword">new</strong> byte[n];
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>          TYPE = types;
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>      }
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>  
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>      <strong class="jxr_keyword">private</strong> <a name="JVMInstruction" href="../../../mockit/asm/jvmConstants/JVMInstruction.html#JVMInstruction">JVMInstruction</a>() {
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>      }
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>  }
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; n; i++) {
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>              <em class="jxr_comment">// noinspection NumericCastThatLosesPrecision,CharUsedInArithmeticContext</em>
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>              types[i] = (byte) (s.charAt(i) - 'A');
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>          }
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>  
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>          TYPE = types;
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>      }
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>  
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>      <strong class="jxr_keyword">private</strong> <a name="JVMInstruction" href="../../../mockit/asm/jvmConstants/JVMInstruction.html#JVMInstruction">JVMInstruction</a>() {
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>      }
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>  }
 </pre>
 <hr/>
 <div id="footer">© 2011–2025 <a href="https://github.com/hazendaz/">hazendaz</a></div>

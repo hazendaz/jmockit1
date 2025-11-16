@@ -7,24 +7,25 @@
 <body>
 <div id="overview"><a href="../../../../apidocs/mockit/coverage/data/PerFileCoverage.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright (c) 2006 JMockit developers</em>
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> * This file is subject to the terms of the MIT license (see LICENSE.txt).</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> */</em>
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">package</strong> mockit.coverage.data;
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.io.Serializable;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> org.checkerframework.checker.index.qual.NonNegative;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">interface</strong> <a name="PerFileCoverage" href="../../../mockit/coverage/data/PerFileCoverage.html#PerFileCoverage">PerFileCoverage</a> <strong class="jxr_keyword">extends</strong> Serializable {
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>      @NonNegative
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>      <strong class="jxr_keyword">int</strong> getTotalItems();
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>      @NonNegative
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>      <strong class="jxr_keyword">int</strong> getCoveredItems();
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>      <strong class="jxr_keyword">int</strong> getCoveragePercentage();
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  }
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * MIT License</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> * Copyright (c) 2006-2025 JMockit developers</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * See LICENSE file for full license text.</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> */</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">package</strong> mockit.coverage.data;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.io.Serializable;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> org.checkerframework.checker.index.qual.NonNegative;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">interface</strong> <a name="PerFileCoverage" href="../../../mockit/coverage/data/PerFileCoverage.html#PerFileCoverage">PerFileCoverage</a> <strong class="jxr_keyword">extends</strong> Serializable {
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>      @NonNegative
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>      <strong class="jxr_keyword">int</strong> getTotalItems();
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>      @NonNegative
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>      <strong class="jxr_keyword">int</strong> getCoveredItems();
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>      <strong class="jxr_keyword">int</strong> getCoveragePercentage();
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  }
 </pre>
 <hr/>
 <div id="footer">© 2011–2025 <a href="https://github.com/hazendaz/">hazendaz</a></div>

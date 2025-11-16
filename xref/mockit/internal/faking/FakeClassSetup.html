@@ -7,130 +7,131 @@
 <body>
 <div id="overview"><a href="../../../../apidocs/mockit/internal/faking/FakeClassSetup.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright (c) 2006 JMockit developers</em>
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> * This file is subject to the terms of the MIT license (see LICENSE.txt).</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> */</em>
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">package</strong> mockit.internal.faking;
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.lang.instrument.ClassDefinition;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Proxy;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Type;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> mockit.MockUp;
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> mockit.asm.classes.ClassReader;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> mockit.internal.BaseClassModifier;
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> mockit.internal.ClassFile;
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> mockit.internal.startup.Startup;
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> mockit.internal.state.CachedClassfiles;
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> mockit.internal.state.TestRun;
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="FakeClassSetup" href="../../../mockit/internal/faking/FakeClassSetup.html#FakeClassSetup">FakeClassSetup</a> {
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>      @NonNull
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>      <strong class="jxr_keyword">final</strong> Class&lt;?&gt; realClass;
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>      @Nullable
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>      <strong class="jxr_keyword">private</strong> <a name="ClassReader" href="../../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a> rcReader;
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>      @NonNull
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="FakeMethods" href="../../../mockit/internal/faking/FakeMethods.html#FakeMethods">FakeMethods</a> fakeMethods;
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>      @NonNull
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">final</strong> MockUp&lt;?&gt; fake;
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> forStartupFake;
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>  
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>      <strong class="jxr_keyword">public</strong> <a name="FakeClassSetup" href="../../../mockit/internal/faking/FakeClassSetup.html#FakeClassSetup">FakeClassSetup</a>(@NonNull Class&lt;?&gt; realClass, @NonNull Class&lt;?&gt; classToFake, @Nullable Type fakedType,
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>              @NonNull MockUp&lt;?&gt; fake) {
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>          <strong class="jxr_keyword">this</strong>(realClass, classToFake, fakedType, fake, <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>      }
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>      <a name="FakeClassSetup" href="../../../mockit/internal/faking/FakeClassSetup.html#FakeClassSetup">FakeClassSetup</a>(@NonNull Class&lt;?&gt; realClass, @Nullable Type fakedType, @NonNull MockUp&lt;?&gt; fake,
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>              @Nullable byte[] realClassCode) {
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>          <strong class="jxr_keyword">this</strong>(realClass, realClass, fakedType, fake, realClassCode);
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>      }
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>      <a name="FakeClassSetup" href="../../../mockit/internal/faking/FakeClassSetup.html#FakeClassSetup">FakeClassSetup</a>(@NonNull Class&lt;?&gt; realClass, @NonNull Class&lt;?&gt; classToFake, @Nullable Type fakedType,
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>              @NonNull MockUp&lt;?&gt; fake, @Nullable byte[] realClassCode) {
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>          <strong class="jxr_keyword">this</strong>.realClass = classToFake;
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>          <strong class="jxr_keyword">this</strong>.fake = fake;
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>          forStartupFake = Startup.initializing;
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>          rcReader = realClassCode == <strong class="jxr_keyword">null</strong> ? <strong class="jxr_keyword">null</strong> : <strong class="jxr_keyword">new</strong> <a name="ClassReader" href="../../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a>(realClassCode);
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>          fakeMethods = <strong class="jxr_keyword">new</strong> <a name="FakeMethods" href="../../../mockit/internal/faking/FakeMethods.html#FakeMethods">FakeMethods</a>(realClass, fakedType);
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>          collectFakeMethods();
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>          registerFakeClassAndItsStates();
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>      }
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>  
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> collectFakeMethods() {
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>          Class&lt;?&gt; fakeClass = fake.getClass();
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>          <strong class="jxr_keyword">new</strong> <a name="FakeMethodCollector" href="../../../mockit/internal/faking/FakeMethodCollector.html#FakeMethodCollector">FakeMethodCollector</a>(fakeMethods).collectFakeMethods(fakeClass);
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>      }
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>  
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> registerFakeClassAndItsStates() {
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>          fakeMethods.registerFakeStates(fake, forStartupFake);
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>  
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>          <a name="FakeClasses" href="../../../mockit/internal/faking/FakeClasses.html#FakeClasses">FakeClasses</a> fakeClasses = TestRun.getFakeClasses();
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>  
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>          <strong class="jxr_keyword">if</strong> (forStartupFake) {
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>              fakeClasses.addFake(fakeMethods.getFakeClassInternalName(), fake);
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>          } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>              fakeClasses.addFake(fake);
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>          }
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>      }
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>  
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>      <strong class="jxr_keyword">void</strong> redefineMethodsInGeneratedClass() {
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>          byte[] modifiedClassFile = modifyRealClass(realClass);
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>  
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>          <strong class="jxr_keyword">if</strong> (modifiedClassFile != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>              applyClassModifications(realClass, modifiedClassFile);
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>          }
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>      }
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>  
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> redefineMethods() {
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>          @Nullable
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>          Class&lt;?&gt; classToModify = realClass;
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>  
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>          <strong class="jxr_keyword">while</strong> (classToModify != <strong class="jxr_keyword">null</strong> &amp;&amp; fakeMethods.hasUnusedFakes()) {
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>              byte[] modifiedClassFile = modifyRealClass(classToModify);
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>  
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>              <strong class="jxr_keyword">if</strong> (modifiedClassFile != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>                  applyClassModifications(classToModify, modifiedClassFile);
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>              }
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>  
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>              Class&lt;?&gt; superClass = classToModify.getSuperclass();
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>              classToModify = superClass == Object.<strong class="jxr_keyword">class</strong> || superClass == Proxy.<strong class="jxr_keyword">class</strong> ? <strong class="jxr_keyword">null</strong> : superClass;
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>              rcReader = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>          }
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>  
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>      }
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>  
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>      @Nullable
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>      <strong class="jxr_keyword">private</strong> byte[] modifyRealClass(@NonNull Class&lt;?&gt; classToModify) {
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>          <strong class="jxr_keyword">if</strong> (rcReader == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>             rcReader = ClassFile.createReaderFromLastRedefinitionIfAny(classToModify);
-<a class="jxr_linenumber" name="L101" href="#L101">101</a>         }
-<a class="jxr_linenumber" name="L102" href="#L102">102</a> 
-<a class="jxr_linenumber" name="L103" href="#L103">103</a>         <a name="FakedClassModifier" href="../../../mockit/internal/faking/FakedClassModifier.html#FakedClassModifier">FakedClassModifier</a> modifier = <strong class="jxr_keyword">new</strong> <a name="FakedClassModifier" href="../../../mockit/internal/faking/FakedClassModifier.html#FakedClassModifier">FakedClassModifier</a>(rcReader, classToModify, fake, fakeMethods);
-<a class="jxr_linenumber" name="L104" href="#L104">104</a>         rcReader.accept(modifier);
-<a class="jxr_linenumber" name="L105" href="#L105">105</a> 
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>         <strong class="jxr_keyword">return</strong> modifier.wasModified() ? modifier.toByteArray() : <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>     }
-<a class="jxr_linenumber" name="L108" href="#L108">108</a> 
-<a class="jxr_linenumber" name="L109" href="#L109">109</a>     @NonNull
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>     <a name="BaseClassModifier" href="../../../mockit/internal/BaseClassModifier.html#BaseClassModifier">BaseClassModifier</a> createClassModifier(@NonNull <a name="ClassReader" href="../../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a> cr) {
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a name="FakedClassModifier" href="../../../mockit/internal/faking/FakedClassModifier.html#FakedClassModifier">FakedClassModifier</a>(cr, realClass, fake, fakeMethods);
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>     }
-<a class="jxr_linenumber" name="L113" href="#L113">113</a> 
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>     <strong class="jxr_keyword">void</strong> applyClassModifications(@NonNull Class&lt;?&gt; classToModify, @NonNull byte[] modifiedClassFile) {
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>         ClassDefinition classDef = <strong class="jxr_keyword">new</strong> ClassDefinition(classToModify, modifiedClassFile);
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>         Startup.redefineMethods(classDef);
-<a class="jxr_linenumber" name="L117" href="#L117">117</a> 
-<a class="jxr_linenumber" name="L118" href="#L118">118</a>         <strong class="jxr_keyword">if</strong> (forStartupFake) {
-<a class="jxr_linenumber" name="L119" href="#L119">119</a>             CachedClassfiles.addClassfile(classToModify, modifiedClassFile);
-<a class="jxr_linenumber" name="L120" href="#L120">120</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L121" href="#L121">121</a>             String fakeClassDesc = fakeMethods.getFakeClassInternalName();
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>             TestRun.mockFixture().addRedefinedClass(fakeClassDesc, classDef);
-<a class="jxr_linenumber" name="L123" href="#L123">123</a>         }
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>     }
-<a class="jxr_linenumber" name="L125" href="#L125">125</a> }
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * MIT License</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> * Copyright (c) 2006-2025 JMockit developers</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * See LICENSE file for full license text.</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> */</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">package</strong> mockit.internal.faking;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.Nullable;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.lang.instrument.ClassDefinition;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Proxy;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Type;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> mockit.MockUp;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> mockit.asm.classes.ClassReader;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> mockit.internal.BaseClassModifier;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> mockit.internal.ClassFile;
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> mockit.internal.startup.Startup;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> mockit.internal.state.CachedClassfiles;
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> mockit.internal.state.TestRun;
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="FakeClassSetup" href="../../../mockit/internal/faking/FakeClassSetup.html#FakeClassSetup">FakeClassSetup</a> {
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>      @NonNull
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">final</strong> Class&lt;?&gt; realClass;
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>      @Nullable
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">private</strong> <a name="ClassReader" href="../../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a> rcReader;
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>      @NonNull
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="FakeMethods" href="../../../mockit/internal/faking/FakeMethods.html#FakeMethods">FakeMethods</a> fakeMethods;
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>      @NonNull
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>      <strong class="jxr_keyword">final</strong> MockUp&lt;?&gt; fake;
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> forStartupFake;
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">public</strong> <a name="FakeClassSetup" href="../../../mockit/internal/faking/FakeClassSetup.html#FakeClassSetup">FakeClassSetup</a>(@NonNull Class&lt;?&gt; realClass, @NonNull Class&lt;?&gt; classToFake, @Nullable Type fakedType,
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>              @NonNull MockUp&lt;?&gt; fake) {
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>          <strong class="jxr_keyword">this</strong>(realClass, classToFake, fakedType, fake, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>      }
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>      <a name="FakeClassSetup" href="../../../mockit/internal/faking/FakeClassSetup.html#FakeClassSetup">FakeClassSetup</a>(@NonNull Class&lt;?&gt; realClass, @Nullable Type fakedType, @NonNull MockUp&lt;?&gt; fake,
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>              @Nullable byte[] realClassCode) {
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>          <strong class="jxr_keyword">this</strong>(realClass, realClass, fakedType, fake, realClassCode);
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>      }
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>      <a name="FakeClassSetup" href="../../../mockit/internal/faking/FakeClassSetup.html#FakeClassSetup">FakeClassSetup</a>(@NonNull Class&lt;?&gt; realClass, @NonNull Class&lt;?&gt; classToFake, @Nullable Type fakedType,
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>              @NonNull MockUp&lt;?&gt; fake, @Nullable byte[] realClassCode) {
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>          <strong class="jxr_keyword">this</strong>.realClass = classToFake;
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>          <strong class="jxr_keyword">this</strong>.fake = fake;
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>          forStartupFake = Startup.initializing;
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>          rcReader = realClassCode == <strong class="jxr_keyword">null</strong> ? <strong class="jxr_keyword">null</strong> : <strong class="jxr_keyword">new</strong> <a name="ClassReader" href="../../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a>(realClassCode);
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>          fakeMethods = <strong class="jxr_keyword">new</strong> <a name="FakeMethods" href="../../../mockit/internal/faking/FakeMethods.html#FakeMethods">FakeMethods</a>(realClass, fakedType);
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>          collectFakeMethods();
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>          registerFakeClassAndItsStates();
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>      }
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> collectFakeMethods() {
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>          Class&lt;?&gt; fakeClass = fake.getClass();
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>          <strong class="jxr_keyword">new</strong> <a name="FakeMethodCollector" href="../../../mockit/internal/faking/FakeMethodCollector.html#FakeMethodCollector">FakeMethodCollector</a>(fakeMethods).collectFakeMethods(fakeClass);
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>      }
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> registerFakeClassAndItsStates() {
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>          fakeMethods.registerFakeStates(fake, forStartupFake);
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>          <a name="FakeClasses" href="../../../mockit/internal/faking/FakeClasses.html#FakeClasses">FakeClasses</a> fakeClasses = TestRun.getFakeClasses();
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>          <strong class="jxr_keyword">if</strong> (forStartupFake) {
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>              fakeClasses.addFake(fakeMethods.getFakeClassInternalName(), fake);
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>          } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>              fakeClasses.addFake(fake);
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>          }
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>      }
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>  
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>      <strong class="jxr_keyword">void</strong> redefineMethodsInGeneratedClass() {
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>          byte[] modifiedClassFile = modifyRealClass(realClass);
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>  
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>          <strong class="jxr_keyword">if</strong> (modifiedClassFile != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>              applyClassModifications(realClass, modifiedClassFile);
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>          }
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>      }
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>  
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> redefineMethods() {
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>          @Nullable
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>          Class&lt;?&gt; classToModify = realClass;
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>  
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>          <strong class="jxr_keyword">while</strong> (classToModify != <strong class="jxr_keyword">null</strong> &amp;&amp; fakeMethods.hasUnusedFakes()) {
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>              byte[] modifiedClassFile = modifyRealClass(classToModify);
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>  
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>              <strong class="jxr_keyword">if</strong> (modifiedClassFile != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>                  applyClassModifications(classToModify, modifiedClassFile);
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>              }
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>  
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>              Class&lt;?&gt; superClass = classToModify.getSuperclass();
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>              classToModify = superClass == Object.<strong class="jxr_keyword">class</strong> || superClass == Proxy.<strong class="jxr_keyword">class</strong> ? <strong class="jxr_keyword">null</strong> : superClass;
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>              rcReader = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>          }
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>  
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>      }
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>  
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>      @Nullable
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>      <strong class="jxr_keyword">private</strong> byte[] modifyRealClass(@NonNull Class&lt;?&gt; classToModify) {
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>         <strong class="jxr_keyword">if</strong> (rcReader == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L101" href="#L101">101</a>             rcReader = ClassFile.createReaderFromLastRedefinitionIfAny(classToModify);
+<a class="jxr_linenumber" name="L102" href="#L102">102</a>         }
+<a class="jxr_linenumber" name="L103" href="#L103">103</a> 
+<a class="jxr_linenumber" name="L104" href="#L104">104</a>         <a name="FakedClassModifier" href="../../../mockit/internal/faking/FakedClassModifier.html#FakedClassModifier">FakedClassModifier</a> modifier = <strong class="jxr_keyword">new</strong> <a name="FakedClassModifier" href="../../../mockit/internal/faking/FakedClassModifier.html#FakedClassModifier">FakedClassModifier</a>(rcReader, classToModify, fake, fakeMethods);
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>         rcReader.accept(modifier);
+<a class="jxr_linenumber" name="L106" href="#L106">106</a> 
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>         <strong class="jxr_keyword">return</strong> modifier.wasModified() ? modifier.toByteArray() : <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>     }
+<a class="jxr_linenumber" name="L109" href="#L109">109</a> 
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>     @NonNull
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>     <a name="BaseClassModifier" href="../../../mockit/internal/BaseClassModifier.html#BaseClassModifier">BaseClassModifier</a> createClassModifier(@NonNull <a name="ClassReader" href="../../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a> cr) {
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a name="FakedClassModifier" href="../../../mockit/internal/faking/FakedClassModifier.html#FakedClassModifier">FakedClassModifier</a>(cr, realClass, fake, fakeMethods);
+<a class="jxr_linenumber" name="L113" href="#L113">113</a>     }
+<a class="jxr_linenumber" name="L114" href="#L114">114</a> 
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>     <strong class="jxr_keyword">void</strong> applyClassModifications(@NonNull Class&lt;?&gt; classToModify, @NonNull byte[] modifiedClassFile) {
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>         ClassDefinition classDef = <strong class="jxr_keyword">new</strong> ClassDefinition(classToModify, modifiedClassFile);
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>         Startup.redefineMethods(classDef);
+<a class="jxr_linenumber" name="L118" href="#L118">118</a> 
+<a class="jxr_linenumber" name="L119" href="#L119">119</a>         <strong class="jxr_keyword">if</strong> (forStartupFake) {
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>             CachedClassfiles.addClassfile(classToModify, modifiedClassFile);
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>             String fakeClassDesc = fakeMethods.getFakeClassInternalName();
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>             TestRun.mockFixture().addRedefinedClass(fakeClassDesc, classDef);
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>         }
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>     }
+<a class="jxr_linenumber" name="L126" href="#L126">126</a> }
 </pre>
 <hr/>
 <div id="footer">© 2011–2025 <a href="https://github.com/hazendaz/">hazendaz</a></div>
