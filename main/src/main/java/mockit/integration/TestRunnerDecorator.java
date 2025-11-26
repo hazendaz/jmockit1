@@ -20,6 +20,7 @@ import mockit.internal.expectations.invocation.UnexpectedInvocation;
 import mockit.internal.expectations.mocking.FieldTypeRedefinitions;
 import mockit.internal.expectations.mocking.ParameterTypeRedefinitions;
 import mockit.internal.expectations.mocking.TypeRedefinitions;
+import mockit.internal.faking.FakeStates;
 import mockit.internal.injection.InjectionProvider;
 import mockit.internal.injection.TestedClassInstantiations;
 import mockit.internal.injection.TestedParameters;
@@ -264,10 +265,15 @@ public class TestRunnerDecorator {
         TestRun.enterNoMockingZone();
 
         Error expectationsFailure = RecordAndReplayExecution.endCurrentReplayIfAny();
+        FakeStates fakeStates = TestRun.getFakeStates();
 
         try {
             clearTestedObjectsIfAny();
+            if (expectationsFailure == null && (thrownByTest == null || thrownAsExpected)) {
+                fakeStates.verifyMissingInvocations();
+            }
         } finally {
+            fakeStates.resetExpectations();
             savePoint.rollback();
             TestRun.exitNoMockingZone();
         }
