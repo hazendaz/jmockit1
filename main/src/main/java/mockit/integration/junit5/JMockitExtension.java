@@ -64,7 +64,9 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
         Class<?> testClass = context.getTestClass().orElse(null);
         savePointForTestClass = new SavePoint();
         // Ensure JMockit state and test class logic is handled before any test instance is created
-        updateTestClassState(null, testClass);
+        if (testClass != null) {
+            updateTestClassState(null, testClass);
+        }
 
         if (testClass == null) {
             initContext = new ParamValueInitContext(null, null, null,
