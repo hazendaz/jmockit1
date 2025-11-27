@@ -34,7 +34,7 @@
         <module.name>com.github.hazendaz.jmockit.coverage.tests</module.name>
 
         <!-- Surefire Argline -->
-        <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/2.0.0/jmockit-2.0.0.jar=coverage</argLine>
+        <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/${released.jmockit}/jmockit-${released.jmockit}.jar=coverage</argLine>
 
         <slf4j.version>2.0.17</slf4j.version>
     </properties>
