@@ -8,7 +8,6 @@ package mockit.internal.expectations.state;
 import static java.lang.reflect.Modifier.INTERFACE;
 import static java.lang.reflect.Modifier.PUBLIC;
 import static java.lang.reflect.Modifier.isPublic;
-import static java.util.Collections.synchronizedList;
 
 import static mockit.asm.types.JavaType.getInternalName;
 import static mockit.internal.util.Utilities.containsReference;
@@ -21,10 +20,10 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import mockit.internal.expectations.MockingFilters;
 import mockit.internal.expectations.mocking.CascadingTypeRedefinition;
@@ -58,7 +57,7 @@ public final class MockedTypeCascade {
         this.mockedType = mockedType;
         this.mockedTypeDesc = mockedTypeDesc;
         cascadedTypesAndMocks = new ConcurrentHashMap<>(4);
-        cascadingInstances = synchronizedList(new ArrayList<>());
+        cascadingInstances = new CopyOnWriteArrayList<>();
     }
 
     @Nullable
