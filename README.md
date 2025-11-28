@@ -14,12 +14,12 @@ All releases under 'hazendaz' since 1.49 are located in github releases
 See site pages [here](https://hazendaz.github.io/jmockit1/)
 
 How to build the project:
-* use JDK 11 or newer
+* use JDK 21 or newer
 * use Maven 3.9.11 or newer; the following are the top-level modules:
-    1. main/pom.xml: builds jmockit-1.n.jar, running JUnit 4/5 and TestNG test suites
+    1. main/pom.xml: builds jmockit-2.n.jar, running JUnit 3/4/5 and TestNG test suites
     2. coverageTests/pom.xml: runs JUnit 5 tests for the coverage tool
     3. samples/pom.xml: various sample test suites (tutorial, LoginService, java8testing) using JUnit 5 or TestNG 7
-    4. samples/petclinic/pom.xml: integration testing example using Java EE 8
+    4. samples/petclinic/pom.xml: integration testing example using Java EE 11
 
 This fork contains pull requests from main repo as well as updated libraries within build.
 
