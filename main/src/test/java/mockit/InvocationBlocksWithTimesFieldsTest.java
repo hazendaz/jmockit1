@@ -7,21 +7,20 @@ package mockit;
 
 import java.util.Date;
 
+import mockit.integration.junit5.ExpectedException;
+import mockit.integration.junit5.JMockitExtension;
 import mockit.internal.expectations.invocation.MissingInvocation;
 import mockit.internal.expectations.invocation.UnexpectedInvocation;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class InvocationBlocksWithTimesFieldsTest.
  */
-public final class InvocationBlocksWithTimesFieldsTest {
-
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
+@ExtendWith(JMockitExtension.class)
+class InvocationBlocksWithTimesFieldsTest {
 
     /** The code under test. */
     private final CodeUnderTest codeUnderTest = new CodeUnderTest();
@@ -99,7 +98,7 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void expectTwiceByUsingInvocationCount(@Mocked final Collaborator mock) {
+    void expectTwiceByUsingInvocationCount(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.provideSomeService();
@@ -120,9 +119,8 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void expectTwiceByUsingInvocationCountButReplayOnlyOnce(@Mocked final Collaborator mock) {
-        thrown.expect(MissingInvocation.class);
-
+    @ExpectedException(MissingInvocation.class)
+    void expectTwiceByUsingInvocationCountButReplayOnlyOnce(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.simpleOperation(1, "b", null);
@@ -142,7 +140,7 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void expectAtLeastOnceAndReplayTwice(@Mocked final Collaborator mock) {
+    void expectAtLeastOnceAndReplayTwice(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.provideSomeService();
@@ -162,7 +160,7 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void minTimesAndMaxTimesOutOfOrder(@Mocked final Collaborator mock) {
+    void minTimesAndMaxTimesOutOfOrder(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.provideSomeService();
@@ -183,7 +181,7 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void expectAtMostTwiceAndReplayOnce(@Mocked final Collaborator mock) {
+    void expectAtMostTwiceAndReplayOnce(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.provideSomeService();
@@ -203,20 +201,21 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void expectAtMostOnceButReplayTwice(@Mocked final Collaborator mock) {
-        thrown.expect(UnexpectedInvocation.class);
+    @ExpectedException(MissingInvocation.class)
+    void expectAtMostOnceButReplayTwice(@Mocked final Collaborator mock) {
+        Assertions.assertThrows(UnexpectedInvocation.class, () -> {
+            new Expectations() {
+                {
+                    mock.simpleOperation(1, "b", null);
+                    mock.provideSomeService();
+                    maxTimes = 1;
+                }
+            };
 
-        new Expectations() {
-            {
-                mock.simpleOperation(1, "b", null);
-                mock.provideSomeService();
-                maxTimes = 1;
-            }
-        };
-
-        codeUnderTest.doSomething();
-        codeUnderTest.doSomething();
-        codeUnderTest.doSomethingElse();
+            codeUnderTest.doSomething();
+            codeUnderTest.doSomething();
+            codeUnderTest.doSomethingElse();
+        });
     }
 
     /**
@@ -226,7 +225,7 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void expectAtMostZero(@Mocked final Collaborator mock) {
+    void expectAtMostZero(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.provideSomeService();
@@ -242,9 +241,8 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void expectAtMostZeroButReplayOnce(@Mocked final Collaborator mock) {
-        thrown.expect(UnexpectedInvocation.class);
-
+    @ExpectedException(UnexpectedInvocation.class)
+    void expectAtMostZeroButReplayOnce(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.provideSomeService();
@@ -262,9 +260,8 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void maxTimesDoesNotOverwriteMinTimes(@Mocked final Collaborator mock) {
-        thrown.expect(MissingInvocation.class);
-
+    @ExpectedException(MissingInvocation.class)
+    void maxTimesDoesNotOverwriteMinTimes(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.provideSomeService();
@@ -283,7 +280,7 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void expectSameMethodOnceOrTwiceThenOnceButReplayEachExpectationOnlyOnce(@Mocked final Collaborator mock) {
+    void expectSameMethodOnceOrTwiceThenOnceButReplayEachExpectationOnlyOnce(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.simpleOperation(1, "", null);
@@ -303,7 +300,7 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void expectTwoOrThreeTimes(@Mocked final Collaborator mock) {
+    void expectTwoOrThreeTimes(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.provideSomeService();
@@ -327,7 +324,7 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void ordered_verifyTwiceByUsingInvocationCount(@Mocked final Collaborator mock) {
+    void ordered_verifyTwiceByUsingInvocationCount(@Mocked final Collaborator mock) {
         codeUnderTest.doSomething();
         codeUnderTest.doSomething();
         codeUnderTest.doSomethingElse();
@@ -348,9 +345,8 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void ordered_verifyTwiceByUsingInvocationCountButReplayOnlyOnce(@Mocked final Collaborator mock) {
-        thrown.expect(MissingInvocation.class);
-
+    @ExpectedException(MissingInvocation.class)
+    void ordered_verifyTwiceByUsingInvocationCountButReplayOnlyOnce(@Mocked final Collaborator mock) {
         codeUnderTest.doSomethingElse();
         codeUnderTest.doSomething();
 
@@ -370,7 +366,7 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void ordered_verifyAtLeastOnceAndReplayTwice(@Mocked final Collaborator mock) {
+    void ordered_verifyAtLeastOnceAndReplayTwice(@Mocked final Collaborator mock) {
         codeUnderTest.doSomething();
         codeUnderTest.doSomething();
         codeUnderTest.doSomethingElse();
@@ -390,9 +386,8 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void ordered_minTimesAndMaxTimesOutOfOrder(@Mocked final Collaborator mock) {
-        thrown.expect(UnexpectedInvocation.class);
-
+    @ExpectedException(UnexpectedInvocation.class)
+    void ordered_minTimesAndMaxTimesOutOfOrder(@Mocked final Collaborator mock) {
         codeUnderTest.doSomething();
         codeUnderTest.doSomething();
         codeUnderTest.doSomething();
@@ -413,7 +408,7 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void ordered_verifyAtMostTwiceAndReplayOnce(@Mocked final Collaborator mock) {
+    void ordered_verifyAtMostTwiceAndReplayOnce(@Mocked final Collaborator mock) {
         codeUnderTest.doSomething();
         codeUnderTest.doSomethingElse();
 
@@ -433,9 +428,8 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void ordered_verifyAtMostOnceButReplayTwice(@Mocked final Collaborator mock) {
-        thrown.expect(UnexpectedInvocation.class);
-
+    @ExpectedException(UnexpectedInvocation.class)
+    void ordered_verifyAtMostOnceButReplayTwice(@Mocked final Collaborator mock) {
         codeUnderTest.doSomething();
         codeUnderTest.doSomething();
         codeUnderTest.doSomethingElse();
@@ -456,7 +450,7 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void ordered_verifyAtMostZero(@Mocked final Collaborator mock) {
+    void ordered_verifyAtMostZero(@Mocked final Collaborator mock) {
         new VerificationsInOrder() {
             {
                 mock.provideSomeService();
@@ -472,9 +466,8 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void ordered_verifyAtMostZeroButReplayOnce(@Mocked final Collaborator mock) {
-        thrown.expect(UnexpectedInvocation.class);
-
+    @ExpectedException(UnexpectedInvocation.class)
+    void ordered_verifyAtMostZeroButReplayOnce(@Mocked final Collaborator mock) {
         codeUnderTest.doSomething();
 
         new VerificationsInOrder() {
@@ -492,9 +485,8 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void ordered_maxTimesDoesNotOverwriteMinTimes(@Mocked final Collaborator mock) {
-        thrown.expect(MissingInvocation.class);
-
+    @ExpectedException(MissingInvocation.class)
+    void ordered_maxTimesDoesNotOverwriteMinTimes(@Mocked final Collaborator mock) {
         codeUnderTest.doSomething();
 
         new VerificationsInOrder() {
@@ -513,8 +505,7 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void ordered_verifySameMethodOnceOrTwiceThenOnceButReplayEachExpectationOnlyOnce(
-            @Mocked final Collaborator mock) {
+    void ordered_verifySameMethodOnceOrTwiceThenOnceButReplayEachExpectationOnlyOnce(@Mocked final Collaborator mock) {
         mock.simpleOperation(1, "", null);
         mock.simpleOperation(2, "", null);
 
@@ -534,7 +525,7 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void ordered_verifyTwoOrThreeTimes(@Mocked final Collaborator mock) {
+    void ordered_verifyTwoOrThreeTimes(@Mocked final Collaborator mock) {
         codeUnderTest.doSomething();
         codeUnderTest.doSomething();
         codeUnderTest.doSomethingElse();
@@ -557,7 +548,7 @@ public final class InvocationBlocksWithTimesFieldsTest {
      */
     @Test
     @SuppressWarnings("UnusedDeclaration")
-    public void ordered_verifyZeroOrMoreTimesAndReplayTwice(@Mocked Collaborator mock) {
+    void ordered_verifyZeroOrMoreTimesAndReplayTwice(@Mocked Collaborator mock) {
         codeUnderTest.doSomethingElse();
         codeUnderTest.doSomething();
         codeUnderTest.doSomething();
@@ -579,7 +570,7 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void ordered_verifyZeroOrMoreTimesAndReplayNone(@Mocked final Collaborator mock) {
+    void ordered_verifyZeroOrMoreTimesAndReplayNone(@Mocked final Collaborator mock) {
         codeUnderTest.doSomethingElse();
 
         new VerificationsInOrder() {
@@ -601,7 +592,7 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void unordered_verifyTwiceByUsingInvocationCount(@Mocked final Collaborator mock) {
+    void unordered_verifyTwiceByUsingInvocationCount(@Mocked final Collaborator mock) {
         codeUnderTest.doSomething();
         codeUnderTest.doSomethingElse();
         codeUnderTest.doSomething();
@@ -622,19 +613,20 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void unordered_verifyTwiceByUsingInvocationCountButReplayOnlyOnce(@Mocked final Collaborator mock) {
-        thrown.expect(MissingInvocation.class);
+    @ExpectedException(UnexpectedInvocation.class)
+    void unordered_verifyTwiceByUsingInvocationCountButReplayOnlyOnce(@Mocked final Collaborator mock) {
+        Assertions.assertThrows(MissingInvocation.class, () -> {
+            codeUnderTest.doSomethingElse();
+            codeUnderTest.doSomething();
 
-        codeUnderTest.doSomethingElse();
-        codeUnderTest.doSomething();
-
-        new FullVerifications() {
-            {
-                mock.provideSomeService();
-                times = 2;
-                mock.simpleOperation(1, "b", null);
-            }
-        };
+            new FullVerifications() {
+                {
+                    mock.provideSomeService();
+                    times = 2;
+                    mock.simpleOperation(1, "b", null);
+                }
+            };
+        });
     }
 
     /**
@@ -644,7 +636,7 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void unordered_verifyAtLeastOnceAndReplayTwice(@Mocked final Collaborator mock) {
+    void unordered_verifyAtLeastOnceAndReplayTwice(@Mocked final Collaborator mock) {
         codeUnderTest.doSomethingElse();
         codeUnderTest.doSomething();
         codeUnderTest.doSomething();
@@ -664,9 +656,8 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void unordered_minTimesAndMaxTimesOutOfOrder(@Mocked final Collaborator mock) {
-        thrown.expect(UnexpectedInvocation.class);
-
+    @ExpectedException(UnexpectedInvocation.class)
+    void unordered_minTimesAndMaxTimesOutOfOrder(@Mocked final Collaborator mock) {
         codeUnderTest.doSomething();
         codeUnderTest.doSomething();
         codeUnderTest.doSomething();
@@ -687,7 +678,7 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void unordered_verifyAtMostTwiceAndReplayOnce(@Mocked final Collaborator mock) {
+    void unordered_verifyAtMostTwiceAndReplayOnce(@Mocked final Collaborator mock) {
         codeUnderTest.doSomething();
         codeUnderTest.doSomethingElse();
 
@@ -707,9 +698,8 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void unordered_verifyAtMostOnceButReplayTwice(@Mocked final Collaborator mock) {
-        thrown.expect(UnexpectedInvocation.class);
-
+    @ExpectedException(UnexpectedInvocation.class)
+    void unordered_verifyAtMostOnceButReplayTwice(@Mocked final Collaborator mock) {
         codeUnderTest.doSomething();
         codeUnderTest.doSomethingElse();
         codeUnderTest.doSomething();
@@ -730,7 +720,7 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void unordered_verifyAtMostZero(@Mocked final Collaborator mock) {
+    void unordered_verifyAtMostZero(@Mocked final Collaborator mock) {
         new Verifications() {
             {
                 mock.provideSomeService();
@@ -746,9 +736,8 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void unordered_verifyAtMostZeroButReplayOnce(@Mocked final Collaborator mock) {
-        thrown.expect(UnexpectedInvocation.class);
-
+    @ExpectedException(UnexpectedInvocation.class)
+    void unordered_verifyAtMostZeroButReplayOnce(@Mocked final Collaborator mock) {
         codeUnderTest.doSomething();
 
         new Verifications() {
@@ -766,9 +755,8 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void unordered_maxTimesDoesNotOverwriteMinTimes(@Mocked final Collaborator mock) {
-        thrown.expect(MissingInvocation.class);
-
+    @ExpectedException(MissingInvocation.class)
+    void unordered_maxTimesDoesNotOverwriteMinTimes(@Mocked final Collaborator mock) {
         codeUnderTest.doSomething();
 
         new FullVerifications() {
@@ -787,7 +775,7 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void unordered_verifySameMethodOnceOrTwiceThenOnceButReplayEachExpectationOnlyOnce(
+    void unordered_verifySameMethodOnceOrTwiceThenOnceButReplayEachExpectationOnlyOnce(
             @Mocked final Collaborator mock) {
         mock.simpleOperation(2, "", null);
         mock.simpleOperation(1, "", null);
@@ -808,7 +796,7 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void unordered_verifyTwoOrThreeTimes(@Mocked final Collaborator mock) {
+    void unordered_verifyTwoOrThreeTimes(@Mocked final Collaborator mock) {
         codeUnderTest.doSomething();
         codeUnderTest.doSomethingElse();
         codeUnderTest.doSomething();
@@ -830,7 +818,7 @@ public final class InvocationBlocksWithTimesFieldsTest {
      *            the mock
      */
     @Test
-    public void unordered_verifyOneOrMoreTimesAndReplayTwice(@Mocked Collaborator mock) {
+    void unordered_verifyOneOrMoreTimesAndReplayTwice(@Mocked Collaborator mock) {
         codeUnderTest.doSomething();
         codeUnderTest.doSomethingElse();
         codeUnderTest.doSomething();

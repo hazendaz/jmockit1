@@ -26,15 +26,19 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import mockit.integration.junit5.ExpectedException;
+import mockit.integration.junit5.JMockitExtension;
+import mockit.internal.expectations.invocation.MissingInvocation;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class ExpectationsUsingReturnTypeConversionTest.
  */
-@SuppressWarnings("Since15")
-public final class ExpectationsUsingReturnTypeConversionTest {
+@ExtendWith(JMockitExtension.class)
+class ExpectationsUsingReturnTypeConversionTest {
 
     /**
      * The Class Collaborator.
@@ -276,10 +280,6 @@ public final class ExpectationsUsingReturnTypeConversionTest {
         }
     }
 
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
-
     /** The mock. */
     @Mocked
     Collaborator mock;
@@ -288,92 +288,97 @@ public final class ExpectationsUsingReturnTypeConversionTest {
      * Attempt to return value not compatible with primitive return type.
      */
     @Test
-    public void attemptToReturnValueNotCompatibleWithPrimitiveReturnType() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("String");
-        thrown.expectMessage("int");
-
-        new Expectations() {
-            {
-                mock.getInt();
-                result = "test";
-            }
-        };
+    @ExpectedException(value = MissingInvocation.class)
+    void attemptToReturnValueNotCompatibleWithPrimitiveReturnType() {
+        Throwable exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new Expectations() {
+                {
+                    mock.getInt();
+                    result = "test";
+                }
+            };
+        });
+        Assertions.assertTrue(exception.getMessage().contains("String"));
+        Assertions.assertTrue(exception.getMessage().contains("int"));
     }
 
     /**
      * Attempt to return value not compatible with primitive wrapper return type.
      */
     @Test
-    public void attemptToReturnValueNotCompatibleWithPrimitiveWrapperReturnType() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Boolean");
-        thrown.expectMessage("Float");
-
-        new Expectations() {
-            {
-                mock.getFloatWrapper();
-                result = true;
-            }
-        };
+    @ExpectedException(value = MissingInvocation.class)
+    void attemptToReturnValueNotCompatibleWithPrimitiveWrapperReturnType() {
+        Throwable exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new Expectations() {
+                {
+                    mock.getFloatWrapper();
+                    result = true;
+                }
+            };
+        });
+        Assertions.assertTrue(exception.getMessage().contains("Boolean"));
+        Assertions.assertTrue(exception.getMessage().contains("Float"));
     }
 
     /**
      * Attempt to return value not compatible with boolean return type.
      */
     @Test
-    public void attemptToReturnValueNotCompatibleWithBooleanReturnType() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Integer");
-        thrown.expectMessage("boolean");
-
-        new Expectations() {
-            {
-                mock.getBoolean();
-                result = 123;
-            }
-        };
+    @ExpectedException(MissingInvocation.class)
+    void attemptToReturnValueNotCompatibleWithBooleanReturnType() {
+        Throwable exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new Expectations() {
+                {
+                    mock.getBoolean();
+                    result = 123;
+                }
+            };
+        });
+        Assertions.assertTrue(exception.getMessage().contains("Integer"));
+        Assertions.assertTrue(exception.getMessage().contains("boolean"));
     }
 
     /**
      * Attempt to return value not compatible with boolean wrapper return type.
      */
     @Test
-    public void attemptToReturnValueNotCompatibleWithBooleanWrapperReturnType() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Character");
-        thrown.expectMessage("Boolean");
-
-        new Expectations() {
-            {
-                mock.getBooleanWrapper();
-                result = 'a';
-            }
-        };
+    @ExpectedException(MissingInvocation.class)
+    void attemptToReturnValueNotCompatibleWithBooleanWrapperReturnType() {
+        Throwable exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new Expectations() {
+                {
+                    mock.getBooleanWrapper();
+                    result = 'a';
+                }
+            };
+        });
+        Assertions.assertTrue(exception.getMessage().contains("Character"));
+        Assertions.assertTrue(exception.getMessage().contains("Boolean"));
     }
 
     /**
      * Attempt to return value of reference type not assignable to return type.
      */
     @Test
-    public void attemptToReturnValueOfReferenceTypeNotAssignableToReturnType() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Collaborator");
-        thrown.expectMessage("InputStream");
-
-        new Expectations() {
-            {
-                mock.getInputStream();
-                result = mock;
-            }
-        };
+    @ExpectedException(MissingInvocation.class)
+    void attemptToReturnValueOfReferenceTypeNotAssignableToReturnType() {
+        Throwable exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new Expectations() {
+                {
+                    mock.getInputStream();
+                    result = mock;
+                }
+            };
+        });
+        Assertions.assertTrue(exception.getMessage().contains("Collaborator"));
+        Assertions.assertTrue(exception.getMessage().contains("InputStream"));
     }
 
     /**
      * Convert number value to wider numerical return type.
      */
     @Test
-    public void convertNumberValueToWiderNumericalReturnType() {
+    void convertNumberValueToWiderNumericalReturnType() {
         new Expectations() {
             {
                 mock.getShort();
@@ -427,7 +432,7 @@ public final class ExpectationsUsingReturnTypeConversionTest {
      * Convert number value to narrower numerical return type when the actual value fits the return type.
      */
     @Test
-    public void convertNumberValueToNarrowerNumericalReturnTypeWhenTheActualValueFitsTheReturnType() {
+    void convertNumberValueToNarrowerNumericalReturnTypeWhenTheActualValueFitsTheReturnType() {
         new Expectations() {
             {
                 mock.getByte();
@@ -472,7 +477,7 @@ public final class ExpectationsUsingReturnTypeConversionTest {
      */
     @Test
     @SuppressWarnings({ "NumericCastThatLosesPrecision", "CharUsedInArithmeticContext" })
-    public void convertNumberValueToNarrowerNumericalReturnTypeWhenTheActualValueDoesNotFitTheReturnType() {
+    void convertNumberValueToNarrowerNumericalReturnTypeWhenTheActualValueDoesNotFitTheReturnType() {
         new Expectations() {
             {
                 mock.getByte();
@@ -517,7 +522,7 @@ public final class ExpectationsUsingReturnTypeConversionTest {
      *             the exception
      */
     @Test
-    public void convertRecordedTextualResultForMethodsWithEligibleReturnTypes() throws Exception {
+    void convertRecordedTextualResultForMethodsWithEligibleReturnTypes() throws Exception {
         assertNull(mock.getStringBuilder());
 
         final String text = "Some textual value";
@@ -563,7 +568,7 @@ public final class ExpectationsUsingReturnTypeConversionTest {
      * Convert textual and numerical results to number subtypes.
      */
     @Test
-    public void convertTextualAndNumericalResultsToNumberSubtypes() {
+    void convertTextualAndNumericalResultsToNumberSubtypes() {
         assertNull(mock.getBigDecimal());
         assertNull(mock.getBigInteger());
         assertNull(mock.getAtomicInteger());
@@ -630,7 +635,7 @@ public final class ExpectationsUsingReturnTypeConversionTest {
      *             the exception
      */
     @Test
-    public void convertValueToOptionalOfValue(@Mocked final Java8Collaborator mock2) throws Exception {
+    void convertValueToOptionalOfValue(@Mocked final Java8Collaborator mock2) throws Exception {
         assumeTrue(JAVA8);
         new Expectations() {
             {
@@ -651,7 +656,7 @@ public final class ExpectationsUsingReturnTypeConversionTest {
      *            the mock 2
      */
     @Test
-    public void convertSingleValueToStream(@Mocked final Java8Collaborator mock2) {
+    void convertSingleValueToStream(@Mocked final Java8Collaborator mock2) {
         assumeTrue(JAVA8);
         new Expectations() {
             {
@@ -673,7 +678,7 @@ public final class ExpectationsUsingReturnTypeConversionTest {
      *            the mock 2
      */
     @Test
-    public void convertCollectionToStream(@Mocked final Java8Collaborator mock2) {
+    void convertCollectionToStream(@Mocked final Java8Collaborator mock2) {
         assumeTrue(JAVA8);
         new Expectations() {
             {
@@ -694,7 +699,7 @@ public final class ExpectationsUsingReturnTypeConversionTest {
      *            the mock 2
      */
     @Test
-    public void convertArrayToStream(@Mocked final Java8Collaborator mock2) {
+    void convertArrayToStream(@Mocked final Java8Collaborator mock2) {
         assumeTrue(JAVA8);
         final String[] values = { "Test", " abc " };
         new Expectations() {

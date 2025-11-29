@@ -9,21 +9,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.runners.MethodSorters.NAME_ASCENDING;
 
 import jakarta.annotation.Resource;
 import jakarta.inject.Inject;
 
-import org.junit.FixMethodOrder;
-import org.junit.Test;
+import mockit.integration.junit5.ExpectedException;
+import mockit.integration.junit5.JMockitExtension;
+
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 /**
  * The Class TestedClassWithAnnotatedDITest.
  */
-@FixMethodOrder(NAME_ASCENDING)
-public final class TestedClassWithAnnotatedDITest {
+@ExtendWith(JMockitExtension.class)
+@TestMethodOrder(MethodOrderer.MethodName.class)
+class TestedClassWithAnnotatedDITest {
 
     /**
      * The Class TestedClass1.
@@ -171,7 +176,7 @@ public final class TestedClassWithAnnotatedDITest {
      *            the a long
      */
     @Test
-    public void injectAllAnnotatedInjectionPoints(@Injectable("2") int anotherValue, @Injectable Runnable secondAction,
+    void injectAllAnnotatedInjectionPoints(@Injectable("2") int anotherValue, @Injectable Runnable secondAction,
             @Injectable Runnable anotherAction, @Injectable("true") boolean unused,
             @Injectable("test") String stringFieldWithValue, @Injectable("123.45") double numericFieldWithValue,
             @Injectable("propertyValue") String systemProperty, @Injectable("123") int anInt,
@@ -206,7 +211,7 @@ public final class TestedClassWithAnnotatedDITest {
      *            the another value
      */
     @Test
-    public void leaveValueAnnotatedInjectionPointsWithDefaultInitializationValue(@Injectable Runnable action2,
+    void leaveValueAnnotatedInjectionPointsWithDefaultInitializationValue(@Injectable Runnable action2,
             @Injectable Runnable anotherAction, @Injectable("2") int anotherValue) {
         assertNull(tested1.systemProperty);
         assertEquals(0, tested1.anInt);
@@ -216,8 +221,9 @@ public final class TestedClassWithAnnotatedDITest {
     /**
      * Fail for annotated field which lacks an injectable.
      */
-    @Test(expected = IllegalStateException.class)
-    public void failForAnnotatedFieldWhichLacksAnInjectable() {
+    @Test
+    @ExpectedException(IllegalStateException.class)
+    void failForAnnotatedFieldWhichLacksAnInjectable() {
         fail("Must fail before starting");
     }
 
@@ -227,8 +233,9 @@ public final class TestedClassWithAnnotatedDITest {
      * @param secondAction
      *            the second action
      */
-    @Test(expected = IllegalStateException.class)
-    public void failForAnnotatedFieldHavingAnInjectableOfTheSameTypeWhichWasAlreadyConsumed(
+    @Test
+    @ExpectedException(IllegalStateException.class)
+    void failForAnnotatedFieldHavingAnInjectableOfTheSameTypeWhichWasAlreadyConsumed(
             @Injectable Runnable secondAction) {
         fail("Must fail before starting");
     }

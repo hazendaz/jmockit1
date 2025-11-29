@@ -23,6 +23,7 @@ import java.net.URLConnection;
 import java.net.URLStreamHandler;
 import java.nio.file.Path;
 
+import mockit.integration.junit5.ExpectedException;
 import mockit.integration.junit5.JMockitExtension;
 
 import org.junit.jupiter.api.Test;
@@ -282,7 +283,8 @@ class ClassLoadingAndJREMocksTest {
      * @param mockClass
      *            the mock class
      */
-    @org.junit.Test(expected = IllegalArgumentException.class)
+    @Test
+    @ExpectedException(IllegalArgumentException.class)
     public void attemptToMockJREClassThatIsNeverMockable(@Mocked Class<?> mockClass) {
         fail("Should never get here");
     }

@@ -5,21 +5,19 @@
  */
 package mockit;
 
+import mockit.integration.junit5.ExpectedException;
+import mockit.integration.junit5.JMockitExtension;
 import mockit.internal.expectations.invocation.MissingInvocation;
 import mockit.internal.expectations.invocation.UnexpectedInvocation;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class FullVerificationsTest.
  */
-public final class FullVerificationsTest {
-
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
+@ExtendWith(JMockitExtension.class)
+class FullVerificationsTest {
 
     /**
      * The Class Dependency.
@@ -93,7 +91,7 @@ public final class FullVerificationsTest {
      * Verify all invocations.
      */
     @Test
-    public void verifyAllInvocations() {
+    void verifyAllInvocations() {
         exerciseCodeUnderTest();
 
         new FullVerifications() {
@@ -117,7 +115,7 @@ public final class FullVerificationsTest {
      * Verify all invocations with some of them recorded.
      */
     @Test
-    public void verifyAllInvocationsWithSomeOfThemRecorded() {
+    void verifyAllInvocationsWithSomeOfThemRecorded() {
         new Expectations() {
             {
                 mock.editABunchMoreStuff();
@@ -143,7 +141,7 @@ public final class FullVerificationsTest {
      * Verify all invocations with those recorded as expected to occur verified implicitly.
      */
     @Test
-    public void verifyAllInvocationsWithThoseRecordedAsExpectedToOccurVerifiedImplicitly() {
+    void verifyAllInvocationsWithThoseRecordedAsExpectedToOccurVerifiedImplicitly() {
         new Expectations() {
             {
                 mock.setSomething(45);
@@ -171,7 +169,7 @@ public final class FullVerificationsTest {
      * Verify all invocations except those already verified in A previous verification block.
      */
     @Test
-    public void verifyAllInvocationsExceptThoseAlreadyVerifiedInAPreviousVerificationBlock() {
+    void verifyAllInvocationsExceptThoseAlreadyVerifiedInAPreviousVerificationBlock() {
         exerciseCodeUnderTest();
 
         new Verifications() {
@@ -196,10 +194,8 @@ public final class FullVerificationsTest {
      * Verify all invocations with one missing.
      */
     @Test
-    public void verifyAllInvocationsWithOneMissing() {
-        thrown.expect(UnexpectedInvocation.class);
-        thrown.expectMessage("editABunchMoreStuff()");
-
+    @ExpectedException(value = UnexpectedInvocation.class, expectedMessages = "editABunchMoreStuff()")
+    void verifyAllInvocationsWithOneMissing() {
         exerciseCodeUnderTest();
 
         new FullVerifications() {
@@ -217,7 +213,7 @@ public final class FullVerificationsTest {
      * Verify unrecorded invocation that was expected to not happen.
      */
     @Test
-    public void verifyUnrecordedInvocationThatWasExpectedToNotHappen() {
+    void verifyUnrecordedInvocationThatWasExpectedToNotHappen() {
         mock.prepare();
         mock.setSomething(123);
         mock.setSomething(45);
@@ -237,10 +233,8 @@ public final class FullVerificationsTest {
      * Verify unrecorded invocation that should not happen but does.
      */
     @Test
-    public void verifyUnrecordedInvocationThatShouldNotHappenButDoes() {
-        thrown.expect(UnexpectedInvocation.class);
-        thrown.expectMessage("1 unexpected invocation");
-
+    @ExpectedException(value = UnexpectedInvocation.class, expectedMessages = "1 unexpected invocation")
+    void verifyUnrecordedInvocationThatShouldNotHappenButDoes() {
         mock.setSomething(1);
         mock.notifyBeforeSave();
 
@@ -257,7 +251,7 @@ public final class FullVerificationsTest {
      * Verify invocation that is allowed to happen any number of times and happens once.
      */
     @Test
-    public void verifyInvocationThatIsAllowedToHappenAnyNumberOfTimesAndHappensOnce() {
+    void verifyInvocationThatIsAllowedToHappenAnyNumberOfTimesAndHappensOnce() {
         mock.prepare();
         mock.setSomething(123);
         mock.save();
@@ -276,7 +270,7 @@ public final class FullVerificationsTest {
      * Verify recorded invocation that is allowed to happen any no of times and does not happen.
      */
     @Test
-    public void verifyRecordedInvocationThatIsAllowedToHappenAnyNoOfTimesAndDoesNotHappen() {
+    void verifyRecordedInvocationThatIsAllowedToHappenAnyNoOfTimesAndDoesNotHappen() {
         mock.prepare();
         mock.setSomething(123);
 
@@ -294,7 +288,7 @@ public final class FullVerificationsTest {
      * Verify unrecorded invocation that is allowed to happen any no of times and does not happen.
      */
     @Test
-    public void verifyUnrecordedInvocationThatIsAllowedToHappenAnyNoOfTimesAndDoesNotHappen() {
+    void verifyUnrecordedInvocationThatIsAllowedToHappenAnyNoOfTimesAndDoesNotHappen() {
         mock.prepare();
         mock.setSomething(123);
 
@@ -312,10 +306,9 @@ public final class FullVerificationsTest {
      * Verify unrecorded invocation that should happen but does not.
      */
     @Test
-    public void verifyUnrecordedInvocationThatShouldHappenButDoesNot() {
+    @ExpectedException(MissingInvocation.class)
+    void verifyUnrecordedInvocationThatShouldHappenButDoesNot() {
         mock.setSomething(1);
-
-        thrown.expect(MissingInvocation.class);
 
         new FullVerifications() {
             {
@@ -328,13 +321,13 @@ public final class FullVerificationsTest {
      * Verify recorded invocation that should happen but does not.
      */
     @Test
-    public void verifyRecordedInvocationThatShouldHappenButDoesNot() {
+    @ExpectedException(MissingInvocation.class)
+    void verifyRecordedInvocationThatShouldHappenButDoesNot() {
         new Expectations() {
             {
                 mock.notifyBeforeSave();
             }
         };
-        thrown.expect(MissingInvocation.class);
 
         mock.setSomething(1);
 
@@ -349,12 +342,10 @@ public final class FullVerificationsTest {
      * Verify all invocations with extra verification.
      */
     @Test
-    public void verifyAllInvocationsWithExtraVerification() {
+    @ExpectedException(value = MissingInvocation.class, expectedMessages = "notifyBeforeSave()")
+    void verifyAllInvocationsWithExtraVerification() {
         mock.prepare();
         mock.setSomething(123);
-
-        thrown.expect(MissingInvocation.class);
-        thrown.expectMessage("notifyBeforeSave()");
 
         new FullVerifications() {
             {
@@ -369,12 +360,10 @@ public final class FullVerificationsTest {
      * Verify all invocations with invocation count one less than actual.
      */
     @Test
-    public void verifyAllInvocationsWithInvocationCountOneLessThanActual() {
+    @ExpectedException(value = UnexpectedInvocation.class, expectedMessages = "45")
+    void verifyAllInvocationsWithInvocationCountOneLessThanActual() {
         mock.setSomething(123);
         mock.setSomething(45);
-
-        thrown.expect(UnexpectedInvocation.class);
-        thrown.expectMessage("45");
 
         new FullVerifications() {
             {
@@ -388,14 +377,11 @@ public final class FullVerificationsTest {
      * Verify all invocations with invocation count two less than actual.
      */
     @Test
-    public void verifyAllInvocationsWithInvocationCountTwoLessThanActual() {
+    @ExpectedException(value = UnexpectedInvocation.class, expectedMessages = { "2 unexpected invocations", "1" })
+    void verifyAllInvocationsWithInvocationCountTwoLessThanActual() {
         mock.setSomething(123);
         mock.setSomething(45);
         mock.setSomething(1);
-
-        thrown.expect(UnexpectedInvocation.class);
-        thrown.expectMessage("2 unexpected invocations");
-        thrown.expectMessage("1");
 
         new FullVerifications() {
             {
@@ -409,12 +395,9 @@ public final class FullVerificationsTest {
      * Verify all invocations with invocation count more than actual.
      */
     @Test
-    public void verifyAllInvocationsWithInvocationCountMoreThanActual() {
+    @ExpectedException(value = MissingInvocation.class, expectedMessages = { "Missing 2 invocations", "any char" })
+    void verifyAllInvocationsWithInvocationCountMoreThanActual() {
         mock.setSomethingElse('f');
-
-        thrown.expect(MissingInvocation.class);
-        thrown.expectMessage("Missing 2 invocations");
-        thrown.expectMessage("any char");
 
         new FullVerifications() {
             {
@@ -428,10 +411,9 @@ public final class FullVerificationsTest {
      * Verify no invocations occurred on mocked dependency with one having occurred.
      */
     @Test
-    public void verifyNoInvocationsOccurredOnMockedDependencyWithOneHavingOccurred() {
+    @ExpectedException(UnexpectedInvocation.class)
+    void verifyNoInvocationsOccurredOnMockedDependencyWithOneHavingOccurred() {
         mock.editABunchMoreStuff();
-
-        thrown.expect(UnexpectedInvocation.class);
 
         new FullVerifications() {
         };
@@ -441,7 +423,7 @@ public final class FullVerificationsTest {
      * Verify no invocations on mocked dependency beyond those recorded as expected.
      */
     @Test
-    public void verifyNoInvocationsOnMockedDependencyBeyondThoseRecordedAsExpected() {
+    void verifyNoInvocationsOnMockedDependencyBeyondThoseRecordedAsExpected() {
         new Expectations() {
             {
                 mock.prepare();
@@ -471,10 +453,8 @@ public final class FullVerificationsTest {
      * Verify no invocations on mocked dependency beyond those recorded as expected with one having occurred.
      */
     @Test
-    public void verifyNoInvocationsOnMockedDependencyBeyondThoseRecordedAsExpectedWithOneHavingOccurred() {
-        thrown.expect(UnexpectedInvocation.class);
-        thrown.expectMessage("editABunchMoreStuff()");
-
+    @ExpectedException(value = UnexpectedInvocation.class, expectedMessages = "editABunchMoreStuff()")
+    void verifyNoInvocationsOnMockedDependencyBeyondThoseRecordedAsExpectedWithOneHavingOccurred() {
         new Expectations() {
             {
                 mock.prepare();
@@ -496,7 +476,8 @@ public final class FullVerificationsTest {
      * Verify no unverified invocations when first invocation of method is but second one is not.
      */
     @Test
-    public void verifyNoUnverifiedInvocationsWhenFirstInvocationOfMethodIsButSecondOneIsNot() {
+    @ExpectedException(value = UnexpectedInvocation.class, expectedMessages = "save()")
+    void verifyNoUnverifiedInvocationsWhenFirstInvocationOfMethodIsButSecondOneIsNot() {
         mock.prepare();
         mock.save();
         mock.prepare();
@@ -512,9 +493,6 @@ public final class FullVerificationsTest {
                 times = 1;
             }
         };
-
-        thrown.expect(UnexpectedInvocation.class);
-        thrown.expectMessage("save()");
 
         new FullVerifications() {
         };
@@ -524,7 +502,8 @@ public final class FullVerificationsTest {
      * Verify no unverified invocations when second invocation of method is but first one is not.
      */
     @Test
-    public void verifyNoUnverifiedInvocationsWhenSecondInvocationOfMethodIsButFirstOneIsNot() {
+    @ExpectedException(value = UnexpectedInvocation.class, expectedMessages = "save()")
+    void verifyNoUnverifiedInvocationsWhenSecondInvocationOfMethodIsButFirstOneIsNot() {
         mock.save(); // doesn't get verified
         mock.prepare();
         mock.save();
@@ -535,9 +514,6 @@ public final class FullVerificationsTest {
                 mock.save();
             }
         };
-
-        thrown.expect(UnexpectedInvocation.class);
-        thrown.expectMessage("save()");
 
         new FullVerifications() {
         };

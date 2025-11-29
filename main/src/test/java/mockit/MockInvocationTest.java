@@ -12,13 +12,13 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import mockit.integration.junit5.JMockitExtension;
 
-public final class MockInvocationTest {
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+@ExtendWith(JMockitExtension.class)
+class MockInvocationTest {
 
     public static class Collaborator {
         int value;
@@ -65,14 +65,14 @@ public final class MockInvocationTest {
     }
 
     @Test
-    public void mockMethodsForMethodsWithoutParameters() {
+    void mockMethodsForMethodsWithoutParameters() {
         new MockMethods();
         assertFalse(Collaborator.staticMethod());
         assertEquals(123, new Collaborator().getValue());
     }
 
     @Test
-    public void instanceMockMethodForStaticMethod() {
+    void instanceMockMethodForStaticMethod() {
         new MockUp<Collaborator>() {
             @Mock
             boolean staticMethod(Invocation context) {
@@ -87,7 +87,7 @@ public final class MockInvocationTest {
     }
 
     @Test
-    public void mockMethodsWithInvocationParameter() {
+    void mockMethodsWithInvocationParameter() {
         new MockUp<Collaborator>() {
             Collaborator instantiated;
 
@@ -135,7 +135,7 @@ public final class MockInvocationTest {
     }
 
     @Test
-    public void mockMethodsWithParameters() {
+    void mockMethodsWithParameters() {
         MockMethodsWithParameters mock = new MockMethodsWithParameters();
 
         Collaborator col = new Collaborator(4);
@@ -147,7 +147,7 @@ public final class MockInvocationTest {
     }
 
     @Test
-    public void useOfContextParametersForJREMethods() throws Exception {
+    void useOfContextParametersForJREMethods() throws Exception {
         new MockUp<Runtime>() {
             @Mock
             void runFinalizersOnExit(Invocation inv, boolean b) {

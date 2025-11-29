@@ -12,21 +12,21 @@ import java.util.concurrent.AbstractExecutorService;
 
 import javax.sql.DataSource;
 
+import mockit.integration.junit5.ExpectedException;
+import mockit.integration.junit5.JMockitExtension;
 import mockit.internal.expectations.invocation.MissingInvocation;
+import mockit.internal.expectations.invocation.UnexpectedInvocation;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.w3c.dom.Attr;
 
 /**
  * The Class MockInstanceMatchingTest.
  */
-public final class MockInstanceMatchingTest {
-
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
+@ExtendWith(JMockitExtension.class)
+class MockInstanceMatchingTest {
 
     /**
      * The Class Collaborator.
@@ -67,7 +67,7 @@ public final class MockInstanceMatchingTest {
      *            the other instance
      */
     @Test
-    public void matchOnMockInstance(@Mocked Collaborator otherInstance) {
+    void matchOnMockInstance(@Mocked Collaborator otherInstance) {
         new Expectations() {
             {
                 mock.getValue();
@@ -89,9 +89,8 @@ public final class MockInstanceMatchingTest {
      *            the verified mock
      */
     @Test
-    public void recordOnMockInstanceButReplayOnDifferentInstance(@Mocked final Collaborator verifiedMock) {
-        thrown.expect(MissingInvocation.class);
-
+    @ExpectedException(MissingInvocation.class)
+    void recordOnMockInstanceButReplayOnDifferentInstance(@Mocked final Collaborator verifiedMock) {
         new Expectations() {
             {
                 verifiedMock.getValue();
@@ -110,7 +109,7 @@ public final class MockInstanceMatchingTest {
      *            the verified mock
      */
     @Test
-    public void verifyExpectationMatchingOnMockInstance(@Mocked final Collaborator verifiedMock) {
+    void verifyExpectationMatchingOnMockInstance(@Mocked final Collaborator verifiedMock) {
         new Collaborator().setValue(12);
         verifiedMock.setValue(12);
 
@@ -129,7 +128,7 @@ public final class MockInstanceMatchingTest {
      *            the verified mock
      */
     @Test
-    public void verifyExpectationsOnSameMethodCallForDifferentMockedInstances(@Mocked final Collaborator verifiedMock) {
+    void verifyExpectationsOnSameMethodCallForDifferentMockedInstances(@Mocked final Collaborator verifiedMock) {
         final Collaborator c1 = new Collaborator();
         c1.getValue();
         verifiedMock.getValue();
@@ -155,9 +154,8 @@ public final class MockInstanceMatchingTest {
      *            the verified mock
      */
     @Test
-    public void verifyOnMockInstanceButReplayOnDifferentInstance(@Mocked final Collaborator verifiedMock) {
-        thrown.expect(MissingInvocation.class);
-
+    @ExpectedException(MissingInvocation.class)
+    void verifyOnMockInstanceButReplayOnDifferentInstance(@Mocked final Collaborator verifiedMock) {
         new Collaborator().setValue(12);
 
         new Verifications() {
@@ -174,7 +172,7 @@ public final class MockInstanceMatchingTest {
      *            the mock 2
      */
     @Test
-    public void recordExpectationsMatchingOnMultipleMockInstances(@Mocked final Collaborator mock2) {
+    void recordExpectationsMatchingOnMultipleMockInstances(@Mocked final Collaborator mock2) {
         new Expectations() {
             {
                 mock.getValue();
@@ -197,9 +195,8 @@ public final class MockInstanceMatchingTest {
      *            the mock 2
      */
     @Test
-    public void recordOnSpecificMockInstancesButReplayOnDifferentOnes(@Mocked final Collaborator mock2) {
-        thrown.expect(MissingInvocation.class);
-
+    @ExpectedException(MissingInvocation.class)
+    void recordOnSpecificMockInstancesButReplayOnDifferentOnes(@Mocked final Collaborator mock2) {
         new Expectations() {
             {
                 mock.setValue(12);
@@ -218,7 +215,7 @@ public final class MockInstanceMatchingTest {
      *            the mock 2
      */
     @Test
-    public void verifyExpectationsMatchingOnMultipleMockInstances(@Mocked final Collaborator mock2) {
+    void verifyExpectationsMatchingOnMultipleMockInstances(@Mocked final Collaborator mock2) {
         mock.setValue(12);
         mock2.setValue(13);
         mock.setValue(20);
@@ -239,18 +236,19 @@ public final class MockInstanceMatchingTest {
      *            the mock 2
      */
     @Test
-    public void verifyOnSpecificMockInstancesButReplayOnDifferentOnes(@Mocked final Collaborator mock2) {
-        thrown.expect(MissingInvocation.class);
-
+    @ExpectedException(UnexpectedInvocation.class)
+    void verifyOnSpecificMockInstancesButReplayOnDifferentOnes(@Mocked final Collaborator mock2) {
         mock2.setValue(12);
         mock.setValue(13);
 
-        new FullVerifications() {
-            {
-                mock.setValue(12);
-                mock2.setValue(13);
-            }
-        };
+        Assertions.assertThrows(MissingInvocation.class, () -> {
+            new FullVerifications() {
+                {
+                    mock.setValue(12);
+                    mock2.setValue(13);
+                }
+            };
+        });
     }
 
     /**
@@ -260,7 +258,7 @@ public final class MockInstanceMatchingTest {
      *            the mock 2
      */
     @Test
-    public void matchOnTwoMockInstances(@Mocked final Collaborator mock2) {
+    void matchOnTwoMockInstances(@Mocked final Collaborator mock2) {
         new Expectations() {
             {
                 mock.getValue();
@@ -283,7 +281,7 @@ public final class MockInstanceMatchingTest {
      *            the mock 2
      */
     @Test
-    public void matchOnTwoMockInstancesAndReplayInDifferentOrder(@Mocked final Collaborator mock2) {
+    void matchOnTwoMockInstancesAndReplayInDifferentOrder(@Mocked final Collaborator mock2) {
         new Expectations() {
             {
                 mock.getValue();
@@ -306,7 +304,7 @@ public final class MockInstanceMatchingTest {
      *            the mock 2
      */
     @Test
-    public void matchOnTwoMockInstancesForOtherwiseIdenticalExpectations(@Mocked final Collaborator mock2) {
+    void matchOnTwoMockInstancesForOtherwiseIdenticalExpectations(@Mocked final Collaborator mock2) {
         mock.getValue();
         mock2.getValue();
         mock2.setValue(1);
@@ -338,10 +336,9 @@ public final class MockInstanceMatchingTest {
      *            the es 2
      */
     @Test
-    public void verifyExpectationsMatchingOnMultipleMockParametersButReplayedOutOfOrder(
+    @ExpectedException(MissingInvocation.class)
+    void verifyExpectationsMatchingOnMultipleMockParametersButReplayedOutOfOrder(
             @Mocked final AbstractExecutorService es1, @Mocked final AbstractExecutorService es2) {
-        thrown.expect(MissingInvocation.class);
-
         es2.execute(null);
         es1.submit((Runnable) null);
 
@@ -357,7 +354,7 @@ public final class MockInstanceMatchingTest {
      * Record expectation matching on instance created inside code under test.
      */
     @Test
-    public void recordExpectationMatchingOnInstanceCreatedInsideCodeUnderTest() {
+    void recordExpectationMatchingOnInstanceCreatedInsideCodeUnderTest() {
         new Expectations() {
             {
                 new Collaborator().getValue();
@@ -382,7 +379,7 @@ public final class MockInstanceMatchingTest {
      *             the exception
      */
     @Test
-    public void recordExpectationsOnTwoInstancesOfSameMockedInterface(@Mocked final DataSource mockDS1,
+    void recordExpectationsOnTwoInstancesOfSameMockedInterface(@Mocked final DataSource mockDS1,
             @Mocked final DataSource mockDS2, @Mocked Attr n) throws Exception {
         new Expectations() {
             {
@@ -449,8 +446,8 @@ public final class MockInstanceMatchingTest {
      *            the any B
      */
     @Test
-    public void verifyingCallsOnSpecificInstancesOfDifferentSubclasses(@Mocked SubclassA anyA,
-            @Mocked final SubclassA a, @Mocked final SubclassB anyB) {
+    void verifyingCallsOnSpecificInstancesOfDifferentSubclasses(@Mocked SubclassA anyA, @Mocked final SubclassA a,
+            @Mocked final SubclassB anyB) {
         a.doSomething();
         new BaseClass().doSomething();
         anyB.doSomething();

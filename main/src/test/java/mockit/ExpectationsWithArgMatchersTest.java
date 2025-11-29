@@ -24,20 +24,18 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import mockit.integration.junit5.ExpectedException;
+import mockit.integration.junit5.JMockitExtension;
 import mockit.internal.expectations.invocation.MissingInvocation;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class ExpectationsWithArgMatchersTest.
  */
-public final class ExpectationsWithArgMatchersTest {
-
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
+@ExtendWith(JMockitExtension.class)
+class ExpectationsWithArgMatchersTest {
 
     /**
      * The Class Collaborator.
@@ -198,13 +196,9 @@ public final class ExpectationsWithArgMatchersTest {
      * Verify expectation numeric equality matcher but fail to match on replay.
      */
     @Test
-    public void verifyExpectationNumericEqualityMatcherButFailToMatchOnReplay() {
-        thrown.expect(MissingInvocation.class);
-        thrown.expectMessage("setValue");
-        thrown.expectMessage("a numeric value within 0.01 of 2.3");
-        thrown.expectMessage("instead got");
-        thrown.expectMessage("setValue(2.32)");
-
+    @ExpectedException(value = MissingInvocation.class, expectedMessages = { "setValue",
+            "a numeric value within 0.01 of 2.3", "instead got", "setValue(2.32)" })
+    void verifyExpectationNumericEqualityMatcherButFailToMatchOnReplay() {
         mock.setValue(2.32);
 
         new Verifications() {
@@ -218,9 +212,8 @@ public final class ExpectationsWithArgMatchersTest {
      * Verify expectation using numeric equality matcher but replay with non numeric parameter type.
      */
     @Test
-    public void verifyExpectationUsingNumericEqualityMatcherButReplayWithNonNumericParameterType() {
-        thrown.expect(MissingInvocation.class);
-
+    @ExpectedException(MissingInvocation.class)
+    void verifyExpectationUsingNumericEqualityMatcherButReplayWithNonNumericParameterType() {
         mock.useObject('2');
 
         new Verifications() {
@@ -234,12 +227,8 @@ public final class ExpectationsWithArgMatchersTest {
      * Verify expectation using inequality matcher but fail to match on replay.
      */
     @Test
-    public void verifyExpectationUsingInequalityMatcherButFailToMatchOnReplay() {
-        thrown.expect(MissingInvocation.class);
-        thrown.expectMessage("(not 2)");
-        thrown.expectMessage("got");
-        thrown.expectMessage("(2)");
-
+    @ExpectedException(value = MissingInvocation.class, expectedMessages = { "(not 2)", "got", "(2)" })
+    void verifyExpectationUsingInequalityMatcherButFailToMatchOnReplay() {
         mock.setValue(2);
 
         new Verifications() {
@@ -253,7 +242,7 @@ public final class ExpectationsWithArgMatchersTest {
      * Verify expectations using numeric equality matchers.
      */
     @Test
-    public void verifyExpectationsUsingNumericEqualityMatchers() {
+    void verifyExpectationsUsingNumericEqualityMatchers() {
         new Expectations() {
             {
                 mock.setValue(withEqual(2.0F, 0.01F));
@@ -271,7 +260,7 @@ public final class ExpectationsWithArgMatchersTest {
      * Record expectation with delegate without the parameter type.
      */
     @Test
-    public void recordExpectationWithDelegateWithoutTheParameterType() {
+    void recordExpectationWithDelegateWithoutTheParameterType() {
         new Expectations() {
             {
                 mock.useObject(with(new Delegate() { // only compiles for a parameter of type Object
@@ -348,7 +337,7 @@ public final class ExpectationsWithArgMatchersTest {
      * Expect invocations with named delegate matcher.
      */
     @Test
-    public void expectInvocationsWithNamedDelegateMatcher() {
+    void expectInvocationsWithNamedDelegateMatcher() {
         new Expectations() {
             {
                 mock.setTextualValues(with(collectionElement("B")));
@@ -360,7 +349,7 @@ public final class ExpectationsWithArgMatchersTest {
     }
 
     @Test
-    public void expectInvocationsWithHamcrestMatcher() {
+    void expectInvocationsWithHamcrestMatcher() {
         new Expectations() {
             {
                 mock.setTextualValues(this.<Collection<String>> withArgThat(hasItem("B")));
@@ -372,7 +361,7 @@ public final class ExpectationsWithArgMatchersTest {
     }
 
     @Test
-    public void expectInvocationsWithHamcrestMatcher2() {
+    void expectInvocationsWithHamcrestMatcher2() {
         new Expectations() {
             {
                 mock.setTextualValues(withArgThat(containsInAnyOrder("B", "c", "a")));
@@ -384,7 +373,7 @@ public final class ExpectationsWithArgMatchersTest {
     }
 
     @Test
-    public void expectInvocationWithMatcherContainingAnotherMatcher() {
+    void expectInvocationWithMatcherContainingAnotherMatcher() {
         new Expectations() {
             {
                 mock.setIntValue(withArgThat(equalTo(3)));
@@ -398,7 +387,7 @@ public final class ExpectationsWithArgMatchersTest {
      * Use mocked method before recording expectation with argument matcher.
      */
     @Test
-    public void useMockedMethodBeforeRecordingExpectationWithArgumentMatcher() {
+    void useMockedMethodBeforeRecordingExpectationWithArgumentMatcher() {
         assertFalse(mock.doSomething("abc"));
 
         new Expectations() {
@@ -416,7 +405,7 @@ public final class ExpectationsWithArgMatchersTest {
      * Record expectations using the any fields for parameter of type object.
      */
     @Test
-    public void recordExpectationsUsingTheAnyFieldsForParameterOfTypeObject() {
+    void recordExpectationsUsingTheAnyFieldsForParameterOfTypeObject() {
         new Expectations() {
             {
                 mock.useObject(anyString);
@@ -467,7 +456,7 @@ public final class ExpectationsWithArgMatchersTest {
      * Record expectations using the with any method for parameter of type object.
      */
     @Test
-    public void recordExpectationsUsingTheWithAnyMethodForParameterOfTypeObject() {
+    void recordExpectationsUsingTheWithAnyMethodForParameterOfTypeObject() {
         new Expectations() {
             {
                 mock.useObject(withAny("a"));
@@ -500,7 +489,7 @@ public final class ExpectationsWithArgMatchersTest {
      * Declare field in expectation block with name having same prefix as argument matching field.
      */
     @Test
-    public void declareFieldInExpectationBlockWithNameHavingSamePrefixAsArgumentMatchingField() {
+    void declareFieldInExpectationBlockWithNameHavingSamePrefixAsArgumentMatchingField() {
         new Expectations() {
             final Integer anyValue = 1;
 
@@ -516,7 +505,7 @@ public final class ExpectationsWithArgMatchersTest {
      * Declare method in expectation block with name having same prefix as argument matching method.
      */
     @Test
-    public void declareMethodInExpectationBlockWithNameHavingSamePrefixAsArgumentMatchingMethod() {
+    void declareMethodInExpectationBlockWithNameHavingSamePrefixAsArgumentMatchingMethod() {
         final List<Integer> values = new ArrayList<>();
 
         new Expectations() {
@@ -558,7 +547,8 @@ public final class ExpectationsWithArgMatchersTest {
      *            the cert
      */
     @Test
-    public void expectInvocationWithSameMockInstanceButReplayWithNull(
+    @ExpectedException(MissingInvocation.class)
+    void expectInvocationWithSameMockInstanceButReplayWithNull(
             // This class defines an abstract "toString" override, which initially was erroneously
             // mocked, causing a new expectation to be created during replay:
             @Mocked final Certificate cert) {
@@ -570,15 +560,14 @@ public final class ExpectationsWithArgMatchersTest {
         };
 
         mock.setValue((Certificate) null);
-
-        thrown.expect(MissingInvocation.class);
     }
 
     /**
      * Expect invocation with matcher which invokes mocked method.
      */
     @Test
-    public void expectInvocationWithMatcherWhichInvokesMockedMethod() {
+    @ExpectedException(MissingInvocation.class)
+    void expectInvocationWithMatcherWhichInvokesMockedMethod() {
         new Expectations() {
             {
                 mock.setValue(with(new Delegate<Integer>() {
@@ -593,8 +582,6 @@ public final class ExpectationsWithArgMatchersTest {
         };
 
         mock.setValue(-3);
-
-        thrown.expect(MissingInvocation.class);
     }
 
     // Verifications
@@ -623,7 +610,7 @@ public final class ExpectationsWithArgMatchersTest {
      * Extending A reusable argument matcher.
      */
     @Test
-    public void extendingAReusableArgumentMatcher() {
+    void extendingAReusableArgumentMatcher() {
         mock.setValue(5);
         mock.setValue(123);
 

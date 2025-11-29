@@ -8,14 +8,18 @@ package mockit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import mockit.integration.junit5.ExpectedException;
+import mockit.integration.junit5.JMockitExtension;
 import mockit.internal.expectations.invocation.MissingInvocation;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class ExpectationsForConstructorsTest.
  */
-public final class ExpectationsForConstructorsTest {
+@ExtendWith(JMockitExtension.class)
+class ExpectationsForConstructorsTest {
 
     /**
      * The Class BaseCollaborator.
@@ -72,7 +76,7 @@ public final class ExpectationsForConstructorsTest {
      *            the unused
      */
     @Test
-    public void mockAllConstructors(@Mocked Collaborator unused) {
+    void mockAllConstructors(@Mocked Collaborator unused) {
         new Expectations() {
             {
                 new Collaborator();
@@ -129,7 +133,7 @@ public final class ExpectationsForConstructorsTest {
      *            the mock
      */
     @Test
-    public void mockClassHierarchyWhereFirstConstructorInBaseClassIsPrivate(@Mocked B mock) {
+    void mockClassHierarchyWhereFirstConstructorInBaseClassIsPrivate(@Mocked B mock) {
         new B("Test1");
     }
 
@@ -154,7 +158,7 @@ public final class ExpectationsForConstructorsTest {
      *            the mock
      */
     @Test
-    public void mockClassHierarchyWhereFirstConstructorInBaseClassOnAnotherPackageIsPackagePrivate(@Mocked D mock) {
+    void mockClassHierarchyWhereFirstConstructorInBaseClassOnAnotherPackageIsPackagePrivate(@Mocked D mock) {
         assertNotNull(mock);
         new D("Test1");
     }
@@ -178,7 +182,7 @@ public final class ExpectationsForConstructorsTest {
      *            the mocked
      */
     @Test
-    public void recordAndReplayBaseConstructorInvocation(@Mocked Base mocked) {
+    void recordAndReplayBaseConstructorInvocation(@Mocked Base mocked) {
         new Expectations() {
             {
                 new Base();
@@ -194,8 +198,9 @@ public final class ExpectationsForConstructorsTest {
      * @param mocked
      *            the mocked
      */
-    @Test(expected = MissingInvocation.class)
-    public void recordExpectationOnBaseConstructorAndReplayWithCallToSuper(@Mocked Base mocked) {
+    @Test
+    @ExpectedException(MissingInvocation.class)
+    void recordExpectationOnBaseConstructorAndReplayWithCallToSuper(@Mocked Base mocked) {
         new Expectations() {
             {
                 new Base();
@@ -212,8 +217,9 @@ public final class ExpectationsForConstructorsTest {
      * @param mocked
      *            the mocked
      */
-    @Test(expected = MissingInvocation.class)
-    public void verifyExpectationOnBaseConstructorReplayedWithCallToSuper(@Mocked Base mocked) {
+    @Test
+    @ExpectedException(MissingInvocation.class)
+    void verifyExpectationOnBaseConstructorReplayedWithCallToSuper(@Mocked Base mocked) {
         new Derived();
 
         new Verifications() {
@@ -261,7 +267,7 @@ public final class ExpectationsForConstructorsTest {
      *            the mock
      */
     @Test
-    public void mockConstructorWhichCallsTwoOthersOfTheSameClass(@Mocked Collaborator2 mock) {
+    void mockConstructorWhichCallsTwoOthersOfTheSameClass(@Mocked Collaborator2 mock) {
         new Collaborator2();
     }
 }

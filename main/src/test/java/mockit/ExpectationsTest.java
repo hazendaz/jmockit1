@@ -11,23 +11,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Method;
 
+import mockit.integration.junit5.ExpectedException;
+import mockit.integration.junit5.JMockitExtension;
 import mockit.internal.expectations.invocation.MissingInvocation;
 import mockit.internal.expectations.invocation.UnexpectedInvocation;
 
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class ExpectationsTest.
  */
+@ExtendWith(JMockitExtension.class)
 @SuppressWarnings({ "unused", "ParameterHidesMemberVariable" })
-public final class ExpectationsTest {
-
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
+class ExpectationsTest {
 
     /**
      * The Class Dependency.
@@ -53,7 +52,7 @@ public final class ExpectationsTest {
          * @param value
          *            the new something
          */
-        @Ignore("test")
+        @Disabled("test")
         public void setSomething(@Deprecated int value) {
         }
 
@@ -146,7 +145,7 @@ public final class ExpectationsTest {
      * Record simple invocations.
      */
     @Test
-    public void recordSimpleInvocations() {
+    void recordSimpleInvocations() {
         new Expectations() {
             {
                 mock.prepare();
@@ -162,7 +161,7 @@ public final class ExpectationsTest {
      * Record invocation that will not occur.
      */
     @Test
-    public void recordInvocationThatWillNotOccur() {
+    void recordInvocationThatWillNotOccur() {
         new Expectations() {
             {
                 mock.editABunchMoreStuff();
@@ -179,7 +178,7 @@ public final class ExpectationsTest {
      * Expectations recorded on same method with same matchers but different arguments.
      */
     @Test
-    public void expectationsRecordedOnSameMethodWithSameMatchersButDifferentArguments() {
+    void expectationsRecordedOnSameMethodWithSameMatchersButDifferentArguments() {
         new Expectations() {
             {
                 mock.doSomething(1, anyBoolean);
@@ -198,7 +197,7 @@ public final class ExpectationsTest {
      * Expectations recorded on same method with matcher in one and fixed argument in another.
      */
     @Test
-    public void expectationsRecordedOnSameMethodWithMatcherInOneAndFixedArgumentInAnother() {
+    void expectationsRecordedOnSameMethodWithMatcherInOneAndFixedArgumentInAnother() {
         new Expectations() {
             {
                 mock.doSomething(1, anyBoolean);
@@ -217,8 +216,9 @@ public final class ExpectationsTest {
     /**
      * Record invocation with exact expected number of invocations but fail to satisfy.
      */
-    @Test(expected = MissingInvocation.class)
-    public void recordInvocationWithExactExpectedNumberOfInvocationsButFailToSatisfy() {
+    @Test
+    @ExpectedException(MissingInvocation.class)
+    void recordInvocationWithExactExpectedNumberOfInvocationsButFailToSatisfy() {
         new Expectations() {
             {
                 mock.editABunchMoreStuff();
@@ -230,23 +230,24 @@ public final class ExpectationsTest {
     /**
      * Record invocation with minimum expected number of invocations but fail to satisfy.
      */
-    @Test(expected = MissingInvocation.class)
-    public void recordInvocationWithMinimumExpectedNumberOfInvocationsButFailToSatisfy() {
+    @Test
+    @ExpectedException(MissingInvocation.class)
+    void recordInvocationWithMinimumExpectedNumberOfInvocationsButFailToSatisfy() {
         new Expectations() {
             {
                 mock.editABunchMoreStuff();
                 minTimes = 2;
             }
         };
-
         mock.editABunchMoreStuff();
     }
 
     /**
      * Record invocation with maximum expected number of invocations but fail to satisfy.
      */
-    @Test(expected = UnexpectedInvocation.class)
-    public void recordInvocationWithMaximumExpectedNumberOfInvocationsButFailToSatisfy() {
+    @Test
+    @ExpectedException(UnexpectedInvocation.class)
+    void recordInvocationWithMaximumExpectedNumberOfInvocationsButFailToSatisfy() {
         new Expectations() {
             {
                 mock.editABunchMoreStuff();
@@ -262,7 +263,7 @@ public final class ExpectationsTest {
      * Record invocations with expected invocation counts.
      */
     @Test
-    public void recordInvocationsWithExpectedInvocationCounts() {
+    void recordInvocationsWithExpectedInvocationCounts() {
         new Expectations() {
             {
                 mock.setSomethingElse(anyString);
@@ -281,8 +282,9 @@ public final class ExpectationsTest {
     /**
      * Record invocations with min invocation count larger than will occur.
      */
-    @Test(expected = MissingInvocation.class)
-    public void recordInvocationsWithMinInvocationCountLargerThanWillOccur() {
+    @Test
+    @ExpectedException(MissingInvocation.class)
+    void recordInvocationsWithMinInvocationCountLargerThanWillOccur() {
         new Expectations() {
             {
                 mock.save();
@@ -297,7 +299,7 @@ public final class ExpectationsTest {
      * Record with argument matcher and individual invocation counts.
      */
     @Test
-    public void recordWithArgumentMatcherAndIndividualInvocationCounts() {
+    void recordWithArgumentMatcherAndIndividualInvocationCounts() {
         new Expectations() {
             {
                 mock.prepare();
@@ -318,7 +320,7 @@ public final class ExpectationsTest {
      * Record with max invocation count followed by return value.
      */
     @Test
-    public void recordWithMaxInvocationCountFollowedByReturnValue() {
+    void recordWithMaxInvocationCountFollowedByReturnValue() {
         new Expectations() {
             {
                 Dependency.staticMethod(any, null);
@@ -333,8 +335,9 @@ public final class ExpectationsTest {
     /**
      * Record with max invocation count followed by return value but replay one time beyond max.
      */
-    @Test(expected = UnexpectedInvocation.class)
-    public void recordWithMaxInvocationCountFollowedByReturnValueButReplayOneTimeBeyondMax() {
+    @Test
+    @ExpectedException(UnexpectedInvocation.class)
+    void recordWithMaxInvocationCountFollowedByReturnValueButReplayOneTimeBeyondMax() {
         new Expectations() {
             {
                 Dependency.staticMethod(any, null);
@@ -351,7 +354,7 @@ public final class ExpectationsTest {
      * Record with return value followed by expected invocation count.
      */
     @Test
-    public void recordWithReturnValueFollowedByExpectedInvocationCount() {
+    void recordWithReturnValueFollowedByExpectedInvocationCount() {
         new Expectations() {
             {
                 Dependency.staticMethod(any, null);
@@ -367,7 +370,7 @@ public final class ExpectationsTest {
      * Record with min invocation count followed by return value using delegate.
      */
     @Test
-    public void recordWithMinInvocationCountFollowedByReturnValueUsingDelegate() {
+    void recordWithMinInvocationCountFollowedByReturnValueUsingDelegate() {
         new Expectations() {
             {
                 Dependency.staticMethod(any, null);
@@ -390,16 +393,16 @@ public final class ExpectationsTest {
      *             the exception
      */
     @Test
-    public void mockedClassWithAnnotatedElements() throws Exception {
+    void mockedClassWithAnnotatedElements() throws Exception {
         Class<?> mockedClass = mock.getClass();
         assertTrue(mockedClass.isAnnotationPresent(Deprecated.class));
         assertTrue(mockedClass.getDeclaredField("value").isAnnotationPresent(Deprecated.class));
         assertTrue(mockedClass.getDeclaredConstructor().isAnnotationPresent(Deprecated.class));
 
         Method mockedMethod = mockedClass.getDeclaredMethod("setSomething", int.class);
-        Ignore ignore = mockedMethod.getAnnotation(Ignore.class);
-        assertNotNull(ignore);
-        assertEquals("test", ignore.value());
+        Disabled disabled = mockedMethod.getAnnotation(Disabled.class);
+        assertNotNull(disabled);
+        assertEquals("test", disabled.value());
         assertTrue(mockedMethod.getParameterAnnotations()[0][0] instanceof Deprecated);
     }
 
@@ -465,8 +468,8 @@ public final class ExpectationsTest {
      *            the mock
      */
     @Test
-    public void expectOnlyOneInvocationButExerciseOthersDuringReplay(@Mocked final Collaborator mock) {
-        thrown.expect(UnexpectedInvocation.class);
+    @ExpectedException(UnexpectedInvocation.class)
+    void expectOnlyOneInvocationButExerciseOthersDuringReplay(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.provideSomeService();
@@ -487,8 +490,8 @@ public final class ExpectationsTest {
      *            the mock
      */
     @Test
-    public void expectNothingOnMockedTypeButExerciseItDuringReplay(@Mocked final Collaborator mock) {
-        thrown.expect(UnexpectedInvocation.class);
+    @ExpectedException(UnexpectedInvocation.class)
+    void expectNothingOnMockedTypeButExerciseItDuringReplay(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.setValue(anyInt);
@@ -509,8 +512,8 @@ public final class ExpectationsTest {
      *            the mock
      */
     @Test
-    public void replayWithUnexpectedStaticMethodInvocation(@Mocked final Collaborator mock) {
-        thrown.expect(UnexpectedInvocation.class);
+    @ExpectedException(MissingInvocation.class)
+    void replayWithUnexpectedStaticMethodInvocation(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.getValue();
@@ -519,8 +522,10 @@ public final class ExpectationsTest {
 
         Collaborator.doInternal();
 
-        new FullVerifications() {
-        };
+        Assertions.assertThrows(UnexpectedInvocation.class, () -> {
+            new FullVerifications() {
+            };
+        });
     }
 
     /**
@@ -533,7 +538,8 @@ public final class ExpectationsTest {
      *             the exception
      */
     @Test
-    public void failureFromUnexpectedInvocationInAnotherThread(@Mocked final Collaborator mock) throws Exception {
+    @ExpectedException(UnexpectedInvocation.class)
+    void failureFromUnexpectedInvocationInAnotherThread(@Mocked final Collaborator mock) throws Exception {
         Thread t = new Thread() {
             @Override
             public void run() {
@@ -546,7 +552,6 @@ public final class ExpectationsTest {
                 mock.getValue();
             }
         };
-        thrown.expect(UnexpectedInvocation.class);
 
         mock.getValue();
         t.start();
@@ -563,7 +568,8 @@ public final class ExpectationsTest {
      *            the mock
      */
     @Test
-    public void recordingExpectationOnMethodWithOneArgumentButReplayingWithAnotherShouldProduceUsefulErrorMessage(
+    @ExpectedException(UnexpectedInvocation.class)
+    void recordingExpectationOnMethodWithOneArgumentButReplayingWithAnotherShouldProduceUsefulErrorMessage(
             @Mocked final Collaborator mock) {
         final String expected = "expected";
         new Expectations() {
@@ -577,8 +583,6 @@ public final class ExpectationsTest {
         String another = "another";
         mock.doSomething(another);
 
-        thrown.expect(UnexpectedInvocation.class);
-        thrown.expectMessage(another);
         new FullVerifications() {
         };
     }
