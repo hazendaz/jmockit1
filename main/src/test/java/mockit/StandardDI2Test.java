@@ -9,12 +9,17 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import jakarta.inject.Inject;
 
-import org.junit.Test;
+import mockit.integration.junit5.ExpectedException;
+import mockit.integration.junit5.JMockitExtension;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class StandardDI2Test.
  */
-public final class StandardDI2Test {
+@ExtendWith(JMockitExtension.class)
+class StandardDI2Test {
 
     /**
      * The Class TestedClass.
@@ -46,7 +51,8 @@ public final class StandardDI2Test {
     /**
      * Attempt to create tested object through annotated constructor with missing injectables.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
+    @ExpectedException(IllegalArgumentException.class)
     public void attemptToCreateTestedObjectThroughAnnotatedConstructorWithMissingInjectables() {
         fail();
     }

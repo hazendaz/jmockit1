@@ -5,8 +5,6 @@
  */
 package mockit.integration.junit5;
 
-import static mockit.internal.util.StackTrace.filterStackTrace;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
@@ -22,6 +20,7 @@ import mockit.integration.TestRunnerDecorator;
 import mockit.internal.expectations.RecordAndReplayExecution;
 import mockit.internal.state.SavePoint;
 import mockit.internal.state.TestRun;
+import mockit.internal.util.StackTrace;
 import mockit.internal.util.Utilities;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -38,6 +37,7 @@ import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolver;
 import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
 import org.junit.jupiter.api.extension.TestInstancePostProcessor;
+import org.opentest4j.TestAbortedException;
 
 public final class JMockitExtension extends TestRunnerDecorator implements BeforeAllCallback, AfterAllCallback,
         TestInstancePostProcessor, BeforeEachCallback, AfterEachCallback, BeforeTestExecutionCallback,
@@ -164,6 +164,11 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
             initContext = new ParamValueInitContext(testInstance, testClass, testMethod, null);
             parameterValues = createInstancesForAnnotatedParameters(testInstance, testMethod, null);
             createInstancesForTestedFields(testInstance);
+        } catch (Throwable e) {
+            if (isExpectedException(context, e)) {
+                throw new TestAbortedException("Expected exception occurred in setup: " + e.getMessage());
+            }
+            throw e;
         } finally {
             TestRun.exitNoMockingZone();
         }
@@ -199,6 +204,11 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
     @Override
     public void handleTestExecutionException(@NonNull ExtensionContext context, @NonNull Throwable throwable)
             throws Throwable {
+        if (isExpectedException(context, throwable)) {
+            // Expected exception was thrown, suppress it (test passes)
+            return;
+        }
+
         thrownByTest = throwable;
         throw throwable;
     }
@@ -216,14 +226,19 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
             savePointForTestMethod = null;
 
             if (thrownByTest != null) {
-                filterStackTrace(thrownByTest);
+                StackTrace.filterStackTrace(thrownByTest);
             }
 
             Error expectationsFailure = RecordAndReplayExecution.endCurrentReplayIfAny();
             clearTestedObjectsIfAny();
 
+            if (expectationsFailure != null && isExpectedException(context, expectationsFailure)) {
+                // Expected JMockit error was thrown, suppress it (test passes)
+                return;
+            }
+
             if (expectationsFailure != null) {
-                filterStackTrace(expectationsFailure);
+                StackTrace.filterStackTrace(expectationsFailure);
                 throw expectationsFailure;
             }
         } finally {
@@ -292,4 +307,42 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
                     + ", method=" + method + ", warning=" + warning + "}";
         }
     }
+
+    private static boolean isExpectedException(@NonNull ExtensionContext context, @NonNull Throwable throwable) {
+        Method testMethod = context.getTestMethod().orElse(null);
+        ExpectedException expectedException = testMethod != null ? testMethod.getAnnotation(ExpectedException.class)
+                : null;
+
+        if (expectedException == null) {
+            return false;
+        }
+
+        return expectedException.value().isInstance(throwable) && matchesExpectedMessages(throwable, expectedException);
+    }
+
+    private static boolean matchesExpectedMessages(Throwable throwable, ExpectedException expectedException) {
+        String[] expectedMessages = expectedException.expectedMessages();
+        if (expectedMessages.length == 0) {
+            // No message requirement
+            return true;
+        }
+
+        String actualMessage = throwable.getMessage();
+        if (actualMessage == null) {
+            return false;
+        }
+
+        boolean contains = expectedException.messageContains();
+        for (String expected : expectedMessages) {
+            if (contains) {
+                if (actualMessage.contains(expected)) {
+                    return true;
+                }
+            } else if (actualMessage.equals(expected)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

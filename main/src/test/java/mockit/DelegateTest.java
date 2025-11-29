@@ -18,19 +18,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import mockit.integration.junit5.ExpectedException;
+import mockit.integration.junit5.JMockitExtension;
+import mockit.internal.expectations.invocation.MissingInvocation;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class DelegateTest.
  */
+@ExtendWith(JMockitExtension.class)
 @SuppressWarnings("unused")
-public final class DelegateTest {
-
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
+class DelegateTest {
 
     /**
      * The Class Collaborator.
@@ -188,7 +189,7 @@ public final class DelegateTest {
      *            the collaborator
      */
     @Test
-    public void resultFromDelegate(@Mocked final Collaborator collaborator) {
+    void resultFromDelegate(@Mocked final Collaborator collaborator) {
         final boolean bExpected = true;
         final int[] iExpected = {};
         final String sExpected = "test";
@@ -225,7 +226,7 @@ public final class DelegateTest {
      *            the mock
      */
     @Test
-    public void consecutiveResultsThroughDelegatesHavingDifferentValues(@Mocked final Collaborator mock) {
+    void consecutiveResultsThroughDelegatesHavingDifferentValues(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.getValue();
@@ -254,8 +255,7 @@ public final class DelegateTest {
      *            the collaborator
      */
     @Test
-    public void consecutiveReturnValuesThroughDelegatesUsingSingleReturnsWithVarargs(
-            @Mocked final Collaborator collaborator) {
+    void consecutiveReturnValuesThroughDelegatesUsingSingleReturnsWithVarargs(@Mocked final Collaborator collaborator) {
         final int[] array = { 1, 2 };
 
         new Expectations() {
@@ -288,7 +288,7 @@ public final class DelegateTest {
      *            the collaborator
      */
     @Test
-    public void resultWithMultipleReturnValuesThroughSingleDelegate(@Mocked final Collaborator collaborator) {
+    void resultWithMultipleReturnValuesThroughSingleDelegate(@Mocked final Collaborator collaborator) {
         new Expectations() {
             {
                 collaborator.getValue();
@@ -314,7 +314,7 @@ public final class DelegateTest {
      *            the mock
      */
     @Test
-    public void constructorDelegateWithSingleMethod(@Mocked Collaborator mock) {
+    void constructorDelegateWithSingleMethod(@Mocked Collaborator mock) {
         final ConstructorDelegate delegate = new ConstructorDelegate();
 
         new Expectations() {
@@ -355,7 +355,7 @@ public final class DelegateTest {
      *            the mock
      */
     @Test
-    public void constructorDelegateWithMultipleMethods(@Mocked Collaborator mock) {
+    void constructorDelegateWithMultipleMethods(@Mocked Collaborator mock) {
         new Expectations() {
             {
                 new Collaborator(anyInt);
@@ -387,22 +387,23 @@ public final class DelegateTest {
      *            the mock
      */
     @Test
-    public void attemptToUseConstructorDelegateWithPrivateMethodsOnly(@Mocked Collaborator mock) {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("No non-private instance method found");
+    @ExpectedException(value = MissingInvocation.class)
+    void attemptToUseConstructorDelegateWithPrivateMethodsOnly(@Mocked Collaborator mock) {
+        Throwable exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new Expectations() {
+                {
+                    new Collaborator();
+                    result = new Delegate<Object>() {
+                        private void delegate() {
+                        }
 
-        new Expectations() {
-            {
-                new Collaborator();
-                result = new Delegate<Object>() {
-                    private void delegate() {
-                    }
-
-                    private void anotherMethod() {
-                    }
-                };
-            }
-        };
+                        private void anotherMethod() {
+                        }
+                    };
+                }
+            };
+        });
+        Assertions.assertEquals("No non-private instance method found", exception.getMessage());
     }
 
     /**
@@ -412,7 +413,7 @@ public final class DelegateTest {
      *            the unused
      */
     @Test
-    public void delegateForStaticMethod(@Mocked Collaborator unused) {
+    void delegateForStaticMethod(@Mocked Collaborator unused) {
         new Expectations() {
             {
                 Collaborator.staticMethod();
@@ -434,7 +435,7 @@ public final class DelegateTest {
      *            the mock
      */
     @Test
-    public void delegateWithStaticMethod(@Mocked Collaborator mock) {
+    void delegateWithStaticMethod(@Mocked Collaborator mock) {
         new Expectations() {
             {
                 Collaborator.staticMethod(anyInt);
@@ -480,7 +481,7 @@ public final class DelegateTest {
      *            the mock
      */
     @Test
-    public void delegateForNativeMethod(@Mocked final Collaborator mock) {
+    void delegateForNativeMethod(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.nativeMethod(anyBoolean);
@@ -503,7 +504,7 @@ public final class DelegateTest {
      *            the mock
      */
     @Test
-    public void delegateForFinalMethod(@Mocked final Collaborator mock) {
+    void delegateForFinalMethod(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.finalMethod();
@@ -525,7 +526,7 @@ public final class DelegateTest {
      *            the collaborator
      */
     @Test
-    public void delegateForMethodWithCompatibleButDistinctParameterType(@Mocked final Collaborator collaborator) {
+    void delegateForMethodWithCompatibleButDistinctParameterType(@Mocked final Collaborator collaborator) {
         new Expectations() {
             {
                 collaborator.addElements(this.<List<String>> withNotNull());
@@ -550,7 +551,7 @@ public final class DelegateTest {
      *            the collaborator
      */
     @Test
-    public void delegateReceivingNullArguments(@Mocked final Collaborator collaborator) {
+    void delegateReceivingNullArguments(@Mocked final Collaborator collaborator) {
         new Expectations() {
             {
                 collaborator.doSomething(true, null, null);
@@ -574,7 +575,7 @@ public final class DelegateTest {
      *            the collaborator
      */
     @Test
-    public void delegateWithTwoMethods(@Mocked final Collaborator collaborator) {
+    void delegateWithTwoMethods(@Mocked final Collaborator collaborator) {
         new Expectations() {
             {
                 collaborator.doSomething(true, null, "str");
@@ -599,7 +600,7 @@ public final class DelegateTest {
      *            the collaborator
      */
     @Test
-    public void delegateWithSingleMethodHavingADifferentName(@Mocked final Collaborator collaborator) {
+    void delegateWithSingleMethodHavingADifferentName(@Mocked final Collaborator collaborator) {
         new Expectations() {
             {
                 collaborator.doSomething(true, null, "str");
@@ -623,7 +624,7 @@ public final class DelegateTest {
      *            the collaborator
      */
     @Test
-    public void delegateWithSingleMethodHavingNoParameters(@Mocked final Collaborator collaborator) {
+    void delegateWithSingleMethodHavingNoParameters(@Mocked final Collaborator collaborator) {
         new Expectations() {
             {
                 collaborator.doSomething(anyBoolean, null, null);
@@ -647,8 +648,7 @@ public final class DelegateTest {
      *            the collaborator
      */
     @Test
-    public void delegateWithSingleMethodHavingNoParametersExceptForInvocationContext(
-            @Mocked final Collaborator collaborator) {
+    void delegateWithSingleMethodHavingNoParametersExceptForInvocationContext(@Mocked final Collaborator collaborator) {
         new Expectations() {
             {
                 collaborator.doSomething(anyBoolean, null, null);
@@ -670,7 +670,7 @@ public final class DelegateTest {
      *            the collaborator
      */
     @Test
-    public void delegateWithOneMethodHavingDifferentParameters(@Mocked final Collaborator collaborator) {
+    void delegateWithOneMethodHavingDifferentParameters(@Mocked final Collaborator collaborator) {
         new Expectations() {
             {
                 collaborator.doSomething(true, null, "str");
@@ -695,25 +695,27 @@ public final class DelegateTest {
      *            the collaborator
      */
     @Test
-    public void delegateWithTwoNonPrivateMethods(@Mocked final Collaborator collaborator) {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("More than one candidate delegate method found: ");
-        thrown.expectMessage("someOther()");
-        thrown.expectMessage("doSomethingElse(boolean,int[],String)");
+    @ExpectedException(value = MissingInvocation.class)
+    void delegateWithTwoNonPrivateMethods(@Mocked final Collaborator collaborator) {
+        Throwable exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new Expectations() {
+                {
+                    collaborator.doSomething(true, null, "str");
+                    result = new Delegate<Object>() {
+                        String someOther() {
+                            return "";
+                        }
 
-        new Expectations() {
-            {
-                collaborator.doSomething(true, null, "str");
-                result = new Delegate<Object>() {
-                    String someOther() {
-                        return "";
-                    }
+                        void doSomethingElse(boolean b, int[] i, String s) {
+                        }
+                    };
+                }
+            };
+        });
 
-                    void doSomethingElse(boolean b, int[] i, String s) {
-                    }
-                };
-            }
-        };
+        Assertions.assertTrue(exception.getMessage().contains("More than one candidate delegate method found: "));
+        Assertions.assertTrue(exception.getMessage().contains("someOther()"));
+        Assertions.assertTrue(exception.getMessage().contains("doSomethingElse(boolean,int[],String)"));
     }
 
     /**
@@ -723,7 +725,7 @@ public final class DelegateTest {
      *            the mock
      */
     @Test
-    public void delegateCausingConcurrentMockInvocation(@Mocked final Collaborator mock) {
+    void delegateCausingConcurrentMockInvocation(@Mocked final Collaborator mock) {
         final Collaborator collaborator = new Collaborator();
         final Thread t = new Thread(new Runnable() {
             @Override
@@ -756,7 +758,7 @@ public final class DelegateTest {
      *            the mock
      */
     @Test
-    public void delegateWhichCallsTheSameMockedMethod(@Mocked final Collaborator mock) {
+    void delegateWhichCallsTheSameMockedMethod(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.getValue();
@@ -781,7 +783,7 @@ public final class DelegateTest {
      *            the mock
      */
     @Test
-    public void delegateWhichCallsAnotherMockedMethod(@Mocked final Collaborator mock) {
+    void delegateWhichCallsAnotherMockedMethod(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.getValue();
@@ -803,7 +805,7 @@ public final class DelegateTest {
      * Delegate which calls another mocked method partial mocking of instance.
      */
     @Test
-    public void delegateWhichCallsAnotherMockedMethod_partialMockingOfInstance() {
+    void delegateWhichCallsAnotherMockedMethod_partialMockingOfInstance() {
         final Collaborator collaborator = new Collaborator();
 
         new Expectations(collaborator) {
@@ -830,7 +832,7 @@ public final class DelegateTest {
      *            the mock
      */
     @Test
-    public void delegateWhichCallsAnotherMockedMethod_injectableMocking(@Injectable final Collaborator mock) {
+    void delegateWhichCallsAnotherMockedMethod_injectableMocking(@Injectable final Collaborator mock) {
         new Expectations() {
             {
                 mock.getValue();
@@ -855,7 +857,7 @@ public final class DelegateTest {
      *            the mock
      */
     @Test
-    public void delegateWhichCallsAnotherMockedMethodProducingACascadedInstance(@Mocked final Collaborator mock) {
+    void delegateWhichCallsAnotherMockedMethodProducingACascadedInstance(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.getFoo().doSomething();
@@ -883,7 +885,7 @@ public final class DelegateTest {
      *            the action
      */
     @Test
-    public void delegateCallingMockedMethodLaterVerified(@Mocked final Collaborator collaborator,
+    void delegateCallingMockedMethodLaterVerified(@Mocked final Collaborator collaborator,
             @Mocked final Runnable action) {
         new Expectations() {
             {
@@ -912,7 +914,7 @@ public final class DelegateTest {
      *            the mock
      */
     @Test
-    public void convertValueReturnedFromDelegateWhenReturnsTypesDiffer(@Mocked final Collaborator mock) {
+    void convertValueReturnedFromDelegateWhenReturnsTypesDiffer(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.getValue();
@@ -936,7 +938,7 @@ public final class DelegateTest {
      *            the mock
      */
     @Test
-    public void returnInconvertibleValueFromDelegateWhenReturnsTypesDiffer(@Mocked final Collaborator mock) {
+    void returnInconvertibleValueFromDelegateWhenReturnsTypesDiffer(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.getValue();
@@ -963,8 +965,7 @@ public final class DelegateTest {
      *            the mock
      */
     @Test
-    public void returnVoidFromDelegateMethodForRecordedMethodHavingPrimitiveReturnType(
-            @Mocked final Collaborator mock) {
+    void returnVoidFromDelegateMethodForRecordedMethodHavingPrimitiveReturnType(@Mocked final Collaborator mock) {
         new Expectations() {
             {
                 mock.getValue();
@@ -990,7 +991,7 @@ public final class DelegateTest {
      *            the mock
      */
     @Test
-    public void returnByteArrayFromDelegateMethod(@Mocked final Collaborator mock) {
+    void returnByteArrayFromDelegateMethod(@Mocked final Collaborator mock) {
         final byte[] bytes = "test".getBytes();
         new Expectations() {
             {
@@ -1013,7 +1014,7 @@ public final class DelegateTest {
      *            the mock
      */
     @Test
-    public void returnValueOfCorrectTypeFromDelegateMethodReturningASupertype(@Mocked final Collaborator mock) {
+    void returnValueOfCorrectTypeFromDelegateMethodReturningASupertype(@Mocked final Collaborator mock) {
         final Foo expected = new Foo();
 
         new Expectations() {

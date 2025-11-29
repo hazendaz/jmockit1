@@ -17,23 +17,22 @@ import java.lang.reflect.Constructor;
 import java.util.Date;
 import java.util.List;
 
+import mockit.integration.junit5.ExpectedException;
+import mockit.integration.junit5.JMockitExtension;
 import mockit.internal.expectations.invocation.MissingInvocation;
 import mockit.internal.expectations.invocation.UnexpectedInvocation;
 
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class PartialMockingTest.
  */
+@ExtendWith(JMockitExtension.class)
 @SuppressWarnings("deprecation")
 public final class PartialMockingTest {
-
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
 
     /**
      * The Class Collaborator.
@@ -116,7 +115,7 @@ public final class PartialMockingTest {
          *
          * @return true, if successful
          */
-        @Ignore("test")
+        @Disabled("test")
         boolean methodWhichCallsAnotherInTheSameClass() {
             return simpleOperation(1, "internal", null);
         }
@@ -135,12 +134,9 @@ public final class PartialMockingTest {
      * Attempt to partially mock A class.
      */
     @Test
-    public void attemptToPartiallyMockAClass() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid Class");
-        thrown.expectMessage("partial mocking");
-        thrown.expectMessage("Collaborator");
-
+    @ExpectedException(value = IllegalArgumentException.class, expectedMessages = { "Invalid Class", "partial mocking",
+            "Collaborator" })
+    void attemptToPartiallyMockAClass() {
         new Expectations(Collaborator.class) {
         };
     }
@@ -149,7 +145,7 @@ public final class PartialMockingTest {
      * Dynamic mock fully verified verify all recorded expectations but not all of the replayed ones.
      */
     @Test
-    public void dynamicMockFullyVerified_verifyAllRecordedExpectationsButNotAllOfTheReplayedOnes() {
+    void dynamicMockFullyVerified_verifyAllRecordedExpectationsButNotAllOfTheReplayedOnes() {
         final Collaborator collaborator = new Collaborator(0);
 
         new Expectations(collaborator) {
@@ -172,7 +168,7 @@ public final class PartialMockingTest {
      * Dynamic mock fully verified in order verify all recorded expectations but not all of the replayed ones.
      */
     @Test
-    public void dynamicMockFullyVerifiedInOrder_verifyAllRecordedExpectationsButNotAllOfTheReplayedOnes() {
+    void dynamicMockFullyVerifiedInOrder_verifyAllRecordedExpectationsButNotAllOfTheReplayedOnes() {
         final Collaborator collaborator = new Collaborator(0);
 
         new Expectations(collaborator) {
@@ -202,7 +198,8 @@ public final class PartialMockingTest {
      * Expect two invocations on dynamic mock but replay once.
      */
     @Test
-    public void expectTwoInvocationsOnDynamicMockButReplayOnce() {
+    @ExpectedException(MissingInvocation.class)
+    void expectTwoInvocationsOnDynamicMockButReplayOnce() {
         final Collaborator collaborator = new Collaborator();
 
         new Expectations(collaborator) {
@@ -213,14 +210,13 @@ public final class PartialMockingTest {
         };
 
         assertEquals(0, collaborator.getValue());
-        thrown.expect(MissingInvocation.class);
     }
 
     /**
      * Expect one invocation on dynamic mock but replay twice.
      */
     @Test
-    public void expectOneInvocationOnDynamicMockButReplayTwice() {
+    void expectOneInvocationOnDynamicMockButReplayTwice() {
         final Collaborator collaborator = new Collaborator(1);
 
         new Expectations(collaborator) {
@@ -234,15 +230,14 @@ public final class PartialMockingTest {
         assertEquals(0, collaborator.getValue());
 
         // Still mocked because it's not strict:
-        thrown.expect(UnexpectedInvocation.class);
-        assertEquals(0, collaborator.getValue());
+        Assertions.assertThrows(UnexpectedInvocation.class, () -> assertEquals(0, collaborator.getValue()));
     }
 
     /**
      * Dynamically mock an instance.
      */
     @Test
-    public void dynamicallyMockAnInstance() {
+    void dynamicallyMockAnInstance() {
         final Collaborator collaborator = new Collaborator(2);
 
         new Expectations(collaborator) {
@@ -280,7 +275,7 @@ public final class PartialMockingTest {
      * Mock method in same class.
      */
     @Test
-    public void mockMethodInSameClass() {
+    void mockMethodInSameClass() {
         final Collaborator collaborator = new Collaborator();
 
         new Expectations(collaborator) {
@@ -344,7 +339,7 @@ public final class PartialMockingTest {
      * Dynamically mock A sub collaborator instance.
      */
     @Test
-    public void dynamicallyMockASubCollaboratorInstance() {
+    void dynamicallyMockASubCollaboratorInstance() {
         final SubCollaborator collaborator = new SubCollaborator();
 
         new Expectations(collaborator) {
@@ -400,7 +395,7 @@ public final class PartialMockingTest {
      * Dynamically mock an anonymous class instance through the implemented interface.
      */
     @Test
-    public void dynamicallyMockAnAnonymousClassInstanceThroughTheImplementedInterface() {
+    void dynamicallyMockAnAnonymousClassInstanceThroughTheImplementedInterface() {
         final Collaborator collaborator = new Collaborator();
 
         final Dependency dependency = new Dependency() {
@@ -461,7 +456,7 @@ public final class PartialMockingTest {
      *            the non public interface mock
      */
     @Test
-    public void attemptToUseDynamicMockingForInvalidTypes(@Mocked AnotherInterface publicInterfaceMock,
+    void attemptToUseDynamicMockingForInvalidTypes(@Mocked AnotherInterface publicInterfaceMock,
             @Injectable NonPublicInterface nonPublicInterfaceMock) {
         assertInvalidTypeForDynamicPartialMocking(new String[1]);
         assertInvalidTypeForDynamicPartialMocking(123);
@@ -491,7 +486,7 @@ public final class PartialMockingTest {
      * Dynamic partial mocking with exact argument matching.
      */
     @Test
-    public void dynamicPartialMockingWithExactArgumentMatching() {
+    void dynamicPartialMockingWithExactArgumentMatching() {
         final Collaborator collaborator = new Collaborator();
 
         new Expectations(collaborator) {
@@ -519,7 +514,7 @@ public final class PartialMockingTest {
      * Dynamic partial mocking with flexible argument matching.
      */
     @Test
-    public void dynamicPartialMockingWithFlexibleArgumentMatching() {
+    void dynamicPartialMockingWithFlexibleArgumentMatching() {
         final Collaborator mock = new Collaborator();
 
         new Expectations(mock) {
@@ -545,7 +540,7 @@ public final class PartialMockingTest {
      * Dynamic partial mocking with instance specific matching.
      */
     @Test
-    public void dynamicPartialMockingWithInstanceSpecificMatching() {
+    void dynamicPartialMockingWithInstanceSpecificMatching() {
         final Collaborator collaborator1 = new Collaborator();
         final Collaborator collaborator2 = new Collaborator(4);
 
@@ -573,7 +568,7 @@ public final class PartialMockingTest {
      * Dynamic partial mocking with instance specific matching on two instances of same class.
      */
     @Test
-    public void dynamicPartialMockingWithInstanceSpecificMatchingOnTwoInstancesOfSameClass() {
+    void dynamicPartialMockingWithInstanceSpecificMatchingOnTwoInstancesOfSameClass() {
         final Collaborator mock1 = new Collaborator();
         final Collaborator mock2 = new Collaborator();
 
@@ -594,7 +589,7 @@ public final class PartialMockingTest {
      * Method with no recorded expectation called twice during replay.
      */
     @Test
-    public void methodWithNoRecordedExpectationCalledTwiceDuringReplay() {
+    void methodWithNoRecordedExpectationCalledTwiceDuringReplay() {
         final Collaborator collaborator = new Collaborator(123);
 
         new Expectations(collaborator) {
@@ -637,9 +632,8 @@ public final class PartialMockingTest {
      * Attempt to partially mock native method.
      */
     @Test
-    public void attemptToPartiallyMockNativeMethod() {
-        thrown.expect(UnsatisfiedLinkError.class);
-
+    @ExpectedException(UnsatisfiedLinkError.class)
+    void attemptToPartiallyMockNativeMethod() {
         final ClassWithNative mock = new ClassWithNative();
 
         new Expectations(mock) {
@@ -662,7 +656,7 @@ public final class PartialMockingTest {
      *             the exception
      */
     @Test
-    public void mockAnnotatedConstructor(@Mocked Collaborator mock) throws Exception {
+    void mockAnnotatedConstructor(@Mocked Collaborator mock) throws Exception {
         Constructor<?> mockedConstructor = Collaborator.class.getDeclaredConstructor(int.class);
 
         assertTrue(mockedConstructor.isAnnotationPresent(Deprecated.class));
@@ -742,7 +736,7 @@ public final class PartialMockingTest {
      *            the mock
      */
     @Test
-    public void mockClassIndirectlyExtendingBaseWhoseFirstConstructorHasMoreParametersThanTheSecondOne(
+    void mockClassIndirectlyExtendingBaseWhoseFirstConstructorHasMoreParametersThanTheSecondOne(
             @Mocked SubSubClass mock) {
         new SubClass();
     }

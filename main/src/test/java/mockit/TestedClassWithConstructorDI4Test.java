@@ -28,6 +28,8 @@ import org.junit.Test;
 /**
  * The Class TestedClassWithConstructorDI4Test.
  */
+// TODO JWL 11/29/2025 This class is stuck to junit4 due to how injections work with junit5, support is missing
+// currently that would allow this to move to junit5.
 public final class TestedClassWithConstructorDI4Test {
 
     /**

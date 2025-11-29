@@ -10,12 +10,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import mockit.integration.junit5.ExpectedException;
+import mockit.integration.junit5.JMockitExtension;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class TestedClassInjectedFromMockParametersTest.
  */
-public final class TestedClassInjectedFromMockParametersTest {
+@ExtendWith(JMockitExtension.class)
+class TestedClassInjectedFromMockParametersTest {
 
     /**
      * The Enum AnEnum.
@@ -113,8 +118,9 @@ public final class TestedClassInjectedFromMockParametersTest {
     /**
      * Attempt to instantiate tested class with no injectables.
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void attemptToInstantiateTestedClassWithNoInjectables() {
+    @Test
+    @ExpectedException(IllegalArgumentException.class)
+    void attemptToInstantiateTestedClassWithNoInjectables() {
     }
 
     /**
@@ -132,7 +138,7 @@ public final class TestedClassInjectedFromMockParametersTest {
      *            the c 2
      */
     @Test
-    public void instantiateTestedObjectFromMockParametersUsingOneConstructor(@Injectable("Text") String s,
+    void instantiateTestedObjectFromMockParametersUsingOneConstructor(@Injectable("Text") String s,
             @Injectable("123") int mock1, @Injectable("true") boolean mock2, @Injectable("A") char c1,
             @Injectable("bB") char c2) {
         assertEquals("Text", s);
@@ -156,7 +162,7 @@ public final class TestedClassInjectedFromMockParametersTest {
      *            the b 2
      */
     @Test
-    public void instantiateTestedObjectFromMockParametersUsingAnotherConstructor(@Injectable("true") boolean b1,
+    void instantiateTestedObjectFromMockParametersUsingAnotherConstructor(@Injectable("true") boolean b1,
             @Injectable("true") boolean b3, @Injectable("65") byte b2) {
         assertTrue(tested.b);
         assertEquals('A', tested.chars[0]);
@@ -174,7 +180,7 @@ public final class TestedClassInjectedFromMockParametersTest {
      *            the first
      */
     @Test
-    public void instantiateTestedObjectUsingConstructorWithMultipleParametersOfTheSameTypeMatchedByName(
+    void instantiateTestedObjectUsingConstructorWithMultipleParametersOfTheSameTypeMatchedByName(
             @Injectable("S") char second, @Injectable("T") char third, @Injectable("F") char first) {
         assertArrayEquals(new char[] { 'F', 'S', 'T' }, tested.chars);
     }
@@ -188,7 +194,7 @@ public final class TestedClassInjectedFromMockParametersTest {
      *            the enum val
      */
     @Test
-    public void setEnumFieldInTestedObjectFromValueProvidedInParameter(@Injectable("false") boolean flag,
+    void setEnumFieldInTestedObjectFromValueProvidedInParameter(@Injectable("false") boolean flag,
             @Injectable("Xyz") AnEnum enumVal) {
         assertSame(AnEnum.Xyz, tested.enumValue);
     }

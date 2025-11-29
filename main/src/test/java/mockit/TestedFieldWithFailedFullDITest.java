@@ -7,33 +7,17 @@ package mockit;
 
 import jakarta.inject.Inject;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import mockit.integration.junit5.ExpectedException;
+import mockit.integration.junit5.JMockitExtension;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class TestedFieldWithFailedFullDITest.
  */
-public final class TestedFieldWithFailedFullDITest {
-
-    /** The thrown. */
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
-
-    /**
-     * Configure expected exception.
-     */
-    @Before
-    public void configureExpectedException() {
-        thrown.expect(IllegalStateException.class);
-        thrown.expectMessage("Missing @Tested or @Injectable");
-        thrown.expectMessage("for parameter \"value\" in constructor ClassWithParameterizedConstructor(int value)");
-        thrown.expectMessage("when initializing field ");
-        thrown.expectMessage("dependency");
-        thrown.expectMessage("of @Tested object \""
-                + ClassWithFieldOfClassHavingParameterizedConstructor.class.getSimpleName() + " tested");
-    }
+@ExtendWith(JMockitExtension.class)
+class TestedFieldWithFailedFullDITest {
 
     /**
      * The Class ClassWithFieldOfClassHavingParameterizedConstructor.
@@ -66,13 +50,21 @@ public final class TestedFieldWithFailedFullDITest {
      * Attempt to use tested object whose creation failed due to injectable with null value.
      */
     @Test
-    public void attemptToUseTestedObjectWhoseCreationFailedDueToInjectableWithNullValue() {
+    @ExpectedException(value = IllegalStateException.class, expectedMessages = { "Missing @Tested or @Injectable",
+            "for parameter \"value\" in constructor ClassWithParameterizedConstructor(int value)",
+            "when initializing field ", "dependency",
+            "of @Tested object \"ClassWithFieldOfClassHavingParameterizedConstructor tested" })
+    void attemptToUseTestedObjectWhoseCreationFailedDueToInjectableWithNullValue() {
     }
 
     /**
      * Attempt to use tested object whose creation failed due to injectable with null value 2.
      */
     @Test
-    public void attemptToUseTestedObjectWhoseCreationFailedDueToInjectableWithNullValue2() {
+    @ExpectedException(value = IllegalStateException.class, expectedMessages = { "Missing @Tested or @Injectable",
+            "for parameter \"value\" in constructor ClassWithParameterizedConstructor(int value)",
+            "when initializing field ", "dependency",
+            "of @Tested object \"ClassWithFieldOfClassHavingParameterizedConstructor tested" })
+    void attemptToUseTestedObjectWhoseCreationFailedDueToInjectableWithNullValue2() {
     }
 }
