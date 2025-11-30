@@ -13,6 +13,7 @@ import mockit.integration.junit5.JMockitExtension;
 import mockit.internal.expectations.invocation.MissingInvocation;
 import mockit.internal.expectations.invocation.UnexpectedInvocation;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -109,16 +110,17 @@ class VerificationsTest {
      */
     @Test
     void verifyUnrecordedInvocationThatNeverHappens() {
-        MissingInvocation e = assertThrows(MissingInvocation.class, () -> {
+        Throwable exception = assertThrows(MissingInvocation.class, () -> {
             mock.setSomething(123);
             mock.prepare();
+
             new Verifications() {
                 {
                     mock.setSomething(45);
                 }
             };
         });
-        assertTrue(e.getMessage().contains("45"));
+        assertTrue(exception.getMessage().contains("45"));
     }
 
     /**
@@ -168,7 +170,7 @@ class VerificationsTest {
      */
     @Test
     void verifyUnrecordedInvocationThatShouldHappenButDoesNot() {
-        MissingInvocation e = assertThrows(MissingInvocation.class, () -> {
+        assertThrows(MissingInvocation.class, () -> {
             mock.setSomething(1);
 
             new Verifications() {
@@ -202,7 +204,7 @@ class VerificationsTest {
      */
     @Test
     void verifyInvocationsWithInvocationCountLargerThanOccurred() {
-        MissingInvocation e = assertThrows(MissingInvocation.class, () -> {
+        Throwable exception = assertThrows(MissingInvocation.class, () -> {
             mock.setSomethingElse("test");
             mock.setSomething(3);
             mock.save();
@@ -214,8 +216,8 @@ class VerificationsTest {
                 }
             };
         });
-        assertTrue(e.getMessage().contains("Missing 2 invocations"));
-        assertTrue(e.getMessage().contains("any int"));
+        Assertions.assertTrue(exception.getMessage().contains("Missing 2 invocations"));
+        Assertions.assertTrue(exception.getMessage().contains("any int"));
     }
 
     /**
@@ -223,7 +225,7 @@ class VerificationsTest {
      */
     @Test
     void verifyInvocationsWithInvocationCountSmallerThanOccurred() {
-        UnexpectedInvocation e = assertThrows(UnexpectedInvocation.class, () -> {
+        Throwable exception = assertThrows(UnexpectedInvocation.class, () -> {
             mock.setSomethingElse("test");
             mock.setSomething(3);
             mock.save();
@@ -236,8 +238,8 @@ class VerificationsTest {
                 }
             };
         });
-        assertTrue(e.getMessage().contains("1 unexpected invocation"));
-        assertTrue(e.getMessage().contains("5"));
+        Assertions.assertTrue(exception.getMessage().contains("1 unexpected invocation"));
+        Assertions.assertTrue(exception.getMessage().contains("5"));
     }
 
     /**
@@ -245,7 +247,7 @@ class VerificationsTest {
      */
     @Test
     void verifyInvocationThatShouldNotOccurButDid() {
-        UnexpectedInvocation e = assertThrows(UnexpectedInvocation.class, () -> {
+        Throwable exception = assertThrows(UnexpectedInvocation.class, () -> {
             mock.setSomething(5);
             mock.setSomething(123);
 
@@ -256,8 +258,8 @@ class VerificationsTest {
                 }
             };
         });
-        assertTrue(e.getMessage().contains("2 unexpected invocations"));
-        assertTrue(e.getMessage().contains("123"));
+        Assertions.assertTrue(exception.getMessage().contains("2 unexpected invocations"));
+        Assertions.assertTrue(exception.getMessage().contains("123"));
     }
 
     /**
@@ -319,7 +321,7 @@ class VerificationsTest {
      */
     @Test
     void verifyThroughCapturedArguments() {
-        AssertionError e = assertThrows(AssertionError.class, () -> {
+        Throwable exception = assertThrows(AssertionError.class, () -> {
             mock.setSomethingElse("test");
 
             new Verifications() {
@@ -331,7 +333,7 @@ class VerificationsTest {
                 }
             };
         });
-        assertTrue(e.getMessage().contains("not empty"));
+        Assertions.assertTrue(exception.getMessage().contains("not empty"));
     }
 
     /**
@@ -339,7 +341,8 @@ class VerificationsTest {
      */
     @Test
     void verifyWithCustomArgumentMatcher() {
-        MissingInvocation e = assertThrows(MissingInvocation.class, () -> {
+        Throwable exception = assertThrows(MissingInvocation.class, () -> {
+
             mock.setSomethingElse("test");
 
             new Verifications() {
@@ -353,7 +356,7 @@ class VerificationsTest {
                 }
             };
         });
-        assertTrue(e.getMessage().contains("isEmpty(\"test\")"));
+        Assertions.assertTrue(exception.getMessage().contains("isEmpty(\"test\")"));
     }
 
     /**
@@ -361,7 +364,7 @@ class VerificationsTest {
      */
     @Test
     void verifyInvocationThatMatchesExpectationRecordedWithAnyMatcherButWithArgumentValueWhichDidNotOccur() {
-        MissingInvocation e = assertThrows(MissingInvocation.class, () -> {
+        Throwable exception = assertThrows(MissingInvocation.class, () -> {
             new Expectations() {
                 {
                     mock.setSomething(anyInt);
@@ -376,7 +379,7 @@ class VerificationsTest {
                 }
             };
         });
-        assertTrue(e.getMessage().contains("45"));
+        Assertions.assertTrue(exception.getMessage().contains("45"));
     }
 
     /**

@@ -5,13 +5,11 @@
  */
 package mockit;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import mockit.integration.junit5.JMockitExtension;
 import mockit.internal.expectations.invocation.MissingInvocation;
 import mockit.internal.expectations.invocation.UnexpectedInvocation;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -132,7 +130,7 @@ class VerificationsInOrderTest {
      */
     @Test
     void verifyUnrecordedInvocationThatShouldHappenButDoesNot() {
-        MissingInvocation e = assertThrows(MissingInvocation.class, () -> {
+        Assertions.assertThrows(MissingInvocation.class, () -> {
             mock.setSomething(1);
 
             new VerificationsInOrder() {
@@ -148,7 +146,7 @@ class VerificationsInOrderTest {
      */
     @Test
     void verifyUnrecordedInvocationThatShouldHappenExactlyOnceButDoesNot() {
-        MissingInvocation e = assertThrows(MissingInvocation.class, () -> {
+        Throwable exception = Assertions.assertThrows(MissingInvocation.class, () -> {
             mock.setSomething(1);
 
             new VerificationsInOrder() {
@@ -158,7 +156,7 @@ class VerificationsInOrderTest {
                 }
             };
         });
-        assertTrue(e.getMessage().contains("2"));
+        Assertions.assertTrue(exception.getMessage().contains("2"));
     }
 
     /**
@@ -177,7 +175,7 @@ class VerificationsInOrderTest {
 
         mock.setSomething(1);
 
-        MissingInvocation e = assertThrows(MissingInvocation.class, () -> {
+        MissingInvocation e = Assertions.assertThrows(MissingInvocation.class, () -> {
             new VerificationsInOrder() {
                 {
                     mock.setSomething(1);
@@ -265,10 +263,9 @@ class VerificationsInOrderTest {
      */
     @Test
     void verifySimpleInvocationsWhenOutOfOrder() {
-        MissingInvocation e = assertThrows(MissingInvocation.class, () -> {
+        Throwable exception = Assertions.assertThrows(MissingInvocation.class, () -> {
             mock.setSomething(123);
             mock.prepare();
-
             new VerificationsInOrder() {
                 {
                     mock.prepare();
@@ -276,7 +273,7 @@ class VerificationsInOrderTest {
                 }
             };
         });
-        assertTrue(e.getMessage().contains("123"));
+        Assertions.assertTrue(exception.getMessage().contains("123"));
     }
 
     /**
@@ -300,7 +297,7 @@ class VerificationsInOrderTest {
      */
     @Test
     void verifyRepeatingInvocationThatOccursOneTimeMoreThanExpected() {
-        UnexpectedInvocation e = assertThrows(UnexpectedInvocation.class, () -> {
+        Assertions.assertThrows(UnexpectedInvocation.class, () -> {
             mock.setSomething(123);
             mock.setSomething(123);
 
@@ -334,7 +331,7 @@ class VerificationsInOrderTest {
      */
     @Test
     void verifyInvocationNotExpectedToOccurButWhichDoes() {
-        UnexpectedInvocation e = assertThrows(UnexpectedInvocation.class, () -> {
+        Throwable exception = Assertions.assertThrows(UnexpectedInvocation.class, () -> {
             mock.prepare();
             mock.setSomething(123);
 
@@ -346,7 +343,7 @@ class VerificationsInOrderTest {
                 }
             };
         });
-        assertTrue(e.getMessage().contains("123"));
+        Assertions.assertTrue(exception.getMessage().contains("123"));
     }
 
     /**
@@ -407,7 +404,7 @@ class VerificationsInOrderTest {
      */
     @Test
     void verifyWithArgumentMatchersWhenOutOfOrder() {
-        MissingInvocation e = assertThrows(MissingInvocation.class, () -> {
+        Throwable exception = Assertions.assertThrows(MissingInvocation.class, () -> {
             mock.setSomething(123);
             mock.setSomethingElse("anotherValue");
             mock.setSomething(45);
@@ -420,7 +417,7 @@ class VerificationsInOrderTest {
                 }
             };
         });
-        assertTrue(e.getMessage().contains("any String"));
+        Assertions.assertTrue(exception.getMessage().contains("any String"));
     }
 
     /**
@@ -428,7 +425,7 @@ class VerificationsInOrderTest {
      */
     @Test
     void verifyWithArgumentMatcherAndIndividualInvocationCountWhenOutOfOrder() {
-        MissingInvocation e = assertThrows(MissingInvocation.class, () -> {
+        Throwable exception = Assertions.assertThrows(MissingInvocation.class, () -> {
             mock.setSomething(123);
             mock.prepare();
             mock.setSomething(45);
@@ -441,7 +438,8 @@ class VerificationsInOrderTest {
                 }
             };
         });
-        assertTrue(e.getMessage().contains("Missing 1 invocation") && e.getMessage().contains("any int"));
+        Assertions.assertTrue(
+                exception.getMessage().contains("Missing 1 invocation") && exception.getMessage().contains("any int"));
     }
 
     /**

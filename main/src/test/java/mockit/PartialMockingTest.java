@@ -32,7 +32,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
  */
 @ExtendWith(JMockitExtension.class)
 @SuppressWarnings("deprecation")
-public final class PartialMockingTest {
+class PartialMockingTest {
 
     /**
      * The Class Collaborator.
@@ -639,8 +639,7 @@ public final class PartialMockingTest {
         new Expectations(mock) {
             {
                 // The native method is ignored when using dynamic mocking, so this actually tries to execute the real
-                // method,
-                // failing since there is no native implementation.
+                // method, failing since there is no native implementation.
                 mock.nativeMethod();
             }
         };

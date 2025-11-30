@@ -85,7 +85,7 @@ class MisusedMockingAPITest {
      */
     @Test
     void recordExpectationAfterInvokingSameMethodInReplayPhase() {
-        assertEquals(0, mock.value());
+        Assertions.assertEquals(0, mock.value());
 
         new Expectations() {
             {
@@ -94,7 +94,7 @@ class MisusedMockingAPITest {
             }
         };
 
-        assertEquals(1, mock.value());
+        Assertions.assertEquals(1, mock.value());
     }
 
     // Duplicate/pointless recordings
@@ -114,8 +114,8 @@ class MisusedMockingAPITest {
             }
         };
 
-        assertEquals(2, mock.value());
-        assertEquals(2, mock.value());
+        Assertions.assertEquals(2, mock.value());
+        Assertions.assertEquals(2, mock.value());
     }
 
     /**
@@ -152,7 +152,7 @@ class MisusedMockingAPITest {
             }
         }; // overrides the previous expectation
 
-        assertEquals(2, mock.value());
+        Assertions.assertEquals(2, mock.value());
     }
 
     /**
@@ -199,8 +199,8 @@ class MisusedMockingAPITest {
             }
         };
 
-        assertEquals(45, mock2.value());
-        assertEquals(123, mock.value());
+        Assertions.assertEquals(45, mock2.value());
+        Assertions.assertEquals(123, mock.value());
         new Blah();
     }
 
@@ -259,7 +259,7 @@ class MisusedMockingAPITest {
     void ambiguousCascadingWhenMultipleValidCandidatesAreAvailable(@Injectable Runnable r1, @Injectable Runnable r2) {
         Runnable cascaded = mock.getSomethingElse(); // which one to return: r1 or r2?
 
-        assertSame(r2, cascaded); // currently, last mock to be declared wins
+        Assertions.assertSame(r2, cascaded); // currently, last mock to be declared wins
     }
 
     // @Tested/@Injectable usage
@@ -290,7 +290,7 @@ class MisusedMockingAPITest {
      */
     @Test
     void checkStaticInjectableIsNotUsed() {
-        assertNotSame(mockAction, tested.action);
+        Assertions.assertNotSame(mockAction, tested.action);
     }
 
     // Other cases
