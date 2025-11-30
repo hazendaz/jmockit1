@@ -568,7 +568,7 @@ class ExpectationsTest {
      *            the mock
      */
     @Test
-    @ExpectedException(UnexpectedInvocation.class)
+    @ExpectedException(value = UnexpectedInvocation.class, expectedMessages = "another")
     void recordingExpectationOnMethodWithOneArgumentButReplayingWithAnotherShouldProduceUsefulErrorMessage(
             @Mocked final Collaborator mock) {
         final String expected = "expected";

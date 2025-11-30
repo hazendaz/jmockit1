@@ -168,7 +168,10 @@ class MisusedMockingAPITest {
                     result = mock; // invalid
                 }
             };
+
+            new Blah();
         });
+
         Assertions.assertTrue(exception.getMessage().contains("Invalid assignment"));
         Assertions.assertTrue(exception.getMessage().contains("result"));
         Assertions.assertTrue(exception.getMessage().contains("constructor"));
