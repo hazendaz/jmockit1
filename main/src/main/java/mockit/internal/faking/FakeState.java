@@ -11,6 +11,8 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 
+import mockit.internal.expectations.invocation.MissingInvocation;
+import mockit.internal.expectations.invocation.UnexpectedInvocation;
 import mockit.internal.faking.FakeMethods.FakeMethod;
 import mockit.internal.reflection.MethodReflection;
 import mockit.internal.reflection.RealMethodOrConstructor;
@@ -28,6 +30,11 @@ final class FakeState {
     @Nullable
     private Object realClass;
 
+    // Constraints pulled from the @Mock annotation; negative values indicate "no constraint".
+    private int expectedInvocations;
+    private int minExpectedInvocations;
+    private int maxExpectedInvocations;
+
     // Current fake invocation state:
     private int invocationCount;
     @Nullable
@@ -40,6 +47,9 @@ final class FakeState {
     FakeState(@NonNull FakeMethod fakeMethod) {
         this.fakeMethod = fakeMethod;
         invocationCountLock = new Object();
+        expectedInvocations = -1;
+        minExpectedInvocations = 0;
+        maxExpectedInvocations = -1;
 
         if (fakeMethod.canBeReentered()) {
             makeReentrant();
@@ -51,6 +61,11 @@ final class FakeState {
         actualFakeMethod = fakeState.actualFakeMethod;
         realMethodOrConstructor = fakeState.realMethodOrConstructor;
         invocationCountLock = new Object();
+        realClass = fakeState.realClass;
+        invocationCount = fakeState.invocationCount;
+        expectedInvocations = fakeState.expectedInvocations;
+        minExpectedInvocations = fakeState.minExpectedInvocations;
+        maxExpectedInvocations = fakeState.maxExpectedInvocations;
 
         if (fakeState.proceedingInvocation != null) {
             makeReentrant();
@@ -66,6 +81,22 @@ final class FakeState {
         proceedingInvocation = new ThreadLocal<>();
     }
 
+    boolean isWithExpectations() {
+        return expectedInvocations >= 0 || minExpectedInvocations > 0 || maxExpectedInvocations >= 0;
+    }
+
+    void setExpectedInvocations(int expectedInvocations) {
+        this.expectedInvocations = expectedInvocations;
+    }
+
+    void setMinExpectedInvocations(int minExpectedInvocations) {
+        this.minExpectedInvocations = minExpectedInvocations;
+    }
+
+    void setMaxExpectedInvocations(int maxExpectedInvocations) {
+        this.maxExpectedInvocations = maxExpectedInvocations;
+    }
+
     boolean update() {
         if (proceedingInvocation != null) {
             FakeInvocation invocation = proceedingInvocation.get();
@@ -76,16 +107,48 @@ final class FakeState {
             }
         }
 
+        int timesInvoked;
+
         synchronized (invocationCountLock) {
-            invocationCount++;
+            timesInvoked = ++invocationCount;
         }
 
+        verifyUnexpectedInvocation(timesInvoked);
+
         return true;
+    }
+
+    private void verifyUnexpectedInvocation(int timesInvoked) {
+        if (expectedInvocations >= 0 && timesInvoked > expectedInvocations) {
+            throw new UnexpectedInvocation(fakeMethod.errorMessage("exactly", expectedInvocations, timesInvoked));
+        }
+
+        if (maxExpectedInvocations >= 0 && timesInvoked > maxExpectedInvocations) {
+            throw new UnexpectedInvocation(fakeMethod.errorMessage("at most", maxExpectedInvocations, timesInvoked));
+        }
+    }
+
+    void verifyMissingInvocations() {
+        int timesInvoked = getTimesInvoked();
+
+        if (expectedInvocations >= 0 && timesInvoked < expectedInvocations) {
+            throw new MissingInvocation(fakeMethod.errorMessage("exactly", expectedInvocations, timesInvoked));
+        }
+
+        if (minExpectedInvocations > 0 && timesInvoked < minExpectedInvocations) {
+            throw new MissingInvocation(fakeMethod.errorMessage("at least", minExpectedInvocations, timesInvoked));
+        }
     }
 
     int getTimesInvoked() {
         synchronized (invocationCountLock) {
             return invocationCount;
+        }
+    }
+
+    void reset() {
+        synchronized (invocationCountLock) {
+            invocationCount = 0;
         }
     }
 

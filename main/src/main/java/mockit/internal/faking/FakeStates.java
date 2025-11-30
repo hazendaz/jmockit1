@@ -11,9 +11,11 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.IdentityHashMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import mockit.internal.util.ClassLoad;
@@ -34,18 +36,23 @@ public final class FakeStates {
     private final Map<Object, List<FakeState>> fakesToFakeStates;
     @NonNull
     private final Map<Object, List<FakeState>> startupFakesToFakeStates;
+    @NonNull
+    private final Set<FakeState> fakeStatesWithExpectations;
 
     public FakeStates() {
         startupFakesToFakeStates = new IdentityHashMap<>(2);
         fakesToFakeStates = new IdentityHashMap<>(8);
+        fakeStatesWithExpectations = new LinkedHashSet<>(8);
     }
 
     void addStartupFakeAndItsFakeStates(@NonNull Object fake, @NonNull List<FakeState> fakeStates) {
         startupFakesToFakeStates.put(fake, fakeStates);
+        registerExpectations(fakeStates);
     }
 
     void addFakeAndItsFakeStates(@NonNull Object fake, @NonNull List<FakeState> fakeStates) {
         fakesToFakeStates.put(fake, fakeStates);
+        registerExpectations(fakeStates);
     }
 
     public void copyFakeStates(@NonNull Object previousFake, @NonNull Object newFake) {
@@ -59,6 +66,7 @@ public final class FakeStates {
             }
 
             fakesToFakeStates.put(newFake, copiedFakeStates);
+            registerExpectations(copiedFakeStates);
         }
     }
 
@@ -87,6 +95,7 @@ public final class FakeStates {
             FakeState fakeState = fakeStates.get(0);
 
             if (fakeState.getRealClass() == redefinedClass) {
+                fakeStates.forEach(fakeStatesWithExpectations::remove);
                 fakeStates.clear();
                 itr.remove();
             }
@@ -102,6 +111,7 @@ public final class FakeStates {
             Object fake = fakeAndFakeStates.getKey();
 
             if (fake.getClass() == fakeClass) {
+                fakeAndFakeStates.getValue().forEach(fakeStatesWithExpectations::remove);
                 itr.remove();
             }
         }
@@ -123,5 +133,25 @@ public final class FakeStates {
         FakeState fakeState = fakeStates.get(fakeStateIndex);
         assert fakeState != null;
         return fakeState;
+    }
+
+    public void verifyMissingInvocations() {
+        for (FakeState fakeState : fakeStatesWithExpectations) {
+            fakeState.verifyMissingInvocations();
+        }
+    }
+
+    public void resetExpectations() {
+        for (FakeState fakeState : fakeStatesWithExpectations) {
+            fakeState.reset();
+        }
+    }
+
+    private void registerExpectations(@NonNull List<FakeState> fakeStates) {
+        for (FakeState fakeState : fakeStates) {
+            if (fakeState.isWithExpectations()) {
+                fakeStatesWithExpectations.add(fakeState);
+            }
+        }
     }
 }

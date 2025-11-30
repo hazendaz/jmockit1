@@ -23,6 +23,7 @@ import mockit.internal.ClassLoadingBridge;
 import mockit.internal.reflection.GenericTypeReflection;
 import mockit.internal.reflection.GenericTypeReflection.GenericSignature;
 import mockit.internal.state.TestRun;
+import mockit.internal.util.MethodFormatter;
 import mockit.internal.util.TypeDescriptor;
 import mockit.internal.util.Utilities;
 
@@ -149,6 +150,15 @@ final class FakeMethods {
 
         boolean canBeReentered() {
             return targetTypeIsAClass && !nativeRealMethod;
+        }
+
+        // Shared helper used by FakeState to render @Mock invocation constraint violations.
+        @NonNull
+        String errorMessage(@NonNull String quantifier, int numExpectedInvocations, int timesInvoked) {
+            String nameAndDesc = name + desc;
+            return "Expected " + quantifier + ' ' + numExpectedInvocations + " invocation(s) of "
+                    + new MethodFormatter(fakeClassInternalName, nameAndDesc) + ", but was invoked " + timesInvoked
+                    + " time(s)";
         }
     }
 
