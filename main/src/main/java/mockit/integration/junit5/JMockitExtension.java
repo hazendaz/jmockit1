@@ -6,7 +6,6 @@
 package mockit.integration.junit5;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -40,20 +39,43 @@ import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
 import org.junit.jupiter.api.extension.TestInstancePostProcessor;
 import org.opentest4j.TestAbortedException;
 
+/**
+ * JMockitExtension rewritten to avoid per-extension-instance mutable fields and to use ExtensionContext.Store for
+ * per-class / per-test / per-method state.
+ */
 public final class JMockitExtension extends TestRunnerDecorator implements BeforeAllCallback, AfterAllCallback,
         TestInstancePostProcessor, BeforeEachCallback, AfterEachCallback, BeforeTestExecutionCallback,
         AfterTestExecutionCallback, ParameterResolver, TestExecutionExceptionHandler {
-    @Nullable
-    private SavePoint savePointForTestClass;
-    @Nullable
-    private SavePoint savePointForTest;
-    @Nullable
-    private SavePoint savePointForTestMethod;
-    @Nullable
-    private Throwable thrownByTest;
-    private Object[] parameterValues;
-    private ParamValueInitContext initContext = new ParamValueInitContext(null, null, null,
-            "No callbacks have been processed, preventing parameter population");
+
+    // keys for store maps (simple strings)
+    private static final String KEY_SAVEPOINT_CLASS = "savePointForTestClass";
+    private static final String KEY_SAVEPOINT_TEST = "savePointForTest";
+    private static final String KEY_SAVEPOINT_METHOD = "savePointForTestMethod";
+    private static final String KEY_THROWN = "thrownByTest";
+    private static final String KEY_PARAM_VALUES = "parameterValues";
+    private static final String KEY_INIT_CONTEXT = "initContext";
+    private static final String KEY_TEST_INSTANCE = "testInstance";
+
+    private static boolean isRegularTestClass(@NonNull ExtensionContext context) {
+        Class<?> testClass = context.getTestClass().orElse(null);
+        return testClass != null && !testClass.isAnnotationPresent(Nested.class);
+    }
+
+    private static ExtensionContext.Store classStore(ExtensionContext context) {
+        Class<?> testClass = context.getTestClass().orElse(null);
+        String classKey = testClass == null ? "unknown-class" : testClass.getName();
+        return context.getRoot().getStore(ExtensionContext.Namespace.create(JMockitExtension.class, classKey));
+    }
+
+    private static ExtensionContext.Store testStore(ExtensionContext context) {
+        String testKey = context.getUniqueId() + "/test";
+        return context.getStore(ExtensionContext.Namespace.create(JMockitExtension.class, testKey));
+    }
+
+    private static ExtensionContext.Store methodStore(ExtensionContext context) {
+        String methodKey = context.getUniqueId() + "/method";
+        return context.getStore(ExtensionContext.Namespace.create(JMockitExtension.class, methodKey));
+    }
 
     @Override
     public void beforeAll(@NonNull ExtensionContext context) {
@@ -61,38 +83,40 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
             return;
         }
 
-        @Nullable
         Class<?> testClass = context.getTestClass().orElse(null);
-        savePointForTestClass = new SavePoint();
+        ExtensionContext.Store clsStore = classStore(context);
+
+        SavePoint sp = new SavePoint();
+        clsStore.put(KEY_SAVEPOINT_CLASS, sp);
         // Ensure JMockit state and test class logic is handled before any test instance is created
         if (testClass != null) {
             updateTestClassState(null, testClass);
         }
 
         if (testClass == null) {
-            initContext = new ParamValueInitContext(null, null, null,
-                    "@BeforeAll setup failed to acquire 'Class' of test");
+            clsStore.put(KEY_INIT_CONTEXT,
+                    new ParamValueInitContext(null, null, null, "@BeforeAll setup failed to acquire 'Class' of test"));
             return;
         }
 
-        // @BeforeAll can be used on instance methods depending on @TestInstance(PER_CLASS) usage
         Object testInstance = context.getTestInstance().orElse(null);
         Method beforeAllMethod = Utilities.getAnnotatedDeclaredMethod(testClass, BeforeAll.class);
-        if (testInstance == null) {
-            initContext = new ParamValueInitContext(null, testClass, beforeAllMethod,
-                    "@BeforeAll setup failed to acquire instance of test class");
+
+        if (testInstance == null && beforeAllMethod != null) {
+            clsStore.put(KEY_INIT_CONTEXT, new ParamValueInitContext(null, testClass, beforeAllMethod,
+                    "@BeforeAll setup failed to acquire instance of test class"));
             return;
         }
 
         if (beforeAllMethod != null) {
-            initContext = new ParamValueInitContext(testInstance, testClass, beforeAllMethod, null);
-            parameterValues = createInstancesForAnnotatedParameters(testInstance, beforeAllMethod, null);
+            Object[] paramValues = createInstancesForAnnotatedParameters(testInstance, beforeAllMethod, null);
+            clsStore.put(KEY_PARAM_VALUES, paramValues);
+            clsStore.put(KEY_INIT_CONTEXT, new ParamValueInitContext(testInstance, testClass, beforeAllMethod, null));
         }
-    }
 
-    private static boolean isRegularTestClass(@NonNull ExtensionContext context) {
-        Class<?> testClass = context.getTestClass().orElse(null);
-        return testClass != null && !testClass.isAnnotationPresent(Nested.class);
+        if (testInstance != null) {
+            clsStore.put(KEY_TEST_INSTANCE, testInstance);
+        }
     }
 
     @Override
@@ -102,23 +126,24 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
         }
 
         TestRun.enterNoMockingZone();
-
         try {
             handleMockFieldsForWholeTestClass(testInstance);
         } finally {
             TestRun.exitNoMockingZone();
         }
 
-        TestRun.setRunningIndividualTest(testInstance);
+        classStore(context).put(KEY_TEST_INSTANCE, testInstance);
     }
 
     @Override
     public void beforeEach(@NonNull ExtensionContext context) {
         Object testInstance = context.getTestInstance().orElse(null);
         Class<?> testClass = context.getTestClass().orElse(null);
+        ExtensionContext.Store tStore = testStore(context);
+
         if (testInstance == null) {
-            initContext = new ParamValueInitContext(null, null, null,
-                    "@BeforeEach setup failed to acquire instance of test class");
+            tStore.put(KEY_INIT_CONTEXT, new ParamValueInitContext(null, null, null,
+                    "@BeforeEach setup failed to acquire instance of test class"));
             return;
         }
 
@@ -126,19 +151,21 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
         TestRun.enterNoMockingZone();
 
         try {
-            savePointForTest = new SavePoint();
+            tStore.put(KEY_SAVEPOINT_TEST, new SavePoint());
             createInstancesForTestedFieldsBeforeSetup(testInstance);
 
             if (testClass == null) {
-                initContext = new ParamValueInitContext(null, null, null,
-                        "@BeforeEach setup failed to acquire Class<?> of test");
+                tStore.put(KEY_INIT_CONTEXT, new ParamValueInitContext(null, null, null,
+                        "@BeforeEach setup failed to acquire Class<?> of test"));
                 return;
             }
 
             Method beforeEachMethod = Utilities.getAnnotatedDeclaredMethod(testClass, BeforeEach.class);
             if (beforeEachMethod != null) {
-                initContext = new ParamValueInitContext(testInstance, testClass, beforeEachMethod, null);
-                parameterValues = createInstancesForAnnotatedParameters(testInstance, beforeEachMethod, null);
+                Object[] paramValues = createInstancesForAnnotatedParameters(testInstance, beforeEachMethod, null);
+                tStore.put(KEY_PARAM_VALUES, paramValues);
+                tStore.put(KEY_INIT_CONTEXT,
+                        new ParamValueInitContext(testInstance, testClass, beforeEachMethod, null));
             }
         } finally {
             TestRun.exitNoMockingZone();
@@ -150,20 +177,29 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
         Class<?> testClass = context.getTestClass().orElse(null);
         Method testMethod = context.getTestMethod().orElse(null);
         Object testInstance = context.getTestInstance().orElse(null);
+        ExtensionContext.Store mStore = methodStore(context);
 
         if (testMethod == null || testInstance == null) {
-            initContext = new ParamValueInitContext(testInstance, testClass, testMethod,
-                    "@Test failed to acquire instance of test class, or target method");
+            mStore.put(KEY_INIT_CONTEXT, new ParamValueInitContext(testInstance, testClass, testMethod,
+                    "@Test failed to acquire instance of test class, or target method"));
             return;
         }
 
-        TestRun.enterNoMockingZone();
+        // Explicitly update test class state using superclass logic to avoid stale context
+        updateTestClassState(testInstance, testClass);
+        TestRun.setCurrentTestClass(testClass);
+        TestRun.setRunningIndividualTest(testInstance);
+        System.out
+                .println("[JMockitExtension] Setting test class: " + (testClass != null ? testClass.getName() : "null")
+                        + ", test instance: " + (testInstance != null ? testInstance.getClass().getName() : "null"));
 
+        TestRun.enterNoMockingZone();
         try {
-            savePointForTestMethod = new SavePoint();
+            mStore.put(KEY_SAVEPOINT_METHOD, new SavePoint());
             createInstancesForTestedFieldsFromBaseClasses(testInstance);
-            initContext = new ParamValueInitContext(testInstance, testClass, testMethod, null);
-            parameterValues = createInstancesForAnnotatedParameters(testInstance, testMethod, null);
+            Object[] paramValues = createInstancesForAnnotatedParameters(testInstance, testMethod, null);
+            mStore.put(KEY_PARAM_VALUES, paramValues);
+            mStore.put(KEY_INIT_CONTEXT, new ParamValueInitContext(testInstance, testClass, testMethod, null));
             createInstancesForTestedFields(testInstance);
         } catch (Throwable e) {
             if (isExpectedException(context, e)) {
@@ -188,17 +224,34 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
     public Object resolveParameter(@NonNull ParameterContext parameterContext,
             @NonNull ExtensionContext extensionContext) {
         int parameterIndex = parameterContext.getIndex();
+        ExtensionContext.Store mStore = methodStore(extensionContext);
+        Object[] parameterValues = mStore.get(KEY_PARAM_VALUES, Object[].class);
+
+        ParamValueInitContext initContext = mStore.get(KEY_INIT_CONTEXT, ParamValueInitContext.class);
+        if (initContext == null) {
+            initContext = testStore(extensionContext).get(KEY_INIT_CONTEXT, ParamValueInitContext.class);
+        }
+
         if (parameterValues == null) {
-            String warning = initContext.warning;
+            String warning = (initContext == null ? "No init context available" : initContext.warning);
             StringBuilder exceptionMessage = new StringBuilder(
-                    "JMockit failed to provide parameters to JUnit 5 ParameterResolver.");
-            if (warning != null) {
+                    "JMockit failed to provide parameters to JUnit ParameterResolver.");
+            if (!warning.isEmpty()) {
                 exceptionMessage.append("\nAdditional info: ").append(warning);
             }
-            exceptionMessage.append("\n - Class: ").append(initContext.displayClass());
-            exceptionMessage.append("\n - Method: ").append(initContext.displayMethod());
+            exceptionMessage.append("\n - Class: ")
+                    .append(initContext == null ? "<unknown>" : initContext.displayClass());
+            exceptionMessage.append("\n - Method: ")
+                    .append(initContext == null ? "<unknown>" : initContext.displayMethod());
             throw new IllegalStateException(exceptionMessage.toString());
         }
+
+        if (parameterIndex < 0 || parameterIndex >= parameterValues.length) {
+            throw new IllegalStateException(
+                    "Parameter index " + parameterIndex + " out of bounds (" + parameterValues.length + "). Method: "
+                            + (initContext == null ? "<unknown>" : initContext.displayMethod()));
+        }
+
         return parameterValues[parameterIndex];
     }
 
@@ -210,24 +263,39 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
             return;
         }
 
-        thrownByTest = throwable;
+        methodStore(context).put(KEY_THROWN, throwable);
         throw throwable;
     }
 
     @Override
     public void afterTestExecution(@NonNull ExtensionContext context) {
-        if (savePointForTestMethod == null) {
-            return;
-        }
+        ExtensionContext.Store mStore = methodStore(context);
+        SavePoint spMethod = mStore.remove(KEY_SAVEPOINT_METHOD, SavePoint.class);
 
-        TestRun.enterNoMockingZone();
+        if (spMethod != null) {
+            TestRun.enterNoMockingZone();
+            try {
+                spMethod.rollback();
 
-        try {
-            savePointForTestMethod.rollback();
-            savePointForTestMethod = null;
+                Throwable thrownByTest = mStore.remove(KEY_THROWN, Throwable.class);
+                if (thrownByTest != null)
+                    filterStackTrace(thrownByTest);
 
-            if (thrownByTest != null) {
-                StackTrace.filterStackTrace(thrownByTest);
+                Error expectationsFailure = RecordAndReplayExecution.endCurrentReplayIfAny();
+                fakeStates.resetExpectations();
+                clearTestedObjectsIfAny();
+
+                if (expectationsFailure != null) {
+                    StackTrace.filterStackTrace(expectationsFailure);
+                    throw expectationsFailure;
+                }
+            } finally {
+                TestRun.finishCurrentTestExecution();
+                TestRun.exitNoMockingZone();
+
+                mStore.remove(KEY_PARAM_VALUES);
+                mStore.remove(KEY_INIT_CONTEXT);
+                mStore.remove(KEY_THROWN);
             }
 
             Error expectationsFailure = RecordAndReplayExecution.endCurrentReplayIfAny();
@@ -247,43 +315,59 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
                 fakeStates.resetExpectations();
                 throw expectationsFailure;
             }
-            fakeStates.resetExpectations();
-        } finally {
-            TestRun.finishCurrentTestExecution();
-            TestRun.exitNoMockingZone();
         }
     }
 
     @Override
     public void afterEach(@NonNull ExtensionContext context) {
-        if (savePointForTest != null) {
-            savePointForTest.rollback();
-            savePointForTest = null;
+        ExtensionContext.Store tStore = testStore(context);
+        SavePoint spTest = tStore.remove(KEY_SAVEPOINT_TEST, SavePoint.class);
+        if (spTest != null) {
+            spTest.rollback();
         }
+
+        tStore.remove(KEY_PARAM_VALUES);
+        tStore.put(KEY_INIT_CONTEXT, new ParamValueInitContext(null, null, null, "State reset after each test"));
+
+        // Ensure JMockit state is cleared after each test
+        TestRun.setRunningIndividualTest(null);
+        TestRun.setCurrentTestClass(null);
     }
 
     @Override
     public void afterAll(@NonNull ExtensionContext context) {
-        if (savePointForTestClass != null && isRegularTestClass(context)) {
-            savePointForTestClass.rollback();
-            savePointForTestClass = null;
+        if (!isRegularTestClass(context)) {
+            return;
+        }
 
+        ExtensionContext.Store clsStore = classStore(context);
+        SavePoint spClass = clsStore.remove(KEY_SAVEPOINT_CLASS, SavePoint.class);
+        if (spClass != null) {
+            spClass.rollback();
             clearFieldTypeRedefinitions();
             TestRun.setCurrentTestClass(null);
         }
+
+        clsStore.remove(KEY_PARAM_VALUES);
+        clsStore.remove(KEY_INIT_CONTEXT);
+        clsStore.remove(KEY_TEST_INSTANCE);
+
+        // Ensure JMockit state is cleared after all tests
+        TestRun.setRunningIndividualTest(null);
+        TestRun.setCurrentTestClass(null);
     }
 
     private static class ParamValueInitContext {
-        private final Object instance;
-        private final Class<?> clazz;
-        private final Method method;
-        private final String warning;
+        final Object instance;
+        final Class<?> clazz;
+        final Method method;
+        final String warning;
 
         ParamValueInitContext(Object instance, Class<?> clazz, Method method, String warning) {
             this.instance = instance;
             this.clazz = clazz;
             this.method = method;
-            this.warning = warning;
+            this.warning = warning == null ? "" : warning;
         }
 
         boolean isBeforeAllMethod() {
