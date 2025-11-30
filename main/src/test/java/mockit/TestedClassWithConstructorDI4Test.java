@@ -22,15 +22,17 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import org.junit.Before;
-import org.junit.Test;
+import mockit.integration.junit5.JMockitExtension;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class TestedClassWithConstructorDI4Test.
  */
-// TODO JWL 11/29/2025 This class is stuck to junit4 due to how injections work with junit5, support is missing
-// currently that would allow this to move to junit5.
-public final class TestedClassWithConstructorDI4Test {
+@ExtendWith(JMockitExtension.class)
+class TestedClassWithConstructorDI4Test {
 
     /**
      * The Class GenericClass.
@@ -135,8 +137,8 @@ public final class TestedClassWithConstructorDI4Test {
      * @throws Exception
      *             the exception
      */
-    @Before
-    public void recordCommonExpectations() throws Exception {
+    @BeforeEach
+    void recordCommonExpectations() throws Exception {
         new Expectations() {
             {
                 mockGO.doSomething();
@@ -156,7 +158,7 @@ public final class TestedClassWithConstructorDI4Test {
      * Exercise tested object with values injected from mock fields.
      */
     @Test
-    public void exerciseTestedObjectWithValuesInjectedFromMockFields() {
+    void exerciseTestedObjectWithValuesInjectedFromMockFields() {
         assertNotNull(tested.go);
         assertEquals(asList(1, 2, 3), tested.values);
         assertSame(action1, tested.action1);
@@ -173,7 +175,7 @@ public final class TestedClassWithConstructorDI4Test {
      *            the action 3
      */
     @Test
-    public void exerciseTestedObjectWithValuesInjectedFromMockParameters(@Injectable Callable<Number> action2,
+    void exerciseTestedObjectWithValuesInjectedFromMockParameters(@Injectable Callable<Number> action2,
             @Injectable Callable<Number> action3) {
         assertNotNull(tested.go);
         assertEquals(asList(1, 2, 3), tested.values);
@@ -191,7 +193,7 @@ public final class TestedClassWithConstructorDI4Test {
      *            the file mock
      */
     @Test
-    public void useMockedJREClassesDuringTestedObjectCreation(@Mocked File fileMock) {
+    void useMockedJREClassesDuringTestedObjectCreation(@Mocked File fileMock) {
         assertNotNull(tested.database);
         mockGO.doSomething();
     }
@@ -245,7 +247,7 @@ public final class TestedClassWithConstructorDI4Test {
      * Inject nulls through constructor parameters and into required field.
      */
     @Test
-    public void injectNullsThroughConstructorParametersAndIntoRequiredField() {
+    void injectNullsThroughConstructorParametersAndIntoRequiredField() {
         assertNull(tested7.text);
         assertNull(tested7.dependency);
         assertNull(tested7.otherDep);
