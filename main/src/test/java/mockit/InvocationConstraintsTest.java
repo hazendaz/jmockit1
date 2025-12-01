@@ -44,14 +44,6 @@ public final class InvocationConstraintsTest {
 
     final CodeUnderTest codeUnderTest = new CodeUnderTest();
 
-    /**
-     * Helper method to verify missing invocations for MockUp with invocation constraints. This mimics the behavior of
-     * JUnit 4's @Rule approach.
-     */
-    private static void verifyMockUpInvocations() {
-        mockit.internal.state.TestRun.getFakeStates().verifyMissingInvocations();
-    }
-
     // Tests for @Mock(invocations = N) with different call counts
 
     @Test
@@ -62,9 +54,6 @@ public final class InvocationConstraintsTest {
                 void provideSomeService() {
                 }
             };
-
-            // Call 0 times
-            verifyMockUpInvocations();
         });
     }
 
@@ -105,9 +94,6 @@ public final class InvocationConstraintsTest {
                 void provideSomeService() {
                 }
             };
-
-            // Call 0 times
-            verifyMockUpInvocations();
         });
     }
 

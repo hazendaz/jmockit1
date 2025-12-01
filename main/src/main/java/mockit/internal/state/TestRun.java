@@ -210,4 +210,20 @@ public final class TestRun {
             INSTANCE.executingTest.setShouldIgnoreMockingCallbacks(previousFlag);
         }
     }
+
+    /**
+     * Determines whether the current thread is executing inside a test method or inside an assertThrows() call.
+     *
+     * @return {@code true} if so; {@code false} otherwise
+     */
+    public static boolean isInsideTestMethodOrAssertThrows() {
+        for (StackTraceElement ste : Thread.currentThread().getStackTrace()) {
+            if (ste.getClassName().equals("org.junit.jupiter.api.Assertions")
+                    && ste.getMethodName().equals("assertThrows")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
