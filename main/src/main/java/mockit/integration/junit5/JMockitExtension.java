@@ -18,6 +18,7 @@ import mockit.Mocked;
 import mockit.Tested;
 import mockit.integration.TestRunnerDecorator;
 import mockit.internal.expectations.RecordAndReplayExecution;
+import mockit.internal.faking.FakeStates;
 import mockit.internal.state.SavePoint;
 import mockit.internal.state.TestRun;
 import mockit.internal.util.StackTrace;
@@ -230,17 +231,23 @@ public final class JMockitExtension extends TestRunnerDecorator implements Befor
             }
 
             Error expectationsFailure = RecordAndReplayExecution.endCurrentReplayIfAny();
-            clearTestedObjectsIfAny();
+            FakeStates fakeStates = TestRun.getFakeStates();
 
             if (expectationsFailure != null && isExpectedException(context, expectationsFailure)) {
                 // Expected JMockit error was thrown, suppress it (test passes)
+                clearTestedObjectsIfAny();
                 return;
             }
 
+            fakeStates.verifyMissingInvocations();
+            clearTestedObjectsIfAny();
+
             if (expectationsFailure != null) {
                 StackTrace.filterStackTrace(expectationsFailure);
+                fakeStates.resetExpectations();
                 throw expectationsFailure;
             }
+            fakeStates.resetExpectations();
         } finally {
             TestRun.finishCurrentTestExecution();
             TestRun.exitNoMockingZone();

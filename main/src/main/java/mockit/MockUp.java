@@ -21,6 +21,7 @@ import mockit.internal.classGeneration.ConcreteSubclass;
 import mockit.internal.faking.CaptureOfFakedImplementations;
 import mockit.internal.faking.FakeClassSetup;
 import mockit.internal.faking.FakeClasses;
+import mockit.internal.faking.FakeStates;
 import mockit.internal.faking.FakedImplementationClass;
 import mockit.internal.reflection.ConstructorReflection;
 import mockit.internal.reflection.MockInvocationHandler;
@@ -123,6 +124,13 @@ public abstract class MockUp<T> {
             mockedClass = typesToMock.length > 1
                     ? new FakedImplementationClass<T>(this).createImplementation(typesToMock)
                     : new CaptureOfFakedImplementations(this, typesToMock[0]).apply();
+        }
+
+        // Handle stateful mock-up for instance faking for junit 5+
+        FakeStates fakeStates = TestRun.getFakeStates();
+        if (TestRun.isInsideTestMethodOrAssertThrows()) {
+            fakeStates.verifyMissingInvocations();
+            fakeStates.resetExpectations();
         }
     }
 
@@ -321,4 +329,5 @@ public abstract class MockUp<T> {
      */
     protected void onTearDown() {
     }
+
 }

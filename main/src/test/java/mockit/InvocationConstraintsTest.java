@@ -20,7 +20,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
  * allowing calls within limits.
  */
 @ExtendWith(JMockitExtension.class)
-public final class InvocationConstraintsTest {
+class InvocationConstraintsTest {
 
     /**
      * A simple class under test that depends on a Collaborator.
@@ -44,50 +44,41 @@ public final class InvocationConstraintsTest {
 
     final CodeUnderTest codeUnderTest = new CodeUnderTest();
 
-    /**
-     * Helper method to verify missing invocations for MockUp with invocation constraints. This mimics the behavior of
-     * JUnit 4's @Rule approach.
-     */
-    private static void verifyMockUpInvocations() {
-        mockit.internal.state.TestRun.getFakeStates().verifyMissingInvocations();
-    }
-
     // Tests for @Mock(invocations = N) with different call counts
 
     @Test
-    public void testInvocationsWith0Calls() {
+    void testInvocationsWith0Calls() {
         assertThrows(MissingInvocation.class, () -> {
             new MockUp<Collaborator>() {
                 @Mock(invocations = 1)
                 void provideSomeService() {
                 }
             };
-
-            // Call 0 times
-            verifyMockUpInvocations();
         });
     }
 
     @Test
-    public void testInvocationsWith1Call() {
+    void testInvocationsWith1Call() {
         new MockUp<Collaborator>() {
             @Mock(invocations = 1)
             void provideSomeService() {
             }
         };
 
-        codeUnderTest.doSomething(); // Call 1 time
+        // Call 1 time
+        codeUnderTest.doSomething();
     }
 
     @Test
-    public void testInvocationsWith2Calls() {
+    void testInvocationsWith2Calls() {
         new MockUp<Collaborator>() {
             @Mock(invocations = 1)
             void provideSomeService() {
             }
         };
 
-        codeUnderTest.doSomething(); // Call 1 time - OK
+        // Call 1 time - OK
+        codeUnderTest.doSomething();
 
         // Call 2nd time - UnexpectedInvocation will be thrown immediately
         assertThrows(UnexpectedInvocation.class, () -> {
@@ -98,46 +89,45 @@ public final class InvocationConstraintsTest {
     // Tests for @Mock(minInvocations = N) with different call counts
 
     @Test
-    public void testMinInvocationsWith0Calls() {
+    void testMinInvocationsWith0Calls() {
         assertThrows(MissingInvocation.class, () -> {
             new MockUp<Collaborator>() {
                 @Mock(minInvocations = 1)
                 void provideSomeService() {
                 }
             };
-
-            // Call 0 times
-            verifyMockUpInvocations();
         });
     }
 
     @Test
-    public void testMinInvocationsWith1Call() {
+    void testMinInvocationsWith1Call() {
         new MockUp<Collaborator>() {
             @Mock(minInvocations = 1)
             void provideSomeService() {
             }
         };
 
-        codeUnderTest.doSomething(); // Call 1 time
+        // Call 1 time
+        codeUnderTest.doSomething();
     }
 
     @Test
-    public void testMinInvocationsWith2Calls() {
+    void testMinInvocationsWith2Calls() {
         new MockUp<Collaborator>() {
             @Mock(minInvocations = 1)
             void provideSomeService() {
             }
         };
 
-        codeUnderTest.doSomething(); // Call 2 times
+        // Call 2 times
+        codeUnderTest.doSomething();
         codeUnderTest.doSomething();
     }
 
     // Tests for @Mock(maxInvocations = N) with different call counts
 
     @Test
-    public void testMaxInvocationsWith0Calls() {
+    void testMaxInvocationsWith0Calls() {
         new MockUp<Collaborator>() {
             @Mock(maxInvocations = 1)
             void provideSomeService() {
@@ -148,7 +138,7 @@ public final class InvocationConstraintsTest {
     }
 
     @Test
-    public void testMaxInvocationsWith1Call() {
+    void testMaxInvocationsWith1Call() {
         new MockUp<Collaborator>() {
             @Mock(maxInvocations = 1)
             void provideSomeService() {
@@ -159,18 +149,20 @@ public final class InvocationConstraintsTest {
     }
 
     @Test
-    public void testMaxInvocationsWith2Calls() {
+    void testMaxInvocationsWith2Calls() {
         new MockUp<Collaborator>() {
             @Mock(maxInvocations = 1)
             void provideSomeService() {
             }
         };
 
-        codeUnderTest.doSomething(); // Call 1 time - OK
+        // Call 1 time - OK
+        codeUnderTest.doSomething();
 
         // Call 2nd time - UnexpectedInvocation will be thrown immediately
         assertThrows(UnexpectedInvocation.class, () -> {
             codeUnderTest.doSomething();
         });
     }
+
 }
