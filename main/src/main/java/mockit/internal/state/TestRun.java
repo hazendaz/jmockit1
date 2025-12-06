@@ -217,13 +217,11 @@ public final class TestRun {
      * @return {@code true} if so; {@code false} otherwise
      */
     public static boolean isInsideTestMethodOrAssertThrows() {
-        for (StackTraceElement ste : Thread.currentThread().getStackTrace()) {
-            if (ste.getClassName().equals("org.junit.jupiter.api.Assertions")
-                    && ste.getMethodName().equals("assertThrows")) {
-                return true;
-            }
-        }
-        return false;
+        // 1. No options passed to getInstance() (Fastest)
+        // 2. Uses stream().anyMatch() to stop searching as soon as the frame is found (Short-circuiting)
+        return StackWalker.getInstance()
+                .walk(stream -> stream.anyMatch(frame -> "org.junit.jupiter.api.Assertions".equals(frame.getClassName())
+                        && "assertThrows".equals(frame.getMethodName())));
     }
 
 }
