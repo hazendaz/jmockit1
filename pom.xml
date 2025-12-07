@@ -66,10 +66,10 @@
         <module.name>com.github.hazendaz.jmockit.parent</module.name>
 
         <!-- Released jmockit -->
-        <released.jmockit>2.0.1</released.jmockit>
+        <agent.version>2.0.1</agent.version>
 
         <!-- Surefire Argline -->
-        <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/${released.jmockit}/jmockit-${released.jmockit}.jar</argLine>
+        <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/${agent.version}/jmockit-${agent.version}.jar</argLine>
 
         <!-- Disable topSiteURL -->
         <topSiteURL />
@@ -104,7 +104,7 @@
                         <dependency>
                             <groupId>com.github.hazendaz.jmockit</groupId>
                             <artifactId>jmockit</artifactId>
-                            <version>${released.jmockit}</version>
+                            <version>${agent.version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>

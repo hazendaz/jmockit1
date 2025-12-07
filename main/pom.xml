@@ -386,7 +386,7 @@
                     <dependency>
                         <groupId>com.github.hazendaz.jmockit</groupId>
                         <artifactId>jmockit</artifactId>
-                        <version>${released.jmockit}</version>
+                        <version>${agent.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
