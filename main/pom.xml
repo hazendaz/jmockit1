@@ -387,7 +387,7 @@
                         <groupId>com.github.hazendaz.jmockit</groupId>
                         <artifactId>jmockit</artifactId>
                         <!-- Maven release plugin blocks property usage here due to self usage. -->
-                        <version>2.0.1</version>
+                        <version>2.1.0</version>
                     </dependency>
                 </dependencies>
             </plugin>
