@@ -83,6 +83,7 @@ loadScripts(document, 'script');</script>
 <li><a href="#updateFakeState(java.lang.String,java.lang.Object,int)" tabindex="0">updateFakeState(String, Object, int)</a></li>
 <li><a href="#getFake(java.lang.String,java.lang.Object)" tabindex="0">getFake(String, Object)</a></li>
 <li><a href="#ensureThatClassIsInitialized(java.lang.Class)" tabindex="0">ensureThatClassIsInitialized(Class)</a></li>
+<li><a href="#isInsideTestMethodOrAssertThrows()" tabindex="0">isInsideTestMethodOrAssertThrows()</a></li>
 </ol>
 </li>
 </ol>
@@ -175,29 +176,34 @@ classes, and for the test run as a whole.</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isInsideNoMockingZone()" class="member-name-link">isInsideNoMockingZone</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="MockFixture.html" title="class in mockit.internal.state">MockFixture</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#mockFixture()" class="member-name-link">mockFixture</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#prepareForNextTest()" class="member-name-link">prepareForNextTest</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setCurrentTestClass(java.lang.Class)" class="member-name-link">setCurrentTestClass</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;?&gt;&nbsp;testClass)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setFieldTypeRedefinitions(mockit.internal.expectations.mocking.FieldTypeRedefinitions)" class="member-name-link">setFieldTypeRedefinitions</a><wbr>(<a href="../expectations/mocking/FieldTypeRedefinitions.html" title="class in mockit.internal.expectations.mocking">FieldTypeRedefinitions</a>&nbsp;redefinitions)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setRunningIndividualTest(java.lang.Object)" class="member-name-link">setRunningIndividualTest</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;testInstance)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setTestedClassInstantiations(mockit.internal.injection.TestedClassInstantiations)" class="member-name-link">setTestedClassInstantiations</a><wbr>(<a href="../injection/TestedClassInstantiations.html" title="class in mockit.internal.injection">TestedClassInstantiations</a>&nbsp;testedClassInstantiations)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#updateFakeState(java.lang.String,java.lang.Object,int)" class="member-name-link">updateFakeState</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;fakeClassDesc,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isInsideTestMethodOrAssertThrows()" class="member-name-link">isInsideTestMethodOrAssertThrows</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Determines whether the current thread is executing inside a test method or inside an assertThrows() call.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="MockFixture.html" title="class in mockit.internal.state">MockFixture</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#mockFixture()" class="member-name-link">mockFixture</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#prepareForNextTest()" class="member-name-link">prepareForNextTest</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setCurrentTestClass(java.lang.Class)" class="member-name-link">setCurrentTestClass</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;?&gt;&nbsp;testClass)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setFieldTypeRedefinitions(mockit.internal.expectations.mocking.FieldTypeRedefinitions)" class="member-name-link">setFieldTypeRedefinitions</a><wbr>(<a href="../expectations/mocking/FieldTypeRedefinitions.html" title="class in mockit.internal.expectations.mocking">FieldTypeRedefinitions</a>&nbsp;redefinitions)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setRunningIndividualTest(java.lang.Object)" class="member-name-link">setRunningIndividualTest</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;testInstance)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setTestedClassInstantiations(mockit.internal.injection.TestedClassInstantiations)" class="member-name-link">setTestedClassInstantiations</a><wbr>(<a href="../injection/TestedClassInstantiations.html" title="class in mockit.internal.injection">TestedClassInstantiations</a>&nbsp;testedClassInstantiations)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#updateFakeState(java.lang.String,java.lang.Object,int)" class="member-name-link">updateFakeState</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;fakeClassDesc,
  <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;mockedInstance,
  int&nbsp;fakeStateIndex)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
 </div>
@@ -444,6 +450,19 @@ classes, and for the test run as a whole.</div>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">ensureThatClassIsInitialized</span><wbr><span class="parameters">(@NonNull
  <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;?&gt;&nbsp;aClass)</span></div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="isInsideTestMethodOrAssertThrows()">
+<h3>isInsideTestMethodOrAssertThrows</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isInsideTestMethodOrAssertThrows</span>()</div>
+<div class="block">Determines whether the current thread is executing inside a test method or inside an assertThrows() call.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd><code>true</code> if so; <code>false</code> otherwise</dd>
+</dl>
 </div>
 </section>
 </li>

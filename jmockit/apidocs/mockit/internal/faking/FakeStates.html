@@ -66,6 +66,8 @@ loadScripts(document, 'script');</script>
 <li><a href="#copyFakeStates(java.lang.Object,java.lang.Object)" tabindex="0">copyFakeStates(Object, Object)</a></li>
 <li><a href="#removeClassState(java.lang.Class,java.lang.String)" tabindex="0">removeClassState(Class, String)</a></li>
 <li><a href="#updateFakeState(java.lang.Object,int)" tabindex="0">updateFakeState(Object, int)</a></li>
+<li><a href="#verifyMissingInvocations()" tabindex="0">verifyMissingInvocations()</a></li>
+<li><a href="#resetExpectations()" tabindex="0">resetExpectations()</a></li>
 </ol>
 </li>
 </ol>
@@ -120,9 +122,15 @@ loadScripts(document, 'script');</script>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeClassState(java.lang.Class,java.lang.String)" class="member-name-link">removeClassState</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;?&gt;&nbsp;redefinedClass,
  <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;internalNameForOneOrMoreFakeClasses)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateFakeState(java.lang.Object,int)" class="member-name-link">updateFakeState</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;fake,
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resetExpectations()" class="member-name-link">resetExpectations</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateFakeState(java.lang.Object,int)" class="member-name-link">updateFakeState</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;fake,
  @NonNegative int&nbsp;fakeStateIndex)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#verifyMissingInvocations()" class="member-name-link">verifyMissingInvocations</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
@@ -186,6 +194,22 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">updateFakeState</span><wbr><span class="parameters">(@NonNull
  <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;fake,
  @NonNegative int&nbsp;fakeStateIndex)</span></div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="verifyMissingInvocations()">
+<h3>verifyMissingInvocations</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">verifyMissingInvocations</span>()</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="resetExpectations()">
+<h3>resetExpectations</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">resetExpectations</span>()</div>
 </div>
 </section>
 </li>

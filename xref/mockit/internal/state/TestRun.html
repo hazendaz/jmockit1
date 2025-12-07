@@ -218,7 +218,21 @@
 <a class="jxr_linenumber" name="L210" href="#L210">210</a>             INSTANCE.executingTest.setShouldIgnoreMockingCallbacks(previousFlag);
 <a class="jxr_linenumber" name="L211" href="#L211">211</a>         }
 <a class="jxr_linenumber" name="L212" href="#L212">212</a>     }
-<a class="jxr_linenumber" name="L213" href="#L213">213</a> }
+<a class="jxr_linenumber" name="L213" href="#L213">213</a> 
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L215" href="#L215">215</a> <em class="jxr_javadoccomment">     * Determines whether the current thread is executing inside a test method or inside an assertThrows() call.</em>
+<a class="jxr_linenumber" name="L216" href="#L216">216</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L217" href="#L217">217</a> <em class="jxr_javadoccomment">     * @return {@code true} if so; {@code false} otherwise</em>
+<a class="jxr_linenumber" name="L218" href="#L218">218</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L219" href="#L219">219</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> isInsideTestMethodOrAssertThrows() {
+<a class="jxr_linenumber" name="L220" href="#L220">220</a>         <em class="jxr_comment">// 1. No options passed to getInstance() (Fastest)</em>
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>         <em class="jxr_comment">// 2. Uses stream().anyMatch() to stop searching as soon as the frame is found (Short-circuiting)</em>
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>         <strong class="jxr_keyword">return</strong> StackWalker.getInstance()
+<a class="jxr_linenumber" name="L223" href="#L223">223</a>                 .walk(stream -&gt; stream.anyMatch(frame -&gt; <span class="jxr_string">"org.junit.jupiter.api.Assertions"</span>.equals(frame.getClassName())
+<a class="jxr_linenumber" name="L224" href="#L224">224</a>                         &amp;&amp; <span class="jxr_string">"assertThrows"</span>.equals(frame.getMethodName())));
+<a class="jxr_linenumber" name="L225" href="#L225">225</a>     }
+<a class="jxr_linenumber" name="L226" href="#L226">226</a> 
+<a class="jxr_linenumber" name="L227" href="#L227">227</a> }
 </pre>
 <hr/>
 <div id="footer">© 2011–2025 <a href="https://github.com/hazendaz/">hazendaz</a></div>
