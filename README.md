@@ -1,8 +1,8 @@
 # Jmockit 1 #
 
-[![Java CI](https://github.com/hazendaz/jmockit1/workflows/Java%20CI/badge.svg)](https://github.com/hazendaz/jmockit1/actions?query=workflow%3A%22Java+CI%22)
+[![Java CI](https://github.com/hazendaz/jmockit1/actions/workflows/ci.yaml/badge.svg)](https://github.com/hazendaz/jmockit1/actions/workflows/ci.yaml)
 [![Coverage Status](https://coveralls.io/repos/github/hazendaz/jmockit1/badge.svg?branch=master)](https://coveralls.io/github/hazendaz/jmockit1?branch=master)
-[![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.hazendaz.jmockit/jmockit/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.hazendaz.jmockit/jmockit)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.hazendaz.jmockit/jmockit.svg)](https://central.sonatype.com/artifact/com.github.hazendaz.jmockit/jmockit)
 [![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ![hazendaz](src/site/resources/images/hazendaz-banner.jpg)
