@@ -46,6 +46,16 @@ final class ClassFileTest {
     }
 
     @Test
+    void createReaderOrGetFromCacheForNonCachedClass() {
+        // Use a class that's unlikely to be in CachedClassfiles (test-only class)
+        ClassReader reader = ClassFile.createReaderOrGetFromCache(ClassFileTest.class);
+        assertNotNull(reader);
+        // Call again to hit the CLASS_FILES cache
+        ClassReader reader2 = ClassFile.createReaderOrGetFromCache(ClassFileTest.class);
+        assertNotNull(reader2);
+    }
+
+    @Test
     void getClassFileByNameForKnownClass() {
         byte[] bytes = ClassFile.getClassFile("java/lang/String");
         assertNotNull(bytes);
