@@ -32,6 +32,11 @@ public final class Startup {
     private static Instrumentation instrumentation;
     public static boolean initializing;
 
+    private static final String UNMOCKABLE_CLASS_SUGGESTION = "This typically occurs with classes from restricted JDK"
+            + " modules (such as java.net, java.nio) in JDK 9+. Consider wrapping the class in a testable abstraction"
+            + " or interface that can be mocked instead. For example, define an interface for the operations you need"
+            + " to test and inject it into the class under test.";
+
     private Startup() {
     }
 
@@ -92,11 +97,19 @@ public final class Startup {
     }
 
     public static void redefineMethods(@NonNull ClassDefinition... classDefs) {
+        for (ClassDefinition classDef : classDefs) {
+            checkClassIsModifiable(classDef.getDefinitionClass());
+        }
+
         try {
             // noinspection ConstantConditions
             instrumentation.redefineClasses(classDefs);
-        } catch (ClassNotFoundException | UnmodifiableClassException e) {
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e); // should never happen
+        } catch (UnmodifiableClassException e) {
+            // This can happen if a class is in a restricted JDK module that the JVM does not allow to be modified.
+            // Provide a clear error to help the user understand what to do.
+            throw new IllegalArgumentException(buildUnmockableErrorMessage(classDefs), e);
         } catch (InternalError ignore) {
             // If a class to be redefined hasn't been loaded yet, the JVM may get a NoClassDefFoundError during
             // redefinition. Unfortunately, it then throws a plain InternalError instead.
@@ -107,6 +120,25 @@ public final class Startup {
             // If the above didn't throw upon detecting a NoClassDefFoundError, then ignore the original error and
             // continue, in order to prevent secondary failures.
         }
+    }
+
+    private static void checkClassIsModifiable(@NonNull Class<?> classToRedefine) {
+        // noinspection ConstantConditions
+        if (!instrumentation.isModifiableClass(classToRedefine)) {
+            throw new IllegalArgumentException("Class " + classToRedefine.getName()
+                    + " cannot be mocked/faked because the JVM does not allow it to be modified. "
+                    + UNMOCKABLE_CLASS_SUGGESTION);
+        }
+    }
+
+    @NonNull
+    private static String buildUnmockableErrorMessage(@NonNull ClassDefinition[] classDefs) {
+        StringBuilder sb = new StringBuilder("The JVM prevented modification of class(es):");
+        for (ClassDefinition classDef : classDefs) {
+            sb.append(' ').append(classDef.getDefinitionClass().getName());
+        }
+        sb.append(". ").append(UNMOCKABLE_CLASS_SUGGESTION);
+        return sb.toString();
     }
 
     private static void detectMissingDependenciesIfAny(@NonNull Class<?> mockedClass) {

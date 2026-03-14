@@ -613,7 +613,9 @@ class CascadingParametersTest {
      * @throws Exception
      *             the exception
      */
-    // TODO JWL 2/18/2024 Test not allowed on jdk21
+    // TODO JWL 2/18/2024 Mocking Socket/InetAddress is not allowed on JDK9+ because java.net classes reside in a
+    // restricted JDK module that the JVM does not allow to be modified. To test code that depends on these classes,
+    // consider wrapping network operations behind a testable interface or abstraction that can be mocked instead.
     @Disabled
     @Test
     void recordAndVerifyExpectationsOnCascadedMocks(@Mocked Socket anySocket,

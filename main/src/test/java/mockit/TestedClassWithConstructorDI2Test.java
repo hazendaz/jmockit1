@@ -27,7 +27,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 /**
  * The Class TestedClassWithConstructorDI2Test.
  */
-// TODO JWL 2/18/2024 Test not allowed on jdk21
+// TODO JWL 2/18/2024 Mocking InetAddress is not allowed on JDK9+ because java.net classes reside in a restricted JDK
+// module that the JVM does not allow to be modified. To test code that depends on InetAddress, consider wrapping
+// network operations behind a testable interface or abstraction that can be mocked instead.
 @Disabled
 @ExtendWith(JMockitExtension.class)
 final class TestedClassWithConstructorDI2Test {
