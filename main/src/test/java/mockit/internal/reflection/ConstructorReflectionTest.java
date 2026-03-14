@@ -70,9 +70,8 @@ final class ConstructorReflectionTest {
 
     @Test
     void findSpecifiedConstructorWithCheckedException() {
-        var ctor = ConstructorReflection.findSpecifiedConstructor(
-            ThrowingCheckedConstructor.class, new Class<?>[] { String.class }
-        );
+        var ctor = ConstructorReflection.findSpecifiedConstructor(ThrowingCheckedConstructor.class,
+                new Class<?>[] { String.class });
         assertNotNull(ctor);
     }
 

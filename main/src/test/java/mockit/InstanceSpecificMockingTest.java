@@ -244,7 +244,9 @@ class InstanceSpecificMockingTest {
      * @param buf
      *            the buf
      */
-    // TODO JWL 2/18/2024 Test not allowed on jdk21
+    // TODO JWL 2/18/2024 Mocking ByteBuffer is not allowed on JDK9+ because java.nio classes reside in a restricted JDK
+    // module that the JVM does not allow to be modified. To test code that depends on ByteBuffer, consider wrapping
+    // buffer operations behind a testable interface or abstraction that can be mocked instead.
     @Disabled
     @Test
     void mockByteBufferAsInjectable(@Injectable final ByteBuffer buf) {
@@ -273,7 +275,9 @@ class InstanceSpecificMockingTest {
      * @param mockBuffer
      *            the mock buffer
      */
-    // TODO JWL 10/30/2022 Test is very flaky, ignore it
+    // TODO JWL 10/30/2022 Mocking ByteBuffer is not allowed on JDK9+ because java.nio classes reside in a
+    // restricted JDK module that the JVM does not allow to be modified. To test code that depends on ByteBuffer,
+    // consider wrapping buffer operations behind a testable interface or abstraction that can be mocked instead.
     @Disabled
     @Test
     void mockByteBufferRegularly(@Mocked ByteBuffer mockBuffer) {
@@ -294,7 +298,9 @@ class InstanceSpecificMockingTest {
      * @param unused
      *            the unused
      */
-    // TODO JWL 10/30/2022 Test is very flaky, ignore it
+    // TODO JWL 10/30/2022 Mocking ByteBuffer is not allowed on JDK9+ because java.nio classes reside in a
+    // restricted JDK module that the JVM does not allow to be modified. To test code that depends on ByteBuffer,
+    // consider wrapping buffer operations behind a testable interface or abstraction that can be mocked instead.
     @Disabled
     @Test
     void mockByteBufferAsCascading(@Mocked ByteBuffer unused) {
@@ -323,7 +329,9 @@ class InstanceSpecificMockingTest {
      * @param cascadingMock
      *            the cascading mock
      */
-    // TODO JWL 2/18/2024 Test not allowed on jdk21
+    // TODO JWL 2/18/2024 Mocking ByteBuffer is not allowed on JDK9+ because java.nio classes reside in a restricted JDK
+    // module that the JVM does not allow to be modified. To test code that depends on ByteBuffer, consider wrapping
+    // buffer operations behind a testable interface or abstraction that can be mocked instead.
     @Disabled
     @Test
     void mockByteBufferAsCascadedMock(@Mocked BufferFactory cascadingMock) {
