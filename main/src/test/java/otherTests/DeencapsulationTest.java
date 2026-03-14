@@ -50,6 +50,16 @@ final class DeencapsulationTest {
         private int intField2;
         private List<String> listField;
 
+        @SuppressWarnings("unused")
+        private String privateMethod(int value) {
+            return "result-" + value;
+        }
+
+        @SuppressWarnings("unused")
+        private static String privateStaticMethod(String arg) {
+            return "static-" + arg;
+        }
+
         int getIntField() {
             return intField;
         }
@@ -327,5 +337,42 @@ final class DeencapsulationTest {
                 "java.lang.IllegalAccessException: Can not set static final java.lang.Integer "
                         + "field otherTests.DeencapsulationTest$Subclass.constantField to java.lang.Integer",
                 throwable.getMessage());
+    }
+
+    @Test
+    void invokeInstanceMethodWithExplicitParameterTypes() {
+        String result = Deencapsulation.invoke(anInstance, "privateMethod", new Class<?>[] { int.class }, 42);
+
+        assertEquals("result-42", result);
+    }
+
+    @Test
+    void invokeInstanceMethodWithNonNullArgs() {
+        String result = Deencapsulation.invoke(anInstance, "privateMethod", 7);
+
+        assertEquals("result-7", result);
+    }
+
+    @Test
+    void invokeStaticMethodWithExplicitParameterTypes() {
+        String result = Deencapsulation.invoke(Subclass.class, "privateStaticMethod", new Class<?>[] { String.class },
+                "hello");
+
+        assertEquals("static-hello", result);
+    }
+
+    @Test
+    void invokeStaticMethodWithNonNullArgs() {
+        String result = Deencapsulation.invoke(Subclass.class, "privateStaticMethod", "world");
+
+        assertEquals("static-world", result);
+    }
+
+    @Test
+    void invokeStaticMethodByClassName() {
+        String result = Deencapsulation.invoke("otherTests.DeencapsulationTest$Subclass", "privateStaticMethod",
+                "byName");
+
+        assertEquals("static-byName", result);
     }
 }
