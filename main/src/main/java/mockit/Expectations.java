@@ -139,12 +139,12 @@ public class Expectations extends Invocations {
      * matching expectation was recorded.
      *
      * @param objectsToBePartiallyMocked
-     *            one or more objects to be partially mocked
+     *            one or more objects or classes to be partially mocked; when a {@code Class} object is provided, static
+     *            methods of that class will be subject to mocking
      *
      * @throws IllegalArgumentException
-     *             if given a <code>Class</code> object, or if given a value/instance of an interface, an annotation, an
-     *             array, a primitive/wrapper type, a synthetic class, or a
-     *             {@linkplain java.lang.reflect.Proxy#isProxyClass(Class) proxy class}
+     *             if given a value/instance of an interface, an annotation, an array, a primitive/wrapper type, a
+     *             synthetic class, or a {@linkplain java.lang.reflect.Proxy#isProxyClass(Class) proxy class}
      *
      * @see <a href="http://jmockit.github.io/tutorial/Mocking.html#partial" target="tutorial">Tutorial</a>
      */

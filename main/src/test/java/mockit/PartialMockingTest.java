@@ -111,6 +111,15 @@ class PartialMockingTest {
         }
 
         /**
+         * Gets the static value.
+         *
+         * @return the static value string
+         */
+        static String getStaticValue() {
+            return "real";
+        }
+
+        /**
          * Method which calls another in the same class.
          *
          * @return true, if successful
@@ -131,14 +140,33 @@ class PartialMockingTest {
     }
 
     /**
-     * Attempt to partially mock A class.
+     * Mock static method via class argument to Expectations.
      */
     @Test
-    @ExpectedException(value = IllegalArgumentException.class, expectedMessages = { "Invalid Class", "partial mocking",
-            "Collaborator" })
-    void attemptToPartiallyMockAClass() {
+    void mockStaticMethodViaClassArgument() {
         new Expectations(Collaborator.class) {
+            {
+                Collaborator.doSomething(true, "test");
+            }
         };
+
+        // Should not throw IllegalStateException since it's mocked
+        Collaborator.doSomething(true, "test");
+    }
+
+    /**
+     * Mock static method with return value via class argument to Expectations.
+     */
+    @Test
+    void mockStaticMethodWithReturnValueViaClassArgument() {
+        new Expectations(Collaborator.class) {
+            {
+                Collaborator.getStaticValue();
+                result = "mocked_result";
+            }
+        };
+
+        assertEquals("mocked_result", Collaborator.getStaticValue());
     }
 
     /**

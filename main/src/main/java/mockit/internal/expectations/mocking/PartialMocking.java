@@ -43,17 +43,24 @@ public final class PartialMocking extends BaseTypeRedefinition {
 
     private void redefineClassHierarchy(@NonNull Object mockInstance) {
         if (mockInstance instanceof Class) {
-            throw new IllegalArgumentException(
-                    "Invalid Class argument for partial mocking (use a MockUp instead): " + mockInstance);
+            targetClass = (Class<?>) mockInstance;
+            applyPartialMockingToGivenClass();
+        } else {
+            targetClass = getMockedClass(mockInstance);
+            applyPartialMockingToGivenInstance(mockInstance);
+
+            InstanceFactory instanceFactory = createInstanceFactory(targetClass);
+            instanceFactory.lastInstance = mockInstance;
+
+            TestRun.mockFixture().registerInstanceFactoryForMockedType(targetClass, instanceFactory);
+            TestRun.getExecutingTest().getCascadingTypes().add(false, targetClass);
         }
+    }
 
-        targetClass = getMockedClass(mockInstance);
-        applyPartialMockingToGivenInstance(mockInstance);
-
-        InstanceFactory instanceFactory = createInstanceFactory(targetClass);
-        instanceFactory.lastInstance = mockInstance;
-
-        TestRun.mockFixture().registerInstanceFactoryForMockedType(targetClass, instanceFactory);
+    private void applyPartialMockingToGivenClass() {
+        validateTargetClassType();
+        redefineMethodsAndConstructorsInTargetType();
+        TestRun.mockFixture().registerMockedClass(targetClass);
         TestRun.getExecutingTest().getCascadingTypes().add(false, targetClass);
     }
 
