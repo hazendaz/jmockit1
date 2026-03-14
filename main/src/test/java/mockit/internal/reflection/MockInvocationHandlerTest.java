@@ -32,7 +32,11 @@ final class MockInvocationHandlerTest {
 
     @Test
     void newMockedInstanceCreatesProxyForInterface() {
-        Class<?> proxyClass = Proxy.getProxyClass(SampleInterface.class.getClassLoader(), SampleInterface.class);
+        SampleInterface proxy = (SampleInterface) Proxy.newProxyInstance(
+                SampleInterface.class.getClassLoader(),
+                new Class<?>[] { SampleInterface.class },
+                MockInvocationHandler.INSTANCE);
+        Class<?> proxyClass = proxy.getClass();
         Object instance = MockInvocationHandler.newMockedInstance(proxyClass);
         assertNotNull(instance);
         assertTrue(instance instanceof SampleInterface);
