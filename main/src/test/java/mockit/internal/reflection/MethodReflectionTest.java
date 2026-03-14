@@ -86,7 +86,6 @@ final class MethodReflectionTest {
 
     @Test
     void findCompatibleMethodUsedByDeencapsulation() {
-        SampleClass obj = new SampleClass();
         Method method = MethodReflection.findCompatibleMethod(SampleClass.class, "publicMethod",
                 new Class<?>[] { String.class });
         assertEquals("publicMethod", method.getName());
