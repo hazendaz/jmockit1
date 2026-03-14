@@ -26,7 +26,13 @@ final class ConstructorReflectionTest {
         }
 
         public SimpleClass(String str) {
-            this.value = Integer.parseInt(str);
+            int parsedValue;
+            try {
+                parsedValue = Integer.parseInt(str);
+            } catch (NumberFormatException e) {
+                parsedValue = 0;
+            }
+            this.value = parsedValue;
         }
     }
 
