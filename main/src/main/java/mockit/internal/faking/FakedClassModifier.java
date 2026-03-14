@@ -20,9 +20,11 @@ import static mockit.asm.jvmConstants.Opcodes.IFNE;
 import static mockit.asm.jvmConstants.Opcodes.IF_ACMPEQ;
 import static mockit.asm.jvmConstants.Opcodes.ILOAD;
 import static mockit.asm.jvmConstants.Opcodes.INSTANCEOF;
+import static mockit.asm.jvmConstants.Opcodes.INVOKESPECIAL;
 import static mockit.asm.jvmConstants.Opcodes.INVOKESTATIC;
 import static mockit.asm.jvmConstants.Opcodes.INVOKEVIRTUAL;
 import static mockit.asm.jvmConstants.Opcodes.IRETURN;
+import static mockit.asm.jvmConstants.Opcodes.POP;
 import static mockit.asm.jvmConstants.Opcodes.RETURN;
 import static mockit.asm.jvmConstants.Opcodes.SIPUSH;
 
@@ -243,6 +245,100 @@ final class FakedClassModifier extends BaseClassModifier {
         mw.visitJumpInsn(jumpInsnOpcode, startOfRealImplementation);
         mw.visitInsn(RETURN);
         mw.visitLabel(startOfRealImplementation);
+    }
+
+    /**
+     * Generates an early fake interception check for constructors that use {@code this()} delegation. The check runs
+     * before any of the original argument-creation bytecode so that exceptions thrown while building the arguments to
+     * {@code this()} cannot escape when the fake is active.
+     * <p>
+     * When the fake is active the method:
+     * <ol>
+     * <li>Initialises {@code this} via the direct superclass's no-argument constructor (which must exist).</li>
+     * <li>Calls the fake {@code $init} method with the original constructor's parameters.</li>
+     * <li>Returns immediately, skipping the {@code this()} delegation entirely.</li>
+     * </ol>
+     * When the fake is not active (or the superclass has no no-argument constructor) execution falls through to
+     * {@code originalCodeLabel} and the original constructor body runs normally.
+     */
+    @Override
+    protected void generateEarlyInterceptionCodeForThisDelegationConstructor(@NonNull Label originalCodeLabel) {
+        if (!superClassHasNoArgConstructor()) {
+            // Cannot safely initialise 'this' – fall back to post-this() interception only
+            mw.visitLabel(originalCodeLabel);
+            return;
+        }
+
+        // Check whether the fake is active, passing null for 'this' (which is still uninitialized here)
+        generateCallToUpdateFakeStateWithNullInstance(); // leaves Z on stack
+
+        // If not active, jump to the original constructor body
+        mw.visitJumpInsn(IFEQ, originalCodeLabel);
+
+        // --- Fake-active path ---
+        // Initialise 'this' via the direct superclass's no-argument constructor so that RETURN is legal
+        mw.visitVarInsn(ALOAD, 0);
+        mw.visitMethodInsn(INVOKESPECIAL, superClassName, "<init>", "()V", false);
+
+        // Call the fake $init method (ALOAD_0 is now a properly-initialised reference)
+        generateCallToFakeMethod();
+
+        // If the fake has an Invocation parameter, shouldProceedIntoConstructor() left a Z on the stack – discard it
+        // (Invocation.proceed() is not supported for this()-delegation constructors)
+        if (fakeMethod.hasInvocationParameter()) {
+            mw.visitInsn(POP);
+        }
+
+        mw.visitInsn(RETURN);
+
+        // --- Original-code path ---
+        mw.visitLabel(originalCodeLabel);
+    }
+
+    /**
+     * Returns {@code true} when the direct superclass of the faked class declares a no-argument constructor. The result
+     * determines whether an early fake check can be inserted for {@code this()}-delegation constructors.
+     */
+    private boolean superClassHasNoArgConstructor() {
+        Class<?> superClass = fakedClass.getSuperclass();
+
+        if (superClass == null) {
+            return false;
+        }
+
+        try {
+            superClass.getDeclaredConstructor();
+            return true;
+        } catch (NoSuchMethodException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Like {@link #generateCallToUpdateFakeState()}, but always passes {@code null} as the mocked-instance argument.
+     * This is used at the very start of a constructor (before {@code super()}/{@code this()} has been called) when
+     * {@code this} is still an {@code uninitializedThis} reference and cannot legally be passed to a static method.
+     */
+    private void generateCallToUpdateFakeStateWithNullInstance() {
+        if (useClassLoadingBridgeForUpdatingFakeState) {
+            generateCodeToObtainInstanceOfClassLoadingBridge(FakeBridge.MB);
+            mw.visitInsn(ACONST_NULL); // null for 'this' (uninitialized)
+            mw.visitInsn(ACONST_NULL);
+            generateCodeToCreateArrayOfObject(2);
+            int i = 0;
+            generateCodeToFillArrayElement(i, fakeMethods.getFakeClassInternalName());
+            i++;
+            generateCodeToFillArrayElement(i, fakeMethod.getIndexForFakeState());
+            generateCallToInvocationHandler();
+            mw.visitTypeInsn(CHECKCAST, "java/lang/Boolean");
+            mw.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Boolean", "booleanValue", "()Z", false);
+        } else {
+            mw.visitLdcInsn(fakeMethods.getFakeClassInternalName());
+            mw.visitInsn(ACONST_NULL); // null for 'this' (uninitialized)
+            mw.visitIntInsn(SIPUSH, fakeMethod.getIndexForFakeState());
+            mw.visitMethodInsn(INVOKESTATIC, "mockit/internal/state/TestRun", "updateFakeState",
+                    "(Ljava/lang/String;Ljava/lang/Object;I)Z", false);
+        }
     }
 
     private void generateCallToFakeMethod() {

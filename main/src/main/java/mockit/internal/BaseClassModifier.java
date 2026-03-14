@@ -28,6 +28,9 @@ import static mockit.asm.jvmConstants.Opcodes.SIPUSH;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import mockit.asm.annotations.AnnotationVisitor;
 import mockit.asm.classes.ClassInfo;
 import mockit.asm.classes.ClassReader;
@@ -295,6 +298,19 @@ public class BaseClassModifier extends WrappingClassVisitor {
     protected void generateInterceptionCode() {
     }
 
+    /**
+     * Called when a constructor with {@code this()} delegation is detected, allowing subclasses to emit an early fake
+     * interception check before the original argument-creation bytecode runs. The default implementation simply emits
+     * the supplied label so execution falls through to the original constructor body.
+     *
+     * @param originalCodeLabel
+     *            the label that marks the start of the original (unmodified) constructor body; the overriding method
+     *            must emit this label when the early-check path is not taken
+     */
+    protected void generateEarlyInterceptionCodeForThisDelegationConstructor(@NonNull Label originalCodeLabel) {
+        mw.visitLabel(originalCodeLabel);
+    }
+
     private class DynamicModifier extends WrappingMethodVisitor {
         DynamicModifier() {
             super(BaseClassModifier.this.mw);
@@ -320,29 +336,163 @@ public class BaseClassModifier extends WrappingClassVisitor {
         private boolean pendingCallToConstructorOfSameClass;
         private boolean callToAnotherConstructorAlreadyCopied;
 
+        /**
+         * Buffers all instructions that appear before the first {@code this()}/{@code super()} call so we can decide
+         * whether to insert an early fake check ahead of argument-creation code that may throw.
+         */
+        @NonNull
+        private final List<Runnable> pendingInstructions = new ArrayList<>();
+
+        @Override
+        public void visitInsn(int opcode) {
+            if (!callToAnotherConstructorAlreadyCopied) {
+                pendingInstructions.add(() -> mw.visitInsn(opcode));
+            } else {
+                mw.visitInsn(opcode);
+            }
+        }
+
+        @Override
+        public void visitIntInsn(int opcode, int operand) {
+            if (!callToAnotherConstructorAlreadyCopied) {
+                pendingInstructions.add(() -> mw.visitIntInsn(opcode, operand));
+            } else {
+                mw.visitIntInsn(opcode, operand);
+            }
+        }
+
+        @Override
+        public void visitVarInsn(int opcode, @NonNegative int varIndex) {
+            if (!callToAnotherConstructorAlreadyCopied) {
+                pendingInstructions.add(() -> mw.visitVarInsn(opcode, varIndex));
+            } else {
+                mw.visitVarInsn(opcode, varIndex);
+            }
+        }
+
         @Override
         public void visitTypeInsn(int opcode, @NonNull String typeDesc) {
-            mw.visitTypeInsn(opcode, typeDesc);
+            if (!callToAnotherConstructorAlreadyCopied) {
+                pendingInstructions.add(() -> mw.visitTypeInsn(opcode, typeDesc));
 
-            if (opcode == NEW && !callToAnotherConstructorAlreadyCopied && typeDesc.equals(classDesc)) {
-                pendingCallToConstructorOfSameClass = true;
+                if (opcode == NEW && typeDesc.equals(classDesc)) {
+                    pendingCallToConstructorOfSameClass = true;
+                }
+            } else {
+                mw.visitTypeInsn(opcode, typeDesc);
+            }
+        }
+
+        @Override
+        public void visitFieldInsn(int opcode, @NonNull String owner, @NonNull String name, @NonNull String desc) {
+            if (!callToAnotherConstructorAlreadyCopied) {
+                pendingInstructions.add(() -> mw.visitFieldInsn(opcode, owner, name, desc));
+            } else {
+                mw.visitFieldInsn(opcode, owner, name, desc);
+            }
+        }
+
+        @Override
+        public void visitLdcInsn(@NonNull Object cst) {
+            if (!callToAnotherConstructorAlreadyCopied) {
+                pendingInstructions.add(() -> mw.visitLdcInsn(cst));
+            } else {
+                mw.visitLdcInsn(cst);
+            }
+        }
+
+        @Override
+        public void visitJumpInsn(int opcode, @NonNull Label label) {
+            if (!callToAnotherConstructorAlreadyCopied) {
+                pendingInstructions.add(() -> mw.visitJumpInsn(opcode, label));
+            } else {
+                mw.visitJumpInsn(opcode, label);
+            }
+        }
+
+        @Override
+        public void visitLabel(@NonNull Label label) {
+            if (!callToAnotherConstructorAlreadyCopied) {
+                pendingInstructions.add(() -> mw.visitLabel(label));
+            } else {
+                mw.visitLabel(label);
+            }
+        }
+
+        @Override
+        public void visitIincInsn(@NonNegative int varIndex, int increment) {
+            if (!callToAnotherConstructorAlreadyCopied) {
+                pendingInstructions.add(() -> mw.visitIincInsn(varIndex, increment));
+            } else {
+                mw.visitIincInsn(varIndex, increment);
+            }
+        }
+
+        @Override
+        public void visitTryCatchBlock(@NonNull Label start, @NonNull Label end, @NonNull Label handler,
+                @Nullable String type) {
+            if (!callToAnotherConstructorAlreadyCopied) {
+                pendingInstructions.add(() -> mw.visitTryCatchBlock(start, end, handler, type));
+            } else {
+                mw.visitTryCatchBlock(start, end, handler, type);
+            }
+        }
+
+        @Override
+        public void visitLineNumber(@NonNegative int line, @NonNull Label start) {
+            if (!callToAnotherConstructorAlreadyCopied) {
+                pendingInstructions.add(() -> mw.visitLineNumber(line, start));
+            } else {
+                mw.visitLineNumber(line, start);
             }
         }
 
         @Override
         public void visitMethodInsn(int opcode, @NonNull String owner, @NonNull String name, @NonNull String desc,
                 boolean itf) {
-            mw.visitMethodInsn(opcode, owner, name, desc, itf);
+            if (!callToAnotherConstructorAlreadyCopied) {
+                if (pendingCallToConstructorOfSameClass) {
+                    if (opcode == INVOKESPECIAL && "<init>".equals(name) && owner.equals(classDesc)) {
+                        pendingCallToConstructorOfSameClass = false;
+                    }
+                    // Buffer this instruction; it belongs to a 'new SameClass(...)' expression
+                    pendingInstructions.add(() -> mw.visitMethodInsn(opcode, owner, name, desc, itf));
+                } else if (opcode == INVOKESPECIAL && "<init>".equals(name)
+                        && (owner.equals(superClassName) || owner.equals(classDesc))) {
+                    // This is the first this()/super() call on 'this'
+                    callToAnotherConstructorAlreadyCopied = true;
 
-            if (pendingCallToConstructorOfSameClass) {
-                if (opcode == INVOKESPECIAL && "<init>".equals(name) && owner.equals(classDesc)) {
-                    pendingCallToConstructorOfSameClass = false;
+                    if (owner.equals(classDesc)) {
+                        // this() delegation: insert early fake check before the buffered argument-creation code
+                        Label originalCodeLabel = new Label();
+                        generateEarlyInterceptionCodeForThisDelegationConstructor(originalCodeLabel);
+                        // Flush the buffered instructions (original argument-creation code)
+                        flushPendingInstructions();
+                        // Emit the this() call
+                        mw.visitMethodInsn(opcode, owner, name, desc, itf);
+                        // Emit post-this() interception (for Invocation.proceed() support)
+                        generateInterceptionCode();
+                    } else {
+                        // super() delegation: flush buffer and use existing post-super() interception
+                        flushPendingInstructions();
+                        mw.visitMethodInsn(opcode, owner, name, desc, itf);
+                        generateInterceptionCode();
+                    }
+                } else {
+                    // Some other method call before the init call - buffer it
+                    pendingInstructions.add(() -> mw.visitMethodInsn(opcode, owner, name, desc, itf));
                 }
-            } else if (opcode == INVOKESPECIAL && !callToAnotherConstructorAlreadyCopied && "<init>".equals(name)
-                    && (owner.equals(superClassName) || owner.equals(classDesc))) {
-                generateInterceptionCode();
-                callToAnotherConstructorAlreadyCopied = true;
+            } else {
+                // After the first init call has been processed - no more buffering needed
+                mw.visitMethodInsn(opcode, owner, name, desc, itf);
             }
+        }
+
+        private void flushPendingInstructions() {
+            for (Runnable r : pendingInstructions) {
+                r.run();
+            }
+            pendingInstructions.clear();
         }
     }
 }

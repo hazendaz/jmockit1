@@ -5,6 +5,7 @@
  */
 package mockit;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -15,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.faces.application.FacesMessage;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.lang.reflect.Method;
 
 import javax.accessibility.AccessibleState;
@@ -261,6 +264,55 @@ final class MoreFakingTest {
         void $init(String value) {
             assertEquals("test", value);
         }
+    }
+
+    /**
+     * Faking a constructor that uses {@code this()}-delegation should intercept before the argument-creation code runs.
+     * <p>
+     * Regression test for GitHub issue #133: {@code PrintWriter(String)} delegates to
+     * {@code PrintWriter(Writer, boolean)} via {@code this(new FileOutputStream(name), false)}. When the path does not
+     * exist, {@code FileOutputStream} creation throws {@code FileNotFoundException}. The fake must intercept before
+     * that argument-creation code so the exception never escapes.
+     */
+    @Test
+    void fakeConstructorWithThisDelegationDoesNotRunRealArgumentCreationCode() {
+        boolean[] mockCalled = { false };
+
+        new MockUp<PrintWriter>() {
+            @Mock
+            void $init(String fileName) {
+                mockCalled[0] = true;
+            }
+        };
+
+        // This path does not exist on the test machine; without the fix a FileNotFoundException escapes.
+        assertDoesNotThrow(() -> new PrintWriter("/this/path/cannot/possibly/exist/in/any/test/environment.txt"),
+                "Fake constructor should intercept before FileOutputStream is created");
+
+        assertTrue(mockCalled[0], "Fake $init(String) was not called");
+    }
+
+    /**
+     * Faking a constructor that uses {@code this()}-delegation where the argument-creation does NOT throw should still
+     * call the fake and suppress the original constructor body.
+     */
+    @Test
+    void fakeConstructorWithThisDelegationForNonThrowingCase() {
+        boolean[] mockCalled = { false };
+
+        new MockUp<PrintWriter>() {
+            @Mock
+            void $init(String fileName) {
+                mockCalled[0] = true;
+            }
+        };
+
+        // Use an in-memory writer so no file I/O occurs if the original code ran
+        assertDoesNotThrow(() -> new PrintWriter(new StringWriter()),
+                "Creating a PrintWriter(Writer) should not throw");
+
+        // The mock for $init(String) should not be called when constructing with a Writer argument
+        assertFalse(mockCalled[0], "Fake $init(String) should not be called for PrintWriter(Writer) construction");
     }
 
     /**
