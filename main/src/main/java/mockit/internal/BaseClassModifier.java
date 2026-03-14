@@ -453,6 +453,8 @@ public class BaseClassModifier extends WrappingClassVisitor {
             if (!callToAnotherConstructorAlreadyCopied) {
                 if (pendingCallToConstructorOfSameClass) {
                     if (opcode == INVOKESPECIAL && "<init>".equals(name) && owner.equals(classDesc)) {
+                        // Matches the invokespecial for "new SameClass(...)"; reset the flag so the
+                        // *next* INVOKESPECIAL on the same class (if any) is treated as the real this() call.
                         pendingCallToConstructorOfSameClass = false;
                     }
                     // Buffer this instruction; it belongs to a 'new SameClass(...)' expression

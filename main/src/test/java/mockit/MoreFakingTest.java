@@ -16,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.faces.application.FacesMessage;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Method;
@@ -308,11 +310,44 @@ final class MoreFakingTest {
         };
 
         // Use an in-memory writer so no file I/O occurs if the original code ran
-        assertDoesNotThrow(() -> new PrintWriter(new StringWriter()),
-                "Creating a PrintWriter(Writer) should not throw");
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        pw.print("hello");
+        pw.flush();
 
         // The mock for $init(String) should not be called when constructing with a Writer argument
         assertFalse(mockCalled[0], "Fake $init(String) should not be called for PrintWriter(Writer) construction");
+        // The real PrintWriter(Writer) constructor ran correctly: output went to the StringWriter
+        assertEquals("hello", sw.toString(), "Real PrintWriter(Writer) should write output to the underlying StringWriter");
+    }
+
+    /**
+     * When a {@code this()}-delegation constructor is faked and the original argument creation would NOT throw (valid
+     * path), the fake should still intercept and no real file should be created.
+     *
+     * @throws IOException
+     *             if the temporary file cannot be created or deleted
+     */
+    @Test
+    void fakeConstructorWithThisDelegationInterceptsEvenForValidPath() throws IOException {
+        boolean[] mockCalled = { false };
+
+        new MockUp<PrintWriter>() {
+            @Mock
+            void $init(String fileName) {
+                mockCalled[0] = true;
+            }
+        };
+
+        // Create a real temp file so the path definitely exists
+        File tmpFile = File.createTempFile("jmockit-issue133-", ".txt");
+        try {
+            assertDoesNotThrow(() -> new PrintWriter(tmpFile.getAbsolutePath()),
+                    "PrintWriter(String) with an existing path should not throw when faked");
+            assertTrue(mockCalled[0], "Fake $init(String) was not called for existing path");
+        } finally {
+            tmpFile.delete();
+        }
     }
 
     /**

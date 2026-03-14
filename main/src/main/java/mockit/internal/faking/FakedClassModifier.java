@@ -283,8 +283,11 @@ final class FakedClassModifier extends BaseClassModifier {
         // Call the fake $init method (ALOAD_0 is now a properly-initialised reference)
         generateCallToFakeMethod();
 
-        // If the fake has an Invocation parameter, shouldProceedIntoConstructor() left a Z on the stack – discard it
-        // (Invocation.proceed() is not supported for this()-delegation constructors)
+        // If the fake has an Invocation parameter, shouldProceedIntoConstructor() left a Z on the stack.
+        // Calling the fake with Invocation IS supported (e.g., inv.getInvokedInstance(), inv.getInvocationCount()),
+        // but inv.proceed() is not: this path has already initialised 'this' via the superclass no-arg constructor
+        // rather than via the original this() chain, so proceeding would require re-running the original
+        // argument-creation code. We therefore discard the shouldProceedIntoConstructor() result and always return.
         if (fakeMethod.hasInvocationParameter()) {
             mw.visitInsn(POP);
         }
@@ -302,6 +305,8 @@ final class FakedClassModifier extends BaseClassModifier {
     private boolean superClassHasNoArgConstructor() {
         Class<?> superClass = fakedClass.getSuperclass();
 
+        // superClass is null only for java.lang.Object itself, which cannot realistically be faked
+        // with a constructor mock; treat it as "no no-arg constructor" to fall back safely.
         if (superClass == null) {
             return false;
         }
