@@ -90,4 +90,41 @@ final class MethodReflectionTest {
                 new Class<?>[] { String.class });
         assertEquals("publicMethod", method.getName());
     }
+
+    @Test
+    void invokeByClassAndMethodNameWithCompatibleArgTypes() {
+        SampleClass obj = new SampleClass();
+        String result = MethodReflection.invoke(SampleClass.class, obj, "publicMethod", new Class<?>[] { String.class },
+                "compat");
+        assertEquals("public-compat", result);
+    }
+
+    @Test
+    void invokeByClassAndMethodNameNotFoundThrows() {
+        SampleClass obj = new SampleClass();
+        assertThrows(IllegalArgumentException.class, () -> MethodReflection.invoke(SampleClass.class, obj,
+                "nonExistent", new Class<?>[] { String.class }, "x"));
+    }
+
+    @Test
+    void findCompatibleMethodWhenNotFoundThrows() {
+        assertThrows(IllegalArgumentException.class, () -> MethodReflection.findCompatibleMethod(SampleClass.class,
+                "noSuchMethod", new Class<?>[] { String.class }));
+    }
+
+    @Test
+    void findSpecifiedMethodInSuperclass() {
+        class Sub extends SampleClass {
+        }
+        Method method = MethodReflection.findCompatibleMethod(Sub.class, "publicMethod",
+                new Class<?>[] { String.class });
+        assertEquals("publicMethod", method.getName());
+    }
+
+    @Test
+    void invokeMethodWithIllegalArgumentThrows() throws NoSuchMethodException {
+        SampleClass obj = new SampleClass();
+        Method method = SampleClass.class.getMethod("add", int.class, int.class);
+        assertThrows(IllegalArgumentException.class, () -> MethodReflection.invoke(obj, method, "wrong", "types"));
+    }
 }
