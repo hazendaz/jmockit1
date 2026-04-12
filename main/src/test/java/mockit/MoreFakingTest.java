@@ -318,7 +318,8 @@ final class MoreFakingTest {
         // The mock for $init(String) should not be called when constructing with a Writer argument
         assertFalse(mockCalled[0], "Fake $init(String) should not be called for PrintWriter(Writer) construction");
         // The real PrintWriter(Writer) constructor ran correctly: output went to the StringWriter
-        assertEquals("hello", sw.toString(), "Real PrintWriter(Writer) should write output to the underlying StringWriter");
+        assertEquals("hello", sw.toString(),
+                "Real PrintWriter(Writer) should write output to the underlying StringWriter");
     }
 
     /**
