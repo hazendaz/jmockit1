@@ -9,6 +9,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.lang.reflect.Field;
+import java.util.Map;
+
 import mockit.asm.classes.ClassReader;
 
 import org.junit.jupiter.api.Test;
@@ -102,6 +105,34 @@ final class ClassFileTest {
         } catch (RuntimeException e) {
             // Expected
         }
+    }
+
+    @Test
+    void createReaderOrGetFromCacheWithCacheClearedForcesSavingInCache() throws Exception {
+        Field classFilesField = ClassFile.class.getDeclaredField("CLASS_FILES");
+        classFilesField.setAccessible(true);
+        @SuppressWarnings("unchecked")
+        Map<String, ClassReader> classFiles = (Map<String, ClassReader>) classFilesField.get(null);
+
+        String classDesc = ClassFile.class.getName().replace('.', '/');
+        classFiles.remove(classDesc);
+
+        ClassReader reader = ClassFile.createReaderOrGetFromCache(ClassFile.class);
+        assertNotNull(reader);
+    }
+
+    @Test
+    void createReaderFromLastRedefinitionIfAnyWithNonCachedClass() throws Exception {
+        Field classFilesField = ClassFile.class.getDeclaredField("CLASS_FILES");
+        classFilesField.setAccessible(true);
+        @SuppressWarnings("unchecked")
+        Map<String, ClassReader> classFiles = (Map<String, ClassReader>) classFilesField.get(null);
+
+        String classDesc = ClassFile.class.getName().replace('.', '/');
+        classFiles.remove(classDesc);
+
+        ClassReader reader = ClassFile.createReaderFromLastRedefinitionIfAny(ClassFile.class);
+        assertNotNull(reader);
     }
 
     @Test
