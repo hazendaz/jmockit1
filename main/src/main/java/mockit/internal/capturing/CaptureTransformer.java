@@ -48,8 +48,7 @@ public final class CaptureTransformer<M> implements ClassFileTransformer {
         this.capturedType = capturedType;
         capturedTypeDesc = JavaType.getInternalName(capturedType.baseType);
         this.captureOfImplementations = captureOfImplementations;
-        transformedClasses = registerTransformedClasses ? new HashMap<>(2)
-                : EMPTY_TRANSFORMED_CLASSES;
+        transformedClasses = registerTransformedClasses ? new HashMap<>(2) : EMPTY_TRANSFORMED_CLASSES;
         superTypesSearched = new HashMap<>();
         this.typeMetadata = typeMetadata;
     }

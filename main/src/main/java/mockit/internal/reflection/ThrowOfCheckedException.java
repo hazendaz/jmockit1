@@ -7,6 +7,8 @@ package mockit.internal.reflection;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
 
+import java.lang.reflect.InvocationTargetException;
+
 @SuppressWarnings("UtilityClassWithoutPrivateConstructor")
 final class ThrowOfCheckedException {
     private static Exception exceptionToThrow;
@@ -19,7 +21,14 @@ final class ThrowOfCheckedException {
         exceptionToThrow = checkedException;
         try {
             ThrowOfCheckedException.class.getDeclaredConstructor().newInstance();
+        } catch (InvocationTargetException e) {
+            rethrow(e.getCause());
         } catch (ReflectiveOperationException ignore) {
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T extends Throwable> void rethrow(Throwable cause) throws T {
+        throw (T) cause;
     }
 }
