@@ -208,7 +208,7 @@ final class FakeLoginContextTest {
         Configuration configuration = new Configuration() {
             @Override
             public AppConfigurationEntry[] getAppConfigurationEntry(String name) {
-                Map<String, ?> options = Collections.emptyMap();
+                Map<String, ?> options = Map.of();
 
                 return new AppConfigurationEntry[] { new AppConfigurationEntry(TestLoginModule.class.getName(),
                         AppConfigurationEntry.LoginModuleControlFlag.SUFFICIENT, options) };

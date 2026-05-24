@@ -10,7 +10,6 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -261,7 +260,7 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
         List<FieldInfo> fields;
 
         if (fieldCount == 0) {
-            fields = Collections.emptyList();
+            fields = List.of();
         } else {
             fields = new ArrayList<>(fieldCount);
 
@@ -641,7 +640,7 @@ public final class ClassMetadataReader extends ObjectWithAttributes {
             readAttributes(attributeCount, this, codeIndex);
 
             if (annotations == null) {
-                annotations = Collections.emptyList();
+                annotations = List.of();
             }
         }
 

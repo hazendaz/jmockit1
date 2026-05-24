@@ -11,7 +11,6 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
 import java.lang.reflect.Method;
-import java.util.Collections;
 import java.util.List;
 
 import mockit.internal.expectations.RecordAndReplayExecution;
@@ -200,7 +199,7 @@ public class TestRunnerDecorator {
 
             try {
                 testedClasses.assignNewInstancesToTestedFields(testClassInstance, true,
-                        Collections.<InjectionProvider> emptyList());
+                        List.of());
             } finally {
                 TestRun.exitNoMockingZone();
             }
@@ -211,7 +210,7 @@ public class TestRunnerDecorator {
         TestedClassInstantiations testedClasses = TestRun.getTestedClassInstantiations();
 
         if (testedClasses != null) {
-            List<? extends InjectionProvider> injectableParameters = Collections.emptyList();
+            List<? extends InjectionProvider> injectableParameters = List.of();
             ParameterTypeRedefinitions paramTypeRedefs = TestRun.getExecutingTest().getParameterRedefinitions();
 
             if (paramTypeRedefs != null) {

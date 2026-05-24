@@ -5,8 +5,6 @@
  */
 package mockit.coverage.dataItems;
 
-import static java.util.Collections.emptyList;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 
 import java.util.Collection;
@@ -61,7 +59,7 @@ public final class InstanceFieldData extends FieldData {
     @NonNull
     public List<Integer> getOwnerInstancesWithUnreadAssignments() {
         if (isCovered()) {
-            return emptyList();
+            return List.of();
         }
 
         Collection<List<Integer>> assignments = testIdsToAssignments.values();

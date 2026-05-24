@@ -9,7 +9,7 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
 import java.io.PrintWriter;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import mockit.coverage.CoveragePercentage;
@@ -36,7 +36,7 @@ abstract class ListWithFilesAndPercentages {
             return;
         }
 
-        Collections.sort(fileNames);
+        fileNames.sort(Comparator.naturalOrder());
         totalItems = 0;
         coveredItems = 0;
 

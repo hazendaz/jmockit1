@@ -149,7 +149,7 @@ final class FakeForGenericsTest {
         GenericClass<StringBuilder, List<String>> g = new GenericClass<>();
 
         g.aMethod(s);
-        int r1 = g.anotherMethod(new StringBuilder("test"), 58, Collections.<String> emptyList());
+        int r1 = g.anotherMethod(new StringBuilder("test"), 58, List.of());
         int r2 = g.anotherMethod(123, 65, "abc");
 
         assertEquals("fake", s.toString());

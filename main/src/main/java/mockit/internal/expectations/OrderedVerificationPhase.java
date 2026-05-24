@@ -5,12 +5,9 @@
  */
 package mockit.internal.expectations;
 
-import static java.util.Collections.emptyList;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
-import java.util.Collections;
 import java.util.List;
 
 import mockit.internal.expectations.invocation.ExpectedInvocation;
@@ -76,7 +73,7 @@ final class OrderedVerificationPhase extends BaseVerificationPhase {
             }
         }
 
-        return emptyList();
+        return List.of();
     }
 
     @Override
@@ -131,7 +128,7 @@ final class OrderedVerificationPhase extends BaseVerificationPhase {
         int n = minInvocations - invocationCount;
 
         if (n > 0) {
-            throw invocation.errorForMissingInvocations(n, Collections.<ExpectedInvocation> emptyList());
+            throw invocation.errorForMissingInvocations(n, List.of());
         }
 
         verifyMaxInvocations(verifying, maxInvocations);

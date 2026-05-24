@@ -45,7 +45,7 @@ class ExpectationsWithVarArgsMatchersTest {
          * @return the list
          */
         List<?> complexOperation(Object input1, Object... otherInputs) {
-            return input1 == null ? Collections.emptyList() : asList(otherInputs);
+            return input1 == null ? List.of() : asList(otherInputs);
         }
 
         /**

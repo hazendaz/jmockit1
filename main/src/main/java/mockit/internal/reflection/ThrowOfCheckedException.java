@@ -15,12 +15,11 @@ final class ThrowOfCheckedException {
         throw exceptionToThrow;
     }
 
-    @SuppressWarnings("deprecation")
     static synchronized void doThrow(@NonNull Exception checkedException) {
         exceptionToThrow = checkedException;
         try {
-            ThrowOfCheckedException.class.newInstance();
-        } catch (InstantiationException | IllegalAccessException ignore) {
+            ThrowOfCheckedException.class.getDeclaredConstructor().newInstance();
+        } catch (ReflectiveOperationException ignore) {
         }
     }
 }

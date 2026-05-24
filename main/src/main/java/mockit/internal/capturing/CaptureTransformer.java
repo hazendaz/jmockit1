@@ -12,7 +12,6 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 
 import java.lang.instrument.ClassFileTransformer;
 import java.security.ProtectionDomain;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +25,9 @@ import mockit.internal.startup.Startup;
 import mockit.internal.state.TestRun;
 
 public final class CaptureTransformer<M> implements ClassFileTransformer {
+    @NonNull
+    private static final Map<ClassIdentification, byte[]> EMPTY_TRANSFORMED_CLASSES = Map.of();
+
     @NonNull
     private final CapturedType capturedType;
     @NonNull
@@ -47,7 +49,7 @@ public final class CaptureTransformer<M> implements ClassFileTransformer {
         capturedTypeDesc = JavaType.getInternalName(capturedType.baseType);
         this.captureOfImplementations = captureOfImplementations;
         transformedClasses = registerTransformedClasses ? new HashMap<>(2)
-                : Collections.<ClassIdentification, byte[]> emptyMap();
+                : EMPTY_TRANSFORMED_CLASSES;
         superTypesSearched = new HashMap<>();
         this.typeMetadata = typeMetadata;
     }
@@ -148,7 +150,7 @@ public final class CaptureTransformer<M> implements ClassFileTransformer {
         ClassIdentification classId = new ClassIdentification(loader, className);
         byte[] originalBytecode = cr.getBytecode();
 
-        if (transformedClasses == Collections.<ClassIdentification, byte[]> emptyMap()) {
+        if (transformedClasses == EMPTY_TRANSFORMED_CLASSES) {
             TestRun.mockFixture().addTransformedClass(classId, originalBytecode);
         } else {
             transformedClasses.put(classId, originalBytecode);

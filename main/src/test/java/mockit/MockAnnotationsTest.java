@@ -90,7 +90,7 @@ public final class MockAnnotationsTest {
         }
 
         List<?> complexOperation(Object input1, Object... otherInputs) {
-            return input1 == null ? Collections.emptyList() : Arrays.asList(otherInputs);
+            return input1 == null ? List.of() : Arrays.asList(otherInputs);
         }
 
         final void simpleOperation(int a, String b, Date c) {
