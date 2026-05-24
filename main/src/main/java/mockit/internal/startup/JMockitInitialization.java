@@ -14,8 +14,8 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 
 import java.lang.instrument.Instrumentation;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import mockit.MockUp;
@@ -63,7 +63,7 @@ final class JMockitInitialization {
         String commaOrSpaceSeparatedValues = System.getProperty("fakes");
 
         if (commaOrSpaceSeparatedValues == null) {
-            return Collections.emptyList();
+            return List.of();
         }
 
         // noinspection DynamicRegexReplaceableByCompiledPattern

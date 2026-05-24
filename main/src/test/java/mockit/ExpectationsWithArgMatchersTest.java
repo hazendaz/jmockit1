@@ -6,7 +6,6 @@
 package mockit;
 
 import static java.util.Arrays.asList;
-import static java.util.Collections.singletonList;
 
 import static mockit.ExpectationsWithArgMatchersTest.Delegates.collectionElement;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -523,7 +522,7 @@ class ExpectationsWithArgMatchersTest {
         final Collaborator col = new Collaborator();
         col.setValue(1);
 
-        assertEquals(singletonList(1), values);
+        assertEquals(List.of(1), values);
 
         new Verifications() {
             {

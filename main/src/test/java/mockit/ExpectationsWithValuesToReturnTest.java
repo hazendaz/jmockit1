@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -497,12 +496,12 @@ class ExpectationsWithValuesToReturnTest {
             }
         };
 
-        assertSame(Collections.emptyList(), mock.getItems());
-        assertSame(Collections.emptyList(), mock.getListItems());
-        assertSame(Collections.emptySet(), mock.getSetItems());
-        assertEquals(Collections.emptySet(), mock.getSortedSetItems());
-        assertSame(Collections.emptyMap(), mock.getMapItems());
-        assertEquals(Collections.emptyMap(), mock.getSortedMapItems());
+        assertSame(List.of(), mock.getItems());
+        assertSame(List.of(), mock.getListItems());
+        assertSame(Set.of(), mock.getSetItems());
+        assertEquals(Set.of(), mock.getSortedSetItems());
+        assertSame(Map.of(), mock.getMapItems());
+        assertEquals(Map.of(), mock.getSortedMapItems());
     }
 
     /**

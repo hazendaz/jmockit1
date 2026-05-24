@@ -5,8 +5,6 @@
  */
 package mockit;
 
-import static java.util.Collections.singletonList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -388,7 +386,7 @@ class StandardDITest {
         assertSame(collaborator, tested5.collaborator1);
         assertNotNull(tested5.collaborator2);
         assertNotSame(tested5.collaborator1, tested5.collaborator2);
-        assertEquals(singletonList(col3), tested5.optionalCollaborators);
+        assertEquals(List.of(col3), tested5.optionalCollaborators);
 
         assertEquals(names[0], tested5.nameProvider.get());
         assertEquals(names[1], tested5.nameProvider.get());

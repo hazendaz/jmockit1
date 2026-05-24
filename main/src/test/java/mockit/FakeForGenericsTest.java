@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -149,7 +148,7 @@ final class FakeForGenericsTest {
         GenericClass<StringBuilder, List<String>> g = new GenericClass<>();
 
         g.aMethod(s);
-        int r1 = g.anotherMethod(new StringBuilder("test"), 58, Collections.<String> emptyList());
+        int r1 = g.anotherMethod(new StringBuilder("test"), 58, List.of());
         int r2 = g.anotherMethod(123, 65, "abc");
 
         assertEquals("fake", s.toString());

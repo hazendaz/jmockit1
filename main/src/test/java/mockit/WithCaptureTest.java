@@ -6,7 +6,6 @@
 package mockit;
 
 import static java.util.Arrays.asList;
-import static java.util.Collections.singletonList;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -732,7 +731,7 @@ class WithCaptureTest {
 
             {
                 dao.create("", withCapture(ages));
-                assertEquals(singletonList(56), ages);
+                assertEquals(List.of(56), ages);
 
                 dao.create(withCapture(created));
                 assertEquals(2, created.size());
@@ -847,7 +846,7 @@ class WithCaptureTest {
                 assertEquals(asList(p2, p3), persons1);
 
                 List<Person> persons2 = withCapture(new Person());
-                assertEquals(singletonList(p1), persons2);
+                assertEquals(List.of(p1), persons2);
             }
         };
     }

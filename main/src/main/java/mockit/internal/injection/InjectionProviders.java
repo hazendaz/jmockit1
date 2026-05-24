@@ -15,7 +15,6 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import mockit.internal.injection.InjectionPoint.KindOfInjectionPoint;
@@ -30,14 +29,14 @@ public final class InjectionProviders {
     private KindOfInjectionPoint kindOfInjectionPoint;
 
     InjectionProviders(@NonNull LifecycleMethods lifecycleMethods) {
-        injectables = Collections.emptyList();
+        injectables = List.of();
         consumedInjectionProviders = new ArrayList<>();
     }
 
     boolean setInjectables(
             @SuppressWarnings("ParameterHidesMemberVariable") @NonNull List<? extends InjectionProvider> injectables) {
         if (injectables.isEmpty()) {
-            this.injectables = Collections.emptyList();
+            this.injectables = List.of();
             return false;
         }
 

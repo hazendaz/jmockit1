@@ -12,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Collections;
 import java.util.Map;
 
 import javax.security.auth.Subject;
@@ -99,7 +98,7 @@ public final class MockLoginContextTest {
         Configuration configuration = new Configuration() {
             @Override
             public AppConfigurationEntry[] getAppConfigurationEntry(String name) {
-                Map<String, ?> options = Collections.emptyMap();
+                Map<String, ?> options = Map.of();
                 return new AppConfigurationEntry[] { new AppConfigurationEntry(TestLoginModule.class.getName(),
                         AppConfigurationEntry.LoginModuleControlFlag.SUFFICIENT, options) };
             }

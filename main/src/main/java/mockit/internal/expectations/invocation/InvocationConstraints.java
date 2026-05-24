@@ -8,7 +8,6 @@ package mockit.internal.expectations.invocation;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.checkerframework.checker.index.qual.NonNegative;
@@ -54,8 +53,7 @@ public final class InvocationConstraints {
     public Error verifyLowerLimit(@NonNull ExpectedInvocation invocation, int lowerLimit) {
         if (invocationCount < lowerLimit) {
             int missingInvocations = lowerLimit - invocationCount;
-            return invocation.errorForMissingInvocations(missingInvocations,
-                    Collections.<ExpectedInvocation> emptyList());
+            return invocation.errorForMissingInvocations(missingInvocations, List.of());
         }
 
         return null;

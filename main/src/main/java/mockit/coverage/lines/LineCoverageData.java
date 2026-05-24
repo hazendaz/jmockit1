@@ -5,13 +5,10 @@
  */
 package mockit.coverage.lines;
 
-import static java.util.Collections.emptyList;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import mockit.asm.controlFlow.Label;
@@ -32,7 +29,7 @@ public final class LineCoverageData extends LineSegmentData {
     private transient int segments;
 
     LineCoverageData() {
-        branches = emptyList();
+        branches = List.of();
     }
 
     @NonNegative
@@ -54,7 +51,7 @@ public final class LineCoverageData extends LineSegmentData {
     }
 
     private boolean noBranchesYet() {
-        return branches == Collections.<BranchCoverageData> emptyList();
+        return branches.isEmpty();
     }
 
     @NonNull

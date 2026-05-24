@@ -19,7 +19,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -666,15 +665,15 @@ class ExpectationsUsingResultFieldTest {
      */
     @Test
     void returnsDefaultValuesForCollectionValuedReturnTypes(@Mocked Collaborator mock) {
-        List<?> emptyList = Collections.emptyList();
+        List<?> emptyList = List.of();
         assertSame(emptyList, mock.getItems());
         assertSame(emptyList, mock.getListItems());
 
-        Set<?> emptySet = Collections.emptySet();
+        Set<?> emptySet = Set.of();
         assertSame(emptySet, mock.getSetItems());
         assertEquals(emptySet, mock.getSortedSetItems());
 
-        Map<?, ?> emptyMap = Collections.emptyMap();
+        Map<?, ?> emptyMap = Map.of();
         assertSame(emptyMap, mock.getMapItems());
         assertEquals(emptyMap, mock.getSortedMapItems());
     }
@@ -961,7 +960,7 @@ class ExpectationsUsingResultFieldTest {
                 mock.getBooleanArray();
                 result = new HashSet<Object>();
                 mock.getStringArray();
-                result = Collections.emptyList();
+                result = List.of();
                 mock.getIntArray();
                 result = new short[] { 1, 2 };
             }
@@ -995,7 +994,7 @@ class ExpectationsUsingResultFieldTest {
         new Expectations() {
             {
                 mock.getListItems();
-                result = Collections.emptySet();
+                result = Set.of();
                 mock.getSetItems();
                 result = new ArrayList<Object>();
             }
@@ -1024,7 +1023,7 @@ class ExpectationsUsingResultFieldTest {
         new Expectations() {
             {
                 mock.getIterator();
-                result = Collections.emptySet();
+                result = Set.of();
             }
         };
 

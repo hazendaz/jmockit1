@@ -16,7 +16,6 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +35,7 @@ public final class GenericTypeReflection {
 
     public GenericTypeReflection(@NonNull Class<?> ownerClass, @Nullable Type genericType, boolean withSignatures) {
         typeParametersToTypeArguments = new HashMap<>(4);
-        typeParametersToTypeArgumentNames = withSignatures ? new HashMap<>(4) : Collections.<String, String> emptyMap();
+        typeParametersToTypeArgumentNames = withSignatures ? new HashMap<>(4) : Map.of();
         this.withSignatures = withSignatures;
         discoverTypeMappings(ownerClass, genericType);
     }

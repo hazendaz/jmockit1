@@ -5,8 +5,6 @@
  */
 package mockit.internal.expectations.invocation;
 
-import static java.util.Collections.singletonList;
-
 import static mockit.internal.reflection.ConstructorReflection.newInstanceUsingPublicConstructorIfAvailable;
 import static mockit.internal.reflection.MethodReflection.JAVA_LANG;
 import static mockit.internal.reflection.MethodReflection.invokePublicIfAvailable;
@@ -222,7 +220,7 @@ public final class ReturnTypeConversion {
             return true;
         }
         if (returnType.isAssignableFrom(Stream.class)) {
-            addReturnValue(singletonList(valueToReturn).stream());
+            addReturnValue(List.of(valueToReturn).stream());
             return true;
         }
 

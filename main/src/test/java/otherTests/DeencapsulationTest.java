@@ -12,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -99,7 +98,7 @@ final class DeencapsulationTest {
     void getInstanceFieldByName() {
         anInstance.setIntField(3);
         anInstance.setStringField("test");
-        anInstance.setListField(Collections.<String> emptyList());
+        anInstance.setListField(List.of());
 
         Integer intValue = Deencapsulation.getField(anInstance, "intField");
         String stringValue = Deencapsulation.getField(anInstance, "stringField");
@@ -123,7 +122,7 @@ final class DeencapsulationTest {
     void getInheritedInstanceFieldByName() {
         anInstance.baseInt = 3;
         anInstance.baseString = "test";
-        anInstance.baseSet = Collections.emptySet();
+        anInstance.baseSet = Set.of();
 
         Integer intValue = Deencapsulation.getField(anInstance, "baseInt");
         String stringValue = Deencapsulation.getField(anInstance, "baseString");

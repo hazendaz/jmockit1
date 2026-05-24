@@ -20,7 +20,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
@@ -295,12 +294,12 @@ public final class MockFixture {
 
     @NonNull
     Set<ClassIdentification> getTransformedClasses() {
-        return transformedClasses.isEmpty() ? Collections.emptySet() : new HashSet<>(transformedClasses.keySet());
+        return transformedClasses.isEmpty() ? Set.of() : new HashSet<>(transformedClasses.keySet());
     }
 
     @NonNull
     Map<Class<?>, byte[]> getRedefinedClasses() {
-        return redefinedClasses.isEmpty() ? Collections.emptyMap() : new HashMap<>(redefinedClasses);
+        return redefinedClasses.isEmpty() ? Map.of() : new HashMap<>(redefinedClasses);
     }
 
     private void restoreAndRemoveTransformedClasses(@NonNull Set<ClassIdentification> classesToRestore) {
@@ -387,7 +386,7 @@ public final class MockFixture {
 
     @NonNull
     public List<Class<?>> getMockedClasses() {
-        return mockedClasses.isEmpty() ? Collections.emptyList() : new ArrayList<>(mockedClasses);
+        return mockedClasses.isEmpty() ? List.of() : new ArrayList<>(mockedClasses);
     }
 
     // Methods dealing with capture transformers ///////////////////////////////////////////////////////////////////////
