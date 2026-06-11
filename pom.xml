@@ -104,7 +104,8 @@
                         <dependency>
                             <groupId>com.github.hazendaz.jmockit</groupId>
                             <artifactId>jmockit</artifactId>
-                            <version>${agent.version}</version>
+                            <!-- Maven release plugin blocks property usage here due to self usage. -->
+                            <version>2.0.1</version>
                         </dependency>
                     </dependencies>
                 </plugin>
