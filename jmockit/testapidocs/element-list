@@ -1,6 +1,9 @@
 mockit
+mockit.asm.annotations
+mockit.asm.annotations.testdata
 mockit.asm.classes
 mockit.asm.constantPool
+mockit.asm.metadata
 mockit.asm.types
 mockit.asm.util
 mockit.integration
@@ -10,6 +13,7 @@ mockit.internal
 mockit.internal.expectations
 mockit.internal.expectations.argumentMatching
 mockit.internal.expectations.invocation
+mockit.internal.injection
 mockit.internal.injection.full
 mockit.internal.reflection
 mockit.internal.util

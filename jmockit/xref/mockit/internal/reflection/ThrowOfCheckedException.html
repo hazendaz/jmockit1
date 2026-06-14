@@ -15,23 +15,31 @@
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> edu.umd.cs.findbugs.annotations.NonNull;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  @SuppressWarnings(<span class="jxr_string">"UtilityClassWithoutPrivateConstructor"</span>)
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="ThrowOfCheckedException" href="../../../mockit/internal/reflection/ThrowOfCheckedException.html#ThrowOfCheckedException">ThrowOfCheckedException</a> {
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Exception exceptionToThrow;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>      <a name="ThrowOfCheckedException" href="../../../mockit/internal/reflection/ThrowOfCheckedException.html#ThrowOfCheckedException">ThrowOfCheckedException</a>() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>          <strong class="jxr_keyword">throw</strong> exceptionToThrow;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>      }
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>      @SuppressWarnings(<span class="jxr_string">"deprecation"</span>)
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>      <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">synchronized</strong> <strong class="jxr_keyword">void</strong> doThrow(@NonNull Exception checkedException) {
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>          exceptionToThrow = checkedException;
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>          <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>              ThrowOfCheckedException.<strong class="jxr_keyword">class</strong>.newInstance();
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>          } <strong class="jxr_keyword">catch</strong> (InstantiationException | IllegalAccessException ignore) {
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>          }
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>      }
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  }
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.InvocationTargetException;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  @SuppressWarnings(<span class="jxr_string">"UtilityClassWithoutPrivateConstructor"</span>)
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="ThrowOfCheckedException" href="../../../mockit/internal/reflection/ThrowOfCheckedException.html#ThrowOfCheckedException">ThrowOfCheckedException</a> {
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Exception exceptionToThrow;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>      <a name="ThrowOfCheckedException" href="../../../mockit/internal/reflection/ThrowOfCheckedException.html#ThrowOfCheckedException">ThrowOfCheckedException</a>() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>          <strong class="jxr_keyword">throw</strong> exceptionToThrow;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>      }
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>      <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">synchronized</strong> <strong class="jxr_keyword">void</strong> doThrow(@NonNull Exception checkedException) {
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>          exceptionToThrow = checkedException;
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>          <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>              ThrowOfCheckedException.<strong class="jxr_keyword">class</strong>.getDeclaredConstructor().newInstance();
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>          } <strong class="jxr_keyword">catch</strong> (InvocationTargetException e) {
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>              rethrow(e.getCause());
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>          } <strong class="jxr_keyword">catch</strong> (ReflectiveOperationException ignore) {
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>          }
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>      }
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>      @SuppressWarnings(<span class="jxr_string">"unchecked"</span>)
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> &lt;T <strong class="jxr_keyword">extends</strong> Throwable&gt; <strong class="jxr_keyword">void</strong> rethrow(Throwable cause) <strong class="jxr_keyword">throws</strong> T {
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>          <strong class="jxr_keyword">throw</strong> (T) cause;
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>      }
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  }
 </pre>
 <hr/>
 <div id="footer">© 2006–2026 <a href="https://github.com/hazendaz/">hazendaz</a></div>

@@ -2,6 +2,7 @@ integration.tests
 java8testing
 jmockit.loginExample.domain.userLogin
 mockit
+mockit.asm.annotations.testdata
 mockit.integration
 mockit.integration.junit4
 otherTests

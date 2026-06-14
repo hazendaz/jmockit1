@@ -91,9 +91,13 @@
                     }
                 });
                 $('#modal-add-header').click(function () {
-                    xml = '<?xml version="1.0" encoding="UTF-8"?>\n<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">\n   ';
-                    xml += $("#modal-text").text().replace(/\n/g,'\n   ');
-                    xml += '\n</suppressions>';
+                    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.4.xsd"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.4.xsd
+                                  https://dependency-check.github.io/DependencyCheck/dependency-suppression.1.4.xsd">
+    ${$("#modal-text").text().replace(/\n/g,'\n    ')}
+</suppressions>`;
                     $('#modal-add-header').toggleClass('active');
                     $('#modal-text').text(xml).focus().select();
                 });
@@ -139,26 +143,26 @@
             }
             function setCopyText(name, matchType, matchValue, suppressType, suppressVal) {
                 var xml =  '<suppress>\n';
-                xml += '   <notes><!'+'[CDATA[\n   file name: ' + name + '\n   ]]'+'></notes>\n';
+                xml += '    <notes><![CDATA[\n    file name: ' + name + '\n    ]]></notes>\n';
                 if (matchType=='packageUrl') {
                     var v = matchValue.match(/^[^@]+/);
                     if (v && v[0]) {
-                        xml += '   <'+matchType+' regex="true">^' + escapeRegExp(v[0]) + '@.*$</'+matchType+'>\n';
+                        xml += '    <'+matchType+' regex="true">^' + escapeRegExp(v[0]) + '@.*$</'+matchType+'>\n';
                     } else {
-                        xml += '   <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
+                        xml += '    <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
                     }
                 } else {
-                    xml += '   <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
+                    xml += '    <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
                 }
                 if (suppressType=='cpe') {
                     v = suppressVal.match(/^cpe:\/a:[^:]+:[^:]+/);
                     if (v && v[0]) {
-                        xml += '   <'+suppressType+'>' + v[0] + '</'+suppressType+'>\n';
+                        xml += '    <'+suppressType+'>' + v[0] + '</'+suppressType+'>\n';
                     } else {
-                        xml += '   <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
+                        xml += '    <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
                     }
                 } else {
-                    xml += '   <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
+                    xml += '    <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
                 }
                 xml += '</suppress>';
                 $('#modal-text').text(xml);
@@ -265,7 +269,8 @@
             }
             #modal-text {
                 border: 0;
-                overflow: hidden
+                overflow: auto;
+                white-space: pre;
             }
             #modal-text:focus {
                 outline: none;
@@ -652,8 +657,8 @@
         <div id="modal-background"></div>
         <div id="modal-content">
             <div>Press CTR-C to copy XML&nbsp;<a href="https://dependency-check.github.io/DependencyCheck/general/suppression.html" class="infolink" target="_blank" title="Help with suppressing false positives">[help]</a></div>
-                <button id="modal-suppress-change-to-packageUrl" class="modal-button suppresstype" title="Supress by Maven Group Artifact Version">Suppress By GAV</button>
-                <button id="modal-suppress-change-to-sha1" class="modal-button suppresstype" title="Supress by SHA1 hash">Suppress By SHA1</button><br/>
+                <button id="modal-suppress-change-to-packageUrl" class="modal-button suppresstype" title="Supress by Maven Group Artifact Version">Suppress by Package URL</button>
+                <button id="modal-suppress-change-to-sha1" class="modal-button suppresstype" title="Supress by SHA1 hash">Suppress by SHA1</button><br/>
                 <input type="hidden" id="suppress-name"/>
                 <input type="hidden" id="suppress-type"/><input type="hidden" id="suppress-val"/>
                 <input type="hidden" id="suppress-sha1"/><input type="hidden" id="suppress-packageUrl"/>
@@ -673,21 +678,21 @@ arising out of or in connection with the use of this tool, the analysis performe
 Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issues" target="_blank">github issues</a></h3>
 
             <h2 class="">Project:&nbsp;Java 8 testing</h2>
-            <h4>com.github.hazendaz.jmockit:java8testing:2.1.1-SNAPSHOT</h4>
+            <h4>com.github.hazendaz.jmockit:java8testing:2.2.1-SNAPSHOT</h4>
             <div class="">
 
                 Scan Information (<a href="#" title="Click to toggle display" id="scanInformationToggle">show all</a>):<br/>
                     <ul class="indent">
-                        <li><i>dependency-check version</i>: 12.2.0</li>
-                        <li><i>Report Generated On</i>: Sat, 14 Mar 2026 21:46:07 GMT</li>
+                        <li><i>dependency-check version</i>: 12.2.2</li>
+                        <li><i>Report Generated On</i>: Sun, 14 Jun 2026 02:07:59 GMT</li>
                         <li><i>Dependencies Scanned</i>:&nbsp;7 (7 unique)</li>
                         <li><i>Vulnerable Dependencies</i>:&nbsp;<span id="vulnerableCount">0</span></li>
                         <li><i>Vulnerabilities Found</i>:&nbsp;0</li>
                         <li><i>Vulnerabilities Suppressed</i>:&nbsp;0
                         </li>
                         <li class="scaninfo">...</li>
-                        <li class="scaninfo hidden"><i>NVD API Last Checked</i>: 2026-03-14T21:35:48Z</li>
-                        <li class="scaninfo hidden"><i>NVD API Last Modified</i>: 2026-03-13T21:28:47Z</li>
+                        <li class="scaninfo hidden"><i>NVD API Last Checked</i>: 2026-06-14T01:57:23Z</li>
+                        <li class="scaninfo hidden"><i>NVD API Last Modified</i>: 2026-06-14T00:16:19Z</li>
                     </ul><br/>
 <h2>Summary</h2>
                 <p><span id="tablecaption-plain">Summary of Vulnerable Dependencies </span><a href="#" title="Click to toggle display" id="vulnerabilityDisplayToggle">(click to show all)</a></p>
@@ -702,11 +707,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <th class="sortable" data-sort="int"    title="The count of evidence collected to identify the CPE">Evidence&nbsp;Count</th>
                     </tr></thead>
                     <tr class="notvulnerable">
-                        <td data-sort-value="CHECKER-QUAL-3.54.0.JAR"><a href="#l1_c3ce292a54faccba14e2a9f3077a4dc05e5770a8">checker-qual-3.54.0.jar</a></td>
+                        <td data-sort-value="CHECKER-QUAL-4.2.0.JAR"><a href="#l1_b4bda44e50dc5b020e6bdf0054ecf1f2329eafd5">checker-qual-4.2.0.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.checkerframework/checker-qual@3.54.0">
-                                pkg:maven/org.checkerframework/checker-qual@3.54.0
+                        <td data-sort-value="pkg:maven/org.checkerframework/checker-qual@4.2.0">
+                                pkg:maven/org.checkerframework/checker-qual@4.2.0
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -714,11 +719,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>44</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="ERROR_PRONE_ANNOTATIONS-2.46.0.JAR"><a href="#l2_4ecb5d2392c38c46e6cb65e1bf60be708d97005d">error_prone_annotations-2.46.0.jar</a></td>
+                        <td data-sort-value="ERROR_PRONE_ANNOTATIONS-2.49.0.JAR"><a href="#l2_8b42a2e3865f6e0576da3fad51dbb96732ff0f14">error_prone_annotations-2.49.0.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/com.google.errorprone/error_prone_annotations@2.46.0">
-                                pkg:maven/com.google.errorprone/error_prone_annotations@2.46.0
+                        <td data-sort-value="pkg:maven/com.google.errorprone/error_prone_annotations@2.49.0">
+                                pkg:maven/com.google.errorprone/error_prone_annotations@2.49.0
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -738,11 +743,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>33</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="LOMBOK-1.18.42.JAR"><a href="#l4_8365263844ebb62398e0dc33057ba10ba472d3b8">lombok-1.18.42.jar</a></td>
+                        <td data-sort-value="LOMBOK-1.18.46.JAR"><a href="#l4_a5cfe99fdf320e84955ef653f2ce1bf789d11385">lombok-1.18.46.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.projectlombok/lombok@1.18.42">
-                                pkg:maven/org.projectlombok/lombok@1.18.42
+                        <td data-sort-value="pkg:maven/org.projectlombok/lombok@1.18.46">
+                                pkg:maven/org.projectlombok/lombok@1.18.46
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -750,7 +755,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>36</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="LOMBOK-1.18.42.JAR: MAVENECJBOOTSTRAPAGENT.JAR"><a href="#l5_e1f7f1779f40157fd0b984c1bc32a0cb45cae66e">lombok-1.18.42.jar: mavenEcjBootstrapAgent.jar</a></td>
+                        <td data-sort-value="LOMBOK-1.18.46.JAR: MAVENECJBOOTSTRAPAGENT.JAR"><a href="#l5_4b03ce7b33d535b42e4a84e106c3647760eb8769">lombok-1.18.46.jar: mavenEcjBootstrapAgent.jar</a></td>
                         <td data-sort-value="">
                         </td>
                         <td data-sort-value="">
@@ -761,11 +766,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>7</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="MODERNIZER-MAVEN-ANNOTATIONS-3.2.0.JAR"><a href="#l6_23a99089ff682152e86ab1691a8232db325def09">modernizer-maven-annotations-3.2.0.jar</a></td>
+                        <td data-sort-value="MODERNIZER-MAVEN-ANNOTATIONS-3.4.0.JAR"><a href="#l6_9deb15aa2a3a725be971c8bbb4b560d0d096fca9">modernizer-maven-annotations-3.4.0.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.gaul/modernizer-maven-annotations@3.2.0">
-                                pkg:maven/org.gaul/modernizer-maven-annotations@3.2.0
+                        <td data-sort-value="pkg:maven/org.gaul/modernizer-maven-annotations@3.4.0">
+                                pkg:maven/org.gaul/modernizer-maven-annotations@3.4.0
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -773,11 +778,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>19</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="SPOTBUGS-ANNOTATIONS-4.9.8.JAR"><a href="#l7_ca4a2783a6123e67124fd7feb4caccd2e2ac9a73">spotbugs-annotations-4.9.8.jar</a></td>
+                        <td data-sort-value="SPOTBUGS-ANNOTATIONS-4.10.2.JAR"><a href="#l7_13f9ddf33804e6f69e7aa37b0bfd071b1bf397da">spotbugs-annotations-4.10.2.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/com.github.spotbugs/spotbugs-annotations@4.9.8">
-                                pkg:maven/com.github.spotbugs/spotbugs-annotations@4.9.8
+                        <td data-sort-value="pkg:maven/com.github.spotbugs/spotbugs-annotations@4.10.2">
+                                pkg:maven/com.github.spotbugs/spotbugs-annotations@4.10.2
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -786,17 +791,17 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                     </tr>
                 </table>
                 <h2 id="header-dependencies">Dependencies (vulnerable)</h2>
-                     <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l1_c3ce292a54faccba14e2a9f3077a4dc05e5770a8"></a>checker-qual-3.54.0.jar</h3>
+                     <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l1_b4bda44e50dc5b020e6bdf0054ecf1f2329eafd5"></a>checker-qual-4.2.0.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>checker-qual contains annotations (type qualifiers) that a programmerwrites to specify Java code for type-checking by the Checker Framework.</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">The MIT License: https://opensource.org/licenses/MIT</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/checkerframework/checker-qual/3.54.0/checker-qual-3.54.0.jar<br/>
-                            <b>MD5:</b>&nbsp;6c37e1dfa8c74da0e2284d4ab6760b44<br/>
-                            <b>SHA1:</b>&nbsp;c3ce292a54faccba14e2a9f3077a4dc05e5770a8<br/>
-                            <b>SHA256:</b>20b88b0fe12233933f3c88848c276758da1c14bafe5c686ad21e2eb6abc8c4cb
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/checkerframework/checker-qual/4.2.0/checker-qual-4.2.0.jar<br/>
+                            <b>MD5:</b>&nbsp;91875f065ec9f5bb8bb31a70f10416aa<br/>
+                            <b>SHA1:</b>&nbsp;b4bda44e50dc5b020e6bdf0054ecf1f2329eafd5<br/>
+                            <b>SHA256:</b>30bb4494b13f41cbd1502b094caafeb2b1d1f347311c72e7c74f83160acbdf0e
                                 <br/><b>Referenced In Project/Scope:</b> Java 8 testing:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">checker-qual-3.54.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/java8testing@2.1.1-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">checker-qual-4.2.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/java8testing@2.2.1-SNAPSHOT
                         </p>
                         <h4 id="header1" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content1" class="subsectioncontent standardsubsection hidden">
@@ -842,32 +847,32 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.checkerframework</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Checker Qual</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://checkerframework.org/</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>3.54.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>3.54.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>3.54.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>3.54.0</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.2.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>4.2.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>4.2.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.2.0</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header2" class="subsectionheader white">Identifiers</h4>
                         <div id="content2" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.checkerframework/checker-qual@3.54.0
+                                    <li>pkg:maven/org.checkerframework/checker-qual@4.2.0
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l2_4ecb5d2392c38c46e6cb65e1bf60be708d97005d"></a>error_prone_annotations-2.46.0.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l2_8b42a2e3865f6e0576da3fad51dbb96732ff0f14"></a>error_prone_annotations-2.49.0.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Error Prone is a static analysis tool for Java that catches common programming mistakes at compile-time.</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/google/errorprone/error_prone_annotations/2.46.0/error_prone_annotations-2.46.0.jar<br/>
-                            <b>MD5:</b>&nbsp;d0dabea249c067d21d7eb997fbdf5c99<br/>
-                            <b>SHA1:</b>&nbsp;4ecb5d2392c38c46e6cb65e1bf60be708d97005d<br/>
-                            <b>SHA256:</b>b67be81ff4b956401146e14eaf1526bc435a9480f2546e91eb45b796631a8a99
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/google/errorprone/error_prone_annotations/2.49.0/error_prone_annotations-2.49.0.jar<br/>
+                            <b>MD5:</b>&nbsp;f15f20dc5df752e2c0f8e37f7cdd9b1d<br/>
+                            <b>SHA1:</b>&nbsp;8b42a2e3865f6e0576da3fad51dbb96732ff0f14<br/>
+                            <b>SHA256:</b>3b1003e51b8ae56fdbd7c71073e81d1683b97e6c4dff5a9151164d59b769d13c
                                 <br/><b>Referenced In Project/Scope:</b> Java 8 testing:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">error_prone_annotations-2.46.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/java8testing@2.1.1-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">error_prone_annotations-2.49.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/java8testing@2.2.1-SNAPSHOT
                         </p>
                         <h4 id="header3" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content3" class="subsectioncontent standardsubsection hidden">
@@ -899,15 +904,15 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>com.google.errorprone</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>error-prone annotations</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>parent-artifactid</td><td>error_prone_parent</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>2.46.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>2.46.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>2.46.0</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>2.49.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>2.49.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>2.49.0</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header4" class="subsectionheader white">Identifiers</h4>
                         <div id="content4" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/com.google.errorprone/error_prone_annotations@2.46.0
+                                    <li>pkg:maven/com.google.errorprone/error_prone_annotations@2.49.0
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
@@ -926,7 +931,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                             <b>SHA1:</b>&nbsp;a892ca9507839bbdb900d64310ac98256cab992f<br/>
                             <b>SHA256:</b>84d3a150518485f8140ea99b8a985656749629f6433c92b80c75b36aba3b099b
                                 <br/><b>Referenced In Project/Scope:</b> Java 8 testing:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">j2objc-annotations-3.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/java8testing@2.1.1-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">j2objc-annotations-3.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/java8testing@2.2.1-SNAPSHOT
                         </p>
                         <h4 id="header5" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content5" class="subsectioncontent standardsubsection hidden">
@@ -976,17 +981,17 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l4_8365263844ebb62398e0dc33057ba10ba472d3b8"></a>lombok-1.18.42.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l4_a5cfe99fdf320e84955ef653f2ce1bf789d11385"></a>lombok-1.18.46.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Spice up your java: Automatic Resource Management, automatic generation of getters, setters, equals, hashCode and toString, and more!</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">The MIT License: https://projectlombok.org/LICENSE</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar<br/>
-                            <b>MD5:</b>&nbsp;f29149836e0187fb9fd95d82dc718d36<br/>
-                            <b>SHA1:</b>&nbsp;8365263844ebb62398e0dc33057ba10ba472d3b8<br/>
-                            <b>SHA256:</b>3488a4e9994c26596baaceebee58cad36a50e3bdaec5be72b5834d3c3b560306
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar<br/>
+                            <b>MD5:</b>&nbsp;e02f419a66b86c594ffcafc862778723<br/>
+                            <b>SHA1:</b>&nbsp;a5cfe99fdf320e84955ef653f2ce1bf789d11385<br/>
+                            <b>SHA256:</b>01f7b1a015e33e2b62d5f5f37053306357ab1415fd181fcba7794f5d198c1126
                                 <br/><b>Referenced In Project/Scope:</b> Java 8 testing:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">lombok-1.18.42.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/java8testing@2.1.1-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">lombok-1.18.46.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/java8testing@2.2.1-SNAPSHOT
                         </p>
                         <h4 id="header7" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content7" class="subsectioncontent standardsubsection hidden">
@@ -1025,27 +1030,27 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.projectlombok</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Project Lombok</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://projectlombok.org</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>1.18.42</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>lombok-version</td><td>1.18.42</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>1.18.42</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>1.18.46</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>lombok-version</td><td>1.18.46</td><td>Medium</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>1.18.46</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header8" class="subsectionheader white">Identifiers</h4>
                         <div id="content8" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.projectlombok/lombok@1.18.42
+                                    <li>pkg:maven/org.projectlombok/lombok@1.18.46
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l5_e1f7f1779f40157fd0b984c1bc32a0cb45cae66e"></a>lombok-1.18.42.jar: mavenEcjBootstrapAgent.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l5_4b03ce7b33d535b42e4a84e106c3647760eb8769"></a>lombok-1.18.46.jar: mavenEcjBootstrapAgent.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                         <p>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar/lombok/launch/mavenEcjBootstrapAgent.jar<br/>
-                            <b>MD5:</b>&nbsp;885d5d6be90a5dcd4b82cdf741e3f31a<br/>
-                            <b>SHA1:</b>&nbsp;e1f7f1779f40157fd0b984c1bc32a0cb45cae66e<br/>
-                            <b>SHA256:</b>74a80a6ee84e5c6fe497dfcc46a46dbe30578525e747eb531e918ee0750c8da9
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar/lombok/launch/mavenEcjBootstrapAgent.jar<br/>
+                            <b>MD5:</b>&nbsp;8b80305e4846088e139701372844e637<br/>
+                            <b>SHA1:</b>&nbsp;4b03ce7b33d535b42e4a84e106c3647760eb8769<br/>
+                            <b>SHA256:</b>639da94437813649eac5af6d8154d736355f27199fc8aaeda85904fce947ee4f
                                 <br/><b>Referenced In Project/Scope:</b> Java 8 testing:provided
                         </p>
                         <h4 id="header9" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
@@ -1066,15 +1071,15 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                             <ul><li><b>None</b></li></ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l6_23a99089ff682152e86ab1691a8232db325def09"></a>modernizer-maven-annotations-3.2.0.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l6_9deb15aa2a3a725be971c8bbb4b560d0d096fca9"></a>modernizer-maven-annotations-3.4.0.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                         <p>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/gaul/modernizer-maven-annotations/3.2.0/modernizer-maven-annotations-3.2.0.jar<br/>
-                            <b>MD5:</b>&nbsp;127396b14eb51fd93eb587308f079768<br/>
-                            <b>SHA1:</b>&nbsp;23a99089ff682152e86ab1691a8232db325def09<br/>
-                            <b>SHA256:</b>9f9396f361f0d45d435355c1f2b57980307abd81f3131083ec18f54fbbaa5ecb
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/gaul/modernizer-maven-annotations/3.4.0/modernizer-maven-annotations-3.4.0.jar<br/>
+                            <b>MD5:</b>&nbsp;f46f4c747b5ab932252fea7d0733cc04<br/>
+                            <b>SHA1:</b>&nbsp;9deb15aa2a3a725be971c8bbb4b560d0d096fca9<br/>
+                            <b>SHA256:</b>c3ca20a7ccb295f528642532fc7644b4e822a45746fe8bf1683227ca1d0ddfa9
                                 <br/><b>Referenced In Project/Scope:</b> Java 8 testing:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">modernizer-maven-annotations-3.2.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/java8testing@2.1.1-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">modernizer-maven-annotations-3.4.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/java8testing@2.2.1-SNAPSHOT
                         </p>
                         <h4 id="header11" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content11" class="subsectioncontent standardsubsection hidden">
@@ -1082,7 +1087,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>modernizer-maven-annotations</td><td>High</td></tr>
                                     <tr><td>Vendor</td><td>jar</td><td>package name</td><td>gaul</td><td>Highest</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>build-jdk-spec</td><td>21</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>build-jdk-spec</td><td>25</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>multi-release</td><td>true</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>artifactid</td><td>modernizer-maven-annotations</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>artifactid</td><td>modernizer-maven-annotations</td><td>Low</td></tr>
@@ -1091,36 +1096,36 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Vendor</td><td>pom</td><td>parent-artifactid</td><td>modernizer-maven-parent</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>file</td><td>name</td><td>modernizer-maven-annotations</td><td>High</td></tr>
                                     <tr><td>Product</td><td>jar</td><td>package name</td><td>gaul</td><td>Highest</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>build-jdk-spec</td><td>21</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>build-jdk-spec</td><td>25</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>multi-release</td><td>true</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>artifactid</td><td>modernizer-maven-annotations</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.gaul</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Modernizer Maven Plugin annotations</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>parent-artifactid</td><td>modernizer-maven-parent</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>3.2.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>3.2.0</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>3.4.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>3.4.0</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header12" class="subsectionheader white">Identifiers</h4>
                         <div id="content12" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.gaul/modernizer-maven-annotations@3.2.0
+                                    <li>pkg:maven/org.gaul/modernizer-maven-annotations@3.4.0
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l7_ca4a2783a6123e67124fd7feb4caccd2e2ac9a73"></a>spotbugs-annotations-4.9.8.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l7_13f9ddf33804e6f69e7aa37b0bfd071b1bf397da"></a>spotbugs-annotations-4.10.2.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Annotations the SpotBugs tool supports</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">GNU LESSER GENERAL PUBLIC LICENSE, Version 2.1: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/github/spotbugs/spotbugs-annotations/4.9.8/spotbugs-annotations-4.9.8.jar<br/>
-                            <b>MD5:</b>&nbsp;d4c2e7bd090be697ad409a4e75684a94<br/>
-                            <b>SHA1:</b>&nbsp;ca4a2783a6123e67124fd7feb4caccd2e2ac9a73<br/>
-                            <b>SHA256:</b>6f69d6fe9c55a54dcb30e87d8fa2d5f52246af50d7a3445246d9539ef221be1c
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/github/spotbugs/spotbugs-annotations/4.10.2/spotbugs-annotations-4.10.2.jar<br/>
+                            <b>MD5:</b>&nbsp;a6d1c0f0ee39dcba6841ba2c8059f213<br/>
+                            <b>SHA1:</b>&nbsp;13f9ddf33804e6f69e7aa37b0bfd071b1bf397da<br/>
+                            <b>SHA256:</b>5335e5107c74cdd62ef96a7908066c51abb3de63b1ebf99dc953c2c7d0747678
                                 <br/><b>Referenced In Project/Scope:</b> Java 8 testing:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">spotbugs-annotations-4.9.8.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/java8testing@2.1.1-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">spotbugs-annotations-4.10.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/java8testing@2.2.1-SNAPSHOT
                         </p>
                         <h4 id="header13" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content13" class="subsectioncontent standardsubsection hidden">
@@ -1176,15 +1181,15 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>com.github.spotbugs</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>SpotBugs Annotations</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://spotbugs.github.io/</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.9.8</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>4.9.8</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.9.8</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.10.2</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>4.10.2</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.10.2</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header14" class="subsectionheader white">Identifiers</h4>
                         <div id="content14" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/com.github.spotbugs/spotbugs-annotations@4.9.8
+                                    <li>pkg:maven/com.github.spotbugs/spotbugs-annotations@4.10.2
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
@@ -1205,7 +1210,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
             <br/>
             This report may contain data retrieved from <a href="https://retirejs.github.io/retire.js/">RetireJS</a>.
             <br/>
-            This report may contain data retrieved from the <a href="https://ossindex.sonatype.org">Sonatype OSS Index</a>.
+            This report may contain data retrieved from the <a href="https://www.sonatype.com/products/sonatype-guide/oss-index-users">Sonatype Guide OSS Index API</a>.
         </div>
     </body>
 </html>

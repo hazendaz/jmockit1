@@ -91,9 +91,13 @@
                     }
                 });
                 $('#modal-add-header').click(function () {
-                    xml = '<?xml version="1.0" encoding="UTF-8"?>\n<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">\n   ';
-                    xml += $("#modal-text").text().replace(/\n/g,'\n   ');
-                    xml += '\n</suppressions>';
+                    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.4.xsd"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.4.xsd
+                                  https://dependency-check.github.io/DependencyCheck/dependency-suppression.1.4.xsd">
+    ${$("#modal-text").text().replace(/\n/g,'\n    ')}
+</suppressions>`;
                     $('#modal-add-header').toggleClass('active');
                     $('#modal-text').text(xml).focus().select();
                 });
@@ -139,26 +143,26 @@
             }
             function setCopyText(name, matchType, matchValue, suppressType, suppressVal) {
                 var xml =  '<suppress>\n';
-                xml += '   <notes><!'+'[CDATA[\n   file name: ' + name + '\n   ]]'+'></notes>\n';
+                xml += '    <notes><![CDATA[\n    file name: ' + name + '\n    ]]></notes>\n';
                 if (matchType=='packageUrl') {
                     var v = matchValue.match(/^[^@]+/);
                     if (v && v[0]) {
-                        xml += '   <'+matchType+' regex="true">^' + escapeRegExp(v[0]) + '@.*$</'+matchType+'>\n';
+                        xml += '    <'+matchType+' regex="true">^' + escapeRegExp(v[0]) + '@.*$</'+matchType+'>\n';
                     } else {
-                        xml += '   <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
+                        xml += '    <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
                     }
                 } else {
-                    xml += '   <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
+                    xml += '    <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
                 }
                 if (suppressType=='cpe') {
                     v = suppressVal.match(/^cpe:\/a:[^:]+:[^:]+/);
                     if (v && v[0]) {
-                        xml += '   <'+suppressType+'>' + v[0] + '</'+suppressType+'>\n';
+                        xml += '    <'+suppressType+'>' + v[0] + '</'+suppressType+'>\n';
                     } else {
-                        xml += '   <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
+                        xml += '    <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
                     }
                 } else {
-                    xml += '   <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
+                    xml += '    <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
                 }
                 xml += '</suppress>';
                 $('#modal-text').text(xml);
@@ -265,7 +269,8 @@
             }
             #modal-text {
                 border: 0;
-                overflow: hidden
+                overflow: auto;
+                white-space: pre;
             }
             #modal-text:focus {
                 outline: none;
@@ -652,8 +657,8 @@
         <div id="modal-background"></div>
         <div id="modal-content">
             <div>Press CTR-C to copy XML&nbsp;<a href="https://dependency-check.github.io/DependencyCheck/general/suppression.html" class="infolink" target="_blank" title="Help with suppressing false positives">[help]</a></div>
-                <button id="modal-suppress-change-to-packageUrl" class="modal-button suppresstype" title="Supress by Maven Group Artifact Version">Suppress By GAV</button>
-                <button id="modal-suppress-change-to-sha1" class="modal-button suppresstype" title="Supress by SHA1 hash">Suppress By SHA1</button><br/>
+                <button id="modal-suppress-change-to-packageUrl" class="modal-button suppresstype" title="Supress by Maven Group Artifact Version">Suppress by Package URL</button>
+                <button id="modal-suppress-change-to-sha1" class="modal-button suppresstype" title="Supress by SHA1 hash">Suppress by SHA1</button><br/>
                 <input type="hidden" id="suppress-name"/>
                 <input type="hidden" id="suppress-type"/><input type="hidden" id="suppress-val"/>
                 <input type="hidden" id="suppress-sha1"/><input type="hidden" id="suppress-packageUrl"/>
@@ -673,21 +678,21 @@ arising out of or in connection with the use of this tool, the analysis performe
 Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issues" target="_blank">github issues</a></h3>
 
             <h2 class="">Project:&nbsp;Petclinic Sample</h2>
-            <h4>com.github.hazendaz.jmockit:petclinic:2.1.1-SNAPSHOT</h4>
+            <h4>com.github.hazendaz.jmockit:petclinic:2.2.1-SNAPSHOT</h4>
             <div class="">
 
                 Scan Information (<a href="#" title="Click to toggle display" id="scanInformationToggle">show all</a>):<br/>
                     <ul class="indent">
-                        <li><i>dependency-check version</i>: 12.2.0</li>
-                        <li><i>Report Generated On</i>: Sat, 14 Mar 2026 21:47:34 GMT</li>
+                        <li><i>dependency-check version</i>: 12.2.2</li>
+                        <li><i>Report Generated On</i>: Sun, 14 Jun 2026 02:09:25 GMT</li>
                         <li><i>Dependencies Scanned</i>:&nbsp;33 (33 unique)</li>
                         <li><i>Vulnerable Dependencies</i>:&nbsp;<span id="vulnerableCount">0</span></li>
                         <li><i>Vulnerabilities Found</i>:&nbsp;0</li>
                         <li><i>Vulnerabilities Suppressed</i>:&nbsp;0
                         </li>
                         <li class="scaninfo">...</li>
-                        <li class="scaninfo hidden"><i>NVD API Last Checked</i>: 2026-03-14T21:35:48Z</li>
-                        <li class="scaninfo hidden"><i>NVD API Last Modified</i>: 2026-03-13T21:28:47Z</li>
+                        <li class="scaninfo hidden"><i>NVD API Last Checked</i>: 2026-06-14T01:57:23Z</li>
+                        <li class="scaninfo hidden"><i>NVD API Last Modified</i>: 2026-06-14T00:16:19Z</li>
                     </ul><br/>
 <h2>Summary</h2>
                 <p><span id="tablecaption-plain">Summary of Vulnerable Dependencies </span><a href="#" title="Click to toggle display" id="vulnerabilityDisplayToggle">(click to show all)</a></p>
@@ -703,15 +708,14 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                     </tr></thead>
                     <tr class="notvulnerable">
                         <td data-sort-value="ANGUS-ACTIVATION-2.0.3.JAR"><a href="#l1_7f80607ea5014fef0b1779e6c33d63a88a45a563">angus-activation-2.0.3.jar</a></td>
-                        <td data-sort-value="cpe:2.3:a:eclipse:jakarta_mail:2.0.3:*:*:*:*:*:*:*">
-                                cpe:2.3:a:eclipse:jakarta_mail:2.0.3:*:*:*:*:*:*:*
+                        <td data-sort-value="">
                         </td>
                         <td data-sort-value="pkg:maven/org.eclipse.angus/angus-activation@2.0.3">
                                 pkg:maven/org.eclipse.angus/angus-activation@2.0.3
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
-                        <td data-sort-value="3">Low</td>
+                        <td data-sort-value="0"></td>
                         <td>35</td>
                     </tr>
                     <tr class="notvulnerable">
@@ -727,11 +731,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>30</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="BYTE-BUDDY-1.17.8.JAR"><a href="#l3_af5735f63d00ca47a9375fae5c7471a36331c6ed">byte-buddy-1.17.8.jar</a></td>
+                        <td data-sort-value="BYTE-BUDDY-1.18.8.JAR"><a href="#l3_88ca06016d190f5954569f9d113cd22c96788b0d">byte-buddy-1.18.8.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/net.bytebuddy/byte-buddy@1.17.8">
-                                pkg:maven/net.bytebuddy/byte-buddy@1.17.8
+                        <td data-sort-value="pkg:maven/net.bytebuddy/byte-buddy@1.18.8">
+                                pkg:maven/net.bytebuddy/byte-buddy@1.18.8
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -739,11 +743,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>29</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="CHECKER-QUAL-3.54.0.JAR"><a href="#l4_c3ce292a54faccba14e2a9f3077a4dc05e5770a8">checker-qual-3.54.0.jar</a></td>
+                        <td data-sort-value="CHECKER-QUAL-4.2.0.JAR"><a href="#l4_b4bda44e50dc5b020e6bdf0054ecf1f2329eafd5">checker-qual-4.2.0.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.checkerframework/checker-qual@3.54.0">
-                                pkg:maven/org.checkerframework/checker-qual@3.54.0
+                        <td data-sort-value="pkg:maven/org.checkerframework/checker-qual@4.2.0">
+                                pkg:maven/org.checkerframework/checker-qual@4.2.0
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -763,11 +767,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>52</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="ERROR_PRONE_ANNOTATIONS-2.46.0.JAR"><a href="#l6_4ecb5d2392c38c46e6cb65e1bf60be708d97005d">error_prone_annotations-2.46.0.jar</a></td>
+                        <td data-sort-value="ERROR_PRONE_ANNOTATIONS-2.49.0.JAR"><a href="#l6_8b42a2e3865f6e0576da3fad51dbb96732ff0f14">error_prone_annotations-2.49.0.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/com.google.errorprone/error_prone_annotations@2.46.0">
-                                pkg:maven/com.google.errorprone/error_prone_annotations@2.46.0
+                        <td data-sort-value="pkg:maven/com.google.errorprone/error_prone_annotations@2.49.0">
+                                pkg:maven/com.google.errorprone/error_prone_annotations@2.49.0
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -787,12 +791,12 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>45</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="HIBERNATE-CORE-7.2.6.FINAL.JAR"><a href="#l8_4422a62592b1b73d5552c16ad855d7237885c063">hibernate-core-7.2.6.Final.jar</a></td>
-                        <td data-sort-value="cpe:2.3:a:hibernate:hibernate_orm:7.2.6:*:*:*:*:*:*:*">
-                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Ahibernate%3Ahibernate_orm%3A7.2.6%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:hibernate:hibernate_orm:7.2.6:*:*:*:*:*:*:*</a>
+                        <td data-sort-value="HIBERNATE-CORE-7.4.1.FINAL.JAR"><a href="#l8_b405096e4aa04ff9c99a3e6e632eb2b8d252e1f1">hibernate-core-7.4.1.Final.jar</a></td>
+                        <td data-sort-value="cpe:2.3:a:hibernate:hibernate_orm:7.4.1:*:*:*:*:*:*:*">
+                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Ahibernate%3Ahibernate_orm%3A7.4.1%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:hibernate:hibernate_orm:7.4.1:*:*:*:*:*:*:*</a>
                         </td>
-                        <td data-sort-value="pkg:maven/org.hibernate.orm/hibernate-core@7.2.6.Final">
-                                pkg:maven/org.hibernate.orm/hibernate-core@7.2.6.Final
+                        <td data-sort-value="pkg:maven/org.hibernate.orm/hibernate-core@7.4.1.Final">
+                                pkg:maven/org.hibernate.orm/hibernate-core@7.4.1.Final
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -800,11 +804,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>43</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="HIBERNATE-MODELS-1.0.1.JAR"><a href="#l9_3158c5f9309494b905de62c72f6f02d108aea651">hibernate-models-1.0.1.jar</a></td>
+                        <td data-sort-value="HIBERNATE-MODELS-1.1.1.JAR"><a href="#l9_c890a4cc781fd8720e0e2613b4a24b33cdaa80a1">hibernate-models-1.1.1.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.hibernate.models/hibernate-models@1.0.1">
-                                pkg:maven/org.hibernate.models/hibernate-models@1.0.1
+                        <td data-sort-value="pkg:maven/org.hibernate.models/hibernate-models@1.1.1">
+                                pkg:maven/org.hibernate.models/hibernate-models@1.1.1
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -876,12 +880,12 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>42</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="JAKARTA.EL-API-6.0.0.JAR"><a href="#l15_c937953432d6811ce5a460b6ef90750beecb35c2">jakarta.el-api-6.0.0.jar</a></td>
-                        <td data-sort-value="cpe:2.3:a:eclipse:jakarta_expression_language:6.0.0:*:*:*:*:*:*:*">
-                                cpe:2.3:a:eclipse:jakarta_expression_language:6.0.0:*:*:*:*:*:*:*
+                        <td data-sort-value="JAKARTA.EL-API-6.0.1.JAR"><a href="#l15_c7c4a2eb1e40e0ff45ab5e2e52bd77d8c7a75176">jakarta.el-api-6.0.1.jar</a></td>
+                        <td data-sort-value="cpe:2.3:a:eclipse:jakarta_expression_language:6.0.1:*:*:*:*:*:*:*">
+                                cpe:2.3:a:eclipse:jakarta_expression_language:6.0.1:*:*:*:*:*:*:*
                         </td>
-                        <td data-sort-value="pkg:maven/jakarta.el/jakarta.el-api@6.0.0">
-                                pkg:maven/jakarta.el/jakarta.el-api@6.0.0
+                        <td data-sort-value="pkg:maven/jakarta.el/jakarta.el-api@6.0.1">
+                                pkg:maven/jakarta.el/jakarta.el-api@6.0.1
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -1001,11 +1005,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>58</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="JAKARTA.XML.BIND-API-4.0.4.JAR"><a href="#l25_d6d2327f3817d9a33a3b6b8f2e15a96bc2e7afdc">jakarta.xml.bind-api-4.0.4.jar</a></td>
+                        <td data-sort-value="JAKARTA.XML.BIND-API-4.0.5.JAR"><a href="#l25_161811f36cad3c65991502e80317f2f6703361df">jakarta.xml.bind-api-4.0.5.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/jakarta.xml.bind/jakarta.xml.bind-api@4.0.4">
-                                pkg:maven/jakarta.xml.bind/jakarta.xml.bind-api@4.0.4
+                        <td data-sort-value="pkg:maven/jakarta.xml.bind/jakarta.xml.bind-api@4.0.5">
+                                pkg:maven/jakarta.xml.bind/jakarta.xml.bind-api@4.0.5
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -1013,11 +1017,23 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>31</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="JAXB-CORE-4.0.6.JAR"><a href="#l26_8e61282303777fc98a00cc3affd0560d68748a75">jaxb-core-4.0.6.jar</a></td>
+                        <td data-sort-value="JAXB-CORE-4.0.7.JAR"><a href="#l26_dd1decf15c72a49d8f0b4de2d7ba74a3498c70b9">jaxb-core-4.0.7.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.glassfish.jaxb/jaxb-core@4.0.6">
-                                pkg:maven/org.glassfish.jaxb/jaxb-core@4.0.6
+                        <td data-sort-value="pkg:maven/org.glassfish.jaxb/jaxb-core@4.0.7">
+                                pkg:maven/org.glassfish.jaxb/jaxb-core@4.0.7
+</td>
+                        <td data-sort-value="-10">&nbsp;</td>
+                        <td>0</td>
+                        <td data-sort-value="0"></td>
+                        <td>38</td>
+                    </tr>
+                    <tr class="notvulnerable">
+                        <td data-sort-value="JAXB-RUNTIME-4.0.7.JAR"><a href="#l27_49a0f8e7e3a40fcf3ba812721f682e12bec1878d">jaxb-runtime-4.0.7.jar</a></td>
+                        <td data-sort-value="">
+                        </td>
+                        <td data-sort-value="pkg:maven/org.glassfish.jaxb/jaxb-runtime@4.0.7">
+                                pkg:maven/org.glassfish.jaxb/jaxb-runtime@4.0.7
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -1025,35 +1041,23 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>40</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="JAXB-RUNTIME-4.0.6.JAR"><a href="#l27_fb95ebb62564657b2fedfe165b859789ef3a8711">jaxb-runtime-4.0.6.jar</a></td>
+                        <td data-sort-value="JBOSS-LOGGING-3.6.3.FINAL.JAR"><a href="#l28_1cc9f976725720bb4a66f80af3e3aa6b9890d969">jboss-logging-3.6.3.Final.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.glassfish.jaxb/jaxb-runtime@4.0.6">
-                                pkg:maven/org.glassfish.jaxb/jaxb-runtime@4.0.6
+                        <td data-sort-value="pkg:maven/org.jboss.logging/jboss-logging@3.6.3.Final">
+                                pkg:maven/org.jboss.logging/jboss-logging@3.6.3.Final
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
                         <td data-sort-value="0"></td>
-                        <td>42</td>
+                        <td>41</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="JBOSS-LOGGING-3.6.1.FINAL.JAR"><a href="#l28_886afbb445b4016a37c8960a7aef6ebd769ce7e5">jboss-logging-3.6.1.Final.jar</a></td>
+                        <td data-sort-value="LOMBOK-1.18.46.JAR"><a href="#l29_a5cfe99fdf320e84955ef653f2ce1bf789d11385">lombok-1.18.46.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.jboss.logging/jboss-logging@3.6.1.Final">
-                                pkg:maven/org.jboss.logging/jboss-logging@3.6.1.Final
-</td>
-                        <td data-sort-value="-10">&nbsp;</td>
-                        <td>0</td>
-                        <td data-sort-value="0"></td>
-                        <td>43</td>
-                    </tr>
-                    <tr class="notvulnerable">
-                        <td data-sort-value="LOMBOK-1.18.42.JAR"><a href="#l29_8365263844ebb62398e0dc33057ba10ba472d3b8">lombok-1.18.42.jar</a></td>
-                        <td data-sort-value="">
-                        </td>
-                        <td data-sort-value="pkg:maven/org.projectlombok/lombok@1.18.42">
-                                pkg:maven/org.projectlombok/lombok@1.18.42
+                        <td data-sort-value="pkg:maven/org.projectlombok/lombok@1.18.46">
+                                pkg:maven/org.projectlombok/lombok@1.18.46
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -1061,7 +1065,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>36</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="LOMBOK-1.18.42.JAR: MAVENECJBOOTSTRAPAGENT.JAR"><a href="#l30_e1f7f1779f40157fd0b984c1bc32a0cb45cae66e">lombok-1.18.42.jar: mavenEcjBootstrapAgent.jar</a></td>
+                        <td data-sort-value="LOMBOK-1.18.46.JAR: MAVENECJBOOTSTRAPAGENT.JAR"><a href="#l30_4b03ce7b33d535b42e4a84e106c3647760eb8769">lombok-1.18.46.jar: mavenEcjBootstrapAgent.jar</a></td>
                         <td data-sort-value="">
                         </td>
                         <td data-sort-value="">
@@ -1072,11 +1076,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>7</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="MODERNIZER-MAVEN-ANNOTATIONS-3.2.0.JAR"><a href="#l31_23a99089ff682152e86ab1691a8232db325def09">modernizer-maven-annotations-3.2.0.jar</a></td>
+                        <td data-sort-value="MODERNIZER-MAVEN-ANNOTATIONS-3.4.0.JAR"><a href="#l31_9deb15aa2a3a725be971c8bbb4b560d0d096fca9">modernizer-maven-annotations-3.4.0.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.gaul/modernizer-maven-annotations@3.2.0">
-                                pkg:maven/org.gaul/modernizer-maven-annotations@3.2.0
+                        <td data-sort-value="pkg:maven/org.gaul/modernizer-maven-annotations@3.4.0">
+                                pkg:maven/org.gaul/modernizer-maven-annotations@3.4.0
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -1084,11 +1088,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>19</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="SPOTBUGS-ANNOTATIONS-4.9.8.JAR"><a href="#l32_ca4a2783a6123e67124fd7feb4caccd2e2ac9a73">spotbugs-annotations-4.9.8.jar</a></td>
+                        <td data-sort-value="SPOTBUGS-ANNOTATIONS-4.10.2.JAR"><a href="#l32_13f9ddf33804e6f69e7aa37b0bfd071b1bf397da">spotbugs-annotations-4.10.2.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/com.github.spotbugs/spotbugs-annotations@4.9.8">
-                                pkg:maven/com.github.spotbugs/spotbugs-annotations@4.9.8
+                        <td data-sort-value="pkg:maven/com.github.spotbugs/spotbugs-annotations@4.10.2">
+                                pkg:maven/com.github.spotbugs/spotbugs-annotations@4.10.2
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -1096,16 +1100,16 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>53</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="TXW2-4.0.6.JAR"><a href="#l33_4f4cd53b5ff9a2c5aa1211f15ed2569c57dfb044">txw2-4.0.6.jar</a></td>
+                        <td data-sort-value="TXW2-4.0.7.JAR"><a href="#l33_a02be508a065d5fed3d4fedf7ddc4f17cad68992">txw2-4.0.7.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.glassfish.jaxb/txw2@4.0.6">
-                                pkg:maven/org.glassfish.jaxb/txw2@4.0.6
+                        <td data-sort-value="pkg:maven/org.glassfish.jaxb/txw2@4.0.7">
+                                pkg:maven/org.glassfish.jaxb/txw2@4.0.7
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
                         <td data-sort-value="0"></td>
-                        <td>34</td>
+                        <td>29</td>
                     </tr>
                 </table>
                 <h2 id="header-dependencies">Dependencies (vulnerable)</h2>
@@ -1119,7 +1123,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                             <b>SHA1:</b>&nbsp;7f80607ea5014fef0b1779e6c33d63a88a45a563<br/>
                             <b>SHA256:</b>a6bd35c538cf90fff941ad6258c40c08fca0b5c9c3f536c657114f27ce0527a7
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:runtime
-                                <br/><span class="tooltip"><span class="tooltiptext">angus-activation-2.0.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.hibernate.orm/hibernate-core@7.2.6.Final
+                                <br/><span class="tooltip"><span class="tooltiptext">angus-activation-2.0.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.hibernate.orm/hibernate-core@7.4.1.Final
                         </p>
                         <h4 id="header1" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content1" class="subsectioncontent standardsubsection hidden">
@@ -1168,10 +1172,6 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <li>pkg:maven/org.eclipse.angus/angus-activation@2.0.3
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
-                                <li>cpe:2.3:a:eclipse:jakarta_mail:2.0.3:*:*:*:*:*:*:*
-                                    &nbsp;&nbsp;(<i>Confidence</i>:Low)
-                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="angus-activation-2.0.3.jar" data-sha1="7f80607ea5014fef0b1779e6c33d63a88a45a563" data-pkgurl="pkg:maven/org.eclipse.angus/angus-activation@2.0.3" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:eclipse:jakarta_mail">suppress</button>
-                            </li>
                             </ul>
                         </div>
                 </div>
@@ -1185,7 +1185,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                             <b>SHA1:</b>&nbsp;fc3db6d844df652a3d5db31c87fa12757f13691d<br/>
                             <b>SHA256:</b>dd3e8a13a2d669bf84fb8d834de35ce4875f27157698d206241ec8488aadcaf7
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:runtime
-                                <br/><span class="tooltip"><span class="tooltiptext">antlr4-runtime-4.13.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.hibernate.orm/hibernate-core@7.2.6.Final
+                                <br/><span class="tooltip"><span class="tooltiptext">antlr4-runtime-4.13.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.hibernate.orm/hibernate-core@7.4.1.Final
                         </p>
                         <h4 id="header3" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content3" class="subsectioncontent standardsubsection hidden">
@@ -1232,7 +1232,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l3_af5735f63d00ca47a9375fae5c7471a36331c6ed"></a>byte-buddy-1.17.8.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l3_88ca06016d190f5954569f9d113cd22c96788b0d"></a>byte-buddy-1.18.8.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>
         Byte Buddy is a Java library for creating Java classes at run time.
@@ -1240,12 +1240,12 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
     </pre></p>
                         <p>
                             <b>License:</b><pre class="indent"><a href="https://www.apache.org/licenses/LICENSE-2.0.txt">https://www.apache.org/licenses/LICENSE-2.0.txt</a></pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/bytebuddy/byte-buddy/1.17.8/byte-buddy-1.17.8.jar<br/>
-                            <b>MD5:</b>&nbsp;ac7292226046cb7206b349e21affecfe<br/>
-                            <b>SHA1:</b>&nbsp;af5735f63d00ca47a9375fae5c7471a36331c6ed<br/>
-                            <b>SHA256:</b>2b5ddc8c1f4234bdb7cb45338a8e10a13e0e3ca473e91d5d821d681127ea8ba1
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/net/bytebuddy/byte-buddy/1.18.8/byte-buddy-1.18.8.jar<br/>
+                            <b>MD5:</b>&nbsp;678cf379f8ddb3da5ee10340365ff37e<br/>
+                            <b>SHA1:</b>&nbsp;88ca06016d190f5954569f9d113cd22c96788b0d<br/>
+                            <b>SHA256:</b>227d3e0ad51915809143f6a744ac0f4cb21f03214dab28e52ee7007c5ad7e9d9
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:runtime
-                                <br/><span class="tooltip"><span class="tooltiptext">byte-buddy-1.17.8.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.hibernate.orm/hibernate-core@7.2.6.Final
+                                <br/><span class="tooltip"><span class="tooltiptext">byte-buddy-1.18.8.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.hibernate.orm/hibernate-core@7.4.1.Final
                         </p>
                         <h4 id="header5" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content5" class="subsectioncontent standardsubsection hidden">
@@ -1277,31 +1277,31 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>net.bytebuddy</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Byte Buddy (without dependencies)</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>parent-artifactid</td><td>byte-buddy-parent</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>1.17.8</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>1.17.8</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>1.17.8</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>1.18.8</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>1.18.8</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>1.18.8</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header6" class="subsectionheader white">Identifiers</h4>
                         <div id="content6" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/net.bytebuddy/byte-buddy@1.17.8
+                                    <li>pkg:maven/net.bytebuddy/byte-buddy@1.18.8
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l4_c3ce292a54faccba14e2a9f3077a4dc05e5770a8"></a>checker-qual-3.54.0.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l4_b4bda44e50dc5b020e6bdf0054ecf1f2329eafd5"></a>checker-qual-4.2.0.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>checker-qual contains annotations (type qualifiers) that a programmerwrites to specify Java code for type-checking by the Checker Framework.</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">The MIT License: https://opensource.org/licenses/MIT</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/checkerframework/checker-qual/3.54.0/checker-qual-3.54.0.jar<br/>
-                            <b>MD5:</b>&nbsp;6c37e1dfa8c74da0e2284d4ab6760b44<br/>
-                            <b>SHA1:</b>&nbsp;c3ce292a54faccba14e2a9f3077a4dc05e5770a8<br/>
-                            <b>SHA256:</b>20b88b0fe12233933f3c88848c276758da1c14bafe5c686ad21e2eb6abc8c4cb
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/checkerframework/checker-qual/4.2.0/checker-qual-4.2.0.jar<br/>
+                            <b>MD5:</b>&nbsp;91875f065ec9f5bb8bb31a70f10416aa<br/>
+                            <b>SHA1:</b>&nbsp;b4bda44e50dc5b020e6bdf0054ecf1f2329eafd5<br/>
+                            <b>SHA256:</b>30bb4494b13f41cbd1502b094caafeb2b1d1f347311c72e7c74f83160acbdf0e
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">checker-qual-3.54.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.1.1-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">checker-qual-4.2.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.2.1-SNAPSHOT
                         </p>
                         <h4 id="header7" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content7" class="subsectioncontent standardsubsection hidden">
@@ -1347,16 +1347,16 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.checkerframework</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Checker Qual</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://checkerframework.org/</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>3.54.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>3.54.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>3.54.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>3.54.0</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.2.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>4.2.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>4.2.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.2.0</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header8" class="subsectionheader white">Identifiers</h4>
                         <div id="content8" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.checkerframework/checker-qual@3.54.0
+                                    <li>pkg:maven/org.checkerframework/checker-qual@4.2.0
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
@@ -1374,7 +1374,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                             <b>SHA1:</b>&nbsp;e803194e4362a2c0585087c5f315682897d12f00<br/>
                             <b>SHA256:</b>cc3299e5df4fc24180e69477c890d07d38db79dd2decc0ef20e74a986897c0a1
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">classmate-1.7.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.hibernate.orm/hibernate-core@7.2.6.Final
+                                <br/><span class="tooltip"><span class="tooltiptext">classmate-1.7.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.hibernate.validator/hibernate-validator@9.1.0.Final
                         </p>
                         <h4 id="header9" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content9" class="subsectioncontent standardsubsection hidden">
@@ -1443,17 +1443,17 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l6_4ecb5d2392c38c46e6cb65e1bf60be708d97005d"></a>error_prone_annotations-2.46.0.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l6_8b42a2e3865f6e0576da3fad51dbb96732ff0f14"></a>error_prone_annotations-2.49.0.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Error Prone is a static analysis tool for Java that catches common programming mistakes at compile-time.</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/google/errorprone/error_prone_annotations/2.46.0/error_prone_annotations-2.46.0.jar<br/>
-                            <b>MD5:</b>&nbsp;d0dabea249c067d21d7eb997fbdf5c99<br/>
-                            <b>SHA1:</b>&nbsp;4ecb5d2392c38c46e6cb65e1bf60be708d97005d<br/>
-                            <b>SHA256:</b>b67be81ff4b956401146e14eaf1526bc435a9480f2546e91eb45b796631a8a99
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/google/errorprone/error_prone_annotations/2.49.0/error_prone_annotations-2.49.0.jar<br/>
+                            <b>MD5:</b>&nbsp;f15f20dc5df752e2c0f8e37f7cdd9b1d<br/>
+                            <b>SHA1:</b>&nbsp;8b42a2e3865f6e0576da3fad51dbb96732ff0f14<br/>
+                            <b>SHA256:</b>3b1003e51b8ae56fdbd7c71073e81d1683b97e6c4dff5a9151164d59b769d13c
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">error_prone_annotations-2.46.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.1.1-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">error_prone_annotations-2.49.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.2.1-SNAPSHOT
                         </p>
                         <h4 id="header11" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content11" class="subsectioncontent standardsubsection hidden">
@@ -1485,15 +1485,15 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>com.google.errorprone</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>error-prone annotations</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>parent-artifactid</td><td>error_prone_parent</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>2.46.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>2.46.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>2.46.0</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>2.49.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>2.49.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>2.49.0</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header12" class="subsectionheader white">Identifiers</h4>
                         <div id="content12" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/com.google.errorprone/error_prone_annotations@2.46.0
+                                    <li>pkg:maven/com.google.errorprone/error_prone_annotations@2.49.0
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
@@ -1509,7 +1509,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                             <b>SHA1:</b>&nbsp;0524fa43fa48fc68fb62604cf14ce71b31caf7c0<br/>
                             <b>SHA256:</b>86ee67c7040278bac5204b571f738b8b859f014ceb5f896bd935bacbdaf33cb9
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">expressly-6.0.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.1.1-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">expressly-6.0.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.2.1-SNAPSHOT
                         </p>
                         <h4 id="header13" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content13" class="subsectioncontent standardsubsection hidden">
@@ -1571,17 +1571,17 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l8_4422a62592b1b73d5552c16ad855d7237885c063"></a>hibernate-core-7.2.6.Final.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l8_b405096e4aa04ff9c99a3e6e632eb2b8d252e1f1"></a>hibernate-core-7.4.1.Final.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Hibernate's core ORM functionality</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">Apache License, Version 2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/hibernate/orm/hibernate-core/7.2.6.Final/hibernate-core-7.2.6.Final.jar<br/>
-                            <b>MD5:</b>&nbsp;8540bff1aa0fd10eacfc792ce444580a<br/>
-                            <b>SHA1:</b>&nbsp;4422a62592b1b73d5552c16ad855d7237885c063<br/>
-                            <b>SHA256:</b>b583d057f6c1ceca683078835bad5fe1430f569b85ffa17f77273d96ff50fb16
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/hibernate/orm/hibernate-core/7.4.1.Final/hibernate-core-7.4.1.Final.jar<br/>
+                            <b>MD5:</b>&nbsp;aa284ba1f033426944be07a7435f493c<br/>
+                            <b>SHA1:</b>&nbsp;b405096e4aa04ff9c99a3e6e632eb2b8d252e1f1<br/>
+                            <b>SHA256:</b>e4bfe7df423f3555f322eefb1ab51f28df439844610ef76c36d92a85d483004e
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">hibernate-core-7.2.6.Final.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.1.1-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">hibernate-core-7.4.1.Final.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.2.1-SNAPSHOT
                         </p>
                         <h4 id="header15" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content15" class="subsectioncontent standardsubsection hidden">
@@ -1591,7 +1591,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Vendor</td><td>hint analyzer</td><td>vendor</td><td>redhat</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>jar</td><td>package name</td><td>hibernate</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>automatic-module-name</td><td>org.hibernate.orm.core</td><td>Medium</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>bundle-docurl</td><td>https://hibernate.org/orm/releases/7.2</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>bundle-docurl</td><td>https://hibernate.org/orm/releases/7.4</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-symbolicname</td><td>org.hibernate.orm.core</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>implementation-url</td><td>https://hibernate.org/orm</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>Implementation-Vendor</td><td>Hibernate.org</td><td>High</td></tr>
@@ -1611,7 +1611,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>file</td><td>name</td><td>hibernate-core</td><td>High</td></tr>
                                     <tr><td>Product</td><td>jar</td><td>package name</td><td>hibernate</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>automatic-module-name</td><td>org.hibernate.orm.core</td><td>Medium</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>bundle-docurl</td><td>https://hibernate.org/orm/releases/7.2</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>bundle-docurl</td><td>https://hibernate.org/orm/releases/7.4</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>Bundle-Name</td><td>hibernate-core</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-symbolicname</td><td>org.hibernate.orm.core</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>Implementation-Title</td><td>hibernate-core</td><td>High</td></tr>
@@ -1627,35 +1627,35 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>pom</td><td>organization name</td><td>Hibernate.org</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>organization url</td><td>https://hibernate.org</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://hibernate.org/orm</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>7.2.6.Final</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>7.2.6.Final</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>7.2.6.Final</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>7.4.1.Final</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>7.4.1.Final</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>7.4.1.Final</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header16" class="subsectionheader white">Identifiers</h4>
                         <div id="content16" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.hibernate.orm/hibernate-core@7.2.6.Final
+                                    <li>pkg:maven/org.hibernate.orm/hibernate-core@7.4.1.Final
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
-                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Ahibernate%3Ahibernate_orm%3A7.2.6%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:hibernate:hibernate_orm:7.2.6:*:*:*:*:*:*:*</a>
+                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Ahibernate%3Ahibernate_orm%3A7.4.1%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:hibernate:hibernate_orm:7.4.1:*:*:*:*:*:*:*</a>
                                     &nbsp;&nbsp;(<i>Confidence</i>:Highest)
-                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="hibernate-core-7.2.6.Final.jar" data-sha1="4422a62592b1b73d5552c16ad855d7237885c063" data-pkgurl="pkg:maven/org.hibernate.orm/hibernate-core@7.2.6.Final" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:hibernate:hibernate_orm">suppress</button>
+                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="hibernate-core-7.4.1.Final.jar" data-sha1="b405096e4aa04ff9c99a3e6e632eb2b8d252e1f1" data-pkgurl="pkg:maven/org.hibernate.orm/hibernate-core@7.4.1.Final" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:hibernate:hibernate_orm">suppress</button>
                             </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l9_3158c5f9309494b905de62c72f6f02d108aea651"></a>hibernate-models-1.0.1.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l9_c890a4cc781fd8720e0e2613b4a24b33cdaa80a1"></a>hibernate-models-1.1.1.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>A de-typed abstraction over reflection and annotations</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">Apache License Version 2.0: http://www.apache.org/licenses/</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/hibernate/models/hibernate-models/1.0.1/hibernate-models-1.0.1.jar<br/>
-                            <b>MD5:</b>&nbsp;911e7ad11382712f0869328465937718<br/>
-                            <b>SHA1:</b>&nbsp;3158c5f9309494b905de62c72f6f02d108aea651<br/>
-                            <b>SHA256:</b>bdb42c4979001742ebc098f3b206dd1057dc93be55c50a31c3f027d3eed06412
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/hibernate/models/hibernate-models/1.1.1/hibernate-models-1.1.1.jar<br/>
+                            <b>MD5:</b>&nbsp;bfdc23cef68eaa53fc308edb20a46264<br/>
+                            <b>SHA1:</b>&nbsp;c890a4cc781fd8720e0e2613b4a24b33cdaa80a1<br/>
+                            <b>SHA256:</b>7cb645f2ebe5fcb63e21d26259cef62d93a1ca77c400bda6992c92cb19826a89
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:runtime
-                                <br/><span class="tooltip"><span class="tooltiptext">hibernate-models-1.0.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.hibernate.orm/hibernate-core@7.2.6.Final
+                                <br/><span class="tooltip"><span class="tooltiptext">hibernate-models-1.1.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.hibernate.orm/hibernate-core@7.4.1.Final
                         </p>
                         <h4 id="header17" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content17" class="subsectioncontent standardsubsection hidden">
@@ -1691,14 +1691,14 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>pom</td><td>organization name</td><td>Hibernate.org</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>organization url</td><td>https://hibernate.org</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>hibernate/hibernate-models</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>1.0.1</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>1.0.1</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>1.1.1</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>1.1.1</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header18" class="subsectionheader white">Identifiers</h4>
                         <div id="content18" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.hibernate.models/hibernate-models@1.0.1
+                                    <li>pkg:maven/org.hibernate.models/hibernate-models@1.1.1
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
@@ -1714,7 +1714,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                             <b>SHA1:</b>&nbsp;53505ad984428ab42b4a4f3456aab9ec343bf2f2<br/>
                             <b>SHA256:</b>4dea20c780d12e8ad6e1fe7d695460af74f8668df9eb58910991919194412188
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">hibernate-validator-9.1.0.Final.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.1.1-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">hibernate-validator-9.1.0.Final.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.2.1-SNAPSHOT
                         </p>
                         <h4 id="header19" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content19" class="subsectioncontent standardsubsection hidden">
@@ -1827,7 +1827,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                             <b>SHA1:</b>&nbsp;18ec117c85f3ba0ac65409136afa8e42bc74e739<br/>
                             <b>SHA256:</b>7fd6792361f4dd00f8c56af4a20cecc0066deea4a8f3dec38348af23fc2296ee
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:runtime
-                                <br/><span class="tooltip"><span class="tooltiptext">istack-commons-runtime-4.1.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.hibernate.orm/hibernate-core@7.2.6.Final
+                                <br/><span class="tooltip"><span class="tooltiptext">istack-commons-runtime-4.1.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.hibernate.orm/hibernate-core@7.4.1.Final
                         </p>
                         <h4 id="header21" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content21" class="subsectioncontent standardsubsection hidden">
@@ -1886,7 +1886,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                             <b>SHA1:</b>&nbsp;a892ca9507839bbdb900d64310ac98256cab992f<br/>
                             <b>SHA256:</b>84d3a150518485f8140ea99b8a985656749629f6433c92b80c75b36aba3b099b
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">j2objc-annotations-3.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.1.1-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">j2objc-annotations-3.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.2.1-SNAPSHOT
                         </p>
                         <h4 id="header23" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content23" class="subsectioncontent standardsubsection hidden">
@@ -1946,7 +1946,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                             <b>SHA1:</b>&nbsp;9e5c2a0d75dde71a0bedc4dbdbe47b78a5dc50f8<br/>
                             <b>SHA256:</b>c9db52100ce6c8aac95cc39075f95720d2e561b11f8051b81c121ad4effd7004
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:runtime
-                                <br/><span class="tooltip"><span class="tooltiptext">jakarta.activation-api-2.1.4.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.hibernate.orm/hibernate-core@7.2.6.Final
+                                <br/><span class="tooltip"><span class="tooltiptext">jakarta.activation-api-2.1.4.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.hibernate.orm/hibernate-core@7.4.1.Final
                         </p>
                         <h4 id="header25" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content25" class="subsectioncontent standardsubsection hidden">
@@ -2082,19 +2082,19 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l15_c937953432d6811ce5a460b6ef90750beecb35c2"></a>jakarta.el-api-6.0.0.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l15_c7c4a2eb1e40e0ff45ab5e2e52bd77d8c7a75176"></a>jakarta.el-api-6.0.1.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>
         Jakarta Expression Language defines an expression language for Java applications
     </pre></p>
                         <p>
                             <b>License:</b><pre class="indent"><a href="https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.txt, https://www.gnu.org/software/classpath/license.html">https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.txt, https://www.gnu.org/software/classpath/license.html</a></pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/jakarta/el/jakarta.el-api/6.0.0/jakarta.el-api-6.0.0.jar<br/>
-                            <b>MD5:</b>&nbsp;248086411e850bb59dac502ee785c6b0<br/>
-                            <b>SHA1:</b>&nbsp;c937953432d6811ce5a460b6ef90750beecb35c2<br/>
-                            <b>SHA256:</b>f33d0becf2d5516730ba5cc99a7b5a2b1f62986bf0a3370249cdff9a2f171507
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/jakarta/el/jakarta.el-api/6.0.1/jakarta.el-api-6.0.1.jar<br/>
+                            <b>MD5:</b>&nbsp;a98f097e059552a75748fcdd067e5c16<br/>
+                            <b>SHA1:</b>&nbsp;c7c4a2eb1e40e0ff45ab5e2e52bd77d8c7a75176<br/>
+                            <b>SHA256:</b>7e84b5bed49de32b79cc5e85d90b6f5adb1a953ac67283adbb41c1e297f9c605
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">jakarta.el-api-6.0.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/jakarta.enterprise/jakarta.enterprise.cdi-api@4.1.0
+                                <br/><span class="tooltip"><span class="tooltiptext">jakarta.el-api-6.0.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.2.1-SNAPSHOT
                         </p>
                         <h4 id="header29" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content29" class="subsectioncontent standardsubsection hidden">
@@ -2140,22 +2140,22 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Product</td><td>pom</td><td>parent-artifactid</td><td>project</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>parent-groupid</td><td>org.eclipse.ee4j</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://projects.eclipse.org/projects/ee4j.el</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>6.0.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>6.0.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>6.0.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>parent-version</td><td>6.0.0</td><td>Low</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>6.0.0</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>6.0.1</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>6.0.1</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>6.0.1</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>parent-version</td><td>6.0.1</td><td>Low</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>6.0.1</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header30" class="subsectionheader white">Identifiers</h4>
                         <div id="content30" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/jakarta.el/jakarta.el-api@6.0.0
+                                    <li>pkg:maven/jakarta.el/jakarta.el-api@6.0.1
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
-                                <li>cpe:2.3:a:eclipse:jakarta_expression_language:6.0.0:*:*:*:*:*:*:*
+                                <li>cpe:2.3:a:eclipse:jakarta_expression_language:6.0.1:*:*:*:*:*:*:*
                                     &nbsp;&nbsp;(<i>Confidence</i>:Low)
-                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="jakarta.el-api-6.0.0.jar" data-sha1="c937953432d6811ce5a460b6ef90750beecb35c2" data-pkgurl="pkg:maven/jakarta.el/jakarta.el-api@6.0.0" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:eclipse:jakarta_expression_language">suppress</button>
+                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="jakarta.el-api-6.0.1.jar" data-sha1="c7c4a2eb1e40e0ff45ab5e2e52bd77d8c7a75176" data-pkgurl="pkg:maven/jakarta.el/jakarta.el-api@6.0.1" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:eclipse:jakarta_expression_language">suppress</button>
                             </li>
                             </ul>
                         </div>
@@ -2170,7 +2170,7 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                             <b>SHA1:</b>&nbsp;fed9518709d33252bfe0817fe61ad4dfd1b2e848<br/>
                             <b>SHA256:</b>c42c808f17925129a0800f618febe050d966e181a4c7384c8a5e7a0283d68699
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">jakarta.enterprise.cdi-api-4.1.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.1.1-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">jakarta.enterprise.cdi-api-4.1.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.2.1-SNAPSHOT
                         </p>
                         <h4 id="header31" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content31" class="subsectioncontent standardsubsection hidden">
@@ -2335,7 +2335,7 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                             <b>SHA1:</b>&nbsp;fce1ece1f71967d04218bb68e0bddedd22569f1b<br/>
                             <b>SHA256:</b>1fe1895697ba9f189b1c86b0c732964eadeee76ded5e22ccd198bb85aac257cb
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">jakarta.faces-api-4.1.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.1.1-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">jakarta.faces-api-4.1.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.2.1-SNAPSHOT
                         </p>
                         <h4 id="header35" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content35" class="subsectioncontent standardsubsection hidden">
@@ -2563,7 +2563,7 @@ Eclipse Distribution License v. 1.0: http://www.eclipse.org/org/documents/edl-v1
                             <b>SHA1:</b>&nbsp;bb75a113f3fa191c2c7ee7b206d8e674251b3129<br/>
                             <b>SHA256:</b>be8a26b0e75c84c1b7600f759256fbc68d60333d89ec0ce3f784fc3ffa09aa8c
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">jakarta.persistence-api-3.2.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.1.1-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">jakarta.persistence-api-3.2.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.2.1-SNAPSHOT
                         </p>
                         <h4 id="header41" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content41" class="subsectioncontent standardsubsection hidden">
@@ -2631,7 +2631,7 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                             <b>SHA1:</b>&nbsp;1169a246913fe3823782af7943e7a103634867c5<br/>
                             <b>SHA256:</b>8a31f465f3593bf2351531a5c952014eb839da96a605b5825b93dd54714c48c4
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">jakarta.servlet-api-6.1.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.1.1-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">jakarta.servlet-api-6.1.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.2.1-SNAPSHOT
                         </p>
                         <h4 id="header43" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content43" class="subsectioncontent standardsubsection hidden">
@@ -2707,7 +2707,7 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                             <b>SHA1:</b>&nbsp;51a520e3fae406abb84e2e1148e6746ce3f80a1a<br/>
                             <b>SHA256:</b>50c0a7c760c13ae6c042acf182b28f0047413db95b4636fb8879bcffab5ba875
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">jakarta.transaction-api-2.0.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.1.1-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">jakarta.transaction-api-2.0.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.2.1-SNAPSHOT
                         </p>
                         <h4 id="header45" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content45" class="subsectioncontent standardsubsection hidden">
@@ -2790,7 +2790,7 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                             <b>SHA1:</b>&nbsp;ec8622148afc5564235d17af80ea80288d0e7f92<br/>
                             <b>SHA256:</b>63ce00156388c365f3ac1be71fcfaf114682fc0c452020b5df6e7ec236e142ab
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">jakarta.validation-api-3.1.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.1.1-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">jakarta.validation-api-3.1.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.2.1-SNAPSHOT
                         </p>
                         <h4 id="header47" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content47" class="subsectioncontent standardsubsection hidden">
@@ -2865,17 +2865,17 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l25_d6d2327f3817d9a33a3b6b8f2e15a96bc2e7afdc"></a>jakarta.xml.bind-api-4.0.4.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l25_161811f36cad3c65991502e80317f2f6703361df"></a>jakarta.xml.bind-api-4.0.5.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Jakarta XML Binding API 4.0 Design Specification</pre></p>
                         <p>
                             <b>License:</b><pre class="indent"><a href="http://www.eclipse.org/org/documents/edl-v10.php">http://www.eclipse.org/org/documents/edl-v10.php</a></pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/4.0.4/jakarta.xml.bind-api-4.0.4.jar<br/>
-                            <b>MD5:</b>&nbsp;6dd465a232e545193ab8ab77cc4fbdb9<br/>
-                            <b>SHA1:</b>&nbsp;d6d2327f3817d9a33a3b6b8f2e15a96bc2e7afdc<br/>
-                            <b>SHA256:</b>c507ca69a8c6dd11bf4afeec9e0d412c4fa3933fffb0a84680ea5727e8472124
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/4.0.5/jakarta.xml.bind-api-4.0.5.jar<br/>
+                            <b>MD5:</b>&nbsp;935053b2c792f34c7ea3a238ea96f3ac<br/>
+                            <b>SHA1:</b>&nbsp;161811f36cad3c65991502e80317f2f6703361df<br/>
+                            <b>SHA256:</b>5e489b6c874c4119e003ff1403db523ee3a8959ec499f3de29e77245efccf216
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:runtime
-                                <br/><span class="tooltip"><span class="tooltiptext">jakarta.xml.bind-api-4.0.4.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.hibernate.orm/hibernate-core@7.2.6.Final
+                                <br/><span class="tooltip"><span class="tooltiptext">jakarta.xml.bind-api-4.0.5.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.hibernate.orm/hibernate-core@7.4.1.Final
                         </p>
                         <h4 id="header49" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content49" class="subsectioncontent standardsubsection hidden">
@@ -2888,7 +2888,7 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-docurl</td><td>https://www.eclipse.org</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-symbolicname</td><td>jakarta.xml.bind-api</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>extension-name</td><td>jakarta.xml.bind</td><td>Medium</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>implementation-build-id</td><td>1df980a</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>implementation-build-id</td><td>33af600</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>specification-vendor</td><td>Eclipse Foundation</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>artifactid</td><td>jakarta.xml.bind-api</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>artifactid</td><td>jakarta.xml.bind-api</td><td>Low</td></tr>
@@ -2903,37 +2903,37 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Product</td><td>Manifest</td><td>Bundle-Name</td><td>Jakarta XML Binding API</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-symbolicname</td><td>jakarta.xml.bind-api</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>extension-name</td><td>jakarta.xml.bind</td><td>Medium</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>implementation-build-id</td><td>1df980a</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>implementation-build-id</td><td>33af600</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>artifactid</td><td>jakarta.xml.bind-api</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>jakarta.xml.bind</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Jakarta XML Binding API</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>parent-artifactid</td><td>jakarta.xml.bind-api-parent</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.0.4</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>4.0.4</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>4.0.4</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.0.4</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.0.5</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>4.0.5</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>4.0.5</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.0.5</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header50" class="subsectionheader white">Identifiers</h4>
                         <div id="content50" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/jakarta.xml.bind/jakarta.xml.bind-api@4.0.4
+                                    <li>pkg:maven/jakarta.xml.bind/jakarta.xml.bind-api@4.0.5
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l26_8e61282303777fc98a00cc3affd0560d68748a75"></a>jaxb-core-4.0.6.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l26_dd1decf15c72a49d8f0b4de2d7ba74a3498c70b9"></a>jaxb-core-4.0.7.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>JAXB Core module. Contains sources required by XJC, JXC and Runtime modules.</pre></p>
                         <p>
                             <b>License:</b><pre class="indent"><a href="http://www.eclipse.org/org/documents/edl-v10.php">http://www.eclipse.org/org/documents/edl-v10.php</a></pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/glassfish/jaxb/jaxb-core/4.0.6/jaxb-core-4.0.6.jar<br/>
-                            <b>MD5:</b>&nbsp;e36c915cf47342b4fe31ffba3407b928<br/>
-                            <b>SHA1:</b>&nbsp;8e61282303777fc98a00cc3affd0560d68748a75<br/>
-                            <b>SHA256:</b>ebbd274207b4860d0dc6e2d44d6dbdb5945cede01222d2e50661d45f5d46c0f7
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/glassfish/jaxb/jaxb-core/4.0.7/jaxb-core-4.0.7.jar<br/>
+                            <b>MD5:</b>&nbsp;1eae694cb47929334ca6c21acbf6f7c5<br/>
+                            <b>SHA1:</b>&nbsp;dd1decf15c72a49d8f0b4de2d7ba74a3498c70b9<br/>
+                            <b>SHA256:</b>f29af5c37592c3a06a912da8cdf1d16036e6ca6d4eed9be6f7670e60fa466601
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:runtime
-                                <br/><span class="tooltip"><span class="tooltiptext">jaxb-core-4.0.6.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.hibernate.orm/hibernate-core@7.2.6.Final
+                                <br/><span class="tooltip"><span class="tooltiptext">jaxb-core-4.0.7.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.hibernate.orm/hibernate-core@7.4.1.Final
                         </p>
                         <h4 id="header51" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content51" class="subsectioncontent standardsubsection hidden">
@@ -2945,8 +2945,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Vendor</td><td>jar</td><td>package name</td><td>jaxb</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-docurl</td><td>https://www.eclipse.org</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-symbolicname</td><td>org.glassfish.jaxb.core</td><td>Medium</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>git-revision</td><td>0dcfdf5</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>implementation-build-id</td><td>4.0.6 - 0dcfdf5</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>git-revision</td><td>e689394</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>implementation-build-id</td><td>4.0.7 - e689394</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>Implementation-Vendor</td><td>Eclipse Foundation</td><td>High</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>Implementation-Vendor-Id</td><td>org.glassfish.jaxb</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>specification-vendor</td><td>Eclipse Foundation</td><td>Low</td></tr>
@@ -2955,7 +2955,6 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Vendor</td><td>pom</td><td>groupid</td><td>org.glassfish.jaxb</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>name</td><td>JAXB Core</td><td>High</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>parent-artifactid</td><td>jaxb-parent</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>pom</td><td>parent-groupid</td><td>com.sun.xml.bind.mvn</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>url</td><td>https://eclipse-ee4j.github.io/jaxb-ri/</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>file</td><td>name</td><td>jaxb-core</td><td>High</td></tr>
                                     <tr><td>Product</td><td>jar</td><td>package name</td><td>core</td><td>Highest</td></tr>
@@ -2964,43 +2963,42 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-docurl</td><td>https://www.eclipse.org</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>Bundle-Name</td><td>JAXB Core</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-symbolicname</td><td>org.glassfish.jaxb.core</td><td>Medium</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>git-revision</td><td>0dcfdf5</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>implementation-build-id</td><td>4.0.6 - 0dcfdf5</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>git-revision</td><td>e689394</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>implementation-build-id</td><td>4.0.7 - e689394</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>Implementation-Title</td><td>Eclipse Implementation of JAXB</td><td>High</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>specification-title</td><td>Jakarta XML Binding</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>artifactid</td><td>jaxb-core</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.glassfish.jaxb</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>JAXB Core</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>parent-artifactid</td><td>jaxb-parent</td><td>Medium</td></tr>
-                                    <tr><td>Product</td><td>pom</td><td>parent-groupid</td><td>com.sun.xml.bind.mvn</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://eclipse-ee4j.github.io/jaxb-ri/</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.0.6</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>build-version</td><td>4.0.6</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>4.0.6</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>implementation-build-id</td><td>4.0.6</td><td>Low</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.0.6</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.0.7</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>build-version</td><td>4.0.7</td><td>Medium</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>4.0.7</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>implementation-build-id</td><td>4.0.7</td><td>Low</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.0.7</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header52" class="subsectionheader white">Identifiers</h4>
                         <div id="content52" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.glassfish.jaxb/jaxb-core@4.0.6
+                                    <li>pkg:maven/org.glassfish.jaxb/jaxb-core@4.0.7
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l27_fb95ebb62564657b2fedfe165b859789ef3a8711"></a>jaxb-runtime-4.0.6.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l27_49a0f8e7e3a40fcf3ba812721f682e12bec1878d"></a>jaxb-runtime-4.0.7.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>JAXB (JSR 222) Reference Implementation</pre></p>
                         <p>
                             <b>License:</b><pre class="indent"><a href="http://www.eclipse.org/org/documents/edl-v10.php">http://www.eclipse.org/org/documents/edl-v10.php</a></pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/glassfish/jaxb/jaxb-runtime/4.0.6/jaxb-runtime-4.0.6.jar<br/>
-                            <b>MD5:</b>&nbsp;0e600d639f3a09ddd6fa91623a12b634<br/>
-                            <b>SHA1:</b>&nbsp;fb95ebb62564657b2fedfe165b859789ef3a8711<br/>
-                            <b>SHA256:</b>1c0d57f8c25f9605d5a2f7ad0a87581893776ac85b00b101b2651258edaa9118
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/glassfish/jaxb/jaxb-runtime/4.0.7/jaxb-runtime-4.0.7.jar<br/>
+                            <b>MD5:</b>&nbsp;f7c3cf716178cdb0e087b12ad273fa9e<br/>
+                            <b>SHA1:</b>&nbsp;49a0f8e7e3a40fcf3ba812721f682e12bec1878d<br/>
+                            <b>SHA256:</b>61a5daf5a1987f7ed7149c5a883ddf220ca9bf714a8d8cffc85fac301e92b5f2
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:runtime
-                                <br/><span class="tooltip"><span class="tooltiptext">jaxb-runtime-4.0.6.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.hibernate.orm/hibernate-core@7.2.6.Final
+                                <br/><span class="tooltip"><span class="tooltiptext">jaxb-runtime-4.0.7.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.hibernate.orm/hibernate-core@7.4.1.Final
                         </p>
                         <h4 id="header53" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content53" class="subsectioncontent standardsubsection hidden">
@@ -3012,8 +3010,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Vendor</td><td>jar</td><td>package name</td><td>runtime</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-docurl</td><td>https://www.eclipse.org</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-symbolicname</td><td>org.glassfish.jaxb.runtime</td><td>Medium</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>git-revision</td><td>0dcfdf5</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>implementation-build-id</td><td>4.0.6 - 0dcfdf5</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>git-revision</td><td>e689394</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>implementation-build-id</td><td>4.0.7 - e689394</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>Implementation-Vendor</td><td>Eclipse Foundation</td><td>High</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>Implementation-Vendor-Id</td><td>org.glassfish.jaxb</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>provide-capability</td><td>osgi.serviceloader;osgi.serviceloader=&quot;jakarta.xml.bind.JAXBContextFactory&quot;</td><td>Low</td></tr>
@@ -3023,7 +3021,6 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Vendor</td><td>pom</td><td>groupid</td><td>org.glassfish.jaxb</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>name</td><td>JAXB Runtime</td><td>High</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>parent-artifactid</td><td>jaxb-runtime-parent</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>pom</td><td>parent-groupid</td><td>com.sun.xml.bind.mvn</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>url</td><td>https://eclipse-ee4j.github.io/jaxb-ri/</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>file</td><td>name</td><td>jaxb-runtime</td><td>High</td></tr>
                                     <tr><td>Product</td><td>jar</td><td>package name</td><td>glassfish</td><td>Highest</td></tr>
@@ -3032,8 +3029,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-docurl</td><td>https://www.eclipse.org</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>Bundle-Name</td><td>JAXB Runtime</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-symbolicname</td><td>org.glassfish.jaxb.runtime</td><td>Medium</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>git-revision</td><td>0dcfdf5</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>implementation-build-id</td><td>4.0.6 - 0dcfdf5</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>git-revision</td><td>e689394</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>implementation-build-id</td><td>4.0.7 - e689394</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>Implementation-Title</td><td>Eclipse Implementation of JAXB</td><td>High</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>provide-capability</td><td>osgi.serviceloader;osgi.serviceloader=&quot;jakarta.xml.bind.JAXBContextFactory&quot;</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>specification-title</td><td>Jakarta XML Binding</td><td>Medium</td></tr>
@@ -3041,35 +3038,34 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.glassfish.jaxb</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>JAXB Runtime</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>parent-artifactid</td><td>jaxb-runtime-parent</td><td>Medium</td></tr>
-                                    <tr><td>Product</td><td>pom</td><td>parent-groupid</td><td>com.sun.xml.bind.mvn</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://eclipse-ee4j.github.io/jaxb-ri/</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.0.6</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>build-version</td><td>4.0.6</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>4.0.6</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>implementation-build-id</td><td>4.0.6</td><td>Low</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.0.6</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.0.7</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>build-version</td><td>4.0.7</td><td>Medium</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>4.0.7</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>implementation-build-id</td><td>4.0.7</td><td>Low</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.0.7</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header54" class="subsectionheader white">Identifiers</h4>
                         <div id="content54" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.glassfish.jaxb/jaxb-runtime@4.0.6
+                                    <li>pkg:maven/org.glassfish.jaxb/jaxb-runtime@4.0.7
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l28_886afbb445b4016a37c8960a7aef6ebd769ce7e5"></a>jboss-logging-3.6.1.Final.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l28_1cc9f976725720bb4a66f80af3e3aa6b9890d969"></a>jboss-logging-3.6.3.Final.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>The JBoss Logging Framework</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">Apache License 2.0: https://repository.jboss.org/licenses/apache-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/jboss/logging/jboss-logging/3.6.1.Final/jboss-logging-3.6.1.Final.jar<br/>
-                            <b>MD5:</b>&nbsp;acab989faf62db02c092448e95614fab<br/>
-                            <b>SHA1:</b>&nbsp;886afbb445b4016a37c8960a7aef6ebd769ce7e5<br/>
-                            <b>SHA256:</b>5e08a4b092dc85b337f0910a740571d8720cfa565fabd880a8caf94a657ca416
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/jboss/logging/jboss-logging/3.6.3.Final/jboss-logging-3.6.3.Final.jar<br/>
+                            <b>MD5:</b>&nbsp;b4cf5872f18b3e80e18769d51c7ae9b2<br/>
+                            <b>SHA1:</b>&nbsp;1cc9f976725720bb4a66f80af3e3aa6b9890d969<br/>
+                            <b>SHA256:</b>7c12ee575508f81e22b1db9334b969d0ec54ef0fd1dcba24eeab1a44235fc366
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">jboss-logging-3.6.1.Final.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.hibernate.orm/hibernate-core@7.2.6.Final
+                                <br/><span class="tooltip"><span class="tooltiptext">jboss-logging-3.6.3.Final.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.2.1-SNAPSHOT
                         </p>
                         <h4 id="header55" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content55" class="subsectioncontent standardsubsection hidden">
@@ -3079,13 +3075,11 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Vendor</td><td>hint analyzer</td><td>vendor</td><td>redhat</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>jar</td><td>package name</td><td>jboss</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>jar</td><td>package name</td><td>logging</td><td>Highest</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>automatic-module-name</td><td>org.jboss.logging</td><td>Medium</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>build-jdk-spec</td><td>21</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>build-jdk-spec</td><td>25</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-docurl</td><td>http://www.jboss.org</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-symbolicname</td><td>org.jboss.logging.jboss-logging</td><td>Medium</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>implementation-url</td><td>http://www.jboss.org</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>implementation-url</td><td>https://www.jboss.org</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>Implementation-Vendor</td><td>JBoss by Red Hat</td><td>High</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>originally-created-by</td><td>Apache Maven Bundle Plugin</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>os-arch</td><td>amd64</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>os-name</td><td>Linux</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>specification-vendor</td><td>JBoss by Red Hat</td><td>Low</td></tr>
@@ -3093,53 +3087,53 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Vendor</td><td>pom</td><td>artifactid</td><td>jboss-logging</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>groupid</td><td>org.jboss.logging</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>name</td><td>JBoss Logging 3</td><td>High</td></tr>
-                                    <tr><td>Vendor</td><td>pom</td><td>parent-artifactid</td><td>logging-parent</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>pom</td><td>url</td><td>http://www.jboss.org</td><td>Highest</td></tr>
+                                    <tr><td>Vendor</td><td>pom</td><td>parent-artifactid</td><td>jboss-parent</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>pom</td><td>parent-groupid</td><td>org.jboss</td><td>Medium</td></tr>
+                                    <tr><td>Vendor</td><td>pom</td><td>url</td><td>https://www.jboss.org</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>file</td><td>name</td><td>jboss-logging</td><td>High</td></tr>
                                     <tr><td>Product</td><td>jar</td><td>package name</td><td>jboss</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>jar</td><td>package name</td><td>logging</td><td>Highest</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>automatic-module-name</td><td>org.jboss.logging</td><td>Medium</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>build-jdk-spec</td><td>21</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>build-jdk-spec</td><td>25</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-docurl</td><td>http://www.jboss.org</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>Bundle-Name</td><td>JBoss Logging 3</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-symbolicname</td><td>org.jboss.logging.jboss-logging</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>Implementation-Title</td><td>JBoss Logging 3</td><td>High</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>implementation-url</td><td>http://www.jboss.org</td><td>Low</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>originally-created-by</td><td>Apache Maven Bundle Plugin</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>implementation-url</td><td>https://www.jboss.org</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>os-arch</td><td>amd64</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>os-name</td><td>Linux</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>specification-title</td><td>JBoss Logging 3</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>artifactid</td><td>jboss-logging</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.jboss.logging</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>JBoss Logging 3</td><td>High</td></tr>
-                                    <tr><td>Product</td><td>pom</td><td>parent-artifactid</td><td>logging-parent</td><td>Medium</td></tr>
-                                    <tr><td>Product</td><td>pom</td><td>url</td><td>http://www.jboss.org</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>3.6.1.Final</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>3.6.1.Final</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>parent-version</td><td>3.6.1.Final</td><td>Low</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>3.6.1.Final</td><td>Highest</td></tr>
+                                    <tr><td>Product</td><td>pom</td><td>parent-artifactid</td><td>jboss-parent</td><td>Medium</td></tr>
+                                    <tr><td>Product</td><td>pom</td><td>parent-groupid</td><td>org.jboss</td><td>Medium</td></tr>
+                                    <tr><td>Product</td><td>pom</td><td>url</td><td>https://www.jboss.org</td><td>Medium</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>3.6.3.Final</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>3.6.3.Final</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>parent-version</td><td>3.6.3.Final</td><td>Low</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>3.6.3.Final</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header56" class="subsectionheader white">Identifiers</h4>
                         <div id="content56" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.jboss.logging/jboss-logging@3.6.1.Final
+                                    <li>pkg:maven/org.jboss.logging/jboss-logging@3.6.3.Final
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l29_8365263844ebb62398e0dc33057ba10ba472d3b8"></a>lombok-1.18.42.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l29_a5cfe99fdf320e84955ef653f2ce1bf789d11385"></a>lombok-1.18.46.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Spice up your java: Automatic Resource Management, automatic generation of getters, setters, equals, hashCode and toString, and more!</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">The MIT License: https://projectlombok.org/LICENSE</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar<br/>
-                            <b>MD5:</b>&nbsp;f29149836e0187fb9fd95d82dc718d36<br/>
-                            <b>SHA1:</b>&nbsp;8365263844ebb62398e0dc33057ba10ba472d3b8<br/>
-                            <b>SHA256:</b>3488a4e9994c26596baaceebee58cad36a50e3bdaec5be72b5834d3c3b560306
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar<br/>
+                            <b>MD5:</b>&nbsp;e02f419a66b86c594ffcafc862778723<br/>
+                            <b>SHA1:</b>&nbsp;a5cfe99fdf320e84955ef653f2ce1bf789d11385<br/>
+                            <b>SHA256:</b>01f7b1a015e33e2b62d5f5f37053306357ab1415fd181fcba7794f5d198c1126
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">lombok-1.18.42.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.1.1-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">lombok-1.18.46.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.2.1-SNAPSHOT
                         </p>
                         <h4 id="header57" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content57" class="subsectioncontent standardsubsection hidden">
@@ -3178,27 +3172,27 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.projectlombok</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Project Lombok</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://projectlombok.org</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>1.18.42</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>lombok-version</td><td>1.18.42</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>1.18.42</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>1.18.46</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>lombok-version</td><td>1.18.46</td><td>Medium</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>1.18.46</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header58" class="subsectionheader white">Identifiers</h4>
                         <div id="content58" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.projectlombok/lombok@1.18.42
+                                    <li>pkg:maven/org.projectlombok/lombok@1.18.46
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l30_e1f7f1779f40157fd0b984c1bc32a0cb45cae66e"></a>lombok-1.18.42.jar: mavenEcjBootstrapAgent.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l30_4b03ce7b33d535b42e4a84e106c3647760eb8769"></a>lombok-1.18.46.jar: mavenEcjBootstrapAgent.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                         <p>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar/lombok/launch/mavenEcjBootstrapAgent.jar<br/>
-                            <b>MD5:</b>&nbsp;885d5d6be90a5dcd4b82cdf741e3f31a<br/>
-                            <b>SHA1:</b>&nbsp;e1f7f1779f40157fd0b984c1bc32a0cb45cae66e<br/>
-                            <b>SHA256:</b>74a80a6ee84e5c6fe497dfcc46a46dbe30578525e747eb531e918ee0750c8da9
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar/lombok/launch/mavenEcjBootstrapAgent.jar<br/>
+                            <b>MD5:</b>&nbsp;8b80305e4846088e139701372844e637<br/>
+                            <b>SHA1:</b>&nbsp;4b03ce7b33d535b42e4a84e106c3647760eb8769<br/>
+                            <b>SHA256:</b>639da94437813649eac5af6d8154d736355f27199fc8aaeda85904fce947ee4f
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:provided
                         </p>
                         <h4 id="header59" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
@@ -3219,15 +3213,15 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                             <ul><li><b>None</b></li></ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l31_23a99089ff682152e86ab1691a8232db325def09"></a>modernizer-maven-annotations-3.2.0.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l31_9deb15aa2a3a725be971c8bbb4b560d0d096fca9"></a>modernizer-maven-annotations-3.4.0.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                         <p>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/gaul/modernizer-maven-annotations/3.2.0/modernizer-maven-annotations-3.2.0.jar<br/>
-                            <b>MD5:</b>&nbsp;127396b14eb51fd93eb587308f079768<br/>
-                            <b>SHA1:</b>&nbsp;23a99089ff682152e86ab1691a8232db325def09<br/>
-                            <b>SHA256:</b>9f9396f361f0d45d435355c1f2b57980307abd81f3131083ec18f54fbbaa5ecb
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/gaul/modernizer-maven-annotations/3.4.0/modernizer-maven-annotations-3.4.0.jar<br/>
+                            <b>MD5:</b>&nbsp;f46f4c747b5ab932252fea7d0733cc04<br/>
+                            <b>SHA1:</b>&nbsp;9deb15aa2a3a725be971c8bbb4b560d0d096fca9<br/>
+                            <b>SHA256:</b>c3ca20a7ccb295f528642532fc7644b4e822a45746fe8bf1683227ca1d0ddfa9
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">modernizer-maven-annotations-3.2.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.1.1-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">modernizer-maven-annotations-3.4.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.2.1-SNAPSHOT
                         </p>
                         <h4 id="header61" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content61" class="subsectioncontent standardsubsection hidden">
@@ -3235,7 +3229,7 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>modernizer-maven-annotations</td><td>High</td></tr>
                                     <tr><td>Vendor</td><td>jar</td><td>package name</td><td>gaul</td><td>Highest</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>build-jdk-spec</td><td>21</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>build-jdk-spec</td><td>25</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>multi-release</td><td>true</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>artifactid</td><td>modernizer-maven-annotations</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>artifactid</td><td>modernizer-maven-annotations</td><td>Low</td></tr>
@@ -3244,36 +3238,36 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Vendor</td><td>pom</td><td>parent-artifactid</td><td>modernizer-maven-parent</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>file</td><td>name</td><td>modernizer-maven-annotations</td><td>High</td></tr>
                                     <tr><td>Product</td><td>jar</td><td>package name</td><td>gaul</td><td>Highest</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>build-jdk-spec</td><td>21</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>build-jdk-spec</td><td>25</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>multi-release</td><td>true</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>artifactid</td><td>modernizer-maven-annotations</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.gaul</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Modernizer Maven Plugin annotations</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>parent-artifactid</td><td>modernizer-maven-parent</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>3.2.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>3.2.0</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>3.4.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>3.4.0</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header62" class="subsectionheader white">Identifiers</h4>
                         <div id="content62" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.gaul/modernizer-maven-annotations@3.2.0
+                                    <li>pkg:maven/org.gaul/modernizer-maven-annotations@3.4.0
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l32_ca4a2783a6123e67124fd7feb4caccd2e2ac9a73"></a>spotbugs-annotations-4.9.8.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l32_13f9ddf33804e6f69e7aa37b0bfd071b1bf397da"></a>spotbugs-annotations-4.10.2.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Annotations the SpotBugs tool supports</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">GNU LESSER GENERAL PUBLIC LICENSE, Version 2.1: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/github/spotbugs/spotbugs-annotations/4.9.8/spotbugs-annotations-4.9.8.jar<br/>
-                            <b>MD5:</b>&nbsp;d4c2e7bd090be697ad409a4e75684a94<br/>
-                            <b>SHA1:</b>&nbsp;ca4a2783a6123e67124fd7feb4caccd2e2ac9a73<br/>
-                            <b>SHA256:</b>6f69d6fe9c55a54dcb30e87d8fa2d5f52246af50d7a3445246d9539ef221be1c
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/com/github/spotbugs/spotbugs-annotations/4.10.2/spotbugs-annotations-4.10.2.jar<br/>
+                            <b>MD5:</b>&nbsp;a6d1c0f0ee39dcba6841ba2c8059f213<br/>
+                            <b>SHA1:</b>&nbsp;13f9ddf33804e6f69e7aa37b0bfd071b1bf397da<br/>
+                            <b>SHA256:</b>5335e5107c74cdd62ef96a7908066c51abb3de63b1ebf99dc953c2c7d0747678
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">spotbugs-annotations-4.9.8.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.1.1-SNAPSHOT
+                                <br/><span class="tooltip"><span class="tooltiptext">spotbugs-annotations-4.10.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz.jmockit/petclinic@2.2.1-SNAPSHOT
                         </p>
                         <h4 id="header63" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content63" class="subsectioncontent standardsubsection hidden">
@@ -3329,44 +3323,42 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>com.github.spotbugs</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>SpotBugs Annotations</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://spotbugs.github.io/</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.9.8</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>4.9.8</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.9.8</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.10.2</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>4.10.2</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.10.2</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header64" class="subsectionheader white">Identifiers</h4>
                         <div id="content64" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/com.github.spotbugs/spotbugs-annotations@4.9.8
+                                    <li>pkg:maven/com.github.spotbugs/spotbugs-annotations@4.10.2
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l33_4f4cd53b5ff9a2c5aa1211f15ed2569c57dfb044"></a>txw2-4.0.6.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l33_a02be508a065d5fed3d4fedf7ddc4f17cad68992"></a>txw2-4.0.7.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>
         TXW is a library that allows you to write XML documents.
     </pre></p>
                         <p>
-                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/glassfish/jaxb/txw2/4.0.6/txw2-4.0.6.jar<br/>
-                            <b>MD5:</b>&nbsp;0bf7070aee3bb53640d2ea6441e059fb<br/>
-                            <b>SHA1:</b>&nbsp;4f4cd53b5ff9a2c5aa1211f15ed2569c57dfb044<br/>
-                            <b>SHA256:</b>fcc749785412ef3806fde1ce70f93ef5a0065dcc47fe449bc871db0795cb11af
+                            <b>File&nbsp;Path:</b>&nbsp;/home/runner/.m2/repository/org/glassfish/jaxb/txw2/4.0.7/txw2-4.0.7.jar<br/>
+                            <b>MD5:</b>&nbsp;d98e887c3b29737720a5b914d5779d10<br/>
+                            <b>SHA1:</b>&nbsp;a02be508a065d5fed3d4fedf7ddc4f17cad68992<br/>
+                            <b>SHA256:</b>c725676f2550caa3f57943f2d10dfac7e14c3abb34a6a9d89ac7ebbf1bde3269
                                 <br/><b>Referenced In Project/Scope:</b> Petclinic Sample:runtime
-                                <br/><span class="tooltip"><span class="tooltiptext">txw2-4.0.6.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.hibernate.orm/hibernate-core@7.2.6.Final
+                                <br/><span class="tooltip"><span class="tooltiptext">txw2-4.0.7.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.hibernate.orm/hibernate-core@7.4.1.Final
                         </p>
                         <h4 id="header65" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content65" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>txw2</td><td>High</td></tr>
-                                    <tr><td>Vendor</td><td>jar</td><td>package name</td><td>sun</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>jar</td><td>package name</td><td>txw</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>jar</td><td>package name</td><td>txw2</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>jar</td><td>package name</td><td>xml</td><td>Highest</td></tr>
-                                    <tr><td>Vendor</td><td>jar (hint)</td><td>package name</td><td>oracle</td><td>Highest</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>git-revision</td><td>0dcfdf5</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>git-revision</td><td>e689394</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>Implementation-Vendor</td><td>Eclipse Foundation</td><td>High</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>Implementation-Vendor-Id</td><td>org.eclipse</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>specification-vendor</td><td>Eclipse Foundation</td><td>Low</td></tr>
@@ -3375,31 +3367,28 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Vendor</td><td>pom</td><td>groupid</td><td>org.glassfish.jaxb</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>name</td><td>TXW2 Runtime</td><td>High</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>parent-artifactid</td><td>jaxb-txw-parent</td><td>Low</td></tr>
-                                    <tr><td>Vendor</td><td>pom</td><td>parent-groupid</td><td>com.sun.xml.bind.mvn</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>url</td><td>https://eclipse-ee4j.github.io/jaxb-ri/</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>file</td><td>name</td><td>txw2</td><td>High</td></tr>
-                                    <tr><td>Product</td><td>jar</td><td>package name</td><td>sun</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>jar</td><td>package name</td><td>txw</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>jar</td><td>package name</td><td>txw2</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>jar</td><td>package name</td><td>xml</td><td>Highest</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>git-revision</td><td>0dcfdf5</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>git-revision</td><td>e689394</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>Implementation-Title</td><td>Eclipse Implementation of JAXB</td><td>High</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>specification-title</td><td>Jakarta XML Binding</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>artifactid</td><td>txw2</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.glassfish.jaxb</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>TXW2 Runtime</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>parent-artifactid</td><td>jaxb-txw-parent</td><td>Medium</td></tr>
-                                    <tr><td>Product</td><td>pom</td><td>parent-groupid</td><td>com.sun.xml.bind.mvn</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://eclipse-ee4j.github.io/jaxb-ri/</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.0.6</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>build-version</td><td>4.0.6</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.0.6</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.0.7</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>build-version</td><td>4.0.7</td><td>Medium</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.0.7</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header66" class="subsectionheader white">Identifiers</h4>
                         <div id="content66" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.glassfish.jaxb/txw2@4.0.6
+                                    <li>pkg:maven/org.glassfish.jaxb/txw2@4.0.7
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
@@ -3420,7 +3409,7 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
             <br/>
             This report may contain data retrieved from <a href="https://retirejs.github.io/retire.js/">RetireJS</a>.
             <br/>
-            This report may contain data retrieved from the <a href="https://ossindex.sonatype.org">Sonatype OSS Index</a>.
+            This report may contain data retrieved from the <a href="https://www.sonatype.com/products/sonatype-guide/oss-index-users">Sonatype Guide OSS Index API</a>.
         </div>
     </body>
 </html>
