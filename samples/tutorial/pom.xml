@@ -39,7 +39,7 @@
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>eclipselink</artifactId>
-            <version>5.0.0</version>
+            <version>5.0.1</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
