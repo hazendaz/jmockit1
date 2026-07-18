@@ -154,6 +154,11 @@ public final class ClassReader extends AnnotatedReader {
             return true;
         }
 
+        if ("PermittedSubclasses".equals(attributeName)) {
+            readPermittedSubclasses();
+            return true;
+        }
+
         if ("BootstrapMethods".equals(attributeName)) {
             readBootstrapMethods();
             return true;
@@ -176,6 +181,17 @@ public final class ClassReader extends AnnotatedReader {
         }
 
         classInfo.nestMembers = nestMembers;
+    }
+
+    private void readPermittedSubclasses() {
+        int numberOfClasses = readUnsignedShort();
+        String[] permittedSubclasses = new String[numberOfClasses];
+
+        for (int i = 0; i < numberOfClasses; i++) {
+            permittedSubclasses[i] = readNonnullClass();
+        }
+
+        classInfo.permittedSubclasses = permittedSubclasses;
     }
 
     private void readBootstrapMethods() {
