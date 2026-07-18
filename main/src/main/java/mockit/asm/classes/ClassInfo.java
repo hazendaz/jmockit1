@@ -52,4 +52,11 @@ public final class ClassInfo {
      */
     @Nullable
     String[] nestMembers;
+
+    /**
+     * The internal names of the permitted direct subclasses of this sealed class, if any (Java 17+ only). Carried
+     * verbatim so a redefined class keeps the same PermittedSubclasses attribute the JVM requires to stay unchanged.
+     */
+    @Nullable
+    String[] permittedSubclasses;
 }

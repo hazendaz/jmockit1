@@ -137,6 +137,7 @@ public final class ClassWriter extends ClassVisitor {
         createSignatureWriterIfApplicable(additionalInfo.signature);
         createSourceFileWriterIfApplicable(additionalInfo.sourceFileName);
         createNestWritersIfApplicable(additionalInfo.hostClassName, additionalInfo.nestMembers);
+        createPermittedSubclassesWriterIfApplicable(additionalInfo.permittedSubclasses);
 
         if (superName != null) {
             ClassLoad.addSuperClass(name, superName);
@@ -166,6 +167,12 @@ public final class ClassWriter extends ClassVisitor {
             attributeWriters.add(new NestHostWriter(cp, hostClassName));
         } else if (memberClassNames != null) {
             attributeWriters.add(new NestMembersWriter(cp, memberClassNames));
+        }
+    }
+
+    private void createPermittedSubclassesWriterIfApplicable(@Nullable String[] permittedSubclasses) {
+        if (permittedSubclasses != null) {
+            attributeWriters.add(new PermittedSubclassesWriter(cp, permittedSubclasses));
         }
     }
 
