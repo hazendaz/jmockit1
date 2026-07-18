@@ -13,24 +13,16 @@ import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 import mockit.integration.junit5.JMockitExtension;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The Class TestedClassWithConstructorDI2Test.
  */
-// TODO JWL 2/18/2024 Mocking InetAddress is not allowed on JDK9+ because java.net classes reside in a restricted JDK
-// module that the JVM does not allow to be modified. To test code that depends on InetAddress, consider wrapping
-// network operations behind a testable interface or abstraction that can be mocked instead.
-@Disabled
 @ExtendWith(JMockitExtension.class)
 final class TestedClassWithConstructorDI2Test {
 
@@ -74,13 +66,6 @@ final class TestedClassWithConstructorDI2Test {
 
             int i = dependency1.doSomething();
             assert i == 123;
-
-            try {
-                InetAddress localHost = InetAddress.getLocalHost();
-                assert localHost.getHostName() == null;
-            } catch (UnknownHostException e) {
-                throw new IllegalStateException("InetAddress should be mocked", e);
-            }
         }
 
         /**
@@ -113,26 +98,11 @@ final class TestedClassWithConstructorDI2Test {
 
             int i = dependency1.doSomething();
             assert i == 123;
-
-            checkInetAddressMocking();
-        }
-
-        /**
-         * Check inet address mocking.
-         */
-        private void checkInetAddressMocking() {
-            try {
-                InetAddress inetAddress = InetAddress.getByName("testHost");
-                assert inetAddress.getHostName() == null;
-            } catch (UnknownHostException ignore) {
-                counter = -1;
-            }
         }
 
         @Override
         public void destroy() {
             counter++;
-            checkInetAddressMocking();
         }
     }
 
@@ -169,10 +139,6 @@ final class TestedClassWithConstructorDI2Test {
     /** The config. */
     @Injectable
     ServletConfig config;
-
-    /** The test host. */
-    @Mocked
-    InetAddress testHost;
 
     /**
      * Reset counter.
