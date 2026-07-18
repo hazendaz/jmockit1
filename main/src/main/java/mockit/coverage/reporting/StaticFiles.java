@@ -70,8 +70,8 @@ final class StaticFiles {
             if (codeSource == null) {
                 lastModifiedTimeOfCoverageJar = -1;
             } else {
-                String pathToThisJar = Utilities.getClassFileLocationPath(codeSource);
-                lastModifiedTimeOfCoverageJar = Path.of(pathToThisJar).toFile().lastModified();
+                Path pathToThisJar = Path.of(Utilities.getClassFileLocationPath(codeSource));
+                lastModifiedTimeOfCoverageJar = pathToThisJar.toFile().lastModified();
             }
         }
 

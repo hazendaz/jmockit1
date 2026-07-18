@@ -185,9 +185,9 @@ public final class CoverageData implements Serializable {
             }
         }
 
-        String pathToClassFile = locationPath + sourceFilePathNoExt + ".class";
+        Path pathToClassFile = Path.of(locationPath).resolve(sourceFilePathNoExt + ".class");
 
-        return Path.of(pathToClassFile).toFile().lastModified();
+        return pathToClassFile.toFile().lastModified();
     }
 
     private static long getLastModifiedTimeFromJarEntry(@NonNull String sourceFilePathNoExt,

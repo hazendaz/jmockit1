@@ -16,8 +16,8 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
+import java.net.URI;
+import java.nio.file.Path;
 import java.security.CodeSource;
 import java.util.List;
 
@@ -113,7 +113,6 @@ public final class Utilities {
 
     @NonNull
     public static String getClassFileLocationPath(@NonNull CodeSource codeSource) {
-        String locationPath = codeSource.getLocation().getPath();
-        return URLDecoder.decode(locationPath, StandardCharsets.UTF_8);
+        return Path.of(URI.create(codeSource.getLocation().toString())).toString();
     }
 }
