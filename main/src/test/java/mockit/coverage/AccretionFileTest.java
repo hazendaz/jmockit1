@@ -35,7 +35,7 @@ final class AccretionFileTest {
         accretionFile.mergeDataFromExistingFileIfAny();
         accretionFile.generate();
 
-        File serFile = new File(outputDir, "coverage.ser");
+        File serFile = outputDir.toPath().resolve("coverage.ser").toFile();
         assertTrue(serFile.exists());
         assertTrue(serFile.length() > 0);
     }

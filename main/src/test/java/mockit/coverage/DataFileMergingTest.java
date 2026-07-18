@@ -26,8 +26,8 @@ final class DataFileMergingTest {
 
     @Test
     void mergeCombinesDataFromMultipleInputFiles() throws IOException {
-        File firstFile = new File(tempDir, "first.ser");
-        File secondFile = new File(tempDir, "second.ser");
+        File firstFile = tempDir.toPath().resolve("first.ser").toFile();
+        File secondFile = tempDir.toPath().resolve("second.ser").toFile();
 
         CoverageData firstData = new CoverageData();
         firstData.getOrAddFile(SOURCE_FILE_1, "class");
@@ -47,7 +47,7 @@ final class DataFileMergingTest {
     void mergeResolvesADirectoryArgumentToItsCoverageSerFile() throws IOException {
         CoverageData data = new CoverageData();
         data.getOrAddFile(SOURCE_FILE_1, "class");
-        data.writeDataToFile(new File(tempDir, "coverage.ser"));
+        data.writeDataToFile(tempDir.toPath().resolve("coverage.ser").toFile());
 
         DataFileMerging merging = new DataFileMerging(new String[] { tempDir.getPath() });
         CoverageData merged = merging.merge();
@@ -57,7 +57,7 @@ final class DataFileMergingTest {
 
     @Test
     void mergeIgnoresBlankInputPaths() throws IOException {
-        File firstFile = new File(tempDir, "first.ser");
+        File firstFile = tempDir.toPath().resolve("first.ser").toFile();
         CoverageData data = new CoverageData();
         data.getOrAddFile(SOURCE_FILE_1, "class");
         data.writeDataToFile(firstFile);
@@ -70,7 +70,8 @@ final class DataFileMergingTest {
 
     @Test
     void mergeThrowsWhenNoInputFilesAreFound() {
-        DataFileMerging merging = new DataFileMerging(new String[] { new File(tempDir, "missing.ser").getPath() });
+        DataFileMerging merging = new DataFileMerging(
+                new String[] { tempDir.toPath().resolve("missing.ser").toString() });
 
         assertThrows(IllegalArgumentException.class, merging::merge);
     }

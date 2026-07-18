@@ -32,7 +32,7 @@ final class XmlFileTest {
         XmlFile xmlFile = new XmlFile(outputDir.getPath(), data);
         xmlFile.generate();
 
-        File generatedFile = new File(outputDir, "coverage.xml");
+        File generatedFile = outputDir.toPath().resolve("coverage.xml").toFile();
         assertTrue(generatedFile.exists());
 
         String content = Files.readString(generatedFile.toPath());
@@ -52,7 +52,7 @@ final class XmlFileTest {
         XmlFile xmlFile = new XmlFile(outputDir.getPath(), data);
         xmlFile.generate();
 
-        String content = Files.readString(new File(outputDir, "coverage.xml").toPath());
+        String content = Files.readString(outputDir.toPath().resolve("coverage.xml"));
         assertTrue(content.contains("<file path=\"com/example/Empty.java\">"));
         assertTrue(!content.contains("lineToCover"));
     }
