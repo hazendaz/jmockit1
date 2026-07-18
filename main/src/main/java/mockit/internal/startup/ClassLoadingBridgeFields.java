@@ -62,7 +62,8 @@ final class ClassLoadingBridgeFields {
         public byte[] transform(@Nullable ClassLoader loader, @NonNull String className,
                 @Nullable Class<?> classBeingRedefined, @Nullable ProtectionDomain protectionDomain,
                 @NonNull byte[] classfileBuffer) {
-            if (loader == null && hostClassName == null) { // adds the fields to the first public JRE class to be loaded
+            if (loader == null && hostClassName == null) {
+                // adds the fields to the first public JRE class to be loaded
                 ClassReader cr = new ClassReader(classfileBuffer);
 
                 if (isPublic(cr.getAccess())) {
