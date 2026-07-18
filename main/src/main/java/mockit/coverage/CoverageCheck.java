@@ -129,7 +129,7 @@ final class CoverageCheck {
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void createOrDeleteIndicatorFile() {
         String parentDir = Configuration.getOrChooseOutputDirectory("");
-        File indicatorFile = Path.of(parentDir, "coverage.check.failed").toFile();
+        File indicatorFile = Path.of(parentDir).resolve("coverage.check.failed").toFile();
 
         if (indicatorFile.exists()) {
             if (allThresholdsSatisfied) {

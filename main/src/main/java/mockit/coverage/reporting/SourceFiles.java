@@ -43,7 +43,7 @@ final class SourceFiles {
 
     private void buildListWithAllSrcSubDirectories() {
         String curDirName = Path.of(System.getProperty("user.dir")).toFile().getName();
-        addSrcSubDirs(Path.of("../" + curDirName).toFile());
+        addSrcSubDirs(Path.of("../").resolve(curDirName).toFile());
     }
 
     private void addSrcSubDirs(@NonNull File dir) {

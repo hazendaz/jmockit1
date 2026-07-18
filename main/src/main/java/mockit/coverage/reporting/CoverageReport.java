@@ -90,7 +90,7 @@ public final class CoverageReport {
 
     @Nullable
     private File createOutputFileForIndexPage() throws IOException {
-        File outputFile = Path.of(outputDir, "index.html").toFile();
+        File outputFile = Path.of(outputDir).resolve("index.html").toFile();
 
         if (outputFile.exists() && !outputFile.canWrite()) {
             logger.info("JMockit: {} is read-only; report generation canceled", outputFile.getCanonicalPath());

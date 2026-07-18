@@ -47,7 +47,7 @@ final class StaticFiles {
     }
 
     private void copyFile(@NonNull String fileName) throws IOException {
-        File outputFile = Path.of(outputDir, fileName).toFile();
+        File outputFile = Path.of(outputDir).resolve(fileName).toFile();
 
         if (outputFile.exists() && outputFile.lastModified() > getLastModifiedTimeOfCoverageJar()) {
             return;

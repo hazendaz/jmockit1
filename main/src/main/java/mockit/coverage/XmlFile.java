@@ -55,7 +55,7 @@ final class XmlFile {
         srcDir = firstSrcDir.isEmpty() ? "" : firstSrcDir + '/';
 
         String parentDir = Configuration.getOrChooseOutputDirectory(outputDir);
-        outputFile = Path.of(parentDir, "coverage.xml").toFile();
+        outputFile = Path.of(parentDir).resolve("coverage.xml").toFile();
         this.coverageData = coverageData;
     }
 

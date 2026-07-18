@@ -28,7 +28,7 @@ final class AccretionFile {
 
     AccretionFile(@NonNull String outputDir, @NonNull CoverageData newData) {
         String parentDir = Configuration.getOrChooseOutputDirectory(outputDir);
-        outputFile = Path.of(parentDir, "coverage.ser").toFile();
+        outputFile = Path.of(parentDir).resolve("coverage.ser").toFile();
 
         newData.fillLastModifiedTimesForAllClassFiles();
         this.newData = newData;
