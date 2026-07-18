@@ -244,10 +244,11 @@ class InstanceSpecificMockingTest {
      * @param buf
      *            the buf
      */
-    // TODO JWL 2/18/2024 Mocking ByteBuffer is not allowed on JDK9+ because java.nio classes reside in a restricted JDK
-    // module that the JVM does not allow to be modified. To test code that depends on ByteBuffer, consider wrapping
-    // buffer operations behind a testable interface or abstraction that can be mocked instead.
-    @Disabled
+    // TODO JWL 7/18/2026 ByteBuffer cannot currently be mocked as an injectable type because
+    // it is a sealed abstract JDK class on Java 17+. JMockit creates subclasses for abstract
+    // types, but the JVM rejects generated subclasses of sealed classes. Consider wrapping
+    // buffer operations behind a testable interface or abstraction instead.
+    @Disabled("Injectable mocks require subclassing ByteBuffer, which the JVM rejects for sealed classes on Java 17+")
     @Test
     void mockByteBufferAsInjectable(@Injectable final ByteBuffer buf) {
         ByteBuffer realBuf = ByteBuffer.allocateDirect(10);
@@ -275,10 +276,11 @@ class InstanceSpecificMockingTest {
      * @param mockBuffer
      *            the mock buffer
      */
-    // TODO JWL 10/30/2022 Mocking ByteBuffer is not allowed on JDK9+ because java.nio classes reside in a
-    // restricted JDK module that the JVM does not allow to be modified. To test code that depends on ByteBuffer,
-    // consider wrapping buffer operations behind a testable interface or abstraction that can be mocked instead.
-    @Disabled
+    // TODO JWL 7/18/2026 ByteBuffer cannot currently be mocked as an injectable type because
+    // it is a sealed abstract JDK class on Java 17+. JMockit creates subclasses for abstract
+    // types, but the JVM rejects generated subclasses of sealed classes. Consider wrapping
+    // buffer operations behind a testable interface or abstraction instead.
+    @Disabled("Injectable mocks require subclassing ByteBuffer, which the JVM rejects for sealed classes on Java 17+")
     @Test
     void mockByteBufferRegularly(@Mocked ByteBuffer mockBuffer) {
         ByteBuffer buffer = ByteBuffer.allocateDirect(10);
@@ -298,10 +300,11 @@ class InstanceSpecificMockingTest {
      * @param unused
      *            the unused
      */
-    // TODO JWL 10/30/2022 Mocking ByteBuffer is not allowed on JDK9+ because java.nio classes reside in a
-    // restricted JDK module that the JVM does not allow to be modified. To test code that depends on ByteBuffer,
-    // consider wrapping buffer operations behind a testable interface or abstraction that can be mocked instead.
-    @Disabled
+    // TODO JWL 7/18/2026 ByteBuffer cannot currently be mocked as an injectable type because
+    // it is a sealed abstract JDK class on Java 17+. JMockit creates subclasses for abstract
+    // types, but the JVM rejects generated subclasses of sealed classes. Consider wrapping
+    // buffer operations behind a testable interface or abstraction instead.
+    @Disabled("Injectable mocks require subclassing ByteBuffer, which the JVM rejects for sealed classes on Java 17+")
     @Test
     void mockByteBufferAsCascading(@Mocked ByteBuffer unused) {
         ByteBuffer cascadedBuf = ByteBuffer.allocateDirect(10);
@@ -329,10 +332,11 @@ class InstanceSpecificMockingTest {
      * @param cascadingMock
      *            the cascading mock
      */
-    // TODO JWL 2/18/2024 Mocking ByteBuffer is not allowed on JDK9+ because java.nio classes reside in a restricted JDK
-    // module that the JVM does not allow to be modified. To test code that depends on ByteBuffer, consider wrapping
-    // buffer operations behind a testable interface or abstraction that can be mocked instead.
-    @Disabled
+    // TODO JWL 7/18/2026 ByteBuffer cannot currently be mocked as an injectable type because
+    // it is a sealed abstract JDK class on Java 17+. JMockit creates subclasses for abstract
+    // types, but the JVM rejects generated subclasses of sealed classes. Consider wrapping
+    // buffer operations behind a testable interface or abstraction instead.
+    @Disabled("Injectable mocks require subclassing ByteBuffer, which the JVM rejects for sealed classes on Java 17+")
     @Test
     void mockByteBufferAsCascadedMock(@Mocked BufferFactory cascadingMock) {
         ByteBuffer realBuf1 = ByteBuffer.allocateDirect(10);
