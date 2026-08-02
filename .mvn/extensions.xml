@@ -7,6 +7,7 @@
 
 -->
 <extensions>
+    <!-- Usage as -Dprofile -->
     <extension>
       <groupId>fr.jcgay.maven</groupId>
       <artifactId>maven-profiler</artifactId>
