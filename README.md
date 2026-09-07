@@ -37,3 +37,6 @@ Considerations
 
   - Testing confirmed to work from jdk 11 through jdk 26
   - New launcher pom in root to build entire project and entire project with demos are distributed to maven central now.
+
+TODO - go back to not distributing the parts that are unnecessary.  Look at splitting agent out and instead release jmockit and jmockit-agent.  Take the demo app entirely off the project and
+create a separate project for that usage based on released version only that does not release at all.
