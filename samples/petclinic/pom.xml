@@ -61,9 +61,9 @@
     <dependencies>
         <!-- Java EE APIs -->
         <dependency>
-            <groupId>jakarta.enterprise</groupId>
-            <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>4.1.0</version>
+            <groupId>jakarta.cdi</groupId>
+            <artifactId>jakarta.cdi-api</artifactId>
+            <version>5.0.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
