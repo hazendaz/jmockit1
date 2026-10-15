@@ -374,16 +374,6 @@
                 </configuration>
                 <dependencies>
                     <dependency>
-                        <groupId>org.apache.maven.surefire</groupId>
-                        <artifactId>surefire-junit-platform</artifactId>
-                        <version>${surefire.plugin}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.maven.surefire</groupId>
-                        <artifactId>surefire-testng</artifactId>
-                        <version>${surefire.plugin}</version>
-                    </dependency>
-                    <dependency>
                         <groupId>com.github.hazendaz.jmockit</groupId>
                         <artifactId>jmockit</artifactId>
                         <!-- Maven release plugin blocks property usage here due to self usage. -->
