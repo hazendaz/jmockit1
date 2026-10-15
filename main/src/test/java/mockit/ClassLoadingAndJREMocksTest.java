@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLStreamHandler;
@@ -164,11 +165,11 @@ class ClassLoadingAndJREMocksTest {
     @Test
     void mockURLAndHttpURLConnectionWithDynamicMock(@Mocked final HttpURLConnection mockHttpConnection)
             throws Exception {
-        final URL url = new URL("http://nowhere");
+        final URI uri = URI.create("http://nowhere");
 
-        new Expectations(url) {
+        new Expectations(uri) {
             {
-                url.openConnection();
+                uri.toURL().openConnection();
                 result = mockHttpConnection;
                 mockHttpConnection.getOutputStream();
                 result = new ByteArrayOutputStream();
@@ -176,7 +177,7 @@ class ClassLoadingAndJREMocksTest {
         };
 
         // Code under test:
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        HttpURLConnection conn = (HttpURLConnection) uri.toURL().openConnection();
         conn.setDoOutput(true);
         conn.setRequestMethod("PUT");
         OutputStream out = conn.getOutputStream();
@@ -200,8 +201,8 @@ class ClassLoadingAndJREMocksTest {
      *             Signals that an I/O exception has occurred.
      */
     String readResourceContent() throws IOException {
-        URL url = new URL("http://remoteHost/aResource");
-        URLConnection connection = url.openConnection();
+        URI uri = URI.create("http://remoteHost/aResource");
+        URLConnection connection = uri.toURL().openConnection();
 
         connection.setConnectTimeout(1000);
         connection.connect();
