@@ -27,6 +27,9 @@
     </scm>
 
     <properties>
+        <!-- Jacoco minimum code coverage -->
+        <jacoco.minimum.coverage>0.60</jacoco.minimum.coverage>
+
         <!-- Automatic Module Name -->
         <module.name>com.github.hazendaz.jmockit.java8testing</module.name>
     </properties>
