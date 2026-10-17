@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Method;
+import java.nio.file.Files;
 
 import javax.accessibility.AccessibleState;
 
@@ -341,7 +342,7 @@ final class MoreFakingTest {
         };
 
         // Create a real temp file so the path definitely exists
-        File tmpFile = File.createTempFile("jmockit-issue133-", ".txt");
+        File tmpFile = Files.createTempFile("jmockit-issue133-", ".txt").toFile();
         try {
             assertDoesNotThrow(() -> new PrintWriter(tmpFile.getAbsolutePath()),
                     "PrintWriter(String) with an existing path should not throw when faked");

@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.net.URL;
 import java.util.Scanner;
 
@@ -424,7 +425,7 @@ final class FakeClassInstantiationPerSetupTest {
     void reentrantFakeForJREClass() throws Exception {
         new FakeURL();
 
-        InputStream response = new URL("http://test").openStream();
+        InputStream response = URI.create("http://test").toURL().openStream();
 
         assertEquals("response", new Scanner(response).nextLine());
     }
