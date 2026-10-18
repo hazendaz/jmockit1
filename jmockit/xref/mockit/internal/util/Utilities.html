@@ -24,8 +24,8 @@
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Type;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.TypeVariable;
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.WildcardType;
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> java.net.URLDecoder;
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> java.nio.charset.StandardCharsets;
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> java.net.URI;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> java.nio.file.Path;
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> java.security.CodeSource;
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> java.util.List;
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  
@@ -121,10 +121,9 @@
 <a class="jxr_linenumber" name="L113" href="#L113">113</a> 
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>     @NonNull
 <a class="jxr_linenumber" name="L115" href="#L115">115</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> String getClassFileLocationPath(@NonNull CodeSource codeSource) {
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>         String locationPath = codeSource.getLocation().getPath();
-<a class="jxr_linenumber" name="L117" href="#L117">117</a>         <strong class="jxr_keyword">return</strong> URLDecoder.decode(locationPath, StandardCharsets.UTF_8);
-<a class="jxr_linenumber" name="L118" href="#L118">118</a>     }
-<a class="jxr_linenumber" name="L119" href="#L119">119</a> }
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>         <strong class="jxr_keyword">return</strong> Path.of(URI.create(codeSource.getLocation().toString())).toString();
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>     }
+<a class="jxr_linenumber" name="L118" href="#L118">118</a> }
 </pre>
 <hr/>
 <div id="footer">© 2006–2026 <a href="https://github.com/hazendaz/">hazendaz</a></div>

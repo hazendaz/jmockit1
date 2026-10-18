@@ -70,41 +70,42 @@
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>          <strong class="jxr_keyword">public</strong> byte[] transform(@Nullable ClassLoader loader, @NonNull String className,
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>                  @Nullable Class&lt;?&gt; classBeingRedefined, @Nullable ProtectionDomain protectionDomain,
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>                  @NonNull byte[] classfileBuffer) {
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>              <strong class="jxr_keyword">if</strong> (loader == <strong class="jxr_keyword">null</strong> &amp;&amp; hostClassName == <strong class="jxr_keyword">null</strong>) { <em class="jxr_comment">// adds the fields to the first public JRE class to be loaded</em>
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>                  <a name="ClassReader" href="../../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a> cr = <strong class="jxr_keyword">new</strong> <a name="ClassReader" href="../../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a>(classfileBuffer);
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>  
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>                  <strong class="jxr_keyword">if</strong> (isPublic(cr.getAccess())) {
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>                      instrumentation.removeTransformer(<strong class="jxr_keyword">this</strong>);
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>                      hostClassName = className;
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>                      <strong class="jxr_keyword">return</strong> getModifiedJREClassWithAddedFields(cr);
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>                  }
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>              }
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>  
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>              <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>          }
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>  
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>          @NonNull
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>          <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> byte[] getModifiedJREClassWithAddedFields(@NonNull <a name="ClassReader" href="../../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a> classReader) {
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>              ClassWriter cw = <strong class="jxr_keyword">new</strong> ClassWriter(classReader);
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>  
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>              <a name="ClassVisitor" href="../../../mockit/asm/classes/ClassVisitor.html#ClassVisitor">ClassVisitor</a> cv = <strong class="jxr_keyword">new</strong> <a name="WrappingClassVisitor" href="../../../mockit/asm/classes/WrappingClassVisitor.html#WrappingClassVisitor">WrappingClassVisitor</a>(cw) {
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>                  @Override
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>                  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitEnd() {
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>                      addField(MockedBridge.MB);
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>                      addField(FakeBridge.MB);
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>                      addField(FakeMethodBridge.MB);
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>                  }
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>  
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>                  <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addField(@NonNull <a name="ClassLoadingBridge" href="../../../mockit/internal/ClassLoadingBridge.html#ClassLoadingBridge">ClassLoadingBridge</a> mb) {
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>                      cw.visitField(FIELD_ACCESS, mb.id, <span class="jxr_string">"Ljava/lang/reflect/InvocationHandler;"</span>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>                  }
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>              };
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>  
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>              classReader.accept(cv);
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>              <strong class="jxr_keyword">return</strong> cw.toByteArray();
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>          }
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>      }
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>  }
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>              <strong class="jxr_keyword">if</strong> (loader == <strong class="jxr_keyword">null</strong> &amp;&amp; hostClassName == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>                  <em class="jxr_comment">// adds the fields to the first public JRE class to be loaded</em>
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>                  <a name="ClassReader" href="../../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a> cr = <strong class="jxr_keyword">new</strong> <a name="ClassReader" href="../../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a>(classfileBuffer);
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>  
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>                  <strong class="jxr_keyword">if</strong> (isPublic(cr.getAccess())) {
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>                      instrumentation.removeTransformer(<strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>                      hostClassName = className;
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>                      <strong class="jxr_keyword">return</strong> getModifiedJREClassWithAddedFields(cr);
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>                  }
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>              }
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>  
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>              <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>          }
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>  
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>          @NonNull
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>          <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> byte[] getModifiedJREClassWithAddedFields(@NonNull <a name="ClassReader" href="../../../mockit/asm/classes/ClassReader.html#ClassReader">ClassReader</a> classReader) {
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>              ClassWriter cw = <strong class="jxr_keyword">new</strong> ClassWriter(classReader);
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>  
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>              <a name="ClassVisitor" href="../../../mockit/asm/classes/ClassVisitor.html#ClassVisitor">ClassVisitor</a> cv = <strong class="jxr_keyword">new</strong> <a name="WrappingClassVisitor" href="../../../mockit/asm/classes/WrappingClassVisitor.html#WrappingClassVisitor">WrappingClassVisitor</a>(cw) {
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>                  @Override
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>                  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visitEnd() {
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>                      addField(MockedBridge.MB);
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>                      addField(FakeBridge.MB);
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>                      addField(FakeMethodBridge.MB);
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>                  }
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>  
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>                  <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addField(@NonNull <a name="ClassLoadingBridge" href="../../../mockit/internal/ClassLoadingBridge.html#ClassLoadingBridge">ClassLoadingBridge</a> mb) {
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>                      cw.visitField(FIELD_ACCESS, mb.id, <span class="jxr_string">"Ljava/lang/reflect/InvocationHandler;"</span>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>                  }
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>              };
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>  
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>              classReader.accept(cv);
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>              <strong class="jxr_keyword">return</strong> cw.toByteArray();
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>          }
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>      }
+<a class="jxr_linenumber" name="L100" href="#L100">100</a> }
 </pre>
 <hr/>
 <div id="footer">© 2011–2026 <a href="https://github.com/hazendaz/">hazendaz</a></div>

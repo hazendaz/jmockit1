@@ -55,7 +55,7 @@
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>      }
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> copyFile(@NonNull String fileName) <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>          File outputFile = Path.of(outputDir, fileName).toFile();
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>          File outputFile = Path.of(outputDir).resolve(fileName).toFile();
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>          <strong class="jxr_keyword">if</strong> (outputFile.exists() &amp;&amp; outputFile.lastModified() &gt; getLastModifiedTimeOfCoverageJar()) {
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>              <strong class="jxr_keyword">return</strong>;
@@ -78,8 +78,8 @@
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>              <strong class="jxr_keyword">if</strong> (codeSource == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>                  lastModifiedTimeOfCoverageJar = -1;
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>              } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>                  String pathToThisJar = Utilities.getClassFileLocationPath(codeSource);
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>                  lastModifiedTimeOfCoverageJar = Path.of(pathToThisJar).toFile().lastModified();
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>                  Path pathToThisJar = Path.of(Utilities.getClassFileLocationPath(codeSource));
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>                  lastModifiedTimeOfCoverageJar = pathToThisJar.toFile().lastModified();
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>              }
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          }
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>  

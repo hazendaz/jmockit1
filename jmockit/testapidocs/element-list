@@ -6,6 +6,7 @@ mockit.asm.constantPool
 mockit.asm.metadata
 mockit.asm.types
 mockit.asm.util
+mockit.coverage
 mockit.integration
 mockit.integration.junit4
 mockit.integration.springframework
@@ -18,5 +19,6 @@ mockit.internal.injection.full
 mockit.internal.reflection
 mockit.internal.util
 otherTests
+otherTests.coverage
 otherTests.multicast
 otherTests.testng

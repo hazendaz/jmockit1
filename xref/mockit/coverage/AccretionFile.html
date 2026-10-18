@@ -36,7 +36,7 @@
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>      <a name="AccretionFile" href="../../mockit/coverage/AccretionFile.html#AccretionFile">AccretionFile</a>(@NonNull String outputDir, @NonNull <a name="CoverageData" href="../../mockit/coverage/data/CoverageData.html#CoverageData">CoverageData</a> newData) {
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>          String parentDir = Configuration.getOrChooseOutputDirectory(outputDir);
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>          outputFile = Path.of(parentDir, <span class="jxr_string">"coverage.ser"</span>).toFile();
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>          outputFile = Path.of(parentDir).resolve(<span class="jxr_string">"coverage.ser"</span>).toFile();
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>          newData.fillLastModifiedTimesForAllClassFiles();
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>          <strong class="jxr_keyword">this</strong>.newData = newData;
