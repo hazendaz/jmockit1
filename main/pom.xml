@@ -380,6 +380,7 @@
                     <excludes>
                         <exclude>**/TestNGViolatedExpectationsTest.class</exclude>
                     </excludes>
+                    <threadCount>1</threadCount>
                 </configuration>
             </plugin>
         </plugins>
