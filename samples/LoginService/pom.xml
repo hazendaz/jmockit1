@@ -78,6 +78,7 @@
                     <excludes>
                         <exclude>**/LoginServiceJUnitTest.class</exclude>
                     </excludes>
+                    <runOrder>alphabetical</runOrder>
                     <systemPropertyVariables>
                         <coverage-output>html</coverage-output>
                         <coverage-maxCallPoints>20</coverage-maxCallPoints>
