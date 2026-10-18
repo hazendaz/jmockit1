@@ -30,6 +30,9 @@
     </scm>
 
     <properties>
+        <!-- Jacoco minimum code coverage -->
+        <jacoco.minimum.coverage>0.64</jacoco.minimum.coverage>
+
         <!-- Automatic Module Name -->
         <module.name>com.github.hazendaz.jmockit.coverage.tests</module.name>
 
