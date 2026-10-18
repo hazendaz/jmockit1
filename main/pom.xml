@@ -368,19 +368,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <!-- TODO: Figure out why 3.6.0 fails 2 tests -->
-                <version>3.5.6</version>
                 <configuration>
-                    <properties>
-                        <property>
-                            <name>junit</name>
-                            <value>false</value>
-                        </property>
-                    </properties>
                     <excludes>
                         <exclude>**/TestNGViolatedExpectationsTest.class</exclude>
                     </excludes>
-                    <threadCount>1</threadCount>
+                    <!-- CRITICAL for macOS: Prevents the runner from freezing/deadlocking -->
+                    <redirectTestOutputToFile>true</redirectTestOutputToFile>
                 </configuration>
             </plugin>
         </plugins>
