@@ -368,13 +368,29 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <!-- TODO: Figure out why 3.6.0 fails 2 tests -->
+                <version>3.5.6</version>
                 <configuration>
+                    <runOrder>alphabetical</runOrder>
+                    <properties>
+                        <property>
+                            <name>junit</name>
+                            <value>false</value>
+                        </property>
+                    </properties>
                     <excludes>
                         <exclude>**/TestNGViolatedExpectationsTest.class</exclude>
                     </excludes>
-                    <!-- CRITICAL for macOS: Prevents the runner from freezing/deadlocking -->
-                    <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                    <threadCount>1</threadCount>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.github.hazendaz.jmockit</groupId>
+                        <artifactId>jmockit</artifactId>
+                        <!-- Maven release plugin blocks property usage here due to self usage. -->
+                        <version>2.3.0</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
