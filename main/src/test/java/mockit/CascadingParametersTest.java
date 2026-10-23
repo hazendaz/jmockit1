@@ -1248,6 +1248,7 @@ class CascadingParametersTest {
      */
     public static final class CustomException extends Throwable {
 
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = 1L;
     }
 

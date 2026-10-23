@@ -16,16 +16,29 @@ import mockit.coverage.CallPoint;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * The Class CallPointTest.
+ */
 final class CallPointTest {
 
-    // CallPoint#create looks for a test method starting at stack depth 2, assuming it is invoked through one level
-    // of indirection (as is the case in production, where TestRun calls CallPoint.create, itself called from
-    // instrumented application code, itself called from the test method). These two helper methods reproduce that
-    // shape so the real detection logic can be exercised.
+    /**
+     * Capture call point.
+     *
+     * @return the call point
+     */
     private static CallPoint captureCallPoint() {
+        // CallPoint#create looks for a test method starting at stack depth 2, assuming it is invoked through one level
+        // of indirection (as is the case in production, where TestRun calls CallPoint.create, itself called from
+        // instrumented application code, itself called from the test method). These two helper methods reproduce that
+        // shape so the real detection logic can be exercised.
         return createFromThrowable();
     }
 
+    /**
+     * Creates the from throwable.
+     *
+     * @return the call point
+     */
     private static CallPoint createFromThrowable() {
         try {
             Method method = CallPoint.class.getDeclaredMethod("create", Throwable.class);
@@ -36,6 +49,9 @@ final class CallPointTest {
         }
     }
 
+    /**
+     * Creates the finds the calling test method.
+     */
     @Test
     void createFindsTheCallingTestMethod() {
         CallPoint callPoint = captureCallPoint();
@@ -45,6 +61,9 @@ final class CallPointTest {
         assertEquals(CallPointTest.class.getName(), callPoint.getStackTraceElement().getClassName());
     }
 
+    /**
+     * Repetition count starts at zero and increments.
+     */
     @Test
     void repetitionCountStartsAtZeroAndIncrements() {
         CallPoint callPoint = captureCallPoint();
@@ -58,6 +77,9 @@ final class CallPointTest {
         assertEquals(2, callPoint.getRepetitionCount());
     }
 
+    /**
+     * Checks if is same test method is true for call points from the same method.
+     */
     @Test
     void isSameTestMethodIsTrueForCallPointsFromTheSameMethod() {
         CallPoint callPoint1 = captureCallPoint();
@@ -68,6 +90,9 @@ final class CallPointTest {
         assertTrue(callPoint1.isSameTestMethod(callPoint2));
     }
 
+    /**
+     * Checks if is same line in test code is false for call points from different lines.
+     */
     @Test
     void isSameLineInTestCodeIsFalseForCallPointsFromDifferentLines() {
         CallPoint callPoint1 = captureCallPoint();
@@ -78,6 +103,9 @@ final class CallPointTest {
         assertFalse(callPoint1.isSameLineInTestCode(callPoint2));
     }
 
+    /**
+     * Creates the returns null when no test method is found on the stack.
+     */
     @Test
     void createReturnsNullWhenNoTestMethodIsFoundOnTheStack() {
         // Called directly (no intermediate frame), so the real test method is one frame too shallow to be found.

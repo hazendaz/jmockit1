@@ -623,10 +623,10 @@ class CapturingImplementationsTest {
     }
 
     /**
-     * The listener interface for receiving myAction events. The class that is interested in processing a myAction event
-     * implements this interface, and the object created with that class is registered with a component using the
-     * component's <code>addMyActionListener<code> method. When the myAction event occurs, that object's appropriate
-     * method is invoked.
+     * The listener interface for receiving {@code myAction} events. Classes interested in processing these events
+     * implement this interface and register an instance with a component using the component's
+     * {@code addMyActionListener} method. When a {@code myAction} event occurs, the listener's appropriate method is
+     * invoked.
      */
     static final class MyActionListener implements ActionListener {
         @Override

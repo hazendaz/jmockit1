@@ -78,12 +78,12 @@ class TestedMethodsTest {
     }
 
     /**
-     * Resolve dependency interfaces.
+     * Resolves dependency interfaces.
      *
      * @param dependencyInterface
      *            the dependency interface
      *
-     * @return the class<? extends dependency>
+     * @return the class representing the dependency type
      */
     @Tested
     static Class<? extends Dependency> resolveDependencyInterfaces(Class<Dependency> dependencyInterface) {
@@ -190,12 +190,12 @@ class TestedMethodsTest {
     }
 
     /**
-     * Resolve service interfaces.
+     * Resolves service interfaces.
      *
      * @param baseServiceType
      *            the base service type
      *
-     * @return the class<? extends base service impl<?>>
+     * @return the class representing the base service implementation
      */
     @Tested
     Class<? extends BaseServiceImpl<?>> resolveServiceInterfaces(Class<? extends BaseService> baseServiceType) {
